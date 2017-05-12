@@ -313,7 +313,7 @@ module LiveStudio
       user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user
       ticket = buy_tickets.available.find_by(student_id: user.id)
       raise Payment::DuplicateOrderError, "不可重复购买" if ticket # 重复购买
-      taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
+      # taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
     end
 
     # 教师分成最大值

@@ -77,7 +77,7 @@ module LiveStudio
 
     after_create :add_to_team
     def add_to_team
-      team = product.chat_team || product.instance_chat_team(true)
+      team = product.chat_team
       ::Chat::TeamMemberCreatorJob.perform_later(team.id, student_id)
     rescue StandardError => e
       p e

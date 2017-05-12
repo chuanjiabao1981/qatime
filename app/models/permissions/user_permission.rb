@@ -48,7 +48,7 @@ module Permissions
       allow 'ajax/data', [:option_cities, :option_schools]
       allow 'welcome', [:download]
 
-      allow 'payment/users', [:recharges, :withdraws, :consumption_records, :earning_records, :refunds] do |resource|
+      allow 'payment/users', [:recharges, :withdraws, :consumption_records, :earning_records, :refunds, :cash] do |resource|
         resource.id == user.id
       end
 

@@ -33,10 +33,10 @@ module Payment
       withdraw_count = Payment::Withdraw.count
       click_link '提现'
       fill_in 'withdraw_amount', with: 1000
-      choose 'withdraw_pay_type_bank'
       fill_in 'payment_password', with: '111111'
-      fill_in 'bank_account', with: 'test'
-      fill_in 'bank_name', with: 'test'
+      choose 'withdraw_pay_type_bank'
+      # fill_in 'bank_account', with: 'test'
+      # fill_in 'bank_name', with: 'test'
       assert_difference "@teacher.cash_account.reload.balance.to_f", -1000, "提现未扣款" do
         click_on '提现申请'
         sleep(2)

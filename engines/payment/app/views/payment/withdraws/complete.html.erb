@@ -48,7 +48,7 @@
           </div>
           <div class="complete-prompt">
             <center>
-              <%= sanitize(t('view.withdraw.complete_tips') % link_to(Payment::Withdraw.model_name.human,cash_user_path(@current_resource))) %>
+              <%= sanitize(t('view.withdraw.complete_tips') % link_to(Payment::Withdraw.model_name.human, withdraws_user_path(@current_resource))) %>
             </center>
           </div>
           <div class="complete-btn">

@@ -212,7 +212,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
     sleep 5
 
-    click_button '保存课程'
+    click_on '保存课程'
     sleep 5
 
     assert_not_equal @lesson.reload.video.name.url , old_name
@@ -221,7 +221,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
     #判断video链接是否存在
 
-    click_button '确定'
+    click_on '确定'
     page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
 
 

@@ -62,7 +62,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert find('ul.menu').has_content?('财产管理'), 'sidebar财产管理不存在'
     assert find('ul.menu').has_content?('消息中心'), 'sidebar消息中心不存在'
     assert find('ul.menu').has_content?('我的直播课'), 'sidebar我的直播课不存在'
-    assert find('ul.menu').has_content?('我的课程'), 'sidebar我的课程不存在'
+    assert find('ul.menu').has_content?('我的公共课'), 'sidebar我的课程不存在'
     assert find('ul.menu').has_content?('课程状态'), 'sidebar课程状态不存在'
     assert find('ul.menu').has_content?('作业管理'), 'sidebar作业管理不存在'
     assert find('ul.menu').has_content?('学生管理'), 'sidebar学生管理不存在'

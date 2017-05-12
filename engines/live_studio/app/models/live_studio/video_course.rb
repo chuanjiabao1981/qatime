@@ -13,7 +13,6 @@ module LiveStudio
 
     include Qatime::Stripable
     strip_field :name, :description
-    include Qatime::Discussable
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听

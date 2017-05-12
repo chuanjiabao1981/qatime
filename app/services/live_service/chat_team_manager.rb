@@ -38,6 +38,13 @@ module LiveService
       end
     end
 
+    def add_users_to_team(users)
+      members = users.map do |user|
+        find_or_instance_account(user)
+      end
+      add_to_team(members, 'normal')
+    end
+
     private
 
     def find_or_instance_account(user)

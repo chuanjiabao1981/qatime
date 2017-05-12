@@ -21,7 +21,7 @@ module Qatime
       def instance_team
         team_manager = LiveService::ChatTeamManager.new
         team_manager.instance_team(self)
-        team_manager.add_to_team(members, 'owner')
+        team_manager.add_users_to_team(members, 'owner')
       end
 
       # 成员

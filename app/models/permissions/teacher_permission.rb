@@ -320,6 +320,7 @@ module Permissions
       api_allow :POST, 'live_studio/interactive_lessons/\d+/heart_beat' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/announcements"
       ## 一对一直播
 
       ## 视频课

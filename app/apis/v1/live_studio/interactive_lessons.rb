@@ -46,6 +46,7 @@ module V1
               requires :id, type: Integer, desc: '课程ID'
             end
             post 'live_end' do
+              @interactive_lesson.room_id = nil
               @interactive_lesson.close!
               LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, 0, @interactive_lesson)
               {

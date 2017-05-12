@@ -29,7 +29,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 3, res['data'].count, "推荐返回错误"
+    assert_equal 2, res['data'].count, "推荐返回错误"
     assert_includes res['data'].map {|item| item['type']}, "Recommend::LiveStudioCourseItem", "没有正确返回辅导班推荐类型"
     assert_not_includes res['data'].map {|item| item['live_studio_course']}, nil, "没有正确返回推荐辅导班信息"
   end
@@ -69,7 +69,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 3, res['data'].count, "推荐返回错误"
+    assert_equal 2, res['data'].count, "推荐返回错误"
     assert_includes res['data'].map {|item| item['type']}, "Recommend::LiveStudioCourseItem", "没有正确返回辅导班推荐类型"
     assert_not_includes res['data'].map {|item| item['live_studio_course']}, nil, "没有正确返回推荐辅导班信息"
   end

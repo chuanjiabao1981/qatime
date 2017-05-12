@@ -172,7 +172,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
     @remember_token = JSON.parse(response.body)['data']['remember_token']
-    course = LiveStudio::Course.published.last
+    course = LiveStudio::Course.published.where("taste_count < 1").last
 
     get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
 

@@ -13,6 +13,21 @@ module Qatime
           Chat::TeamCreatorJob.perform_now(model_name.name, id)
         end
       end
+
+      def async_instance_team
+        Chat::TeamCreatorJob(perform_later(model_name.name, id))
+      end
+
+      def instance_team
+        team_manager = LiveService::ChatTeamManager.new
+        team_manager.instance_team(self)
+        team_manager.add_users_to_team(members, 'owner')
+      end
+
+      # 成员
+      def members
+        teachers
+      end
     end
   end
 end

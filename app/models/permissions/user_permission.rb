@@ -48,10 +48,6 @@ module Permissions
       allow 'ajax/data', [:option_cities, :option_schools]
       allow 'welcome', [:download]
 
-      allow 'payment/users', [:recharges, :withdraws, :consumption_records, :earning_records, :refunds, :cash] do |resource|
-        resource.id == user.id
-      end
-
       allow 'passwords', [:new, :create, :edit, :update, :new_payment_password, :update_payment_password]
 
       ## begin api permission
@@ -59,6 +55,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
+      api_allow :GET, "/api/v1/live_studio/interactive_courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
 

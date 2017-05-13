@@ -36,7 +36,7 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res['data']}"
-    assert_equal 16, res['data'].size, "响应数据不正确"
+    assert_equal 17, res['data'].size, "响应数据不正确"
 
     student.reload
     assert_equal student.name, res['data']['name']
@@ -46,5 +46,26 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
     assert_equal student.desc, res['data']['desc']
     assert_equal student.email, res['data']['email']
     assert_equal '13892920104', student.parent_phone
+  end
+
+  # 用户是否存在
+  test 'GET /api/v1/user/check' do
+    get "/api/v1/user/check", { account: "15910000001" }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "响应不正确 #{res}"
+    assert res['data'], "已存在手机号返回错误"
+
+    get "/api/v1/user/check", { account: "one@baidu.com" }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "响应不正确 #{res}"
+    assert res['data'], "已存邮箱返回错误"
+
+    get "/api/v1/user/check", { account: "one@baidxxxxu.com" }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "响应不正确 #{res}"
+    assert_not res['data'], "不存在账户返回错误"
   end
 end

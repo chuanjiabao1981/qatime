@@ -3,6 +3,22 @@ module VCloud
   module Service
     GATEWAY_URL = 'https://vcloud.163.com'.freeze
 
+    # 创建频道
+    APP_CHANNEL_CREATE_REQUIRED_PARAMS = %w(name type).freeze
+    def self.app_channel_create(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_CHANNEL_CREATE_REQUIRED_PARAMS)
+      request_service("/app/channel/create", params, options)
+    end
+
+    # 删除频道
+    APP_CHANNEL_DELETE_REQUIRED_PARAMS = %w(name cid type).freeze
+    def self.app_channel_delete(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_CHANNEL_DELETE_REQUIRED_PARAMS)
+      request_service("/app/channel/delete", params, options)
+    end
+
     # 获取时间段内录制视频列表
     VOD_VIDEO_LIST_REQUIRED_PARAMS = %w(cid beginTime endTime).freeze
     def self.vod_video_list(params, options = {})

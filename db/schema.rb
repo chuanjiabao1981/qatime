@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503070216) do
+ActiveRecord::Schema.define(version: 20170508074236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -788,6 +788,7 @@ ActiveRecord::Schema.define(version: 20170503070216) do
     t.string   "download_shd_mp4_url"
     t.string   "shd_mp4_size"
     t.string   "create_time"
+    t.string   "pending_vids"
   end
 
   create_table "live_studio_sell_channels", force: :cascade do |t|

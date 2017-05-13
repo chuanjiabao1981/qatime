@@ -68,6 +68,7 @@ module LiveStudio
 
     # 录制文件名
     def record_filename(recordable)
+      return id.to_s unless recordable
       "#{recordable.record_filename}#{use_for}"
     end
 
@@ -77,21 +78,11 @@ module LiveStudio
     after_destroy :delete_remote_channel
 
     def create_remote_channel
-      return build_streams if Rails.env.development? || Rails.env.testing?
-      res = ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/channel/create",
-        headers: vcloud_headers,
-        body: {
-          name: name,
-          type: 0
-        }.to_json
-      )
-
-      return unless res.success?
+      return if Rails.env.development? || Rails.env.test?
+      res = VCloud::Service.app_channel_create(name: name, type: 0)
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
       self.remote_id = result[:ret]["cid"]
-
       set_always_record
       save!
     end
@@ -99,61 +90,20 @@ module LiveStudio
     # 设置录播
     def set_always_record
       return unless remote_id.present?
-      self.set_always_recorded = always_record
+      record_for(nil)
+      self.set_always_recorded = true
     end
 
-    def build_streams(result={})
-      if Rails.env.production? || Rails.env.test?
-        push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
-        pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
-        pull_streams.create(address: result['hlsPullUrl'], protocol: 'hls')
-        pull_streams.create(address: result['httpPullUrl'], protocol: 'http')
-      elsif use_for == 'board'
-        push = 'rtmp://pa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419?wsSecret=16c5154fb843f7b7d2819554d8d3aa94&wsTime=1480648811'
-        pull = 'rtmp://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419'
-        hls_pull = 'http://pullhlsa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419/playlist.m3u8'
-        http_pull = 'http://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419.flv?netease=va0a19f55.live.126.net'
-        push_streams.create(address: push, protocol: 'rtmp')
-        pull_streams.create(address: pull, protocol: 'rtmp')
-        pull_streams.create(address: hls_pull, protocol: 'hls')
-        pull_streams.create(address: http_pull, protocol: 'http')
-        self.remote_id = "2794c854398f4d05934157e05e2fe419"
-        save
-      else
-        push = 'rtmp://pa0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97?wsSecret=f49d13a6ab68601884b5b71487ff51e1&wsTime=1480648749'
-        pull = 'rtmp://va0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97'
-        hls_pull = 'http://pullhlsa0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97/playlist.m3u8'
-        http_pull = 'http://va0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97.flv?netease=va0a19f55.live.126.net'
-        push_streams.create(address: push, protocol: 'rtmp')
-        pull_streams.create(address: pull, protocol: 'rtmp')
-        pull_streams.create(address: hls_pull, protocol: 'hls')
-        pull_streams.create(address: http_pull, protocol: 'http')
-        self.remote_id = "0ca7943afaa340c9a7c1a8baa5afac97"
-        save
-      end
+    def build_streams(result = {})
+      push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
+      pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
+      pull_streams.create(address: result['hlsPullUrl'], protocol: 'hls')
+      pull_streams.create(address: result['httpPullUrl'], protocol: 'http')
     end
 
     def delete_remote_channel
-      return  unless remote_id.present?
-      ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/channel/delete",
-        headers: vcloud_headers,
-        body: {
-          name: name,
-          cid: remote_id,
-          type: 0
-        }.to_json
-      )
-    end
-
-    def always_record
-      VCloud::Service.app_channel_set_always_record(
-        cid: remote_id,
-        needRecord: 1,
-        format: 0,
-        duration: 120, # minutes
-        filename: "#{course.name}#{id}#{use_for}"
-      ).success?
+      return unless remote_id.present?
+      VCloud::Service.app_channel_delete(name: name, cid: remote_id, type: 0)
     end
   end
 end

@@ -278,6 +278,9 @@ module Permissions
       allow 'payment/billings', [:index]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
       allow 'payment/transactions', [:pay]
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds] do |resource|
+        resource.id == user.id
+      end
       ## end payment permission
 
       ## begin api permission

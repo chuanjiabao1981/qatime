@@ -33,8 +33,8 @@
                         <span><%= item.first %></span>
                       </label>
 
-                      <input type="text" placeholder="<%= t("view.withdraw.#{item.last}_input_holder") %>" name="<%= item.last %>_account" class="card-num td-msg" style="width: 29%;">
-                      <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="<%= item.last %>_name" class="card-name td-msg" style="width: 29%;">
+                      <input type="text" placeholder="<%= t("view.withdraw.#{item.last}_input_holder") %>" name="<%= item.last %>_account" class="<%= item.last %>-num td-msg" style="width: 29%;">
+                      <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="<%= item.last %>_name" class="<%= item.last %>-name td-msg" style="width: 29%;">
                     </div>
                   <% end %>
                 </div>
@@ -98,6 +98,9 @@ $(function() {
   // 提现方式
   $("form input:radio").click(function() {
     checkWithdraw();
+    $(".way-line input[type='text']").hide();
+    $(this).closest('.way-line').children('input').show();
+
   });
 
   // 支付密码
@@ -108,6 +111,8 @@ $(function() {
   $("form").submit(function() {
     return checkWithdraw();
   });
+
+  $('.withdraw_pay_type input:checked').closest('.way-line').children('input').show();
 
 });
 </script>

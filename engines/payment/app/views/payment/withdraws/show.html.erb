@@ -1,0 +1,58 @@
+<div class="common-space">
+  <div class="container">
+    <div class="apply-tea">
+      <div class="tutoring-title">
+        <h3><%= t("view.withdraw_cn") %></h3>
+      </div>
+      <div class="drawings">
+        <div class="row succeed-line">
+          <div class="col-md-4 applay-left">
+            <p><%= t("view.withdraw.amount") %></p>
+            <div class="row">
+              <div class="col-md-12">
+                <span><%= number_to_currency(@withdraw.amoount, unit: '￥') %></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 applay-right">
+            <p>交易信息</p>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 trading-item">
+                <div class="indent-list">
+                  <div class="con-right-msg">
+                    <span>编号：</span>
+                    <span>20160902112254123456</span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span>时间：</span>
+                    <span>2016年12月11日11:33:32</span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span>交易类型：</span>
+                    <span>账户提现</span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span>交易方式：</span>
+                    <span>微信红包</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 trading-item">
+                <div class="indent-list">
+                  <span>
+                      您的体现申请已经成功提交了！审核周期预计在1-3天，请耐心等待；您可以在
+                    <a href="">提现记录</a>中随时查看状态。
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="apply-btn">
+          <!--<input class="active" type="submit"  name="" id="" value="申请提现" />-->
+          <a href="">申请提现</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

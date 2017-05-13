@@ -48,10 +48,6 @@ module Permissions
       allow 'ajax/data', [:option_cities, :option_schools]
       allow 'welcome', [:download]
 
-      allow 'payment/users', [:recharges, :withdraws, :consumption_records, :earning_records, :refunds] do |resource|
-        resource.id == user.id
-      end
-
       allow 'passwords', [:new, :create, :edit, :update, :new_payment_password, :update_payment_password]
 
       ## begin api permission

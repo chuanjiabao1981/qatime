@@ -6,6 +6,12 @@ module Payment
 
     before_action :set_cash_account
 
+    # 资金
+    def cash
+      redirect_to action: :earning_records if @current_resource.teacher?
+      redirect_to action: :recharges if @current_resource.student?
+    end
+
     # 充值记录
     def recharges
       @recharges = query_by_date(@current_resource.payment_recharges)

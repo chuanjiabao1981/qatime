@@ -187,6 +187,10 @@ module Permissions
       allow 'payment/transactions', [:pay]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
 
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :refunds] do |resource|
+        resource.id == user.id
+      end
+
       allow 'wap/live_studio/orders', [:new, :create]
       allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/live_studio/video_courses', [:show]

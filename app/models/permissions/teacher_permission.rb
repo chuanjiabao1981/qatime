@@ -320,6 +320,7 @@ module Permissions
       api_allow :POST, 'live_studio/interactive_lessons/\d+/heart_beat' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/announcements"
       ## 一对一直播
 
       ## 视频课
@@ -339,6 +340,8 @@ module Permissions
       end
       ## end api permission
 
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/cash"
+
       ## 获取授权token
       api_allow :GET, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
@@ -348,11 +351,17 @@ module Permissions
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
       ## end 修改支付密码
 
+      # 消息通知
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
+      api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
+      # 消息通知结束
+
       ## 通知设置
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
       ## end 通知设置
     end
+
     private
 
     def topicable_permission(topicable,user)

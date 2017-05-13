@@ -46,5 +46,13 @@ module Chat
         @redis ||= DataCache.redis
       end
     end
+
+    private
+
+    after_destroy :remote_destroy
+    # 解散云信群组
+    def remote_destroy
+      Chat::IM.team_remove(team_id, owner) if team_id
+    end
   end
 end

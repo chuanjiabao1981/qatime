@@ -13,7 +13,6 @@ module LiveStudio
 
     include Qatime::Stripable
     strip_field :name, :description
-    include Qatime::Discussable
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听
@@ -183,22 +182,24 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: price,
-                                             payment_order_id: order.id, buy_count: video_lessons_count)
+      check_ticket!(order)
+      ticket = buy_tickets.create(student_id: order.user_id, lesson_price: lesson_price,
+                                  payment_order_id: order.id, buy_count: video_lessons_count,
+                                  item_targets: video_lessons)
       ticket.active!
       # 视频课购买以后直接结账
-
       LiveStudio::VideoCourseBillingJob.perform_later(ticket.id)
+      ticket
     end
 
     # 免费课程直接出票
     def deliver_free(student)
       return false unless student.student?
       return false unless sell_type.free?
-      taste_tickets.where(student_id: student.id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket = buy_tickets.find_or_create_by(student_id: student.id, lesson_price: price,
-                                             payment_order_id: nil, buy_count: video_lessons_count)
+      check_ticket!(student)
+      ticket = buy_tickets.create(student_id: student.id, lesson_price: lesson_price,
+                                  payment_order_id: nil, buy_count: video_lessons_count,
+                                  item_targets: video_lessons)
       ticket.active!
       ticket
     end
@@ -353,6 +354,13 @@ module LiveStudio
     end
 
     private
+
+    def check_ticket!(order_or_user)
+      user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user
+      ticket = buy_tickets.available.find_by(student_id: user.id)
+      raise Payment::DuplicateOrderError, "不可重复购买" if ticket # 重复购买
+      taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
+    end
 
     # 校验上下文, 升级Rails 5之前替代方案
     def context_complete?

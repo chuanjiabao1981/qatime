@@ -59,6 +59,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
+      api_allow :GET, "/api/v1/live_studio/interactive_courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
 

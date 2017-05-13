@@ -15,6 +15,7 @@ module Entities
     expose :school do |s|
       s.school_id
     end
+    expose :school_id
     expose :desc
   end
 end

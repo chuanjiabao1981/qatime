@@ -1,7 +1,6 @@
 module Entities
   module LiveStudio
     class StudentVideoCourse < Entities::LiveStudio::VideoCourse
-
       expose :is_tasting do |course, options|
         course.tasting?(options[:current_user])
       end

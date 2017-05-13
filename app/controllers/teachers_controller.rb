@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  before_action :set_owner
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
 
@@ -41,7 +42,7 @@ class TeachersController < ApplicationController
     if params[:cate] == "register"
       render layout: 'application_login'
     else
-      render layout: 'teacher_home_new'
+      render layout: 'v1/home'
     end
   end
 
@@ -60,7 +61,7 @@ class TeachersController < ApplicationController
       if params[:cate] == "register"
         render :edit, layout: 'application_login'
       else
-        render :edit, layout: 'teacher_home_new'
+        render :edit, layout: 'v1/home'
       end
     end
   end
@@ -79,14 +80,9 @@ class TeachersController < ApplicationController
   end
 
   def lessons_state
-    if params[:state] == nil
-      params[:state] = 'editing'
-    end
-    @lessons = Lesson.all.
-        by_state(params[:state]).
-        by_teacher(@teacher.id).
-        order(:created_at).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    params[:state] ||= 'editing'
+    @lessons = Lesson.by_state(params[:state]).by_teacher(@teacher.id).order(:created_at).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def students
@@ -96,7 +92,7 @@ class TeachersController < ApplicationController
 
   def curriculums
     @curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def info
@@ -105,7 +101,7 @@ class TeachersController < ApplicationController
     # else
     #   @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def questions
@@ -190,8 +186,12 @@ class TeachersController < ApplicationController
     @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
   end
 
+  def set_owner
+    @owner ||= current_resource
+  end
+
   def payment_password_params
-    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation, :current_payment_password)
   end
 
   def password_params
@@ -207,7 +207,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def avatar_params
@@ -283,12 +283,15 @@ class TeachersController < ApplicationController
   end
 
   def update_payment_password
+    if payment_password_params[:current_payment_password].present?
+      return @teacher.reset_payment_pwd(payment_password_params)
+    end
     captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
     @teacher.payment_captcha = captcha_manager.captcha_of(:payment_password)
     @teacher.update_payment_pwd(payment_password_params)
   ensure
     if @teacher.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
+      captcha_manager.expire_captch(:payment_password) if captcha_manager
     end
   end
 

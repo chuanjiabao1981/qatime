@@ -125,6 +125,7 @@ module LiveStudio
     has_many :students, through: :buy_tickets
 
     has_many :channels
+    has_one :channel
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
@@ -228,6 +229,11 @@ module LiveStudio
       lesson_price * (lessons_count - closed_lessons_count)
     end
 
+    # 插班优惠?
+    def join_cheap?
+      teaching? && closed_lessons_count > 0
+    end
+
     def live_next_time
       lesson = lessons.include_today.unstart.first
       lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
@@ -235,12 +241,13 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket_price = lesson_count_left.zero? ? order.amount : order.amount.to_f / lesson_count_left
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
-                                             payment_order_id: order.id, buy_count: lesson_count_left)
-      ticket.got_lesson_ids = lessons.where(live_end_at: nil).map(&:id)
+      ticket_price = order.amount.to_f / left_lessons_count
+      check_ticket!(order)
+      ticket = buy_tickets.create(student_id: order.user_id, lesson_price: ticket_price,
+                                  payment_order_id: order.id, buy_count: lesson_count_left,
+                                  item_targets: lessons.where(live_end_at: nil))
       ticket.active!
+      ticket
     end
 
     def for_sell?
@@ -446,7 +453,7 @@ module LiveStudio
     end
 
     def service_price
-      (base_price.to_f * 60).to_i
+      base_price.to_i
     end
 
     def reset_left_price
@@ -460,6 +467,13 @@ module LiveStudio
     end
 
     private
+
+    def check_ticket!(order_or_user)
+      user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user
+      ticket = buy_tickets.available.find_by(student_id: user.id)
+      raise Payment::DuplicateOrderError, "不可重复购买" if ticket # 重复购买
+      taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
+    end
 
     # 辅导班删除以后同时删除课程
     after_commit :clear_lessons
@@ -533,7 +547,7 @@ module LiveStudio
       self.publish_percentage = tpl_workstation.publish_percentage
       # 平台分成
       self.platform_percentage = tpl_workstation.platform_percentage
-      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+      self.base_price = tpl_workstation.service_price.round(2)
     end
 
     # 计算结账分成

@@ -1,136 +1,132 @@
-<div class="container container-details container-bottom">
-  <div class="row">
-    <%= render "layouts/sidebar/faqs" %>
-    <div class="col-md-9 col-right student-help-new">
-      <div class="panel panel-default">
-       
-      <div class="student-study">
-        <div class="study-title">
-          <center>
-            <div class="study-nav">
-              <span>快速查看：</span>
-              <i class="study-navbar">
-              <a href="#search">搜索辅导班</a>
-              <a href="#buy">购买辅导班</a>
-              <a href="#open">辅导班开课</a>
-              <a href="#live">观看直播</a>
-              <a href="#over">辅导班结束</a>
-              </i>
-            </div>
-          </center>
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('view.qa_bars.student') %></h3>
+  </div>
+  <div class="contains-discipline">
+    <div class="student-study">
+      <div class="study-title">
+        <center>
+          <div class="study-nav">
+            <span>快速查看：</span>
+            <i class="study-navbar">
+            <a href="#search">搜索辅导班</a>
+            <a href="#buy">购买辅导班</a>
+            <a href="#open">辅导班开课</a>
+            <a href="#live">观看直播</a>
+            <a href="#over">辅导班结束</a>
+            </i>
+          </div>
+        </center>
+      </div>
+      <div class="study-search">
+        <a name="search"></a>
+        <div class="study-search-title">
+          第一步：搜索辅导班
         </div>
-        <div class="study-search">
-          <a name="search"></a>
-          <div class="study-search-title">
-            第一步：搜索辅导班
-          </div>
-          <div class="study-search-msg">
-            <p>1.登录后学生可在直播课推荐、辅导班、老师个人主页查看相关辅导班内容；辅导班页提供更多的条件筛选功能，快速准确的查找辅导资源。</p>
-            <%= image_tag "studenthelp-1.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>2.搜索辅导班后可点击图片或名称进入详情页查看所有信息。</p>
-            <%= image_tag "studenthelp-2.png" %>
-          </div>
+        <div class="study-search-msg">
+          <p>1.登录后学生可在直播课推荐、辅导班、老师个人主页查看相关辅导班内容；辅导班页提供更多的条件筛选功能，快速准确的查找辅导资源。</p>
+          <%= image_tag "studenthelp-1.png" %>
         </div>
-        <div class="study-search">
-          <a name="buy"></a>
-          <div class="study-search-title">
-            第二步：购买辅导班
-          </div>
-          <div class="study-search-msg">
-            <p>1.学生进入辅导班详情页后可选择试听（未设置试听课程的不显示试听按钮）或购买按钮进行操作，选择试听后该辅导班将自动加入到个人中心-我的辅导-我的试听选项卡内。</p>
-            <%= image_tag "studenthelp-3.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p class="study-search-btn">
-              <span>2.试听-加入试听后该按钮将自动变为</span>
-              <%= image_tag "btn-1.png" %>
-              <span>(只有开课中的辅导班可开始试听)，全部试听结束后将不能再进入试听，显示为</span>
-              <%= image_tag "btn-2.png" %>
-              <span>请进行购买后再学习。</span>
-            </p>
-            
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>3.购买-点击立即报名进入订单确认页，可以选择多种付款方式进行支付。 </p>
-            <%= image_tag "studenthelp-4.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p class="study-search-btn">
-              <span>4.支付完成后可以进入详情页点击</span>
-              <%= image_tag "btn-3.png" %>
-              <span>按钮进行学习（开课后可进入）。</span>
-            </p>
-          </div>
-        </div>
-        
-        <div class="study-search">
-          <a name="open"></a>
-          <div class="study-search-title">
-            第三步：辅导班开课
-          </div>
-          <div class="study-search-msg">
-            <p class="study-search-btn">
-              <span>1.学生可进入个人中心-我的辅导，选择开课中选项卡查看当前开课的辅导班；并点击</span>
-              <%= image_tag "btn-4.png" %>
-              <span>进入直播教室；点击图片或名称查看辅导班详情。</span>
-            </p>
-            <%= image_tag "studenthelp-5.png" %>
-          </div>
-        </div>
-        
-        <div class="study-search">
-          <a name="live"></a>
-          <div class="study-search-title">
-            第四步：观看直播
-          </div>
-          <div class="study-search-msg">
-            <p>1.学生点击辅导班详情页开始试听或开始学习后进入直播教室（也可以在课程表或我的辅导进入）；观看直播默认显示教学画面和摄像头画面，学生可以
-            通过隐藏和切换功能完成屏幕位置切换以及隐藏;途中红色区域交互区，提供交流和查看公告等功能。
-            </p>
-            <%= image_tag "studenthelp-7.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p class="study-search-new">
-              <span>2.消息记录和直播详情，学生可向下滑动查看当前辅导班更多信息；点击消息记录可查看本辅导班所有历史消息。</span>
-              <%= image_tag "studenthelp-6.png" %>
-            </p>
-            
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p class="study-search-new">
-              <span>3.直播状态：当辅导班处于不同直播状态时，直播画面将呈现不同内容提示用户。</span>
-              </p><div class="search-new-msg">
-                <div class="search-nolive">
-                <%= image_tag "studenthelp-8.png" %>
-                <center><span>无直播</span></center>
-              </div>
-              <div class="search-nocaream">
-                <%= image_tag "studenthelp-9.png" %>
-                <center><span>教师未开启摄像头</span></center>
-            
-              </div>
-              </div>
-            <p></p>
-            
-          </div>
-        </div>
-        
-        <div class="study-search">
-          <a name="over"></a>
-          <div class="study-search-title">
-            第五步：辅导班结束
-          </div>
-          <div class="study-search-msg study-search-list">
-            <p>1.已结束的辅导班学生可以再"个人中心-我的辅导"已结束选项卡进行查看</p>
-            <p>2.课程结束-直播（上课）后课程将自动变为已直播状态，学生此时可以继续进入此直播间进行交流和讨论；老师或系统结束此课程后显示课程状态为已结束（已结束的课程将不能进入）。</p>
-            <p>3.辅导班结束-全部课程结束后辅导班将自动结束，结束后将不能进入直播教室。</p>
-          </div>
+        <div class="study-search-msg study-search-img">
+          <p>2.搜索辅导班后可点击图片或名称进入详情页查看所有信息。</p>
+          <%= image_tag "studenthelp-2.png" %>
         </div>
       </div>
+      <div class="study-search">
+        <a name="buy"></a>
+        <div class="study-search-title">
+          第二步：购买辅导班
+        </div>
+        <div class="study-search-msg">
+          <p>1.学生进入辅导班详情页后可选择试听（未设置试听课程的不显示试听按钮）或购买按钮进行操作，选择试听后该辅导班将自动加入到个人中心-我的辅导-我的试听选项卡内。</p>
+          <%= image_tag "studenthelp-3.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p class="study-search-btn">
+            <span>2.试听-加入试听后该按钮将自动变为</span>
+            <%= image_tag "btn-1.png" %>
+            <span>(只有开课中的辅导班可开始试听)，全部试听结束后将不能再进入试听，显示为</span>
+            <%= image_tag "btn-2.png" %>
+            <span>请进行购买后再学习。</span>
+          </p>
+
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p>3.购买-点击立即报名进入订单确认页，可以选择多种付款方式进行支付。 </p>
+          <%= image_tag "studenthelp-4.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p class="study-search-btn">
+            <span>4.支付完成后可以进入详情页点击</span>
+            <%= image_tag "btn-3.png" %>
+            <span>按钮进行学习（开课后可进入）。</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="study-search">
+        <a name="open"></a>
+        <div class="study-search-title">
+          第三步：辅导班开课
+        </div>
+        <div class="study-search-msg">
+          <p class="study-search-btn">
+            <span>1.学生可进入个人中心-我的辅导，选择开课中选项卡查看当前开课的辅导班；并点击</span>
+            <%= image_tag "btn-4.png" %>
+            <span>进入直播教室；点击图片或名称查看辅导班详情。</span>
+          </p>
+          <%= image_tag "studenthelp-5.png" %>
+        </div>
+      </div>
+
+      <div class="study-search">
+        <a name="live"></a>
+        <div class="study-search-title">
+          第四步：观看直播
+        </div>
+        <div class="study-search-msg">
+          <p>1.学生点击辅导班详情页开始试听或开始学习后进入直播教室（也可以在课程表或我的辅导进入）；观看直播默认显示教学画面和摄像头画面，学生可以
+          通过隐藏和切换功能完成屏幕位置切换以及隐藏;途中红色区域交互区，提供交流和查看公告等功能。
+          </p>
+          <%= image_tag "studenthelp-7.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p class="study-search-new">
+            <span>2.消息记录和直播详情，学生可向下滑动查看当前辅导班更多信息；点击消息记录可查看本辅导班所有历史消息。</span>
+            <%= image_tag "studenthelp-6.png" %>
+          </p>
+
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p class="study-search-new">
+            <span>3.直播状态：当辅导班处于不同直播状态时，直播画面将呈现不同内容提示用户。</span>
+            </p><div class="search-new-msg">
+              <div class="search-nolive">
+              <%= image_tag "studenthelp-8.png" %>
+              <center><span>无直播</span></center>
+            </div>
+            <div class="search-nocaream">
+              <%= image_tag "studenthelp-9.png" %>
+              <center><span>教师未开启摄像头</span></center>
+
+            </div>
+            </div>
+          <p></p>
+
+        </div>
+      </div>
+
+      <div class="study-search">
+        <a name="over"></a>
+        <div class="study-search-title">
+          第五步：辅导班结束
+        </div>
+        <div class="study-search-msg study-search-list">
+          <p>1.已结束的辅导班学生可以再"个人中心-我的辅导"已结束选项卡进行查看</p>
+          <p>2.课程结束-直播（上课）后课程将自动变为已直播状态，学生此时可以继续进入此直播间进行交流和讨论；老师或系统结束此课程后显示课程状态为已结束（已结束的课程将不能进入）。</p>
+          <p>3.辅导班结束-全部课程结束后辅导班将自动结束，结束后将不能进入直播教室。</p>
+        </div>
       </div>
     </div>
-
   </div>
 </div>

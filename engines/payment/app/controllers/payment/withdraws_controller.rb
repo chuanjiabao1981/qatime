@@ -3,12 +3,11 @@ require_dependency "payment/application_controller"
 module Payment
   class WithdrawsController < ApplicationController
     before_action :set_resource_user
-    layout 'payment'
+    layout 'v1/application'
 
     # GET /recharges/new
     def new
       @withdraw = Payment::Withdraw.new(pay_type: :alipay)
-      render layout: 'application_front'
     end
 
     # POST /recharges
@@ -38,10 +37,10 @@ module Payment
           redirect_to action: :complete, transaction: @withdraw.transaction_no
         else
           @errors += @withdraw.errors.messages.values.flatten
-          render :new, layout: 'application_front'
+          render :new
         end
       else
-        render :new, layout: 'application_front'
+        render :new
       end
     end
 

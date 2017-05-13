@@ -2,8 +2,9 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class AnnouncementsController < ApplicationController
-    layout :current_user_layout
+    layout 'v1/home'
 
+    before_action :set_owner
     before_action :set_course, only: [:index, :create]
     before_action :set_announcement, only: [:update]
 
@@ -49,6 +50,10 @@ module LiveStudio
         else
           LiveStudio::InteractiveCourse.find(params[:interactive_course_id])
         end
+    end
+
+    def set_owner
+      @owner ||= current_user
     end
 
     # Only allow a trusted parameter "white list" through.

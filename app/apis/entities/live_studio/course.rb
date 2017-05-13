@@ -70,7 +70,7 @@ module Entities
           false
         end
         expose :join_cheap do |course|
-          course.teaching?
+          course.join_cheap?
         end
         expose :free_taste do |course|
           course.taste_count.to_i > 0

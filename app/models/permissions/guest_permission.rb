@@ -18,7 +18,7 @@ module Permissions
       allow 'passwords', [:edit, :update]
 
       allow 'welcome', [:download, :courses]
-      allow 'passwords', [:new, :create]
+      allow 'passwords', [:new, :create, :new_payment_password, :update_payment_password]
       allow 'live_studio/courses', [:index, :show]
 
       allow 'wap/live_studio/courses', [:show, :download]
@@ -50,6 +50,7 @@ module Permissions
 
       api_allow :GET, "/api/v1/user/register_code_valid"
       api_allow :POST, "/api/v1/user/register"
+      api_allow :GET, "/api/v1/user/check"
       api_allow :POST, "/api/v1/user/wechat_regsiter"
 
       # captcha

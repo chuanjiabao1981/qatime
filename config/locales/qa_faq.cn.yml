@@ -11,3 +11,6 @@ cn:
           common: 通用
           student: 学生
           teacher: 老师
+  view:
+    index:
+      add_qa_faq: 增加常见问题

@@ -10,8 +10,11 @@ module LiveStudio
     belongs_to :lesson
 
     has_many :ticket_items
+    has_many :play_records
     belongs_to :sell_channel
     belongs_to :channel_owner, polymorphic: true
+
+    attr_accessor :item_targets
 
     enum status: {
       inactive: 0,   # 准备试听
@@ -32,6 +35,7 @@ module LiveStudio
     scope :unavailable, -> { where("live_studio_tickets.status >= ?", statuses[:used]) }
     scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
     scope :by_product, ->(product) { where(product_id: product.id, product_type: product.model_name.to_s) }
+    scope :by_student_id, ->(student_id) { where(student_id: student_id)}
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?
@@ -73,10 +77,15 @@ module LiveStudio
 
     after_create :add_to_team
     def add_to_team
-      team = product.chat_team || product.instance_chat_team(true)
+      team = product.chat_team
       ::Chat::TeamMemberCreatorJob.perform_later(team.id, student_id)
     rescue StandardError => e
       p e
+    end
+
+    after_create :instance_items
+    def instance_items
+      ticket_items.create(item_targets.map { |l| { target: l } }) unless item_targets.blank?
     end
   end
 end

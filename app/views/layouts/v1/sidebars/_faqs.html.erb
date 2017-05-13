@@ -1,0 +1,22 @@
+<div class="nav-side">
+  <div class="side-title">
+    <h3><%= t("menu.help") %></h3>
+  </div>
+  <ul class="side-list">
+    <%= content_tag :li, class: "#{'active' if current_page?(action: :courses)}" do -%>
+      <%= link_to t('view.qa_bars.courses'), courses_qa_faqs_path %>
+    <% end %>
+
+    <%= content_tag :li, class: "#{'active' if current_page?(action: :teacher)}" do -%>
+      <%= link_to t('view.qa_bars.teacher'), teacher_qa_faqs_path %>
+    <% end if current_user && !current_user.student? %>
+
+    <%= content_tag :li, class: "#{'active' if current_page?(action: :student)}" do -%>
+      <%= link_to t('view.qa_bars.student'), student_qa_faqs_path %>
+    <% end if current_user && !current_user.teacher? %>
+
+    <%= content_tag :li, class: "#{'active' if current_page?('/qa_faqs') || params[:action] == 'show' }" do -%>
+      <%= link_to t('view.qa_bars.faqs'), qa_faqs_path %>
+    <% end %>
+  </ul>
+</div>

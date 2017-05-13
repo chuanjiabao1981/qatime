@@ -4,7 +4,7 @@
     <td></td>
     <td><%= earning_record.target.course.model_name.human %></td>
     <td><%= localize(earning_record.created_at,:format => :long) %></td>
-    <td><%= link_to t("view.payment/earning_record.view"), live_studio.teacher_course_path(@current_resource, earning_record.target.course_id) %></td>
+    <td><%= link_to t("view.payment/earning_record.view"), live_studio.course_path(earning_record.target.course_id) %></td>
   </tr>
 <% elsif earning_record.target && earning_record.target.is_a?(LiveStudio::VideoCourse) %>
   <tr>

@@ -26,6 +26,8 @@ cn:
     edit_profile:
       edit_avatar_btn: 更换头像
       edit_avatar_title: 更换头像
+      placeholders:
+        desc: 介绍下自己，如个人优势/从教经历/教学特色等 最多输入200个字。
     security_setting:
       payment_password: 支付密码
       login_password: 登录密码
@@ -82,9 +84,9 @@ cn:
       email_label: 修改绑定邮箱
       submit: 确定
     edit_password:
-      current_password_label: '当前登录密码:'
-      password_label: '新密码登录:'
-      password_confirmation_label: '确认新密码'
+      current_password_label: 当前登录密码
+      password_label: 新密码登录
+      password_confirmation_label: 确认新密码
       payment_pwd_label: 新支付密码
       payment_pwd_confirmation: 确认新密码
       payment_pwd_verify_code: 手机校验码
@@ -100,4 +102,8 @@ cn:
       video_course: 视频课
       more: 更多
       is_finished: 该课程已结束
+    lessons_state:
+      title: 课程状态
+    curriculums:
+      title: 我的公共课
 

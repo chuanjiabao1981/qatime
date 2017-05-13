@@ -10,5 +10,10 @@ module Payment
     def pay_type_options(transaction_type, source)
       GlobalSettings.payment.send("#{transaction_type}_pay_types").send(source).map { |pay_type| [t("view.pay_types.#{pay_type}"), pay_type] }
     end
+
+    # 提现方式
+    def withdraw_type_options(transaction_type, source)
+      GlobalSettings.payment.send("#{transaction_type}_pay_types").send(source).map { |pay_type| [t("view.withdraw_types.#{pay_type}"), pay_type] }
+    end
   end
 end

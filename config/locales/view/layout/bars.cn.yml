@@ -28,6 +28,7 @@ cn:
       workstation_info: 工作站信息
       live_studio/interactive_course: 一对一管理
       live_studio/video_course: 视频课
+      live_studio/course: 直播课
       welcome: 您好！欢迎来到答疑时间！
       default_title: 此标题内容仅供演示
       default_grade: 年级科目
@@ -37,9 +38,9 @@ cn:
       default_teach_years: XXX年教龄
       notification: 消息中心
     qa_bars:
-      courses: 辅导班流程
-      teacher: 老师使用说明
-      student: 学生使用说明
+      courses: 辅导流程
+      teacher: 老师如何开课
+      student: 学生如何学习
       faqs: 常见问题
     student_bars:
       my_wallet: 我的钱包
@@ -61,7 +62,7 @@ cn:
       my_courses: 我的直播课
       my_interactive_courses: 我的一对一
       my_video_courses: 我的视频课
-      curriculums: 我的课程
+      curriculums: 我的公共课
       homeworks: 作业管理
       lessons_state: 课程状态
       teacher_students: 学生管理

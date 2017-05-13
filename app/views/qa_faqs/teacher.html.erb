@@ -1,113 +1,109 @@
-<div class="container container-details container-bottom">
-  <div class="row">
-    <%= render "layouts/sidebar/faqs" %>
-    <div class="col-md-9 col-right student-help-new">
-      <div class="panel panel-default">
-       
-      <div class="student-study">
-        <div class="study-title">
-          <center>
-            <div class="study-nav">
-              <span>快速查看：</span>
-              <i class="study-navbar">
-              <a href="#search">创建辅导班</a>
-              <a href="#buy">辅导班招生</a>
-              <a href="#open">辅导班开课</a>
-              <a href="#live">进行直播</a>
-              <a href="#over">辅导班结束</a>
-              </i>
-            </div>
-          </center>
-        </div>
-        <a name="search"></a>
-        <div class="study-search">
-          
-          <div class="study-search-title">
-            第一步：创建辅导班
-          </div>
-          <div class="study-search-msg">
-            <p>1.登录后点击首页右上角的个人中心进入我的辅导选项，可查看到所有状态的辅导班，点击邀请和创建进入该页。</p>
-            <%= image_tag "teacherhelp-2.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>2.点击"创建新辅导"进入创建页填写辅导班信息；已收到的开班邀请为其他工作站邀请您为其开班，点击接受进入创建页，点击拒绝则删除此条邀请。（自己创建的辅导班分成比例默认为100%）。</p>
-            <%= image_tag "teacherhelp-3.png" %>
-          </div>
-          <div class="study-search-msg study-search-img study-search-list">
-            <p>3.创建辅导班需要填写辅导班概况和课程设置两大部分：</p>
-            <span class="teacher-study-msg active">(1)辅导班概况除试听为选填其他均为必填项，请按照规范填写，以免审核被拒；</span>
-            <%= image_tag "teacherhelp-4.png" %>
-            <span class="teacher-study-msg">(2)课程设置需要老师根据内容进行安排，课程安排会按照上课时间自动进行排序，请在设置课程时检查是否有时间重叠；
-            以免审核被拒；
-            </span>
-            <%= image_tag "teacherhelp-5.png", class: "teacher-study-img" %>
-            <%= image_tag "teacherhelp-6.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>4.预览和发布招生：全部信息填写完成后可点击预览生成预览页查看实际效果；点击发布招生后进入审核阶段（可在带开始选项卡查看审核中和审核被拒的辅导班），审核通过后会发布到招生并通过系统通知老师。</p>
-            <%= image_tag "teacherhelp-7.png" %>
-          </div>
-        </div>
-        <a name="buy"></a>
-        <div class="study-search">
-          
-          <div class="study-search-title">
-            第二步：辅导班招生
-          </div>
-          <div class="study-search-msg">
-            <p>1.辅导班审核通过后自动开始招生，招生后老师将不能再对其做任何修改，只能预览。（可在进行中选项卡查看）</p>
-            <%= image_tag "teacherhelp-8.png" %>
-          </div>
-        </div>
-        <a name="open"></a>
-        <div class="study-search">
-          
-          <div class="study-search-title">
-            第三步：辅导班开课
-          </div>
-          <div class="study-search-msg">
-            <p>1.到达开课日期后辅导班会自动进入开课阶段，可在"我的辅导-进行中"选项卡进行查看相关信息。开课中的辅导班可调课和发布公告。</p>
-            <%= image_tag "teacherhelp-9.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>2.调课</p>
-            <span class="teacher-study-msg active">(1)点击调课进入调课页，只显示允许被调课的课程（待补课、待上课、未开始状态的课程）；点击编辑进行修改。</span>
-            <%= image_tag "teacherhelp-10.png" %>
-            <span class="teacher-study-msg">
-            (2)保存修改后会显示预修改时间，然后点击"保存调课"完成调课。
-            </span>
-            <%= image_tag "teacherhelp-11.png", class: "teacher-study-img" %>
-          </div>
-        </div>
-        <a name="live"></a>
-        <div class="study-search">
-          
-          <div class="study-search-title">
-            第四步：进行直播（上课）
-          </div>
-          <div class="study-search-msg">
-            <p>1.请在访问下载页面下载"答疑时间直播助手"（下载后登录即可开始直播，详细使用方法请登录后参照"直播帮助"）</p>
-            <%= image_tag "teacherhelp-12.png" %>
-          </div>
-          <div class="study-search-msg study-search-img">
-            <p>2.直播助手下载地址：http://qatime.cn/welcome/download</p>
-          </div>
-        </div>
-        <a name="over"></a>
-        <div class="study-search">
-          
-          <div class="study-search-title">
-            第五步：辅导班结束
-          </div>
-          <div class="study-search-msg study-search-list">
-            <p>1.课程结束：辅导课程可手动结束或系统自动结束，当老师切换下一课时将结束当前课程；当辅导课程日期过期后将自动结束。</p>
-            <p>2.辅导班结束：全部课程结束后系统将自动将辅导班变更为已结束状态（结束后老师不能进行上课）。</p>
-           
-          </div>
-        </div>
-      </div>
-      </div>
-   </div>
-
-   </div>
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('view.qa_bars.teacher') %></h3>
   </div>
+  <div class="contains-discipline">
+    <div class="student-study">
+      <div class="study-title">
+        <center>
+          <div class="study-nav">
+            <span>快速查看：</span>
+            <i class="study-navbar">
+            <a href="#search">创建辅导班</a>
+            <a href="#buy">辅导班招生</a>
+            <a href="#open">辅导班开课</a>
+            <a href="#live">进行直播</a>
+            <a href="#over">辅导班结束</a>
+            </i>
+          </div>
+        </center>
+      </div>
+      <a name="search"></a>
+      <div class="study-search">
+
+        <div class="study-search-title">
+          第一步：创建辅导班
+        </div>
+        <div class="study-search-msg">
+          <p>1.登录后点击首页右上角的个人中心进入我的辅导选项，可查看到所有状态的辅导班，点击邀请和创建进入该页。</p>
+          <%= image_tag "teacherhelp-2.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p>2.点击"创建新辅导"进入创建页填写辅导班信息；已收到的开班邀请为其他工作站邀请您为其开班，点击接受进入创建页，点击拒绝则删除此条邀请。（自己创建的辅导班分成比例默认为100%）。</p>
+          <%= image_tag "teacherhelp-3.png" %>
+        </div>
+        <div class="study-search-msg study-search-img study-search-list">
+          <p>3.创建辅导班需要填写辅导班概况和课程设置两大部分：</p>
+          <span class="teacher-study-msg active">(1)辅导班概况除试听为选填其他均为必填项，请按照规范填写，以免审核被拒；</span>
+          <%= image_tag "teacherhelp-4.png" %>
+          <span class="teacher-study-msg">(2)课程设置需要老师根据内容进行安排，课程安排会按照上课时间自动进行排序，请在设置课程时检查是否有时间重叠；
+          以免审核被拒；
+          </span>
+          <%= image_tag "teacherhelp-5.png", class: "teacher-study-img" %>
+          <%= image_tag "teacherhelp-6.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p>4.预览和发布招生：全部信息填写完成后可点击预览生成预览页查看实际效果；点击发布招生后进入审核阶段（可在带开始选项卡查看审核中和审核被拒的辅导班），审核通过后会发布到招生并通过系统通知老师。</p>
+          <%= image_tag "teacherhelp-7.png" %>
+        </div>
+      </div>
+      <a name="buy"></a>
+      <div class="study-search">
+
+        <div class="study-search-title">
+          第二步：辅导班招生
+        </div>
+        <div class="study-search-msg">
+          <p>1.辅导班审核通过后自动开始招生，招生后老师将不能再对其做任何修改，只能预览。（可在进行中选项卡查看）</p>
+          <%= image_tag "teacherhelp-8.png" %>
+        </div>
+      </div>
+      <a name="open"></a>
+      <div class="study-search">
+
+        <div class="study-search-title">
+          第三步：辅导班开课
+        </div>
+        <div class="study-search-msg">
+          <p>1.到达开课日期后辅导班会自动进入开课阶段，可在"我的辅导-进行中"选项卡进行查看相关信息。开课中的辅导班可调课和发布公告。</p>
+          <%= image_tag "teacherhelp-9.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p>2.调课</p>
+          <span class="teacher-study-msg active">(1)点击调课进入调课页，只显示允许被调课的课程（待补课、待上课、未开始状态的课程）；点击编辑进行修改。</span>
+          <%= image_tag "teacherhelp-10.png" %>
+          <span class="teacher-study-msg">
+          (2)保存修改后会显示预修改时间，然后点击"保存调课"完成调课。
+          </span>
+          <%= image_tag "teacherhelp-11.png", class: "teacher-study-img" %>
+        </div>
+      </div>
+      <a name="live"></a>
+      <div class="study-search">
+
+        <div class="study-search-title">
+          第四步：进行直播（上课）
+        </div>
+        <div class="study-search-msg">
+          <p>1.请在访问下载页面下载"答疑时间直播助手"（下载后登录即可开始直播，详细使用方法请登录后参照"直播帮助"）</p>
+          <%= image_tag "teacherhelp-12.png" %>
+        </div>
+        <div class="study-search-msg study-search-img">
+          <p>2.直播助手下载地址：http://qatime.cn/welcome/download</p>
+        </div>
+      </div>
+      <a name="over"></a>
+      <div class="study-search">
+
+        <div class="study-search-title">
+          第五步：辅导班结束
+        </div>
+        <div class="study-search-msg study-search-list">
+          <p>1.课程结束：辅导课程可手动结束或系统自动结束，当老师切换下一课时将结束当前课程；当辅导课程日期过期后将自动结束。</p>
+          <p>2.辅导班结束：全部课程结束后系统将自动将辅导班变更为已结束状态（结束后老师不能进行上课）。</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

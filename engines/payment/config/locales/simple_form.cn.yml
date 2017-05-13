@@ -5,7 +5,7 @@ cn:
         title: '账户充值'
         amount: '充值金额'
         pay_type: '支付方式'
-        confirm: '请输入并核对信息后再提交充值确认'
+        confirm: '输入充值金额并选择支付方式后再提交充值确认'
         confirm_amount: '应付金额'
       payment/order:
         title: '订单支付'
@@ -15,10 +15,10 @@ cn:
         confirm_amount: '应付金额'
     hints:
       payment/recharge:
-        amount: '(当前余额%{blance})'
+        amount: '当前余额'
     placeholders:
       payment/recharge:
-        amount: '输入金额不小于%{min_amount}'
+        amount: '输入充值金额'
       payment/order:
         amount: '输入金额不小于%{min_amount}'
         coupon_code: '输入优惠码'
@@ -35,3 +35,8 @@ cn:
     actions:
       payment/recharge:
         submit: 立即充值
+    errors:
+      payment/recharge:
+        amount: 充值金额不正确
+        pay_type: 请选择支付方式
+

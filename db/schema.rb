@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502054850) do
+ActiveRecord::Schema.define(version: 20170508074236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -749,10 +749,13 @@ ActiveRecord::Schema.define(version: 20170502054850) do
     t.datetime "updated_at",                           null: false
     t.string   "tp",            limit: 10
     t.integer  "play_type",                default: 0
+    t.integer  "product_id"
+    t.string   "product_type"
   end
 
   add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id", using: :btree
   add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
+  add_index "live_studio_play_records", ["product_id", "product_type"], name: "index_live_studio_play_records_on_product_id_and_product_type", using: :btree
   add_index "live_studio_play_records", ["ticket_id"], name: "index_live_studio_play_records_on_ticket_id", using: :btree
   add_index "live_studio_play_records", ["user_id"], name: "index_live_studio_play_records_on_user_id", using: :btree
 
@@ -785,6 +788,7 @@ ActiveRecord::Schema.define(version: 20170502054850) do
     t.string   "download_shd_mp4_url"
     t.string   "shd_mp4_size"
     t.string   "create_time"
+    t.string   "pending_vids"
   end
 
   create_table "live_studio_sell_channels", force: :cascade do |t|

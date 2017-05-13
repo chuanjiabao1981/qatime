@@ -25,8 +25,8 @@
         </div>
         <% if @course.is_a? LiveStudio::Course -%>
           <div class="course-line">
-            <span class="<%= 'active' if @course.teaching? %>">
-              <%= image_tag "/imgs/course-#{@course.teaching? ? 'active' : 'default'}.png" %>
+            <span class="<%= 'active' if @course.join_cheap? %>">
+              <%= image_tag "/imgs/course-#{@course.join_cheap? ? 'active' : 'default'}.png" %>
               <i><%= t('view.live_studio/courses.show.join_cheap') %></i>
             </span>
             <span class="<%= 'active' if @course.taste_count.to_i > 0 %>">

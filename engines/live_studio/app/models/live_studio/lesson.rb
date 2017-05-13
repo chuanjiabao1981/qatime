@@ -3,12 +3,14 @@ module LiveStudio
   class Lesson < ActiveRecord::Base
     has_soft_delete
     extend Enumerize
+    include Recordable # 直播录制
 
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :course
+    delegate :channels, to: :course
 
     enum replay_status: {
       unsync: 0, # 未同步
@@ -121,11 +123,10 @@ module LiveStudio
         transitions from: [:teaching, :paused], to: :closed
       end
 
-      event :finish, after_commit: :instance_play_records do
+      event :finish, after_commit: :finish_hook do
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ReplaysSyncWorker.perform_async(id)
         end
         transitions from: [:closed], to: :finished
       end
@@ -252,6 +253,14 @@ module LiveStudio
       %w(finished billing completed).include?(status)
     end
 
+    # 课程完成回调
+    def finish_hook
+      # 记录播放记录
+      instance_play_records
+      # 获取回放视频
+      async_fetch_replays
+    end
+
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
     def instance_play_records
@@ -359,7 +368,11 @@ module LiveStudio
 
     # 视频时长单位分钟
     def duration_minutes
-      (real_time.to_i / 60.0).round(2)
+      (real_time.to_i / 60.0).round(4)
+    end
+
+    def duration_hours
+      (real_time.to_i / 60.0 / 60.0).round(4)
     end
 
     private
@@ -463,7 +476,9 @@ module LiveStudio
         lesson_id: id,
         start_time_at: live_start_at,
         end_time_at: live_end_at,
-        tp: 'student'
+        tp: 'student',
+        product_id: course_id,
+        product_type: 'LiveStudio::Course'
       }
     end
 

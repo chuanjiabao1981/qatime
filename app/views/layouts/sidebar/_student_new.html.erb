@@ -15,7 +15,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to payment.cash_user_path(@student) do %>
+      <%= link_to payment.recharges_user_path(@student) do %>
         <span class="fa fa-usd"></span>
         <span class="qa_f18"><%= t("view.student_bars.my_wallet") %></span>
         <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:cash) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>

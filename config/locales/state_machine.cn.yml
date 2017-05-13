@@ -4,10 +4,10 @@ cn:
       lesson:
         states:
           init: 新建
-          editing: 未提交审核
+          editing: 未提审
           reviewing: 审核中
           published: 已发布
-          rejected: 审核未通过
+          rejected: 被驳回
         events:
           edit: 编辑
           approve: 通过审核

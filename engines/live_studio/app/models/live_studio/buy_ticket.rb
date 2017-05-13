@@ -5,18 +5,6 @@ module LiveStudio
     belongs_to :seller, polymorphic: true
 
     private
-
-    after_create :instance_items
-    def instance_items
-      if product.is_a?(LiveStudio::Course)
-        ticket_items.create(product.lessons.where(live_end_at: nil).map { |l| { target: l } })
-      elsif product.is_a?(LiveStudio::InteractiveCourse)
-        ticket_items.create(product.interactive_lessons.where(live_end_at: nil).map { |l| { target: l } })
-      else
-        ticket_items.create(product.video_lessons.map { |l| { target: l } })
-      end
-    end
-
     after_update :update_items_status, if: :status_changed?
     def update_items_status
       ticket_items.where(status: LiveStudio::TicketItem.statuses[:refunding]).map(&:finish!) if refunded?

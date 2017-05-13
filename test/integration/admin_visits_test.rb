@@ -46,6 +46,6 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     # assert_match(@course.name,page.text, 'Admin 没有正确访问搜索辅导班页面')
     # page.go_back
     click_on '我的订单'
-    assert_match('全部', page.text, 'Admin 没有正确访问我的订单页面')
+    assert_match('待付款', page.text, 'Admin 没有正确访问我的订单页面')
   end
 end

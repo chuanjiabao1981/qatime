@@ -13,6 +13,7 @@ two:
 pr1:
   user: student_with_order2
   course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   lesson: replay_lessons_1
   play_type: 1 
   created_at: <%= 2.days.ago %>
@@ -20,6 +21,7 @@ pr1:
 pr2:
   user: student_with_order2
   course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   lesson: replay_lessons_1
   play_type: 1 
   created_at: <%= 1.days.ago %>
@@ -27,6 +29,7 @@ pr2:
 pr3:
   user: student_with_order2
   course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   lesson: replay_lessons_2
   play_type: 1 
   created_at: <%= 1.days.ago %>
@@ -34,6 +37,7 @@ pr3:
 student_for_replays_pr1:
   user: student_for_replays
   course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   lesson: replay_lessons_2
   play_type: 1 
   created_at: <%= 2.days.ago %>
@@ -41,6 +45,15 @@ student_for_replays_pr1:
 student_for_replays_pr2:
   user: student_for_replays
   course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   lesson: replay_lessons_2
   play_type: 1 
+  created_at: <%= 1.days.ago %>
+
+student_for_tastes_pr1:
+  user: student_for_tastes
+  product: published_video_course1 (LiveStudio::VideoCourse)
+  video_lesson: published_video_lesson1
+  ticket: video_course_ticket_for_taste1
+  play_type: 1
   created_at: <%= 1.days.ago %>

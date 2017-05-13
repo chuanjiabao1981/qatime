@@ -1,93 +1,125 @@
-<%= content_for :breadcrumb do %>
-  <ol class="breadcrumb">
-    <li><%= link_to t("students.common.personal_center"),info_student_path(@teacher) %></li>
-  </ol>
-<% end %>
+<div class="contains">
+  <%= render 'info_title' %>
+  <div class="user-smg">
+    <ul>
+      <li class="edit-info">
+        <%= image_tag @owner.avatar_url(:ex_big), class: 'handle_error_avatar' %>
+        <% if allow? :teachers, :edit, @teacher %>
+          <%= link_to t(".edit_information"), edit_teacher_path(@teacher, cate: :edit_profile, by: :profile) %>
+        <% end %>
+      </li>
 
-<div class="qa_box row row-width-fix">
-  <%= render "info_title" %>
-
-  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:55px">
-    <%=image_tag @teacher.avatar_url(:ex_big) %>
-  </div>
-
-  <div class="col-md-8">
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:name)%></div>
-        <div class="col-md-9">
-          <%= @teacher.name %>
-          <div class="pull-right">
-            <% if allow? "teachers", "edit" ,@teacher%>
-              <%=link_to edit_teacher_path(@teacher, cate: :edit_profile, by: :profile) do %>
-                <button type="button" class="btn btn-xs btn-success"><%= t ".edit_information" %></button>
-              <% end %>
-            <% end %>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:name) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.name %></span>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:nick_name)%></div>
-        <div class="col-md-9"><%= @teacher.nick_name %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:gender)%></div>
-        <div class="col-md-9"><%= @teacher.gender_text %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:birthday)%></div>
-        <div class="col-md-9"><%= @teacher.birthday %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:login_mobile)%></div>
-        <div class="col-md-9"><%= @teacher.login_mobile %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:category)%></div>
-        <div class="col-md-9"><%= @teacher.category %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:city)%></div>
-        <div class="col-md-9"><%= @teacher.province.try(:name) %> <%= @teacher.city.try(:name) %> </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @teacher.school.try(:name) %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:subject)%></div>
-        <div class="col-md-9"><%= @teacher.subject %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:teaching_years)%></div>
-        <div class="col-md-9"><%= @teacher.teaching_years_text %></div>
-      </div>
-    </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:nick_name) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.nick_name %></span>
+          </div>
+        </div>
+      </li>
 
-
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Teacher.human_attribute_name(:desc)%></div>
-        <div class="col-md-9"><%= @teacher.desc %></div>
-      </div>
-    </div>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:gender) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.gender_text %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:birthday) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.birthday %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:login_mobile) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.login_mobile %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:category) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.category %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:city) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.city.try(:name_with_province) %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:school) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.school.try(:name) %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:subject) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.subject %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:teaching_years) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @teacher.teaching_years_text %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%= Teacher.human_attribute_name(:desc) %></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <%= raw @teacher.desc %>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

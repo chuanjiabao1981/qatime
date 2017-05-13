@@ -9,6 +9,10 @@ module LiveStudio
       @course = @video_lesson.video_course
       @video = @lesson.video
       @lessons = VideoLesson.where(video_course_id: @lesson.video_course_id)
+
+      @course.tickets.by_student_id(current_user.id).available.each do |ticket|
+        LiveStudio::PlayRecord.init_play(current_user, @course, @lesson, ticket)
+      end
       render layout: 'v1/live'
     end
 

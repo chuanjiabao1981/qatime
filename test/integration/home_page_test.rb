@@ -56,6 +56,17 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_xpath?("//a[@href='/live_studio/interactive_courses/#{interactive_course.id}']"), '一对一链接不正确'
   end
 
+  test "home page newest_courses" do
+    visit root_path
+    assert page.has_content? '新课发布'
+    assert_equal 4, page.all("#newest_courses .item-handpick li").size, "新课发布显示数量显示不正确"
+    courses = LiveService::RankManager.rank_of('all_published_rank')
+    courses.each do |course|
+      assert page.has_link?(course.name)
+      assert page.has_xpath?("//a[@href='/live_studio/#{course.model_name.route_key}/#{course.id}']"), '链接不正确'
+    end
+  end
+
   test "home page teachers" do
     visit root_path
     assert page.has_content? '教师推荐'

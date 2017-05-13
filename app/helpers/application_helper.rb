@@ -318,7 +318,7 @@ module ApplicationHelper
             action_name == 'info' || action_name == 'edit'
           )
     when :cash
-      r = controller_name == 'users' && action_name == 'cash'
+      r = controller_name == 'users' && action_name.in?(%w(recharges withdraws consumptione_records earning_records refunds))
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses
@@ -352,7 +352,7 @@ module ApplicationHelper
             action_name == 'info' || action_name == 'edit'
           )
     when :cash
-      r = controller_name == 'users' && action_name == 'cash'
+      r = controller_name == 'users' && action_name.in?(%w(recharges withdraws consumptione_records earning_records refunds))
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
     when :my_interactive_courses
@@ -393,7 +393,7 @@ module ApplicationHelper
   # 支付密码提示信息
   # 密码24小时内不可用
   def payment_password_hint(user)
-    default_text = content_tag(:span, t('view.common.payment_password_not_set'), class: 'alert_red_span')
+    default_text = content_tag(:i, t('view.common.payment_password_not_set'), class: 'prompt-info')
     return default_text unless user.cash_account_password?
     return default_text if user.cash_account.try(:password_set_at).blank?
 
@@ -401,11 +401,13 @@ module ApplicationHelper
     expire_time = user.cash_account.password_set_at.tomorrow
     if expire_time > time_now
       leave_time = Util.duration_in_words((expire_time - time_now).to_i).gsub(/.\d秒/, '')
-      content_tag :span, class: 'alert_red_span' do
+      content_tag :i, class: 'prompt-info' do
         t('view.common.payment_password_expire_time', time: leave_time)
       end
     else
-      t('view.common.password_not_visible')
+      content_tag :i do
+        t('view.common.password_not_visible')
+      end
     end
   end
 

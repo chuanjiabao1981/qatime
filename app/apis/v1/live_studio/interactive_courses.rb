@@ -52,12 +52,17 @@ module V1
         end
 
         resource :interactive_courses do
+          before do
+            authenticate!
+          end
+
           desc '公告 成员状态 直播列表' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
               required: true
             }
           end
+
           params do
             requires :id, desc: '一对一ID'
           end
@@ -73,9 +78,6 @@ module V1
             present realtime, with: Entities::CourseRealtime
           end
 
-          before do
-            authenticate!
-          end
           desc '一对一购买' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
@@ -98,6 +100,29 @@ module V1
             order.save
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
+          end
+
+
+          desc '一对一发布公告' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :content, type: String, desc: "公告内容"
+          end
+          post '/:id/announcements' do
+            @interactive_course = current_user.live_studio_interactive_courses.find(params[:id])
+            unless @interactive_course.chat_team
+              ::LiveService::ChatTeamManager.new(nil).instance_team(@interactive_course)
+              @interactive_course.reload
+            end
+            @announcement = @interactive_course.announcements.new(content: params[:content], lastest: true, creator: @interactive_course.teacher)
+            if @announcement.save
+              @interactive_course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
+            end
+            "ok"
           end
         end
 

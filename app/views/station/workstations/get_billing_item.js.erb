@@ -3,6 +3,8 @@
   $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/withdraw_refund' %>');
 <% elsif @change_record.target.is_a?(LiveStudio::Lesson) %>
   $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/lesson' %>');
+<% elsif @change_record.target.is_a?(LiveStudio::InteractiveLesson) %>
+  $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/lesson' %>');
 <% elsif @change_record.target.is_a?(LiveStudio::VideoCourse) %>
   $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/video_course' %>');
 <% else %>

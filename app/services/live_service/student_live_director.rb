@@ -7,7 +7,7 @@ module LiveService
     # 我的直播
     def courses(options = {})
       return courses_of_cate(options[:cate]) if options[:cate].present?
-      courses = @student.live_studio_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+      courses = @student.live_studio_bought_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
       courses = courses.where(status: LiveStudio::Course.statuses[options[:status]]) if options[:status]
       courses
     end
@@ -30,9 +30,9 @@ module LiveService
       interactive_courses
     end
 
-    # 我的视频课
+    # 我的购买的视频课
     def video_courses(options = {})
-      courses = @student.live_studio_video_courses.includes(:video_lessons, :chat_team, :teacher)
+      courses = @student.live_studio_bought_video_courses.includes(:video_lessons, :chat_team, :teacher)
       sell_type_value = LiveStudio::VideoCourse.sell_type.find_value(options[:sell_type]).try(:value)
       courses = courses.where(sell_type: sell_type_value) if sell_type_value
       courses
@@ -46,7 +46,8 @@ module LiveService
 
     # 试听记录
     def taste_records
-      @student.live_studio_taste_tickets.includes(:product)
+      ticket_ids = @student.live_studio_taste_ticket_ids
+      @student.live_studio_play_records.where(ticket_id: ticket_ids).select("DISTINCT ON(ticket_id) *").order("ticket_id, created_at DESC").to_a.sort.reverse
     end
 
     private

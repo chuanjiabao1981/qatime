@@ -35,7 +35,14 @@ Payment::Engine.routes.draw do
       end
     end
 
-    get :cash, on: :member
+    member do
+      get :cash
+      get :recharges
+      get :withdraws
+      get :consumption_records
+      get :earning_records
+      get :refunds
+    end
 
     resources :change_records, only: [:index]
     resources :withdraws, only: [:new, :create] do

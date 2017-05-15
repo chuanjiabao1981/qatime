@@ -382,6 +382,7 @@ cn:
       payment/order: 订单
       live_studio/course: 直播课
       live_studio/interactive_course: 一对一
+      live_studio/interactive_lesson: 一对一课程
       live_studio/video_course: 视频课
       live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核

@@ -12613,7 +12613,8 @@ ul {
 }
 
 /*我的消息*/
-.nav-menu > li > a > .news {
+
+.nav-menu > li > a > .news,.nav-dropdown > ul > li > a .news {
   display: inline-block;
   min-width: 18px;
   height: 18px;
@@ -12627,6 +12628,10 @@ ul {
   color: #FFFFFF;
   position: relative;
   top: 21px;
+}
+.nav-dropdown > ul > li > a .news{
+  top: 11px;
+  margin-right: 10px;
 }
 .news-list {
   padding-left: 0px;
@@ -13203,7 +13208,7 @@ ul {
 .drawings > .row > .applay-left > .row {
   min-height: 90px;
   padding-top: 28px;
-} 
+}
 .drawings > .row label {
   font-weight: 500;
   line-height: 34px;
@@ -13273,6 +13278,7 @@ ul {
 }
 .drawings > .apply-btn {
   padding: 30px 15px;
+  overflow: hidden;
 }
 .drawings > .apply-btn input,.drawings > .apply-btn a {
   float: right;
@@ -13717,4 +13723,171 @@ ul {
   .manage-list > li .seria-msg {
     padding-left: 15px;
   }
+}
+
+/*备课中心*/
+.manage-list > li .seria-operate {
+  line-height: 58px;
+  text-align: center;
+  padding: 0px;
+}
+.manage-list > li .seria-operate > a {
+  color: #ff5842;
+}
+.editor-outline .popup-title {
+  padding: 0 15px;
+}
+.editor-outline label {
+  font-weight: 500;
+  line-height: 34px;
+}
+.editor-outline .has-error {
+  margin: 0px;
+}
+.editor-outline .modal-body > .row {
+  min-height: 54px;
+}
+.editor-outline .modal-body > .row textarea{
+  height: 108px;
+  resize: none;
+}
+.editor-outline .modal-body > .row > .col-sm-10 {
+  padding-left: 0px;
+}
+.editor-outline .modal-body > .prepare-abstract {
+  min-height: 128px;
+}
+@media only screen and (max-width: 768px) {
+  .editor-outline .modal-body > .row > .col-sm-10 {
+    padding-left: 15px;
+  }
+  .editor-outline label {
+    line-height: 20px;
+  }
+  .editor-outline .modal-body > .row {
+    min-height: 74px;
+  }
+  .editor-outline .modal-body > .prepare-abstract {
+    min-height: 148px;
+  }
+}
+@media screen and (min-width: 768px){
+  .editor-outline {
+    width: 780px !important;
+    padding: 0px !important;
+    margin: 0 auto;
+  }
+}
+
+
+/*我的专属课程*/
+.exclusive-list {
+  padding-left: 0px;
+  margin: 30px 0px 0px 0px;
+  overflow: hidden;
+}
+.exclusive-list > li {
+  margin-bottom: 30px;
+  padding: 0 30px;
+  border-bottom: 1px solid #F1F1F1;
+}
+.exclusive-list > li:last-child {
+  border-bottom: 0px;
+}
+.exclusive-list > li > .row {
+  margin: 0px;
+}
+.exclusive-list > li .course-box {
+  padding: 15px 0px;
+  background-color: #FAFAFA;
+}
+.exclusive-list > li .course-box .vice-link {
+  line-height: 50px;
+}
+.exclusive-list > li .course-box .vice-link img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.exclusive-list > li .course-box .vice-link a {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #666;
+}
+.exclusive-list .vice-info .item-box {
+  padding: 5px 0;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+}
+.exclusive-list .vice-info > .row {
+  min-height: 50px;
+}
+.exclusive-list .vice-info .item-box > p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
+  margin-bottom: 0px;
+  text-align: center;
+  line-height: 20px;
+  color: #999;
+}
+.exclusive-list > li > .remark-box {
+  min-height: 30px;
+  padding: 15px 0px;
+}
+.exclusive-list > li > .remark-box textarea {
+  height: 50px;
+  resize: none;
+  display: none;
+}
+.exclusive-list > li > .remark-box.active textarea {
+  display: block;
+}
+.exclusive-list > li > .remark-box.active span {
+  display: none;
+}
+.exclusive-list > li > .remark-box a {
+  display: block;
+  text-align: right;
+  color: #ff5842;
+}
+.exclusive-list > li > .remark-box.active a {
+  line-height: 50px;
+}
+@media only screen  and (max-width: 992px) {
+  .exclusive-list .vice-info .category-item {
+    margin-bottom: 15px;
+  }
+}
+
+/*学生管理*/
+.administrate  {
+  padding: 0px 30px;
+  margin-top: 30px;
+}
+.administrate .manage-box > .row {
+  min-height: 48px;
+  padding: 15px 0px;
+  margin: 0px 0px 30px 0px;
+  border: 1px solid #F1F1F1;
+}
+.administrate .student-info img {
+  width: 48px;
+  height: 48px;
+}
+.administrate .student-info > p {
+  margin-bottom: 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.administrate .examine {
+  line-height: 48px;
+}
+.administrate .examine > a {
+  color: #ff5842;
+  float: right;
 }

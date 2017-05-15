@@ -13203,7 +13203,7 @@ ul {
 .drawings > .row > .applay-left > .row {
   min-height: 90px;
   padding-top: 28px;
-} 
+}
 .drawings > .row label {
   font-weight: 500;
   line-height: 34px;
@@ -13273,6 +13273,7 @@ ul {
 }
 .drawings > .apply-btn {
   padding: 30px 15px;
+  overflow: hidden;
 }
 .drawings > .apply-btn input,.drawings > .apply-btn a {
   float: right;
@@ -13608,7 +13609,6 @@ ul {
     padding: 0px !important;
   }
 }
-
 
 /*公共课*/
 .common {

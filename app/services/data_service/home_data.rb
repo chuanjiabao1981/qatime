@@ -1,6 +1,6 @@
 module DataService
   class HomeData
-    def initialize(city_id)
+    def initialize(city_id = nil)
       @city_id = city_id
     end
 

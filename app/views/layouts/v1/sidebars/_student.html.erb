@@ -29,6 +29,9 @@
       <%= link_to main_app.user_notifications_path(@owner) do %>
         <i class="icon-msg"></i>
         <span><%= t("view.student_bars.my_notice") %></span>
+        <% if @owner.unread_notifications_count > 0 %>
+          <em class="news"><%= @owner.unread_notifications_count %></em>
+        <% end %>
       <% end %>
     </li>
     <li class="<%= 'active' if student_sidebar_nav_is?(:schedules) %>">

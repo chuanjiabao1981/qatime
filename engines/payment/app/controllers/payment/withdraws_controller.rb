@@ -46,7 +46,6 @@ module Payment
 
     def complete
       @withdraw = Payment::Withdraw.find_by!(transaction_no: params[:transaction])
-      render layout: 'application_front'
     end
 
     def cancel

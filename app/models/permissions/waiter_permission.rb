@@ -49,7 +49,7 @@ module Permissions
       allow 'welcome', [:download]
 
       allow 'recommend/positions', [:index, :show]
-      allow 'payment/users', [:cash]
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]
 
       allow :courses,[:show]

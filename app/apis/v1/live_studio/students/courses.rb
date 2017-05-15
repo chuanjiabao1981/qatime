@@ -67,6 +67,24 @@ module V1
                   video_courses = @student.live_studio_taste_courses.paginate(page: params[:page], per_page: params[:per_page])
                   present video_courses, with: Entities::LiveStudio::StudentCourse
                 end
+
+                desc '我的直播课试听列表' do
+                  headers 'Remember-Token' => {
+                    description: 'RememberToken',
+                    required: true
+                  }
+                end
+                params do
+                  requires :student_id, type: Integer
+                  optional :page, type: Integer
+                  optional :per_page, type: Integer
+                  optional :sell_type, type: String, desc: '查询状态 charge: 已购; free: 免费', values: %w(charge free)
+                end
+                get 'tasting_list' do
+                  tickets = @student.live_studio_taste_tickets.available.where(product_type: 'LiveStudio::Course')
+                  tickets = tickets.paginate(page: params[:page], per_page: params[:per_page])
+                  present tickets, with: Entities::LiveStudio::CourseTicket
+                end
               end
 
               desc '学生课程表接口' do

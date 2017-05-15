@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   scope :by_city, ->(city_id) { where(city_id: city_id) }
 
   def unread_notifications_count
-    self.customized_course_action_notifications.unread.count
+    self.notifications.unread.count
   end
 
   def self.find_by_login_account(login_account)

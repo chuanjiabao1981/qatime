@@ -23,6 +23,9 @@
       <%= link_to main_app.user_notifications_path(@owner) do %>
         <i class="icon-msg"></i>
         <span><%= t("view.teacher_bars.notification") %></span>
+        <% if @owner.unread_notifications_count > 0 %>
+          <em class="news"><%= @owner.unread_notifications_count %></em>
+        <% end %>
       <% end %>
     </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:schedule) %>">

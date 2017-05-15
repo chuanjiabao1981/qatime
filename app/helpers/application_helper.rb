@@ -391,14 +391,14 @@ module ApplicationHelper
   end
 
   # 支付密码提示信息
-  # 密码24小时内不可用
+  # 密码2小时内不可用
   def payment_password_hint(user)
     default_text = content_tag(:i, t('view.common.payment_password_not_set'), class: 'prompt-info')
     return default_text unless user.cash_account_password?
     return default_text if user.cash_account.try(:password_set_at).blank?
 
     time_now = Time.now
-    expire_time = user.cash_account.password_set_at.tomorrow
+    expire_time = user.cash_account.password_set_at + 2.hours
     if expire_time > time_now
       leave_time = Util.duration_in_words((expire_time - time_now).to_i).gsub(/.\d秒/, '')
       content_tag :i, class: 'prompt-info' do

@@ -24,7 +24,7 @@ module Payment
         @errors << I18n.t("error.payment/order.payment_password_blank")
       elsif cash_account.password_set_at.blank?
         @errors << I18n.t("error.payment/order.payment_password_unset")
-      elsif cash_account.password_set_at > 24.hours.ago
+      elsif cash_account.password_set_at > 2.hours.ago
         @errors << t("error.payment/order.payment_password_young")
       elsif !cash_account.authenticate(params[:payment_password])
         @errors << I18n.t("error.payment/order.payment_password_invalid")

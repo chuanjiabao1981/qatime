@@ -151,7 +151,8 @@ module V1
         resource :lessons do
           desc '今日直播'
           get 'today' do
-            lessons = ::LiveStudio::Lesson.includes(:course).where(class_date: Date.today)
+            home_data = DataService::HomeData.new
+            lessons = home_data.today_lives
             present lessons, with: ::Entities::LiveStudio::TodayLesson
           end
         end

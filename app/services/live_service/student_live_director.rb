@@ -32,7 +32,7 @@ module LiveService
 
     # 我的购买的视频课
     def video_courses(options = {})
-      courses = @student.live_studio_bought_video_courses.includes(:video_lessons, :chat_team, :teacher)
+      courses = @student.live_studio_bought_video_courses.includes(:video_lessons, :teacher)
       sell_type_value = LiveStudio::VideoCourse.sell_type.find_value(options[:sell_type]).try(:value)
       courses = courses.where(sell_type: sell_type_value) if sell_type_value
       courses
@@ -57,7 +57,7 @@ module LiveService
     end
 
     def video_courses_of_taste
-      @student.live_studio_taste_video_courses.includes(:teacher, :chat_team).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
+      @student.live_studio_taste_video_courses.includes(:teacher).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
     end
 
     # 弃用

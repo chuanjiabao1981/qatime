@@ -342,7 +342,7 @@ cn:
     payment/order:
       payment_password_blank: 支付密码不能为空
       payment_password_unset: 支付密码未设置
-      payment_password_young: 修改或者设置支付密码24小时内不可用
+      payment_password_young: 修改或者设置支付密码2小时内不可用
       payment_password_invalid: 支付密码不正确
       payment_password_min: 提现最低金额1元
       coupon_code_invalid: 优惠码不存在

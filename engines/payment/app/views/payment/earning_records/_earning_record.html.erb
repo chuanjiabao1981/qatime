@@ -20,7 +20,7 @@
     <td></td>
     <td><%= earning_record.target.model_name.human %></td>
     <td><%= localize(earning_record.created_at, :format => :long) %></td>
-    <td><%= link_to t("view.payment/earning_record.view"), live_studio.video_course_path(earning_record.target) %></td>
+    <td><%= link_to t("view.payment/earning_record.view"), live_studio.video_interactive_course_path(earning_record.interactive_course_id) %></td>
   </tr>
 <% elsif earning_record.target %>
   <tr>

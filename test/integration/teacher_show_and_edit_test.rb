@@ -77,6 +77,6 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on '保存'
     sleep 2
     assert @teacher.cash_account!.authenticate('111111')
-    assert page.has_content?('新密码 23时59分 后可用'), '倒计时未显示'
+    assert page.has_content?('新密码 1时59分 后可用'), '倒计时未显示'
   end
 end

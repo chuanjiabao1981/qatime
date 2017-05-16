@@ -145,17 +145,20 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     logout_as(@manager)
   end
 
-  # test 'manager can billing' do
-  #   log_in_as(@manager)
-  #   teacher = users(:teacher_two)
-  #   click_on '教师'
-  #   click_link teacher.name
-  #   click_link '财产管理'
-  #   assert page.has_content?('结账')
-  #   visit keep_account_teacher_path(teacher)
-  #   assert page.has_content?('结账进行中')
-  #   logout_as(@manager)
-  # end
+  test 'manager can billing' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    click_link teacher.name
+    click_link '财产管理'
+    assert page.has_link?('结账')
+
+    accept_prompt(with: '确定结账吗?') do
+      click_on '结账', match: :first
+    end
+    assert page.has_content?('结账进行中')
+    logout_as(@manager)
+  end
 
   test 'manager cant modify teacher info' do
     log_in_as(@manager)

@@ -30,7 +30,9 @@ module Entities
         course.try(:chat_team).try(:team_id).to_s
       end
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full }
-      expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full }
+      expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full } do |course|
+        course.order_lessons
+      end
       expose :teachers, using: Entities::Teacher
 
       with_options(format_with: :local_timestamp) do

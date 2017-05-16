@@ -129,6 +129,9 @@ cn:
         notice: 提示：退款过程中你将不能进行此课程的学习！
         reason_placeholder: 请输入退款原因（最多300字）
         reason: 请输入退款原因
+    payment/user:
+      earning_records:
+        keep_account_confirm: "确定结账吗?"
   activerecord:
     view:
       order: 我的订单

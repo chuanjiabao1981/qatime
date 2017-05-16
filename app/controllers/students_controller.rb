@@ -102,9 +102,9 @@ class StudentsController < ApplicationController
   end
 
   def customized_courses
-    @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @student.customized_courses.paginate(page: params[:page], per_page: 10)
     @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
-    render layout: 'student_home_new'
+    render layout: 'v1/home'
   end
 
   def notifications

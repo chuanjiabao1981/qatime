@@ -10047,7 +10047,7 @@ ul {
   margin-right: 30px;
   overflow: hidden;
 }
-.price-right a {
+.price-right a,.btn-shelves {
   display: inline-block;
   width: 118px;
   height: 38px;
@@ -10982,9 +10982,13 @@ ul {
   background-color: #20ad65;
   color: #FFFFFF;
 }
-.personal-right > .btn-end {
-  border-color: #CCCCCC;
-  color: #CCCCCC;
+.personal-right > .btn-end ,.btn-shelves{
+  border-color: #CCCCCC !important;
+  color: #CCCCCC !important;
+}
+.btn-shelves {
+  margin-right: 0px !important;
+  outline: none;
 }
 .lessonsg-process > .process-study .row {
   padding: 15px 0px;
@@ -12049,12 +12053,12 @@ ul {
   position: relative;
 }
 .course-link > .class-finish {
+  width: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  display: block;
   color: #FFFFFF;
   font-size: 20px;
   display: -webkit-flex;
@@ -12062,6 +12066,14 @@ ul {
   justify-content: center;
   background-color: rgba(0,0,0,0.7);
 }
+/*.course-link > .class-finish > i {
+	display: block;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	text-align: center;
+	margin-top: -14px;
+}*/
 /*视频课观看页面*/
 .video-info {
   position: relative;
@@ -12617,6 +12629,7 @@ ul {
 .nav-menu > li > a > .news,.nav-dropdown > ul > li > a .news {
   display: inline-block;
   min-width: 18px;
+  padding: 0 4px;
   height: 18px;
   font-size: 12px;
   border-radius: 13px;
@@ -13615,6 +13628,7 @@ ul {
   }
 }
 
+
 /*公共课*/
 .common {
   margin-top: 30px;
@@ -13707,6 +13721,7 @@ ul {
   overflow: hidden;
   white-space: nowrap;
   color: #000;
+  font-size: 16px;
 }
 .manage-list > li .seria-msg a:hover {
   color: #ff5842;
@@ -13714,6 +13729,7 @@ ul {
 .manage-list > li .seria-msg p {
   margin-bottom: 0px;
   color: #666;
+  font-size: 14px;
 }
 @media only screen and (max-width: 768px) {
   .manage-list > li .seria-number {
@@ -13725,6 +13741,12 @@ ul {
 }
 
 /*备课中心*/
+.prepare-list {
+  margin: 30px 0px 0px 0px;
+}
+.prepare-list > li .seria-msg p {
+  color: #999;
+}
 .manage-list > li .seria-operate {
   line-height: 58px;
   text-align: center;
@@ -13732,6 +13754,7 @@ ul {
 }
 .manage-list > li .seria-operate > a {
   color: #ff5842;
+  outline: none;
 }
 .editor-outline .popup-title {
   padding: 0 15px;
@@ -13779,88 +13802,7 @@ ul {
 }
 
 
-/*我的专属课程*/
-.exclusive-list {
-  padding-left: 0px;
-  margin: 30px 0px 0px 0px;
-  overflow: hidden;
-}
-.exclusive-list > li {
-  margin-bottom: 30px;
-  padding: 0 30px;
-  border-bottom: 1px solid #F1F1F1;
-}
-.exclusive-list > li:last-child {
-  border-bottom: 0px;
-}
-.exclusive-list > li > .row {
-  margin: 0px;
-}
-.exclusive-list > li .course-box {
-  padding: 15px 0px;
-  background-color: #FAFAFA;
-}
-.exclusive-list > li .course-box .vice-link {
-  line-height: 50px;
-}
-.exclusive-list > li .course-box .vice-link img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-.exclusive-list > li .course-box .vice-link a {
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  color: #666;
-}
-.exclusive-list .vice-info .item-box {
-  padding: 5px 0;
-  background-color: #FFFFFF;
-  border-radius: 5px;
-}
-.exclusive-list .vice-info > .row {
-  min-height: 50px;
-}
-.exclusive-list .vice-info .item-box > p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: 12px;
-  margin-bottom: 0px;
-  text-align: center;
-  line-height: 20px;
-  color: #999;
-}
-.exclusive-list > li > .remark-box {
-  min-height: 30px;
-  padding: 15px 0px;
-}
-.exclusive-list > li > .remark-box textarea {
-  height: 50px;
-  resize: none;
-  display: none;
-}
-.exclusive-list > li > .remark-box.active textarea {
-  display: block;
-}
-.exclusive-list > li > .remark-box.active span {
-  display: none;
-}
-.exclusive-list > li > .remark-box a {
-  display: block;
-  text-align: right;
-  color: #ff5842;
-}
-.exclusive-list > li > .remark-box.active a {
-  line-height: 50px;
-}
-@media only screen  and (max-width: 992px) {
-  .exclusive-list .vice-info .category-item {
-    margin-bottom: 15px;
-  }
-}
+
 
 /*学生管理*/
 .administrate  {
@@ -13868,14 +13810,14 @@ ul {
   margin-top: 30px;
 }
 .administrate .manage-box > .row {
-  min-height: 48px;
+  min-height: 50px;
   padding: 15px 0px;
   margin: 0px 0px 30px 0px;
   border: 1px solid #F1F1F1;
 }
 .administrate .student-info img {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
 }
 .administrate .student-info > p {
   margin-bottom: 0px;
@@ -13889,4 +13831,331 @@ ul {
 .administrate .examine > a {
   color: #ff5842;
   float: right;
+}
+
+
+/*学生专属课程*/
+/* define bootstrap 5 columns */
+.col-xs-1-5,.col-sm-1-5,.col-md-1-5,.col-lg-1-5 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-xs-1-5 {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 768px) {
+  .col-sm-1-5 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-1-5 {
+    width: 20%;
+    float: left;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-1-5 {
+    width: 20%;
+    float: left;
+  }
+}
+
+.exclusive-box,.tec-list {
+  padding-left: 0px;
+  margin: 30px 0px 0px 0px;
+}
+.exclusive-box > li {
+  padding: 0px 0px 30px 0px;
+}
+.exclusive-box > li > a {
+  display: block;
+  margin: 0 30px;
+  font-size: 16px;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+.exclusive-box > li > a:hover {
+  color: #ff5842;
+}
+.exclusive-box > li > a h4 {
+  margin: 0px;
+  font-size: 16px;
+}
+.exclusive-box > li > .row,.tec-list > li > .row {
+  background-color: #fafafa;
+  margin: 0px 30px;
+  padding: 20px 0px;
+  border: 1px solid #F1F1F1;
+}
+.exclusive-box > li > .row {
+  padding: 20px 0px 0px 0px;
+}
+.exclusive-box > li > .row  .curriculum-item {
+  width: 100%;
+  min-height: 80px;
+  padding: 15px 0px;
+  vertical-align: middle;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 12px;
+  color: #666;
+}
+.exclusive-box > li > .row  .curriculum-item h5 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0px 0px 15px 0px;
+  text-align: center;
+}
+.exclusive-box > li > .row  .curriculum-item p {
+  margin-bottom: 0px;
+  text-align: center;
+}
+.exclusive-box > li > .row .tec-info {
+  width: 100%;
+  min-height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  color: #666;
+}
+.exclusive-box > li > .row .tec-info > p,.tec-list > li > .row .teacher-msg p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 0px;
+}
+.exclusive-box > li > .row .tec-info > p > i {
+  display: inline-block;
+}
+.exclusive-box > li > .row .tec-info > p em {
+  width: 1px;
+  border: 1px solid #ababab;
+  margin: 0 15px;
+}
+.exclusive-box > li > .row .tec-info > p img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  top: -2px
+}
+.exclusive-box > li > .row .tec-info > p a {
+  color: #666;
+}
+/*.exclusive-box > li > .row .tec-info > p span {
+	position: relative;
+	top: 2px;
+}*/
+.exclusive-box > li .proprietary-course {
+  padding: 20px 0px;
+  background-color: #FFFFFF;
+  border: 1px solid #F1F1F1;
+  border-bottom: 0px;
+}
+.exclusive-box > li .proprietary-course a {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
+  color: #34495e;
+}
+.exclusive-box > li .proprietary-course  p {
+  margin-bottom: 0px;
+}
+.exclusive-box > li .proprietary-course  p span {
+  margin-right: 10px;
+  float: right;
+}
+.exclusive-box > li .proprietary-course  p span:first-child {
+  margin-right: 0px;
+}
+.exclusive-box > li .proprietary-course a:hover {
+  color: #ff5842;
+}
+/*我的老师*/
+.tec-list > li {
+  padding-bottom: 30px;
+}
+.tec-list > li > .row {
+  padding: 10px 0;
+  min-height: 77px;
+}
+.tec-list > li > .row .subject > a,.tec-list > li > .row .subject > a span {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #ff5842;
+}
+.tec-list > li > .row .subject > a {
+  padding: 6.5px 0px;
+}
+.tec-list > li > .row .teacher-msg h4 {
+  margin: 0px 0px 20px 0px;
+  font-size: 16px;
+  color: #000;
+}
+.tec-list > li > .row .teacher-msg {
+  padding-left: 30px;
+  border-left: 1px solid #F0F0F0;
+}
+.tec-list > li > .row .teacher-msg > p span {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 12px;
+  color: #666;
+}
+.tec-list > li > .row .teacher-msg > p span:last-child {
+  margin-right: 0px;
+}
+.tec-list > li > .row .teacher-msg > p span > i {
+  position: relative;
+  top: 2px;
+}
+.tec-list > li > .row .teacher-msg > p span img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+@media only screen  and (max-width: 768px) {
+  .tec-list > li > .row .subject > a,.tec-list > li > .row .subject > a span {
+    text-align: left;
+  }
+  .tec-list > li > .row .teacher-msg {
+    padding-left: 15px;
+  }
+}
+
+
+/*学生作业与问题*/
+.homework-nav {
+  margin-top: 30px;
+}
+.homework-nav > .row {
+  margin: 0 15px;
+}
+.homework-nav > .row .nav-info {
+  width: 100%;
+  display: table;
+}
+.homework-nav > .row a {
+  height: 77px;
+  border: 1px solid #F0F0F0;
+  border-radius: 8px;
+  background-color: #FAFAFA;
+  text-align: center;
+  color: #666;
+  display: table-cell;
+  vertical-align: middle;
+}
+.homework-nav > .row a.active {
+  background-color: #FFF;
+  color: #ff5842;
+  border-color: #ff5842;
+}
+.issue-list {
+  padding: 0px 0px 30px 0px;
+  margin: 30px 0px 0px 0px;
+}
+.issue-list > li {
+  min-height: 70px;
+  border-bottom: 1px solid #F0F0F0;
+  padding: 10px 30px;
+}
+.issue-list > li > h4 {
+  margin: 0px 0px 12px 0px;
+  font-size: 16px;
+}
+.issue-list > li > h4 > a {
+  color: #333;
+}
+.issue-list > li > h4 > a:hover {
+  color: #ff5842;
+}
+.issue-list > li > h4 > span {
+  color: #fff;
+  background-color: #ff5842;
+  font-size: 14px;
+  padding: 0 5px;
+}
+.issue-list > li > h4 > .status-correct  {
+  background-color: #4873ff;
+}
+.issue-list > li > h4 > .status-end {
+  background-color: #7414d7;
+}
+.issue-list > li > p {
+  margin-bottom: 0px;
+  color: #666;
+}
+.issue-list > li > p > img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.issue-list > li > p > a {
+  color: #ff5842;
+}
+.issue-list > li > p > i {
+  float: right;
+}
+
+
+/*下架提示*/
+@media screen and (min-width: 768px){
+  .sold-out {
+    width: 390px !important;
+    padding: 0px !important;
+    margin: 0 auto;
+  }
+}
+.sold-out > .modal-content > .modal-body > p {
+  text-align: center;
+  font-size: 16px;
+  line-height: 50px;
+}
+
+/*我的专属课程*/
+
+.exclusive-box > li > .remark-box {
+  min-height: 30px;
+  padding: 15px 0px;
+  background-color: #FFFFFF;
+  border: 1px solid #F0F0F0;
+  border-top: 0px;
+}
+.exclusive-box > li > .remark-box textarea {
+  height: 50px;
+  resize: none;
+  display: none;
+}
+.exclusive-box > li > .remark-box.active textarea {
+  display: block;
+}
+.exclusive-box > li > .remark-box span {
+  color: #999;
+}
+.exclusive-box > li > .remark-box.active span {
+  display: none;
+}
+.exclusive-box > li > .remark-box a {
+  display: block;
+  text-align: right;
+  color: #ff5842;
+}
+.exclusive-box > li > .remark-box.active a {
+  line-height: 50px;
+}
+@media only screen  and (max-width: 992px) {
+  .exclusive-box .vice-info .category-item {
+    margin-bottom: 15px;
+  }
 }

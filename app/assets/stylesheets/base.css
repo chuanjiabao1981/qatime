@@ -13741,6 +13741,20 @@ ul {
 }
 
 /*备课中心*/
+.new-prepare {
+  margin: 30px 30px 0px 30px;
+  padding-bottom: 30px
+}
+.new-prepare > .row {
+  min-height: 54px;
+}
+.new-prepare > .row .has-error {
+  margin: 0px;
+}
+.new-prepare > .row label {
+  font-weight: 500;
+  line-height: 34px;
+}
 .prepare-list {
   margin: 30px 0px 0px 0px;
 }
@@ -13954,7 +13968,7 @@ ul {
 	top: 2px;
 }*/
 .exclusive-box > li .proprietary-course {
-  padding: 20px 0px;
+  padding: 15px 0px;
   background-color: #FFFFFF;
   border: 1px solid #F1F1F1;
   border-bottom: 0px;
@@ -13967,6 +13981,16 @@ ul {
   font-size: 16px;
   color: #34495e;
 }
+.exclusive-box > li .proprietary-course a > span {
+  color: #666;
+}
+.exclusive-box > li .proprietary-course a > img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
 .exclusive-box > li .proprietary-course  p {
   margin-bottom: 0px;
 }
@@ -13977,9 +14001,10 @@ ul {
 .exclusive-box > li .proprietary-course  p span:first-child {
   margin-right: 0px;
 }
-.exclusive-box > li .proprietary-course a:hover {
+.exclusive-box > li .proprietary-course a:hover,.exclusive-box > li .proprietary-course a:hover span {
   color: #ff5842;
 }
+
 /*我的老师*/
 .tec-list > li {
   padding-bottom: 30px;
@@ -14025,12 +14050,17 @@ ul {
   border-radius: 50%;
   margin-right: 10px;
 }
-@media only screen  and (max-width: 768px) {
+@media only screen  and (max-width: 992px) {
   .tec-list > li > .row .subject > a,.tec-list > li > .row .subject > a span {
     text-align: left;
   }
   .tec-list > li > .row .teacher-msg {
     padding-left: 15px;
+  }
+  .tec-list > li > .row .teacher-msg p {
+    text-overflow: clip;
+    overflow: visible;
+    white-space: normal;
   }
 }
 
@@ -14125,11 +14155,16 @@ ul {
 
 /*我的专属课程*/
 
+.exclusive-box > li > .quantity-course {
+  border-bottom: 0px;
+}
 .exclusive-box > li > .remark-box {
   min-height: 30px;
-  padding: 15px 0px;
+  padding: 20px 0px;
   background-color: #FFFFFF;
   border: 1px solid #F0F0F0;
+  border-top: 0px;
+  background-color: #FAFAFA;
   border-top: 0px;
 }
 .exclusive-box > li > .remark-box textarea {

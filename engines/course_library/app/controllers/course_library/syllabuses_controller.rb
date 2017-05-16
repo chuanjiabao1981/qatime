@@ -2,17 +2,16 @@ require_dependency "course_library/application_controller"
 
 module CourseLibrary
   class SyllabusesController < ApplicationController
+    before_action :set_owner
+
+    layout 'v1/home'
 
     def index
-      @teacher = Teacher.find(params[:teacher_id])
-      @syllabuses = @teacher.syllabuses.order(:title)
-      render layout: 'teacher_home_new'
+      @syllabuses = @teacher.syllabuses.order(:title).paginate(page: params[:page])
     end
 
     def new
-      @teacher = Teacher.find(params[:teacher_id])
       @syllabus = @teacher.syllabuses.build
-      render layout: 'teacher_home_new'
     end
 
     def create
@@ -21,14 +20,12 @@ module CourseLibrary
       if @syllabus.save
         redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'new',layout: 'teacher_home_new'
+        render :new
       end
     end
 
     def edit
-      @syllabus = Syllabus.find(params[:id])
       @teacher = @syllabus.author
-      render layout: 'teacher_home_new'
     end
 
     def update
@@ -37,12 +34,11 @@ module CourseLibrary
       if @syllabus.update_attributes(params[:syllabus].permit!)
         redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'edit',layout: 'teacher_home_new'
+        render :edit
       end
     end
 
     def destroy
-      @syllabus = Syllabus.find(params[:id])
       @teacher = @syllabus.author
       @syllabus.destroy
       redirect_to teacher_syllabuses_path(@teacher)
@@ -55,6 +51,11 @@ module CourseLibrary
       else
         @teacher = Teacher.find(params[:teacher_id])
       end
+    end
+
+    def set_owner
+      @teacher ||= Teacher.find_by(id: params[:teacher_id])
+      @owner = @teacher
     end
 
   end

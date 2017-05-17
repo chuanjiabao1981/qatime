@@ -98,7 +98,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records,:update] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records,:update, :update_desc] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|

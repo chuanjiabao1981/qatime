@@ -12018,36 +12018,35 @@ ul {
 
 
 /*教师个人页增加视频课展示*/
+.basic-class > .class-info {
+  margin-top: 30px;
+}
 .class-info > h3 {
-  margin: 0px 0px 10px 30px;
+  margin: 0px 15px 15px 15px;
   font-size: 16px;
+}
+.class-info > h3 > img {
+  margin-right: 10px;
+}
+.basic-class > .class-header {
+  margin-bottom: 0px;
+}
+.basic-class > .class-info > .classify-msg li  {
+  padding-bottom: 10px;
+}
+.basic-class > .class-info > .classify-msg li .class-price {
+  float: right;
+  color: #ff5842;
+}
+.basic-class > .class-info > .classify-msg li .status-shelves {
+  float: right;
+  color: #999;
 }
 .class-info > .classify-msg {
   margin-bottom: 20px;
 }
 .class-info > .iteminfo-more {
-  margin-top: 0px;
-}
-.class-info > .item-handpick > li {
-  padding-bottom: 10px;
-}
-.class-info > .item-handpick > li:hover {
-  box-shadow: 0 0 10px #ccc;
-}
-.class-info > .item-handpick {
-  zoom: 1;
-  padding-left: 0px;
-  margin-bottom: 0px;
-}
-.class-info > .item-handpick:after {
-  display:block;
-  clear:both;
-  content:"";
-  visibility:hidden;
-  height:0;
-}
-.class-exclusive > .item-handpick > li > .handpick-info .class-price {
-  float: right;
+  margin: 0px;
 }
 .course-link {
   position: relative;
@@ -12061,19 +12060,17 @@ ul {
   bottom: 0px;
   color: #FFFFFF;
   font-size: 20px;
-  display: -webkit-flex;
-  align-items: center;
-  justify-content: center;
   background-color: rgba(0,0,0,0.7);
 }
-/*.course-link > .class-finish > i {
-	display: block;
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	text-align: center;
-	margin-top: -14px;
-}*/
+.course-link > .class-finish > i {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  margin-top: -14px;
+}
+
 /*视频课观看页面*/
 .video-info {
   position: relative;

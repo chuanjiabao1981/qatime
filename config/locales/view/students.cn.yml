@@ -135,4 +135,7 @@ cn:
         payment_password: 请输入6位纯数字
         payment_password_confirmation: 再输入一次
         current_payment_password: 输入原支付密码（6位纯数字）
+    customized_courses:
+      title: 我的专属课程
+      timeout_to_solve_homeworks: 超3天未写家庭作业量
 

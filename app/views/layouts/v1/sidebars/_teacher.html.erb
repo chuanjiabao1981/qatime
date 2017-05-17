@@ -52,6 +52,18 @@
         <span><%= t("view.teacher_bars.my_video_courses") %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
+      <%= link_to main_app.curriculums_teacher_path(@owner) do %>
+        <i class="icon-setup"></i>
+        <span><%= t("view.teacher_bars.curriculums") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:lessons_state) %>">
+      <%= link_to main_app.lessons_state_teacher_path(@owner) do %>
+        <i class="icon-state"></i>
+        <span><%= t("view.teacher_bars.lessons_state") %></span>
+      <% end %>
+    </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:homeworks) %>">
       <%= link_to main_app.homeworks_teacher_path(@owner) do %>
         <i class="icon-homework"></i>
@@ -70,22 +82,10 @@
         <span><%= t("view.teacher_bars.teacher_syllabuses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
-      <%= link_to main_app.curriculums_teacher_path(@owner) do %>
-        <i class="icon-setup"></i>
-        <span><%= t("view.teacher_bars.curriculums") %></span>
-      <% end %>
-    </li>
-    <li class="<%= 'active' if teacher_sidebar_nav_is?(:lessons_state) %>">
-      <%= link_to main_app.lessons_state_teacher_path(@owner) do %>
-        <i class="icon-state"></i>
-        <span><%= t("view.teacher_bars.lessons_state") %></span>
-      <% end %>
-    </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:customized_courses) %>">
       <%= link_to main_app.customized_courses_teacher_path(@owner) do %>
         <i class="icon-course"></i>
-        <span><%= t("view.common_bars.customized_courses") %></span>
+        <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
 

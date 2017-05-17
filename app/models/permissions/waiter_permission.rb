@@ -16,7 +16,7 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price, :action_records] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update, :update_desc,:teachers,:topics,:homeworks,:solutions, :get_sale_price, :action_records] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
       allow :customized_tutorials, [:show]

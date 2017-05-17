@@ -106,5 +106,10 @@ cn:
       title: 课程状态
     curriculums:
       title: 我的公共课
+    customized_courses:
+      desc_none: 无备注
+      edit: 编辑备注
+      placeholder:
+        desc: 输入备注内容（最多100字）
     students:
       questions_link: 查看TA的所有问题

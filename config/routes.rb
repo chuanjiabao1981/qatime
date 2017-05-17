@@ -265,6 +265,7 @@ Qatime::Application.routes.draw do
       get 'solutions'
       get 'course_issues'
       get 'action_records'
+      post :update_desc
     end
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]

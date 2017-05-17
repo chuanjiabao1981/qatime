@@ -1,7 +1,39 @@
-  <%= render layout: "shared/customized_courses/index_container" do  %>
-      <% if @customized_courses.length > 0 %>
-          <%= render partial: 'shared/customized_courses/index', locals:{customized_courses: @customized_courses }%>
-      <% else %>
-          <%= render 'shared/customized_courses/introduce' %>
-      <% end %>
+<div class="contains">
+  <div class="contains-title">
+    <h3>
+      <%= t('students.customized_courses.title') %>
+    </h3>
+  </div>
+  <div class="contains-discipline">
+    <ul class="exclusive-box">
+      <%= render partial: 'customized_course', collection: @customized_courses %>
+    </ul>
+
+    <%= render 'shared/blank' if @customized_courses.blank? %>
+    <center><div class="pagination-fix"><%= will_paginate @customized_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('click', '.edit_desc', function(event){
+        $(this).parents(".remark-box").toggleClass("active");
+        if($(this).parents(".remark-box").hasClass("active")) {
+          $(this).html("<%= t('common.save') %>");
+        } else {
+          $(this).html("<%= t('teachers.customized_courses.edit') %>");
+          var desc = $(this).parents(".remark-box").find("textarea").val(),
+              url = $(this).data('url'),
+              cid = $(this).data('cid');
+          $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'script',
+            data: {desc: desc}
+          })
+        }
+      });
+    });
+  </script>
 <% end %>

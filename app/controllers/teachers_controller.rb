@@ -33,9 +33,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    #@teacher = Teacher.find(params[:id])
-    #@curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def edit
@@ -86,8 +84,8 @@ class TeachersController < ApplicationController
   end
 
   def students
-    @learning_plans = @teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @learning_plans = @teacher.learning_plans.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def curriculums

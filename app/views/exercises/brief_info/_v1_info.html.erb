@@ -1,0 +1,4 @@
+<%= render partial: 'shared/examinations/brief_info/v1_info',locals: {examination: exercise} %>
+<%= link_to exercise.customized_tutorial.title ,customized_tutorial_path(exercise.customized_tutorial) %>
+<%= template_url(exercise) %>
+

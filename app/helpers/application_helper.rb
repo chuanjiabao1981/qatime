@@ -274,6 +274,15 @@ module ApplicationHelper
     end
   end
 
+  def state_css_v1_style(object)
+    if object.state == "new"
+      "new"
+    elsif object.state == "in_progress"
+      "correct"
+    elsif object.state == "completed"
+      "end"
+    end
+  end
 
   def completed_duration(object)
     a={
@@ -331,8 +340,10 @@ module ApplicationHelper
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes
       r = controller_name == 'students' && action_name == 'tastes'
-    when :homeworks
-      r = controller_name == 'students' && action_name == 'homeworks'
+    when :solutions
+      r = controller_name == 'students' && action_name == 'solutions'
+    when :my_homework
+      r = controller_name == 'students' && %w[solutions customized_tutorial_topics homeworks questions topics].include?(action_name)
     when :teachers
       r = controller_name == 'students' && action_name == 'teachers'
     when :notifications

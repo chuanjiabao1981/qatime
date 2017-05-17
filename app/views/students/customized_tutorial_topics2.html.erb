@@ -1,0 +1,16 @@
+<%= render layout: "task" do %>
+  <div class="qa_objects">
+    <% if @topics.length != 0 %>
+      <%= render partial: 'shared/qa_objects/brief_info',collection: @topics %>
+    <% else %>
+      <div style="text-align: center;padding: 20px">
+
+        <%= link_to "赶快去#{CustomizedCourse.model_name.human}发起讨论吧!",customized_courses_student_path(@student) %>
+      </div>
+    <% end %>
+
+    <div class="qa_cell">
+      <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+<% end %>

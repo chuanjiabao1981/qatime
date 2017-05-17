@@ -57,7 +57,7 @@
 <%= content_for :javascript do %>
 <script type="text/javascript">
 $(function() {
-  function checkRecharge(tip = false) {
+  function checkRecharge(tip) {
     var amount = parseFloat($("#recharge_amount").val());
     if(!amount || amount <= 0 || amount != $("#recharge_amount").val()) {
       if(tip) alert("<%= t("simple_form.errors.payment/recharge.amount") %>");

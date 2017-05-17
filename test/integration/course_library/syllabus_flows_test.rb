@@ -1,41 +1,53 @@
 require 'test_helper'
 
-class SyllabusFlowsTest < LoginTestBase
-  def setup
-    super
-    @syllabus = course_library_syllabuses(:syllabuses_one)
-    @directory = course_library_directories(:directory_one)
+module CourseLibrary
+  class SyllabusFlowsTest < ActionDispatch::IntegrationTest
+    def setup
+      @routes = Engine.routes
+      @headless = Headless.new
+      @headless.start
+      Capybara.current_driver = :selenium_chrome
+
+      @syllabus = course_library_syllabuses(:syllabuses_one)
+      @directory = course_library_directories(:directory_one)
+      @teacher = users(:teacher1)
+      log_in_as(@teacher)
+    end
+
+    def teardown
+      new_logout_as(@teacher)
+      Capybara.use_default_driver
+    end
+
+    test "syllabuses index" do
+      visit course_library.teacher_syllabuses_path(@teacher)
+      assert page.has_content? '备课中心'
+      assert page.has_link? '新增教学大纲'
+      syllabus = @teacher.syllabuses.first
+      assert page.all('ul.manage-list li').size, @teacher.syllabuses.count
+      assert page.has_content? syllabus.description
+      assert page.has_link?(syllabus.title, href: course_library.syllabus_directory_path(@syllabus,@directory)), '链接不存在'
+    end
+
+    test "syllabuses new and create" do
+      visit course_library.teacher_syllabuses_path(@teacher)
+      click_on '新增教学大纲'
+      fill_in :syllabus_title, with: 'new syllabus'
+      fill_in :syllabus_description, with: 'description for new syllabus'
+      assert_difference '@teacher.syllabuses.count', 1 do
+        click_on '保存'
+        assert page.has_link?('new syllabus')
+      end
+    end
+
+    test "syllabus edit and update" do
+      visit course_library.edit_teacher_syllabus_path(@teacher,@syllabus)
+      fill_in :syllabus_title, with: 'new syllabus title'
+      click_on '保存'
+      assert_equal 'new syllabus title', @syllabus.reload.title
+    end
+
   end
-
-  test "syllabuses index" do
-    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.teacher_syllabuses_path(@teacher)
-    @teacher_session.assert_response :success
-    assert @syllabus.valid?
-    assert @directory.valid?
-    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@directory),1,"#{@directory.to_json}- #{@syllabus.to_json}"
-  end
-
-  test "syllabuses new and create" do
-    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_teacher_syllabus_path(@teacher)
-    @teacher_session.assert_response :success
-
-    c = @teacher.syllabuses.count
-    @teacher_session.post CourseLibrary::Engine.routes.url_helpers.teacher_syllabuses_path(@teacher),
-                          syllabus: {title:"new syllabus",description:"description for new syllabus"}
-    @teacher_session.assert_response :redirect
-    @teacher_session.assert_equal c+1,@teacher.syllabuses.count
-  end
-
-  test "syllabus edit and update" do
-    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.edit_teacher_syllabus_path(@teacher,@syllabus)
-    @teacher_session.assert_response :success
-
-    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.teacher_syllabus_path(@teacher,@syllabus),
-                           syllabus: {title:"new syllabus title"}
-    @teacher_session.assert_response :redirect
-    @teacher_session.assert_equal 1,@teacher.syllabuses.where(title:"new syllabus title").count
-  end
-
 end
 
 

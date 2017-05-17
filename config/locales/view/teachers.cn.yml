@@ -106,4 +106,6 @@ cn:
       title: 课程状态
     curriculums:
       title: 我的公共课
+    students:
+      questions_link: 查看所有问题
 

@@ -1,19 +1,12 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.teacher_bars.teacher_students") %></h3>
+  </div>
+  <div class="administrate">
     <div class="row">
-      <div class="col-md-4">
-        <h2>
-          我的学生
-        </h2>
-
-      </div>
-
+      <%= render partial: 'learning_plan', collection: @learning_plans %>
     </div>
-  </div>
-  <div class="qa_cell">
-    <%= render partial:'learning_plan',collection:@learning_plans %>
-  </div>
-  <div class="qa_cell">
-    <%= will_paginate @learning_plans,renderer: BootstrapPagination::Rails %>
+    <%= render 'shared/blank' if @learning_plans.blank? %>
+    <center><div class="pagination-fix"><%= will_paginate @learning_plans, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
   </div>
 </div>

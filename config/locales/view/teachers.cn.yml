@@ -111,4 +111,5 @@ cn:
       edit: 编辑备注
       placeholder:
         desc: 输入备注内容（最多100字）
-
+    students:
+      questions_link: 查看TA的所有问题

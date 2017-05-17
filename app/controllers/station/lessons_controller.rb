@@ -3,7 +3,7 @@ class Station::LessonsController < Station::BaseController
 
   def state
     params[:state] = 'reviewing' if params[:state].blank?
-    @city = @workstation.city_id
+    @city = @workstation.city
     @lessons = Lesson.all.joins('left outer join users on users.id = lessons.teacher_id').where('users.city_id = ?', @city.id).by_state(params[:state]).order(:created_at).paginate(page: params[:page])
   end
 

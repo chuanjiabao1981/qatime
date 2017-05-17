@@ -12018,36 +12018,35 @@ ul {
 
 
 /*教师个人页增加视频课展示*/
+.basic-class > .class-info {
+  margin-top: 30px;
+}
 .class-info > h3 {
-  margin: 0px 0px 10px 30px;
+  margin: 0px 15px 15px 15px;
   font-size: 16px;
+}
+.class-info > h3 > img {
+  margin-right: 10px;
+}
+.basic-class > .class-header {
+  margin-bottom: 0px;
+}
+.basic-class > .class-info > .classify-msg li  {
+  padding-bottom: 10px;
+}
+.basic-class > .class-info > .classify-msg li .class-price {
+  float: right;
+  color: #ff5842;
+}
+.basic-class > .class-info > .classify-msg li .status-shelves {
+  float: right;
+  color: #999;
 }
 .class-info > .classify-msg {
   margin-bottom: 20px;
 }
 .class-info > .iteminfo-more {
-  margin-top: 0px;
-}
-.class-info > .item-handpick > li {
-  padding-bottom: 10px;
-}
-.class-info > .item-handpick > li:hover {
-  box-shadow: 0 0 10px #ccc;
-}
-.class-info > .item-handpick {
-  zoom: 1;
-  padding-left: 0px;
-  margin-bottom: 0px;
-}
-.class-info > .item-handpick:after {
-  display:block;
-  clear:both;
-  content:"";
-  visibility:hidden;
-  height:0;
-}
-.class-exclusive > .item-handpick > li > .handpick-info .class-price {
-  float: right;
+  margin: 0px;
 }
 .course-link {
   position: relative;
@@ -12061,19 +12060,17 @@ ul {
   bottom: 0px;
   color: #FFFFFF;
   font-size: 20px;
-  display: -webkit-flex;
-  align-items: center;
-  justify-content: center;
   background-color: rgba(0,0,0,0.7);
 }
-/*.course-link > .class-finish > i {
-	display: block;
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	text-align: center;
-	margin-top: -14px;
-}*/
+.course-link > .class-finish > i {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  margin-top: -14px;
+}
+
 /*视频课观看页面*/
 .video-info {
   position: relative;
@@ -13745,15 +13742,38 @@ ul {
   margin: 30px 30px 0px 30px;
   padding-bottom: 30px
 }
-.new-prepare > .row {
+.new-prepare input[type="submit"] {
+  width: 120px;
+  height: 38px;
+  background-color: #fff;
+  border: 1px solid #ff5842;
+  border-radius: 4px;
+  color: #ff5842;
+}
+.new-prepare input[type="submit"]:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+.new-prepare  .row {
   min-height: 54px;
 }
-.new-prepare > .row .has-error {
+.new-prepare .row.prepare-abstract {
+  min-height: 128px;
+}
+.new-prepare .row.prepare-abstract textarea {
+  height: 108px;
+  resize: none;
+}
+.new-prepare .row .has-error {
   margin: 0px;
 }
-.new-prepare > .row label {
+.new-prepare .row label {
   font-weight: 500;
   line-height: 34px;
+  margin-bottom: 0px;
+}
+.new-prepare .row label abbr {
+  color: red;
 }
 .prepare-list {
   margin: 30px 0px 0px 0px;
@@ -13770,48 +13790,15 @@ ul {
   color: #ff5842;
   outline: none;
 }
-.editor-outline .popup-title {
-  padding: 0 15px;
-}
-.editor-outline label {
-  font-weight: 500;
-  line-height: 34px;
-}
-.editor-outline .has-error {
-  margin: 0px;
-}
-.editor-outline .modal-body > .row {
-  min-height: 54px;
-}
-.editor-outline .modal-body > .row textarea{
-  height: 108px;
-  resize: none;
-}
-.editor-outline .modal-body > .row > .col-sm-10 {
-  padding-left: 0px;
-}
-.editor-outline .modal-body > .prepare-abstract {
-  min-height: 128px;
-}
 @media only screen and (max-width: 768px) {
-  .editor-outline .modal-body > .row > .col-sm-10 {
-    padding-left: 15px;
-  }
-  .editor-outline label {
+  .new-prepare .row label {
     line-height: 20px;
   }
-  .editor-outline .modal-body > .row {
+  .new-prepare  .row {
     min-height: 74px;
   }
-  .editor-outline .modal-body > .prepare-abstract {
+  .new-prepare .row.prepare-abstract {
     min-height: 148px;
-  }
-}
-@media screen and (min-width: 768px){
-  .editor-outline {
-    width: 780px !important;
-    padding: 0px !important;
-    margin: 0 auto;
   }
 }
 

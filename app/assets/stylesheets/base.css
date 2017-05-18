@@ -10083,8 +10083,8 @@ ul {
   position: absolute;
   bottom: 0px;
 }
-.price-right a:first-child {
-  margin-right: 26px;
+.price-right a:last-child {
+  margin-left: 26px;
 }
 .course-item {
   background-color: #FFFFFF;
@@ -10345,6 +10345,9 @@ ul {
 @media only screen and (max-width: 460px) {
   .class-label span {
     margin-bottom: 5px;
+  }
+  .nav-item a {
+    margin-right: 20px;
   }
 }
 
@@ -14009,6 +14012,14 @@ ul {
 .tec-list > li > .row .subject > a {
   padding: 6.5px 0px;
 }
+.tec-list > li > .row .tec-editor {
+  height: 100%;
+  padding: 8px 0px;
+}
+.tec-list > li > .row .tec-editor > a {
+  display: block;
+  color: #ff5842;
+}
 .tec-list > li > .row .teacher-msg h4 {
   margin: 0px 0px 20px 0px;
   font-size: 16px;
@@ -14040,6 +14051,7 @@ ul {
 @media only screen  and (max-width: 992px) {
   .tec-list > li > .row .subject > a,.tec-list > li > .row .subject > a span {
     text-align: left;
+    display: inline-block;
   }
   .tec-list > li > .row .teacher-msg {
     padding-left: 15px;
@@ -14048,6 +14060,12 @@ ul {
     text-overflow: clip;
     overflow: visible;
     white-space: normal;
+  }
+  .tec-list > li > .row .tec-editor {
+    padding: 8px 15px;
+  }
+  .tec-list > li > .row .tec-editor > a {
+    display: inline-block;
   }
 }
 

@@ -70,7 +70,7 @@
         <span><%= t("view.student_bars.my_homework") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:teacher_students) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:teachers) %>">
       <%= link_to main_app.teachers_student_path(@owner) do %>
         <i class="icon-tec"></i>
         <span><%= t("view.student_bars.my_teachers") %></span>

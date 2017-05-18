@@ -138,4 +138,7 @@ cn:
     customized_courses:
       title: 我的专属课程
       timeout_to_solve_homeworks: 超3天未写家庭作业量
+    teachers:
+      title: 我的老师
+      teacher: 问答社区专属老师
 

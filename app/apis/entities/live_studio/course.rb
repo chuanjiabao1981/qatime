@@ -76,6 +76,9 @@ module Entities
           course.taste_count.to_i > 0
         end
       end
+      expose :off_shelve do |course|
+        course.off_shelve?
+      end
     end
   end
 end

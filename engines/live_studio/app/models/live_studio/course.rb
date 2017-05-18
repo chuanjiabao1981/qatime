@@ -229,6 +229,11 @@ module LiveStudio
       lesson_price * (lessons_count - closed_lessons_count)
     end
 
+    # 已下架
+    def off_shelve?
+      current_price.zero?
+    end
+
     # 插班优惠?
     def join_cheap?
       teaching? && closed_lessons_count > 0

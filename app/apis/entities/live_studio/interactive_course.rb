@@ -49,6 +49,9 @@ module Entities
           false
         end
       end
+      expose :off_shelve do |course|
+        course.off_shelve?
+      end
     end
   end
 end

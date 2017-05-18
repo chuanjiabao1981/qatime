@@ -123,6 +123,11 @@ module LiveStudio
       price.to_f
     end
 
+    # 已下架
+    def off_shelve?
+      buy_tickets_count > 0
+    end
+
     def order_params
       { amount: current_price, product: self }
     end

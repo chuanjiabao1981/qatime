@@ -41,6 +41,7 @@ module Entities
       expose :taste_count
       expose :completed_lessons_count
       expose :closed_lessons_count
+      expose :started_lessons_count
       expose :live_start_time
       expose :live_end_time
       expose :objective

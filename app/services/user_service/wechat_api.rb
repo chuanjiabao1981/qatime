@@ -1,8 +1,9 @@
 module UserService
   class WechatApi
-    def initialize(code, platform='web')
+    def initialize(code, platform = 'web')
       @code = code
       @platform = platform
+      @appid = WechatSettings.send(platform).appid
     end
 
     # 微信扫码登陆第二部
@@ -20,13 +21,12 @@ module UserService
         openid = flag["openid"]
         @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)
         info = UserService::WechatApi.wechat_userinfo(flag["access_token"], openid)
-        @wechat_user.update(userinfo: userinfo(flag, info))
+        @wechat_user.update(userinfo: userinfo(flag, info), appid: @appid, unionid: info[:unionid])
       end
       @wechat_user
     end
 
     class << self
-
       # 根据openid 绑定用户
       def binding_user(openid, user, info_update = false)
         wechat_user = ::Qawechat::WechatUser.find_by(openid: openid)

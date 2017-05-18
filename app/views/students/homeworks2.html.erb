@@ -1,8 +1,0 @@
-<%= render layout: "task" do %>
-  <% if @homeworks.length > 0 %>
-    <%= render partial: 'shared/qa_objects/index_brief_info',locals: {objects: @homeworks} %>
-
-  <% else %>
-    <%= render 'shared/customized_courses/introduce' %>
-  <% end %>
-<% end %>

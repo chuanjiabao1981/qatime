@@ -1,63 +1,7 @@
-<div class="container">
-  <%= render 'filter' %>
-  <div class="classify-con">
-    <div class="row">
-      <!-- 标签栏 -->
-      <%= render 'tags_bar' -%>
-      <%= render 'list' -%>
-    </div>
+<div class="personal">
+  <div class="container">
+    <%= render 'filter' %>
+    <%= render 'tags_bar' %>
   </div>
+  <%= render 'list' %>
 </div>
-
-<% content_for :javascript do %>
-  <script>
-    $(document).ready(function(){
-      $('.btn-reset').click(function(){
-        init_filter();
-        submit_form('#search-form');
-      })
-
-      $(".btn-screen").click(function(){
-        submit_form('#search-form');
-      })
-
-      $('.remedial-date').each(function(_, el){
-        $(el).click(function(){
-          show_calendar(this)
-        })
-      })
-
-      $("li[class*= '-1'][class*='list-']").each(function(_, el){
-        $(el).click(function(){
-          var list_class = $(this).removeClass('active-color').attr('class');
-          var index = $("."+list_class).index($(this));
-          $(this).addClass('active-color').siblings().removeClass('active-color');
-        })
-      })
-      $(".list-screening li").each(function (i,e) {
-        var _this=$(this).find(".dd-num-msg");
-        $(this).mouseenter(function () {
-          $(_this).show();
-          $(_this).parents(".dl-screening").css("background-color","#F2F2F2");
-        })
-        $(this).mouseleave(function () {
-          $(_this).hide();
-          $(_this).parents(".dl-screening").css("background-color","white")
-        })
-      })
-
-      function show_calendar(el){
-        $.jeDate(el, {
-          skinCell:"jedatered",
-          insTrigger:false,
-          //isinitVal:true,
-          format:"YYYY-MM-DD", // 分隔符可以任意定义，该例子表示只显示年月
-          isClear:false,
-          festival: false, //显示节日
-          minDate: '2000-06-01', //设定最小日期为当前日期
-          //最大日期
-        });
-      }
-    })
-  </script>
-<% end -%>

@@ -36,7 +36,7 @@ module LiveStudio
       state :completed
       state :refunded
 
-      event :publish, after_commit: :ready_lessons do
+      event :publish do
         before do
           self.published_at = Time.now
         end
@@ -62,7 +62,6 @@ module LiveStudio
       self.published_at = Time.now
       self.class_date = interactive_lessons.map(&:class_date).try(:min)
     end
-    after_commit :ready_lessons, on: :create
 
     belongs_to :workstation
     belongs_to :province
@@ -124,6 +123,11 @@ module LiveStudio
       price.to_f
     end
 
+    # 已下架
+    def off_shelve?
+      buy_tickets_count > 0
+    end
+
     def order_params
       { amount: current_price, product: self }
     end
@@ -150,6 +154,7 @@ module LiveStudio
                                   status: 'inactive', item_targets: interactive_lessons.where(live_end_at: nil))
       ticket.active!
       teach!
+      ready_lessons
       ticket
     end
 

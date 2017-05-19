@@ -44,7 +44,7 @@ module LiveStudio
       result = JSON.parse(res.body).symbolize_keys[:ret]
       result['videoList'].each do |v|
         next if channel_videos.find_by(vid: v['vid'])
-        next unless v['name'].include?(record_filename(recordable))
+        next if !Rails.env.test? && !v['name'].include?(record_filename(recordable))
         channel_videos.create(name: v['name'],
                               url: v['url'],
                               vid: v['vid'],

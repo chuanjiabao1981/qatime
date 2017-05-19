@@ -1,0 +1,20 @@
+<li>
+  <h4>
+    <% if current_user and current_user.teacher? and question.is_responed_by_the_teacher?(current_user.id) %>
+      <% if question.is_answered_by_the_teacher?(current_user.id) %>
+        <span>已处理</span>
+      <% else %>
+        <span>未处理</span>
+      <% end %>
+    <% end %>
+    <%= link_to question.title, question_path(question) %>
+  </h4>
+  <p>
+    <%= image_tag question.student.avatar_url(:small), class: 'handle_error_avatar' %>
+    <span>
+      <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前 • 有<%= question.comments_count%>个<%= Comment.model_name.human%> •
+    </span>
+    <%=link_to "#{question.vip_class.category}#{question.vip_class.subject}", vip_class_path(question.vip_class) %>
+    <i>回答：<em><%= question.answers_count %></em></i>
+  </p>
+</li>

@@ -20,7 +20,7 @@ class Question < ActiveRecord::Base
 
   scope :by_learning_plan, lambda {|learning_plan_id| where('learning_plan_id = ?', learning_plan_id) if learning_plan_id}
   scope :by_vip_class,lambda {|v| where(vip_class_id: v) if v}
-
+  scope :by_student, ->(student_id) { where(student_id: student_id) }
 
   before_validation :strip_whitespace
 

@@ -1,21 +1,19 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <div class="row">
-      <div class="col-md-4">
-        <h2>
-          我的老师
-
-            <%= link_to new_learning_plan_path(student_id: @student.id) do %>
-              <button type="button" class="btn btn-xs btn-success"><%=get_edit_or_create_model_string(LearningPlan.new) %></button>
-            <% end if allow?('learning_plans', 'new') %>
-
-        </h2>
-
-      </div>
-
-    </div>
+<div class="contains">
+  <div class="contains-title">
+    <h3>
+      <%= t('students.teachers.title') %>
+      <%= link_to new_learning_plan_path(student_id: @student.id) do %>
+        <button type="button" class="btn btn-xs btn-success"><%=get_edit_or_create_model_string(LearningPlan.new) %></button>
+      <% end if allow?('learning_plans', 'new') %>
+    </h3>
   </div>
-  <div class="qa_box">
-    <%= render partial:'learning_plans/learning_plan',collection:@student.learning_plans %>
+
+  <div class="contains-discipline">
+    <ul class="tec-list">
+      <%= render partial: 'students/learning_plan', collection: @learning_plans %>
+    </ul>
+
+    <%= render 'shared/blank' if @learning_plans.blank? %>
+    <center><div class="pagination-fix"><%= will_paginate @learning_plans, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
   </div>
 </div>

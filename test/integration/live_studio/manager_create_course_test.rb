@@ -34,6 +34,7 @@ module LiveStudio
       click_on '确定'
 
       click_on '添加新课程'
+      sleep(1)
       find('.class_date', match: :first).set(Time.now.tomorrow.to_s[0,10])
       find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
       find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option

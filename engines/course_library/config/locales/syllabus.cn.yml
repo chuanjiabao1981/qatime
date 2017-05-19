@@ -9,4 +9,13 @@ cn:
           description: 简介
       course_library/directory:
           title: 目录名称
-
+  view:
+    course_library/syllabus:
+      index:
+        title: 备课中心
+        new: 新增教学大纲
+        description: "简介：%{desc}"
+        confirm: 确定删除吗?
+        placeholders:
+          title: 输入标题名称（最多20字）
+          description: 输入简单说明（最多100字）

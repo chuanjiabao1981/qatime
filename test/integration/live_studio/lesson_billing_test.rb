@@ -29,7 +29,6 @@ module LiveStudio
       new_logout_as(student)
       # 票据准确性
       assert_equal @course.buy_tickets.count, 1
-      assert_equal @course.buy_tickets.first.got_lesson_ids.count, 2
       assert_equal @course.buy_tickets.first.status, 'active'
 
       # 系统收入 - 学生购买

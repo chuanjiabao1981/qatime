@@ -33,9 +33,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    #@teacher = Teacher.find(params[:id])
-    #@curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def edit
@@ -86,8 +84,8 @@ class TeachersController < ApplicationController
   end
 
   def students
-    @learning_plans = @teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @learning_plans = @teacher.learning_plans.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def curriculums
@@ -105,32 +103,29 @@ class TeachersController < ApplicationController
   end
 
   def questions
-    @questions = @teacher.questions.order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @questions = @teacher.questions.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @topics = Topic.where(teacher_id: @teacher.id).where(topicable_type: 'Lesson').order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
 
   def homeworks
-    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all
-                  .by_customized_course_issue
-                  .by_customized_course_ids(@teacher.customized_course_ids)
-                  .order("created_at desc")
-                  .paginate(page: params[:page])
-    render layout: 'teacher_home_new'
+    @topics = Topic.by_customized_course_issue.by_customized_course_ids(@teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def solutions
-    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def notifications
@@ -163,9 +158,9 @@ class TeachersController < ApplicationController
   end
 
   def customized_courses
-    @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @teacher.customized_courses.paginate(page: params[:page], per_page: 10)
     @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def profile

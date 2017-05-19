@@ -51,7 +51,7 @@ module Payment
     # 应该支付金额
     def pay_money
       # 测试环境支付一分钱
-      return 0.01 if Rails.env.testing? # || Rails.env.development?
+      return 0.01 if Rails.env.testing? || Rails.env.development?
       amount
     end
 

@@ -53,6 +53,8 @@ class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test 'video course deliver_free' do
+    @student = users(:student1)
+    @student_remember_token = api_login(@student, :app)
     video_course = live_studio_video_courses(:published_video_course2)
     post "/api/v1/live_studio/video_courses/#{video_course.id}/deliver_free", {}, {'Remember-Token' => @student_remember_token}
 

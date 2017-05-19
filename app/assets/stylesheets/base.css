@@ -10903,8 +10903,14 @@ ul {
 #calendar .calendar-title {
   color: #000 !important;
 }
-#calendar .calendar-list div.able {
-  color: #666 !important;
+#calendar .calendar-title div.active, #calendar .calendar-list div.active {
+  background: #ff9284 !important;
+}
+#calendar .calendar-list div.nowday {
+  background-color: #e1e1e1 !important;
+}
+#calendar .calendar-title div .circle, #calendar .calendar-list div .circle {
+  background: #ff5842 !important;
 }
 @media screen and (min-width: 768px){
   .modal-client {
@@ -12334,7 +12340,6 @@ ul {
 }
 .schedule-con  #calendar {
   margin-bottom: 30px;
-  margin-top: 10px;
 }
 .schedule-con > div {
   zoom: 1;
@@ -14070,6 +14075,7 @@ ul {
   top: 38px;
   left: -1px;
   z-index: 1000;
+  border-top: 0px;
   display: none;
 }
 .personal-nav > li > .nav-all > ul > li {
@@ -14157,4 +14163,7 @@ ul {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.item-handpick li .classify-info p > span > em {
+  padding: 0 5px;
 }

@@ -15,8 +15,8 @@
         </p>
         <p>
           <span><%= course.grade %><%= course.subject %></span>
-          <% if false %>
-            <span class="status-shelves">已下架</span>
+          <% if course.off_shelve? %>
+            <span class="status-shelves"><%= t('view.course_info_show.shelves') %></span>
           <% else %>
             <span class="class-price"><%= number_to_currency(course.current_price) %></span>
           <% end %>

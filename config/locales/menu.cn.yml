@@ -88,6 +88,8 @@
     search_result: '搜索结果'
     tips: '提示'
     confirm: '确认'
+    teacher: '老师'
+    student: '学生'
     off_shelve: 该课程已下架!
   tips:
     replay_used_up: '失败：回放次数已经耗尽'

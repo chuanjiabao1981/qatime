@@ -23,7 +23,7 @@ class Admins::WithdrawsController < ApplicationController
 
   def pass
     @withdraw = Payment::Withdraw.find(params[:id])
-    @withdraw.allow!(current_user)
+    @withdraw.allow_by!(current_user, request.remote_ip)
     redirect_to action: :audit
   end
 

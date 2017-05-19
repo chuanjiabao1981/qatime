@@ -749,3 +749,12 @@ lesson_for_update_class_date3:
   class_date: <%= 3.days.since.to_date + 2.day %>
   status: 0
   duration: 30
+
+lesson_for_off_shelve:
+  name: 第1节课
+  course: course_for_off_shelve
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 3.days.since.to_date + 2.day %>
+  status: 4
+  duration: 30

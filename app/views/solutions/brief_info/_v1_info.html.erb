@@ -1,0 +1,15 @@
+<span>
+  <%= [solution.student.name,
+       "#{localize(solution.created_at,:format => :long)} 提交",
+       "#{solution.corrections_count}次批改"
+      ].join(" • ") %> •
+  <% if solution.in_progress? and solution.last_handled_at%>
+    <%= "#{Solution.human_attribute_name(:last_handled_at)} #{localize(solution.last_handled_at,:format => :long)}" %> •
+  <% end %>
+</span>
+
+<%= link_to solution.examination.model_name.human, send("#{solution.examination.model_name.singular_route_key}_path", solution.examination) %>
+
+<% if solution.completed? %>
+  • <%= completed_duration(solution) %>
+<% end %>

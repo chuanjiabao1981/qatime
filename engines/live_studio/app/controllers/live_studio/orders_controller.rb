@@ -9,6 +9,7 @@ module LiveStudio
     before_action :set_product, except: [:check_coupon]
     before_action :find_coupon, only: [:create, :check_coupon]
     before_action :detect_device_format, only: [:new, :create]
+    before_action :check_product_for_sell, only: [:new, :create]
     before_action :check_free_product, only: [:new, :create]
 
     # GET /orders/1
@@ -96,6 +97,13 @@ module LiveStudio
 
     def order_source
       request.variant ? 'wap' : 'web'
+    end
+
+    # 检查课程是否下架
+    def check_product_for_sell
+      if @product.off_shelve?
+        return redirect_to live_studio.send("#{@product.model_name.singular_route_key}_path", @product), notice: t('common.off_shelve')
+      end
     end
 
     # 免费课程跳过下单直接发票

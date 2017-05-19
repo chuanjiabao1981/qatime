@@ -113,3 +113,10 @@ cn:
         desc: 输入备注内容（最多100字）
     students:
       questions_link: 查看TA的所有问题
+    homeworks:
+      tab:
+        solutions: 学生提交的全部作业
+        customized_tutorial_topics: 专属课程中向您的提问
+        homeworks: 您在专属课程中布置的作业与练习
+        questions: 问答社区中向您的提问
+        topics: 公共课程中向您的提问

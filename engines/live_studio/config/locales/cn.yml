@@ -112,6 +112,7 @@ cn:
       start_learning: 开始学习
       start_learning2: 观看
       taste_end: 试听结束
+      shelves: 已下架
       buy_teaching_course_tips: '该直播课已开课，是否确认购买？'
     course_search_show:
       clear_range_btn: 清除范围

@@ -21,7 +21,7 @@ module UserService
         openid = flag["openid"]
         @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)
         info = UserService::WechatApi.wechat_userinfo(flag["access_token"], openid)
-        @wechat_user.update(userinfo: userinfo(flag, info), appid: @appid, unionid: info[:unionid])
+        @wechat_user.update(userinfo: userinfo(flag, info), appid: @appid, unionid: info[:unionid], headimgurl: info[:headimgurl])
       end
       @wechat_user
     end

@@ -8,7 +8,7 @@ module Payment
     belongs_to :owner, polymorphic: true
 
     enum status: %w(init allowed refused canceled paid)
-    enum pay_type: %w(cash bank alipay wechat station)
+    enum pay_type: %w(cash bank alipay weixin station)
 
     attr_accessor :account_money_snap_shot, :captcha
     # 验证码验证

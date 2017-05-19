@@ -1,7 +1,7 @@
 cn:
   schedules:
     tab:
-      schedules: 课程日历
+      schedules: 全部课程
       wait: 未上课
       close: 已上课
       schedule: 我的课表

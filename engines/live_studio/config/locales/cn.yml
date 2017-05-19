@@ -61,6 +61,8 @@ cn:
       lesson_time: 课时
       lesson_count: 共%d课
       buy_tickets_count_text: "学习人数%{count}"
+      buy_user_count_text: "%{count}人学习"
+      buy_user_count_text2: "%{count}人报名"
       lessons_count: 课时
       lessons_count_of: 共%{lessons_count}课
       current: 当前课程：

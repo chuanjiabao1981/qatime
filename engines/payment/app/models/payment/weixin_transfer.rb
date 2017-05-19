@@ -19,7 +19,7 @@ module Payment
         amount: pay_money,
         spbill_create_ip: remote_ip,
         check_name: 'NO_CHECK',
-        openid: order.try(:user).try(:wechat_users).try(:last).try(:openid),
+        openid: order.withdraw_record.account,
         desc: "用户提现"
       }
     end

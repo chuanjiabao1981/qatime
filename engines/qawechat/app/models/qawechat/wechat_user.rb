@@ -10,8 +10,8 @@ module Qawechat
     before_validation :load_union_user!
     def load_union_user!
       return if unionid.blank? || user_id.present?
-      union_record = where("unionid = ? and openid <> ?", unionid, openid).last
-      self.user = union_record.user if union_record.user
+      union_record = WechatUser.where("unionid = ? and openid <> ?", unionid, openid).last
+      self.user = union_record.user if union_record
     end
   end
 end

@@ -231,7 +231,7 @@ module LiveStudio
 
     # 已下架
     def off_shelve?
-      current_price.zero?
+      completed?
     end
 
     # 插班优惠?

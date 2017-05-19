@@ -51,12 +51,6 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     assert ready_lesson.live_sessions.present?, '直播中的课程应该有心跳记录'
   end
 
-  test 'service lesson start false' do
-    false_lesson = live_studio_lessons(:ready_lesson_for_false)
-    flag = LiveService::LessonDirector.new(false_lesson).lesson_start(1, 0)
-    assert !flag, '已有直播中的辅导班开始直播课程会返回false'
-  end
-
   test 'service ready_today_lessons status change' do
     lesson = live_studio_lessons(:init_lesson_change_ready)
     course = lesson.course

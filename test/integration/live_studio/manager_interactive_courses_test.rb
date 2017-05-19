@@ -81,7 +81,7 @@ module LiveStudio
         end
       end
       new_interactive_course = LiveStudio::InteractiveCourse.last
-      assert_equal new_interactive_course.status, 'teaching', '新创建今日开课状态未变'
+      assert new_interactive_course.published?, "新创建今日开课状态不正确 #{new_interactive_course.status}"
       assert_equal new_interactive_course.lessons.first.status, 'ready', '新创建今日课程状态为变'
     end
 

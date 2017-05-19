@@ -80,8 +80,8 @@ class StudentsController < ApplicationController
   end
 
   def teachers
-    @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @learning_plans = @student.learning_plans.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_tutorial_topics

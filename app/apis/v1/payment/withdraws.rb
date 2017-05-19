@@ -53,8 +53,8 @@ module V1
             params do
               requires :amount, type: Float, desc: '提现金额'
               requires :pay_type, type: String, desc: '提现方式', values: %w(bank alipay weixin)
-              requires :account, type: String, desc: '账号'
-              requires :name, type: String, desc: '姓名'
+              optional :account, type: String, desc: '账号'
+              optional :name, type: String, desc: '姓名'
               requires :ticket_token, type: String, desc: '验证token'
               optional :access_code, type: String, desc: '微信授权code'
               optional :openid, type: String, desc: '微信授权openid'
@@ -69,7 +69,7 @@ module V1
 
               raise(APIErrors::WithdrawExisted) if @user.payment_withdraws.init.present?
               UserService::CashAccountManager.new(@user).check_token(:withdraw, params[:ticket_token])
-              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init }
+              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init}
               withdraw = @user.payment_withdraws.new(withdraw_params)
               raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save
               if withdraw.weixin? # 微信提现使用openid

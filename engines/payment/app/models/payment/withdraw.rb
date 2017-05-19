@@ -17,8 +17,6 @@ module Payment
     validates :amount, presence: true, numericality: { greater_than: 0 }, on: :create, if: Proc.new { |record| record.station? }
     validate :amount_balance_valid, on: :create, if: Proc.new { |record| record.station? }
 
-    validate :validate_withdraw_amount, :validate_wechat, on: :create, unless: Proc.new { |record| record.station? }
-
     after_create :decrease_cash!
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
@@ -77,7 +75,7 @@ module Payment
     end
 
     def pay_type_text
-      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.try(:account)} #{withdraw_record.try(:name)})"}"
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || weixin? ? nil : "(#{withdraw_record.try(:account)} #{withdraw_record.try(:name)})"}"
     end
 
     def change_money
@@ -90,6 +88,19 @@ module Payment
 
     def account_owner
       owner || user
+    end
+
+    def allow_by!(operator, ip)
+      Payment::Withdraw.transaction do
+        self.remote_ip = ip
+        save!
+        allow!
+        allow_operator(operator)
+      end
+    end
+
+    def pay_and_ship!
+      pay!
     end
 
     private
@@ -110,14 +121,13 @@ module Payment
 
     def allow_operator(current_user)
       Payment::Withdraw.transaction do
-        operator_record(status,'allowed',current_user)
+        operator_record(status, 'allowed', current_user)
         withdraw_cash!
       end
     end
 
     def refuse_operator(current_user)
-      operator_record(status,'refused',current_user)
-      cancel_frozen!
+      operator_record(status, 'refused', current_user)
     end
 
     # 操作记录
@@ -134,14 +144,13 @@ module Payment
 
     # 变动用户余额
     def withdraw_cash!
-      user.cash_account!.withdraw(amount, self)
       # 提现类型是微信时 创建自动转账数据
-      wechat? && weixin_transfers.create(
+      weixin? && weixin_transfers.create!(
         amount: amount,
         remote_ip: remote_ip,
         status: :unpaid,
         order_no: transaction_no
-      )
+      ).remote_transfer
     end
 
     def validate_withdraw_amount
@@ -167,10 +176,6 @@ module Payment
       if self.owner.cash_account.balance.to_f < self.amount.to_f
         errors.add(:amount, I18n.t("error.payment/withdraw.amount_overflow"))
       end
-    end
-
-    def validate_wechat
-      self.errors.add(:pay_type, "微信未绑定，必须是本账户已绑定的微信号") if wechat? && user.wechat_users.blank?
     end
 
     def parse_raw_value_as_a_number(raw_value)

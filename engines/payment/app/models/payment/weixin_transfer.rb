@@ -3,6 +3,9 @@ module Payment
     RESULT_SUCCESS = "SUCCESS".freeze
 
     def remote_transfer
+      # 根据订单来源设置企业支付证书
+      # 可能会有并发问题
+      WxPay.set_apiclient_by_pkcs12(*WechatSetting[:app_cert])
       return fail! if Rails.env.test?
       r = WxPay::Service.invoke_transfer(transfer_remote_params)
       self.hold_results = JSON.parse(r.to_json)

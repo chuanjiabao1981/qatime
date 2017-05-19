@@ -14078,10 +14078,9 @@ ul {
   border-top: 0px;
   display: none;
 }
-.personal-nav > li > .nav-all > ul > li {
-  padding-left: 30px;
-}
 .personal-nav > li > .nav-all > ul > li > a {
+  display: block;
+  padding-left: 30px;
   color: #9aabb8;
 }
 .personal-nav > li > .nav-all > ul > li:hover a,.personal-nav > li > .nav-all > ul > li.active > a {

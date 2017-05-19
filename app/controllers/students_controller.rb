@@ -70,14 +70,13 @@ class StudentsController < ApplicationController
   end
 
   def questions
-    @questions = Question.all.where("student_id=?",@student.id).
-        includes({learning_plan: :teachers},:vip_class,:student).
-        order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @questions = Question.by_student(@student.id).includes({learning_plan: :teachers}, :vip_class, :student).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def topics
-    @topics = Topic.all.where(author_id: @student.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @topics = Topic.where(author_id: @student.id).where(topicable_type: 'Lesson').order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def teachers
@@ -86,19 +85,18 @@ class StudentsController < ApplicationController
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all.by_author_id(@student.id)
-                  .by_customized_course_issue
-                  .order("created_at desc")
-                  .paginate(page: params[:page])
-    render layout: 'student_home_new'
+    @topics = Topic.all.by_author_id(@student.id).by_customized_course_issue.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def homeworks
-    @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
+
   def solutions
-    @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_courses

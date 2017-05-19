@@ -1,16 +1,20 @@
-<%= render layout: "task" do %>
-    <div class="qa_topics">
-      <% if @topics.length != 0 %>
-        <%= render @topics %>
-      <% else %>
-          <div style="text-align: center;padding: 20px">
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.student_bars.my_homework") %></h3>
+  </div>
 
-              <%= link_to "赶快去#{Curriculum.model_name.human}发起讨论吧!",curriculums_path %>
-          </div>
-      <% end %>
+  <div class="contains-discipline">
+    <%= render partial: 'students/homeworks/tab' %>
 
-      <div class="qa_cell">
-        <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
+    <div class="tab-content">
+      <div id="solutions" class="tab-pane fade active in">
+        <ul class="issue-list">
+          <%= render partial: 'students/topics/topic', collection: @topics %>
+        </ul>
+
+        <%= render 'shared/blank' if @topics.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @topics, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
       </div>
     </div>
-<% end %>
+  </div>
+</div>

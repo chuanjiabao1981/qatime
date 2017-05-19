@@ -1,0 +1,3 @@
+<span><%= examination.teacher.try(:view_name) %> • <%= localize(examination.created_at,format: :long) %> 布置 • 批改了<%=examination.corrections_count %>次作业 • </span>
+<%= image_tag examination.student.avatar_url(:small), class: 'handle_error_avatar' %>
+<span><%= examination.student.name%> • 写了<%= examination.solutions_count %>次作业 • </span>

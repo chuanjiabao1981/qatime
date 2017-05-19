@@ -1,10 +1,10 @@
-<ul class="item-handpick" id="interactive_courses">
+<ul class="classify-msg" id="interactive_courses">
   <% courses.each do |course| %>
     <li class="col-md-4 col-sm-4 col-xs-6">
       <%= link_to live_studio.interactive_course_path(course), target: '_blank', class: "#{'course-link' if course.is_finished?}" do %>
         <%= image_tag course.publicize_url(:info), class: 'handle_error_list' %>
         <% if course.is_finished? %>
-          <span class="class-finish"><%= t('teachers.profile.is_finished') %></span>
+          <div class="class-finish"><i><%= t('teachers.profile.is_finished') %></i></div>
         <% end %>
       <% end %>
       <div class="handpick-info">
@@ -15,7 +15,11 @@
         </p>
         <p>
           <span><%= course.grade %><%= course.subject %></span>
-          <span class="class-price"><%= number_to_currency(course.current_price, locale: :cn) %></span>
+          <% if false %>
+            <span class="status-shelves">已下架</span>
+          <% else %>
+            <span class="class-price"><%= number_to_currency(course.current_price) %></span>
+          <% end %>
         </p>
       </div>
     </li>

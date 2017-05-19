@@ -16,6 +16,16 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
+    test "student buy off shelve course" do
+      course = live_studio_courses(:course_for_off_shelve)
+      visit live_studio.course_path(course)
+      assert page.has_link? '已下架'
+      assert page.has_no_link? '立即报名'
+
+      visit live_studio.new_course_order_path(course)
+      assert page.has_content? '该课程已下架!'
+    end
+
     test "student buy course" do
       visit live_studio.courses_index_path(student_id: @student)
       course_preview = live_studio_courses(:course_preview)

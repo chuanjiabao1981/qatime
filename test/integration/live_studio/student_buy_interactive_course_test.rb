@@ -16,6 +16,16 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
+    test "student buy off shelve interactive course" do
+      course = live_studio_interactive_courses(:interactive_course_three_1)
+      visit live_studio.interactive_course_path(course)
+      assert page.has_link? '已下架'
+      assert page.has_no_link? '立即报名'
+
+      visit live_studio.new_interactive_course_order_path(course)
+      assert page.has_content? '该课程已下架!'
+    end
+
     # 学生购买一对一
     test "student buy a interactive course" do
       course = live_studio_interactive_courses(:interactive_course_two_1)

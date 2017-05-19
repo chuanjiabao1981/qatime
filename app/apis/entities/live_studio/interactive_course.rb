@@ -12,6 +12,7 @@ module Entities
       expose :lessons_count
       expose :completed_lessons_count
       expose :closed_lessons_count
+      expose :started_lessons_count
       expose :live_start_time
       expose :live_end_time
       expose :objective
@@ -48,6 +49,9 @@ module Entities
         expose :cheap_moment do |course|
           false
         end
+      end
+      expose :off_shelve do |course|
+        course.off_shelve?
       end
     end
   end

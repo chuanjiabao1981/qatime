@@ -1,0 +1,4 @@
+<span>
+  <%= course_issue.author.view_name %> • <%= localize(course_issue.created_at,format: :long) %>创建 • <%=course_issue.replies_count%>个回复 •
+</span>
+<%= link_to CourseIssue.model_name.human,customized_course_path(course_issue.customized_course)%>

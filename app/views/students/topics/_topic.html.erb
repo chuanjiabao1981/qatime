@@ -1,0 +1,18 @@
+<li>
+  <h4>
+    <% if topic.replies_count > 0 %>
+      <span class="status-correct">已处理</span>
+    <% else %>
+      <span>待处理</span>
+    <% end %>
+    <%= link_to topic.title, topic_path(topic) %>
+  </h4>
+  <p>
+    <%= image_tag topic.author.avatar_url(:small), class: 'handle_error_avatar' %>
+    <span>
+      <%= topic.author.view_name %> • <%= localize(topic.created_at,format: :long) %>创建 • <%=topic.replies_count%>个回复 •
+    </span>
+    <%= link_to topic.topicable.name, send("#{topic.topicable.model_name.singular_route_key}_path", topic.topicable) %>
+    <i>回答：<em><%= topic.replies_count %></em></i>
+  </p>
+</li>

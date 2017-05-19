@@ -141,4 +141,11 @@ cn:
     teachers:
       title: 我的老师
       teacher: 问答社区专属老师
+    homeworks:
+      tab:
+        solutions: 学生提交的全部作业
+        customized_tutorial_topics: 专属课程中的问题
+        homeworks: 专属课程中的作业与练习
+        questions: 问答社区中的问题
+        topics: 公共课程的问题
 

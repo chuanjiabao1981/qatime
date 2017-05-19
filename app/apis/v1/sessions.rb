@@ -43,7 +43,7 @@ module V1
         requires :client_type, type: String, desc: '登陆方式.'
       end
       post 'wechat' do
-        wechat_user = UserService::WechatApi.new(params[:code], 'mobile').web_access_token
+        wechat_user = UserService::WechatApi.new(params[:code], 'app').web_access_token
         user = wechat_user.try(:user)
         if user.present?
           check_client!(user, params[:client_cate])

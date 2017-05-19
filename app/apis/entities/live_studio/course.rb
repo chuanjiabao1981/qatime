@@ -41,6 +41,7 @@ module Entities
       expose :taste_count
       expose :completed_lessons_count
       expose :closed_lessons_count
+      expose :started_lessons_count
       expose :live_start_time
       expose :live_end_time
       expose :objective
@@ -75,6 +76,9 @@ module Entities
         expose :free_taste do |course|
           course.taste_count.to_i > 0
         end
+      end
+      expose :off_shelve do |course|
+        course.off_shelve?
       end
     end
   end

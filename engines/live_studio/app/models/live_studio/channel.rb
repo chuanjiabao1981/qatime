@@ -78,7 +78,7 @@ module LiveStudio
     after_destroy :delete_remote_channel
 
     def create_remote_channel
-      return if Rails.env.development? || Rails.env.test?
+      return if Rails.env.development?
       res = VCloud::Service.app_channel_create(name: name, type: 0)
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200

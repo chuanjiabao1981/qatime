@@ -4,7 +4,7 @@ module LiveStudio
     queue_as :live_studio
 
     def perform(replay_id)
-      LiveStudio::Replay.find(id).merge_video
+      LiveStudio::Replay.find(replay_id).merge_video
     end
   end
 end

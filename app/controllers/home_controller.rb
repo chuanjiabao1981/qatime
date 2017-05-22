@@ -23,7 +23,6 @@ class HomeController < ApplicationController
   def switch_city
     @hash_cities = City.has_default_workstation.to_a.group_by {|city| Spinying.parse(word: city.name).first }.sort.to_h
     @selected_cities = cookies[:selected_cities].try(:split, '-')
-    render layout: 'application_front'
   end
 
   private

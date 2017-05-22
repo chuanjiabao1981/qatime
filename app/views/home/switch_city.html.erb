@@ -1,98 +1,54 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-      <div class="city-content">
-        <div class="city-title">
-            <%= form_tag home_path, method: :get, class: 'form-city' do %>
-              <span class="province"><%= t('view.common.province_by') %>:</span>
-              <span>
-                <%= select_tag 'teacher[province_id]', options_for_select(Province.has_default_workstation.pluck(:name, :id).insert(0,[t('view.common.option_province'), nil])),
+<div class="common-space">
+  <div class="container">
+    <div class="city-content">
+      <div class="city-title">
+        <%= form_tag home_path, method: :get, class: 'form-city' do %>
+          <span class="province"><%= t('view.common.province_by') %>：</span>
+          <span>
+            <%= select_tag 'teacher[province_id]', options_for_select(Province.has_default_workstation.pluck(:name, :id).insert(0,[t('view.common.option_province'), nil])),
                                'data-remote': true,
-                               'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', scope: 'has_workstation')
-                %>
-                &nbsp;&nbsp;
-                <%= select_tag :city_id, options_for_select([[t('view.common.option_city'), nil]]), class: 'data-second' %>
-              </span>
-              <input type="submit" name="" id="" value="<%= t('students.common.ok') %>" class="btn-switch">
-            <% end %>
-            <span class="prompt-con">(<%= t('view.common.city_tips') %>)</span>
+                               'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', scope: 'has_workstation') %>
+            <%= select_tag :city_id, options_for_select([[t('view.common.option_city'), nil]]), class: 'data-second' %>
+          </span>
+          <%= submit_tag t('students.common.ok'), class: 'btn-switch' %>
+          <span class="prompt-con">(<%= t('view.common.city_tips') %>)</span>
           <%= link_to t('view.common.switch_country'), home_path(city_name: 'country'), class: 'change-city' %>
+        <% end %>
+      </div>
+
+      <div class="city-details">
+        <div class="city-list">
+          <h3><%= t('view.common.recent_selected') %>：</h3>
+          <p>
+            <% @selected_cities.each do |i| %>
+              <%= link_to(i == 'country' ? t('view.common_bars.nationwide') : i, home_path(city_name: i)) %>
+            <% end if @selected_cities %>
+            <%= link_to t('view.common_bars.nationwide'), home_path(city_name: 'country') if @selected_cities.blank? %>
+          </p>
         </div>
-        <div class="city-details">
-          <div class="city-list">
-            <h3><%= t('view.common.recent_selected') %>:</h3>
-            <p>
-              <% @selected_cities.each do |i| %>
-                <%= link_to(i == 'country' ? t('view.common_bars.nationwide') : i, home_path(city_name: i)) %>
-              <% end if @selected_cities %>
-              <%= link_to t('view.common_bars.nationwide'), home_path(city_name: 'country') if @selected_cities.blank? %>
-            </p>
-          </div>
-          <div class="citieslist">
-            <h2><%= t('view.common.pinyin_by') %>：</h2>
-            <ol class="hasallcity">
-              <% @hash_cities.map do |k,cities| %>
-                <li style="background-color: white;">
-                  <p>
-                    <span class="hasallcity-num" style="background: rgb(241, 241, 241); border-color: gray; color: rgb(0, 0, 0);">
-                      <strong><%= k.upcase %></strong>
-                    </span>
-                    <span class="hasallcity-name">
-                      <% cities.each do |city| %>
-                        <%= link_to city.name, home_path(city_name: city.name) %>
-                      <% end %>
-                    </span>
-                  </p>
-                </li>
-              <% end %>
-            </ol>
-          </div>
-        </div>
-        <div class="city-prompt">
-          <%= t('view.common.city_none_tips') %>
+
+        <div class="citieslist">
+          <h2><%= t('view.common.pinyin_by') %>：</h2>
+          <ol class="hasallcity">
+            <% @hash_cities.each do |k,cities| %>
+              <li>
+                <div class="row">
+                  <div class="col-md-1">
+                    <span class="hasallcity-num"><strong><%= k.upcase %></strong></span>
+                  </div>
+                  <div class="col-md-11">
+                    <% cities.each do |city| %>
+                      <%= link_to city.name, home_path(city_name: city.name) %>
+                    <% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ol>
         </div>
       </div>
+
+      <div class="city-prompt"><%= t('view.common.city_none_tips') %></div>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-
-  $(".hasallcity li").each(function  (i,e) {
-    $(this).mouseenter(function () {
-      $(this).css("background-color","#F2F2F2");
-      $(this).find(".hasallcity-num").css({
-        background: "rgb(242,16,16)",
-        borderColor: "rgb(242,16,16)",
-        color: "white"
-      })
-    })
-    $(this).mouseleave(function () {
-      $(this).css("background-color","white");
-      $(this).find(".hasallcity-num").css({
-        background: "rgb(241,241,241)",
-        borderColor: "gray",
-        color: "#000"
-      })
-    })
-  })
-
-
-  $(".hasallcity-name a").each(function  (i,e) {
-    $(this).mouseenter(function () {
-      $(this).css("color","rgb(242,16,16)");
-    })
-    $(this).mouseleave(function () {
-      $(this).css("color","rgb(153,153,153)")
-    })
-  })
-
-
-  $(".city-list p a").each(function  (i,e) {
-    $(this).mouseenter(function () {
-      $(this).css("color","rgb(242,16,16)");
-    })
-    $(this).mouseleave(function () {
-      $(this).css("color","rgb(153,153,153)")
-    })
-  })
-</script>

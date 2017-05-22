@@ -94,11 +94,17 @@ module V1
       end
       params do
         requires :id, type: Integer, desc: 'ID'
-        requires :code, type: String, desc: '微信授权code'
+        optional :code, type: String, desc: '微信授权code'
+        optional :openid, type: String, desc: '微信openid'
+        exactly_one_of :code, :openid
       end
       post "/:id/wechat" do
         user = ::User.find(params[:id])
-        wechat_user = UserService::WechatApi.new(params[:code], 'app').web_access_token
+        wechat_user = if params[:openid].present?
+                        Qawechat::WechatUser.find_by!(openid: params[:openid])
+                      else
+                        UserService::WechatApi.new(params[:code], 'app').web_access_token
+                      end
         UserService::WechatApi.binding_user(wechat_user.openid, user)
         'ok'
       end

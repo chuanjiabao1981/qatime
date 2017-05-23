@@ -95,10 +95,12 @@ module V1
       params do
         requires :id, type: Integer, desc: 'ID'
         requires :code, type: String, desc: '微信授权code'
+        optional :client_cate, type: String, values: %w(teacher_live student_client), desc: '客户端类型'
       end
       post "/:id/wechat" do
         user = ::User.find(params[:id])
-        wechat_user = UserService::WechatApi.new(params[:code], 'app').web_access_token
+        app_name = params[:client_cate] == 'teacher_live' ? 'teacher_app' : 'student_app'
+        wechat_user = UserService::WechatApi.new(params[:code], app_name).web_access_token
         UserService::WechatApi.binding_user(wechat_user.openid, user)
         'ok'
       end

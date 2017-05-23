@@ -45,6 +45,7 @@ cn:
         wechat: 微信转账
         alipay: 支付宝转账
         station: 工作站提现
+        weixin: 微信钱包
     payment/order:
       pay_type:
         account: 余额支付

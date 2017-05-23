@@ -2,7 +2,7 @@ module LiveStudio
   class Channel < ActiveRecord::Base
     has_soft_delete
 
-    belongs_to :course
+    belongs_to :channelable, polymorphic: :true
     has_many :channel_videos, dependent: :destroy
     has_many :push_streams, dependent: :destroy
     has_many :pull_streams, dependent: :destroy

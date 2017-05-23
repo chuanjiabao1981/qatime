@@ -9,6 +9,7 @@ module LiveStudio
     include AASM
     extend Enumerize
     include QaToken
+    include Channelable
 
     include Qatime::Stripable
     strip_field :name, :description
@@ -124,10 +125,6 @@ module LiveStudio
 
     has_many :students, through: :buy_tickets
 
-    has_many :channels
-    has_one :channel
-    has_many :push_streams, through: :channels
-    has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
     has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
@@ -206,12 +203,6 @@ module LiveStudio
 
     def status_text
       I18n.t("status.#{status}")
-    end
-
-    def init_channel
-      return unless channels.blank?
-      channels.create(name: "#{name} - 直播室 - #{id} - 白板", course_id: id, use_for: :board)
-      channels.create(name: "#{name} - 直播室 - #{id} - 摄像头", course_id: id, use_for: :camera)
     end
 
     def lesson_count_left
@@ -576,12 +567,6 @@ module LiveStudio
       return true if user.admin?
       return user.id == teacher_id if user.teacher?
       !user.student? && workstation_id == user.workstation_id
-    end
-
-    after_create :init_channel_job
-    def init_channel_job
-      init_channel
-      # ChannelCreateJob.perform_later(id)
     end
 
     # 辅导班创建通知指定教师

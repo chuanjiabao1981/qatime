@@ -3,14 +3,14 @@ module LiveStudio
     extend ActiveSupport::Concern
 
     included do
-      has_many :channels
+      has_many :channels, as: :channelable
       has_many :push_streams, through: :channels
       has_many :pull_streams, through: :channels
       after_create :async_init_channels
     end
 
     def async_init_channels
-      ChannelCreateJob.perform_later(id, model_name)
+      ChannelCreateJob.perform_later(id, model_name.to_s)
     end
 
     def init_channels

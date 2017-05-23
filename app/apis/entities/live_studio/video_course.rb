@@ -41,6 +41,7 @@ module Entities
       expose :closed_lessons_count
       expose :objective
       expose :suit_crowd
+      expose :teacher_percentage
       expose :publicize do |course|
         case options[:size]
           when :search

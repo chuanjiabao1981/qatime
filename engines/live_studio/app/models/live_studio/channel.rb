@@ -1,6 +1,5 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    include LiveStudio::Channelable
     has_soft_delete
 
     belongs_to :course
@@ -13,27 +12,6 @@ module LiveStudio
     def sync_streams
       delete_remote_channel
       create_remote_channel
-    end
-
-    # 更新录制视频列表 (是否强制更新所有视频信息)
-    def update_video_list(enforce = false)
-      return if remote_id.blank?
-      res = ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/videolist",
-        headers: vcloud_headers,
-        body: {
-          cid: remote_id
-        }.to_json
-      )
-      return unless res.success?
-      result = JSON.parse(res.body).symbolize_keys
-      ChannelVideo.transaction do
-        result[:ret]['videoList'].each do |rt|
-          video = channel_videos.find_or_initialize_by(vid: rt['vid'])
-          video.update_video_info if video.new_record? || enforce
-          video.update(name: rt['video_name'], key: rt['orig_video_key'], video_for: use_for)
-        end
-      end
     end
 
     # 同步视频

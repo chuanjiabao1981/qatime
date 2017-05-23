@@ -5,6 +5,7 @@ module LiveStudio
 
     include AASM
     extend Enumerize
+    include Channelable
 
     include Qatime::Stripable
     strip_field :name, :description
@@ -370,5 +371,8 @@ module LiveStudio
         ::LiveStudioInteractiveCourseNotification.create(from: workstation, receiver: t, notificationable: self, action_name: :assign)
       end
     end
+
+    # 不初始化摄像头推流地址
+    def init_camera_channels; end
   end
 end

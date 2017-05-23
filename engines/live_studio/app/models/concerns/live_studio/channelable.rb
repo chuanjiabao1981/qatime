@@ -2,23 +2,30 @@ module LiveStudio
   module Channelable
     extend ActiveSupport::Concern
 
-    VCLOUD_HOST = 'https://vcloud.163.com'.freeze
+    included do
+      has_many :channels
+      has_many :push_streams, through: :channels
+      has_many :pull_streams, through: :channels
+      after_create :async_init_channels
+    end
+
+    def async_init_channels
+      ChannelCreateJob.perform_later(id, model_name)
+    end
+
+    def init_channels
+      init_board_channels unless channels.find_by(&:board?)
+      init_camera_channels unless channels.find_by(&:camera?)
+    end
 
     private
-    def vcloud_headers
-      app_secret = VCLOUD_CONFIG['AppSecret']
-      nonce = SecureRandom.hex 32
-      cur_time = Time.now.utc.to_i.to_s
 
-      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
+    def init_board_channels
+      channels.create(name: "#{name} - 直播室 - #{id} - 白板", channelable: self, use_for: :board)
+    end
 
-      {
-        AppKey: VCLOUD_CONFIG['AppKey'],
-        Nonce: nonce,
-        CurTime: cur_time,
-        CheckSum: check_sum,
-        'Content-Type' => "application/json;charset=utf-8"
-      }
+    def init_camera_channels
+      channels.create(name: "#{name} - 直播室 - #{id} - 摄像头", channelable: self, use_for: :camera)
     end
   end
 end

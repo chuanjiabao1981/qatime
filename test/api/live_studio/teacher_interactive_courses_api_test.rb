@@ -12,6 +12,10 @@ class Qatime::TeacherInteractiveCoursesAPITest < ActionDispatch::IntegrationTest
     assert_request_success?
     assert_equal 3, @res['data'].count, '我的辅导数量不正确'
     get "/api/v1/live_studio/teachers/#{@teacher.id}/interactive_courses", { status: :published }, 'Remember-Token' => @remember_token
+    assert_response :success
+    res = JSON.parse(response.body)
+    course_data = LiveService::TeacherInteractiveCourseDirector.new(@teacher)
+    assert_equal course_data.interactive_courses(status: 'published').count, res['data'].count
   end
 
   # 一对一详情

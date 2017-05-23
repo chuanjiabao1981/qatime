@@ -56,20 +56,20 @@ module V1
               optional :account, type: String, desc: '账号'
               optional :name, type: String, desc: '姓名'
               requires :ticket_token, type: String, desc: '验证token'
+              optional :app_type, type: String, desc: '应用类型', values: %w(student_app teacher_app)
               optional :access_code, type: String, desc: '微信授权code'
-              optional :openid, type: String, desc: '微信授权openid'
+              optional :openid, type: String, desc: '微信openid'
             end
             post 'withdraws' do
               wechat_user =
                 if params[:access_code].present?
-                  UserService::WechatApi.new(params[:access_code], 'app').web_access_token
+                  UserService::WechatApi.new(params[:access_code], params[:app_type]).web_access_token
                 elsif params[:openid].present?
                   ::Qawechat::WechatUser.find_by(openid: params[:openid])
                 end
-
               raise(APIErrors::WithdrawExisted) if @user.payment_withdraws.init.present?
               UserService::CashAccountManager.new(@user).check_token(:withdraw, params[:ticket_token])
-              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init}
+              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init }
               withdraw = @user.payment_withdraws.new(withdraw_params)
               raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save
               if withdraw.weixin? # 微信提现使用openid

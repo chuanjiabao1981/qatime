@@ -1,0 +1,7 @@
+<li>
+  <p><%= teaching_lesson.name %></p>
+  <p>所属课程: <%= teaching_lesson.course.name %></p>
+  <p><%= teaching_lesson.course.model_name.human %>|</p>
+  <p>开始于: <%= l(teaching_lesson.start_at, format: :month_start) if teaching_lesson.start_at %></p>
+  <%= link_to '进入听课', '' %>
+</li>

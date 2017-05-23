@@ -34,6 +34,11 @@ class Workstation < ActiveRecord::Base
   has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse
   has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse
 
+  # 我的lesson
+  has_many :live_studio_lessons, through: :live_studio_courses, source: :lessons, class_name: LiveStudio::Lesson
+  has_many :live_studio_interactive_lessons, through: :live_studio_interactive_courses, source: :interactive_lessons, class_name: LiveStudio::InteractiveLesson
+  has_many :live_studio_video_lessons, through: :live_studio_video_courses, source: :video_lessons, class_name: LiveStudio::VideoLesson
+
   # 我的经销记录
   has_many :sell_live_studio_tickets, as: :seller, class_name: LiveStudio::BuyTicket
   # 经销的直播课

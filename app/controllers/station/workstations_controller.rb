@@ -123,6 +123,11 @@ class Station::WorkstationsController < Station::BaseController
     @statistics = searchable.results.paginate(page: params[:page])
   end
 
+  def teaching_lessons
+    home_data = DataService::ManagerHomeData.new(@workstation)
+    @teaching_lessons = home_data.teaching_lessons.paginate(page: params[:page])
+  end
+
   private
   def withdraw_params
     params.require(:withdraw).permit(:amount, :payee, :captcha_confirmation)

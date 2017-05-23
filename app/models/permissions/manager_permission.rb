@@ -67,7 +67,7 @@ module Permissions
         manager.id == user.id
       end
       # 专属课程
-      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :withdraw, :change_records, :statistics] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :withdraw, :change_records, :statistics, :teaching_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       # 专属课程

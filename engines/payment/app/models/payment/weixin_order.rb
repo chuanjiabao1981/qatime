@@ -5,6 +5,8 @@ module Payment
     TRADE_TYPES = {
       web: "NATIVE",
       app: "APP",
+      student_app: "APP",
+      teacher_app: "APP",
       wap: "JSAPI"
     }.freeze
 
@@ -25,7 +27,7 @@ module Payment
     end
 
     def app_pay_params
-      WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+      WxPay::Service.generate_app_pay_req({ prepayid: prepay_id, noncestr: nonce_str }, weixin_options)
     end
 
     def wap_pay_params
@@ -108,7 +110,7 @@ module Payment
     end
 
     def weixin_options
-      ::WechatSetting[order.source.to_sym].dup
+      WechatSettings.pay.send(order.source.to_sym)
     end
   end
 end

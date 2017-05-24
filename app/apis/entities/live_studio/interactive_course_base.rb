@@ -18,17 +18,18 @@ module Entities
       expose :objective
       expose :suit_crowd
       expose :teacher_percentage
+      expose :teachers, using: Entities::Teacher
 
       # 图片
       expose :publicize do
         expose :info_url do |c|
-          c.url(:info)
+          c.publicize.url(:info)
         end
         expose :list_url do |c|
-          c.url(:list)
+          c.publicize.url(:list)
         end
         expose :list_url do |c|
-          c.url(:list)
+          c.publicize.url(:list)
         end
       end
       # 图片
@@ -43,7 +44,7 @@ module Entities
           false
         end
       end
-      expose :off_shelve, &:off_shelve?
+      expose :off_shelve?, as: :off_shelve
     end
   end
 end

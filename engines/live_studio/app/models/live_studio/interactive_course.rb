@@ -73,6 +73,7 @@ module LiveStudio
     has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
 
+    has_many :tickets, as: :product # 听课证
     has_many :buy_tickets, as: :product, class_name: 'LiveStudio::BuyTicket'
     has_many :students, through: :buy_tickets
 

@@ -24,7 +24,7 @@ module LiveStudio
     end
 
     # 白板拉流地址
-    def board_pull_stream(protocol = 'rtmp')
+    def board_pull_stream(protocol = 'http')
       pull_streams.find {|stream| stream.use_for == 'board' && stream.protocol == protocol }.try(:address)
     end
 
@@ -34,7 +34,7 @@ module LiveStudio
     end
 
     # 摄像头拉流地址
-    def camera_pull_stream(protocol = 'rtmp')
+    def camera_pull_stream(protocol = 'http')
       pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
     end
 

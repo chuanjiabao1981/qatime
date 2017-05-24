@@ -1,5 +1,5 @@
 /*学生界面*/
-body {
+body,html {
   font-family: "宋体" !important;
 }
 em {
@@ -3320,7 +3320,7 @@ ul {
 .message-new {
   height: 190px;
   border-bottom: 1px solid rgb(241,241,241);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .information-title {
   padding:  0 5px;
@@ -3335,7 +3335,7 @@ ul {
 .new-information-stu .information-con {
   padding-right: 29px;
   color: #555555;
-  padding-left: 30px;
+  padding-left: 35px;
 }
 .information-user {
   color: #333333;
@@ -3346,7 +3346,7 @@ ul {
   color: #999999;
 }
 .new-information {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 .information-title .active {
   color: rgb(190,11,11);
@@ -3440,7 +3440,7 @@ ul {
   font-size: 12px;
 }
 .information-name {
-  color: #BE0B0B;
+  color: #e78c8c;
   margin-left: -1px;
   font-size: 14px;
 }
@@ -3448,7 +3448,7 @@ ul {
   color: #87c3ed;
 }
 .information-con {
-  padding-left: 30px;
+  padding-left: 35px;
   padding-right: 29px;
   color: #555555;
   word-wrap : break-word;
@@ -3518,6 +3518,25 @@ ul {
   background-color: #999999;
   border-color: #999999;
 }
+.new-information > .announcement {
+  margin: 0 35px 0 35px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 5px;
+}
+.new-information > .announcement > h6 {
+  margin: 0px;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+.new-information > .announcement > p {
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: #666;
+}
+
+
 @media only screen  and (max-width: 1200px) {
   .area-right {
     float: left;
@@ -6459,15 +6478,38 @@ ul {
   .area-left {
     width:625px !important;
   }
+  .area-left-con,.playback {
+    height: 352px;
+  }
+  .message-new {
+    height: 64px;
+  }
+  .live-message {
+    height: 164px;
+  }
+  .affiche {
+    height: 134px !important;
+  }
+
 }
-@media only screen and (min-width: 768px) and (max-width: 990px) {
+@media only screen and (min-width: 0px) and (max-width: 990px) {
   .container.live-big {
     width: 970px !important;
   }
-}
-@media only screen and (min-width: 0px) and (max-width: 768px) {
-  .container.live-big {
-    width: 970px !important;
+  .area-left {
+    width:625px !important;
+  }
+  .area-left-con	{
+    height: 352px;
+  }
+  .message-new {
+    height: 64px;
+  }
+  .live-message {
+    height: 164px;
+  }
+  .affiche {
+    height: 134px !important;
   }
 }
 
@@ -7366,6 +7408,11 @@ ul {
 .vjs-clarity-control {
   position: relative;
   left: -20px;
+}
+@media only screen and (min-width: 0px) and (max-width: 1200px) {
+  .playback .area-right, .playback .video-area {
+    height: 352px;
+  }
 }
 /*详情页回放*/
 
@@ -8421,12 +8468,8 @@ ul {
 
 
 /*销售统计*/
-.admin-sales {
-  margin-top: 20px;
-  border: 1px solid #F2F2F2;
-}
 .sales-statistics {
-  padding: 10px;
+  padding: 20px 20px 10px 20px;
 }
 .sales-title,.sales-record-title {
   height: 40px;
@@ -8444,14 +8487,14 @@ ul {
 .statistics-title-right {
   float: right;
   line-height: 24px;
+  color: #666;
 }
 .statistics-title-left select {
   width: 70px;
   height: 24px;
-  border: 1px dashed #ccc;
-}
-.statistics-title-right span:first-child {
-  margin-right: 20px;
+  border: 0px;
+  outline: none;
+  color: #666;
 }
 .admin-sales #main {
   width: 100%;
@@ -11764,9 +11807,6 @@ ul {
 .item-handpick li .handpick-info > p > .class-price {
   color: #ff5842;
 }
-/*.item-handpick li .handpick-info > p > .class-number {
-	float: right;
-}*/
 .item-handpick li .classify-info p:first-child:after{
   position: static;
 }
@@ -11986,6 +12026,7 @@ ul {
 }
 
 /*视频课观看页面*/
+
 .video-info {
   position: relative;
   height: auto !important;
@@ -11997,7 +12038,8 @@ ul {
   padding-bottom: 56.25%;
 }
 .video-info > .area-view {
-  width: 28.1%;
+  /*width: 28.1%;*/
+  width: 335px;
   overflow: auto;
   top: 0px;
   bottom: 0px;
@@ -12145,14 +12187,14 @@ ul {
   padding-left: 0px;
 }
 .refund-info {
-  padding: 15px 0px;
+  padding: 25px 0px;
   color: #666;
   border-right: 1px solid #F1F1F1;
   border-bottom: 1px solid #F1F1F1;
 }
 .refund-info > .row {
   margin-left: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .refund-info > .row:last-child {
   margin-bottom: 0px;
@@ -12170,23 +12212,20 @@ ul {
   color: #ff5842;
 }
 .apply-right >.refund-input{
-  min-height: 141px;
+  min-height: 176px;
+  padding: 20px 15px;
+  padding-bottom: 0px;
   border-bottom: 1px solid #F1F1F1;
 }
-.refund-input textarea {
-  height: 120px;
-  padding: 15px;
-  border: 0px !important;
-  resize: none;
-  box-shadow: none;
+.apply-right >.refund-input label{
+  font-weight: normal;
+  color: #999;
+  display: block;
 }
-.refund-input textarea:focus {
-  box-shadow: none;
-}
-.refund-input .form-group {
+.apply-right >.refund-input label:last-child{
   margin-bottom: 0px;
 }
-.refund-input .form-group > .has-error {
+.refund-input .has-error {
   margin: 0px;
 }
 .refund-footer {
@@ -14221,4 +14260,194 @@ ul {
 }
 .item-handpick li .classify-info p > span > em {
   padding: 0 5px;
+}
+
+
+
+
+
+/*manager页面*/
+/*导航*/
+.maager-sidenav {
+  margin-bottom: 60px;
+}
+.maager-sidenav > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.maager-sidenav > ul > li {
+  height: 133px;
+  border-bottom: 1px solid #dfdfdf;
+}
+.maager-sidenav > ul > li:last-child {
+  border-bottom: 0px;
+}
+.maager-sidenav > ul > li > a {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #ff5842;
+  height: 100%;
+  background-color: #f8f8f8;
+  padding-top: 35px;
+}
+.maager-sidenav > ul > li:hover > a {
+  background-color: rgba(255,88,66,0.4);
+}
+.maager-sidenav > ul > li.active > a {
+  background-color: #ff9d90;
+  color: #FFFFFF;
+}
+.maager-sidenav > ul > li > a > span > i {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+}
+.maager-sidenav > ul > li > a > span > em,.maager-sidenav > ul > li > a > span {
+  display: block;
+}
+
+
+/*首页*/
+.article {
+  margin-top: 30px;
+}
+.homepage > .row  .item-home {
+  border: 1px solid #CCCCCC;
+  min-height: 425px;
+  border-top: 0px;
+}
+.homepage > .row > .col-md-6 {
+  margin-bottom: 30px;
+}
+.homepage .subtitle {
+  padding: 0px 20px;
+  min-height: 60px;
+  border-top: 3px solid #CCCCCC;
+  line-height: 60px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.homepage .subtitle > h3 {
+  display: inline-block;
+  line-height: 57px;
+  margin: 0px;
+  font-size: 18px;
+  color: #34495e;
+}
+.homepage .subtitle > a {
+  display: inline-block;
+  float: right;
+  line-height: 57px;
+  font-size: 14px;
+  color: #ff5842;
+}
+.homepage > .row  .item-home > .classing,.homepage > .row  .item-home > .dynamic {
+  padding: 0px 20px;
+}
+.item-home > .classing  ul,.homepage > .row .item-home > .dynamic > ul,
+.homepage > .row .item-home > .plan > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.item-home > .classing > ul > li {
+  padding: 20px 0px;
+  border-bottom: 1px solid #e7eaec;
+}
+.item-home > .classing > ul > li:last-child {
+  border-bottom: 0px;
+}
+.item-home > .classing > ul > li > ul h5 {
+  margin: 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333;
+}
+.item-home > .classing > ul > li > ul > li {
+  line-height: 21px;
+}
+.item-home > .classing > ul > li > ul > li > p {
+  margin-bottom: 0px;
+  color: #999;
+  font-size: 14px;
+}
+.item-home > .classing > ul > li > ul > li > .classing-info > span {
+  border-right: 1px solid #999;
+  padding: 0 5px;
+}
+.item-home > .classing > ul > li > ul > li > .classing-info > span:first-child {
+  padding-left: 0px;
+}
+.item-home > .classing > ul > li > ul > li > .classing-info > span:last-child {
+  border-right: 0px;
+}
+.item-home > .classing > ul > li > ul > li > .classing-enter > a {
+  float: right;
+  color: #ff5842;
+}
+.homepage > .row  .item-home > .dynamic > ul > li {
+  margin-top: 20px;
+}
+.homepage > .row  .item-home > .dynamic > ul > li > a {
+  color: #666;
+}
+.homepage > .row  .item-home > .dynamic > ul > li:hover > a{
+  color: #ff5842;
+}
+.homepage > .row  .item-home > .dynamic > ul > li > a span {
+  margin-right: 20px;
+}
+.homepage > .row .item-home > .plan {
+  padding: 0 20px;
+}
+.homepage > .row .item-home > .plan > ul > li {
+  padding: 40px 0px;
+  border-bottom: 1px solid #e7eaec;
+}
+.homepage > .row .item-home > .plan > ul > li:last-child {
+  border-bottom: 0px;
+}
+.homepage > .row .item-home > .plan > ul > li > h6 {
+  margin: 0px;
+  font-size: 14px;
+  color: #666;
+}
+.homepage > .row .item-home > .plan > ul > li > p {
+  margin-bottom: 0px;
+  color: #ccc;
+}
+.homepage > .row .item-home > .plan > ul > li > .cut-off {
+  text-align: right;
+}
+.homepage > .row .item-home > .plan > ul > li > .progress {
+  margin: 10px 0px;
+  background-color: #F5F5F5;
+}
+.homepage > .row .item-home > .plan > ul > li > .progress > .progress-bar-success {
+  background-color: #3cbea4;
+}
+.homepage > .row .item-home > .plan > ul > li > .time-remaining .remaining-day {
+  float: right;
+}
+
+/*销售明细*/
+.sold > .sold-title {
+  min-height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+  border: 1px solid #ccc;
+  border-top: 3px solid #ccc;
+  background-color: #fafafa;
+}
+.sold > .sold-title > a {
+  color: #ff5842;
+  font-size: 14px;
+}
+.sold > .sold-title > h3 {
+  display: inline-block;
+  margin: 0 auto;
+}
+.sold > .sold-title > a > .fa,.homepage .subtitle > a > .fa {
+  font-size: 18px;
 }

@@ -56,12 +56,15 @@
                 <span><%= t('view.payment/order.refund.title3') %></span>
               </div>
               <div class="refund-input">
-                <div class="form-group">
-                  <textarea class="form-control" name="reason" id="reason" rows="" cols="" placeholder="<%= t('view.payment/order.refund.reason_placeholder') %>"><%= params[:reason] %></textarea>
-                  <% @refund.errors.messages.each do |_,msgs| %>
-                    <span class="help-block has-error"><%= msgs.join(';') %></span>
-                  <% end if @refund && @refund.errors.present? %>
-                </div>
+                <% Payment::Refund.reason.options.each do |option| %>
+                  <label for="<%= option[1] %>">
+                    <%= radio_button_tag :reason, option[0], (option[0] == params[:reason]), id: option[1] %>
+                    <span><%= option[0] %></span>
+                  </label>
+                <% end %>
+                <% @refund.errors.messages.each do |_,msgs| %>
+                  <span class="help-block has-error"><%= msgs.join(';') %></span>
+                <% end if @refund && @refund.errors.present? %>
               </div>
             </div>
           </div>

@@ -49,6 +49,7 @@ module V1
           requires :name, type: String, desc: '姓名'
           optional :avatar, type: Rack::Multipart::UploadedFile, desc: '头像'
           optional :subject, type: String, desc: '科目'
+          optional :category, type: String, desc: '类型'
           optional :province_id, type: Integer, desc: '省ID'
           optional :city_id, type: Integer, desc: '城市ID'
           optional :school_id, type: Integer, desc: '学校ID'
@@ -60,7 +61,7 @@ module V1
         end
         put "/:id" do
           teacher = ::Teacher.find(params[:id])
-          update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :subject, :province_id, :city_id,
+          update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :subject, :category, :province_id, :city_id,
                                                                           :school_id, :teaching_years,
                                                                           :gender, :birthday, :desc,
                                                                           grade_range: [])

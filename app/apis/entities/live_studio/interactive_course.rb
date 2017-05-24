@@ -17,6 +17,7 @@ module Entities
       expose :live_end_time
       expose :objective
       expose :suit_crowd
+      expose :teacher_percentage
       expose :publicize_url
       expose :publicize_info_url do |course|
         course.publicize_url(:info)

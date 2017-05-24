@@ -352,6 +352,10 @@ module Permissions
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/withdraws"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws"
+      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/withdraws/:id/cancel"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
       ## end 修改支付密码
 
       # 消息通知

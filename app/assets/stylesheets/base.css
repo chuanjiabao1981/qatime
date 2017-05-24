@@ -1,6 +1,6 @@
 /*学生界面*/
 body {
-  font-family: "微软雅黑" !important;
+  font-family: "宋体" !important;
 }
 em {
   font-style: normal;
@@ -3207,7 +3207,7 @@ ul {
   position: relative;
 }
 .area-left {
-  width: 71.5%;
+  width: 1040px;
   float: left;
 }
 .area-left-title,.area-right-title {
@@ -3254,7 +3254,7 @@ ul {
   height: 100%
 }
 .area-right {
-  width: 28.1%;
+  width: 335px;
   float: right;
 }
 .vjs-big-play-button {
@@ -3366,7 +3366,7 @@ ul {
 }
 .history-content {
   height: 578px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .message-logging .active {
   display: block;
@@ -3522,6 +3522,9 @@ ul {
   .area-right {
     float: left;
   }
+  .video-area .area-left {
+    width: 625px;
+  }
 }
 .live-img {
   width: 44.4% !important;
@@ -3541,11 +3544,9 @@ ul {
 }
 .area-left-con .vjs-refresh-control img{
   width:16px;
-  margin-top:-8px;
 }
 .area-left-con .vjs-barrage-control img {
   width:14px;
-  margin-top:-8px;
 }
 
 
@@ -3555,9 +3556,10 @@ ul {
 /*城市切换*/
 .city-content {
   width: 100%;
+  box-shadow: 0 0 10px #CCCCCC;
 }
 .city-title {
-  height: 70px;
+  min-height: 70px !important;
   padding: 18px 50px 0px 23px;
 }
 .province {
@@ -3565,14 +3567,15 @@ ul {
   margin-right: 20px;
 }
 .form-city {
-  display: inline-block;
+  display: block;
 }
 .form-city select {
   width: 100px;
   height: 31px;
-  border: 1px solid rgb(190,11,11);
+  border: 1px solid #ff5842;
   font-size: 14px;
   color: #666666;
+  outline: none;
 }
 .select-line {
   margin: 0 12px;
@@ -3581,9 +3584,9 @@ ul {
   width: 100px;
   height: 31px;
   border-radius: 4px;
-  border: 1px solid #F2F2F2;
-  background-color: rgb(242,16,16);
-  color: white;
+  border: 1px solid #ff5842;
+  background-color: #fff;
+  color: #ff5842;
   margin-left: 10px;
 }
 .prompt-con {
@@ -3600,19 +3603,18 @@ ul {
   color: #ff5842;
 }
 .city-list {
-  padding: 23px 50px 20px 23px;
+  padding: 20px;
 }
 .city-list h3 {
   display: inline-block;
   vertical-align: top;
-  font-family: "微软雅黑";
   font-size: 16px;
   margin: 0 3% 0 0;
   margin-top: 0;
   margin-bottom: 0;
 }
 .city-list p {
-  width: 89%;
+  width: 88.5%;
   vertical-align: top;
   display: inline-block;
 }
@@ -3627,8 +3629,7 @@ ul {
   padding: 0 0 20px;
 }
 .citieslist h2 {
-  padding-left: 23px;
-  font-family: "微软雅黑";
+  padding-left: 20px;
   font-size: 16px;
   margin-top: 0;
   margin-bottom: 16px;
@@ -3642,12 +3643,17 @@ ul {
   line-height: 31px;
   border: 1px solid gray;
   background-color: rgb(241,241,241);
-  margin-right: 23px;
-  margin-bottom: 10px;
+  margin: 0px;
 }
 .hasallcity {
   list-style-type: none;
   padding-left: 0px;
+}
+.hasallcity > li > .row {
+  margin: 0px 15px;
+}
+.hasallcity>li {
+  padding: 10px 0px;
 }
 .hasallcity li p {
   padding-top: 10px;
@@ -3660,6 +3666,7 @@ ul {
   margin-top: 3px;
   margin-bottom: 5px;
   font-size: 16px;
+  line-height: 30px;
   color: rgb(153,153,153);
 }
 .hasallcity-name {
@@ -3671,12 +3678,42 @@ ul {
   margin: 42px auto 0;
   width: 85%;
   height: 80px;
-  border-top: 1px solid rgb(241,241,241);
   color: rgb(215,215,215);
   text-align: center;
   line-height: 80px;
 }
-
+.hasallcity li:hover {
+  border-color: #ff5842;
+  background-color: rgb(242, 242, 242);
+}
+.hasallcity li:hover .hasallcity-num {
+  color: #fff;
+  background-color: #ff5842;
+  border-color: #ff5842;
+}
+.hasallcity>li .col-md-11>a:hover {
+  color: #ff5842;
+}
+.city-list p>a:hover {
+  color: #ff5842;
+  text-decoration: underline !important;
+}
+@media only screen and (max-width: 1200px) {
+  .city-list p {
+    width: 85%;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .city-list p {
+    width: 100%;
+  }
+  .province {
+    display: block;
+  }
+  .change-city {
+    float: none;
+  }
+}
 
 /*视频改版*/
 .live-nav {
@@ -6392,10 +6429,10 @@ ul {
     width: 1376px !important;
   }
   .area-left {
-    width: 75.3%;
+    width: 1040px;
   }
   .area-right {
-    width: 24.3%;
+    width: 335px;
   }
   .area-left-con {
     height: 583px;
@@ -6413,7 +6450,26 @@ ul {
     height: 583px !important;
   }
 }
-
+@media only screen and (min-width: 1200px) {
+  .area-left {
+    width: 850px;
+  }
+}
+@media only screen and (min-width: 990px) and (max-width: 1200px) {
+  .area-left {
+    width:625px !important;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 990px) {
+  .container.live-big {
+    width: 970px !important;
+  }
+}
+@media only screen and (min-width: 0px) and (max-width: 768px) {
+  .container.live-big {
+    width: 970px !important;
+  }
+}
 
 
 

@@ -91,6 +91,7 @@ module LiveStudio
 
     scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
+    scope :finished, -> { where(status: statuses.values_at(:completed, :refunded)) }
 
     before_create do
       self.service_price = workstation.service_price if workstation

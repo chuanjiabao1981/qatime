@@ -1,0 +1,74 @@
+<div class="manager-sidenav">
+  <ul>
+    <%= content_tag :li, class: "#{'active' if manager_sidebar_nav_is?(:home)}" do %>
+      <%= link_to main_app.managers_home_path do %>
+        <span><i class="icon-home"></i><em><%= t('view.manager_bars.home') %></em></span>
+      <% end %>
+    <% end if allow?('managers/home', :main) %>
+
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-station"></i>
+                  <em>工作站信息</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-resources"></i>
+                  <em>资源管理</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-control"></i>
+                  <em>课程管理</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-teach"></i>
+                  <em>教学管理</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-operate"></i>
+                  <em>运营管理</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-webpage"></i>
+                  <em>网页管理</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-sale"></i>
+                  <em>课程代销</em>
+                </span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+                  <span>
+                  <i class="icon-staff"></i>
+                  <em>员工管理</em>
+                </span>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,19 @@
+cn:
+  view:
+    managers:
+      home:
+        statistics:
+          title: 销售曲线
+          more: 销售明细
+        teaching_lessons:
+          title: 正在上课
+          more: 全部
+          course_name: 所属可课程
+          start_at: 开始于
+          play: 进入听课
+        action_records:
+          title: 实时动态
+          more: 全部动态
+        sale_tasks:
+          title: 考核进度跟踪
+          more: 考核记录

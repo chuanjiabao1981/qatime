@@ -1,6 +1,6 @@
 class Managers::HomeController < ApplicationController
   respond_to :html
-  layout "manager_home"
+  layout 'v1/manager_home'
 
   before_action :set_workstation
 

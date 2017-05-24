@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <title>Qatime</title>
+    <meta name="renderer" content="webkit">
+    <%= stylesheet_link_tag "v1/manager_home", media: "all", "data-turbolinks-track" => false %>
+    <%= javascript_include_tag "v1/application", "data-turbolinks-track" => false %>
+    <%= csrf_meta_tags %>
+    <%= yield :stylesheet %>
+  </head>
+  <body>
+    <%= render 'layouts/v1/nav_manager' %>
+    <%= render 'shared/flash_msg' %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <%= render "layouts/v1/sidebars/manager" %>
+        </div>
+        <div class="col-md-10">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'layouts/v1/front_footer' %>
+    <%= yield :mask %>
+    <%= yield :javascript %>
+  </body>
+</html>

@@ -30,6 +30,7 @@ class Station::WorkstationsController < Station::BaseController
 
   def action_records
     @action_records = @workstation.action_records.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   def edit
@@ -121,11 +122,13 @@ class Station::WorkstationsController < Station::BaseController
     # @series_data = [0, 600, 300, 134, 90, 230, 200]
     @sales_total = searchable.sales_total(@order_statistics, @refund_statistics)
     @statistics = searchable.results.paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   def teaching_lessons
     home_data = DataService::ManagerHomeData.new(@workstation)
     @teaching_lessons = home_data.teaching_lessons.paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   private

@@ -1,4 +1,19 @@
-<h1>正在上课</h1>
-<ul>
-  <%= render partial: 'managers/home/teaching_lesson', collection: @teaching_lessons %>
-</ul>
+<div class="article">
+  <div class="sold">
+    <div class="sold-title">
+      <%= link_to main_app.managers_home_path do %>
+        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
+      <% end %>
+      <h3><%= t('view.station.teaching_lessons.index_title') %></h3>
+    </div>
+
+    <div class="classing have-class">
+      <ul>
+        <%= render partial: 'station/workstations/teaching_lesson', collection: @teaching_lessons %>
+      </ul>
+
+      <%= render 'shared/blank' if @teaching_lessons.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @teaching_lessons, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

@@ -14,8 +14,8 @@ module LiveStudio
     end
 
     def init_channels
-      init_board_channels unless channels.find_by(&:board?)
-      init_camera_channels unless channels.find_by(&:camera?)
+      init_board_channels unless channels.find(&:board?)
+      init_camera_channels unless channels.find(&:camera?)
     end
 
     # 白板推流地址

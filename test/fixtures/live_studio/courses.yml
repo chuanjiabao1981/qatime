@@ -853,6 +853,19 @@ course_teaching2:
   preset_lesson_count: 2
   lessons_count: 2
 
+# 开课中的辅导班今日有课
+course_teaching3:
+  name: 上课中的辅导班3
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 60
+  price: 999
+  preset_lesson_count: 1
+  lessons_count: 1
+
 # 课程全部完成的辅导班
 course_finished:
   name: 完成的课程

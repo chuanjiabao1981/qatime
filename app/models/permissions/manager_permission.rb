@@ -146,7 +146,7 @@ module Permissions
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
       allow 'live_studio/station/course_records', [:index, :my_publish]
-      allow 'live_studio/courses', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/courses', [:index, :new, :create, :show, :preview, :play]
       allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         permission =
           case course.try(:status)

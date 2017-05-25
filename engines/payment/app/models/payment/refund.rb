@@ -3,7 +3,7 @@ module Payment
   class Refund < Transaction
     include AASM
 
-    attr_accessor :tmp_operator
+    attr_accessor :tmp_operator, :reason
 
     validate :validate_refund, on: :create
     after_create :init_apply
@@ -35,6 +35,8 @@ module Payment
       failed: 99 # 退款失败
     }
     enum pay_type: %w(cash bank alipay weixin account)
+
+    enumerize :reason, in: { wont_buy: 0, course_bad: 1, teacher_bad: 2, have_no_time: 3, other: 99 }
 
     aasm column: :status, enum: true do
       state :init, initial: true

@@ -4120,16 +4120,10 @@ ul {
   line-height: 40px;
   border-bottom: 1px solid #F1F1F1;
 }
-.editor-con {
-  padding: 0 20px;
-}
 .file-title {
-  height: 30px;
-  line-height: 30px;
-  margin: 10px 0px 20px;
+  margin: 30px 0px;
   font-size: 16px;
   color: #000000;
-  background-color: #f1f1f1;
 }
 .file-con {
   overflow: hidden;
@@ -4506,9 +4500,10 @@ ul {
   color: red;
 }
 .editor-msg label {
-  padding-left: 10px;
   margin-top: 5px;
-  font-weight: 500;
+  font-weight: normal;
+  font-size: 16px;
+  color: #666;
 }
 .editor-text {
   position: relative;
@@ -8179,227 +8174,6 @@ ul {
 
 
 
-/*资金信息*/
-.moneydetails {
-  margin-top: 10px;
-}
-.moneydetails ul {
-  padding-left: 0px;
-  margin-bottom: 0px;
-}
-.moneydetails ul li {
-  min-height: 46px;
-  padding: 0 15px 0 10px;
-  background-color: #F2F2F2;
-  margin-bottom: 15px;
-  line-height: 46px;
-  font-size: 16px;
-}
-.moneydetails ul li span:first-child {
-  display: inline-block;
-  width: 80px;
-  text-align: right;
-  margin-right: 20px;
-}
-.moneydetails ul li i {
-  font-style: italic;
-  color: #999999;
-  float: right;
-  font-size: 14px;
-}
-.moneydetails ul li:last-child {
-  background-color: #FFFFFF;
-  border: 2px solid #F2F2F2;
-  margin-bottom: 10px;
-}
-.moneydetails ul li:nth-child(3){
-  margin-bottom: 0px;
-}
-.withdrawal-list {
-  margin-top: 10px;
-}
-.withdrawal-list li {
-  font-size: 14px !important;
-  padding-left: 0px !important;
-  margin-bottom: 0px !important;
-  height: 66px;
-  background-color: #FFFFFF !important;
-  border: 1px solid #F2F2F2;
-  border-top: 0px;
-}
-.withdrawal-list li:first-child {
-  height: 46px;
-  background-color: #F2F2F2 !important;
-}
-.withdrawal-list li:last-child {
-  border: 1px solid #F2F2F2 !important;
-  border-top: 0px !important;
-}
-.withdrawal-list li span:first-child {
-  color: #666666;
-}
-.withdrawal-list li:first-child span:first-child {
-  color: #333333;
-}
-.withdrawal-list li:first-child a {
-  display: inline-block;
-  width: 70px;
-  height: 24px;
-  border: 1px solid #333;
-  line-height: 22px;
-  margin-left: 20px;
-  text-align: center;
-  color: #333333;
-  border-radius: 4px;
-  background-color: #FFFFFF;
-}
-.withdrawal-list-line {
-  height: 33px;
-  line-height: 33px;
-}
-.withdrawal-list li .withdrawal-list-line:nth-child(2) span {
-  font-size: 12px;
-  color: #999999;
-}
-.withdrawal-list li .withdrawal-list-line:nth-child(2) a {
-  float: right;
-}
-.withdrawal-not {
-  margin-top: 10px;
-  margin-bottom: 10px !important;
-}
-.withdrawal-not li {
-  background-color: #FFFFFF !important;
-  font-size: 14px !important;
-  padding-left: 0px !important;
-  margin-bottom: 0px !important;
-  border-left: 1px solid #F2F2F2;
-  border-right: 1px solid #F2F2F2;
-}
-.withdrawal-not li:first-child {
-  background-color: #F2F2F2 !important;
-}
-.withdrawal-not li:last-child {
-  border: 1px solid #F2F2F2 !important;
-  border-top: 0px !important;
-}
-.modal-apply .modal-header {
-  height: 44px;
-  padding: 10px 15px;
-}
-.modal-apply .modal-header button {
-  margin-top: 2px;
-}
-.modal-apply .modal-body {
-  padding: 20px 30px;
-  color: #333333;
-}
-.modal-apply .modal-body .form-group,.new-assess .form-group {
-  width: 100%;
-  min-height: 54px;
-  position: relative;
-}
-.modal-apply .modal-body .form-group .unit,.new-assess .form-group .unit{
-  position: absolute;
-  right: 15px;
-  top: 7px;
-}
-.modal-apply .modal-body .form-group label,.new-assess .form-group label{
-  width: 110px;
-  font-weight: 100;
-  text-align: right;
-  margin-right: 20px;
-}
-.modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea,.new-assess .form-group input{
-  width: 84%;
-  border-radius: 0px;
-}
-.modal-apply .modal-body .form-group textarea {
-  resize: none;
-}
-.modal-apply .modal-body .form-group .has-error,.new-assess .form-group .has-error {
-  margin: 0px 0px 0px 130px;
-}
-.payee-information {
-  min-height: 94px !important;
-}
-.captcha_confirmation_label {
-  position: relative;
-  top: -12px;
-}
-.payee-information label{
-  position: relative;
-  top: -18px;
-}
-.modal-apply .modal-body .form-group .input-group {
-  width: 84%;
-}
-.modal-apply .modal-body .form-group .input-group input[type='text']{
-  width: 44%;
-  float: left;
-}
-.modal-apply .modal-body .form-group .input-group .input-group-btn{
-  width: 97px;
-  height: 33px;
-  float: left;
-}
-.modal-apply .modal-body .form-group .input-group input[type='button']{
-  width: 100%;
-  text-align: center;
-  background-color: #ccc;
-  color: #FFFFFF;
-}
-.prompt-information {
-  float: right;
-  line-height: 33px;
-}
-.modal-apply .workstation-submit a,.modal-apply .workstation-submit input{
-  width: 120px;
-  height: 30px;
-  line-height: 30px;
-}
-@media only screen and (min-width: 768px) {
-  div.modal-apply {
-    width: 970px;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .modal-apply .modal-body .form-group label {
-    text-align: left;
-  }
-  .payee-information label,.captcha_confirmation_label {
-    top: 0px;
-  }
-  .modal-apply .modal-body .form-group .unit {
-    top: 33px;
-  }
-  .modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea {
-    width: 100%;
-  }
-  .modal-apply .modal-body .form-group .has-error {
-    margin-left: 0px;
-  }
-  .modal-apply .modal-body .form-group .input-group {
-    width: 100%;
-  }
-  .modal-apply .modal-body .form-group .input-group input[type='text']{
-    width: 84%;
-  }
-  .prompt-information {
-    display: block;
-    float: left
-  }
-}
-@media only screen and (max-width: 710px) {
-  .modal-apply .modal-body .form-group .input-group input[type='text']{
-    width: 78%;
-  }
-}
-@media only screen and (max-width: 540px) {
-  .modal-apply .modal-body .form-group .input-group input[type='text']{
-    width: 70%;
-  }
-}
 
 
 
@@ -8921,8 +8695,8 @@ ul {
   color: #999999;
 }
 .label-classify-con a.active {
-  color: rgb(190,11,11);
-  border-color: rgb(190,11,11);
+  color: #ff5842;
+  border-color: #ff5842;
 }
 .label-classify span {
   display: inline-block;
@@ -8934,10 +8708,14 @@ ul {
   clear: both;
   margin-top: 10px;
   padding: 5px 10px;
-  border: 1px solid #666666;
+  border: 1px solid #ff5842;
   border-radius: 4px;
-  color: #666666;
+  color: #ff5842;
   float: right;
+}
+.btn-label:hover {
+  background-color: #ff5842;
+  color: #fff;
 }
 @media only screen  and (max-width: 1100px) {
   .price-class {
@@ -10689,9 +10467,9 @@ ul {
   top: 6px;
   right: 10px;
 }
-.new-curriculum > .editor-con {
-  padding: 0 10px;
-}
+/*.new-curriculum > .editor-con {
+	padding: 0 20px;
+}*/
 .new-curriculum > .editor-con .col-md-label i {
   top: 8px;
   font-size: 18px;
@@ -11220,18 +10998,19 @@ ul {
   background-color: #FFFFFF;
 }
 .live-arrangement {
-  padding: 10px;
+  font-size: 16px;
+  color: #666;
 }
 .live-arrangement > .row > .col-md-10 > p {
   margin-bottom: 0px;
+  line-height: 25px;
 }
 .live-arrangement > .row {
-  margin-bottom: 20px;
+  padding: 20px 0px;
 }
-.live-arrangement > .row > .col-md-10 > p:last-child {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.live-arrangement > .row > .col-md-10 > .begin-time {
+  color: #999;
+  font-size: 14px;
 }
 .arrangement-set > a {
   display: block;
@@ -14351,7 +14130,7 @@ ul {
   margin-bottom: 0px;
 }
 .classing > ul > li {
-  padding: 20px 0px;
+  padding: 18px 0px;
   border-bottom: 1px solid #e7eaec;
 }
 .classing > ul > li:last-child {
@@ -14465,7 +14244,7 @@ ul {
   font-size: 18px;
 }
 .sold > .sold-link,.work-station > .station-link {
-  height: 50px;
+  min-height: 50px;
   line-height: 50px;
   text-align: center;
   padding: 0 20px;
@@ -14480,28 +14259,28 @@ ul {
 .sold > .sold-link > a:last-child,.work-station > .station-link > a:last-child {
   margin-right: 0px;
 }
-.sold > .sold-tab > table,.assess-tab > table{
+.sold-tab > table,.assess-tab > table{
   width: 100%;
 }
-.sold > .sold-tab > table tr th,.assess-tab > table tr th {
+.sold-tab > table tr th,.assess-tab > table tr th {
   height: 36px;
   color: #333;
   background-color: #fafafa;
 }
-.sold > .sold-tab > table tr th:first-child,.sold > .sold-tab > table tr td:first-child
+.sold-tab > table tr th:first-child,.sold-tab > table tr td:first-child
 ,.assess-tab > table tr th:first-child,.assess-tab > table tr td:first-child{
   border-left: 0px;
 }
-.sold > .sold-tab > table tr th:last-child,.sold > .sold-tab > table tr td:last-child
+.sold-tab > table tr th:last-child,.sold-tab > table tr td:last-child
 ,.assess-tab > table tr th:last-child,.assess-tab > table tr td:last-child{
   border-right: 0px;
 }
-.sold > .sold-tab > table tr th,.sold > .sold-tab > table tr td,.assess-tab > table tr td,.assess-tab > table tr th {
+.sold-tab > table tr th,.sold-tab > table tr td,.assess-tab > table tr td,.assess-tab > table tr th {
   border: 1px solid #ccc;
   text-align: center;
   word-break: break-all;
 }
-.sold > .sold-tab > table tr td,.assess-tab > table tr td {
+.sold-tab > table tr td,.assess-tab > table tr td {
   height: 50px;
   color: #666;
 }
@@ -14572,9 +14351,10 @@ ul {
 .work-station > .station-title {
   text-align: left;
   padding: 0px;
+  background-color: #fff;
 }
 .work-station > .station-title > a {
-  min-width: 112px;
+  padding: 0 20px;
   text-align: center;
   font-size: 18px;
   color: #34495e;
@@ -14595,4 +14375,421 @@ ul {
 }
 .work-station > .station-msg > .tab-content > ul > li {
   padding-bottom: 50px;
+}
+.work-station > .station-msg > .tab-content > ul > li span {
+  display: inline-block;
+  color: #666;
+}
+.work-station > .station-msg > .tab-content > ul > li span:first-child {
+  min-width: 144px;
+  color: #333;
+}
+.work-station > .station-link > a.active {
+  color: #ff5842;
+}
+
+
+/*账户金额*/
+.moneydetails {
+  margin-top: 10px;
+}
+.moneydetails ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.moneydetails ul li {
+  min-height: 46px;
+  padding: 0 15px 0 10px;
+  background-color: #F2F2F2;
+  margin-bottom: 15px;
+  line-height: 46px;
+  font-size: 16px;
+}
+.moneydetails > ul > li:first-child {
+  background-color: #ccc;
+}
+.moneydetails ul li span:first-child {
+  display: inline-block;
+  min-width: 90px;
+  text-align: right;
+  margin-right: 20px;
+}
+.moneydetails ul li span {
+  font-size: 16px;
+  color: #333;
+}
+.moneydetails ul li i {
+  color: #999999;
+  float: right;
+  font-size: 16px;
+  zoom: 1;
+}
+.moneydetails ul li i:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.moneydetails ul li:last-child {
+  background-color: #FFFFFF;
+  margin-bottom: 10px;
+}
+.moneydetails ul li:nth-child(3){
+  margin-bottom: 0px;
+}
+.withdrawal-list {
+  margin-top: 10px;
+}
+.withdrawal-list li {
+  font-size: 14px !important;
+  padding-left: 0px !important;
+  margin-bottom: 0px !important;
+  height: 66px;
+  background-color: #FFFFFF !important;
+  border: 1px solid #F2F2F2;
+  border-top: 0px;
+}
+.withdrawal-list li:first-child {
+  height: 46px;
+  background-color: #F2F2F2 !important;
+}
+.withdrawal-list li:last-child {
+  border: 1px solid #F2F2F2 !important;
+  border-top: 0px !important;
+}
+.withdrawal-list li span:first-child {
+  color: #666666;
+}
+.withdrawal-list li:first-child span:first-child {
+  color: #333333;
+}
+.withdrawal-list li:first-child a {
+  display: inline-block;
+  padding: 0 10px;
+  height: 24px;
+  line-height: 22px;
+  margin-left: 20px;
+  text-align: center;
+  color: #FFFFFF;
+  border-radius: 12px;
+  background-color: #ff5842;
+  outline: none;
+  font-size: 16px;
+}
+.moneydetails .withdrawal-list li .withdrawal-list-line span,.moneydetails .withdrawal-list li .withdrawal-list-line i{
+  font-size: 14px;
+  color: #666;
+}
+.moneydetails .withdrawal-list li .withdrawal-list-line i {
+  color: #999;
+}
+.withdrawal-list-line {
+  height: 33px;
+  line-height: 33px;
+}
+.withdrawal-list li .withdrawal-list-line:nth-child(2) span {
+  font-size: 12px;
+  color: #999999;
+}
+.withdrawal-list li .withdrawal-list-line a {
+  float: right;
+  color: #ff5842;
+}
+.withdrawal-not {
+  margin-top: 10px;
+  margin-bottom: 10px !important;
+}
+.withdrawal-not li {
+  background-color: #FFFFFF !important;
+  font-size: 14px !important;
+  padding-left: 0px !important;
+  margin-bottom: 0px !important;
+  border-left: 1px solid #F2F2F2;
+  border-right: 1px solid #F2F2F2;
+}
+.moneydetails .withdrawal-not li span,.moneydetails .withdrawal-not li i{
+  font-size: 14px;
+  color: #666;
+}
+.withdrawal-not li:first-child {
+  background-color: #F2F2F2 !important;
+}
+.withdrawal-not li:first-child span,.moneydetails .withdrawal-not li:first-child i {
+  font-size: 16px;
+}
+.withdrawal-not li:first-child span {
+  color: #333;
+}
+.moneydetails .withdrawal-not li i {
+  color: #999;
+}
+.withdrawal-not li:last-child {
+  border: 1px solid #F2F2F2 !important;
+  border-top: 0px !important;
+}
+.modal-apply .modal-header,.modal-school .modal-header {
+  padding: 7px 15px;
+  background-color: #DEDEDE;
+}
+.modal-apply .modal-header button {
+  margin-top: 2px;
+}
+.modal-apply .modal-body {
+  padding: 10px 30px 20px 30px;
+  color: #333333;
+}
+.modal-apply .modal-body > p {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+}
+.modal-apply .modal-body .form-group,.new-assess .form-group {
+  width: 100%;
+  min-height: 54px;
+  position: relative;
+}
+.modal-apply .modal-body .form-group .unit,.new-assess .form-group .unit{
+  position: absolute;
+  right: 15px;
+  top: 7px;
+}
+.modal-apply .modal-body .form-group label,.new-assess .form-group label{
+  width: 110px;
+  font-weight: 100;
+  text-align: right;
+  margin-right: 20px;
+}
+.modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea,.new-assess .form-group input{
+  width: 84%;
+  border-radius: 0px;
+}
+.modal-apply .modal-body .form-group textarea {
+  resize: none;
+}
+.modal-apply .modal-body .form-group .has-error,.new-assess .form-group .has-error {
+  margin: 0px 0px 0px 130px;
+}
+.payee-information {
+  min-height: 94px !important;
+}
+.captcha_confirmation_label {
+  position: relative;
+  top: -12px;
+}
+.payee-information label{
+  position: relative;
+  top: -18px;
+}
+.modal-apply .modal-body .form-group .input-group {
+  width: 84%;
+}
+.modal-apply .modal-body .form-group .input-group input[type='text']{
+  width: 44%;
+  float: left;
+}
+.modal-apply .modal-body .form-group .input-group .input-group-btn{
+  width: 97px;
+  height: 33px;
+  float: left;
+}
+.modal-apply .modal-body .form-group .input-group input[type='button']{
+  width: 100%;
+  text-align: center;
+  background-color: #ccc;
+  color: #FFFFFF;
+}
+.prompt-information {
+  float: right;
+  line-height: 33px;
+}
+.modal-apply .workstation-submit a,.modal-apply .workstation-submit input{
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+}
+@media only screen and (min-width: 768px) {
+  div.modal-apply {
+    width: 970px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .modal-apply .modal-body .form-group label {
+    text-align: left;
+  }
+  .payee-information label,.captcha_confirmation_label {
+    top: 0px;
+  }
+  .modal-apply .modal-body .form-group .unit {
+    top: 33px;
+  }
+  .modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea {
+    width: 100%;
+  }
+  .modal-apply .modal-body .form-group .has-error {
+    margin-left: 0px;
+  }
+  .modal-apply .modal-body .form-group .input-group {
+    width: 100%;
+  }
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 84%;
+  }
+  .prompt-information {
+    display: block;
+    float: left
+  }
+}
+@media only screen and (max-width: 710px) {
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 78%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 70%;
+  }
+}
+
+
+/*资源管理*/
+/*学生管理*/
+.management-link {
+  min-height: 50px;
+  padding: 0 20px;
+}
+.management-link > a {
+  line-height: 50px;
+  font-size: 16px;
+  color: #ff5842;
+  outline: none;
+}
+.management-link > a > img {
+  width: 18px;
+  height: 18px;
+  margin-top: -2px;
+}
+.management-link > form {
+  float: right;
+  margin-top: 8px;
+}
+.management-link > form > input {
+  float: right;
+  height: 34px;
+  border: 1px solid #ff5842;
+}
+.management-link > form > input[type="text"]{
+  width: 300px;
+  padding-left: 10px;
+}
+.management-link > form > input[type="submit"]{
+  width: 70px;
+  background-color: #ff5842;
+  color: #fff;
+  font-size: 16px;
+}
+.sold-tab table a {
+  color: #ff5842;
+}
+.sold-tab table .handling > i {
+  margin: 0 20px;
+  color: #ccc;
+}
+.sold-tab table .handling > span .pass {
+  color: #14d212;
+}
+.sold-tab table .handling > span .no-pass{
+  color: #FF0000;
+}
+.modal-school > .modal-content > .modal-body {
+  padding: 30px 15px;
+}
+.modal-school > .modal-content > .modal-body input[type='submit']{
+  background-color: #fff;
+  width: 120px;
+  height: 30px;
+  color: #666;
+  border-radius: 4px;
+  border: 1px solid #666;
+}
+.modal-school > .modal-content > .modal-body .form-textarea {
+  min-height: 94px;
+  margin-bottom: 10px;
+}
+.modal-school > .modal-content > .modal-body .form-textarea .has-error {
+  margin: 0px;
+}
+.modal-school > .modal-content > .modal-body textarea {
+  resize: none;
+}
+@media only screen and (min-width: 768px) {
+  div.modal-school {
+    width: 890px;
+  }
+}
+
+
+/*课程管理*/
+/*创建直播课*/
+.create-header {
+  min-height: 60px;
+  background-color: #FAFAFA;
+  text-align: center;
+  padding: 0 20px;
+}
+.create-header > a {
+  color: #ff5842;
+  line-height: 60px;
+}
+.create-header > .back {
+  float: left;
+}
+.create-header > h3 {
+  display: inline-block;
+  line-height: 60px;
+  font-size: 18px;
+  color: #34495e;
+  margin: 0px;
+}
+.create-header > .course-hint {
+  float: right;
+  position: relative;
+}
+.create-header > .course-hint > img {
+  margin-top: -2px;
+}
+.create-header > .course-hint > .course-description {
+  position: absolute;
+  right: 0px;
+  top: 45px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ccc;
+  color: #666;
+  font-size: 12px;
+  display: none;
+}
+.create-header > .course-hint > .course-description > img {
+  width: 230px;
+  height: 143px;
+}
+.create-header > .course-hint > .course-description h5 {
+  margin: 10px 0;
+  text-align: left;
+  font-size: 12px;
+}
+.create-header > .course-hint > .course-description p {
+  text-align: left;
+  line-height: 20px;
+  margin-bottom: 0px;
+}
+.work-station .editor-msg label.no-required {
+  margin-left: 15px;
+}
+.work-station .editor-item {
+  padding: 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+.work-station .editor-item:last-child {
+  border-bottom: 0px;
 }

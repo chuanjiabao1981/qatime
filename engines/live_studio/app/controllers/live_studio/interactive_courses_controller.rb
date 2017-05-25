@@ -5,7 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation, except: [:index, :show]
-    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons]
+    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
@@ -64,6 +64,13 @@ module LiveStudio
       end
     end
 
+    def play
+      load_play_data
+      @current_lesson = @interactive_course.current_lesson
+      @teachers = @interactive_course.teachers
+      render layout: 'v1/live'
+    end
+
     private
 
     def search_params
@@ -116,6 +123,15 @@ module LiveStudio
       end
       course.start_at, course.end_at = class_dates.min, class_dates.max
       course
+    end
+
+    def load_play_data
+      @chat_team = @interactive_course.chat_team
+      @chat_account = current_user.try(:chat_account)
+      if @chat_account.nil?
+        @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+      end
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
     end
 
   end

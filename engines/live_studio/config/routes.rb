@@ -63,6 +63,8 @@ LiveStudio::Engine.routes.draw do
     member do
       get :update_class_date
       patch :update_lessons
+      get :play # 观看直播
+      get :live_info
     end
 
     resources :orders, only: [:new, :create]

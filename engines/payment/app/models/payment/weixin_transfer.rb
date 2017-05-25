@@ -3,6 +3,9 @@ module Payment
     RESULT_SUCCESS = "SUCCESS".freeze
 
     def remote_transfer
+      # 根据订单来源设置企业支付证书
+      # 可能会有并发问题
+      WxPay.set_apiclient_by_pkcs12(*WechatSetting[:app_cert])
       return fail! if Rails.env.test?
       r = WxPay::Service.invoke_transfer(transfer_remote_params)
       self.hold_results = JSON.parse(r.to_json)
@@ -19,7 +22,7 @@ module Payment
         amount: pay_money,
         spbill_create_ip: remote_ip,
         check_name: 'NO_CHECK',
-        openid: order.try(:user).try(:wechat_users).try(:last).try(:openid),
+        openid: order.withdraw_record.account,
         desc: "用户提现"
       }
     end

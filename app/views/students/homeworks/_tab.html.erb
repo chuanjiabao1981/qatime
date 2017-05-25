@@ -1,0 +1,29 @@
+<div class="homework-nav">
+  <div class="row">
+    <div class="col-md-1-5">
+      <div class="nav-info">
+        <%= link_to t('students.homeworks.tab.solutions'), solutions_student_path(@student), class: "#{'active' if action_name == 'solutions'}" %>
+      </div>
+    </div>
+    <div class="col-md-1-5">
+      <div class="nav-info">
+        <%= link_to t('students.homeworks.tab.customized_tutorial_topics'), customized_tutorial_topics_student_path(@student), class: "#{'active' if action_name == 'customized_tutorial_topics'}" %>
+      </div>
+    </div>
+    <div class="col-md-1-5">
+      <div class="nav-info">
+        <%= link_to t('students.homeworks.tab.homeworks'), homeworks_student_path(@student), class: "#{'active' if action_name == 'homeworks'}" %>
+      </div>
+    </div>
+    <div class="col-md-1-5">
+      <div class="nav-info">
+        <%= link_to t('students.homeworks.tab.questions'), questions_student_path(@student), class: "#{'active' if action_name == 'questions'}" %>
+      </div>
+    </div>
+    <div class="col-md-1-5">
+      <div class="nav-info">
+        <%= link_to t('students.homeworks.tab.topics'), topics_student_path(@student), class: "#{'active' if action_name == 'topics'}" %>
+      </div>
+    </div>
+  </div>
+</div>

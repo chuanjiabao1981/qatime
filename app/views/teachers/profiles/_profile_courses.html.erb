@@ -5,7 +5,10 @@
 
   <% if @courses.present? %>
     <div class="class-info">
-      <h3><%= t('teachers.profile.course') %></h3>
+      <h3>
+        <%= image_tag 'iconlive.png' %>
+        <span><%= t('teachers.profile.course') %></span>
+      </h3>
       <%= render partial: 'teachers/profiles/courses', locals: {courses: @courses} %>
 
       <p class="iteminfo-more">
@@ -17,8 +20,11 @@
   <% end %>
 
   <% if @interactive_courses.present? %>
-    <div class="class-info class-exclusive">
-      <h3><%= t('teachers.profile.interactive_course') %></h3>
+    <div class="class-info">
+      <h3>
+        <%= image_tag 'iconface.png' %>
+        <span><%= t('teachers.profile.interactive_course') %></span>
+      </h3>
       <%= render partial: 'teachers/profiles/interactive_courses', locals: {courses: @interactive_courses} %>
 
       <p class="iteminfo-more">
@@ -31,7 +37,10 @@
 
   <% if @video_courses.present? %>
     <div class="class-info">
-      <h3><%= t('teachers.profile.video_course') %></h3>
+      <h3>
+        <%= image_tag 'iconvideo.png' %>
+        <span><%= t('teachers.profile.video_course') %></span>
+      </h3>
       <%= render partial: 'teachers/profiles/video_courses', locals: {courses: @video_courses} %>
 
       <p class="iteminfo-more">

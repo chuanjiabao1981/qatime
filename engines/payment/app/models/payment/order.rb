@@ -273,7 +273,7 @@ module Payment
       elsif cash_account.password_set_at.blank?
         errors.add(:payment_password, I18n.t("error.payment/order.payment_password_unset"))
       # 支付密码设置时间过短
-      elsif cash_account.password_set_at > 24.hours.ago
+      elsif cash_account.password_set_at > 2.hours.ago
         errors.add(:payment_password, I18n.t("error.payment/order.payment_password_young"))
       # 支付密码不正确
       elsif !cash_account.authenticate(payment_password)

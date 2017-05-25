@@ -12,6 +12,7 @@ module Entities
       expose :lessons_count
       expose :completed_lessons_count
       expose :closed_lessons_count
+      expose :started_lessons_count
       expose :live_start_time
       expose :live_end_time
       expose :objective
@@ -30,7 +31,9 @@ module Entities
         course.try(:chat_team).try(:team_id).to_s
       end
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full }
-      expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full }
+      expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full } do |course|
+        course.order_lessons
+      end
       expose :teachers, using: Entities::Teacher
 
       with_options(format_with: :local_timestamp) do
@@ -46,6 +49,9 @@ module Entities
         expose :cheap_moment do |course|
           false
         end
+      end
+      expose :off_shelve do |course|
+        course.off_shelve?
       end
     end
   end

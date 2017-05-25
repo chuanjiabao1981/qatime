@@ -292,16 +292,6 @@ module LiveStudio
       play_records.replay.count
     end
 
-    # 获取直播录像
-    def sync_replays
-      course.channels.each do |c|
-        c.sync_video_for(self) if c.board?
-      end
-      synced! if channel_videos.count > 0
-      # 设置合并任务
-      ReplaysMergeWorker.perform_async(id) if synced?
-    end
-
     # 视频回放开始时间
     def replays_start_at
       (live_start_at.to_i - 6.minutes) * 1000
@@ -346,20 +336,6 @@ module LiveStudio
       c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
                          user_id: user.id).where('created_at < ?', Date.today).count
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
-    end
-
-    # 合并视频
-    def merge_replays
-      # 摄像头视频合并
-      # replays.create(video_for: ChannelVideo.video_fors['camera'],
-      #                name: camera_replay_name,
-      #                vids: camera_video_vids,
-      #                channel: course.channels.find_by(use_for: Channel.use_fors['camera']))
-      # 白板视频合并
-      replays.create(video_for: ChannelVideo.video_fors['board'],
-                     name: board_replay_name,
-                     vids: board_video_vids,
-                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
     end
 
     def replay_name(video_for)

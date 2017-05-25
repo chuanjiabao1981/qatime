@@ -180,6 +180,11 @@ module LiveStudio
       price
     end
 
+    # 已下架
+    def off_shelve?
+      !published?
+    end
+
     # 发货
     def deliver(order)
       check_ticket!(order)

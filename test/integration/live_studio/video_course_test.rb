@@ -20,6 +20,16 @@ module LiveStudio
       DatabaseCleaner.clean
     end
 
+    test 'buy off shelve video course' do
+      course = live_studio_video_courses(:completed_video_course)
+      visit live_studio.video_course_path(course)
+      assert page.has_link? '已下架'
+      assert page.has_no_link? '立即报名'
+
+      visit live_studio.new_video_course_order_path(course)
+      assert page.has_content? '该课程已下架!'
+    end
+
     test 'buy a video course' do
       @video_course = live_studio_video_courses(:published_video_course1)
       visit live_studio.new_video_course_order_path(@video_course)

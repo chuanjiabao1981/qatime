@@ -1,0 +1,10 @@
+<li>
+  <h4>
+    <span class="status-<%= state_css_v1_style(solution) %>"><%= solution.human_state_name %></span>
+    <%= link_to solution.title, send("#{solution.model_name.singular_route_key}_path", solution) %>
+  </h4>
+  <p>
+    <%= image_tag solution.author.avatar_url(:small), class: 'handle_error_avatar' %>
+    <%= render partial: 'solutions/brief_info/v1_info', locals: {solution: solution} %>
+  </p>
+</li>

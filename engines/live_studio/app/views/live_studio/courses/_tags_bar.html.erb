@@ -1,15 +1,6 @@
-<div class="col-md-3 classify-left">
-  <div class="aside-list">
-    <div class="aside-list-head">
-      <h1><%= t("view.course_filter.range/#{@search_params[:range]}") %></h1>
-    </div>
-
-    <div class="aside-list-nav">
-      <%= link_to t('view.course_filter.none'), live_studio.courses_path(@search_params.merge(tags: nil)), class: "#{@search_params[:tags].present? ? '' : 'active'}" %>
-      <% @tags.each do |tag| -%>
-        <%= link_to tag.name, live_studio.courses_path(@search_params.merge(tags: tag.name)), class: "#{@search_params[:tags] == tag.name ? 'active' : ''}" %>
-      <% end -%>
-    </div>
-  </div>
-
+<div class="nav-sub">
+  <%= link_to t('view.course_filter.none'), live_studio.courses_path(@search_params.merge(tags: nil)), class: "#{@search_params[:tags].present? ? '' : 'active'}" %>
+  <% @tags.each do |tag| -%>
+    <%= link_to tag.name, live_studio.courses_path(@search_params.merge(tags: tag.name)), class: "#{@search_params[:tags] == tag.name ? 'active' : ''}" %>
+  <% end -%>
 </div>

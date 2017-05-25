@@ -1,8 +1,10 @@
 module UserService
   class WechatApi
-    def initialize(code, platform='web')
+    def initialize(code, platform = 'web')
       @code = code
       @platform = platform
+      @appid = WechatSettings.login.send(platform).appid
+      @secret = WechatSettings.login.send(platform).secret
     end
 
     # 微信扫码登陆第二部
@@ -20,13 +22,14 @@ module UserService
         openid = flag["openid"]
         @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)
         info = UserService::WechatApi.wechat_userinfo(flag["access_token"], openid)
-        @wechat_user.update(userinfo: userinfo(flag, info))
+        @wechat_user.update(userinfo: userinfo(flag, info), appid: @appid,
+                            unionid: info['unionid'], nickname: info['nickname'],
+                            headimgurl: info['headimgurl'])
       end
       @wechat_user
     end
 
     class << self
-
       # 根据openid 绑定用户
       def binding_user(openid, user, info_update = false)
         wechat_user = ::Qawechat::WechatUser.find_by(openid: openid)
@@ -75,15 +78,15 @@ module UserService
     end
 
     def web_access_token_url
-      "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{app_id}&secret=#{secret}&code=#{@code}&grant_type=authorization_code"
+      "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{@appid}&secret=#{secret}&code=#{@code}&grant_type=authorization_code"
     end
 
     def app_id
-      WECHAT_CONFIG["#{@platform}_appid"]
+      @appid
     end
 
     def secret
-      WECHAT_CONFIG["#{@platform}_secret"]
+      @secret
     end
   end
 end

@@ -98,7 +98,7 @@ module V1
       end
       post "/:id/wechat" do
         user = ::User.find(params[:id])
-        wechat_user = UserService::WechatApi.new(params[:code], 'mobile').web_access_token
+        wechat_user = UserService::WechatApi.new(params[:code], 'app').web_access_token
         UserService::WechatApi.binding_user(wechat_user.openid, user)
         'ok'
       end

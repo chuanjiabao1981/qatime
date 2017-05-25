@@ -1,28 +1,13 @@
-<% if learning_plan_counter == 0 %>
-    <div class="row qa_cell" style="font-weight: bold">
-
-      <div class="col-md-3">
-        <%= "#{VipClass.model_name.human} #{LearningPlan.human_attribute_name(:student)}" %>
-      </div>
-
-      <div class="col-md-3">
-        问题
-      </div>
+<div class="col-md-6 col-sm-6 manage-box">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 student-info">
+      <p>
+        <%= image_tag learning_plan.student.try(:avatar_url, :small), class: 'handle_error_avatar' %>
+        <span><%= learning_plan.student.try(:name) %></span>
+      </p>
     </div>
-<% end %>
-<div class="row qa_cell">
-  <div class="col-md-3">
-    <%= learning_plan.student.name %>
-  </div>
-
-
-  <div class="col-md-3">
-    <%= link_to '查看全部问题',teacher_questions_path(learning_plan_id: learning_plan.id, teacher_id: @teacher.id) %>
-  </div>
-</div>
-
-<div>
-  <div>
-
+    <div class="col-md-6 col-sm-6 col-xs-6 examine">
+      <%= link_to t('teachers.students.questions_link'), teacher_questions_path(learning_plan_id: learning_plan.id, teacher_id: @teacher.id) %>
+    </div>
   </div>
 </div>

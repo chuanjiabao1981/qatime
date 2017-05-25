@@ -1,0 +1,60 @@
+<li>
+  <div class="row proprietary-course">
+    <div class="col-md-4">
+      <%= link_to customized_course_path(customized_course) do %>
+        <%= "#{customized_course.category}-#{customized_course.subject}" %>
+      <% end %>
+    </div>
+
+    <div class="col-md-8">
+      <p>
+        <% if current_user.admin? %>
+          <span><%= CustomizedCourse.human_attribute_name(:platform_price) %>：<i><%= number_to_currency customized_course.platform_price %></i></span>
+          <span><%= CustomizedCourse.human_attribute_name(:teacher_price) %>：<i><%= number_to_currency customized_course.teacher_price %></i></span>
+        <% end %>
+        <% if not current_user.teacher? and not current_user.student? %>
+          <span><%= CustomizedCourse.human_attribute_name(:is_keep_account) %>：<i><%= t customized_course.is_keep_account.to_s %></i></span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= CustomizedTutorial.model_name.human %></h5>
+        <p><%= customized_course.customized_tutorials_count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= Homework.model_name.human %></h5>
+        <p><%= customized_course.homeworks_count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= t('students.customized_courses.timeout_to_solve_homeworks') %></h5>
+        <p><%= customized_course.timeout_to_solve_homeworks.count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= CustomizedCourse.human_attribute_name(:topics) %></h5>
+        <p><%= customized_course.topics_count %></p>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="tec-info">
+        <p>
+          <% customized_course.teachers.each_with_index do |teacher, index| %>
+            <i>
+              <%= image_tag teacher.avatar_url(:small), class: 'handle_error_avatar' %>
+              <span><%= teacher.view_name %></span>
+            </i>
+            <%= content_tag(:em) if customized_course.teachers.count > index+1 %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</li>

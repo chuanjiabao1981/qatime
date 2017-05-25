@@ -53,5 +53,10 @@ module DataService
       all_lessons.sort_by { |x| x.start_at }
     end
 
+    # 考核进度
+    def waiting_tasks
+      @workstation.sale_tasks.ongoing.reorder(started_at: :asc)
+    end
+
   end
 end

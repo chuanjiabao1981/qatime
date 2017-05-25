@@ -12,6 +12,7 @@ class Managers::HomeController < ApplicationController
     @x_cate = home_data.statistics_x_cate
     @series_data = home_data.statistics_series_data
     @teaching_lessons = home_data.teaching_lessons[0..2]
+    @waiting_tasks = home_data.waiting_tasks
   end
 
   private

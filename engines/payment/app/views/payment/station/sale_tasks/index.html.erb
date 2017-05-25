@@ -1,153 +1,93 @@
-<div class="panel panel-default">
-  <div class="admin new-workstation">
-    <%= render 'station/workstations/tab_node' %>
-
-    <%= link_to t('view.payment/sale_task.create'), payment.new_station_workstation_sale_task_path(@workstation), class: 'edit-site' if allow?('payment/station/sale_tasks', 'new', @workstation) -%>
-
-    <div class="assess-norm assess-manager">
-
-      <h4><%= Payment::SaleTask.human_attribute_name(:task_rule) %></h4>
-      <% @waiting_tasks.each_with_index do |task, index| -%>
-      <div class="assess-norm-con">
-    <div class="assess-norm-title">
-      <h5><%= t('view.payment/sale_task.task_index', index: format('%02d', index + 1)) %></h5>
-      <%= link_to t('view.payment/sale_task.edit'), edit_station_workstation_sale_task_path(@workstation, task) if task.unstart? &&  allow?('payment/station/sale_tasks', 'edit', @workstation) -%>
-    </div>
-    <ul>
-      <li>
-        <span><%= Payment::SaleTask.human_attribute_name(:status) %>:</span>
-        <span class="assess-status"><%= task.aasm.human_state %></span>
-        <%= link_to(t('view.payment/sale_task.start'),
-                    payment.start_station_workstation_sale_task_path(@workstation, task),
-                    method: 'patch',
-                    data: {confirm: t('view.payment/sale_task.confirm_start')}) if task.unstart? &&  allow?('payment/station/sale_tasks', 'start', @workstation) %>
-        <%= link_to(t('view.payment/sale_task.close'),
-                    payment.close_station_workstation_sale_task_path(@workstation, task),
-                    method: 'patch',
-                    data: {confirm: t('view.payment/sale_task.confirm_close')}) if task.ongoing? &&  allow?('payment/station/sale_tasks', 'close', @workstation) %>
-      </li>
-      <li>
-        <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>:</span>
-        <span><%= localize(task.started_at.to_date) %></span>
-      </li>
-      <li>
-        <span><%= Payment::SaleTask.human_attribute_name(:period) %>:</span>
-        <span><%= t('view.payment/sale_task.period', period: task.period) %></span>
-        <i><%= Payment::SaleTask.human_attribute_name(:ended_at) %> <%= localize(task.ended_at.to_date) %></i>
-      </li>
-      <li>
-        <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>:</span>
-        <span><%= number_to_currency(task.target_balance, locale: 'cn') %></span>
-      </li>
-      <li>
-        <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>:</span>
-        <span><%= number_to_percentage(task.charge_percentage, precision: 0) %></span>
-      </li>
-    </ul>
-      </div>
-      <% end -%>
+<div class="article">
+  <div class="sold">
+    <div class="sold-title">
+      <%= link_to main_app.managers_home_path do %>
+        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
+      <% end %>
+      <h3><%= Payment::SaleTask.human_attribute_name(:task_history) %></h3>
     </div>
 
-    <div class="assess-record">
-      <div class="assess-record-title">
-    <h4><%= Payment::SaleTask.human_attribute_name(:task_history) %></h4>
-      </div>
-      <div class="admin-record-con">
-    <table border="1" cellspacing="1" cellpadding="1">
-      <tbody>
-        <tr>
-          <td><%= Payment::SaleTask.human_attribute_name(:task_index) %></td>
-          <td><%= Payment::SaleTask.human_attribute_name(:result) %></td>
-          <td><%= Payment::SaleTask.human_attribute_name(:charge_balance) %></td>
-          <td><%= Payment::SaleTask.human_attribute_name(:available_balance) %></td>
-          <td><%= Payment::SaleTask.human_attribute_name(:closed_at) %></td>
-          <td><%= Payment::SaleTask.human_attribute_name(:operate) %></td>
-        </tr>
-        <% @closed_tasks.each_with_index do |task, index| %>
-        <tr>
-          <td><%= format('%02d', index + 1) %></td>
-          <td class="assess-state">
-            <span class="assess-state-pass"><%= Payment::SaleTask.human_attribute_name("result/#{task.result}") %></span>
-          </td>
-          <td><%= number_to_currency(task.charge_balance, locale: 'cn') %></td>
-          <td><%= number_to_currency(task.available_balance, locale: 'cn') %></td>
-          <td><%= localize(task.closed_at, format: :long) if task.closed_at %></td>
-          <td>
-            <%= link_to '##', class: 'view-msg' do %>
-              <span><%= t('view.payment/sale_task.detail') %></span>
-              <i class="fa fa-angle-down"></i>
-            <% end %>
-          </td>
-        </tr>
-        <tr class="admin-record-msg">
-          <td colspan="7">
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tbody><tr>
-              <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>: </span>
-            <span><%= localize(task.started_at.to_date) %></span>
-              </td>
-              <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>: </span>
-            <span><%= localize(task.ended_at.to_date) %></span>
-              </td>
-              <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:period) %>: </span>
-            <span><%= t('view.payment/sale_task.period', period: task.period) %></span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>:</span>
-            <span><%= number_to_currency(task.target_balance, locale: 'cn') %></span>
-              </td>
-              <td colspan="2">
-            <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
-            <span><%= number_to_currency(task.result_balance, locale: 'cn') %></span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>:</span>
-            <span><%= number_to_currency(task.left_amount, locale: 'cn') %></span>
-              </td>
-              <td colspan="2">
-            <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>:</span>
-            <span><%= number_to_percentage(task.charge_percentage, precision: 0) %></span>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="3">
-            <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>:</span>
-            <span><%= number_to_currency(task.charge_balance, locale: 'cn') %></span>
-            <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
-              </td>
-            </tr>
-        </tbody></table>
-          </td>
-        </tr>
+    <% if current_user.admin? %>
+      <div class="assess-norm assess-manager">
+        <h4><%= Payment::SaleTask.human_attribute_name(:task_rule) %></h4>
+        <%= link_to t('view.payment/sale_task.create'), payment.new_station_workstation_sale_task_path(@workstation), class: 'edit-site' if allow?('payment/station/sale_tasks', 'new', @workstation) -%>
+        <% @waiting_tasks.each_with_index do |task, index| -%>
+          <div class="assess-norm-con">
+            <div class="assess-norm-title">
+              <h5><%= t('view.payment/sale_task.task_index', index: format('%02d', index + 1)) %></h5>
+              <%= link_to t('view.payment/sale_task.edit'), edit_station_workstation_sale_task_path(@workstation, task) if task.unstart? &&  allow?('payment/station/sale_tasks', 'edit', @workstation) -%>
+            </div>
+            <ul>
+              <li>
+                <span><%= Payment::SaleTask.human_attribute_name(:status) %>:</span>
+                <span class="assess-status"><%= task.aasm.human_state %></span>
+                <%= link_to(t('view.payment/sale_task.start'),
+                            payment.start_station_workstation_sale_task_path(@workstation, task),
+                            method: 'patch',
+                            data: {confirm: t('view.payment/sale_task.confirm_start')}) if task.unstart? &&  allow?('payment/station/sale_tasks', 'start', @workstation) %>
+                <%= link_to(t('view.payment/sale_task.close'),
+                            payment.close_station_workstation_sale_task_path(@workstation, task),
+                            method: 'patch',
+                            data: {confirm: t('view.payment/sale_task.confirm_close')}) if task.ongoing? &&  allow?('payment/station/sale_tasks', 'close', @workstation) %>
+              </li>
+              <li>
+                <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>:</span>
+                <span><%= localize(task.started_at.to_date) %></span>
+              </li>
+              <li>
+                <span><%= Payment::SaleTask.human_attribute_name(:period) %>:</span>
+                <span><%= t('view.payment/sale_task.period', period: task.period) %></span>
+                <i><%= Payment::SaleTask.human_attribute_name(:ended_at) %> <%= localize(task.ended_at.to_date) %></i>
+              </li>
+              <li>
+                <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>:</span>
+                <span><%= number_to_currency(task.target_balance, locale: 'cn') %></span>
+              </li>
+              <li>
+                <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>:</span>
+                <span><%= number_to_percentage(task.charge_percentage, precision: 0) %></span>
+              </li>
+            </ul>
+          </div>
         <% end -%>
-      </tbody>
-    </table>
       </div>
+    <% end %>
+
+    <div class="assess-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= Payment::SaleTask.human_attribute_name(:task_index) %></th>
+            <th><%= Payment::SaleTask.human_attribute_name(:result) %></th>
+            <th><%= Payment::SaleTask.human_attribute_name(:charge_balance) %></th>
+            <th><%= Payment::SaleTask.human_attribute_name(:available_balance) %></th>
+            <th><%= Payment::SaleTask.human_attribute_name(:closed_at) %></th>
+            <th><%= Payment::SaleTask.human_attribute_name(:operate) %></th>
+          </tr>
+          <%= render partial: 'payment/station/sale_tasks/closed_task', collection: @closed_tasks %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @closed_tasks.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @closed_tasks, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     </div>
   </div>
 </div>
 
 <%= content_for :javascript do %>
-<script>
-$(function() {
-  $(".view-msg").click(function  () {
-      var index = $(".view-msg").index($(this));
-      $(".admin-record-msg").eq(index).toggle();
-        if ($(this).find("i").attr("class") == "fa fa-angle-down") {
+  <script type="text/javascript">
+    $(function() {
+      $(".operation a").click(function() {
+        var index = $(".operation a").index($(this));
+        $(".assess-msg").eq(index).toggle();
+        if($(this).find("i").attr("class") == "fa fa-angle-down") {
           $(this).find("span").html("<%= t('view.payment/sale_task.hide') %>");
-          $(this).find("i").attr("class","fa fa-angle-up");
-        } else{
+          $(this).find("i").attr("class", "fa fa-angle-up");
+        } else {
           $(this).find("span").html("<%= t('view.payment/sale_task.detail') %>");
-          $(this).find("i").attr("class","fa fa-angle-down");
+          $(this).find("i").attr("class", "fa fa-angle-down");
         }
+      });
     });
-});
-</script>
+  </script>
 <% end %>

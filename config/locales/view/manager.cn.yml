@@ -17,3 +17,9 @@ cn:
         sale_tasks:
           title: 考核进度跟踪
           more: 考核记录
+          period: 考核周期
+          target_balance: 销售目标
+          target_balance_text: 目标
+          ended_at: 截止
+          left_ended_at: "剩余%{count}天"
+          left_amount: 还差

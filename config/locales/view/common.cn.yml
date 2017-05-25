@@ -44,7 +44,7 @@ cn:
           cross_percentage: 跨站经销分成比：
           cross_percentage_hint: (经销本站所发布的内容不收入任何分成)
           service_price: 服务费标准：
-          service_price_text: "%{price}/小时"
+          service_price_text: "直播课%{service_price}元/小时；视频课%{video_service_price}元/小时"
           contract_date: 合作有效期：
           contract_date_text: "%{start} 至 %{end}"
         fund:
@@ -85,7 +85,8 @@ cn:
             payee: 格式：收款人姓名+空格+收款人账号
             captcha_confirmation: 输入收到的手机校验码
           hints:
-            captcha_confirmation: (为确保账户资金安全，仅限经理本人进行操作)
+            notice: "提醒：为确保账户资金安全，仅限经理本人进行操作"
+            captcha_confirmation: (当前绑定手机：%{phone})
         change_records:
           out_record: 出账记录
           in_record: 入账记录

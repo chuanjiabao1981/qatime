@@ -1,3 +1,4 @@
+<p><%= t('view.shared.workstations.fund_node.hints.notice') %></p>
 <%= simple_form_for @withdraw, url: withdraw_station_workstation_path(workstation), html: {class: 'form-inline', remote: true} do |f| %>
   <%= f.input :amount, label: false do %>
     <%= f.label :amount, t('view.shared.workstations.fund_node.labels.amount') %>
@@ -21,7 +22,7 @@
                            data-send-url="<%= ajax_captchas_path %>" data-key="withdraw_cash"
                            value="<%= t('wap.users.new.get_captcha') %>">
                   </span>
-      <span class="prompt-information"><%= t('view.shared.workstations.fund_node.hints.captcha_confirmation') %></span>
+      <span class="prompt-information"><%= t('view.shared.workstations.fund_node.hints.captcha_confirmation', phone: workstation.manager.try(:login_mobile)) %></span>
     </div>
     <%= f.error :captcha_confirmation %>
   </div>

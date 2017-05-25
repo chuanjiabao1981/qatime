@@ -8,8 +8,8 @@
     <td class="spending-message">
       <span><%= change_record.business.try(:payee) %></span>
     </td>
-    <td><%= localize(change_record.created_at, format: :long) %></td>
-    <td>
+    <td><%= localize(change_record.created_at) if change_record.created_at %></td>
+    <td class="operation">
       <a href="javascript:void(0);" class="view-msg">
         <span><%= t('view.shared.workstations.change_records.show_link') %></span>
         <i class="fa fa-angle-down"></i>
@@ -17,26 +17,20 @@
     </td>
   </tr>
 
-  <tr class="admin-record-msg">
-    <td colspan="7">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tbody>
-        <tr>
-          <td>
-            <span><%= t('view.shared.workstations.change_records.different_money') %></span>
-            <span><%= number_to_currency(change_record.business.try(:amount), locale: :cn) %></span>
-          </td>
-          <td>
-            <span><%= t('view.shared.workstations.change_records.beore_money') %></span>
-            <span><%= number_to_currency(change_record.before, locale: :cn) %></span>
-          </td>
-          <td>
-            <span><%= t('view.shared.workstations.change_records.after_money') %></span>
-            <span><%= number_to_currency(change_record.after, locale: :cn) %></span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <tr class="assess-msg">
+    <td class="row" colspan="7">
+      <div class="col-md-4 inspection-line">
+        <span><%= t('view.shared.workstations.change_records.different_money') %></span>
+        <span><%= number_to_currency(change_record.business.try(:amount), locale: :cn) %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= t('view.shared.workstations.change_records.beore_money') %></span>
+        <span><%= number_to_currency(change_record.before, locale: :cn) %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= t('view.shared.workstations.change_records.after_money') %></span>
+        <span><%= number_to_currency(change_record.after, locale: :cn) %></span>
+      </div>
     </td>
   </tr>
 <% end %>
@@ -50,8 +44,8 @@
     <td class="spending-message">
       <span><%= change_record.business.try(:name) %></span>
     </td>
-    <td><%= localize(change_record.created_at, format: :long) %></td>
-    <td>
+    <td><%= localize(change_record.created_at) if change_record.created_at %></td>
+    <td class="operation">
       <a href="javascript:void(0);" class="view-msg">
         <span><%= t('view.shared.workstations.change_records.show_link') %></span>
         <i class="fa fa-angle-down"></i>
@@ -59,8 +53,8 @@
     </td>
   </tr>
 
-  <tr class="admin-record-msg">
-    <td colspan="7">
+  <tr class="assess-msg">
+    <td class="row" colspan="7">
       <table border="0" cellspacing="0" cellpadding="0">
         <tbody><tr>
           <td>

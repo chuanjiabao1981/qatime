@@ -1,36 +1,25 @@
-<div class="admin-record">
-  <div class="admin-record-nav">
-    <%= link_to t('view.shared.workstations.change_records.out_record'), params.reject{|k,v| k == 'page'}.merge(from: 'out'), class: "#{'active' if params[:from] == 'out'}" %>
-    <span>|</span>
-    <%= link_to t('view.shared.workstations.change_records.in_record'), params.reject{|k,v| k == 'page'}.merge(from: 'in'), class: "#{'active' if params[:from] == 'in'}" %>
-  </div>
+<div class="assess-tab">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr>
+      <th><%= t('common.index_no') %></th>
+      <th><%= t("view.shared.workstations.change_records.expend_money#{'_in' if params[:from] == 'in'}") %></th>
+      <th><%= t("view.shared.workstations.change_records.expend_type#{'_in' if params[:from] == 'in'}") %></th>
+      <th><%= t("view.shared.workstations.change_records.expend_balance#{'_in' if params[:from] == 'in'}") %></th>
+      <th><%= t("view.shared.workstations.change_records.expend_info#{'_in' if params[:from] == 'in'}") %></th>
+      <th><%= t('view.common.time') %></th>
+      <th><%= t('common.operate') %></th>
+    </tr>
 
-  <div class="admin-record-con">
-    <table border="1" cellspacing="1" cellpadding="1">
-      <tbody>
-      <tr>
-        <td><%= t('common.index_no') %></td>
-        <td><%= t("view.shared.workstations.change_records.expend_money#{'_in' if params[:from] == 'in'}") %></td>
-        <td><%= t("view.shared.workstations.change_records.expend_type#{'_in' if params[:from] == 'in'}") %></td>
-        <td><%= t("view.shared.workstations.change_records.expend_balance#{'_in' if params[:from] == 'in'}") %></td>
-        <td><%= t("view.shared.workstations.change_records.expend_info#{'_in' if params[:from] == 'in'}") %></td>
-        <td><%= t('view.common.time') %></td>
-        <td><%= t('common.operate') %></td>
-      </tr>
+    <% @change_records.each_with_index do |change_record, index| %>
+      <%= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
+    <% end %>
 
-      <% @change_records.each_with_index do |change_record, index| %>
-        <%= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
-      <% end %>
+    </tbody>
+  </table>
 
-      </tbody>
-    </table>
-
-    <center>
-      <div class="pagination-fix">
-        <%= will_paginate @change_records %>
-      </div>
-    </center>
-  </div>
+  <%= render 'shared/blank' if @change_records.blank? %>
+  <center><div class="pagination-fix"><%= will_paginate @change_records, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
 </div>
 
 <script type="text/javascript">
@@ -39,7 +28,6 @@
       event.preventDefault();
       var url = $(this).attr('href');
       var change_record_id = $(this).data('change-record-id');
-
 
       if($(this).find("i").attr("class") == "fa fa-angle-down") {
         $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
@@ -56,16 +44,18 @@
     });
   });
 
-
-  $(".view-msg").click(function() {
-    var index = $(".view-msg").index($(this));
-    $(".admin-record-msg").eq(index).toggle();
-    if($(this).find("i").attr("class") == "fa fa-angle-down") {
-      $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
-      $(this).find("i").attr("class", "fa fa-angle-up");
-    } else {
-      $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
-      $(this).find("i").attr("class", "fa fa-angle-down");
-    }
+  // change_record_tr.html.erb 不走ajax
+  $(function() {
+    $(".operation a.view-msg").click(function() {
+      var index = $(".operation a.view-msg").index($(this));
+      $(".assess-msg").eq(index).toggle();
+      if($(this).find("i").attr("class") == "fa fa-angle-down") {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-up");
+      } else {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-down");
+      }
+    });
   });
 </script>

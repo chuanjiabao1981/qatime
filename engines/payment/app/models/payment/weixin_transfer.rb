@@ -28,7 +28,7 @@ module Payment
     end
 
     def pay_money
-      (money * 100).to_i
+      (amount * 100).to_i
     end
   end
 end

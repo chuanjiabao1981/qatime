@@ -92,7 +92,7 @@ window.currentTeam = {
     });
 
     $.each(currentTeamMsgs, function(index, msg) {
-      onMsg(msg, true, 'roaming');
+      onMsg(msg, true, 'offline');
     });
     nim.markMsgRead(currentTeamMsgs);
   }
@@ -141,6 +141,12 @@ window.currentTeam = {
     var sessionId = msgs[0].sessionId;
     data.msgs = data.msgs || {};
     data.msgs[sessionId] = nim.mergeMsgs(data.msgs[sessionId], msgs);
+  }
+
+  // 显示通知消息
+  function onAnnouncementMsg(msg) {
+    console.log('===========>>>>>>');
+    console.log(msg);
   }
 
   function onTeams(teams) {
@@ -220,6 +226,7 @@ window.currentTeam = {
     switch (type) {
       case 'updateTeam':
         team.updateTime = timetag;
+        if(msg) onAnnouncementMsg(msg);
         onTeams(team);
         break;
       case 'addTeamMembers':
@@ -291,8 +298,9 @@ window.currentTeam = {
   }
 
   function teamAnnouncement(announcement) {
-    if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
-    refreshNotice();
+    if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下";
+    $("#notice-content").text(announcement);
+    // refreshNotice();
   }
 
   window.LiveChat = function(appKey) {

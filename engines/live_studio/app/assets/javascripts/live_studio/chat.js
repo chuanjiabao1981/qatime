@@ -83,16 +83,12 @@ window.currentTeam = {
   }
   // 漫游消息
   function onRoamingMsgs(obj) {
-    console.log('收到漫游消息', obj);
-
     currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      console.log(index);
-      console.log(msg);
       return msg.type == "team" && msg.to == currentTeam.id;
     });
 
     $.each(currentTeamMsgs, function(index, msg) {
-      onMsg(msg, true, 'offline');
+      onMsg(msg, false, 'roaming');
     });
     nim.markMsgRead(currentTeamMsgs);
   }
@@ -100,7 +96,6 @@ window.currentTeam = {
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
     if(obj.sessionId != "team-" + currentTeam.id) return false;
-
     $.each(obj.msgs, function(index, msg) {
       onMsg(msg, true, 'offline');
     });

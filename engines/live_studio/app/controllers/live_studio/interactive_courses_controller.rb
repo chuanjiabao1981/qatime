@@ -71,6 +71,10 @@ module LiveStudio
       render layout: 'v1/live'
     end
 
+    def live_info
+      render json: LiveService::InteractiveRealtimeService.new(params[:id]).live_detail(current_user.try(:id))
+    end
+
     private
 
     def search_params

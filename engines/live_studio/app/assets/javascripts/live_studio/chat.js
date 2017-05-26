@@ -84,7 +84,7 @@ window.currentTeam = {
   // 漫游消息
   function onRoamingMsgs(obj) {
     currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      return msg.type == "team" && msg.to == currentTeam.id;
+      return msg.sense == "team" && msg.to == currentTeam.id;
     });
 
     $.each(currentTeamMsgs, function(index, msg) {

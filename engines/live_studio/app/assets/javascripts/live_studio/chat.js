@@ -83,17 +83,8 @@ window.currentTeam = {
   }
   // 漫游消息
   function onRoamingMsgs(obj) {
-    console.log('收到漫游消息');
-    console.log(obj);
-    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      console.log(msg.sense == "team");
-      console.log(msg.to == currentTeam.id);
-      
-
-      return msg.sense == "team" && msg.to == currentTeam.id;
-    });
-
-    $.each(currentTeamMsgs, function(index, msg) {
+    if(obj.sessionId != "team-" + currentTeam.id) return false;
+    $.each(obj.msgs, function(index, msg) {
       onMsg(msg, false, 'roaming');
     });
     nim.markMsgRead(currentTeamMsgs);

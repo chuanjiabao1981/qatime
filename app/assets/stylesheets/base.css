@@ -4478,20 +4478,24 @@ ul {
   color: rgb(0,153,204);
 }
 .present {
-  margin-top: 57px;
-  padding-bottom: 77px;
+  padding: 10px 0 30px 0;
 }
 .present a {
-  width: 110px;
-  height: 30px;
+  width: 120px;
+  height: 38px;
   display: inline-block;
-  color: white;
+  color: #ff5842;
+  border: 1px solid #ff5842;
   font-size: 16px;
-  line-height: 32px;
+  line-height: 36px;
   text-align: center;
   border-radius: 4px;
-  background-color: rgb(190,11,11);
+  background-color: #fff;
   margin: 0 10px;
+}
+.present a:hover {
+  background-color: #ff5842;
+  color: #fff;
 }
 .editor-msg .col-md-10 {
   padding-left: 0px;
@@ -4502,7 +4506,7 @@ ul {
 .editor-msg label {
   margin-top: 5px;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
 }
 .editor-text {
@@ -10497,8 +10501,10 @@ ul {
 }
 .arrange-list > li label {
   font-weight: 500;
-  width: 90px;
+  min-width: 90px;
   line-height: 32px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 .arrange-list > li select,.arrange-list > li input[type="text"] {
   width: 140px;
@@ -10522,11 +10528,15 @@ ul {
   min-height: 54px;
 }
 .arrange-list > li > .row > .col-md-11 > div .has-error{
-  margin: 0 0 0 90px;
+  margin: 0 0 0 95px;
 }
 .arrange-list > li  {
   padding-top: 34px;
-  border-bottom: 1px solid #CCCCCC;
+  color: #666;
+  border-bottom: 1px solid #e7eaec;
+}
+.arrange-list > li:last-child {
+  border-bottom: 0px;
 }
 .new-curriculum select {
   color: #999;
@@ -10566,12 +10576,15 @@ ul {
   background-color: rgb(241,241,241);
 }
 .adjust-list > li {
-  padding: 10px 0px;
+  padding: 20px 0px;
   border-bottom: 1px solid #CCCCCC;
+  color: #333;
+}
+.adjust-list > li:last-child {
+  border-bottom: 0px;
 }
 .adjust-list > li > .row > .col-md-10 > div span:first-child {
   display: inline-block;
-  width: 90px;
 }
 .adjust-list > li > .row > .col-md-10 > div {
   margin-bottom: 5px;
@@ -10579,11 +10592,8 @@ ul {
 .adjust-list > li > .row i {
   color: #999;
 }
-.adjust-list > li > .row > .col-md-1 {
-  line-height: 75px;
-}
 .adjust-editor > .modal-content > .modal-body {
-  padding: 20px 100px;
+  padding: 20px 30px;
 }
 .adjust-editor > .modal-content > .modal-body > .row span:first-child {
   display: inline-block;
@@ -10635,7 +10645,7 @@ ul {
 }
 @media screen and (min-width: 768px){
   .adjust-editor {
-    width: 1100px !important;
+    width: 750px !important;
     padding: 0px !important;
   }
 }
@@ -10998,7 +11008,7 @@ ul {
   background-color: #FFFFFF;
 }
 .live-arrangement {
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
 }
 .live-arrangement > .row > .col-md-10 > p {
@@ -11007,26 +11017,37 @@ ul {
 }
 .live-arrangement > .row {
   padding: 20px 0px;
+  border-top: 1px solid #e7eaec;
+  margin: 0px;
+}
+.live-arrangement > .row:first-child {
+  border-top: 0px !important;
 }
 .live-arrangement > .row > .col-md-10 > .begin-time {
   color: #999;
   font-size: 14px;
 }
 .arrangement-set > a {
+  color: #ff5842;
+  line-height: 25px;
   display: block;
 }
 .add-course {
-  height: 42px;
-  border: 1px solid #999;
-  border-radius: 4px;
-  line-height: 40px;
-  display: block;
-  text-align: center;
+  display: inline-block;
+  outline: none !important;
+  color: #ff5842;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+.add-course:link {
   color: #ff5842;
 }
 .add-course > img {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
+}
+.add-course:hover {
+  color: #ff5842;
 }
 .live-msg .present a {
   background-color: #ff5842 !important;
@@ -11041,7 +11062,6 @@ ul {
   .add-newclass {
     width: 960px !important;
     padding: 0px !important;
-    margin: 0px;
   }
 }
 
@@ -11605,10 +11625,10 @@ ul {
 .scheduling > li {
   position: relative;
   margin-bottom: 20px;
-  height: 50px;
+  height: 45px;
 }
 .scheduling > li > span {
-  line-height: 50px;
+  line-height: 45px;
 }
 .scheduling > li > .scheduling-item {
   position: absolute;
@@ -11617,7 +11637,6 @@ ul {
   right: 0px;
   bottom: 0px;
   border: 1px solid #CCCCCC;
-  padding: 5px;
 }
 .course-info {
   position: absolute;
@@ -11625,6 +11644,7 @@ ul {
   right: 150px;
 }
 .course-info > p {
+  margin-top: 2px;
   margin-bottom: 0px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -11635,27 +11655,35 @@ ul {
 }
 .course-checkbox {
   position: absolute;
-  top: 6px;
+  top: 4px;
   right: 5px;
 }
 .course-checkbox > span {
   line-height: 25px;
 }
+.course-checkbox > span label {
+  color: #ff5842;
+}
 .course-checkbox > span > input {
   position: relative;
   top: 2px;
+}
+.editor-msg .charge-state {
+  padding-left: 15px;
+}
+.editor-msg .charge-state > .radio > label {
+  padding-left: 0px;
+  margin-top: 0px;
 }
 .charge-state > span > input {
   width: auto !important;
 }
 .charge-state > span:first-child {
-  margin-right: 20px;
+  padding-right: 30px;
 }
 .charge-state > span {
   display: inline-block;
-}
-.charge-state > span:last-child {
-  margin-top: 10px;
+  margin: 5px 0;
 }
 /*视频课列表*/
 .admin-title .active {
@@ -14087,7 +14115,7 @@ ul {
 
 /*首页*/
 .article {
-  margin-top: 30px;
+  margin: 30px 0px 60px 0px;
 }
 .homepage > .row  .item-home {
   border: 1px solid #CCCCCC;
@@ -14239,6 +14267,12 @@ ul {
   font-size: 18px;
   color: #34495e;
   margin-left: -45px;
+}
+.work-station > .station-title > h3 {
+  margin: 0 20px;
+  font-size: 18px;
+  color: #34495e;
+  line-height: 56px;
 }
 .sold > .sold-title > a > .fa,.homepage .subtitle > a > .fa {
   font-size: 18px;
@@ -14528,7 +14562,7 @@ ul {
   border: 1px solid #F2F2F2 !important;
   border-top: 0px !important;
 }
-.modal-apply .modal-header,.modal-school .modal-header {
+.modal-apply .modal-header {
   padding: 7px 15px;
   background-color: #DEDEDE;
 }
@@ -14674,7 +14708,7 @@ ul {
   margin-top: 8px;
 }
 .management-link > form > input {
-  float: right;
+  float: left;
   height: 34px;
   border: 1px solid #ff5842;
 }
@@ -14701,31 +14735,38 @@ ul {
 .sold-tab table .handling > span .no-pass{
   color: #FF0000;
 }
-.modal-school > .modal-content > .modal-body {
-  padding: 30px 15px;
+
+/*新增学校*/
+.add-school {
+  padding: 20px;
 }
-.modal-school > .modal-content > .modal-body input[type='submit']{
-  background-color: #fff;
+.add-school > form a {
+  display: inline-block;
+  line-height: 36px;
+  margin-right: 10px;
+}
+.add-school > form  input[type='submit'],.add-school > form a {
   width: 120px;
-  height: 30px;
-  color: #666;
+  height: 38px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #ff5842;
+  border: 1px solid #ff5842;
   border-radius: 4px;
-  border: 1px solid #666;
 }
-.modal-school > .modal-content > .modal-body .form-textarea {
-  min-height: 94px;
-  margin-bottom: 10px;
+.add-school > form .form-textarea {
+  height: 120px;
 }
-.modal-school > .modal-content > .modal-body .form-textarea .has-error {
+.add-school > form .form-textarea .has-error {
   margin: 0px;
 }
-.modal-school > .modal-content > .modal-body textarea {
+.add-school > form  textarea {
   resize: none;
+  height: 100px;
 }
-@media only screen and (min-width: 768px) {
-  div.modal-school {
-    width: 890px;
-  }
+.add-school > form  input[type='submit']:hover,.add-school > form a:hover {
+  background-color: #ff5842;
+  color: #fff;
 }
 
 
@@ -14768,6 +14809,7 @@ ul {
   color: #666;
   font-size: 12px;
   display: none;
+  z-index: 10;
 }
 .create-header > .course-hint > .course-description > img {
   width: 230px;
@@ -14788,8 +14830,87 @@ ul {
 }
 .work-station .editor-item {
   padding: 0 20px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e7eaec;
 }
 .work-station .editor-item:last-child {
   border-bottom: 0px;
+}
+
+
+/*直播课*/
+.filter {
+  min-height: 50px;
+  padding: 0 20px;
+  zoom: 1;
+}
+.filter:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.filter > .filter-left {
+  color: #ff5842;
+  font-size: 16px;
+  line-height: 50px;
+}
+.filter > .filter-left > img {
+  width: 16px;
+  height: 16px;
+  margin-top: -2px;
+}
+.filter > .filter-right {
+  padding: 8px 0px;
+  float: right;
+  overflow: hidden;
+
+}
+.filter > .filter-right > .space-item .form-control {
+  display: inline-block;
+}
+.filter > .filter-right > .space-item {
+  float: left;
+  margin-left: 25px;
+}
+.filter > .filter-right > .space-item:first-child {
+  margin-left: 0px;
+}
+.filter > .filter-right > .space-item > select {
+  width: 95px !important;
+  height: 34px;
+}
+.filter > .filter-right > .space-item label {
+  font-weight: normal;
+  margin-bottom: 0px;
+  font-size: 16px;
+  color: #000;
+}
+.filter > .filter-right > .space-item > .checked-box {
+  padding-top: 6px;
+  color: #9aabb8;
+}
+
+.sold-tab table tr td.handle > a {
+  margin-right: 48px;
+}
+.sold-tab table tr td.handle > a:last-child {
+  margin-right: 0px;
+}
+
+/*调课*/
+.course-adjust {
+  padding: 0px 20px;
+}
+.course-adjust .adjust-list li .course-time,.course-adjust .adjust-list li .course-tec {
+  color: #666;
+}
+.course-adjust .adjust-list li a {
+  color: #ff5842;
+  outline: none;
+}
+
+/*创建一对一*/
+.arrange-list li .course-name {
+  color: #666;
 }

@@ -1,0 +1,5 @@
+
+<%= simple_form_for @query, url: main_app.station_workstation_schools_path(@workstation), html: {method: :get} do |f| %>
+  <%= f.text_field :name_cont, placeholder: t('view.station.schools.placeholders.name') %>
+  <%= f.submit t('common.search') %>
+<% end %>

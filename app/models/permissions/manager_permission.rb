@@ -80,6 +80,10 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
 
+      allow 'station/schools', [:index, :new, :create, :edit, :update] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 

@@ -1,0 +1,29 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'station/students/tab' %>
+
+    <div class="management-link">
+      <%= link_to new_station_workstation_school_path(@workstation) do %>
+        <%= image_tag 'addclass.png' %>
+        <span><%= t('view.station.schools.index.new') %></span>
+      <% end %>
+      <%= render 'station/schools/search' %>
+    </div>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.station.schools.index.name') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+          <%= render partial: 'station/schools/school', collection: @schools %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @schools.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @schools, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

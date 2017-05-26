@@ -6,18 +6,6 @@ class Station::WorkstationsController < Station::BaseController
     @customized_courses = @workstation.customized_courses.order(:created_at).paginate(page: params[:page])
   end
 
-  def schools
-    @schools = @city.schools.order(:created_at).paginate(page: params[:page])
-  end
-
-  def teachers
-    @teachers = Teacher.all.order(:created_at).paginate(page: params[:page])
-  end
-
-  def students
-    @students = Student.all.order(:created_at).paginate(page: params[:page])
-  end
-
   # 销售
   def sellers
     @sellers = @workstation.sellers.order(id: :desc).paginate(page: params[:page])

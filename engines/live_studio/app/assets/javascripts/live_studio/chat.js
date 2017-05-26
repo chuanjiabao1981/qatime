@@ -145,10 +145,12 @@ window.currentTeam = {
 
   // 显示通知消息
   function onAnnouncementMsg(msg) {
-    var node = $("<div class='new-information'></div>");
-    node.append("<h6>" + msg.fromNick +  "修改了公告</h6>");
-    node.append("<p>" + msg.attach.team.announcement +  "</p>");
-    $("#messages").append(node);
+    var msgNode = $("<div class='new-information'></div>");
+    var announcementNode = $("<div class='announcement'></div>");
+    announcementNode.append("<h6>" + msg.fromNick +  "修改了公告</h6>");
+    announcementNode.append("<p>" + msg.attach.team.announcement +  "</p>");
+    msgNode.append(announcementNode);
+    $("#messages").append(msgNode);
   }
 
   function onTeams(teams) {

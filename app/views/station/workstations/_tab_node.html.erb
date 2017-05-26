@@ -3,6 +3,6 @@
     <%= link_to t('view.station.workstations.tab_node.show_title'), main_app.station_workstation_path(@workstation), class: "#{'active' if 'station/workstations' == params[:controller] && action_name == 'show'}"  %>
   <% end %>
   <% if allow? 'station/workstations', :fund, @workstation %>
-    <%= link_to t('view.admins.workstations.tab_node.fund_title'), main_app.fund_station_workstation_path(@workstation), class: "#{'active' if 'station/workstations' == params[:controller] && action_name == 'fund'}"  %>
+    <%= link_to t('view.admins.workstations.tab_node.fund_title'), main_app.fund_station_workstation_path(@workstation), class: "#{'active' if 'station/workstations' == params[:controller] && %w[change_records fund].include?(action_name) }"  %>
   <% end %>
 </div>

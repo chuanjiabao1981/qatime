@@ -399,7 +399,7 @@ module ApplicationHelper
       when :home
         r = params[:controller] == 'managers/home' && action_name == 'main'
       when :station
-        r = params[:controller] == 'station/workstations' && action_name == 'show'
+        r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
       else
         r = false
     end

@@ -55,49 +55,43 @@
 
   <tr class="assess-msg">
     <td class="row" colspan="7">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tbody><tr>
-          <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>：</span>
-            <span><%= localize(change_record.target.started_at.to_date) %></span>
-          </td>
-          <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>：</span>
-            <span><%= localize(change_record.target.ended_at.to_date) %></span>
-          </td>
-          <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:period) %>：</span>
-            <span><%= t('view.payment/sale_task.period', period: change_record.target.period) %></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>：</span>
-            <span><%= number_to_currency(change_record.target.target_balance, locale: 'cn') %></span>
-          </td>
-          <td colspan="2">
-            <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
-            <span><%= number_to_currency(change_record.target.result_balance, locale: 'cn') %></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>：</span>
-            <span><%= number_to_currency(change_record.target.left_amount, locale: 'cn') %></span>
-          </td>
-          <td colspan="2">
-            <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>：</span>
-            <span><%= number_to_percentage(change_record.target.charge_percentage, precision: 0) %></span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>：</span>
-            <span><%= number_to_currency(change_record.target.charge_balance, locale: 'cn') %></span>
-            <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
-          </td>
-        </tr>
-        </tbody></table>
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>：</span>
+        <span><%= localize(change_record.target.started_at.to_date) %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>：</span>
+        <span><%= localize(change_record.target.ended_at.to_date) %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:period) %>：</span>
+        <span><%= t('view.payment/sale_task.period', period: change_record.target.period) %></span>
+      </div>
+
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>：</span>
+        <span><%= number_to_currency(change_record.target.target_balance, locale: 'cn') %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
+        <span><%= number_to_currency(change_record.target.result_balance, locale: 'cn') %></span>
+      </div>
+      <div class="col-md-4 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>：</span>
+        <span><%= number_to_currency(change_record.target.left_amount, locale: 'cn') %></span>
+      </div>
+
+      <!--<div class="col-md-12 inspection-line">
+        <span><%#= Payment::SaleTask.human_attribute_name(:charge_percentage) %>：</span>
+        <span><%#= number_to_percentage(change_record.target.charge_percentage, precision: 0) %></span>
+      </div>-->
+
+      <div class="col-md-12 inspection-line">
+        <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>：</span>
+        <span><%= number_to_currency(change_record.target.charge_balance, locale: 'cn') %></span>
+        <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
+      </div>
+
     </td>
   </tr>
 <% end %>

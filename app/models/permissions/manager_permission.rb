@@ -17,7 +17,7 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,
+      allow :students,[:index,:search,:show, :edit, :update,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
@@ -27,7 +27,7 @@ module Permissions
         user.cities.include? school.city
       end
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:show,:search,:pass,:unpass,
+      allow :teachers,[:index,:show,:search,:pass,:unpass, :edit, :update,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
                        :exercises, :keep_account, :solutions,:customized_tutorial_topics,:notifications,
                        :customized_courses,:profile]

@@ -69,7 +69,7 @@ module V1
                 end
               raise(APIErrors::WithdrawExisted) if @user.payment_withdraws.init.present?
               UserService::CashAccountManager.new(@user).check_token(:withdraw, params[:ticket_token])
-              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init }
+              withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init, source: params[:app_type] }
               withdraw = @user.payment_withdraws.new(withdraw_params)
               raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save
               if withdraw.weixin? # 微信提现使用openid

@@ -14277,17 +14277,18 @@ ul {
 .sold > .sold-title > a > .fa,.homepage .subtitle > a > .fa {
   font-size: 18px;
 }
-.sold > .sold-link,.work-station > .station-link {
+.sold > .sold-link,.work-station > .station-link,.review-link {
   min-height: 50px;
   line-height: 50px;
   text-align: center;
   padding: 0 20px;
 }
-.sold > .sold-link > a,.work-station > .station-link > a {
+.sold > .sold-link > a,.work-station > .station-link > a,.review-link > a {
   margin-right: 70px;
   color: #666;
 }
-.sold > .sold-link > a.active,.sold > .sold-link > a:hover,.work-station > .station-link > a:hover {
+.sold > .sold-link > a.active,.sold > .sold-link > a:hover,.work-station > .station-link > a:hover,.review-link > a.active
+,.review-link > a:hover{
   color: #ff5842;
 }
 .sold > .sold-link > a:last-child,.work-station > .station-link > a:last-child {
@@ -14353,6 +14354,9 @@ ul {
 /*考核记录*/
 .assess-tab {
   margin-top: 30px;
+}
+.work-station > .assess-tab {
+  margin-top: 10px;
 }
 .assess-tab table tr > .operation > a {
   color: #ff5842;
@@ -14724,6 +14728,7 @@ ul {
 }
 .sold-tab table a {
   color: #ff5842;
+  outline: none;
 }
 .sold-tab table .handling > i {
   margin: 0 20px;
@@ -14854,6 +14859,15 @@ ul {
   color: #ff5842;
   font-size: 16px;
   line-height: 50px;
+  float: left;
+}
+.filter > .filter-left > a {
+  color: #666666;
+  font-size: 16px;
+  padding: 0 10px;
+}
+.filter > .filter-left > a.active,.filter > .filter-left > a:hover {
+  color: #ff5842;
 }
 .filter > .filter-left > img {
   width: 16px;
@@ -14866,33 +14880,34 @@ ul {
   overflow: hidden;
 
 }
-.filter > .filter-right > .space-item .form-control {
+.filter > .filter-right  .space-item .form-control {
   display: inline-block;
 }
-.filter > .filter-right > .space-item {
+.filter > .filter-right  .space-item {
   float: left;
   margin-left: 25px;
 }
-.filter > .filter-right > .space-item:first-child {
+.filter > .filter-right  .space-item:first-child {
   margin-left: 0px;
 }
-.filter > .filter-right > .space-item > select {
+.filter > .filter-right  .space-item > select {
   width: 95px !important;
   height: 34px;
 }
-.filter > .filter-right > .space-item label {
+.filter > .filter-right  .space-item label {
   font-weight: normal;
   margin-bottom: 0px;
   font-size: 16px;
   color: #000;
 }
-.filter > .filter-right > .space-item > .checked-box {
+.filter > .filter-right  .space-item > .checked-box {
   padding-top: 6px;
   color: #9aabb8;
 }
 
 .sold-tab table tr td.handle > a {
   margin-right: 48px;
+  outline: none;
 }
 .sold-tab table tr td.handle > a:last-child {
   margin-right: 0px;
@@ -14913,4 +14928,11 @@ ul {
 /*创建一对一*/
 .arrange-list li .course-name {
   color: #666;
+}
+
+
+/*视频课*/
+.review-link {
+  border-bottom: 1px solid #ccc;
+  background-color: #FAFAFA;
 }

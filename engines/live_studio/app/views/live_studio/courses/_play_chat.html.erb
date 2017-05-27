@@ -29,6 +29,11 @@
 
     <div class="message-con" id="announcements">
       <div class="message-new affiche" id="notice-panel">
+        <div class="new-information">
+          <div class="information-con" id="notice-content">
+            <%= @chat_team.announcement %>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -371,18 +376,16 @@ function refreshNotice() {
       var item = $('<div class="new-information"></div>');
       var itemTitle = $('<div class="information-title"></div>');
       if(announcement.lastest) {
-        itemTitle.append('<%= image_tag("livenotice.png") %>');
-      } else {
-        itemTitle.append('<%= image_tag("livenotice-1.png") %>');
+        // itemTitle.append('<%= image_tag("livenotice.png") %>');
+        // itemTitle.append('<span class="information-time">' + announcement.create_time + '</span>');
+        // item.append(itemTitle);
+        item.append('<div class="information-con">' + announcement.content + '</div>');
+        $("#notice-panel").html(item);
       }
-      itemTitle.append('<span class="information-time">' + announcement.create_time + '</span>');
-      item.append(itemTitle);
-      item.append('<div class="information-con">' + announcement.content + '</div>');
-      $("#notice-panel").append(item);
     });
   });
 }
-refreshNotice();
+// refreshNotice();
 
 function accept_img_click(obj){
   console.log('image click');

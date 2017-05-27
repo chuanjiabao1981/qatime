@@ -8,8 +8,10 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     user = users(:student1)
     login_account = user.email
 
-    post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
-    put "/api/v1/password", {login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456"}, 'Remember-Token' => @remember_token
+    post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
+    put "/api/v1/password",
+        params: { login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456" },
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -22,8 +24,10 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     user = users(:teacher1)
     login_account = user.email
 
-    post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
-    put "/api/v1/password", {login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456"}, 'Remember-Token' => @remember_token
+    post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
+    put "/api/v1/password",
+        params: { login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456" },
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -36,10 +40,11 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     user = users(:student1)
     login_account = user.login_mobile
 
-    post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
+    post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
 
-    put "/api/v1/password", {login_account: user.login_mobile,
-        captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"}, 'Remember-Token' => @remember_token
+    put "/api/v1/password",
+        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"},
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -52,10 +57,11 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     user = users(:teacher1)
     login_account = user.login_mobile
 
-    post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
+    post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
 
-    put "/api/v1/password", {login_account: user.login_mobile,
-        captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"}, 'Remember-Token' => @remember_token
+    put "/api/v1/password",
+        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"},
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)

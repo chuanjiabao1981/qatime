@@ -7,7 +7,8 @@ class Qatime::NotificationsAPITest < ActionDispatch::IntegrationTest
   test "GET /api/v1/users/:user_id/notifications get student notifications list" do
     @student = users(:student1)
     @remember_token = api_login(@student, :app)
-    get "/api/v1/users/#{@student.id}/notifications", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/users/#{@student.id}/notifications",
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
     res = JSON.parse(response.body)
@@ -28,7 +29,8 @@ class Qatime::NotificationsAPITest < ActionDispatch::IntegrationTest
   test "get current notification setting" do
     @student = users(:student1)
     @remember_token = api_login(@student, :app)
-    get "/api/v1/users/#{@student.id}/notifications/settings", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/users/#{@student.id}/notifications/settings",
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
     res = JSON.parse(response.body)
@@ -44,8 +46,8 @@ class Qatime::NotificationsAPITest < ActionDispatch::IntegrationTest
     @student = users(:student1)
     @remember_token = api_login(@student, :app)
     put "/api/v1/users/#{@student.id}/notifications/settings",
-        { message: 1, email: 0, notice: 0, before_hours: 2, before_minutes: 30 },
-        'Remember-Token' => @remember_token
+        params: { message: 1, email: 0, notice: 0, before_hours: 2, before_minutes: 30 },
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
     res = JSON.parse(response.body)

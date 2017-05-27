@@ -470,7 +470,7 @@ function appendMsg(msg, messageClass, fromType) {
   $("#messages").append(messageItem);
 
   // 显示弹幕
-  if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline') {
+  if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline' && fromType != 'roaming') {
     if(msg.type !== 'audio') currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 

@@ -83,16 +83,9 @@ window.currentTeam = {
   }
   // 漫游消息
   function onRoamingMsgs(obj) {
-    console.log('收到漫游消息', obj);
-
-    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      console.log(index);
-      console.log(msg);
-      return msg.type == "team" && msg.to == currentTeam.id;
-    });
-
-    $.each(currentTeamMsgs, function(index, msg) {
-      onMsg(msg, true, 'roaming');
+    if(obj.sessionId != "team-" + currentTeam.id) return false;
+    $.each(obj.msgs, function(index, msg) {
+      onMsg(msg, false, 'roaming');
     });
     nim.markMsgRead(currentTeamMsgs);
   }
@@ -100,7 +93,6 @@ window.currentTeam = {
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
     if(obj.sessionId != "team-" + currentTeam.id) return false;
-
     $.each(obj.msgs, function(index, msg) {
       onMsg(msg, true, 'offline');
     });
@@ -141,6 +133,16 @@ window.currentTeam = {
     var sessionId = msgs[0].sessionId;
     data.msgs = data.msgs || {};
     data.msgs[sessionId] = nim.mergeMsgs(data.msgs[sessionId], msgs);
+  }
+
+  // 显示通知消息
+  function onAnnouncementMsg(msg) {
+    var msgNode = $("<div class='new-information'></div>");
+    var announcementNode = $("<div class='announcement'></div>");
+    announcementNode.append("<h6>" + msg.fromNick +  "修改了公告</h6>");
+    announcementNode.append("<p>" + msg.attach.team.announcement +  "</p>");
+    msgNode.append(announcementNode);
+    $("#messages").append(msgNode);
   }
 
   function onTeams(teams) {
@@ -220,6 +222,7 @@ window.currentTeam = {
     switch (type) {
       case 'updateTeam':
         team.updateTime = timetag;
+        if(msg) onAnnouncementMsg(msg);
         onTeams(team);
         break;
       case 'addTeamMembers':
@@ -291,8 +294,9 @@ window.currentTeam = {
   }
 
   function teamAnnouncement(announcement) {
-    if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
-    refreshNotice();
+    if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下";
+    $("#notice-content").text(announcement);
+    // refreshNotice();
   }
 
   window.LiveChat = function(appKey) {

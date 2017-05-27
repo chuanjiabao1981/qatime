@@ -1,0 +1,436 @@
+<div class="modal fade in" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="wrap" id="jcropdiv">
+      <div class="jcrop-title">
+        <span><%= t('students.common.avatar_uploader.upload') %></span>
+        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+      </div>
+      <% user_type = f.object.type.downcase %>
+      <div class="wl">
+        <div class="jc-demo-box" data="0">
+          <div id="target" class="jcrop_w">
+            <img id="<%= user_type %>_avatar_preview" class="big-img" src="<%= asset_path('up-img1.png') %>" style="max-width: 386px; max-height: 386px;" />
+          </div>
+        </div>
+        <!--<div class="jy-up-ch">-->
+        <!--<a id="idRight" href="javascript:void(0);" class="bch bch4"> 90°旋转</a>-->
+        <!--</div>-->
+      </div>
+      <div class="wr" id="preview-pane">
+        <div class="preview-container">
+          <center>
+            <div class="upload-preview"><%= t('students.common.avatar_uploader.preview') %></div>
+          </center>
+          <div class="pre-1">
+            <img src="" id="<%= user_type %>_avatar_preview3" class="jcrop-preview jcrop_preview_s small-img" style="width: 386px; height: 386px; margin-left: -140px; margin-top: -131px;">
+          </div>
+          <center>
+            <span class="upload-size">90px × 90px</span>
+          </center>
+          <input id="lefile" type="file" style="display:none">
+          <div class="input-append">
+            <%= link_to t('students.common.avatar_uploader.select_image'), "javascript: void(0);", class: "btn", id: "select_image" -%>
+          </div>
+          <input type="button" class="btn-up" data-dismiss="modal" value="<%= t('students.common.avatar_uploader.btn_save') %>">
+        </div>
+      </div>
+      <p><%= t('students.common.avatar_uploader.image_notice') %></p>
+    </div>
+    <% %w[x y w h].each do |attribute| %>
+      <%= f.hidden_field "crop_#{attribute}" %>
+    <% end %>
+    <%= f.input :avatar, as: :file, label: false, error: false, input_html:{style: 'display: none;'} %>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+  function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) {
+      url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {
+      url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  }
+  //触发事件
+  // $('input[id=<%= user_type %>_avatar]').change(function() {
+  //   var objUrl = getObjectURL(this.files[0]);
+
+  //   if (objUrl) {
+  //     $(".big-img").attr("src", objUrl);
+  //     $(".small-img").attr("src", objUrl);
+  //     $(".pre-2 img").attr("src", objUrl);
+  //     $(".pre-3 img").attr("src", objUrl);
+  //   }
+  // });
+
+</script>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    var boundx, boundy, jcrop_api;
+    function selectCoords(coords){
+      if ( parseInt(coords.w) > 0 && parseInt(boundx) > 0 ) {
+        var rx = 300 / coords.w;
+        var ry = 300 / coords.h;
+
+        var rx_3 = 90 / coords.w;
+        var ry_3 = 90 / coords.h;
+
+        var rx_4 = 128 / coords.w;
+        var ry_4 = 128 / coords.h;
+        $('#<%= user_type %>_avatar_preview2').css({
+          width : Math.round(rx * boundx) + 'px',
+          height : Math.round(ry * boundy) + 'px',
+          marginLeft : '-' + Math.round(rx * coords.x) + 'px',
+          marginTop : '-' + Math.round(ry * coords.y) + 'px'
+        });
+
+        $('#<%= user_type %>_avatar_preview3').css({
+          width : Math.round(rx_3 * boundx) + 'px',
+          height : Math.round(ry_3 * boundy) + 'px',
+          marginLeft : '-' + Math.round(rx_3 * coords.x) + 'px',
+          marginTop : '-' + Math.round(ry_3 * coords.y) + 'px'
+        });
+
+        $('#<%= user_type %>_avatar_preview4').css({
+          width : Math.round(rx_4 * boundx) + 'px',
+          height : Math.round(ry_4 * boundy) + 'px',
+          marginLeft : '-' + Math.round(rx_4 * coords.x) + 'px',
+          marginTop : '-' + Math.round(ry_4 * coords.y) + 'px'
+        });
+      }
+
+      $('#<%= user_type %>_crop_x').val(parseInt(coords.x * 240.0 / 386));
+      $('#<%= user_type %>_crop_y').val(parseInt(coords.y * 240.0 / 386));
+      $('#<%= user_type %>_crop_w').val(parseInt(coords.w * 240.0 / 386));
+      $('#<%= user_type %>_crop_h').val(parseInt(coords.h * 240.0 / 386));
+      if(coords.w < 240){
+        $('#<%= user_type %>_crop_x').val('');
+        $('#<%= user_type %>_crop_y').val('');
+        $('#<%= user_type %>_crop_w').val('');
+      }
+      if(coords.h < 240){
+        $('#<%= user_type %>_crop_x').val('');
+        $('#<%= user_type %>_crop_y').val('');
+        $('#<%= user_type %>_crop_h').val('');
+      }
+    }
+
+    $("#select_image").click(function() {
+      $("#<%= user_type %>_avatar").click();
+    });
+
+    $("#<%= user_type %>_avatar").change(function() {
+      var input = this;
+      if (input.files && input.files[0]) {
+        var filerdr = new FileReader();
+        var min;
+
+        filerdr.onload = function(e) {
+          $('#<%= user_type %>_avatar_preview').parent().css({
+            paddingLeft: "0px",
+            paddingTop: "0px"
+          });
+
+          $('#<%= user_type %>_avatar_preview').css({
+            width: '',
+            height: ''
+          });
+
+          $('#<%= user_type %>_avatar_preview').attr('src', e.target.result);
+          $("#<%= user_type %>_avatar_preview2").attr('src', e.target.result);
+          $("#<%= user_type %>_avatar_preview3").attr('src', e.target.result);
+          $("#<%= user_type %>_avatar_preview4").attr('src', e.target.result);
+
+          var preview_height = $('#<%= user_type %>_avatar_preview').height();
+          var preview_width = $('#<%= user_type %>_avatar_preview').width();
+          if(preview_height > preview_width) {
+            $('#<%= user_type %>_avatar_preview').parent().css({
+              paddingLeft: Math.round((386 - preview_width) / 2) + 'px',
+              paddingTop: "0px"
+            });
+            min = preview_width;
+          } else {
+            $('#<%= user_type %>_avatar_preview').parent().css({
+              paddingTop: Math.round((386 - preview_height) / 2) + 'px',
+              paddingLeft: "0px"
+            });
+            min = preview_height;
+          }
+        };
+        if (jcrop_api){
+          jcrop_api.destroy();
+        }
+        filerdr.readAsDataURL(input.files[0]);
+        filerdr.onloadend = function(e){
+          $('#<%= user_type %>_avatar_preview').Jcrop({
+            bgFade:     true,
+            bgOpacity: .4,
+            aspectRatio: 1,
+            setSelect: [0, 0, 240, 240],
+            onSelect: selectCoords,
+            onChange: selectCoords,
+            keySupport : false
+          },function(){
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
+            jcrop_api = this;
+          });
+          selectCoords({x: 0, y: 0, w: min, h: min});
+        }
+      }
+    });
+
+//     //默认图像居中显示
+//     cutImage($(".jcrop_w>img"));
+
+//     var _Jw = ($("#target").width() - 110) / 2 ,
+//       _Jh = ($("#target").height() - 110) / 2 ,
+//       _Jw2 = _Jw + 110,
+//       _Jh2 = _Jh + 110;
+
+//     $('#target').Jcrop({
+//       setSelect: [_Jw, _Jh, _Jw2, _Jh2],
+//       onChange: showPreview,
+//       onSelect: showPreview,
+//       bgFade: true,
+//       bgColor: "white",
+//       aspectRatio: 110/110,
+//       bgOpacity: .5
+//     });
+// //    $("#idLeft").click(function(e){
+// //      imgRotate(-90);
+// //      return false;
+// //    });
+//     $("#idRight").click(function(e){
+//       imgRotate(90);
+//       return false;
+//     });
+  });
+  //图片旋转
+  function imgRotate(deg){
+    var img1 = $(".jcrop_w>img"),
+        _data = parseInt($(".jc-demo-box").attr("data"));
+    if(!$.support.leadingWhitespace){
+      var sin = Math.sin(Math.PI / 180 * (_data + deg)), cos = Math.cos(Math.PI / 180 * (_data + deg));
+      var _filter = "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + "," +  "M12=" + (-sin)
+          + ",M21=" + sin+ ",M22=" + cos + ",SizingMethod='auto expand')";
+      img1.css({
+        filter: _filter
+      });
+      $('.pre-1 img,.pre-2 img,.pre-3 img,.pre-4 > img').css({
+        filter: _filter
+      });
+
+    }else{
+      var _deg = deg + _data;
+      var _val =  "rotate("+ _deg + "deg)";
+      img1.css({
+        "-webkit-transform": _val,
+        "-moz-transform": _val,
+        "-ms-transform": _val,
+        "-o-transform": _val,
+        "transform": _val
+      });
+      $('.pre-1 img,.pre-2 img,.pre-3 img,.pre-4 > img').css({
+        "-webkit-transform": _val,
+        "-moz-transform": _val,
+        "-ms-transform": _val,
+        "-o-transform": _val,
+        "transform": _val
+      });
+    }
+
+    var fiw = $('.jcrop_w>img').width(),
+        fih = $('.jcrop_w>img').height(),
+        ow = Math.floor((386 - fiw) / 2),
+        oh = Math.floor((386 - fih) / 2),
+        cx = $("#small").position().left,
+        cy = $("#small").position().top,
+        rx = 90 / $("#small").width(),
+        ry = 90 / $("#small").height(),
+        rx1 = 110 / $("#small").width(),
+        ry1 = 110 / $("#small").height(),
+        rx2 = 300 / $("#small").width(),
+        ry2 = 300 / $("#small").height(),
+        rx3 = 128 / $("#small").width(),
+        ry3 = 128 / $("#small").height();
+
+
+    if(!$.support.leadingWhitespace){
+      pre_img2($('.pre-1 img'), rx, fih, ry, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, fih, ry1, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-3 img'), rx2, fih, ry2, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, fih, ry3, fiw, cx, cy, ow, oh);
+    }else{
+      pre_img2($('.pre-1 img'), rx, fiw, ry, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, fiw, ry1, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-3 img'), rx2, fiw, ry2, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, fiw, ry3, fih, cx, cy, ow, oh);
+    }
+
+    $(".jcrop_w img").css({
+      left: ow,
+      top: oh
+    });
+
+    if( deg > 0){
+      if(_data == 270){
+        _data = 0;
+      }else{
+        _data = _data + 90;
+      }
+    }else{
+      if(_data == 0){
+        _data = 270;
+      }else{
+        _data = _data - 90;
+      }
+    }
+    $("#d").val(_data);
+    $(".jc-demo-box").attr("data", _data);
+  }
+
+  //放大缩小图片
+  function imgToSize(size) {
+    var iw = $('.jcrop_w>img').width(),
+        ih = $('.jcrop_w>img').height(),
+        _data = $(".jc-demo-box").attr("data"),
+        _w = Math.round(iw + size),
+        _h = Math.round(((iw + size) * ih) / iw);
+
+    if((!$.support.leadingWhitespace) && (_data == 90 || _data == 270)){
+      $('.jcrop_w>img').width(_h).height(_w);
+    }else{
+      $('.jcrop_w>img').width(_w).height(_h);
+    }
+
+    var fiw = $('.jcrop_w>img').width(),
+        fih = $('.jcrop_w>img').height(),
+        ow = (386 - fiw) / 2,
+        oh = (386 - fih) / 2,
+        cx = $("#small").position().left,
+        cy = $("#small").position().top,
+        rx = 90 / $("#small").width(),
+        ry = 90 / $("#small").height(),
+        rx1 = 90 / $("#small").width(),
+        ry1 = 90 / $("#small").height(),
+        rx2 = 300 / $("#small").width(),
+        ry2 = 300 / $("#small").height(),
+        rx3 = 128 / $("#small").width(),
+        ry3 = 128 / $("#small").height();
+
+    if((!$.support.leadingWhitespace) && (_data == 90 || _data == 270)){
+      pre_img2($('.pre-1 img'), rx, fih, ry, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, fih, ry1, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-3 img'), rx2, fih, ry2, fiw, cx, cy, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, fih, ry3, fiw, cx, cy, ow, oh);
+    }else{
+      pre_img2($('.pre-1 img'), rx, fiw, ry, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, fiw, ry1, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-3 img'), rx2,  fiw, ry2, fih, cx, cy, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, fiw, ry3, fih, cx, cy, ow, oh);
+    }
+    $(".jcrop_w img").css({
+      left: ow,
+      top: oh
+    });
+
+  };
+
+  //
+  function pre_img2(obj, rx, iw, ry, ih, cx, cy, ow, oh){
+    obj.css({
+      width: Math.round(rx * iw) + 'px',
+      height: Math.round(ry * ih) + 'px'
+    });
+    if( cy >= oh && cx >= ow){
+      obj.css({
+        marginLeft: '-' + Math.round(rx * (cx - ow)) + 'px',
+        marginTop: '-' + Math.round(ry * (cy - oh)) + 'px'
+      });
+    }else if( cy <= oh && cx >= ow){
+      obj.css({
+        marginLeft: "-" + Math.round(rx * (cx - ow)) + 'px',
+        marginTop: Math.round(ry * (oh - cy)) + 'px'
+      });
+    }else if( cy >= oh && cx <= ow){
+      obj.css({
+        marginLeft: Math.round(rx * (ow - cx)) + 'px',
+        marginTop: '-' + Math.round(ry * (cy - oh)) + 'px'
+      });
+    }else if( cy <= oh && cx <= ow){
+      obj.css({
+        marginLeft: Math.round(rx * (ow - cx)) + 'px',
+        marginTop: Math.round(ry * (oh - cy)) + 'px'
+      });
+    }
+
+  };
+  //默认图像位置
+  function cutImage(obj) {
+    var w = 386,
+        h = 386,
+        iw = obj.width(),
+        ih = obj.height();
+    if(iw > w || ih > h){
+      if(iw / ih > w / h){
+        obj.css({
+          width: w,
+          height: w * ih / iw,
+          top: (h - (w * ih / iw)) / 2,
+          left: 0
+        });
+      }else{
+        obj.css({
+          height: h,
+          width: h * iw / ih,
+          top: 0,
+          left: (w - (h * iw / ih)) / 2
+        });
+      }
+    }else{
+      obj.css({
+        left: (w - iw) / 2,
+        top: (h - ih ) / 2
+      });
+    }
+  }
+  function showPreview(c){
+    var flag = '#<%= user_type %>_crop';
+    $(flag+'_x').val(c.x);
+    $(flag+'_y').val(c.y);
+    $(flag+'_w').val(c.w);
+    $(flag+'_h').val(c.h);
+    var iw = $('.jcrop_w>img').width(),
+        ih = $('.jcrop_w>img').height(),
+        ow = (386 - iw) / 2,
+        oh = (386 - ih) / 2,
+        rx = 90 / c.w,
+        ry = 90 / c.h,
+        rx1 = 240 / c.w,
+        ry1 = 240 / c.h,
+        rx2 = 300 / c.w,
+        ry2 = 300 / c.h,
+        rx3 = 128 / c.w,
+        ry3 = 128 / c.h,
+        _data = $(".jc-demo-box").attr("data");
+    console.log(rx);
+    if((!$.support.leadingWhitespace) && (_data == 90 || _data == 270)){
+      pre_img2($('.pre-1 img'), rx, ih, ry, iw, c.x, c.y, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, ih, ry1, iw, c.x, c.y, ow, oh);
+      pre_img2($('.pre-3 img'), rx2, ih, ry2, iw, c.x, c.y, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, ih, ry3, iw, c.x, c.y, ow, oh);
+    }else{
+      pre_img2($('.pre-1 img'), rx, iw, ry, ih, c.x, c.y, ow, oh);
+      pre_img2($('.pre-2 img'), rx1, iw, ry1, ih, c.x, c.y, ow, oh);
+      pre_img2($('.pre-3 img'), rx2, iw, ry2, ih, c.x, c.y, ow, oh);
+      pre_img2($('.pre-4 > img'), rx3, iw, ry3, ih, c.x, c.y, ow, oh);
+    }
+  }
+</script>

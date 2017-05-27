@@ -1,7 +1,20 @@
-<%= render layout: "shared/customized_courses/index_container",locals:{student: @student} do  %>
-    <% if @customized_courses.length > 0 %>
-        <%= render partial: 'shared/customized_courses/index', locals:{customized_courses: @customized_courses }%>
-    <% else %>
-        <%= render 'shared/customized_courses/introduce' %>
-    <% end %>
-<% end %>
+<div class="contains">
+  <div class="contains-title">
+    <h3>
+      <%= t('students.customized_courses.title') %>
+      <% if allow? :customized_courses, :new, @student %>
+        <%= link_to new_student_customized_course_path(@student) do %>
+          <button type="button" class="btn btn-xs btn-success"><%= get_edit_or_create_model_string(CustomizedCourse.new) %></button>
+        <% end %>
+      <% end %>
+    </h3>
+  </div>
+  <div class="contains-discipline">
+    <ul class="exclusive-box">
+      <%= render partial: 'customized_course', collection: @customized_courses %>
+    </ul>
+
+    <%= render 'shared/blank' if @customized_courses.blank? %>
+    <center><div class="pagination-fix"><%= will_paginate @customized_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+  </div>
+</div>

@@ -1,74 +1,94 @@
-<%= content_for :breadcrumb do %>
-  <ol class="breadcrumb">
-    <li><%= link_to t("students.common.personal_center"),info_student_path(@student) %></li>
-  </ol>
-<% end %>
+<div class="contains">
+  <%= render 'info_title' %>
+  <div class="user-smg">
+    <ul>
+      <li class="edit-info">
+        <%= image_tag @owner.avatar_url(:ex_big), class: 'handle_error_avatar' %>
+        <% if allow? :students, :edit, @student %>
+          <%= link_to t(".edit_information"), edit_student_path(@student, cate: :edit_profile, by: :profile) %>
+        <% end %>
+      </li>
 
-<div class="qa_box row row-width-fix">
-  <%= render "info_title" %>
-
-  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:55px">
-    <%=image_tag @student.avatar_url(:ex_big) %>
-  </div>
-
-  <div class="col-md-8">
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
-        <div class="col-md-9">
-          <%= @student.name %>
-          <div class="pull-right">
-            <% if allow? :students,:edit , @student %>
-              <%=link_to edit_student_path(@student, cate: :edit_profile, by: :profile) do %>
-                <button type="button" class="btn btn-xs btn-success"><%= t(".edit_information") %></button>
-              <% end %>
-            <% end %>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:name)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.name %></span>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:gender)%></div>
-        <div class="col-md-9"><%= @student.gender_text %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
-        <div class="col-md-9"><%= @student.grade %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @student.school.try(:name) %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
-        <div class="col-md-9"><%= @student.birthday %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:login_mobile)%></div>
-        <div class="col-md-9"><%= @student.login_mobile %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:city)%></div>
-        <div class="col-md-9"><%= @student.city.try(:name_with_province) %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:desc)%></div>
-        <div class="col-md-9"><%= @student.desc %></div>
-      </div>
-    </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:gender)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.gender_text %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:birthday)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.birthday %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:grade)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.grade %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:city)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.city.try(:name_with_province) %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:school)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.school.try(:name) %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:login_mobile)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <span><%= @student.login_mobile %></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-2 col-sm-2">
+            <span><%=Student.human_attribute_name(:desc)%></span>
+          </div>
+          <div class="col-md-10 col-sm-10">
+            <%= raw @student.desc %>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
-

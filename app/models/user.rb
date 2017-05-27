@@ -16,7 +16,7 @@ class User < ApplicationRecord
   attr_reader :password_required
   attr_reader :teacher_or_student_columns_required
   # 支付密码
-  attr_accessor :payment_captcha_required, :payment_captcha, :payment_password
+  attr_accessor :payment_captcha_required, :payment_captcha, :payment_password, :payment_password_required, :current_payment_password
 
   # 编辑上下文 用于条件验证
   attr_accessor :context
@@ -32,6 +32,9 @@ class User < ApplicationRecord
   # 支付密码
   with_options if: :payment_captcha_required do
     validates :payment_captcha, confirmation: { case_sensitive: false }
+    validates :payment_password, confirmation: true, length: { minimum: 6 }
+  end
+  with_options if: :payment_password_required do
     validates :payment_password, confirmation: true, length: { minimum: 6 }
   end
 
@@ -96,7 +99,7 @@ class User < ApplicationRecord
   scope :by_city, ->(city_id) { where(city_id: city_id) }
 
   def unread_notifications_count
-    self.customized_course_action_notifications.unread.count
+    self.notifications.unread.count
   end
 
   def self.find_by_login_account(login_account)
@@ -196,6 +199,22 @@ class User < ApplicationRecord
     @payment_captcha_required = true
     if update(params, *options)
       cash_account!.update(password: payment_password, password_set_at: Time.now)
+    end
+  end
+
+  # 使用旧支付密码重置
+  def reset_payment_pwd(params)
+    @payment_password_required = true
+    assign_attributes(params)
+    if valid?
+      my_account = cash_account!
+      current_payment_password = params.delete(:current_payment_password)
+      if my_account.authenticate(current_payment_password)
+        my_account.update(password: payment_password, password_set_at: Time.now)
+      else
+        errors.add(:current_payment_password, current_payment_password.blank? ? :blank : :invalid)
+        false
+      end
     end
   end
 

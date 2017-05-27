@@ -6,7 +6,7 @@
     </div>
 
     <div class="col-md-3 msg-item">
-      <span><%= localize(notification.created_at,format: :long) %></span>
+      <span><%= l(notification.created_at) if notification.created_at %></span>
     </div>
   </div>
 </li>

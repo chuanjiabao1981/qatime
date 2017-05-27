@@ -1,19 +1,13 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('teachers.curriculums.title') %></h3>
+  </div>
+
+  <div class="common">
     <div class="row">
-      <div class="col-md-4">
-        <h2>
-          我的课程
-        </h2>
-
-      </div>
-
+      <%= render partial: 'teachers/curriculums/curriculum', collection: @curriculums %>
     </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row groups">
-        <%= render partial:'curriculums/curriculum',collection:@curriculums %>
-    </div>
-  </div>
 
+    <%= render 'shared/blank' if @curriculums.blank? %>
+  </div>
 </div>

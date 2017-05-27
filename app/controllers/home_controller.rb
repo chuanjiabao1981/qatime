@@ -17,13 +17,12 @@ class HomeController < ApplicationController
     @today_lives = home_data.today_lives.limit(12)
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
     @recent_courses = home_data.recent_courses.limit(4)
-    @newest_courses = home_data.newest_courses.limit(4)
+    @newest_courses = home_data.newest_courses
   end
 
   def switch_city
     @hash_cities = City.has_default_workstation.to_a.group_by {|city| Spinying.parse(word: city.name).first }.sort.to_h
     @selected_cities = cookies[:selected_cities].try(:split, '-')
-    render layout: 'application_front'
   end
 
   private

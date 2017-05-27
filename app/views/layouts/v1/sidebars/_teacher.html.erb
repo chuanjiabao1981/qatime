@@ -14,7 +14,7 @@
       <% end %>
     </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:cash) %>">
-      <%= link_to payment.cash_user_path(@owner) do %>
+      <%= link_to payment.earning_records_user_path(@owner) do %>
         <i class="icon-wallet"></i>
         <span><%= t("view.teacher_bars.property_management") %></span>
       <% end %>
@@ -23,6 +23,9 @@
       <%= link_to main_app.user_notifications_path(@owner) do %>
         <i class="icon-msg"></i>
         <span><%= t("view.teacher_bars.notification") %></span>
+        <% if @owner.unread_notifications_count > 0 %>
+          <em class="news"><%= @owner.unread_notifications_count %></em>
+        <% end %>
       <% end %>
     </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:schedule) %>">
@@ -49,10 +52,22 @@
         <span><%= t("view.teacher_bars.my_video_courses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if teacher_sidebar_nav_is?(:homeworks) %>">
-      <%= link_to main_app.homeworks_teacher_path(@owner) do %>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
+      <%= link_to main_app.curriculums_teacher_path(@owner) do %>
+        <i class="icon-setup"></i>
+        <span><%= t("view.teacher_bars.curriculums") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:lessons_state) %>">
+      <%= link_to main_app.lessons_state_teacher_path(@owner) do %>
+        <i class="icon-state"></i>
+        <span><%= t("view.teacher_bars.lessons_state") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:my_homework) %>">
+      <%= link_to main_app.solutions_teacher_path(@owner) do %>
         <i class="icon-homework"></i>
-        <span><%= t("view.teacher_bars.homeworks") %></span>
+        <span><%= t("view.student_bars.my_homework") %></span>
       <% end %>
     </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:teacher_students) %>">
@@ -67,22 +82,10 @@
         <span><%= t("view.teacher_bars.teacher_syllabuses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
-      <%= link_to main_app.curriculums_teacher_path(@owner) do %>
-        <i class="icon-setup"></i>
-        <span><%= t("view.teacher_bars.curriculums") %></span>
-      <% end %>
-    </li>
-    <li class="<%= 'active' if teacher_sidebar_nav_is?(:lessons_state) %>">
-      <%= link_to main_app.lessons_state_teacher_path(@owner) do %>
-        <i class="icon-state"></i>
-        <span><%= t("view.teacher_bars.lessons_state") %></span>
-      <% end %>
-    </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:customized_courses) %>">
       <%= link_to main_app.customized_courses_teacher_path(@owner) do %>
         <i class="icon-course"></i>
-        <span><%= t("view.common_bars.customized_courses") %></span>
+        <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
 

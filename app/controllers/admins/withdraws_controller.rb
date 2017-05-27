@@ -12,18 +12,18 @@ class Admins::WithdrawsController < ApplicationController
       @withdraws = @withdraws.where('updated_at >= ? and updated_at <= ?',start_time,end_time)
     end
     @withdraws = @withdraws.filter(params[:keyword])
-    @withdraws = @withdraws.page(params[:page])
+    @withdraws = @withdraws.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def audit
-    @withdraws = params[:init] == 'audit' ? Payment::Withdraw.where.not(status: Payment::Withdraw.statuses['init']) :  Payment::Withdraw.init
+    @withdraws = params[:init] == 'audit' ? Payment::Withdraw.where.not(status: Payment::Withdraw.statuses['init']) : Payment::Withdraw.init
     @withdraws = @withdraws.filter(params[:keyword])
-    @withdraws = @withdraws.paginate(page: params[:page], per_page: 10)
+    @withdraws = @withdraws.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def pass
     @withdraw = Payment::Withdraw.find(params[:id])
-    @withdraw.allow!(current_user)
+    @withdraw.allow_by!(current_user, request.remote_ip)
     redirect_to action: :audit
   end
 

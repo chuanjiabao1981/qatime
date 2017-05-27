@@ -18,7 +18,7 @@ module LiveStudio
       state :refunded
 
       # 使用
-      event :use do
+      event :use, after_commit: :increase_ticket_used_count do
         transitions from: :unused, to: :used
       end
 
@@ -43,5 +43,11 @@ module LiveStudio
     belongs_to :ticket
 
     scope :billingable, -> { where(status: LiveStudio::TicketItem.statuses.slice(:unused, :used).values) }
+
+    private
+
+    def increase_ticket_used_count
+      Ticket.increment_counter(:used_count, ticket_id)
+    end
   end
 end

@@ -3,12 +3,11 @@ require_dependency "payment/application_controller"
 module Payment
   class WithdrawsController < ApplicationController
     before_action :set_resource_user
-    layout 'payment'
+    layout 'v1/application'
 
     # GET /recharges/new
     def new
       @withdraw = Payment::Withdraw.new(pay_type: :alipay)
-      render layout: 'application_front'
     end
 
     # POST /recharges
@@ -25,7 +24,7 @@ module Payment
         @errors << I18n.t("error.payment/order.payment_password_blank")
       elsif cash_account.password_set_at.blank?
         @errors << I18n.t("error.payment/order.payment_password_unset")
-      elsif cash_account.password_set_at > 24.hours.ago
+      elsif cash_account.password_set_at > 2.hours.ago
         @errors << t("error.payment/order.payment_password_young")
       elsif !cash_account.authenticate(params[:payment_password])
         @errors << I18n.t("error.payment/order.payment_password_invalid")
@@ -38,16 +37,15 @@ module Payment
           redirect_to action: :complete, transaction: @withdraw.transaction_no
         else
           @errors += @withdraw.errors.messages.values.flatten
-          render :new, layout: 'application_front'
+          render :new
         end
       else
-        render :new, layout: 'application_front'
+        render :new
       end
     end
 
     def complete
       @withdraw = Payment::Withdraw.find_by!(transaction_no: params[:transaction])
-      render layout: 'application_front'
     end
 
     def cancel

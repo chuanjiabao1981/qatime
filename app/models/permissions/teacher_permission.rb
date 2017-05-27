@@ -98,7 +98,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records,:update] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records,:update, :update_desc] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|
@@ -278,6 +278,9 @@ module Permissions
       allow 'payment/billings', [:index]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
       allow 'payment/transactions', [:pay]
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds] do |resource|
+        resource.id == user.id
+      end
       ## end payment permission
 
       ## begin api permission
@@ -320,6 +323,7 @@ module Permissions
       api_allow :POST, 'live_studio/interactive_lessons/\d+/heart_beat' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/announcements"
       ## 一对一直播
 
       ## 视频课
@@ -339,6 +343,8 @@ module Permissions
       end
       ## end api permission
 
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/cash"
+
       ## 获取授权token
       api_allow :GET, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
@@ -346,13 +352,23 @@ module Permissions
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/withdraws"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws"
+      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/withdraws/:id/cancel"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
       ## end 修改支付密码
+
+      # 消息通知
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
+      api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
+      # 消息通知结束
 
       ## 通知设置
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
       ## end 通知设置
     end
+
     private
 
     def topicable_permission(topicable,user)

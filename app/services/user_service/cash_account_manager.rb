@@ -8,7 +8,7 @@ module UserService
     # 检查支付密码
     def check_password(password)
       raise APIErrors::PaymentPasswordBlank if @cash_account.password_set_at.blank?
-      raise APIErrors::PasswordDissatisfy if @cash_account.password_set_at > 24.hours.ago
+      raise APIErrors::PasswordDissatisfy if @cash_account.password_set_at > 2.hours.ago
       raise APIErrors::PasswordInvalid unless @cash_account.authenticate(password)
     end
 

@@ -36,7 +36,7 @@ module LiveStudio
       state :completed
       state :refunded
 
-      event :publish, after_commit: :ready_lessons do
+      event :publish do
         before do
           self.published_at = Time.now
         end
@@ -62,7 +62,6 @@ module LiveStudio
       self.published_at = Time.now
       self.class_date = interactive_lessons.map(&:class_date).try(:min)
     end
-    after_commit :ready_lessons, on: :create
 
     belongs_to :workstation
     belongs_to :province
@@ -72,7 +71,10 @@ module LiveStudio
     has_many :interactive_lessons, dependent: :destroy
     has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
+
     has_many :buy_tickets, as: :product, class_name: 'LiveStudio::BuyTicket'
+    has_many :students, through: :buy_tickets
+
     has_many :announcements, as: :announcementable
 
     validates :name, presence: true, length: { in: 2..20 }
@@ -89,6 +91,7 @@ module LiveStudio
 
     scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
+    scope :finished, -> { where(status: statuses.values_at(:completed, :refunded)) }
 
     before_create do
       self.service_price = workstation.service_price if workstation
@@ -121,6 +124,11 @@ module LiveStudio
       price.to_f
     end
 
+    # 已下架
+    def off_shelve?
+      buy_tickets_count > 0
+    end
+
     def order_params
       { amount: current_price, product: self }
     end
@@ -140,12 +148,15 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      ticket_price = left_lessons_count.zero? ? order.amount : order.amount.to_f / left_lessons_count
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
-                                             payment_order_id: order.id, buy_count: left_lessons_count,
-                                             status: 'inactive')
+      ticket_price = order.amount.to_f / left_lessons_count
+      check_ticket!(order)
+      ticket = buy_tickets.create(student_id: order.user_id, lesson_price: ticket_price,
+                                  payment_order_id: order.id, buy_count: left_lessons_count,
+                                  status: 'inactive', item_targets: interactive_lessons.where(live_end_at: nil))
       ticket.active!
       teach!
+      ready_lessons
+      ticket
     end
 
     def for_sell?
@@ -298,7 +309,18 @@ module LiveStudio
       interactive_lessons.select { |l| l.teacher_id == teacher.id }.count
     end
 
+    def join_cheap?
+      false
+    end
+
     private
+
+    def check_ticket!(order_or_user)
+      user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user
+      ticket = buy_tickets.available.find_by(student_id: user.id)
+      raise Payment::DuplicateOrderError, "不可重复购买" if ticket # 重复购买
+      # taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
+    end
 
     # 教师分成最大值
     def teacher_percentage_max

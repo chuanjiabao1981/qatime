@@ -172,7 +172,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
     @remember_token = JSON.parse(response.body)['data']['remember_token']
-    course = LiveStudio::Course.published.last
+    course = LiveStudio::Course.published.where("taste_count < 1").last
 
     get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
 
@@ -309,6 +309,14 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status'], "请求出错 #{res}"
     assert_not_nil res['data']['published_rank']
     assert_not_nil res['data']['start_rank']
+  end
+
+  test 'get courses rank_all' do
+    get '/api/v1/live_studio/courses/rank_all/all_published_rank'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_not_nil res['data']['all_published_rank']
   end
 
   test 'get all tags' do

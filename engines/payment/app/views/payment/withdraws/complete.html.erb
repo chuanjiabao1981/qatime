@@ -1,61 +1,54 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-      <div class="apply-tea">
-        <div class="tutoring-title">
-          <div class="tutoring-title-left">
-            <%= image_tag('icon.png') %>
-            <span class="title-size">
-              <%= t("view.withdraw_cn") %>
-            </span>
+<div class="common-space">
+  <div class="container">
+    <div class="apply-tea">
+      <div class="tutoring-title">
+        <h3><%= t("view.withdraw_cn") %></h3>
+      </div>
+      <div class="drawings">
+        <div class="row succeed-line">
+          <div class="col-md-4 applay-left">
+            <p><%= t("view.withdraw.amount") %></p>
+            <div class="row">
+              <div class="col-md-12">
+                <span><%= number_to_currency(@withdraw.amount.to_f) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 applay-right">
+            <p><%= t('view.withdraw.business_info') %></p>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 trading-item">
+                <div class="indent-list">
+                  <div class="con-right-msg">
+                    <span><%= Payment::Withdraw.human_attribute_name(:transaction_no) %>：</span>
+                    <span><%= @withdraw.transaction_no %></span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span><%= Payment::Withdraw.human_attribute_name(:created_at) %>：</span>
+                    <span><%= l(@withdraw.created_at) if @withdraw.created_at %></span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span><%= t('view.withdraw.type') %>：</span>
+                    <span><%= t("view.withdraw_cn") %></span>
+                  </div>
+                  <div class="con-right-msg">
+                    <span><%= t('view.withdraw.pay_type') %>：</span>
+                    <span><%= @withdraw.pay_type_text %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 trading-item">
+                <div class="indent-list">
+                  <span>
+                    <%= sanitize(t('view.withdraw.complete_tips') % link_to(Payment::Withdraw.model_name.human, withdraws_user_path(@current_resource))) %>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="complete-con">
-          <div class="row">
-            <div class="col-md-6">
-              <p>
-                <%= t("view.withdraw.amount") %>
-              </p>
-              <div class="complete-con-left">
-                <center>
-                  <span>
-                    <%= number_to_currency(@withdraw.amount.to_f,unit: '￥') %>
-                  </span>
-                </center>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <p><%= t('view.withdraw.business_info') %></p>
-              <div class="complete-con-right">
-                <div class="con-right-msg">
-                  <span><%= Payment::Withdraw.human_attribute_name(:transaction_no) %>：</span>
-                  <span><%= @withdraw.transaction_no %></span>
-                </div>
-                <div class="con-right-msg">
-                  <span><%= Payment::Withdraw.human_attribute_name(:created_at) %>：</span>
-                  <span><%= localize(@withdraw.created_at, format: :long) %></span>
-                </div>
-                <div class="con-right-msg">
-                  <span><%= t('view.withdraw.type') %>：</span>
-                  <span><%= t("view.withdraw_cn") %></span>
-                </div>
-                <div class="con-right-msg">
-                  <span><%= t('view.withdraw.pay_type') %>：</span>
-                  <span><%= @withdraw.pay_type_text %></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="complete-prompt">
-            <center>
-              <%= sanitize(t('view.withdraw.complete_tips') % link_to(Payment::Withdraw.model_name.human,cash_user_path(@current_resource))) %>
-            </center>
-          </div>
-          <div class="complete-btn">
-            <center>
-              <%= link_to t('view.withdraw.common.ok'),cash_user_path(@current_resource) %>
-            </center>
-          </div>
+        <div class="apply-btn">
+          <%= link_to t('view.withdraw.common.ok'),cash_user_path(@current_resource) %>
         </div>
       </div>
     </div>

@@ -1,12 +1,23 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2><%= CourseLibrary::Syllabus.model_name.human %></h2>
+<%= simple_form_for [@teacher,@syllabus] do |f| %>
+  <div class="row">
+    <div class="col-md-2 col-sm-2">
+      <%= f.label :title %>
+    </div>
+    <div class="col-md-10 col-sm-10">
+      <%= f.input_field :title, maxlength: 20, placeholder: t('view.course_library/syllabus.index.placeholders.title') %>
+      <%= f.error :title %>
+    </div>
   </div>
-  <div class="qa_big_cell">
-    <%=simple_form_for [@teacher,@syllabus] do |f|%>
-        <%=f.input :title %>
-        <%=f.input :description %>
-        <%= f.button :submit, class: "btn btn-default" %>
-    <% end %>
+  <div class="row prepare-abstract">
+    <div class="col-md-2 col-sm-2">
+      <%= f.label :description %>
+    </div>
+    <div class="col-md-10 col-sm-10">
+      <%= f.input_field :description, as: :text, maxlength: 100, rows: 3, placeholder: t('view.course_library/syllabus.index.placeholders.description') %>
+      <%= f.error :description %>
+    </div>
   </div>
-</div>
+  <center>
+    <%= f.submit t('common.save') %>
+  </center>
+<% end %>

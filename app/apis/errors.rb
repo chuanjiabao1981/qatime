@@ -75,7 +75,7 @@ module APIErrors
       end
 
       rescue_from PasswordDissatisfy do |e|
-        out_error(code: 2008, msg: e.message || "支付密码设置时间不足24小时")
+        out_error(code: 2008, msg: e.message || "支付密码设置时间不足2小时")
       end
 
       rescue_from TryManyTimes do |e|

@@ -17,8 +17,12 @@ module LiveStudio
     end
 
     def my_sells
-      @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
-      @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
+      @query = @workstation.sell_live_studio_video_courses.includes(:teacher, :workstation).ransack(params[:q])
+      @video_courses = @query.result.paginate(page: params[:page])
+      @tickets = @workstation.sell_live_studio_tickets.where(product_type: 'LiveStudio::VideoCourse', product_id: @video_courses.map(&:id))
+      @tickets_count = @tickets.select('live_studio_tickets.product_id, count(live_studio_tickets.product_id) as ticket_count')
+                           .group('live_studio_tickets.product_id').reorder('live_studio_tickets.product_id')
+                           .map {|t| [t.product_id, t.ticket_count]}.to_h
     end
 
     def audits

@@ -6,7 +6,7 @@
   <% end %>
 <% else %>
   <!-- TODO 国际化 -->
-  $("#<%= params[:by] %>-captcha-input").next().remove();
-  $("#<%= params[:by] %>-captcha-input").parent().addClass("has-error").append('<span class="help-block has-error"><%= t("errors.messages.confirmation") %></span>');
+  $("#<%= params[:by] %>-captcha-input").parent().next().remove();
+  $("#<%= params[:by] %>-captcha-input").parent().addClass("has-error").after('<span class="help-block has-error"><%= t("errors.messages.confirmation") %></span>');
 <% end -%>
 

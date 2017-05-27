@@ -1,0 +1,9 @@
+<div class="contains-title">
+  <h3>
+    <%= t("teachers.common.my_wallet") if @current_resource.teacher? %>
+    <%= t("students.common.my_wallet") if @current_resource.student? %>
+  </h3>
+  <% if allow? :teachers, :keep_account, @current_resource %>
+    <%= link_to( Account.human_attribute_name(:keep_account), keep_account_teacher_path(@current_resource), data: {confirm: t('view.payment/user.earning_records.keep_account_confirm')}) if @current_resource.teacher? %>
+  <% end %>
+</div>

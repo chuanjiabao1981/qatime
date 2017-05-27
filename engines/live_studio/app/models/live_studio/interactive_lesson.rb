@@ -64,7 +64,7 @@ module LiveStudio
     belongs_to :course, class_name: 'InteractiveCourse', foreign_key: :interactive_course_id
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records # 听课记录
+    has_many :play_records, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
     has_many :channel_videos
     has_many :replays
@@ -380,7 +380,7 @@ module LiveStudio
     end
 
     def board_replay_name
-      "#{Rails.env}_lesson_#{id}_board_replay"
+      "#{Rails.env}_interactive_lesson_#{id}_board_replay"
     end
 
     # 摄像头视频id

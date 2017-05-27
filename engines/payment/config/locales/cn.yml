@@ -5,6 +5,11 @@ cn:
       alipay: 支付宝支付
       account: 余额支付
       offline: 线下支付
+    withdraw_types:
+      cash: 现金
+      bank: 银行卡
+      alipay: 支付宝
+      weixin: 微信钱包
     withdraw_cn: 账户提现
     verify_error: 安全手机校验码不正确
     password_error: 支付密码不正确
@@ -123,7 +128,10 @@ cn:
         refund_lesson_count: 可退课时
         notice: 提示：退款过程中你将不能进行此课程的学习！
         reason_placeholder: 请输入退款原因（最多300字）
-        reason: 请输入退款原因
+        reason: 请选择退款原因
+    payment/user:
+      earning_records:
+        keep_account_confirm: "确定结账吗?"
   activerecord:
     view:
       order: 我的订单
@@ -315,6 +323,7 @@ cn:
           allowed: 已通过
           refused: 已驳回
           canceled: 用户取消
+          paid: 已转款
         station:
           init: 等待审核
           allowed: 等待转款
@@ -336,7 +345,7 @@ cn:
     payment/order:
       payment_password_blank: 支付密码不能为空
       payment_password_unset: 支付密码未设置
-      payment_password_young: 修改或者设置支付密码24小时内不可用
+      payment_password_young: 修改或者设置支付密码2小时内不可用
       payment_password_invalid: 支付密码不正确
       payment_password_min: 提现最低金额1元
       coupon_code_invalid: 优惠码不存在

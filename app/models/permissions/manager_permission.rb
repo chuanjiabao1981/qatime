@@ -46,7 +46,7 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions,:action_records] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update, :update_desc,:teachers,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
 
@@ -181,7 +181,7 @@ module Permissions
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
-      allow 'payment/users', [:cash]
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]
 
       allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|

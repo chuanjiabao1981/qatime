@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :set_owner
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
 
@@ -40,7 +41,7 @@ class StudentsController < ApplicationController
     if params[:cate] == "register"
       render layout: 'application_login'
     else
-      render layout: 'student_home_new'
+      render layout: 'v1/home'
     end
   end
 
@@ -65,46 +66,43 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-
-    render layout: 'student_home_new'
+    render layout: 'v1/home'
   end
 
   def questions
-    @questions = Question.all.where("student_id=?",@student.id).
-        includes({learning_plan: :teachers},:vip_class,:student).
-        order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @questions = Question.by_student(@student.id).includes({learning_plan: :teachers}, :vip_class, :student).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def topics
-    @topics = Topic.all.where(author_id: @student.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @topics = Topic.where(author_id: @student.id).where(topicable_type: 'Lesson').order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def teachers
-    @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @learning_plans = @student.learning_plans.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all.by_author_id(@student.id)
-                  .by_customized_course_issue
-                  .order("created_at desc")
-                  .paginate(page: params[:page])
-    render layout: 'student_home_new'
+    @topics = Topic.all.by_author_id(@student.id).by_customized_course_issue.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def homeworks
-    @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
+    @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
+
   def solutions
-    @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_courses
-    @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @student.customized_courses.paginate(page: params[:page], per_page: 10)
     @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
-    render layout: 'student_home_new'
+    render layout: 'v1/home'
   end
 
   def notifications
@@ -128,7 +126,7 @@ class StudentsController < ApplicationController
       if params[:cate] == "register"
         render :edit, layout: 'application_login'
       else
-        render :edit, layout: 'student_home_new'
+        render :edit, layout: 'v1/home'
       end
     end
   end
@@ -152,6 +150,10 @@ class StudentsController < ApplicationController
     @current_resource = @student = User.find(params[:id]) if params[:id]
   end
 
+  def set_owner
+    @owner ||= current_resource
+  end
+
   def password_params
     params.require(:student).permit(:current_password, :password, :password_confirmation)
   end
@@ -169,7 +171,7 @@ class StudentsController < ApplicationController
   end
 
   def profile_params
-    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :school_id, :desc)
+    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :school_id, :desc, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def avatar_params
@@ -177,7 +179,7 @@ class StudentsController < ApplicationController
   end
 
   def payment_password_params
-    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation, :current_payment_password)
   end
 
   def update_params(update_by)
@@ -256,12 +258,15 @@ class StudentsController < ApplicationController
   end
 
   def update_payment_password
+    if payment_password_params[:current_payment_password].present?
+      return @student.reset_payment_pwd(payment_password_params)
+    end
     captcha_manager = UserService::CaptchaManager.new(@student.login_mobile)
     @student.payment_captcha = captcha_manager.captcha_of(:payment_password)
     @student.update_payment_pwd(payment_password_params)
   ensure
     if @student.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
+      captcha_manager.expire_captch(:payment_password) if captcha_manager
     end
   end
 

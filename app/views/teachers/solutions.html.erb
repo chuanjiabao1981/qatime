@@ -1,9 +1,20 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.student_bars.my_homework") %></h3>
+  </div>
 
+  <div class="contains-discipline">
+    <%= render partial: 'teachers/homeworks/tab' %>
 
-<%= render layout: "task" do %>
-    <% if @solutions.length > 0 %>
-        <%= render partial: "solutions/index",locals:{solutions: @solutions} %>
-    <% else %>
-        <%= render 'shared/customized_courses/introduce' %>
-    <% end %>
-<% end %>
+    <div class="tab-content">
+      <div id="solutions" class="tab-pane fade active in">
+        <ul class="issue-list">
+          <%= render partial: 'students/solutions/solution', collection: @solutions %>
+        </ul>
+
+        <%= render 'shared/blank' if @solutions.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @solutions, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

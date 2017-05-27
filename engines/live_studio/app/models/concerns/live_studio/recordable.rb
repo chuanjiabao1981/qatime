@@ -21,16 +21,11 @@ module LiveStudio
       channels.map {|c| c.sync_video_for(self) if c.board? }
       synced! if channel_videos.count > 0
       # 设置合并任务
-      async_merge_replays if synced?
+      init_replays if synced?
     end
 
-    # 异步合并视频片段
-    def async_merge_replays
-      ReplaysMergeJob.perform_later(model_name.to_s, id)
-    end
-
-    # 合并视频片段
-    def merge_replays
+    # 初始化回放记录
+    def init_replays
       replays.create(video_for: ChannelVideo.video_fors['board'],
                      name: board_replay_name,
                      vids: board_video_vids,

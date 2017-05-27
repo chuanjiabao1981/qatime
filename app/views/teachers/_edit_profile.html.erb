@@ -1,256 +1,175 @@
-<div class="col-md-4 text-center" style="vertical-align:middle;padding-top:170px">
-  <div style="padding-bottom:30px;">
-    <%= image_tag @teacher.avatar_url(:ex_big) %>
-  </div>
-  <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit_avatar"><%= t(".edit_avatar_btn") %></button></p>
-</div>
+<div class="contains">
+  <%= render 'info_title' %>
 
-<!-- edit avatar Modal -->
-<div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><%= t(".edit_avatar_title") %></h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :edit_profile, by: :avatar))  do |f| %>
-            <div class="col-md-8">
-              <div style="width: 242px;height: 242px; border: 1px dashed;">
-                <img id="teacher_avatar_preview" style="width: 100%;">
+  <div class="user-smg user-edit">
+    <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
+      <ul>
+        <li class="edit-info">
+          <div class="head-portrait pre-4">
+            <%= image_tag 'head-title.png', class: 'handle_error_avatar jcrop-preview jcrop_preview_s', id: 'teacher_avatar_preview4' %>
+            <a href="#" data-toggle="modal" data-target="#edit_avatar">
+              <%= image_tag 'camera.png' %>
+              <p><%= t('students.edit_profile.edit_avatar_btn') %></p>
+            </a>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :name, t('students.edit_profile.name') %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input_field :name %>
+              <%= f.error :name %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :nick_name, Teacher.human_attribute_name(:nick_name) %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input_field :nick_name %>
+              <%= f.error :nick_name %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <label class="required control-label" for="teacher_gender_male"><%= t('students.edit_profile.gender') %></label>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <label for="teacher_gender_male" class="user-gender">
+                <%= f.radio_button :gender, 'male' %>
+                <%= t('students.edit_profile.male') %>
+              </label>
+              <label for="teacher_gender_female" class="user-gender">
+                <%= f.radio_button :gender, 'female' %>
+                <%= t('students.edit_profile.female') %>
+              </label>
+              <%= f.error :gender %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :birthday, t('students.edit_profile.birthday') %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input_field :birthday, as: :string, readOnly: true, placeholder: t('students.edit_profile.placeholders.birthday'), onClick: 'testShow(this);' %>
+              <%= f.error :birthday %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :category, Teacher.human_attribute_name(:category) %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input :category, label: false, :collection => APP_CONSTANT["categories"], include_blank: false %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :province_id, t('students.edit_profile.province_id') %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <div class="col-md-6 col-sm-6 col-xs-6 region">
+                <%= f.input_field :province_id, as: :select,
+                                  collection: Province.pluck(:name, :id),
+                                  include_blank: t("students.edit_profile_for_register.select_province"),
+                                  'data-remote': true,
+                                  'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third') %>
               </div>
+              <div class="col-md-6 col-sm-6 col-xs-6 region">
+                <%= f.input_field :city_id, as: :select,
+                                  collection: City.where(province_id: f.object.province_id).map{|c| [c.name, c.id]},
+                                  include_blank: t("students.edit_profile_for_register.select_city"),
+                                  class: 'data-second',
+                                  'data-remote': true,
+                                  'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third') %>
+              </div>
+              <%= f.error :city_id %>
             </div>
-            <div class="col-md-4">
-              <p>
-                <div style="width: 128px;height: 128px;overflow: hidden;">
-                  <img id="teacher_avatar_preview2" style="width: 128px;height: 128px;">
-                </div>
-              </p>
-              <p>
-                <% %w[x y w h].each do |attribute| %>
-                  <%= f.hidden_field "crop_#{attribute}"%>
-                <% end %>
-                <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreviewarea(this)", style: "display:none;"} %>
-              </p>
-              <p>
-                <button type="button" class="btn btn-default" id="select_avatar_btn"><%= t "teachers.common.select" %></button>
-              </p>
-              <p>
-                <%= f.submit t("teachers.common.save"), class: "btn btn-default" %>
-              </p>
+          </div>
+
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :school_id, Teacher.human_attribute_name(:school) %>
             </div>
-          <% end %>
-        </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input_field :school_id, as: :select,
+                                collection: School.where(city_id: f.object.city_id).map {|s| [s.name, s.id] },
+                                include_blank: true,
+                                class: 'data-third' %>
+              <%= f.error :school_id %>
+            </div>
+          </div>
+
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :subject, Teacher.human_attribute_name(:subject) %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :teaching_years, Teacher.human_attribute_name(:teaching_years) %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input :teaching_years, label: false, as: :select, include_blank: false %>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+              <%= f.label :desc, t('students.edit_profile.desc') %>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <%= f.input_field :desc, as: :text, rows: 3, placeholder: t('teachers.edit_profile.placeholders.desc'), maxlength: 200 %>
+              <%= f.error :desc %>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="user-send">
+        <center>
+          <%= link_to t("students.common.cancel"), info_teacher_path(@teacher) %>
+          <%= f.submit t('students.common.save') %>
+        </center>
       </div>
-    </div>
+      <%= render partial: 'students/avatar_uploader', locals: {f: f} %>
+    <% end %>
   </div>
 </div>
 
-<div class="col-md-8">
-
-  <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:name)%></div>
-        <div class="col-md-9">
-          <%= f.input :name, label: false %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:nick_name)%></div>
-        <div class="col-md-9">
-          <%= f.input :nick_name, label: false %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:gender)%></div>
-        <div class="col-md-9">
-          <%= f.input :gender, as: :radio_buttons, label: false %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:birthday)%></div>
-        <div class="col-md-9">
-          <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:category)%></div>
-        <div class="col-md-9">
-          <%= f.input :category, label: false, :collection => APP_CONSTANT["categories"], include_blank: false %>
-        </div>
-      </div>
-    </div>
-
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:city) %></div>
-        <div class="col-md-9">
-          <%= f.input :province_id,
-                      label: false,
-                      collection: Province.all.map{|p| [p.name, p.id]},
-                      include_blank: true,
-                      input_html: {
-                        'data-remote': true,
-                        'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
-                      } %>
-          <%= f.input :city_id,
-                      label: false,
-                      collection: City.where(province_id: f.object.province_id).map{|c| [c.name, c.id]},
-                      include_blank: true,
-                      input_html: {
-                        class: 'data-second',
-                        'data-remote': true,
-                        'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
-                      } %>
-        </div>
-      </div>
-    </div>
-      
-
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:school)%></div>
-        <div class="col-md-9">
-          <%= f.input :school_id,
-                      label: false,
-                      collection: School.where(city_id: f.object.city_id).map {|s| [s.name, s.id] },
-                      include_blank: true,
-                      input_html: {
-                        class: 'data-third'
-                      } %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:subject)%></div>
-        <div class="col-md-9">
-          <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:teaching_years)%></div>
-        <div class="col-md-9">
-          <%= f.input :teaching_years, label: false, as: :select, include_blank: false %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:desc)%></div>
-        <div class="col-md-9">
-          <%= f.input :desc, label: false, as: :text, placeholder: "介绍下自己，如个人优势/从教经历/教学特色等。" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#edit_profile_form" data-jump-href="<%= info_teacher_path(@teacher) %>"><%= t "teachers.common.cancel" %></button>
-<button type="button" class="col-md-offset-2 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#edit_profile_form"><%= t "teachers.common.save" %></button>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-    $("#select_avatar_btn").on('click',function(event){
-      $("#teacher_avatar").click()
-    })
-
-    $("button.close").on('click',function(event){
-      $("#teacher_avatar").value = ''
-      $('#teacher_avatar_preview').attr('src', '');
-      $("#teacher_avatar_preview2").attr('src', '');
-
-      $('#teacher_avatar_preview').parent().css({
-        paddingTop: '0px'
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    function testShow(elem){
+      $.jeDate(elem, {
+        skinCell: "jedatered",
+        festival: false,
+        insTrigger: false,
+        //isinitVal:true,
+        format: "YYYY-MM-DD",
+        isClear: false,
+        minDate: '1900-01-01'
       });
-      $('#teacher_avatar_preview').css({
-        height: 'auto',
-        width: '100%'
-      });
-      $("#teacher_avatar_preview2").css({
-        height: '128px',
-        width: '128px',
-        marginTop: '0px',
-        marginLeft: '0px'
-      })
-
-      if (jcrop_api){
-        jcrop_api.destroy();
-      }
-    })
-
-  })
-
-  var jcrop_api,
-      boundx,
-      boundy;
-
-    function showimagepreviewarea(input) {
-      if (input.files && input.files[0]) {
-        var filerdr = new FileReader();
-
-        filerdr.onload = function(e) {
-          $('#teacher_avatar_preview').attr('src', e.target.result);
-          $("#teacher_avatar_preview2").attr('src', e.target.result);
-
-          var teacher_avatar_preview_height = $('#teacher_avatar_preview').height()
-          console.log(teacher_avatar_preview_height)
-          $('#teacher_avatar_preview').parent().css({
-              paddingTop : Math.round((240 - teacher_avatar_preview_height) / 2) + 'px'
-          });
-        }
-        if (jcrop_api){
-          jcrop_api.destroy();
-        }
-        filerdr.readAsDataURL(input.files[0]);
-        filerdr.onloadend = function(e){
-          $('#teacher_avatar_preview').Jcrop({
-            bgFade:     true,
-            bgOpacity: .4,
-            aspectRatio: 1 ,
-            setSelect: [ 0, 0, 240, 240 ],
-            onSelect: selectCoords,
-            onChange: selectCoords,
-            keySupport : false
-          },function(){
-            var bounds = this.getBounds();
-            boundx = bounds[0];
-            boundy = bounds[1];
-            jcrop_api = this;
-          });
-        }
-      }
     }
-    function selectCoords(coords)
-    {
-      if (parseInt(coords.w) > 0) {
-        var rx = 128 / coords.w;
-        var ry = 128 / coords.h;
-
-        $('#teacher_avatar_preview2').css({
-          width : Math.round(rx * boundx) + 'px',
-          height : Math.round(ry * boundy) + 'px',
-          marginLeft : '-' + Math.round(rx * coords.x) + 'px',
-          marginTop : '-' + Math.round(ry * coords.y) + 'px'
-        });
-      }
-
-      $('#teacher_crop_x').val(coords.x)
-      $('#teacher_crop_y').val(coords.y)
-      $('#teacher_crop_w').val(coords.w)
-      $('#teacher_crop_h').val(coords.h)
-    }
-</script>
+  </script>
+<% end %>

@@ -42,7 +42,7 @@ course_no_teacher:
 
 course_destroy_teacher:
   name: 测试辅导3班
-  teacher: destroied_teacher
+  teacher: teacher_one_xx
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -896,4 +896,21 @@ course_for_update_class_date:
   price: 999
   class_date: <%= 3.days.since.to_date %>
   start_at: <%= 3.days.since.to_date %>
+
+course_for_off_shelve:
+  name: 下架课程
+  description: 下架课程下架课程
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 3
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 70
+  preset_lesson_count: 3
+  lessons_count: 1
+  closed_lessons_count: 1
+  price: 100
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
+
 

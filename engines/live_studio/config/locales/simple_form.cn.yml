@@ -36,7 +36,7 @@ cn:
         price: 请输入直播课原价（正整数）
         taste_count: 请选择允许试听的课程数量（正整数）,不选择默认为0
         name: 请输课程标题名称（最多20字）
-        description: 请输入辅导班介绍（最多300字）
+        description: 请输入直播课介绍（最多300字）
         teacher_percentage: 请输入教师获得分成比例（正整数）
       video_course:
         name: 请输入视频课名称

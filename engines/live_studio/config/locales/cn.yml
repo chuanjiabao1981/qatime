@@ -61,6 +61,8 @@ cn:
       lesson_time: 课时
       lesson_count: 共%d课
       buy_tickets_count_text: "学习人数%{count}"
+      buy_user_count_text: "%{count}人学习"
+      buy_user_count_text2: "%{count}人报名"
       lessons_count: 课时
       lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
@@ -112,6 +114,7 @@ cn:
       start_learning: 开始学习
       start_learning2: 观看
       taste_end: 试听结束
+      shelves: 已下架
       buy_teaching_course_tips: '该直播课已开课，是否确认购买？'
     course_search_show:
       clear_range_btn: 清除范围
@@ -382,6 +385,7 @@ cn:
       payment/order: 订单
       live_studio/course: 直播课
       live_studio/interactive_course: 一对一
+      live_studio/interactive_lesson: 一对一课程
       live_studio/video_course: 视频课
       live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
@@ -406,7 +410,7 @@ cn:
         current_status: 当前状态
         index_no: 序号
         name: 名称
-        course_name: 辅导班名称
+        course_name: 直播课名称
         teacher: 辅导老师
         course_teacher: 授课老师
         short_description: 摘要

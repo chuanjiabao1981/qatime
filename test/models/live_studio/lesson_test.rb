@@ -2,17 +2,14 @@ require 'test_helper'
 
 module LiveStudio
   class LessonTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-
     # 测试同步回放视频
     test "sync replays" do
+      vid = (Time.now.to_i + rand(1000)).to_s
       sync_replay_res = {
         code: 200,
         msg: '',
         ret: {
-          videoList: [{vid: Time.now.to_i.to_s,
+          videoList: [{vid: vid,
                        name: 'testssss',
                        url: 'http://baidu.com',
                        beginTime: 40.minutes.ago.to_i * 100,
@@ -32,8 +29,9 @@ module LiveStudio
       Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
 
       lesson = live_studio_lessons(:replay_lessons_7)
-      assert_difference "lesson.channel_videos.count", 1, "同步回放视频失败" do
+      assert_difference "lesson.reload.channel_videos.count", 1, "同步回放视频失败" do
         lesson.fetch_replays
+        sleep 1
       end
       assert lesson.synced?, "没有改变视频同步状态"
     end
@@ -55,7 +53,6 @@ module LiveStudio
       lesson2 = live_studio_lessons(:replay_lessons_2)
       admin = users(:admin)
       assert lesson.replayable_for?(admin), "管理员观看回放失败" # 管理员可以观看回放
-      
       student = users(:student_for_replays)
       assert lesson.replayable_for?(student), "学生观看回放失败" # 已经购买并且没有用完回放次数可以回放
       assert_not lesson2.replayable_for?(student), "回放权限控制失效" # 已经购买并且没有用完回放次数可以回放
@@ -67,7 +64,8 @@ module LiveStudio
     test 'merge replays' do
       lesson = live_studio_lessons(:replay_lessons_7)
       assert_difference "lesson.reload.replays.merging.count", 1, "视频合并失败" do
-        lesson.merge_replays
+        lesson.init_replays
+        lesson.reload.replays.last.merge_video
       end
       assert lesson.reload.replays.first.merging?, "提交合并任务后状态不正确"
     end
@@ -84,7 +82,8 @@ module LiveStudio
       Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
       lesson = live_studio_lessons(:replay_lessons_8)
       assert_difference "lesson.reload.replays.merged.count", 1, "视频合并失败" do
-        lesson.merge_replays
+        lesson.init_replays
+        lesson.reload.replays.last.merge_video
       end
       assert lesson.reload.merged?, "合并完成后课程状态不正确"
     end

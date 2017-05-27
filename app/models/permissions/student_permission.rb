@@ -187,6 +187,10 @@ module Permissions
       allow 'payment/transactions', [:pay]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
 
+      allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :refunds] do |resource|
+        resource.id == user.id
+      end
+
       allow 'wap/live_studio/orders', [:new, :create]
       allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/live_studio/video_courses', [:show]
@@ -240,7 +244,11 @@ module Permissions
       ##
 
       ## 视频课
-      api_allow :GET, 'live_studio/students/\d+/video_courses'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/list'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/tasting'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/tasting_list'
+      api_allow :GET, '/api/v1/live_studio/video_lessons/\d+/play'
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/orders"
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/deliver_free"
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"
@@ -271,6 +279,7 @@ module Permissions
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/refunds"
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds"
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/:id/cancel"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
       ## end api permission
 
       ## 获取授权token

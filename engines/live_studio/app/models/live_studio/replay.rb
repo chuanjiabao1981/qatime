@@ -3,6 +3,7 @@ module LiveStudio
     belongs_to :lesson
     belongs_to :channel
     serialize :vids, Array
+    serialize :pending_vids, Array
 
     enum video_for: { board: 0, camera: 1 }
     enum status: {
@@ -10,13 +11,16 @@ module LiveStudio
       merged: 1
     }
 
-    after_create :merge_video
+    after_commit :async_merge_video, on: :create
     def merge_video
-      if vids.count > 1
-        merge_task
-      else
-        single_merge
-      end
+      return single_merge unless vids.count > 1 # 不需要合并
+      self.pending_vids = vids
+      save!
+      async_merge_replays
+    end
+
+    def async_merge_video
+      VideoMergeJob.perform_later(id)
     end
 
     def video_get
@@ -43,15 +47,55 @@ module LiveStudio
       )
     end
 
-    private
-
-    def merge_task
-      VCloud::Service.app_video_merge(outputName: lesson.replay_name(video_for), vidList: vids)
+    # 返回下一次合并视频ID
+    def shift_pending_vids!
+      pending_vids.unshift(vid) if vid && pending_vids.exclude?(vid)
+      pending_vids.shift(3)
     end
+
+    # 异步合并视频片段
+    def async_merge_replays
+      ReplaysMergeJob.perform_later(id)
+    end
+
+    # 合并视频片段
+    def merge_replays
+      return if pending_vids.blank?
+      self.name = "#{name}_#{vid}" if vid && !name.end_with?("_#{vid}")
+      vid_list = shift_pending_vids!
+      save!
+      VCloud::Service.app_video_merge(outputName: name, vidList: vid_list)
+    end
+
+    # 合并回调
+    def merge_callback(params)
+      with_lock do
+        return unless params[:video_name] == name
+        self.vid = params['vid']
+        self.orig_video_key = params['orig_video_key']
+        self.uid = params['uid']
+        self.n_id = params['nID']
+        save!
+      end
+      if pending_vids.blank? # 合并完成
+        finish_merge
+      else
+        async_merge_replays
+      end
+    end
+
+    private
 
     def single_merge
       video = ChannelVideo.find_by(vid: vids.first)
       update(video.slice(:vid, :orig_video_key, :uid))
+      video_get
+      merged!
+      lesson.merged!
+    end
+
+    # 完成合并
+    def finish_merge
       video_get
       merged!
       lesson.merged!

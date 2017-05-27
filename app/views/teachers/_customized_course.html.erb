@@ -1,0 +1,62 @@
+<li>
+  <div class="row proprietary-course">
+    <div class="col-md-4">
+      <%= link_to customized_course_path(customized_course) do %>
+        <%= image_tag @teacher.avatar_url(:small), class: 'handle_error_avatar' %>
+        <span><%= @teacher.view_name %></span>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <p>
+        <% if current_user.admin? %>
+          <span><%= CustomizedCourse.human_attribute_name(:platform_price) %>：<i><%= number_to_currency customized_course.platform_price %></i></span>
+          <span><%= CustomizedCourse.human_attribute_name(:teacher_price) %>：<i><%= number_to_currency customized_course.teacher_price %></i></span>
+        <% end %>
+        <% if not current_user.teacher? and not current_user.student? %>
+          <span><%= CustomizedCourse.human_attribute_name(:is_keep_account) %>：<i><%= t customized_course.is_keep_account.to_s %></i></span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <div class="row quantity-course">
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= CustomizedTutorial.model_name.human %></h5>
+        <p><%= customized_course.customized_tutorials_count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= Homework.model_name.human %></h5>
+        <p><%= customized_course.homeworks_count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= t('students.customized_courses.timeout_to_solve_homeworks') %></h5>
+        <p><%= customized_course.timeout_to_solve_homeworks.count %></p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div class="curriculum-item">
+        <h5><%= CustomizedCourse.human_attribute_name(:topics) %></h5>
+        <p><%= customized_course.topics_count %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row remark-box">
+    <% if current_user.teacher? %>
+      <div class="col-md-10 col-xs-10">
+        <span class="desc-result-<%= customized_course.id %>"><%= customized_course.desc.presence || t('teachers.customized_courses.desc_none') %></span>
+        <%= text_area_tag :desc, customized_course.desc.presence, class: 'form-control', placeholder: t('teachers.customized_courses.placeholder.desc'), maxlength: 100 %>
+      </div>
+      <div class="col-md-2 col-xs-2">
+        <% if allow? :customized_courses, :update_desc, customized_course %>
+          <%= link_to t('teachers.customized_courses.edit'), 'javascript:void(0);', class: 'edit_desc', data: {cid: customized_course.id, url: update_desc_customized_course_path(customized_course)} %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</li>

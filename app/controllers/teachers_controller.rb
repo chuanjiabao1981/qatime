@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  before_action :set_owner
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
 
@@ -32,16 +33,14 @@ class TeachersController < ApplicationController
   end
 
   def show
-    #@teacher = Teacher.find(params[:id])
-    #@curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def edit
     if params[:cate] == "register"
       render layout: 'application_login'
     else
-      render layout: 'teacher_home_new'
+      render layout: 'v1/home'
     end
   end
 
@@ -60,7 +59,7 @@ class TeachersController < ApplicationController
       if params[:cate] == "register"
         render :edit, layout: 'application_login'
       else
-        render :edit, layout: 'teacher_home_new'
+        render :edit, layout: 'v1/home'
       end
     end
   end
@@ -79,24 +78,19 @@ class TeachersController < ApplicationController
   end
 
   def lessons_state
-    if params[:state] == nil
-      params[:state] = 'editing'
-    end
-    @lessons = Lesson.all.
-        by_state(params[:state]).
-        by_teacher(@teacher.id).
-        order(:created_at).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    params[:state] ||= 'editing'
+    @lessons = Lesson.by_state(params[:state]).by_teacher(@teacher.id).order(:created_at).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def students
-    @learning_plans = @teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @learning_plans = @teacher.learning_plans.paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def curriculums
     @curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def info
@@ -105,36 +99,33 @@ class TeachersController < ApplicationController
     # else
     #   @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def questions
-    @questions = @teacher.questions.order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @questions = @teacher.questions.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @topics = Topic.where(teacher_id: @teacher.id).where(topicable_type: 'Lesson').order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
 
   def homeworks
-    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all
-                  .by_customized_course_issue
-                  .by_customized_course_ids(@teacher.customized_course_ids)
-                  .order("created_at desc")
-                  .paginate(page: params[:page])
-    render layout: 'teacher_home_new'
+    @topics = Topic.by_customized_course_issue.by_customized_course_ids(@teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def solutions
-    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def notifications
@@ -154,7 +145,7 @@ class TeachersController < ApplicationController
     KeepAccountWorker.perform_async(@teacher.id)
     flash[:success] = "#{Account.human_attribute_name(:keep_account)}进行中"
     # 结账完成以后跳转到收入记录页面
-    redirect_to payment.cash_user_path(@teacher, fee: 'y')
+    redirect_to payment.earning_records_user_path(@teacher)
   end
   def destroy
     @teacher.destroy
@@ -167,9 +158,9 @@ class TeachersController < ApplicationController
   end
 
   def customized_courses
-    @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @teacher.customized_courses.paginate(page: params[:page], per_page: 10)
     @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def profile
@@ -190,8 +181,12 @@ class TeachersController < ApplicationController
     @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
   end
 
+  def set_owner
+    @owner ||= current_resource
+  end
+
   def payment_password_params
-    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation, :current_payment_password)
   end
 
   def password_params
@@ -207,7 +202,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def avatar_params
@@ -283,12 +278,15 @@ class TeachersController < ApplicationController
   end
 
   def update_payment_password
+    if payment_password_params[:current_payment_password].present?
+      return @teacher.reset_payment_pwd(payment_password_params)
+    end
     captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
     @teacher.payment_captcha = captcha_manager.captcha_of(:payment_password)
     @teacher.update_payment_pwd(payment_password_params)
   ensure
     if @teacher.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
+      captcha_manager.expire_captch(:payment_password) if captcha_manager
     end
   end
 

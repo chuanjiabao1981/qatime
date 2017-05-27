@@ -28,6 +28,7 @@ module V1
 
     # 视频课
     mount V1::LiveStudio::VideoCourses
+    mount V1::LiveStudio::VideoLessons
     mount V1::LiveStudio::Students::VideoCourses
     mount V1::LiveStudio::Teachers::VideoCourses
 

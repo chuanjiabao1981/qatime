@@ -1,0 +1,29 @@
+<li>
+  <div class="row">
+    <div class="col-md-2 subject">
+      <%= link_to vip_class_path(learning_plan.vip_class) do %>
+        <span><%= learning_plan.vip_class.category %></span>
+        <span><%= learning_plan.vip_class.subject %></span>
+      <% end %>
+    </div>
+    <div class="col-md-9 teacher-msg">
+      <h4><%= t('students.teachers.teacher') %>:</h4>
+      <p>
+        <% learning_plan.teachers.each do |teacher| %>
+          <span>
+            <%= image_tag teacher.avatar_url(:small), class: 'handle_error_avatar' %>
+            <i><%= teacher.view_name %></i>
+          </span>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-md-1 tec-editor">
+      <% if allow? "learning_plans", "edit", learning_plan %>
+        <%= link_to t('common.editor_toolbar_edit'), edit_learning_plan_path(learning_plan) %>
+      <% end %>
+      <% if allow? :learning_plan,:destroy %>
+        <%= link_to t('common.delete'), learning_plan_path(learning_plan), data: {method: :delete, confirm: t('common.confirm_delete')} %>
+      <% end %>
+    </div>
+  </div>
+</li>

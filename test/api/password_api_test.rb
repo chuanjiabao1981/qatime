@@ -43,7 +43,7 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
 
     put "/api/v1/password",
-        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"},
+        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567" },
         headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
@@ -60,7 +60,7 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     post "/api/v1/captcha", params: { send_to: login_account, key: :get_password_back }
 
     put "/api/v1/password",
-        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"},
+        params: { login_account: user.login_mobile, captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567" },
         headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success

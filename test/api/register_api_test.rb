@@ -6,20 +6,25 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
 
   test "POST /api/v1/user/register register student" do
     # 获取注册码
-    get "/api/v1/user/register_code_valid", {type: "Student"}
+    get "/api/v1/user/register_code_valid", params: { type: "Student" }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res['data']}"
     student_register_code = res['data']
 
     # 发送手机验证码
-    post "/api/v1/captcha", {send_to: "13892920103", key: :register_captcha}
+    post "/api/v1/captcha", params: { send_to: "13892920103", key: :register_captcha }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res}"
 
     # 提交注册表单
-    post "/api/v1/user/register", {login_mobile: "13892920103", captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456", register_code_value: student_register_code, accept: "1", type: "Student", client_type: "app"}
+    post "/api/v1/user/register",
+         params: {
+           login_mobile: "13892920103", captcha_confirmation: "1234", password: "pa123456",
+           password_confirmation: "pa123456", register_code_value: student_register_code, accept: "1",
+           type: "Student", client_type: "app"
+         }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -31,7 +36,10 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
 
     # 完善个人信息
-    put "/api/v1/students/#{student.id}/profile", {name: "test_name", avatar: img_file, gender: "male", grade: "高一", birthday: "1999-01-01", desc: "desc test", email: "123@456.com", email_confirmation: "123@456.com", parent_phone: "13892920104", parent_phone_confirmation: "13892920104"}, 'Remember-Token' => remember_token
+    put "/api/v1/students/#{student.id}/profile",
+        params: { name: "test_name", avatar: img_file, gender: "male", grade: "高一", birthday: "1999-01-01",
+                  desc: "desc test", email: "123@456.com", email_confirmation: "123@456.com", parent_phone: "13892920104", parent_phone_confirmation: "13892920104" },
+        headers: { 'Remember-Token' => remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -50,19 +58,19 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
 
   # 用户是否存在
   test 'GET /api/v1/user/check' do
-    get "/api/v1/user/check", { account: "15910000001" }
+    get "/api/v1/user/check", params: { account: "15910000001" }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res}"
     assert res['data'], "已存在手机号返回错误"
 
-    get "/api/v1/user/check", { account: "one@baidu.com" }
+    get "/api/v1/user/check", params: { account: "one@baidu.com" }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res}"
     assert res['data'], "已存邮箱返回错误"
 
-    get "/api/v1/user/check", { account: "one@baidxxxxu.com" }
+    get "/api/v1/user/check", params: { account: "one@baidxxxxu.com" }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res}"

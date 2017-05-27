@@ -1,13 +1,18 @@
-<div class="panel panel-default">
-  <div class="new-curriculum">
-    <div class="curriculum-title">
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
+
+    <div class="create-header">
       <% if @workstation %>
-        <%= link_to '', live_studio.my_courses_station_workstation_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+        <%= link_to live_studio.my_courses_station_workstation_courses_path(@workstation), class: 'back' do %>
+          <i class="fa fa-angle-left"></i>
+          <%= t('common.back') %>
+        <% end %>
       <% end %>
-      <span><%= t('view.live_studio/interactie_course.update_class_date.title') %></span>
-    </div>
-    <div class="adjust-classes adjust-live">
       <h3><%= @course.name %></h3>
+    </div>
+
+    <div class="course-adjust">
       <%= simple_form_for @course, url: update_lessons_course_path(@course) do |f| %>
         <ul class="adjust-list">
           <%= f.fields_for :lessons, @course.lessons.sort_by{|x| x.class_date_was } do |lesson| %>
@@ -16,7 +21,8 @@
             <% end %>
           <% end %>
         </ul>
-        <div class="present adjust-btn">
+
+        <div class="present">
           <center>
             <%= link_to t('common.cancel'), :back %>
             <%= link_to t('view.live_studio/interactie_course.update_class_date.submit'), 'javascript:void(0);', class: 'submit' %>

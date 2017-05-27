@@ -5,7 +5,12 @@ cn:
       course_invitations: 开班邀请
       courses: 直播课列表
       my_courses: 发行/经销
-      my_course: 直播课管理
+      my_course: 直播课
+      interactive_course: 一对一
+      video_course: 视频课
+      customized_course: 专属课程
+      curriculums: 公共课程
+      question: 问答社区
       video_courses: 视频课列表
       my_video_courses: 发行/销售
       manage_video_courses: 课程管理
@@ -110,8 +115,9 @@ cn:
   view:
     live_studio/course:
       new:
-        title: 创建新直播课
-        label: 直播课课程说明
+        title: 创建新课程
+        label: 课程说明
+        label0: 直播课说明
         label1: 1.允许多名学生购买，可以重复销售;
         label2: 2.默认使用系统直播课课程海报；
         add_lesson: 添加新课程
@@ -146,6 +152,7 @@ cn:
         description: 请输入课程介绍（最多300字）
       hint:
         taste_count: 课时
+        price: 元
       validates:
         name: 请输入课程名称
         description: 请输入课程介绍
@@ -169,7 +176,7 @@ cn:
         label3: 3.默认使用系统一对一课程海报;
         intro_one: 一、课程介绍
         intro_two: 二、课程安排
-        intro_three: 三、价格和试听
+        intro_three: 三、其他设置
         preview: 预览
         submit: 发布招生
         lesson_name_text: "一对一互动课程-第%{index}课时"
@@ -191,7 +198,7 @@ cn:
         grade: 年级
         price: 价格
         subject: 科目
-        teacher_percentage: 教师分成
+        teacher_percentage: 老师分成
         status: 状态
         teacher: 老师
         new: 创建新课程
@@ -200,7 +207,7 @@ cn:
         title: 调课
         submit: 保存调课
         teacher_was: 教师
-        edit_changed: <修改后>
+        edit_changed: 修改后>
         class_date_was: 上课时间
         lesson_name: 课程名称
         edit_title: 编辑课程

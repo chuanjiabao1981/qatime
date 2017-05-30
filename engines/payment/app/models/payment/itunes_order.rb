@@ -26,7 +26,7 @@ module Payment
         recharge ||= user.payment_recharges.create(
           amount: itunes_product.amount,
           pay_type: 'itunes',
-          source: :app,
+          source: :student_app,
           transaction_no: transaction_id
         )
         recharge

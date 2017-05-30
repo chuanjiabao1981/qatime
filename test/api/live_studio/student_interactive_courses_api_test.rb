@@ -8,13 +8,13 @@ class Qatime::StudentInteractiveCoursesAPITest < ActionDispatch::IntegrationTest
 
   # 我的一对一
   test 'student interactive student courses list' do
-    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert_equal 2, @res['data'].count, '我的辅导数量不正确'
-    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", { status: :published }, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", params: { status: :published }, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert_equal 1, @res['data'].count, '待开课数量不正确'
-    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", { status: :teaching }, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/interactive_courses", params: { status: :teaching }, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert_equal 1, @res['data'].count, '已开课数量不正确'
   end
@@ -24,13 +24,13 @@ class Qatime::StudentInteractiveCoursesAPITest < ActionDispatch::IntegrationTest
     course1 = live_studio_interactive_courses(:interactive_course_three_1)
     course2 = live_studio_interactive_courses(:interactive_course_three_2)
     course3 = live_studio_interactive_courses(:interactive_course_two_3)
-    get "/api/v1/live_studio/interactive_courses/#{course1.id}", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/interactive_courses/#{course1.id}", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert @res['data']['is_bought']
-    get "/api/v1/live_studio/interactive_courses/#{course2.id}", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/interactive_courses/#{course2.id}", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert @res['data']['is_bought']
-    get "/api/v1/live_studio/interactive_courses/#{course3.id}", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/interactive_courses/#{course3.id}", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_request_success?
     assert_not @res['data']['is_bought']
   end

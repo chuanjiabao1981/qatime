@@ -9,7 +9,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test "get teacher courses list of teacher" do
-    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses", { page: 1, per_page: 10 }, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -19,7 +19,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test "get teacher courses list return error of student" do
-    get "/api/v1/live_studio/teachers/#{@student.id}/courses", { page: 1, per_page: 10 }, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/teachers/#{@student.id}/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -30,18 +30,18 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test "get teacher courses list full of teacher" do
-    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses/full", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses/full", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
     assert_equal 10, res['data'].size
-    assert_equal true, res['data'].first.has_key?('lessons')
+    assert_equal true, res['data'].first.key?('lessons')
   end
 
   test "get teacher courses list full return error of student" do
-    get "/api/v1/live_studio/teachers/#{@student.id}/courses/full", { page: 1, per_page: 10 }, { 'Remember-Token' => @student_remember_token }
+    get "/api/v1/live_studio/teachers/#{@student.id}/courses/full", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -54,18 +54,18 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   test "get teacher course detail of teacher" do
     course = @teacher.live_studio_courses.last
 
-    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/teachers/#{@teacher.id}/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal true, res['data'].has_key?('lessons')
+    assert_equal true, res['data'].key?('lessons')
   end
 
   test "get teacher course detail return error of student" do
     course = @teacher.live_studio_courses.last
 
-    get "/api/v1/live_studio/teachers/#{@student.id}/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/teachers/#{@student.id}/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -80,7 +80,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     @remember_token = api_login(student, :app)
 
-    get "/api/v1/live_studio/students/#{student.id}/courses", { page: 1, per_page: 10 }, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{student.id}/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -89,7 +89,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test "get student courses return error list of teacher" do
-    get "/api/v1/live_studio/students/#{@teacher.id}/courses", { page: 1, per_page: 10 }, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@teacher.id}/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -104,7 +104,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @remember_token = api_login(student, :app)
     course = student.live_studio_courses.last
 
-    get "/api/v1/live_studio/students/#{student.id}/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/students/#{student.id}/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -115,7 +115,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   test "get student course detail of teacher" do
     course = @teacher.live_studio_courses.last
 
-    get "/api/v1/live_studio/students/#{@teacher.id}/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/students/#{@teacher.id}/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -129,16 +129,16 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
 
-    get "/api/v1/live_studio/courses", { page: 1, per_page: 10 }, {'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal true, res['data'].first.has_key?('is_tasting')
+    assert_equal true, res['data'].first.key?('is_tasting')
   end
 
   test "get courses list of search by teacher" do
-    get "/api/v1/live_studio/courses", { page: 1, per_page: 10 }, {'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -148,24 +148,24 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   test "get courses detail of search by student" do
     course = @student.live_studio_courses.last
 
-    get "/api/v1/live_studio/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @student_remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal true, res['data'].has_key?('lessons')
-    assert_equal true, res['data'].has_key?('is_tasting')
+    assert_equal true, res['data'].key?('lessons')
+    assert_equal true, res['data'].key?('is_tasting')
   end
 
   test "get courses detail of search by teacher" do
     course = @teacher.live_studio_courses.last
-    get "/api/v1/live_studio/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}", params: { page: 1, per_page: 10 }, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status'], "返回数据错误#{res}"
-    assert_equal true, res['data'].has_key?('lessons')
+    assert_equal true, res['data'].key?('lessons')
   end
 
   test "taste courses for student" do
@@ -174,7 +174,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @remember_token = JSON.parse(response.body)['data']['remember_token']
     course = LiveStudio::Course.published.where("taste_count < 1").last
 
-    get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/taste", params: {}, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -182,30 +182,30 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 3004, res['error']['code'], '未报试听错误'
 
     course = live_studio_courses(:course_with_lessons)
-    get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/taste", params: {}, headers: { 'Remember-Token' => @remember_token }
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应出错 #{res}"
-    assert_equal true, res['data'].has_key?('status')
+    assert_equal true, res['data'].key?('status')
   end
 
   test 'get play info for course by teacher' do
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
     course = LiveStudio::Course.published.last
-    get "/api/v1/live_studio/courses/#{course.id}/play_info", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/play_info", params: {}, headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal true, res['data'].has_key?('chat_team')
+    assert_equal true, res['data'].key?('chat_team')
   end
 
   test 'get play info for course by student' do
     course = LiveStudio::Course.published.last
-    get "/api/v1/live_studio/courses/#{course.id}/play_info", {}, { 'Remember-Token' => @student_remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/play_info", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal true, res['data'].has_key?('chat_team')
+    assert_equal true, res['data'].key?('chat_team')
   end
 
   test 'create course order by student' do
@@ -213,7 +213,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @remember_token = api_login(student, :app)
     course = LiveStudio::Course.published.last
     assert_difference "Payment::Order.count", 1, "辅导班下单失败" do
-      post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @remember_token}
+      post "/api/v1/live_studio/courses/#{course.id}/orders", params: { pay_type: :weixin }, headers: { 'Remember-Token' => @remember_token }
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
     end
   end
@@ -225,10 +225,10 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     coupon = payment_coupons(:coupon_one)
 
     assert_difference "Payment::Order.count", 1, "辅导班使用优惠码下单失败" do
-      post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin, coupon_code: coupon.code}, {'Remember-Token' => @remember_token}
+      post "/api/v1/live_studio/courses/#{course.id}/orders", params: { pay_type: :weixin, coupon_code: coupon.code }, headers: { 'Remember-Token' => @remember_token }
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
       res = JSON.parse(response.body)
-      assert res['data'].has_key?('coupon_code')
+      assert res['data'].key?('coupon_code')
       assert_equal course.coupon_price(coupon), res['data']['amount'].to_f, "优惠价格未扣除"
     end
   end
@@ -237,7 +237,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     course = LiveStudio::Course.published.last
 
     assert_difference "Payment::Order.count", 1, "辅导班下单失败" do
-      post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @student_remember_token}
+      post "/api/v1/live_studio/courses/#{course.id}/orders", params: { pay_type: :weixin }, headers: { 'Remember-Token' => @student_remember_token }
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
     end
   end
@@ -247,7 +247,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
 
-    get "/api/v1/live_studio/courses/#{course.id}/realtime", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/realtime", params: {}, headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
@@ -258,7 +258,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
 
-    get "/api/v1/live_studio/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule", params: {}, headers: { 'Remember-Token' => @remember_token }
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -271,7 +271,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
 
-    get "/api/v1/live_studio/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule", params: { month: Time.now.to_date.to_s }, headers: { 'Remember-Token' => @remember_token }
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -282,7 +282,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
   test 'visit realtime by teacher' do
     course = live_studio_courses(:course_with_junior_teacher)
-    get "/api/v1/live_studio/courses/#{course.id}/realtime", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/realtime", params: {}, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -294,7 +294,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
     @course = live_studio_courses(:course_for_channel)
-    get "/api/v1/live_studio/courses/#{@course.id}/replays", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/courses/#{@course.id}/replays", params: {}, headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
@@ -329,7 +329,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
   # 新的搜索接口
   test 'search courses with tags' do
-    get '/api/v1/live_studio/courses/search', range: '1_months'
+    get '/api/v1/live_studio/courses/search', params: { range: '1_months' }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "请求出错 #{res}"

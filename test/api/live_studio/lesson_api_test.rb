@@ -16,12 +16,12 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
   def get_url(url, params)
     @teacher = users(:teacher1)
     @remember_token = api_login_by_pc(@teacher, :teacher_live)
-    post url, params, 'Remember-Token' => @remember_token
+    post url, params: params, headers: { 'Remember-Token' => @remember_token }
   end
 
   test 'GET /api/v1/live_studio/teacher/start' do
     lesson = live_studio_lessons(:ready_lesson_for_false)
-    get_url("/api/v1/live_studio/lessons/#{lesson.id}/live_start", {board: 1, camera: 0})
+    get_url("/api/v1/live_studio/lessons/#{lesson.id}/live_start", board: 1, camera: 0)
     assert_response :success
     assert data.length == 32
   end
@@ -29,7 +29,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
   test 'GET /api/v1/live_studio/teacher/start return error by student' do
     lesson = live_studio_lessons(:ready_lesson_for_false)
 
-    post "/api/v1/live_studio/lessons/#{lesson.id}/live_start", {board: 1, camera: 0}, 'Remember-Token' => @student_remember_token
+    post "/api/v1/live_studio/lessons/#{lesson.id}/live_start", params: { board: 1, camera: 0 }, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -41,11 +41,11 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   test 'GET /api/v1/live_studio/teacher/heartbeat' do
     lesson = live_studio_lessons(:english_lesson_onlive)
-    get_url("/api/v1/live_studio/lessons/#{lesson.id}/heart_beat", {beat_step: 60,timestamp: Time.now.to_i})
+    get_url("/api/v1/live_studio/lessons/#{lesson.id}/heart_beat", beat_step: 60, timestamp: Time.now.to_i)
     assert_response :success
     assert data.length == 32, '没有正确返回token'
     token = data
-    get_url("/api/v1/live_studio/lessons/#{lesson.id}/heart_beat", {token: token,beat_step: 60,timestamp: Time.now.to_i})
+    get_url("/api/v1/live_studio/lessons/#{lesson.id}/heart_beat", token: token, beat_step: 60, timestamp: Time.now.to_i)
     assert_response :success
     assert data.length == 32, '没有正确返回token'
     assert data == token, '应该和之前的token一致'
@@ -61,7 +61,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   test 'post /api/v1/live_studio/teacher/close return error by student' do
     lesson = live_studio_lessons(:english_lesson_onlive)
-    post "/api/v1/live_studio/lessons/#{lesson.id}/live_end", {}, 'Remember-Token' => @student_remember_token
+    post "/api/v1/live_studio/lessons/#{lesson.id}/live_end", params: {}, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -75,7 +75,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
     @lesson = live_studio_lessons(:lesson_for_taste_zero)
-    get "/api/v1/live_studio/lessons/#{@lesson.id}/replay", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/lessons/#{@lesson.id}/replay", params: {}, headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']

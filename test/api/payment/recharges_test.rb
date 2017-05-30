@@ -6,7 +6,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'get user recharges' do
-    get "/api/v1/payment/users/#{@student.id}/recharges", {}, 'Remember-Token' => @student_token
+    get "/api/v1/payment/users/#{@student.id}/recharges", params: {}, headers: { 'Remember-Token' => @student_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
@@ -16,7 +16,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'user alipay recharge' do
-    post "/api/v1/payment/users/#{@student.id}/recharges", { amount: 30, pay_type: :alipay }, 'Remember-Token' => @student_token
+    post "/api/v1/payment/users/#{@student.id}/recharges", params: { amount: 30, pay_type: :alipay }, headers: { 'Remember-Token' => @student_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
@@ -28,7 +28,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'user weixin recharge' do
-    post "/api/v1/payment/users/#{@student.id}/recharges", { amount: 30, pay_type: :weixin }, 'Remember-Token' => @student_token
+    post "/api/v1/payment/users/#{@student.id}/recharges", params: { amount: 30, pay_type: :weixin }, headers: { 'Remember-Token' => @student_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 'unpaid', res['data']["status"], "充值状态不正确"
@@ -41,7 +41,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
     @account = @student.cash_account!
 
     assert_difference "@account.reload.balance.to_f", 34.3, "充值到账金额不正确" do
-      post "/api/v1/payment/recharges/#{transaction_id}/verify_receipt", { receipt_data: receipt_data }, 'Remember-Token' => @student_token
+      post "/api/v1/payment/recharges/#{transaction_id}/verify_receipt", params: { receipt_data: receipt_data }, headers: { 'Remember-Token' => @student_token }
     end
     assert_response :success
   end

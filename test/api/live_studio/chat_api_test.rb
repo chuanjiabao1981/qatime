@@ -9,7 +9,7 @@ class Qatime::CourseAnnouncementsAPITest < ActionDispatch::IntegrationTest
   test "publish course announcement" do
     course = @teacher.live_studio_courses.last
     assert_difference "course.announcements.count", 1, "教师发布公告失败" do
-      post "/api/v1/live_studio/courses/#{course.id}/announcements", { content: "发个公告试试" }, 'Remember-Token' => @remember_token
+      post "/api/v1/live_studio/courses/#{course.id}/announcements", params: { content: "发个公告试试" }, headers: { 'Remember-Token' => @remember_token }
       assert_response :success
       res = JSON.parse(response.body)
       assert_equal 1, res['status'], "返回状态不正确#{res}"

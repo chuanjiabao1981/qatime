@@ -13,7 +13,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   end
 
   test "GET /api/v1/students/:id/info returns student's info by student" do
-    get "/api/v1/students/#{@student.id}/info", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/students/#{@student.id}/info", params: {}, headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -25,7 +25,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   end
 
   test "GET /api/v1/students/:id/info returns error by teacher" do
-    get "/api/v1/students/#{@teacher.id}/info", {}, 'Remember-Token' => @teacher_remember_token
+    get "/api/v1/students/#{@teacher.id}/info", params: {}, headers: { 'Remember-Token' => @teacher_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -38,7 +38,9 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   test "PUT /api/v1/students/:id update student and returns student's info by student" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
     city = cities(:yangquan)
-    put "/api/v1/students/#{@student.id}", {name: "test_name", grade: "初一", province_id: city.province_id, city_id: city.id, avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
+    put "/api/v1/students/#{@student.id}",
+        params: { name: "test_name", grade: "初一", province_id: city.province_id, city_id: city.id, avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test" },
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -58,7 +60,9 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
 
   test "PUT /api/v1/students/:id update student and returns error by teacher" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    put "/api/v1/students/#{@teacher.id}", {name: "test_name", grade: "初一", avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @teacher_remember_token
+    put "/api/v1/students/#{@teacher.id}",
+        params: { name: "test_name", grade: "初一", avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test" },
+        headers: { 'Remember-Token' => @teacher_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -72,7 +76,8 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
 
-    get "/api/v1/live_studio/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule",
+        headers: { 'Remember-Token' => @remember_token }
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -82,7 +87,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   end
 
   test 'GET /api/v1/live_studio/student/schedule returns error by teacher' do
-    get "/api/v1/live_studio/students/#{@teacher.id}/schedule", {}, 'Remember-Token' => @teacher_remember_token
+    get "/api/v1/live_studio/students/#{@teacher.id}/schedule", headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
 
@@ -95,7 +100,9 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     @student = users(:student_one_with_course)
     @remember_token = api_login(@student, :app)
 
-    get "/api/v1/live_studio/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule",
+        params: { month: Time.now.to_date.to_s },
+        headers: { 'Remember-Token' => @remember_token }
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -105,7 +112,9 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   end
 
   test 'GET /api/v1/live_studio/student/:id/schedule returns error by teacher' do
-    get "/api/v1/live_studio/students/#{@teacher.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @teacher_remember_token
+    get "/api/v1/live_studio/students/#{@teacher.id}/schedule",
+        params: { month: Time.now.to_date.to_s },
+        headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
 
@@ -115,7 +124,9 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   end
 
   test "POST /api/v1/students/:id/verify_current_password returns ticket_token by student" do
-    post "/api/v1/students/#{@student.id}/verify_current_password", {id: @student.id, current_password: 'password'}, 'Remember-Token' => @remember_token
+    post "/api/v1/students/#{@student.id}/verify_current_password",
+         params: { id: @student.id, current_password: 'password' },
+         headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -123,5 +134,4 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status'], "响应错误 #{res}"
     assert_equal ::TicketToken.get_instance_token(@student, :parent_phone), res['data'], 'ticket_token设置失败'
   end
-
 end

@@ -12,20 +12,19 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
   end
 
   test "GET /api/v1/teachers/:id/info returns teacher's info by teacher" do
-    get "/api/v1/teachers/#{@teacher.id}/info", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/teachers/#{@teacher.id}/info", headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status'], "响应错误 #{res}"
-    p res['data']
     assert_equal 20, res['data'].size
 
     assert_equal @teacher.name, res['data']['name']
   end
 
   test "GET /api/v1/teachers/:id/info returns error info by student" do
-    get "/api/v1/teachers/#{@student.id}/info", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/teachers/#{@student.id}/info", headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -37,7 +36,9 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
 
   test "PUT /api/v1/teachers/:id updat teacher and returns teacher's info by teacher" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    put "/api/v1/teachers/#{@teacher.id}", {name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test", category: '初中'}, 'Remember-Token' => @remember_token
+    put "/api/v1/teachers/#{@teacher.id}",
+        params: { name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test", category: '初中' },
+        headers: { 'Remember-Token' => @remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -55,7 +56,9 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
 
   test "PUT /api/v1/teachers/:id updat teacher and returns error info by student" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    put "/api/v1/teachers/#{@student.id}", {name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test"}, 'Remember-Token' => @student_remember_token
+    put "/api/v1/teachers/#{@student.id}",
+        params: { name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test" },
+        headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)

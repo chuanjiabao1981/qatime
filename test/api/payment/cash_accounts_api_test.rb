@@ -15,18 +15,19 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
   test 'student set payment password' do
     cash_account = @student.cash_account!
 
-    post '/api/v1/captcha', send_to: @student.login_mobile, key: 'update_payment_pwd'
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { password: 'password', captcha_confirmation: '1234'},
-         {'Remember-Token' => @remember_token}
+    post  '/api/v1/captcha',
+          params: { send_to: @student.login_mobile, key: 'update_payment_pwd' }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { password: 'password', captcha_confirmation: '1234' },
+          headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "获取token失败"
 
     new_password = Util.random_code(8)
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
-         { ticket_token: res['data'], pament_password: new_password },
-         { 'Remember-Token' => @remember_token }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
+          params: { ticket_token: res['data'], pament_password: new_password },
+          headers: { 'Remember-Token' => @remember_token }
     assert cash_account.reload.authenticate(new_password), "设置支付密码失败"
   end
 
@@ -34,17 +35,17 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
   test 'student update payment password' do
     cash_account = @student2.cash_account!
 
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { current_pament_password: 'password'},
-         {'Remember-Token' => @remember_token2}
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { current_pament_password: 'password' },
+          headers: { 'Remember-Token' => @remember_token2 }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "获取token失败"
 
     new_password = Util.random_code(8)
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
-         { ticket_token: res['data'], pament_password: new_password },
-         { 'Remember-Token' => @remember_token2 }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
+          params: { ticket_token: res['data'], pament_password: new_password },
+          headers: { 'Remember-Token' => @remember_token2 }
     assert cash_account.reload.authenticate(new_password), "设置支付密码失败"
   end
 
@@ -52,18 +53,19 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
   test 'teacher get back payment password' do
     cash_account = @teacher.cash_account!
 
-    post '/api/v1/captcha', send_to: @teacher.login_mobile, key: 'update_payment_pwd'
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { password: 'password', captcha_confirmation: '1234' },
-         { 'Remember-Token' => @teacher_remember_token }
+    post  '/api/v1/captcha',
+          params: { send_to: @teacher.login_mobile, key: 'update_payment_pwd' }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { password: 'password', captcha_confirmation: '1234' },
+          headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "获取token失败"
 
     new_password = Util.random_code(8)
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
-         { ticket_token: res['data'], pament_password: new_password },
-         { 'Remember-Token' => @teacher_remember_token }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
+          params: { ticket_token: res['data'], pament_password: new_password },
+          headers: { 'Remember-Token' => @teacher_remember_token }
     assert cash_account.reload.authenticate(new_password), "找回支付密码失败"
   end
 
@@ -72,28 +74,29 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
     cash_account = @teacher.cash_account!
 
     # 登陆密码错误
-    post '/api/v1/captcha', send_to: @teacher.login_mobile, key: 'update_payment_pwd'
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { password: 'password_error', captcha_confirmation: '1234' },
-         { 'Remember-Token' => @teacher_remember_token }
+    post  '/api/v1/captcha',
+          params: { send_to: @teacher.login_mobile, key: 'update_payment_pwd' }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { password: 'password_error', captcha_confirmation: '1234' },
+          headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 0, res['status'], "没有正确报错"
     assert_equal 2005, res['error']['code'], "错误码不正确"
 
     # 手机验证码错误
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { password: 'password', captcha_confirmation: '1235' },
-         { 'Remember-Token' => @teacher_remember_token }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { password: 'password', captcha_confirmation: '1235' },
+          headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 0, res['status'], "没有正确报错"
     assert_equal 2003, res['error']['code'], "错误码不正确"
 
     # 当前支付密码不正确
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
-         { current_pament_password: 'password_error' },
-         {'Remember-Token' => @teacher_remember_token }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password/ticket_token",
+          params: { current_pament_password: 'password_error' },
+          headers: { 'Remember-Token' => @teacher_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 0, res['status'], "没有正确报错"
@@ -101,9 +104,9 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
 
     # 使用错误token
     new_password = Util.random_code(8)
-    post "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
-         { ticket_token: "this_is_a_invalid", pament_password: new_password },
-         { 'Remember-Token' => @teacher_remember_token }
+    post  "/api/v1/payment/cash_accounts/#{cash_account.id}/password",
+          params: { ticket_token: "this_is_a_invalid", pament_password: new_password },
+          headers: { 'Remember-Token' => @teacher_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)

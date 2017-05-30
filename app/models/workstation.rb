@@ -79,7 +79,7 @@ class Workstation < ActiveRecord::Base
 
   # 更新city默认工作站
   def set_default_of_city
-    city.update(workstation_id: self.id)
+    city.update(workstation_id: id)
   end
 
   # 修改工作站 清空旧城市默认值

@@ -6,7 +6,7 @@ class ItunesProductsTest < ActionDispatch::IntegrationTest
   end
 
   test 'get all available products' do
-    get "/api/v1/payment/itunes_products", {}, 'Remember-Token' => @student_token
+    get "/api/v1/payment/itunes_products", params: {}, headers: { 'Remember-Token' => @student_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应状态不正确 #{res}"

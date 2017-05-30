@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
+class Qatime::VideoCourseAPITest < ActionDispatch::IntegrationTest
   def setup
     @teacher = users(:teacher1)
     @remember_token = api_login_by_pc(@teacher, :teacher_live)
@@ -15,27 +15,27 @@ class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_equal LiveStudio::VideoCourse.for_sell.count, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { grade_eq: '高一' }
+    get "/api/v1/live_studio/video_courses/search", params: { q: { grade_eq: '高一' } }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '语文' }
+    get "/api/v1/live_studio/video_courses/search", params: { q: { subject_eq: '语文' } }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 2, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '数学', grade_eq: '高一' }
+    get "/api/v1/live_studio/video_courses/search", params: { q: { subject_eq: '数学', grade_eq: '高一' } }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { sell_type_eq: 'charge' }
+    get "/api/v1/live_studio/video_courses/search", params: { q: { sell_type_eq: 'charge' } }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", sort_by: 'price'
+    get "/api/v1/live_studio/video_courses/search", params: { sort_by: 'price' }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 300, res['data'].first['price'].to_f, '按照价格降序排序不正确'
@@ -56,12 +56,11 @@ class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
     @student = users(:student1)
     @student_remember_token = api_login(@student, :app)
     video_course = live_studio_video_courses(:published_video_course2)
-    post "/api/v1/live_studio/video_courses/#{video_course.id}/deliver_free", {}, {'Remember-Token' => @student_remember_token}
+    post "/api/v1/live_studio/video_courses/#{video_course.id}/deliver_free", params: {}, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
     assert_equal 'active', res['data']['status']
   end
-
 end

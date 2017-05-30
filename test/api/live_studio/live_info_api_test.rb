@@ -11,7 +11,7 @@ class Qatime::LiveInfoAPITest < ActionDispatch::IntegrationTest
     finished_course = live_studio_courses(:course_finished)
     unstart_course = live_studio_courses(:course_preview2)
     courses = [today_course, finished_course, unstart_course]
-    get "/api/v1/live_studio/status", { course_ids: courses.map(&:id).join('-') }, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/status", params: { course_ids: courses.map(&:id).join('-') }, headers: { 'Remember-Token' => @student_remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -22,7 +22,7 @@ class Qatime::LiveInfoAPITest < ActionDispatch::IntegrationTest
 
   test "get lessons live status" do
     lessons = LiveStudio::Lesson.today.readied
-    get "/api/v1/live_studio/status", { lesson_ids: lessons.map(&:id).join('-') }, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/status", params: { lesson_ids: lessons.map(&:id).join('-') }, headers: { 'Remember-Token' => @student_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
@@ -31,7 +31,7 @@ class Qatime::LiveInfoAPITest < ActionDispatch::IntegrationTest
 
   test "get course live info" do
     today_course = live_studio_courses(:course_teaching2)
-    get "/api/v1/live_studio/courses/#{today_course.id}/status", {}, 'Remember-Token' => @student_remember_token
+    get "/api/v1/live_studio/courses/#{today_course.id}/status", params: {}, headers: { 'Remember-Token' => @student_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应错误 #{res}"

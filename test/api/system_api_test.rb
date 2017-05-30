@@ -1,6 +1,5 @@
 require 'test_helper'
 class Qatime::SystemApiTest < ActionDispatch::IntegrationTest
-
   test 'check_update api' do
     get "/api/v1/system/check_update", params: { category: 'teacher_live', version: '0.0.1', platform: 'windows' }
     assert_response :success

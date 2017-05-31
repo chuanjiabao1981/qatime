@@ -38,13 +38,9 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     @course = live_studio_courses(:course_preview)
     click_on '学生'
     click_on @student.name
-    visit live_studio.student_course_path(@student, @course, index: 'list')
-
-    assert_match(@course.lessons.last.name, page.text, 'Admin 没有找到辅导班课程')
-    # click_on '辅导班',match: :first
-    assert !find('div.navbar-collapse').has_content?('辅导班'), 'topbar辅导班显示存在'
-    # assert_match(@course.name,page.text, 'Admin 没有正确访问搜索辅导班页面')
-    # page.go_back
+    click_on '我的直播课'
+    click_on '我的一对一'
+    click_on '我的视频课'
     click_on '我的订单'
     assert_match('待付款', page.text, 'Admin 没有正确访问我的订单页面')
   end

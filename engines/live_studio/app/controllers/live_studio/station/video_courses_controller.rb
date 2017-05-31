@@ -35,6 +35,7 @@ module LiveStudio
       end
       @query = video_courses.ransack(params[:q])
       @video_courses = @query.result.includes(:teacher, :video_lessons).order(id: :desc).paginate(page: params[:page])
+      render layout: 'v1/manager_home'
     end
 
     # 通过/驳回
@@ -56,12 +57,23 @@ module LiveStudio
 
     # 工作站视频课管理
     def list
-      @video_courses = @workstation.live_studio_video_courses.where(cate_params)
-      @query = @video_courses.ransack(ransack_params[:q])
+      params[:cate] ||= 'confirmed'
+      case params[:cate]
+      when 'completed'
+        video_courses = @workstation.live_studio_video_courses.completed
+      when 'published'
+        video_courses = @workstation.live_studio_video_courses.published
+      else
+        video_courses = @workstation.live_studio_video_courses.confirmed
+      end
+
+      @query = video_courses.ransack(params[:q])
       @video_courses = @query.result.includes(:teacher, :video_lessons).order(id: :desc).paginate(page: params[:page])
+      render layout: 'v1/manager_home'
     end
 
     def edit
+      render layout: 'v1/manager_home'
     end
 
     def update
@@ -73,15 +85,15 @@ module LiveStudio
           @video_course.publish!
           notice = I18n.t('live_studio.notices.video_course.published')
         end
-        redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: notice
+        redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'completed'), notice: notice
       else
-        render :edit
+        render :edit, layout: 'v1/manager_home'
       end
     end
 
     def publish
       @video_course.publish! if @video_course.completed?
-      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: I18n.t('live_studio.notices.video_course.published')
+      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'completed'), notice: I18n.t('live_studio.notices.video_course.published')
     end
 
     private
@@ -90,21 +102,9 @@ module LiveStudio
       @video_course = LiveStudio::VideoCourse.find(params[:id])
     end
 
-    def ransack_params
-      @ransack_params ||= params.permit(q: [:grade_eq, :subject_eq])
-      @ransack_params[:q] ||= {}
-      @ransack_params
-    end
-
     def set_video_course_and_check
       @video_course = @workstation.live_studio_video_courses.find(params[:id])
       redirect_to live_studio.list_station_workstation_video_courses_path(@workstation), notice: '视频课状态不正确.' unless %w(confirmed completed).include?(@video_course.status)
-    end
-
-    def cate_params
-      statuses = %w(confirmed)
-      statuses = %w(completed published) if params[:cate] == 'has_created'
-      { status: LiveStudio::VideoCourse.statuses.values_at(*statuses) }
     end
 
     def video_course_params

@@ -1,0 +1,20 @@
+<tr>
+  <td><%= show_index(list_course_counter, @video_courses.limit_value) %></td>
+  <td><%= list_course.name %></td>
+  <td><%= list_course.teacher_name %></td>
+  <td><%= list_course.grade %></td>
+  <td><%= list_course.subject %></td>
+  <% if params[:cate] == 'confirmed' %>
+    <td><%= list_course.video_lessons_count %></td>
+    <td><%= format_duration list_course.total_duration %></td>
+  <% else %>
+    <td><%= number_to_currency(list_course.price, precision: 2) %></td>
+    <td><%= number_to_percentage(list_course.teacher_percentage, precision: 0) %></td>
+  <% end %>
+  <td>
+    <%= l(list_course.confirmed_at) if params[:cate] == 'confirmed' && list_course.confirmed_at %>
+    <%= l(list_course.completed_at) if params[:cate] == 'completed' && list_course.published_at %>
+    <%= l(list_course.published_at) if params[:cate] == 'published' && list_course.published_at %>
+  </td>
+  <td><%= render 'operation', video_course: list_course %></td>
+</tr>

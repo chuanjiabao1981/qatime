@@ -2,23 +2,23 @@
 <tr>
   <td><%= show_index(audits_course_counter, @video_courses.limit_value) %></td>
   <td>
-    <%= link_to truncate_u(course.name, length: 9), live_studio.preview_video_course_path(course), target: '_blank' %>
+    <%= link_to truncate_u(course.name, length: 9), live_studio.preview_video_course_path(course), target: '_blank', title: course.name %>
   </td>
   <td><%= course.teacher_name %></td>
   <td><%= course.grade %></td>
   <td><%= course.subject %></td>
   <td><%= course.video_lessons_count %></td>
   <td><%= format_duration course.total_duration %></td>
-  <td><%= localize(course.created_at) %></td>
+  <td><%= l(course.created_at) if course.created_at %></td>
   <td>
     <% if allow?("live_studio/video_lessons", :play, course) %>
       <%= link_to t('view.live_studio/video_course.audits.play'), live_studio.play_video_lesson_path(course.video_lessons.first), target: '_blank' %>
     <% end %>
   </td>
   <% if params[:cate] == 'audited' %>
-    <td class="review-result"><%= course.status_audit_text %></td>
+    <td><%= course.status_audit_text %></td>
   <% else %>
-    <td class="review-result">
+    <td>
       <% if allow?("live_studio/station/video_courses", :audit, @workstation) %>
         <%= link_to t('view.live_studio/video_course.audits.confirm'), audit_station_workstation_video_course_path(@workstation, course, audit: 'pass'),
                   data: { method: :post, confirm: t('view.live_studio/video_course.audits.confirm_alert')} %>

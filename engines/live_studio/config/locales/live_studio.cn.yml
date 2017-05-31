@@ -14,7 +14,8 @@ cn:
       video_courses: 视频课列表
       my_video_courses: 发行/销售
       manage_video_courses: 课程管理
-      video_course_audits: 视频课审核
+      video_course_audits: 视频审核
+      video_course_list: 创建发布
       teacher:
         my_courses: 我的直播课
         my_interactive_courses: 我的一对一
@@ -223,7 +224,7 @@ cn:
         label: 视频课说明
         label1: 1.视频课是一种可重复销售的课程，允许多人购买;
         label2: 2.视频课由学生自主观看学习，无需上课；
-        label3: 3.默认使用系统视频课程海报（如右图）；
+        label3: 3.默认使用系统视频课程海报；
       workstation_new:
         title: 创建新视频课
         label: 一对一课程说明
@@ -232,7 +233,7 @@ cn:
         label3: 3.默认使用系统一对一课程海报;
         intro_one: 一、课程介绍
         intro_two: 二、课程安排
-        intro_three: 三、价格和分成
+        intro_three: 三、其他设置
         preview: 预览
         submit: 发布招生
         save: 保存
@@ -280,7 +281,12 @@ cn:
         status_text:
           confirmed: 已通过
           rejected: 已驳回
-
+      list:
+        price: 价格
+        teacher_percentage:
+        confirmed_at: 审核时间
+        completed_at: 创建时间
+        published_at: 发布时间
       my_video_courses:
         nav:
           my_publish: 我的发行

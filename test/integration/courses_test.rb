@@ -8,7 +8,6 @@ class CoursesTest < LoginTestBase
   end
 
   test 'course new' do
-    binding.pry
     @teacher_session.get edit_teachers_curriculum_course_path(@course.curriculum, @course)
     @teacher_session.assert_template 'courses/edit'
     @teacher_session.assert_response :success

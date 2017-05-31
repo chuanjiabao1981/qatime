@@ -12,5 +12,5 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w(*.js)
-Rails.application.config.assets.precompile += %w(web_home.css front.css front_live.css wap.css)
+Rails.application.config.assets.precompile += %w(web_home.css front.css front_live.css wap.css v1_application.css)
 Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)

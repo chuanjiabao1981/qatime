@@ -148,6 +148,7 @@ gem 'roo'
 
 group :test do
   gem 'fakeweb'
+  gem 'rails-controller-testing'
 end
 
 group :development do

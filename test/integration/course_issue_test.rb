@@ -86,7 +86,7 @@ class CourseIssueIntegrateTest < LoginTestBase
 
     title       = "1aassedits234"
     content     = "1as11edit34123412s"
-    user_session.put update_path,course_issue:{title: title,content: content}
+    user_session.put update_path, params: { course_issue: { title: title, content: content } }
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
       return
@@ -94,7 +94,7 @@ class CourseIssueIntegrateTest < LoginTestBase
     assert_difference 'CourseIssue.count',0 do
       assert_difference 'Topic.count',0 do
         assert_difference '@course_issue_one.customized_course.reload.course_issues_count',0 do
-            user_session.put update_path,course_issue:{title: title,content: content}
+            user_session.put update_path, params: { course_issue:{ title: title, content: content } }
             user_session.assert_redirected_to customized_course_course_issue_path(@course_issue_one.customized_course,@course_issue_one)
             user_session.follow_redirect!
             user_session.assert_select 'h4',title
@@ -122,7 +122,7 @@ class CourseIssueIntegrateTest < LoginTestBase
     content     = "1as1134123412s"
 
     if user.teacher?
-      user_session.post create_path,course_issue:{title: title,content: content}
+      user_session.post create_path, params: { course_issue: { title: title,content: content } }
       user_session.assert_redirected_to get_home_url(user)
       return
     end
@@ -131,7 +131,7 @@ class CourseIssueIntegrateTest < LoginTestBase
         assert_difference '@customized_course.reload.course_issues_count',1 do
           assert_difference '@customized_course.reload.tutorial_issues_count',0 do
 
-            user_session.post create_path,course_issue:{title: title,content: content}
+            user_session.post create_path, params: { course_issue: { title: title,content: content } }
             new_one = CourseIssue.all.order(created_at: :desc).first
             user_session.assert_redirected_to customized_course_course_issue_path(@customized_course,new_one)
             user_session.follow_redirect!

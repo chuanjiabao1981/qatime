@@ -48,7 +48,7 @@ class CustomizedCourseMessageIntegrateTest < LoginTestBase
     update_path = customized_course_message_path(customized_course_message)
     title       = random_str
     content     = random_str
-    user_session.put update_path,customized_course_message:{title: title,content: content}
+    user_session.put update_path, params: { customized_course_message: { title: title,content: content } }
     if user.id != customized_course_message.author.id
       user_session.assert_redirected_to get_home_url(user)
       return
@@ -86,7 +86,7 @@ class CustomizedCourseMessageIntegrateTest < LoginTestBase
     create_path  = customized_course_message_board_customized_course_messages_path(customized_course_message_board)
     title        = random_str
     content      = random_str
-    user_session.post create_path, customized_course_message:{title: title ,content: content}
+    user_session.post create_path, params: { customized_course_message: { title: title ,content: content } }
     new_customized_course_message = CustomizedCourseMessage.all.order(created_at: :desc).first
     user_session.assert_redirected_to customized_course_message_path(new_customized_course_message)
     user_session.follow_redirect!

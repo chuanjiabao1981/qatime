@@ -38,11 +38,11 @@ class CustomizedCourseMessageReplyIntegrateTest < LoginTestBase
                                           anchor: "customized_course_message_reply_#{customized_course_message_reply.id}"
                                       )
   end
-  def create_page(user,user_session,customized_course_message)
+  def create_page(user, user_session, customized_course_message)
     create_path = customized_course_message_customized_course_message_replies_path(customized_course_message)
     content     = random_str
-    assert_difference 'CustomizedCourseMessageReply.count',1 do
-      user_session.post create_path ,customized_course_message_reply:{content: content}
+    assert_difference 'CustomizedCourseMessageReply.count', 1 do
+      user_session.post create_path, params: { customized_course_message_reply: { content: content } }
     end
     user_session.assert_redirected_to customized_course_message_path(customized_course_message)
     user_session.follow_redirect!

@@ -38,19 +38,16 @@ class CourseIssueReplyIntegrateTest < LoginTestBase
   def show_page(user,user_session,show_path,redirected_to_path)
     user_session.get show_path
     user_session.assert_redirected_to redirected_to_path
-
   end
   def create_page(user,user_session,create_path,redirected_to_path)
     content = random_str
-    user_session.post create_path,course_issue_reply:{content: content}
+    user_session.post create_path, params: { course_issue_reply: { content: content } }
     if user.student?
       user_session.assert_redirected_to get_home_url(user)
       return
     end
     user_session.assert_redirected_to redirected_to_path
     user_session.follow_redirect!
-    user_session.assert_select 'div',content
-
+    user_session.assert_select 'div', content
   end
-
 end

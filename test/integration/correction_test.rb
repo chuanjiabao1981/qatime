@@ -50,7 +50,7 @@ class CorrectionIntegrateTest < LoginTestBase
     update_path       = send "#{solution.model_name.singular_route_key}_#{correction.model_name.singular_route_key}_path",solution,correction
     redirected_path   = solution_path(solution)
     content      ="!@#$!@#%!@#$!@#$!SDFGADGASDFAS"
-    user_session.put update_path,correction.model_name.singular_route_key => {content: content}
+    user_session.put update_path, params: { correction.model_name.singular_route_key => { content: content } }
 
     if user.student?
       user_session.assert_redirected_to get_home_url(user)
@@ -96,7 +96,7 @@ class CorrectionIntegrateTest < LoginTestBase
     create_path           = send "#{solution.model_name.singular_route_key}_#{correction.model_name.route_key}_path",solution
     redirect_path         = solution_path(solution)
     content               = "1341241234124"
-    user_session.post create_path,correction.model_name.singular_route_key => {content: content}
+    user_session.post create_path, params: { correction.model_name.singular_route_key => { content: content } }
     if user.student?
       user_session.assert_redirected_to get_home_url(user)
       return

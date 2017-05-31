@@ -396,22 +396,26 @@ module ApplicationHelper
 
   def manager_sidebar_nav_is?(nav)
     case nav.to_s.to_sym
-      when :home
-        r = params[:controller] == 'managers/home' && action_name == 'main'
-      when :station
-        r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
-      when :resources
-        r = %w[station/students station/teachers station/schools].include?(params[:controller])
-      when :my_courses
-        r = %w[live_studio/station/courses].include?(params[:controller])
-      when :seller_courses
-        r = %w[live_studio/station/courses].include?(params[:controller]) && action_name == 'index'
-      when :webpage
-        r = %w[recommend/positions].include?(params[:controller])
-      when :sellers
-        r = params[:controller] == 'station/workstations' && %w[sellers].include?(action_name)
-      else
-        r = false
+    when :home
+      r = params[:controller] == 'managers/home' && action_name == 'main'
+    when :station
+      r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
+    when :resources
+      r = %w[station/students station/teachers station/schools].include?(params[:controller])
+    when :all_courses
+      my_courses_page = (params[:controller] == 'live_studio/station/courses' && action_name == 'my_courses')
+      course_page = (params[:controller] == 'live_studio/courses' && %w[new update_class_date].include?(action_name))
+      interactive_courses_page = (params[:controller] == 'live_studio/station/interactive_courses' && action_name == 'index')
+      interactive_course_page = (params[:controller] == 'live_studio/interactive_courses' && %w[new update_class_date].include?(action_name))
+      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page
+    when :seller_courses
+      r = %w[live_studio/station/courses].include?(params[:controller]) && action_name == 'index'
+    when :webpage
+      r = %w[recommend/positions].include?(params[:controller])
+    when :sellers
+      r = params[:controller] == 'station/workstations' && %w[sellers].include?(action_name)
+    else
+      r = false
     end
     r
   end

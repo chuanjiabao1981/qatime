@@ -35,7 +35,7 @@ module LiveStudio
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
         redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
-        render :new, layout: current_user_layout
+        render :new, layout: 'v1/manager_home'
       end
     end
 

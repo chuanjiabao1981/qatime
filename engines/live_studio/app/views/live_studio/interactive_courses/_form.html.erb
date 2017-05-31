@@ -1,19 +1,23 @@
 <%= simple_form_for @interactive_course do |f| %>
   <%= f.input :workstation_id, as: :hidden %>
 
-  <p class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></p>
-  <%= render 'course_fields', f: f %>
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>
+    <%= render 'course_fields', f: f %>
+  </div>
 
-  <div class="editor-popup">
-    <div class="editor-arrange">
-      <div class="class-arrtitle"><%= t('view.live_studio/interactie_course.new.intro_two') %></div>
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
+    <ul class="arrange-list">
+      <%= f.fields_for :interactive_lessons do |lesson| %>
+        <%= render 'interactive_lesson_fields', f: lesson %>
+      <% end %>
+    </ul>
+  </div>
 
-      <ul class="arrange-list">
-        <%= f.fields_for :interactive_lessons do |lesson| %>
-          <%= render 'interactive_lesson_fields', f: lesson %>
-        <% end %>
-      </ul>
-    </div>
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_three') %></h3>
+    <%= render 'course_fields2', f: f %>
 
     <div class="present">
       <center>
@@ -25,8 +29,8 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <script>
-    $(document).ready(function(){
+  <script type="text/javascript">
+    $(function(){
       $('.submit').click(function(){
         $('form').submit();
       });
@@ -39,6 +43,20 @@
         $(this).parents("form").attr('action', action);
         $(this).parents("form").removeAttr('target');
       });
+
+      var hoverset;
+      $(".create-header > .course-hint").hover(function() {
+        $(".course-description").show();
+        if(hoverset) {
+          clearTimeout(hoverset);
+        }
+      }, function() {
+        hoverset = setTimeout(function() {
+          $(".course-description").hide();
+        }, 200)
+      });
+
+      $(".select2").select2({width: 'resolve', dropdownAutoWidth: 'true'});
     });
   </script>
 <% end %>

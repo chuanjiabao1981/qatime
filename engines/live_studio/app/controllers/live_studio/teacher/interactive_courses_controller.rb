@@ -5,9 +5,9 @@ module LiveStudio
     layout 'v1/home'
 
     def index
-      @interactive_courses = @teacher.live_studio_interactive_courses
-      @interactive_courses = @interactive_courses.where(status: LiveStudio::InteractiveCourse.statuses[params[:status]]) if params[:status].present?
-      @interactive_courses = @interactive_courses.order(id: :desc).paginate(page: params[:page])
+      course_data = LiveService::TeacherInteractiveCourseDirector.new(@teacher)
+      @interactive_courses = course_data.interactive_courses(params).order(id: :desc).paginate(page: params[:page])
     end
+
   end
 end

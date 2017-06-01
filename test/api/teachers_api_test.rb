@@ -37,7 +37,7 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
 
   test "PUT /api/v1/teachers/:id updat teacher and returns teacher's info by teacher" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    put "/api/v1/teachers/#{@teacher.id}", {name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
+    put "/api/v1/teachers/#{@teacher.id}", {name: "test_name", avatar: img_file, gender: "male", birthday: "1999-01-01", desc: "desc test", category: '初中'}, 'Remember-Token' => @remember_token
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -50,6 +50,7 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
     assert_equal @teacher.avatar_url, res['data']['avatar_url']
     assert_equal "1999-01-01", res['data']['birthday']
     assert_equal @teacher.desc, res['data']['desc']
+    assert_equal '初中', res['data']['category']
   end
 
   test "PUT /api/v1/teachers/:id updat teacher and returns error info by student" do

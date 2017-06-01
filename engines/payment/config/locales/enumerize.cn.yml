@@ -37,6 +37,13 @@ cn:
       pay_type:
         manual: 人工转账
         auto: 1个时系统自动转账
+    payment/refund:
+      reason:
+        wont_buy: '买错了，不想买了'
+        course_bad: '对课程内容不满意'
+        teacher_bad: '对授课老师不满意'
+        have_no_time: '没有时间学习'
+        other: '其他'
   enum:
     payment/withdraw:
       pay_type:
@@ -45,6 +52,7 @@ cn:
         wechat: 微信转账
         alipay: 支付宝转账
         station: 工作站提现
+        weixin: 微信钱包
     payment/order:
       pay_type:
         account: 余额支付

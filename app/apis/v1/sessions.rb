@@ -40,20 +40,20 @@ module V1
       params do
         requires :code, type: String, desc: '微信授权code'
         requires :client_cate, type: String, values: %w(teacher_live student_client), desc: '客户端类型'
-        requires :client_type, type: String, desc: '登陆方式.'
+        requires :client_type, type: String, values: %w(pc app), desc: '登陆方式.'
       end
       post 'wechat' do
-        wechat_user = UserService::WechatApi.new(params[:code], 'app').web_access_token
+        app_name = params[:client_cate] == 'teacher_live' ? 'teacher_app' : 'student_app'
+        wechat_user = UserService::WechatApi.new(params[:code], app_name).web_access_token
         user = wechat_user.try(:user)
         if user.present?
           check_client!(user, params[:client_cate])
           login_token = sign_in(user, params['client_type'].to_sym)
           present login_token, with: Entities::LoginToken
         else
-          {openid: wechat_user.try(:openid)}
+          { openid: wechat_user.try(:openid) }
         end
       end
-
     end
   end
 end

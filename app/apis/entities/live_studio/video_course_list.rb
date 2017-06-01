@@ -1,6 +1,6 @@
 module Entities
   module LiveStudio
-    class VideoCourse < Grape::Entity
+    class VideoCourseList < Grape::Entity
       format_with(:local_timestamp, &:to_i)
       expose :id
       expose :name

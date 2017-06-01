@@ -25,7 +25,7 @@ module Payment
       click_on '我的订单'
       click_on '已付款'
       find(:xpath, "//a[@href='#{payment.refund_user_order_path(@student, order.transaction_no)}']").click
-      fill_in 'reason', with: 'test refund'
+      choose :teacher_bad
       click_on '提交'
       order.reload
       assert has_content?('退款已创建'), '退款申请未创建成功'
@@ -98,7 +98,7 @@ module Payment
       order = payment_transactions(:order_for_refund3)
       new_log_in_as(order.user)
       visit payment.refund_user_order_path(order.user, order.transaction_no)
-      fill_in 'reason', with: 'test refund'
+      choose :teacher_bad
       click_on '提交'
       ra = Payment::Refund.find_by(order: order)
       assert_equal ra.amount, buy_ticket.lesson_price, '退款金额未扣除已结算课程'

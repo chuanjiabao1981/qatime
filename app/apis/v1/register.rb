@@ -24,7 +24,7 @@ module V1
         requires :password_confirmation, type: String, desc: '密码确认'
         requires :accept, type: String, desc: '接受服务协议'
         requires :type, type: String, values: %w(Student Teacher), desc: '注册用户类型'
-        requires :client_type, type: String, desc: '登陆方式.'
+        requires :client_type, type: String, desc: '登陆方式.', values: %w(pc app)
       end
       post :register do
         client_type = params[:client_type].to_sym
@@ -81,6 +81,54 @@ module V1
       end
       get '/check' do
         User.find_by(login_mobile: params[:account]).present? || User.find_by(email: params[:account]).present?
+      end
+
+      desc '创建游客账户'
+      params do
+        requires :password, type: String, desc: '登陆密码'
+        requires :password_confirmation, type: String, desc: '密码确认'
+      end
+      post 'students/guests' do
+        student = Student.create(password: params[:password], password_confirmation: params[:password_confirmation], is_guest: true)
+        raise(ActiveRecord::RecordInvalid, student) unless student.update(name: student.id)
+        login_token = sign_in(student, 'app')
+        present login_token, with: Entities::LoginToken
+      end
+
+      namespace :guests do
+        before do
+          authenticate!
+        end
+        route_param :id do
+          desc '游客绑定' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :login_mobile, type: Integer, desc: '登录手机'
+            requires :captcha_confirmation, type: String, desc: '手机验证码'
+            requires :password, type: String, desc: '密码'
+            requires :password_confirmation, type: String, desc: '密码确认'
+            requires :accept, type: String, desc: '接受服务协议'
+            requires :name, type: String, desc: '姓名'
+          end
+          post 'bind' do
+            user = current_user
+            user.register_columns_required!.captcha_required!
+            bind_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :name, :captcha_confirmation, :password, :password_confirmation, :accept)
+            bind_params_with_type[:is_guest] = false
+            captcha_manager = UserService::CaptchaManager.new(bind_params_with_type[:login_mobile])
+            user.captcha = captcha_manager.captcha_of(:register_captcha)
+            p '------->>>>>>'
+            p bind_params_with_type
+            raise ActiveRecord::RecordInvalid, user unless user.update(bind_params_with_type)
+            SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: user.id)
+            login_token = sign_in(user, 'app')
+            present login_token, with: Entities::LoginToken
+          end
+        end
       end
     end
   end

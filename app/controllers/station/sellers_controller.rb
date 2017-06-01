@@ -1,4 +1,5 @@
 class Station::SellersController < Station::BaseController
+  layout 'v1/manager_home'
   before_action :set_seller, only: [:edit, :update, :destroy]
   # GET /workstation/sellers
   # GET /workstation/sellers.json
@@ -22,7 +23,7 @@ class Station::SellersController < Station::BaseController
 
     respond_to do |format|
       if @seller.save
-        format.html { redirect_to station_workstation_sellers_path(@workstation), notice: '销售创建成功.' }
+        format.html { redirect_to station_workstation_sellers_path(@workstation), notice: I18n.t('view.station.sellers.valids.created') }
         format.json { render action: 'show', status: :created, location: @seller }
       else
         format.html { render action: 'new' }
@@ -36,7 +37,7 @@ class Station::SellersController < Station::BaseController
   def update
     respond_to do |format|
       if @seller.update(seller_params)
-        format.html { redirect_to station_workstation_sellers_path(@workstation), notice: '销售更新成功.' }
+        format.html { redirect_to station_workstation_sellers_path(@workstation), notice: I18n.t('view.station.sellers.valids.updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -50,7 +51,7 @@ class Station::SellersController < Station::BaseController
   def destroy
     @seller.destroy
     respond_to do |format|
-      format.html { redirect_to station_workstation_sellers_path(@workstation), notice: '销售删除成功.' }
+      format.html { redirect_to station_workstation_sellers_path(@workstation), notice: I18n.t('view.station.sellers.valids.destroy') }
       format.json { head :no_content }
     end
   end

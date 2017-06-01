@@ -415,7 +415,7 @@ module ApplicationHelper
     when :webpage
       r = %w[recommend/positions].include?(params[:controller])
     when :sellers
-      r = params[:controller] == 'station/workstations' && %w[sellers].include?(action_name)
+      r = %w[station/workstations station/sellers station/waiters].include?(params[:controller]) && %w[sellers waiters new edit].include?(action_name)
     else
       r = false
     end

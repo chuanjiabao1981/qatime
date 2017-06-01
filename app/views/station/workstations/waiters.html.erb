@@ -1,15 +1,30 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <div>
-      <h2>
-        <%= Waiter.model_name.human %>
-        <%= link_to new_station_workstation_waiter_path(@workstation) do %>
-          <button type="button" class="btn btn-xs btn-success">新增客服</button>
-        <% end if allow?('station/waiters', 'create', @workstation) %>
-      </h2>
+<div class="article">
+  <div class="work-station">
+    <%= render 'station/sellers/tab' %>
+
+    <div class="filter">
+      <%= link_to new_station_workstation_waiter_path(@workstation), class: 'filter-left' do %>
+        <%= image_tag 'addclass.png' %> <%= t('view.station.sellers.new_btn') %>
+      <% end if allow?('station/waiters', 'create', @workstation) %>
     </div>
-  </div>
-  <div>
-    <%= render @waiters %>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <th><%= t('common.index_no') %></th>
+          <th><%= t('view.station.sellers.name') %></th>
+          <th><%= t('view.station.sellers.login_mobile') %></th>
+          <th><%= t('view.station.sellers.email') %></th>
+          <th><%= t('common.operate') %></th>
+        </tr>
+
+        <%= render partial: 'station/waiters/waiter', collection: @waiters %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @waiters.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @waiters, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
   </div>
 </div>

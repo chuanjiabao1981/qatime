@@ -1,0 +1,8 @@
+<div class="station-title">
+  <%= link_to t('view.station.sellers.tab.seller'),
+              main_app.sellers_station_workstation_path(@workstation),
+              class: "#{'active' if %w[station/workstations].include?(params[:controller]) && %w[sellers].include?(action_name) }" if allow?('station/workstations', 'sellers', @workstation) %>
+  <%= link_to t('view.station.sellers.tab.waiter'),
+              main_app.waiters_station_workstation_path(@workstation),
+              class: "#{'active' if %w[station/workstations].include?(params[:controller]) && %w[waiters].include?(action_name) }" if allow?('station/workstations', 'waiters', @workstation) %>
+</div>

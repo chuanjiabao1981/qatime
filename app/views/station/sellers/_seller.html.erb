@@ -1,10 +1,10 @@
-<div class="row qa_big_cell">
-  <div class="col-md-1"><%= seller_counter + 1 %></div>
-  <div class="col-md-3"><%= seller.name %></div>
-  <div class="col-md-3"><%= seller.email %></div>
-  <div class="col-md-3"><%= seller.login_mobile %></div>
-  <div class="col-md-2">
-    <%= link_to "编辑", edit_station_workstation_seller_path(@workstation, seller) if allow?('station/sellers', 'edit', @workstation) %>
-    <%= link_to "删除", station_workstation_seller_path(@workstation, seller), method: 'delete', data: { confirm: '确定删除?'} if allow?('station/sellers', 'destroy', @workstation) %>
-  </div>
-</div>
+<tr>
+  <td><%= show_index(seller_counter, @sellers.limit_value) %></td>
+  <td><%= seller.name %></td>
+  <td><%= seller.login_mobile %></td>
+  <td><%= seller.email %></td>
+  <td>
+    <%= link_to t('common.editor_toolbar_edit'), edit_station_workstation_seller_path(@workstation, seller) if allow?('station/sellers', 'edit', @workstation) %>
+    <%= link_to t('common.delete'), station_workstation_seller_path(@workstation, seller), data: {method: :delete, confirm: t('common.confirm_delete')} if allow?('station/sellers', 'destroy', @workstation) %>
+  </td>
+</tr>

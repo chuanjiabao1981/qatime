@@ -408,7 +408,8 @@ module ApplicationHelper
       interactive_courses_page = (params[:controller] == 'live_studio/station/interactive_courses' && action_name == 'index')
       interactive_course_page = (params[:controller] == 'live_studio/interactive_courses' && %w[new update_class_date].include?(action_name))
       video_courses_page = (params[:controller] == 'live_studio/station/video_courses' && %w[audits list edit].include?(action_name))
-      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page
+      lessons_state_page = (params[:controller] == 'station/lessons' && action_name == 'state')
+      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || lessons_state_page
     when :seller_courses
       r = %w[live_studio/station/courses].include?(params[:controller]) && action_name == 'index'
     when :webpage

@@ -122,7 +122,15 @@ cn:
         index_title: 正在上课
       statistics:
         index_title: 销售明细
-
+      lessons:
+        index_title: 课程状态
+        more: 查看公共课程页面
+        state:
+          reviewing: 审核中
+          published: 已发布
+          rejected: 被驳回
+        course_full_name: 小节
+        info: 详细
   error:
       workstation:
         contract_end_date_at: 合同有效日期必须大于开始日期

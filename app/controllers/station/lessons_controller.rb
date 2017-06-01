@@ -1,4 +1,6 @@
 class Station::LessonsController < Station::BaseController
+  layout 'v1/manager_home'
+
   respond_to :html
 
   def state

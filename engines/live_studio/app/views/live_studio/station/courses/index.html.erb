@@ -1,51 +1,33 @@
-<div class="panel panel-default">
-  <div class="admin">
-    <div class="admin-title">
-      <%= render 'live_studio/station/tab' %>
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab_sell' %>
+
+    <div class="filter">
+      <%= render partial: 'live_studio/station/courses/filter', locals: { url: live_studio.station_workstation_courses_path(@workstation) } %>
     </div>
 
-    <div>
-      <div class="admin-list distribution active-show">
-        <div class="admin-list-title">
-          <%= render 'filter' %>
-        </div>
-        <div class="admin-list-con">
-          <table class="table" border="1" cellspacing="1" cellpadding="1">
-            <tr>
-              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:index_no) %></span></td>
-              <td class="w18p"><span><%= LiveStudio::Course.human_attribute_name(:course_name) %></span></td>
-              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span></td>
-              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:subject) %></span></td>
-              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:grade) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:published_at) %></span></td>
-              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_workstation) %></span></td>
-              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
-              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:base_price) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:sell_percentage) %></span></td>
-              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
-              <td class="w7p"><span><%= LiveStudio::Course.human_attribute_name(:qr_code) %></span></td>
-            </tr>
-            <%= render partial: 'course', collection: @courses %>
-          </table>
-        </div>
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.live_studio/course.index.name') %></th>
+            <th><%= t('view.live_studio/course.index.teacher') %></th>
+            <th><%= t('view.live_studio/course.index.price') %></th>
+            <th><%= t('view.live_studio/course.index.base_price') %></th>
+            <th><%= t('view.live_studio/course.index.sell_percentage') %></th>
+            <th><%= t('view.live_studio/course.index.platform_percentage') %></th>
+            <th><%= t('view.live_studio/course.index.sell_workstation') %></th>
+            <th><%= t('view.live_studio/course.index.published_at') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
 
-        <center>
-          <div class="pagination-fix">
-            <%= will_paginate @courses %>
-          </div>
-        </center>
+          <%= render partial: 'live_studio/station/courses/course', collection: @courses %>
+        </tbody>
+      </table>
 
-      </div>
+      <%= render 'shared/blank' if @courses.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     </div>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    $(function() {
-      $(document).on('click', '.send_qa_code', function(event) {
-        location.href = $(this).data('url');
-      });
-    });
-  </script>
-<% end %>

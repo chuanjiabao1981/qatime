@@ -9,6 +9,7 @@ module LiveStudio
     def index
       @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
       @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
+      render layout: 'v1/manager_home'
     end
 
     def my_publish

@@ -411,7 +411,7 @@ module ApplicationHelper
       lessons_state_page = (params[:controller] == 'station/lessons' && action_name == 'state')
       r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || lessons_state_page
     when :seller_courses
-      r = %w[live_studio/station/courses].include?(params[:controller]) && action_name == 'index'
+      r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
     when :webpage
       r = %w[recommend/positions].include?(params[:controller])
     when :sellers

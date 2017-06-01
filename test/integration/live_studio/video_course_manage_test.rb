@@ -27,8 +27,8 @@ module LiveStudio
       find_link("创建", href: live_studio.edit_station_workstation_video_course_path(@workstation, @video_course)).click
       find('#video_course_sell_type_charge').click
       click_on '保存'
-      # assert page.has_content?('请输入课程目标'), "课程目标非空验证失效"
-      # assert page.has_content?('请输入适合人群'), "适合人群非空验证失效"
+      assert page.has_content?('请输入课程目标'), "课程目标非空验证失效"
+      assert page.has_content?('请输入适合人群'), "适合人群非空验证失效"
       assert page.has_content?('分成比例不正确'), "分成比例非空验证失效"
       fill_in 'video_course_objective', with: "课程目标"
       fill_in 'video_course_suit_crowd', with: "适合人群"

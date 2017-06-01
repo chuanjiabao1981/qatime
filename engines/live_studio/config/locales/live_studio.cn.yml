@@ -283,7 +283,7 @@ cn:
           rejected: 已驳回
       list:
         price: 价格
-        teacher_percentage:
+        teacher_percentage: 老师分成
         confirmed_at: 审核时间
         completed_at: 创建时间
         published_at: 发布时间

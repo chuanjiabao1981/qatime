@@ -88,7 +88,7 @@ module V1
         requires :password, type: String, desc: '登陆密码'
         requires :password_confirmation, type: String, desc: '密码确认'
       end
-      post 'students/guests' do
+      post 'guests' do
         student = Student.create(password: params[:password], password_confirmation: params[:password_confirmation], is_guest: true)
         raise(ActiveRecord::RecordInvalid, student) unless student.update(name: student.id)
         login_token = sign_in(student, 'app')
@@ -121,8 +121,6 @@ module V1
             bind_params_with_type[:is_guest] = false
             captcha_manager = UserService::CaptchaManager.new(bind_params_with_type[:login_mobile])
             user.captcha = captcha_manager.captcha_of(:register_captcha)
-            p '------->>>>>>'
-            p bind_params_with_type
             raise ActiveRecord::RecordInvalid, user unless user.update(bind_params_with_type)
             SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: user.id)
             login_token = sign_in(user, 'app')

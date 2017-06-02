@@ -34,7 +34,7 @@ class CustomizedCourseTest < ActionDispatch::IntegrationTest
     assert page.all('ul.exclusive-box li').size, @teacher.customized_courses.count
 
     course1 =  @teacher.customized_courses.first
-    assert page.has_link?(nil, href: customized_course_path(course1))
+    assert page.has_link?(course1.student.name, href: customized_course_path(course1))
 
     click_on '编辑备注', match: :first
     fill_in :desc, with: '备注一下啊'

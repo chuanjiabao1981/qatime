@@ -1,7 +1,7 @@
 cn:
   view:
     common_bars:
-      aqtime: 答疑时间
+      qatime: 答疑时间
       teacher_register: 教师注册
       student_register: 学生注册
       sign_out: 退出
@@ -37,6 +37,7 @@ cn:
       default_grade_lesson: 年级科目/共X课
       default_teach_years: XXX年教龄
       notification: 消息中心
+      manage: 管理中心
     qa_bars:
       courses: 辅导流程
       teacher: 老师如何开课

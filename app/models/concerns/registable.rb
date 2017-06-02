@@ -9,7 +9,7 @@ module Registable
     validates_confirmation_of :email
 
     # 第一步注册验证
-    validates :login_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
+    validates :login_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create, unless: :is_guest
     validates :login_mobile, length: { is: 11 }, numericality: { only_integer: true }, if: :login_mobile_changed?, on: :update
 
     validates :password, length: { minimum: 6 }, if: :register_columns_required?
@@ -19,7 +19,7 @@ module Registable
     validates :accept, acceptance: true, unless: :skip_accept_required?
 
     # 第二步注册更新验证
-    validates_presence_of :avatar, :name, if: :register_columns_required?, on: :update
+    validates_presence_of :avatar, :name, if: :register_columns_required?, on: :update, unless: :is_guest_was
     validates :email, allow_blank: true, format: { with: User::VALID_EMAIL_REGEX }, uniqueness: true, on: :update
 
     # 注册完成后更改注册码

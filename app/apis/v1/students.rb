@@ -164,7 +164,6 @@ module V1
           raise(ActiveRecord::RecordInvalid.new(student))
         end
       end
-
     end
   end
 end

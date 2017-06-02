@@ -5,18 +5,22 @@
       <span><%= current_user.name %></span>
       <div class="nav-dropdown">
         <ul>
-          <% if current_user.teacher? || current_user.student? %>
+          <% if current_user.student_or_teacher? %>
             <li><%= link_to t('view.common_bars.personal_center'), main_app.send("info_#{current_user.role}_path", current_user) %></li>
           <% end %>
           <li>
-            <%= link_to main_app.user_notifications_path(current_user) do %>
-              <%= t("view.common_bars.notice") %>
-              <% if current_user.unread_notifications_count > 0 %>
-                <em class="news"><%= current_user.unread_notifications_count %></em>
+            <% if current_user.student_or_teacher? %>
+              <%= link_to main_app.user_notifications_path(current_user) do %>
+                <%= t("view.common_bars.notice") %>
+                <% if current_user.unread_notifications_count > 0 %>
+                  <em class="news"><%= current_user.unread_notifications_count %></em>
+                <% end %>
               <% end %>
+            <% else %>
+              <%= link_to t("view.common_bars.manage"), user_home_path %>
             <% end %>
           </li>
-          <% if current_user.teacher? || current_user.student? %>
+          <% if current_user.student_or_teacher? %>
             <li><%= link_to t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path", current_user) %></li>
           <% end %>
           <li><%= link_to t("view.common_bars.sign_out"), main_app.signout_path, method: :delete %></li>

@@ -120,6 +120,16 @@ module Permissions
       allow 'recommend/banner_items', [:index, :new, :create, :edit, :destroy, :update]
       allow 'recommend/choiceness_items', [:index, :new, :create, :edit, :destroy, :update, :ajax_course_select]
       allow 'recommend/items', [:new, :create]
+
+      allow 'recommend/station/banner_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'recommend/station/teacher_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       ## end   recommend permission
 
       ## begin live studio permission

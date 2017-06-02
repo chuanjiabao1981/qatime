@@ -28,15 +28,15 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
     city_names = City.has_default_workstation.pluck(:name)
     city_names.each do |name|
-      assert page.has_link? name, '加盟城市未显示'
+      assert page.has_link?(name), '加盟城市未显示'
     end
     other_city = City.where(workstation_id: nil).first
-    assert page.has_no_link? other_city.name, "未加盟城市显示出来了"
+    assert page.has_no_link?(other_city.name), "未加盟城市显示出来了"
 
     click_link '阳泉', match: :first
     assert find(:css, '.site-nav-left').has_content?('阳泉'), '城市切换不成功'
     click_link '切换'
-    find(:css, '.city-list p').has_link? '阳泉', "最近选择未显示历史选择地区"
+    assert find(:css, '.city-list p').has_link?('阳泉'), "最近选择未显示历史选择地区"
 
     select '北京', from: 'teacher_province_id'
     select '昌平', from: 'city_id'

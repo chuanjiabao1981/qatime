@@ -4,7 +4,7 @@
     <div class="sales-statistics-title">
       <div class="statistics-title-left">
         <%= select_tag :statistics_days, options_for_select(Payment::Transaction.statistics_days.options, params[:statistics_days]),
-                       data: {url: url_for(params)} %>
+                       data: {url: "?#{params.to_query}"} %>
       </div>
       <div class="statistics-title-right">
         <span>
@@ -19,9 +19,13 @@
                             series: { name: t('view.shared.workstations.statistics.sale_total'), data: @series_data } }) %>
   <div class="admin-sales-record">
     <div class="sales-record-title">
-      <%= link_to t('view.shared.workstations.statistics.order_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'order'), class: "#{'active' if params[:genre] == 'order'}" %>
+      <%= link_to t('view.shared.workstations.statistics.order_title'),
+                  "?#{params.reject{|k,v| k == 'page'}.merge(genre: 'order').to_query}",
+                  class: "#{'active' if params[:genre] == 'order'}" %>
       <span>|</span>
-      <%= link_to t('view.shared.workstations.statistics.refund_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'refund'), class: "#{'active' if params[:genre] == 'refund'}" %>
+      <%= link_to t('view.shared.workstations.statistics.refund_title'),
+                  "?#{params.reject{|k,v| k == 'page'}.merge(genre: 'refund').to_query}",
+                  class: "#{'active' if params[:genre] == 'refund'}" %>
     </div>
 
     <div class="sales-record-con">

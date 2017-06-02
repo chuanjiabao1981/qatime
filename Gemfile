@@ -141,7 +141,7 @@ group :development, :test do
   gem 'pry'
   # 命令行调试 错误界面监控
   gem 'pry-rails', '~> 0.3.5'
-  gem 'better_errors'
+  # gem 'better_errors'
   gem 'binding_of_caller'
 end
 gem 'roo'

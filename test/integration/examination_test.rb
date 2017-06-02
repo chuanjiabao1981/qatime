@@ -1,8 +1,8 @@
+require 'test_helper'
 require 'sidekiq/testing'
 require 'integration/shared/qa_common_state_test'
 
 Sidekiq::Testing.inline!
-
 
 class ExaminationIntegrateTest < LoginTestBase
   include QaCommonStateTest
@@ -65,14 +65,12 @@ class ExaminationIntegrateTest < LoginTestBase
 
   private
 
-
-
   def update_page(user,user_session,c,e)
     update_path     = send("#{c.model_name.singular_route_key}_#{e.model_name.singular_route_key}_path",c,e)
     redirect_path   = send("#{e.model_name.singular_route_key}_path",e)
     if user.teacher?
       title = "xdfstitleeeeeee update title update"
-      user_session.put update_path,e.model_name.singular_route_key => {title: title,content: "xxxxxxxxxxxxxx"}
+      user_session.put update_path, params: { e.model_name.singular_route_key => {title: title,content: "xxxxxxxxxxxxxx"} }
       user_session.assert_redirected_to redirect_path
       user_session.follow_redirect!
       user_session.assert_select 'h4',title
@@ -146,7 +144,7 @@ class ExaminationIntegrateTest < LoginTestBase
     create_path     = send("#{c.model_name.singular_route_key}_#{e.model_name.route_key}_path",c)
     title           = "cccxxxedddwwwssssxxxxxxxxxxxx"
     content         = "oo00344ddcdagpi2er1inv"
-    user_session.post create_path, e.model_name.singular_route_key => {title: title,content: content}
+    user_session.post create_path, params: { e.model_name.singular_route_key => {title: title,content: content} }
 
     if user.student?
       user_session.assert_redirected_to get_home_url(user)

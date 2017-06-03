@@ -1,33 +1,38 @@
 <%= simple_form_for @course do |f| %>
   <%= f.input :workstation_id, as: :hidden %>
-
-  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>
-  <%= render 'course_fields', f: f %>
-
-  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
-  <div class="live-arrangement">
-    <%= f.fields_for :lessons do |lesson| %>
-      <%= render 'lesson_fields', f: lesson %>
-    <% end %>
-
-    <%= raw link_to_add_fields(image_tag('/imgs/addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :lessons, 'live_studio/courses/') %>
-    <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>
+    <%= render 'course_fields', f: f %>
   </div>
 
-  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_three') %></h3>
-  <%= render 'course_fields2', f: f %>
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
+    <div class="live-arrangement">
+      <%= f.fields_for :lessons do |lesson| %>
+        <%= render 'lesson_fields', f: lesson %>
+      <% end %>
 
-  <div class="present">
-    <center>
-      <%= link_to t('view.live_studio/interactie_course.new.preview'), 'javascript: void(0);', id: 'course_preview' %>
-      <%= link_to t('view.live_studio/interactie_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
-    </center>
+      <%= raw link_to_add_fields(image_tag('/imgs/addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :lessons, 'live_studio/courses/') %>
+      <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
+    </div>
+  </div>
+
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_three') %></h3>
+    <%= render 'course_fields2', f: f %>
+
+    <div class="present">
+      <center>
+        <%= link_to t('view.live_studio/interactie_course.new.preview'), 'javascript: void(0);', id: 'course_preview' %>
+        <%= link_to t('view.live_studio/interactie_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
+      </center>
+    </div>
   </div>
 <% end %>
 
 <% content_for :javascript do %>
-  <script>
-    $(document).ready(function(){
+  <script type="text/javascript">
+    $(function(){
       $('.submit').click(function(){
         $('form').submit();
       });
@@ -40,6 +45,18 @@
         $(this).parents("form").attr('action', action);
         $(this).parents("form").removeAttr('target');
       });
+
+      var hoverset;
+      $(".create-header > .course-hint").hover(function() {
+        $(".course-description").show();
+        if(hoverset) {
+          clearTimeout(hoverset);
+        }
+      }, function() {
+        hoverset = setTimeout(function() {
+          $(".course-description").hide();
+        }, 200)
+      })
     });
     function _get_time(hour, minutes, duration){
       return $.getLessonTime(hour, minutes, duration);

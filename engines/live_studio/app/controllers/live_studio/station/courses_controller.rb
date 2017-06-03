@@ -2,12 +2,16 @@ require_dependency "live_studio/station/application_controller"
 
 module LiveStudio
   class Station::CoursesController < Station::ApplicationController
+    layout 'v1/manager_home'
+
     skip_before_action :authorize, only: [:send_qr_code]
     before_action :find_course, only: [:send_qr_code]
 
     # 直播课管理
     def my_courses
-      @query = @workstation.live_studio_courses.ransack(params[:q])
+      @courses = @workstation.live_studio_courses
+      @courses = @courses.uncompleted if params[:hide_completed].present?
+      @query = @courses.ransack(params[:q])
       @courses = @query.result.order(id: :desc).paginate(page: params[:page])
     end
 

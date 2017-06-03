@@ -40,6 +40,8 @@
 //= require v1/home
 //= require util
 //= require qa_files
+//= require select2
+//= require select2_locale_zh-CN
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

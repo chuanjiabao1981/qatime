@@ -8,6 +8,9 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
       @student = ::Student.find(users(:student_with_order2).id)
+
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       new_log_in_as(@student)
     end
 
@@ -15,6 +18,7 @@ module LiveStudio
       new_logout_as(@student)
       Capybara.use_default_driver
     end
+
 
     test "student buy off shelve course" do
       course = live_studio_courses(:course_for_off_shelve)

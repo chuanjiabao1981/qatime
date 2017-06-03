@@ -11,6 +11,8 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
       @student = users(:student_balance)
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       new_log_in_as(@student)
     end
 

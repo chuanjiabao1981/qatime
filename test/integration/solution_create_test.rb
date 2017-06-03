@@ -1,8 +1,7 @@
+require 'test_helper'
 require 'content_input_helper'
 
 class SolutionCreateTest < ActionDispatch::IntegrationTest
-
-
   include ContentInputHelper
 
   def setup

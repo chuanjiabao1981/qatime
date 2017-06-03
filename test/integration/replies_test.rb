@@ -70,7 +70,7 @@ private
   end
   def reply_create(user_session,reply,user)
     content = "create a new for me  #{SecureRandom.urlsafe_base64}"
-    user_session.post topic_replies_path(reply.topic),reply:{content: content}
+    user_session.post topic_replies_path(reply.topic), params: { reply: { content: content } }
     assert user_session.redirect?
     user_session.follow_redirect!
     # puts user_session.response.body

@@ -78,7 +78,7 @@ class TutorialIssueIntegrateTest < LoginTestBase
 
     title       = "1aassedits234"
     content     = "1as11edit34123412s"
-    user_session.put update_path,tutorial_issue:{title: title,content: content}
+    user_session.put update_path, params: { tutorial_issue: { title: title,content: content } }
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
       return
@@ -87,7 +87,7 @@ class TutorialIssueIntegrateTest < LoginTestBase
       assert_difference 'Topic.count',0 do
         assert_difference '@tutorial_issue_one.customized_tutorial.reload.tutorial_issues_count',0 do
           assert_difference '@tutorial_issue_one.customized_tutorial.reload.customized_course.tutorial_issues_count',0 do
-            user_session.put update_path,tutorial_issue:{title: title,content: content}
+            user_session.put update_path, params: { tutorial_issue: { title: title,content: content } }
             user_session.assert_redirected_to customized_tutorial_tutorial_issue_path(@tutorial_issue_one.customized_tutorial,@tutorial_issue_one)
             user_session.follow_redirect!
             user_session.assert_select 'h4',title
@@ -116,16 +116,15 @@ class TutorialIssueIntegrateTest < LoginTestBase
     content     = "1as1134123412s"
 
     if user.teacher?
-      user_session.post create_path,tutorial_issue:{title: title,content: content}
+      user_session.post create_path, params: { tutorial_issue: { title: title,content: content } }
       user_session.assert_redirected_to get_home_url(user)
       return
     end
     assert_difference 'TutorialIssue.count',1 do
       assert_difference 'Topic.count',1 do
         assert_difference '@customized_tutorial.reload.tutorial_issues_count',1 do
-          assert_difference '@customized_tutorial.reload.customized_course.tutorial_issues_count',1 do
-
-            user_session.post create_path,tutorial_issue:{title: title,content: content}
+          assert_difference '@customized_tutorial.reload.customized_course.tutorial_issues_count', 1 do
+            user_session.post create_path, params: { tutorial_issue: { title: title,content: content } }
             new_one = TutorialIssue.all.order(created_at: :desc).first
             user_session.assert_redirected_to customized_tutorial_tutorial_issue_path(@customized_tutorial,new_one)
             user_session.follow_redirect!

@@ -1,3 +1,4 @@
+require 'test_helper'
 require 'models/shared/utils/qa_test_factory'
 
 

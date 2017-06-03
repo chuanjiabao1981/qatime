@@ -14,9 +14,6 @@ class TutorialIssueReplyIntegrateTest < LoginTestBase
     super
   end
 
-
-
-
   test 'create page' do
     create_path         = tutorial_issue_tutorial_issue_replies_path(@tutorial_issue)
     redirected_to_path  = tutorial_issue_path(@tutorial_issue)
@@ -41,7 +38,7 @@ class TutorialIssueReplyIntegrateTest < LoginTestBase
   end
   def create_page(user,user_session,create_path,redirected_to_path)
     content = random_str
-    user_session.post create_path,tutorial_issue_reply:{content: content}
+    user_session.post create_path, params: { tutorial_issue_reply: { content: content } }
     if user.student?
       return user_session.assert_redirected_to get_home_url(user)
     end

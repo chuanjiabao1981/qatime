@@ -1,9 +1,8 @@
+require 'test_helper'
 require 'sidekiq/testing'
 require 'integration/shared/qa_common_state_test'
 
-
 Sidekiq::Testing.inline!
-
 
 class SolutionIntegrateTest < LoginTestBase
   include QaCommonStateTest
@@ -36,13 +35,9 @@ class SolutionIntegrateTest < LoginTestBase
     edit_page(@teacher,@teacher_session,homework_solution)
     edit_page(@student,@student_session,exercise_solution)
     edit_page(@teacher,@teacher_session,exercise_solution)
-
-
   end
 
   test "show page" do
-
-
     homework_solution     = solutions(:homework_solution_one)
     exercise_solution     = solutions(:exercise_solution_one)
 
@@ -82,7 +77,7 @@ class SolutionIntegrateTest < LoginTestBase
     update_path                     = send "#{solution.examination.model_name.singular_route_key}_#{solution.model_name.singular_route_key}_path",solution.examination,solution
     redirect_path                   = send "#{solution.model_name.singular_route_key}_path",solution
     title                           = "0ojashdbp"
-    user_session.put update_path, solution.model_name.singular_route_key  => {title: title,content: "ssddffaaa"}
+    user_session.put update_path, params: { solution.model_name.singular_route_key  => { title: title,content: "ssddffaaa" } }
 
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
@@ -110,7 +105,7 @@ class SolutionIntegrateTest < LoginTestBase
     title         = "xxxxdddddfffff"
     content       = "ransdonasdkjnvsdfpkjnvdafpign"
     create_path   = send("#{e.model_name.singular_route_key}_#{e.model_name.singular_route_key}_solutions_path",e)
-    user_session.post create_path, s.model_name.singular_route_key => {title: title,content: content}
+    user_session.post create_path, params: { s.model_name.singular_route_key => { title: title, content: content } }
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
       return
@@ -166,7 +161,7 @@ class SolutionIntegrateTest < LoginTestBase
     user_session.get show_path
     user_session.assert_response :success
 
-    check_state_change_link(user,user_session,solution,true)
+    check_state_change_link(user, user_session, solution, true)
 
     if user.teacher?
       if solution.can_handle?
@@ -178,15 +173,13 @@ class SolutionIntegrateTest < LoginTestBase
       edit_path_count               = 1
     end
 
-
     solution.corrections.each do |c|
       if c.teacher.id == user.id
-        user_session.assert_select 'a[href=?]',edit_correction_path(c),1
+        user_session.assert_select 'a[href=?]', edit_correction_path(c), 1
       end
     end
 
-    user_session.assert_select 'form[action=?]' ,correction_create_path,correction_create_path_count
-    user_session.assert_select 'a[href=?]', edit_path,edit_path_count
-
+    user_session.assert_select 'form[action=?]', correction_create_path, correction_create_path_count
+    user_session.assert_select 'a[href=?]', edit_path, edit_path_count
   end
 end

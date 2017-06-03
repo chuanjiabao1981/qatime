@@ -11,6 +11,9 @@ module LiveStudio
       @student = users(:student_tally)
       @course = live_studio_courses(:course_with_junior_teacher)
 
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
+
       LiveService::ChatAccountFromUser.new(@student).instance_account(true)
       new_log_in_as(@student)
     end

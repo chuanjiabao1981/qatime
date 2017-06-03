@@ -1,0 +1,48 @@
+<div class="item-home">
+  <div class="subtitle">
+    <h3><%= t('view.managers.home.statistics.title') %></h3>
+    <%= link_to statistics_station_workstation_path(@workstation, statistics_days: params[:statistics_days]) do %>
+      <%= t('view.managers.home.statistics.more') %>
+      <i class="fa fa-angle-right"></i>
+    <% end %>
+  </div>
+
+  <div class="admin-sales">
+    <div class="sales-statistics">
+      <div class="sales-statistics-title">
+        <div class="statistics-title-left">
+          <%= select_tag :statistics_days, options_for_select(::Payment::Transaction.statistics_days.options, params[:statistics_days]),
+                         data: {url: url_for(params)} %>
+        </div>
+        <div class="statistics-title-right">
+          <span>
+            <i><%= t('view.shared.workstations.statistics.sale_count') %></i>
+            <i><%= number_to_currency(@sales_total, precision: 0) %></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <%= echarts_line('main', {xAxis: { type: 'category', boundaryGap: false, name: t('view.common.time'), data: @x_cate },
+                              yAxis: { type: 'value', name: t('view.shared.workstations.statistics.sale_total'), splitLine: { show: false } },
+                              series: { name: t('view.shared.workstations.statistics.sale_total'), data: @series_data } }) %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('change', '#statistics_days', function(event) {
+        var url = $(this).data('url'),
+            select_day = $(this).val();
+        if (url.indexOf('statistics_days') > 0) {
+          url = url.replace(/statistics_days=.*/g, "statistics_days=" + select_day);
+        }else if( url.indexOf('?') > 0 ){
+          url = url + '&statistics_days=' + select_day;
+        }else{
+          url = url + '?statistics_days=' + select_day;
+        }
+        window.location.href = url;
+      })
+    });
+  </script>
+<% end %>

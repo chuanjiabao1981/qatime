@@ -126,6 +126,7 @@ Qatime::Application.routes.draw do
         get :change_records
         get :statistics
         post :get_billing_item
+        get :teaching_lessons
       end
       resources :teachers, only: [:index]
       resources :students, only: [:index]

@@ -21,7 +21,7 @@ module ApplicationHelper
   def echarts_line(dom_id, options = {}, html_options = {})
     opts = {
         tooltip: { trigger: 'axis' },
-        grid: { left: '1%', right: '5%', bottom: '3%', containLabel: true }
+        grid: { left: '1%', right: '10%', bottom: '3%', containLabel: true }
     }
 
     os = opts.merge(options)
@@ -390,6 +390,16 @@ module ApplicationHelper
       r = controller_name == 'teachers' && %w[solutions customized_tutorial_topics homeworks questions topics].include?(action_name)
     else
       r = false
+    end
+    r
+  end
+
+  def manager_sidebar_nav_is?(nav)
+    case nav.to_s.to_sym
+      when :home
+        r = params[:controller] == 'managers/home' && action_name == 'main'
+      else
+        r = false
     end
     r
   end

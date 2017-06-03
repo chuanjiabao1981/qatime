@@ -71,6 +71,8 @@ cn:
       video_manage: 视频管理
       notification: 消息中心
       teacher_syllabuses: 备课中心
+    manager_bars:
+      home: 首页
     today_lives:
       title: 今日直播
       live_end: 直播结束

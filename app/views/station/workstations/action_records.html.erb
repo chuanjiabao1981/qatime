@@ -1,3 +1,19 @@
-<div class="qa_box">
-    <%= render partial: 'action_records/index_items',locals: {action_records: @action_records} %>
+<div class="article">
+  <div class="sold">
+    <div class="sold-title">
+      <%= link_to main_app.managers_home_path(workstation_id: @workstation) do %>
+        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
+      <% end %>
+      <h3><%= t('view.station.action_records.index_title') %></h3>
+    </div>
+
+    <div class="dynamic">
+      <ul>
+        <%= render partial: 'station/workstations/action_record', collection: @action_records %>
+      </ul>
+
+      <%= render 'shared/blank' if @action_records.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @action_records, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
 </div>

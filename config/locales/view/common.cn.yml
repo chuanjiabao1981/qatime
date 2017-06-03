@@ -109,18 +109,18 @@ cn:
           withdraw_refund_record_name: 提现申请失败
         statistics:
           order_title: 售出记录
-          refund_title: 退款记录
+          refund_title: 退售记录
           sale_price: 销售价格
-          course_price: 辅导班原价
+          course_price: 原价
           coupon_price: 优惠价格
-          course_name: 销售内容（辅导班名称）
+          course_name: 销售内容（课程名称）
           sale_at: 销售时间
           user_name: 购买人
           source: 销售途径
           cross: 跨站销售
           sale_increment: 销售收入增加
           refund_price: 退款金额
-          course_name2: 退款内容（辅导班名称）
+          course_name2: 退款内容（课程名称）
           refund_at: 退款时间
           sale_decrement: 销售收入减少
           pic_title: 销售额曲线

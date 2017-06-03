@@ -1,7 +1,22 @@
-<div class="panel panel-default">
-  <div class="admin new-workstation">
-    <%= render partial: 'tab_node' %>
+<div class="article">
+  <div class="sold">
+    <div class="sold-title">
+      <%= link_to main_app.managers_home_path(workstation_id: @workstation) do %>
+        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
+      <% end %>
+      <h3><%= t('view.station.statistics.index_title') %></h3>
+    </div>
 
-    <%= render partial: 'shared/workstations/statistics', locals: {workstation: @workstation} %>
+    <div class="sold-link">
+      <%= link_to t('view.shared.workstations.statistics.order_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'order'), class: "#{'active' if params[:genre] == 'order'}" %>
+      <%= link_to t('view.shared.workstations.statistics.refund_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'refund'), class: "#{'active' if params[:genre] == 'refund'}" %>
+    </div>
+
+    <div class="sold-tab">
+      <%= render partial: "shared/workstations/statistics_#{params[:genre]}_table" if %w[order refund].include?(params[:genre]) %>
+
+      <%= render 'shared/blank' if @statistics.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @statistics, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
   </div>
 </div>

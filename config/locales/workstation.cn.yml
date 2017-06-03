@@ -92,6 +92,12 @@ cn:
         index_title: 教师列表
         placeholders:
           name: 老师名字,昵称或者邮箱
+      action_records:
+        index_title: 全部动态
+      teaching_lessons:
+        index_title: 正在上课
+      statistics:
+        index_title: 销售明细
 
   error:
       workstation:

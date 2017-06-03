@@ -26,6 +26,7 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require fancybox
+//= require echarts.common.min
 //= require edit_common
 //= require editable/bootstrap-editable
 //= require editable/rails

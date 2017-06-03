@@ -4,7 +4,7 @@ class Station::SchoolsController < Station::BaseController
   before_action :find_school, only: [:edit, :update]
 
   def index
-    @query = current_user.schools.ransack(params[:q])
+    @query = School.where(city_id: @workstation.try(:city_id)).ransack(params[:q])
     @schools = @query.result.order(:created_at).paginate(page: params[:page])
   end
 

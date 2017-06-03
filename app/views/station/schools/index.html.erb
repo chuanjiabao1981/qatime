@@ -6,7 +6,7 @@
       <%= link_to new_station_workstation_school_path(@workstation) do %>
         <%= image_tag 'addclass.png' %>
         <span><%= t('view.station.schools.index.new') %></span>
-      <% end %>
+      <% end if allow? 'station/schools', :new, @workstation %>
       <%= render 'station/schools/search' %>
     </div>
 

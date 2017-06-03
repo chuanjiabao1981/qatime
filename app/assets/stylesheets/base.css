@@ -8745,165 +8745,6 @@ ul {
 
 
 
-/*首页广告位管理*/
-.addbanner {
-  display: inline-block;
-  width: 136px;
-  height: 34px;
-  border-radius: 4px;
-  background-color: limegreen;
-  text-align: center;
-  line-height: 34px;
-  color: #FFFFFF;
-  margin: 10px 0px;
-}
-.admin-recommend {
-  width: 100%;
-}
-.admin-recommend table {
-  width: 100%;
-}
-.admin-recommend table td {
-  word-wrap: break-word;
-  word-break: break-all;
-  font-size: 12px;
-  height: 76px;
-  border: 1px solid #ccc;
-  text-align: center;
-}
-.admin-recommend table tr:first-child td {
-  height: 30px;
-}
-.advertising table td img {
-  width: 148px;
-  height: 39px;
-}
-.tec-recommend table td img {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-}
-.choiceness table td img {
-  width: 111px;
-  height: 58px;
-}
-/*精选内容管理*/
-.admin-recommend table tr .recommended-tags {
-  padding-left: 5px;
-  text-align: left;
-}
-.recommended-tags span {
-  display: block;
-}
-.admin-title-msg  {
-  color: #333;
-  font-size: 24px;
-}
-.admin-title-msg a {
-  color: #333333;
-}
-.new-common {
-  margin-top: 20px;
-}
-.new-common .form-group {
-  width: 100%;
-  min-height: 54px;
-  position: relative;
-}
-.new-common .form-group label {
-  width: 80px;
-  margin-right: 20px;
-  font-weight: 100;
-  color: #000;
-  margin-bottom: 0px;
-}
-.new-common .form-group input, .new-common .form-group select {
-  width: 88.7%;
-  border-radius: 0px;
-  color: #999;
-}
-.admin abbr {
-  color: red;
-}
-.new-common .form-group .has-error {
-  margin: 0 0 0 100px;
-}
-.new-common input[type='submit'] {
-  width: 120px;
-  height: 30px;
-  margin-top: 10px;
-  background-color: #FFFFFF;
-  border: 1px solid #666;
-}
-.form-banner {
-  min-height: 178px !important;
-}
-.form-banner .form-upload,.form-banner label {
-  float: left;
-}
-.form-banner .form-upload .form-pic {
-  width: 600px;
-  height: 158px;
-  border: 1px solid #F2F2F2;
-}
-.form-banner .form-upload .form-pic img {
-  width: 100%;
-  height: 100%;
-}
-.form-banner .form-upload {
-  position: relative;
-  width: 88.7%;
-}
-.form-banner .form-upload .form-pic {
-  margin-left: 3px !important;
-}
-.form-banner .upload-pic {
-  position: absolute;
-  width: 180px;
-  right: 0px;
-  bottom: 0px;
-}
-.form-banner .upload-pic a {
-  position: static;
-  display: inline-block;
-  border: 1px solid #666666;
-  padding: 5px 20px;
-  color: #333333;
-}
-.form-banner .upload-pic span {
-  display: block;
-  font-size: 12px;
-}
-.form-banner .has-error {
-  clear: both;
-}
-@media only screen and (max-width: 1200px) {
-  .new-common .form-group input, .new-common .form-group select {
-    width: 100%;
-  }
-  .new-common .form-group .has-error {
-    margin: 0px;
-  }
-  .form-banner .form-upload .form-pic {
-    margin-left: 0px !important;
-  }
-  .form-banner .upload-pic {
-    position: static;
-    margin-top: 10px;
-  }
-}
-@media only screen  and (max-width: 670px) {
-  .form-banner .form-upload .form-pic,.form-banner .form-upload  {
-    width: 100%;
-  }
-}
-
-
-
-
-
-
-
 /*首页新页面*/
 .site-nav {
   position: absolute;
@@ -14832,7 +14673,7 @@ ul {
   line-height: 20px;
   margin-bottom: 0px;
 }
-.work-station .editor-msg label.no-required {
+.no-required {
   margin-left: 15px;
 }
 .work-station .editor-item {
@@ -15059,4 +14900,119 @@ abbr {
   .lesson-item > ul > li > .row > .col-md-1 {
     line-height: 20px;
   }
+}
+
+
+/*网页管理*/
+.sold-tab > table tr .banner > img {
+  width: 130px;
+  height: 50px;
+}
+.sold-tab > .tab-banner tr td {
+  height: 70px;
+}
+/*新增banner*/
+.banner-item {
+  padding: 40px 20px;
+}
+.banner-item > form > .row {
+  min-height: 54px;
+}
+.banner-item > form > .row .has-error {
+  margin: 0px;
+}
+.banner-item > form > .row label {
+  font-weight: normal;
+  line-height: 34px;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 0px;
+}
+.banner-item > form > .row .form-group {
+  margin-bottom: 0px;
+}
+.banner-item > form > .upload-banner {
+  min-height: 190px;
+}
+.banner-item > form > .upload-banner label {
+  line-height: 145px;
+}
+.banner-item > form > .upload-banner .file-banner {
+  width: 100%;
+  height: 145px;
+}
+.banner-item > form > .upload-banner .file-banner > img {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+}
+.banner-item > form > .upload-banner .file-info {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+}
+.banner-item > form > .upload-banner .file-info > .btn-file {
+  float: right;
+}
+.banner-item > form > .upload-banner .file-info > .btn-file input[type='file'] {
+  display: none;
+}
+.banner-item > form > .upload-banner .file-info > .btn-file > a {
+  padding: 5px 10px;
+  background-color: #ff5842;
+  color: #fff;
+  position: relative;
+  top: 3px;
+  cursor: pointer;
+}
+.banner-item > form > .upload-banner .file-info > .prompt {
+  line-height: 20px;
+}
+.banner-item > form input[type='submit'] {
+  width: 120px;
+  height: 38px;
+  background-color: #fff;
+  border: 1px solid #ff5842;
+  color: #ff5842;
+  border-radius: 4px;
+  outline: none;
+  margin-top: 20px;
+}
+.banner-item > form input[type='submit']:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+@media only screen and (max-width: 992px) {
+  .banner-item > form > .row label {
+    line-height: 20px;
+  }
+  .banner-item > form > .row {
+    min-height: 74px;
+  }
+  .banner-item > form > .upload-banner {
+    min-height: 210px;
+  }
+}
+
+/*精选内容*/
+.sold-tab > table tr .choiceness > img {
+  width: 104px;
+  height: 60px;
+}
+.sold-tab > .tab-choiceness tr td {
+  height: 80px;
+}
+.banner-item > form select {
+  color: #666;
+}
+/*教师推荐*/
+.sold-tab > table tr .head-portrait > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+/*专属课程*/
+.work-station > .exclusive-tab {
+  margin-top: 30px;
 }

@@ -18,4 +18,9 @@ class Manager < User
     super(attributes)
     self.role = "manager"
   end
+
+  # 默认工作站第一个
+  def default_workstation
+    workstations.order(:created_at).first
+  end
 end

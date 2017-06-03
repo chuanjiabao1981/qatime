@@ -1,7 +1,7 @@
 <div class="article">
   <div class="sold">
     <div class="sold-title">
-      <%= link_to main_app.managers_home_path(workstation_id: @workstation) do %>
+      <%= link_to main_app.station_workstation_home_index_path(@workstation) do %>
         <i class="fa fa-angle-left"></i> <%= t('common.back') %>
       <% end %>
       <h3><%= t('view.station.statistics.index_title') %></h3>

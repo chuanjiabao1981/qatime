@@ -1,0 +1,79 @@
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :index %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.number_field :index, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.index') %>
+    </div>
+    <%= f.error :index %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :title %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.text_field :title, class: 'form-control', maxlength: 30, placeholder: t('view.recommend/banner_item.placeholders.title') %>
+    </div>
+    <%= f.error :title %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :target_type %>
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <%= f.select :target_type, options_for_select(Recommend::ChoicenessItem.target_type.options, f.object.target_type), {include_blank: t('view.recommend/choiceness_item.prompt.target_type')}, {class: 'form-control'} %>
+        <%= f.error :target_type %>
+      </div>
+      <div class="col-md-8 col-sm-8 col-xs-6">
+        <%= f.select :target_id, options_for_select(@courses_options, f.object.target_id), {include_blank: t('view.recommend/choiceness_item.prompt.target_id')}, {class: 'form-control'} %>
+        <%= f.error :target_id %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :tag_one %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :tag_one, options_for_select(Recommend::Item.tag_one.options, f.object.tag_one), {include_blank: t('view.recommend/choiceness_item.index.none_tag')}, {class: 'form-control'} %>
+    <%= f.error :tag_one %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :tag_two %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :tag_two, options_for_select(Recommend::Item.tag_two.options, f.object.tag_two), {include_blank: t('view.recommend/choiceness_item.index.none_tag')}, {class: 'form-control'} %>
+    <%= f.error :tag_two %>
+  </div>
+</div>
+<center><%= f.submit t('common.save') %></center>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $('form').on('change', '#choiceness_item_target_type', function(event){
+        var target_type = $(this).val();
+        $.ajax({
+          url: '<%= recommend.ajax_course_select_station_workstation_choiceness_item_path(@workstation, f.object.id || 0, position_id: @position) %>',
+          type: 'POST',
+          dataType: 'script',
+          data: {target_type: target_type}
+        });
+      });
+    });
+  </script>
+<% end %>

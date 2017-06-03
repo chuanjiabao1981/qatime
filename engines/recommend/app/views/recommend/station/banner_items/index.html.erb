@@ -1,0 +1,32 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'recommend/station/tab' %>
+    <%= render 'recommend/station/tab_items' %>
+
+    <div class="management-link">
+      <%= link_to recommend.new_station_workstation_banner_item_path(@workstation, position_id: params[:position_id]) do %>
+        <%= image_tag 'addclass.png' %>
+        <span><%= t('view.recommend/station.banner_items.index.add') %></span>
+      <% end if allow? 'recommend/station/banner_items', :new, @workstation %>
+    </div>
+
+    <div class="sold-tab">
+      <table class="tab-banner" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.recommend/banner_item.index.logo') %></th>
+            <th><%= t('view.recommend/banner_item.index.title') %></th>
+            <th><%= t('view.recommend/banner_item.index.link') %></th>
+            <th><%= t('view.recommend/banner_item.index.index') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+          <%= render partial: 'recommend/station/banner_items/item', collection: @items %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @items.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @items, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

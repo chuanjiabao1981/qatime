@@ -398,6 +398,8 @@ module ApplicationHelper
     case nav.to_s.to_sym
       when :home
         r = params[:controller] == 'managers/home' && action_name == 'main'
+      when :station
+        r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
       else
         r = false
     end

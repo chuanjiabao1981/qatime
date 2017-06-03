@@ -51,10 +51,12 @@ class Station::WorkstationsController < Station::BaseController
   end
 
   def show
+    render layout: 'v1/manager_home'
   end
 
   def fund
     @withdraw = Payment::Withdraw.new(pay_type: :station)
+    render layout: 'v1/manager_home'
   end
 
   # 申请提现
@@ -90,6 +92,7 @@ class Station::WorkstationsController < Station::BaseController
       @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawChangeRecord', 'Payment::SaleTaskPayRecord'])
     end
     @change_records = @change_records.order('created_at desc').paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 1. 辅导班结账收入 business_type: Payment::BillingItem

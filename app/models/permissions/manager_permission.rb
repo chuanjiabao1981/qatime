@@ -72,6 +72,9 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/home', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       allow 'station/teachers', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end

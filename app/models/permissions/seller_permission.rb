@@ -93,6 +93,9 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/home', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
       allow 'station/teachers', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
@@ -161,6 +164,10 @@ module Permissions
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true
+      end
+
+      allow 'payment/station/sale_tasks', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
       end
     end
   end

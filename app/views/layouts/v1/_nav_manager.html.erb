@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav">
         <li class="switchcity">
           <span><%= current_user.try(:role).try(:capitalize) %></span>
-          <a href="<%= main_app.managers_home_path(workstation_id: @workstation) %>">【<%= @workstation.try(:name) %>】</a>
+          <a href="<%= main_app.station_workstation_home_index_path(@workstation) %>">【<%= @workstation.try(:name) %>】</a>
         </li>
       </ul>
 

@@ -15,7 +15,6 @@ class ManagerHomeTest < ActionDispatch::IntegrationTest
   end
 
   test "visit home statistics" do
-    visit managers_home_path
     assert page.has_content?('销售曲线')
     assert page.has_link?('销售明细')
     assert page.has_content?('销售总额')
@@ -31,7 +30,6 @@ class ManagerHomeTest < ActionDispatch::IntegrationTest
   end
 
   test "visit home teaching_lessons" do
-    visit managers_home_path
     assert page.has_content?('正在上课')
     assert page.has_link?('全部')
     assert_equal 2, page.all('.classing > ul > li').size, '正在上课的课时不对'
@@ -44,14 +42,12 @@ class ManagerHomeTest < ActionDispatch::IntegrationTest
   end
 
   test "visit home action_records" do
-    visit managers_home_path
     assert page.has_content? '实时动态'
     assert page.has_link? '全部动态'
     click_on '全部动态'
   end
 
   test "visit home sale_tasks" do
-    visit managers_home_path
     assert page.has_content? '考核进度跟踪'
     assert page.has_link? '考核记录'
     click_on '考核记录'

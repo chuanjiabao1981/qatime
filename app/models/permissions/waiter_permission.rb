@@ -72,6 +72,10 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/home', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'station/teachers', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
@@ -124,6 +128,10 @@ module Permissions
       end
 
       allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :send_qr_code, :list] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'payment/station/sale_tasks', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
     end

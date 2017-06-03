@@ -53,7 +53,7 @@ module V1
           optional :province_id, type: Integer, desc: '省ID'
           optional :city_id, type: Integer, desc: '城市ID'
           optional :school_id, type: Integer, desc: '学校ID'
-          optional :teaching_years, type: String, desc: '执教年龄', values: ::Teacher.teaching_years.options.map(&:second)
+          optional :teaching_years, type: String, desc: '执教年龄', values: %w(within_three_years within_ten_years within_twenty_years more_than_twenty_years)
           optional :grade_range, type: Array[String], coerce_with: ->(val) { val.split(/[\s,]+/) }, desc: '授课范围 用逗号或者空格隔开'
           optional :gender, type: String, desc: '性别'
           optional :birthday, type: DateTime, desc: '生日'
@@ -91,7 +91,7 @@ module V1
           optional :school_id, type: Integer, desc: '学校ID'
           optional :province_id, type: Integer, desc: '省ID'
           optional :city_id, type: Integer, desc: '城市ID'
-          optional :teaching_years, type: String, desc: '执教年龄', values: ::Teacher.teaching_years.options.map(&:second)
+          optional :teaching_years, type: String, desc: '执教年龄', values: %w(within_three_years within_ten_years within_twenty_years more_than_twenty_years)
           optional :grade_range, type: Array[String], coerce_with: ->(val) { val.split(/[\s,]+/) }, desc: '授课范围 用逗号或者空格隔开'
 
           all_or_none_of :email, :email_confirmation

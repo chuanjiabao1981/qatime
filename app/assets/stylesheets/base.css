@@ -14745,12 +14745,13 @@ ul {
 .add-school {
   padding: 20px;
 }
-.add-school > form a {
+.add-school > form a,.add-personnel > form a{
   display: inline-block;
   line-height: 36px;
   margin-right: 10px;
 }
-.add-school > form  input[type='submit'],.add-school > form a {
+.add-school > form  input[type='submit'],.add-school > form a
+,.add-personnel > form a,.add-personnel > form  input[type='submit']{
   width: 120px;
   height: 38px;
   background-color: #fff;
@@ -14758,6 +14759,7 @@ ul {
   color: #ff5842;
   border: 1px solid #ff5842;
   border-radius: 4px;
+  outline: none;
 }
 .add-school > form .form-textarea {
   height: 120px;
@@ -14938,4 +14940,123 @@ ul {
 }
 .radio + .radio,.checkbox + .checkbox {
   margin: 5px 0px !important;
+}
+
+/*员工管理*/
+/*新增人员*/
+abbr {
+  color: red;
+}
+.add-personnel {
+  padding: 20px;
+}
+.add-personnel > form > .row {
+  min-height: 54px;
+  color: #666;
+}
+.add-personnel > form > .row .form-group {
+  margin-bottom: 0px;
+}
+.add-personnel > form > .row .col-md-10 {
+  padding-left: 0px;
+}
+.add-personnel > form > .row .has-error {
+  margin: 0px;
+}
+.add-personnel > form > .row label {
+  font-weight: normal;
+  line-height: 34px;
+  margin-bottom: 0px;
+}
+.add-personnel > form > .row >.col-md-10 input {
+  color: #666;
+}
+@media only screen and (max-width: 992px) {
+  .add-personnel > form > .row label {
+    line-height: 20px;
+  }
+  .add-personnel > form > .row {
+    min-height: 74px;
+  }
+  .add-personnel > form > .row .col-md-10 {
+    padding-left: 15px;
+  }
+}
+
+/*公共课程*/
+.state-line {
+  min-height: 50px;
+  padding: 0 20px;
+  line-height: 50px;
+  border-top: 1px solid #ccc;
+}
+.state-line > a {
+  margin-right: 20px;
+  color: #666;
+}
+.state-line > a:last-child {
+  margin-right: 0px;
+}
+.state-line > a.active {
+  color: #ff5842;
+}
+.lesson-item {
+  padding: 20px;
+}
+.lesson-item > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.lesson-item > ul > li {
+  padding: 5px 0px;
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+}
+.lesson-item > ul > li:last-child {
+  margin-bottom: 20px;
+}
+.lesson-item > ul > li > .row {
+  margin: 0px;
+}
+.lesson-item > ul > li .description-course {
+  border-left: 1px solid #ccc;
+}
+.lesson-item > ul > li .description-course > h4 {
+  margin: 0px;
+  color: #34495e;
+  font-size: 14px;
+}
+.lesson-item > ul > li .description-course > p {
+  margin-bottom: 0px;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+.lesson-item > ul > li .description-course > h4,.lesson-item > ul > li .description-course > p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.lesson-item > ul > li > .row > .col-md-1 {
+  line-height: 36px;
+  text-align: center;
+}
+.lesson-item > ul > li > .row a {
+  color: #ff5842;
+}
+@media only screen and (max-width: 992px) {
+  .lesson-item > ul > li .description-course {
+    border-left: 0px;
+  }
+  .lesson-item > ul > li > .row > .col-md-1 {
+    text-align: left;
+  }
+  .lesson-item > ul > li .description-course > h4,.lesson-item > ul > li .description-course > p {
+    text-overflow: initial;
+    overflow: visible;
+    white-space: normal;
+  }
+  .lesson-item > ul > li > .row > .col-md-1 {
+    line-height: 20px;
+  }
 }

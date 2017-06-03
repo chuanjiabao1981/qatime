@@ -5,6 +5,7 @@ module LiveStudio
 
     include AASM
     extend Enumerize
+    include Channelable
 
     include Qatime::Stripable
     strip_field :name, :description
@@ -72,6 +73,7 @@ module LiveStudio
     has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
 
+    has_many :tickets, as: :product # 听课证
     has_many :buy_tickets, as: :product, class_name: 'LiveStudio::BuyTicket'
     has_many :students, through: :buy_tickets
 
@@ -372,5 +374,8 @@ module LiveStudio
         ::LiveStudioInteractiveCourseNotification.create(from: workstation, receiver: t, notificationable: self, action_name: :assign)
       end
     end
+
+    # 不初始化摄像头推流地址
+    def init_camera_channels; end
   end
 end

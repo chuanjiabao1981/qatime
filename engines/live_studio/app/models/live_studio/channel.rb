@@ -1,9 +1,8 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    include LiveStudio::Channelable
     has_soft_delete
 
-    belongs_to :course
+    belongs_to :channelable, polymorphic: :true
     has_many :channel_videos, dependent: :destroy
     has_many :push_streams, dependent: :destroy
     has_many :pull_streams, dependent: :destroy
@@ -13,27 +12,6 @@ module LiveStudio
     def sync_streams
       delete_remote_channel
       create_remote_channel
-    end
-
-    # 更新录制视频列表 (是否强制更新所有视频信息)
-    def update_video_list(enforce = false)
-      return if remote_id.blank?
-      res = ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/videolist",
-        headers: vcloud_headers,
-        body: {
-          cid: remote_id
-        }.to_json
-      )
-      return unless res.success?
-      result = JSON.parse(res.body).symbolize_keys
-      ChannelVideo.transaction do
-        result[:ret]['videoList'].each do |rt|
-          video = channel_videos.find_or_initialize_by(vid: rt['vid'])
-          video.update_video_info if video.new_record? || enforce
-          video.update(name: rt['video_name'], key: rt['orig_video_key'], video_for: use_for)
-        end
-      end
     end
 
     # 同步视频
@@ -78,8 +56,7 @@ module LiveStudio
     after_destroy :delete_remote_channel
 
     def create_remote_channel
-      return if Rails.env.development? || Rails.env.test?
-      res = VCloud::Service.app_channel_create(name: name, type: 0)
+      res = VCloud::Service.app_channel_create(name: channel_name, type: 0)
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
       self.remote_id = result[:ret]["cid"]
@@ -103,7 +80,12 @@ module LiveStudio
 
     def delete_remote_channel
       return unless remote_id.present?
-      VCloud::Service.app_channel_delete(name: name, cid: remote_id, type: 0)
+      VCloud::Service.app_channel_delete(cid: remote_id)
+    end
+
+    def channel_name
+      return name if Rails.env.production?
+      "#{Rails.env} - #{name}"
     end
   end
 end

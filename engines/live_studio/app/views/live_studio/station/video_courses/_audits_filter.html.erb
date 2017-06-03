@@ -1,16 +1,14 @@
-
-<div class="condition-right">
-  <%= form_for @query, url: url, html: { method: :get } do |f| -%>
+<div class="filter-right">
+  <%= form_for @query, url: url, html: { method: :get } do |f| %>
     <%= hidden_field_tag :cate, params[:cate].presence %>
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+    <div class="space-item">
+      <%= f.label :grade_eq, "#{LiveStudio::Course.human_attribute_name(:grade)}:" %>
       <%= f.select :grade_eq, APP_CONSTANT['grades_in_menu'],
                    { include_blank: t("live_studio.course.menu.all") },
                    { class: 'immediately' } %>
     </div>
-
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+    <div class="space-item">
+      <%= f.label :subject_eq, "#{LiveStudio::Course.human_attribute_name(:subject)}:" %>
       <%= f.select :subject_eq, APP_CONSTANT['subjects'],
                    { include_blank: t("live_studio.course.menu.all") },
                    { class: 'immediately' } %>

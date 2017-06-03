@@ -3,18 +3,8 @@
   @video_course.teacher_percentage = nil if @video_course.teacher_percentage == 0
 %>
 <%= simple_form_for [:station, @workstation, @video_course] do |f| %>
-  <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_one') %></h3>
-  <div class="live-introduce">
-    <div class="row">
-      <div class="col-md-2">
-        <%= f.label :name %>
-      </div>
-      <div class="col-md-10">
-        <%= f.input_field :name %>
-        <%= f.error :name %>
-      </div>
-    </div>
-
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_one') %></h3>
     <div class="row">
       <div class="col-md-2">
         <%= f.label :grade %>
@@ -26,7 +16,15 @@
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :name %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input_field :name %>
+        <%= f.error :name %>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-2">
         <%= f.label :objective %>
@@ -55,139 +53,161 @@
       </div>
     </div>
   </div>
-  <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_two') %></h3>
-  <div class="live-arrangement">
-    <ul class="scheduling">
-      <%= f.fields_for :video_lessons do |lesson| %>
-        <%= render 'video_lesson_fields', f: lesson %>
-      <% end %>
-    </ul>
-  </div>
-  <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_three') %></h3>
-  <div class="live-cost">
-    <div class="row">
-      <div class="col-md-2">
-        <%= f.label :sell_type %>
-      </div>
-      <div class="col-md-10 charge-state">
-        <%= f.input_field :sell_type, collection: LiveStudio::VideoCourse.sell_type.options, as: :radio_buttons, boolean_style: :inline %>
-      </div>
+
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_two') %></h3>
+    <div class="live-arrangement">
+      <ul class="scheduling">
+        <%= f.fields_for :video_lessons do |lesson| %>
+          <%= render 'video_lesson_fields', f: lesson %>
+        <% end %>
+      </ul>
     </div>
-    <div class="live-charge">
+  </div>
+
+  <div class="editor-item">
+    <h3 class="file-title"><%= t('view.live_studio/video_course.workstation_new.intro_three') %></h3>
+    <div class="live-cost">
       <div class="row">
         <div class="col-md-2">
-          <%= f.label :price %>
+          <%= f.label :sell_type %>
         </div>
-        <div class="col-md-10">
-          <div class="form-group select optional divided">
-            <%= f.input_field :price %>
-            <i><%= t('currency.cn') %></i>
-            <%= f.error :price %>
+        <div class="col-md-10 charge-state">
+          <%= f.input_field :sell_type, collection: LiveStudio::VideoCourse.sell_type.options, as: :radio_buttons, boolean_style: :inline %>
+        </div>
+      </div>
+      <div class="live-charge">
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :teacher_percentage %>
+          </div>
+          <div class="col-md-10">
+            <div class="form-group select optional divided">
+              <%= f.input_field :teacher_percentage %>
+              <i>%</i>
+              <%= f.error :teacher_percentage %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :price %>
+          </div>
+          <div class="col-md-10">
+            <div class="form-group select optional divided">
+              <%= f.input_field :price %>
+              <i><%= t('currency.cn') %></i>
+              <%= f.error :price %>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-2">
-          <%= f.label :teacher_percentage %>
-        </div>
-        <div class="col-md-10">
-          <div class="form-group select optional divided">
-            <%= f.input_field :teacher_percentage %>
-            <i>%</i>
-            <%= f.error :teacher_percentage %>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="present">
-    <%= hidden_field_tag :publish %>
-    <center>
-      <%= link_to t('view.live_studio/video_course.workstation_new.preview'), 'javascript: void(0);', id: 'course_preview' %>
-      <%= link_to t('view.live_studio/video_course.workstation_new.save'), 'javascript: void(0);', id: 'course_save' %>
-      <%= link_to t('view.live_studio/video_course.workstation_new.save_and_publish'), 'javascript: void(0);', id: 'course_save_and_publish' %>
-    </center>
+
+    <div class="present">
+      <%= hidden_field_tag :publish %>
+      <center>
+        <%= link_to t('view.live_studio/video_course.workstation_new.preview'), 'javascript: void(0);', id: 'course_preview' %>
+        <%= link_to t('view.live_studio/video_course.workstation_new.save'), 'javascript: void(0);', id: 'course_save' %>
+        <%= link_to t('view.live_studio/video_course.workstation_new.save_and_publish'), 'javascript: void(0);', id: 'course_save_and_publish' %>
+      </center>
+    </div>
   </div>
 <% end -%>
 
-<%= content_for :javascript do %>
-<script>
-$(function() {
-  // 富文本编辑
-  $("#video_course_description").summernote({
-    lang: 'zh-CN',
-    height: 200,
-    toolbar: [
-      ['style', ['style']],
-      ['font', ['bold', 'italic', 'underline', 'clear']],
-      ['fontname', ['fontname']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['insert', ['picture']]
-    ],
-    placeholder: '<%= t('simple_form.placeholders.video_course.description') %>',
-    callbacks: {
-      onImageUpload: function(files, editor, welEditable) {
-        var file = files[0];
-        data = new FormData();
-        data.append("picture[token]", $("#video_course_token").val());
-        data.append("picture[name]" , file, file.name);
-        $.ajax({
-          url: '/pictures',
-          data: data,
-          dataType: 'json',
-          cache: false,
-          contentType: false,
-          processData: false,
-          type: 'POST',
-          success: function(data) {
-            var imgNode = document.createElement("img");
-            imgNode.src = data.url;
-            imgNode.style.width = "50%";
-            $("#video_course_description").summernote('insertNode', imgNode);
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      // 富文本编辑
+      $("#video_course_description").summernote({
+        lang: 'zh-CN',
+        height: 200,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'italic', 'underline', 'clear']],
+          ['fontname', ['fontname']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['insert', ['picture']]
+        ],
+        placeholder: '<%= t('simple_form.placeholders.video_course.description') %>',
+        callbacks: {
+          onImageUpload: function(files, editor, welEditable) {
+            var file = files[0];
+            data = new FormData();
+            data.append("picture[token]", $("#video_course_token").val());
+            data.append("picture[name]" , file, file.name);
+            $.ajax({
+              url: '/pictures',
+              data: data,
+              dataType: 'json',
+              cache: false,
+              contentType: false,
+              processData: false,
+              type: 'POST',
+              success: function(data) {
+                var imgNode = document.createElement("img");
+                imgNode.src = data.url;
+                imgNode.style.width = "50%";
+                $("#video_course_description").summernote('insertNode', imgNode);
+              }
+            });
           }
-        });
-      }
-    }
-  });
+        }
+      });
 
-  // 保存
-  $('#course_save').click(function(){
-    $('form').submit();
-  });
+      // 保存
+      $('#course_save').click(function(){
+        $('form').submit();
+      });
 
-  // 保存并发布
-  $("#course_save_and_publish").click(function(){
-    $('#publish').val(true);
-    $('form').submit();
-  });
+      // 保存并发布
+      $("#course_save_and_publish").click(function(){
+        $('#publish').val(true);
+        $('form').submit();
+      });
 
-  // 预览
-  $("#course_preview").click(function() {
-    var action = $(this).parents("form").attr('action');
-    $(this).parents("form").attr('action', "<%= live_studio.preview_video_courses_path(edit_id: @video_course.id) %>");
-    $(this).parents("form").attr('target', '_blank');
-    $(this).parents("form").submit();
-    $(this).parents("form").attr('action', action);
-    $(this).parents("form").removeAttr('target');
-  });
+      // 预览
+      $("#course_preview").click(function() {
+        var action = $(this).parents("form").attr('action');
+        $(this).parents("form").attr('action', "<%= live_studio.preview_video_courses_path(edit_id: @video_course.id) %>");
+        $(this).parents("form").attr('target', '_blank');
+        $(this).parents("form").submit();
+        $(this).parents("form").attr('action', action);
+        $(this).parents("form").removeAttr('target');
+      });
 
-  // 免费
-  $("#video_course_sell_type_free").click(function() {
-    $("#video_course_price").attr('disabled', true);
-    $("#video_course_teacher_percentage").attr('disabled', true);
-  });
+      var hoverset;
+      $(".create-header > .course-hint").hover(function() {
+        $(".course-description").show();
+        if(hoverset) {
+          clearTimeout(hoverset);
+        }
+      }, function() {
+        hoverset = setTimeout(function() {
+          $(".course-description").hide();
+        }, 200)
+      });
 
-  // 收费
-  $("#video_course_sell_type_charge").click(function() {
-    $("#video_course_price").attr('disabled', false);
-    $("#video_course_teacher_percentage").attr('disabled', false);
-  });
+      // 免费
+      $("#video_course_sell_type_free").click(function() {
+        $("#video_course_price").attr('disabled', true);
+        $("#video_course_teacher_percentage").attr('disabled', true);
+        $('.live-charge').addClass('hide');
+      });
 
-  <% if @video_course.sell_type.free? %>
-    $("#video_course_price").attr('disabled', true);
-    $("#video_course_teacher_percentage").attr('disabled', true);
-  <% end %>
-});
-</script>
+      // 收费
+      $("#video_course_sell_type_charge").click(function() {
+        $("#video_course_price").attr('disabled', false);
+        $("#video_course_teacher_percentage").attr('disabled', false);
+        $('.live-charge').removeClass('hide');
+      });
+
+      <% if @video_course.sell_type.free? %>
+        $("#video_course_price").attr('disabled', true);
+        $("#video_course_teacher_percentage").attr('disabled', true);
+        $('.live-charge').addClass('hide');
+      <% end %>
+    });
+  </script>
 <% end %>

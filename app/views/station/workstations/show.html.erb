@@ -49,14 +49,6 @@
 
         <ul id="teamwork-msg" class="tab-pane fade">
           <li>
-            <span><%= t('view.shared.workstations.info.join_price') %></span>
-            <span><%= number_to_currency(@workstation.join_price) %></span>
-          </li>
-          <li>
-            <span><%= t('view.shared.workstations.info.caution_money') %></span>
-            <span><%= number_to_currency(@workstation.caution_money) %></span>
-          </li>
-          <li>
             <span><%= t('view.shared.workstations.info.platform_percentage') %></span>
             <span><%= number_to_percentage(@workstation.platform_percentage, precision: 0) %></span>
           </li>

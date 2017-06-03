@@ -162,6 +162,7 @@ cn:
       workstation:
         cate/waiting_create: 待创建
         cate/has_created: 已创建
+        cate/published: 已发布
     payment_show:
       product_info: 商品详情
       order_info: 订单信息
@@ -491,7 +492,7 @@ cn:
         billing_duration: 视频总时长
         objective: 课程目标
         suit_crowd: 适合人群
-        price: 价格
+        price: 设置价格
         teacher_percentage: 教师分成
         sell_type: 类型
         total_duration: 视频总长

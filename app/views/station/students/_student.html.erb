@@ -1,23 +1,8 @@
-<div class="qa_cell">
-  <div class="row" style="padding-left: 10px">
-    <div class="col-md-1"><%=   student_counter+1  %></div>
-    <div class="col-md-2"><%=link_to student.name , student_path(student)%></div>
-    <div class="col-md-3"><%= student.email %></div>
-    <div class="col-md-2"><%= student.created_at.to_date%></div>
-    <% if allow? :students,:destroy %>
-    <div class="col-md-2">
-      <%=link_to t('students.student.delete'), student_path(student), method: :delete, 'data-confirm'=> t('students.student.delete_confirm')%>
-    </div>
-    <% end %>
-    <% if allow? :students, :admin_edit %>
-    <div class="col-md-2">
-      <%= link_to admin_edit_student_path(student), method: :get, :remote => true, id: "student_#{student.id}" do %>
-        <%= t("students.student.edit_student") %>
-      <% end %>
-    </div>
-  <% end %>
-  </div>
-</div>
-
-<div class="row" id="student_edit_<%= student.id %>" style="display: none;padding:10px 36px 10px 36px;border-bottom: 1px solid #e2e2e2">
-</div>
+<tr>
+  <td><%= show_index(student_counter, @students.limit_value) %></td>
+  <td><%= student.name %></td>
+  <td><%= student.login_mobile %></td>
+  <td><%= student.parent_phone %></td>
+  <td><%= student.grade %></td>
+  <td><%= link_to t('view.station.students.index.show'), student_path(student), target: '_blank' %></td>
+</tr>

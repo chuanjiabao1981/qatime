@@ -5,8 +5,8 @@ class ManagerWorkstationsTest < ActionDispatch::IntegrationTest
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
-    @manager = users(:manager)
-    log_in_as(@manager)
+    @manager = users(:manager_zhuji)
+    new_log_in_as(@manager)
   end
 
   def teardown
@@ -14,46 +14,41 @@ class ManagerWorkstationsTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
-  test "visit workstation fund" do
-    workstation_one = workstations(:workstation_one)
-    visit station_workstation_path(workstation_one)
+  test "visit workstation show" do
+    workstation = workstations(:workstation_zhuji)
+    visit station_workstation_path(workstation)
+    assert page.has_link?('站点信息')
     assert page.has_link?('资金信息')
+    assert page.has_link?('基本信息')
+    assert page.has_link?('合作信息')
+
+    click_on '合作信息'
+    assert page.has_content?('已交加盟费')
+    assert page.has_content?('服务费标准')
+
     click_on '资金信息'
-    assert page.has_content?('账户总金额')
-    assert page.has_content?('可提现金额')
-    assert page.has_link?('申请提现')
-  end
+    assert page.has_link? '账户金额'
+    assert page.has_link? '出账记录'
+    assert page.has_link? '入账记录'
 
-  test "visit workstation statistics" do
-    workstation_one = workstations(:workstation_one)
-    visit statistics_station_workstation_path(workstation_one)
-    assert page.has_link?('销售额统计')
-    assert page.has_link?('售出记录')
-    assert page.has_link?('退款记录')
-    assert page.has_content?('销售总额')
-    assert page.has_select?('statistics_days')
+    click_on '申请提现'
+    fill_in :withdraw_amount, with: 11
+    fill_in :withdraw_payee, with: 'test withdraw'
+    fill_in :withdraw_captcha_confirmation, with: 1234
+    click_on '提交'
+    sleep(1)
+    assert page.has_content? '申请提现额'
+    assert page.has_content? 'test withdraw'
 
-    select('近2月', from: 'statistics_days')
-
-    click_on '退款记录'
-    assert page.has_content?('退款金额')
-
-    click_on '售出记录'
-    assert page.has_content?('优惠价格')
-  end
-
-  test "visit workstation change_records" do
-    workstation_one = workstations(:workstation_one)
-    visit change_records_station_workstation_path(workstation_one)
-    assert page.has_link?('出入账记录')
-    assert page.has_link?('出账记录')
-    assert page.has_link?('入账记录')
     click_on '出账记录'
-    assert page.has_content?('支出金额')
-    assert page.has_content?('支出类型')
+    assert page.has_content? 'test withdraw'
+    click_on '查看明细', match: :first
+    assert page.has_content? '提现金额'
+    assert page.has_content? '提现前可提金额'
 
     click_on '入账记录'
     assert page.has_content?('收入金额')
     assert page.has_content?('收入类型')
   end
+
 end

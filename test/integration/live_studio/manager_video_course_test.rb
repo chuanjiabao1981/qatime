@@ -54,32 +54,34 @@ module LiveStudio
     end
 
     test "manager view video course audits" do
-      click_on "视频课"
-      click_on '视频课审核'
+      click_on "课程管理"
+      click_on '视频课'
+      assert page.has_link?('视频审核')
+      assert page.has_link?('创建发布')
       assert page.has_link?('已审核')
       assert page.has_link?('未审核')
       assert page.has_content?('课时数')
       assert page.has_content?('视频总长')
       assert page.has_content?('审核')
-      assert_equal @manager.workstations.first.live_studio_video_courses.no_audit.count + 1, page.all('.admin-list-con table tr').size
+      assert_equal @manager.workstations.first.live_studio_video_courses.no_audit.count + 1, page.all('.sold-tab table tr').size
       assert page.has_link?('播放')
       assert page.has_link?('通过')
       assert page.has_link?('驳回')
 
       click_on '已审核'
-      assert_equal @manager.workstations.first.live_studio_video_courses.audited.count + 1, page.all('.admin-list-con table tr').size
+      assert_equal @manager.workstations.first.live_studio_video_courses.audited.count + 1, page.all('.sold-tab table tr').size
       click_on '未审核'
       message = accept_prompt(with: '确定审核通过么?') do
         click_on '通过', match: :first
       end
-      assert_equal page.all('.admin-list-con table tr').size, 2
+      assert_equal 2, page.all('.sold-tab table tr').size
 
       message2 = accept_prompt(with: '确定驳回么?') do
         click_on '驳回', match: :first
       end
-      assert_equal page.all('.admin-list-con table tr').size, 1
+      assert_equal 1, page.all('.sold-tab table tr').size
       click_on '已审核'
-      assert_equal page.all('.admin-list-con table tr').size, 3
+      assert_equal 3, page.all('.sold-tab table tr').size
       assert page.has_content?('审核视频课1')
       assert page.has_content?('审核结果')
       assert page.has_content?('已通过')

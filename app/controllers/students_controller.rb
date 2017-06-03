@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    render layout: 'student_home_new'
+    render layout: 'v1/home'
   end
 
   def edit

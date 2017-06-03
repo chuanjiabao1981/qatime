@@ -545,6 +545,7 @@ module LiveStudio
     # 教师授权播放
     def others_authorize(user)
       return true if user.admin?
+      return (user.id == workstation.manager_id) if user.manager?
       return user.id == teacher_id if user.teacher?
       !user.student? && workstation_id == user.workstation_id
     end

@@ -17,7 +17,7 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,
+      allow :students,[:index,:search,:show, :edit, :update,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
@@ -27,7 +27,7 @@ module Permissions
         user.cities.include? school.city
       end
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:show,:search,:pass,:unpass,
+      allow :teachers,[:index,:show,:search,:pass,:unpass, :edit, :update,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
                        :exercises, :keep_account, :solutions,:customized_tutorial_topics,:notifications,
                        :customized_courses,:profile]
@@ -67,7 +67,7 @@ module Permissions
         manager.id == user.id
       end
       # 专属课程
-      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :withdraw, :change_records, :statistics] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :withdraw, :change_records, :statistics, :teaching_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       # 专属课程
@@ -77,6 +77,10 @@ module Permissions
       end
 
       allow 'station/students', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'station/schools', [:index, :new, :create, :edit, :update] do |workstation|
         workstation && workstation.manager_id == user.id
       end
 
@@ -146,7 +150,7 @@ module Permissions
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
       allow 'live_studio/station/course_records', [:index, :my_publish]
-      allow 'live_studio/courses', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/courses', [:index, :new, :create, :show, :preview, :play]
       allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         permission =
           case course.try(:status)

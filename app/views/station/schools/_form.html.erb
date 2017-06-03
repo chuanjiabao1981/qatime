@@ -1,0 +1,21 @@
+<div class="article">
+  <div class="work-station">
+    <div class="station-title">
+      <h3><%= School.model_name.human %></h3>
+    </div>
+
+    <div class="add-school">
+      <%= simple_form_for [:station, @workstation, @school] do |f| %>
+        <div class="form-textarea">
+          <%= f.text_area :name, placeholder: t('view.station.schools.new.placeholders.name'), maxlength: 20, rows: 3, class: 'form-control' %>
+          <%= f.error :name %>
+        </div>
+
+        <center>
+          <%= link_to t('common.cancel'), station_workstation_schools_path(@workstation) %>
+          <%= f.submit t('common.save') %>
+        </center>
+      <% end %>
+    </div>
+  </div>
+</div>

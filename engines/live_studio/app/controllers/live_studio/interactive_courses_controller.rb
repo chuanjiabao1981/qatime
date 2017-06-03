@@ -21,6 +21,7 @@ module LiveStudio
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
       10.times { @interactive_course.interactive_lessons.new }
+      render layout: 'v1/manager_home'
     end
 
     def create
@@ -30,7 +31,7 @@ module LiveStudio
         # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
-        render :new
+        render :new, layout: 'v1/manager_home'
       end
     end
 
@@ -51,6 +52,7 @@ module LiveStudio
 
     # 调课
     def update_class_date
+      render layout: 'v1/manager_home'
     end
 
     def update_lessons
@@ -60,7 +62,7 @@ module LiveStudio
         @interactive_course.ready_lessons
         redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
-        render :update_class_date
+        render :update_class_date, layout: 'v1/manager_home'
       end
     end
 

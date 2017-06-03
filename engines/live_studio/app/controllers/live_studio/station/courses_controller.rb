@@ -2,12 +2,16 @@ require_dependency "live_studio/station/application_controller"
 
 module LiveStudio
   class Station::CoursesController < Station::ApplicationController
+    layout 'v1/manager_home'
+
     skip_before_action :authorize, only: [:send_qr_code]
     before_action :find_course, only: [:send_qr_code]
 
     # 直播课管理
     def my_courses
-      @query = @workstation.live_studio_courses.ransack(params[:q])
+      @courses = @workstation.live_studio_courses
+      @courses = @courses.uncompleted if params[:hide_completed].present?
+      @query = @courses.ransack(params[:q])
       @courses = @query.result.order(id: :desc).paginate(page: params[:page])
     end
 
@@ -15,17 +19,6 @@ module LiveStudio
       @courses = LiveStudio::Course.includes(:teacher)
       @courses = @courses.where(course_search_params) if course_search_params.present?
       @courses = @courses.where("live_studio_courses.sell_and_platform_percentage > ?", @workstation.platform_percentage)
-
-      case params[:sell_percentage_range].to_s
-        when 'low'
-          @courses = @courses.where("sell_percentage <= ?", 5)
-        when 'middle'
-          @courses = @courses.where(sell_percentage: [5,10])
-        when 'high'
-          @courses = @courses.where("sell_percentage > ?", 10)
-        else
-          @courses
-      end
       @courses = @courses.where(workstation_id: params[:select_workstation_id]) if params[:select_workstation_id].present?
       @courses = @courses.where(status: LiveStudio::Course.statuses.values_at(:published, :teaching)) if params[:status].blank?
       @courses = @courses.where(status: LiveStudio::Course.statuses[params[:status].to_s]) if params[:status].present?

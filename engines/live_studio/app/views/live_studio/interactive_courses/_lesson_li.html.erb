@@ -10,11 +10,8 @@
     </div>
     <div class="col-md-10">
       <div class="col-md-12">
-        <span><%= t('view.live_studio/interactie_course.update_class_date.teacher_was') %>：</span>
-        <span><%= Teacher.find_by(id: lesson.teacher_id_was).try(:name) %></span>
-        <i class="<%= 'hide' unless lesson.teacher_id_changed? %>"><%= t('view.live_studio/interactie_course.update_class_date.edit_changed') %></i>
-        <i class="<%= 'hide' unless lesson.teacher_id_changed? %> preview_teacher_name_<%= object_id %>"><%= lesson.teacher.try(:name) %></i>
-        <%= f.error :teacher_id %>
+        <span><%= t('view.live_studio/interactie_course.update_class_date.lesson_name') %>：</span>
+        <span><%= lesson.name %></span>
       </div>
       <div class="col-md-12">
         <span><%= t('view.live_studio/interactie_course.update_class_date.class_date_was') %>：</span>
@@ -24,8 +21,11 @@
         <%= f.error :class_date %>
       </div>
       <div class="col-md-12">
-        <span><%= t('view.live_studio/interactie_course.update_class_date.lesson_name') %>：</span>
-        <span><%= lesson.name %></span>
+        <span><%= t('view.live_studio/interactie_course.update_class_date.teacher_was') %>：</span>
+        <span><%= Teacher.find_by(id: lesson.teacher_id_was).try(:name) %></span>
+        <i class="<%= 'hide' unless lesson.teacher_id_changed? %>"><%= t('view.live_studio/interactie_course.update_class_date.edit_changed') %></i>
+        <i class="<%= 'hide' unless lesson.teacher_id_changed? %> preview_teacher_name_<%= object_id %>"><%= lesson.teacher.try(:name) %></i>
+        <%= f.error :teacher_id %>
       </div>
     </div>
     <div class="col-md-1">
@@ -33,7 +33,6 @@
     </div>
   </div>
 </li>
-
 
 <div class="modal fade adjust_edit_modal" id="adjust_edit_<%= object_id %>" data-lesson-id="<%= object_id %>" data-field-index="<%= f.index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog adjust-editor">

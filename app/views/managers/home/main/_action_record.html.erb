@@ -1,0 +1,12 @@
+<% if action_record.is_a? Payment::RechargeActionRecord %>
+
+<% elsif action_record.is_a? Payment::WithdrawActionRecord %>
+
+<% else %>
+  <li>
+    <%= link_to send("#{action_record.actionable.model_name.singular_route_key}_path", action_record.actionable), target: '_blank', title: action_record.desc do %>
+      <span><%= l(action_record.created_at, format: :month_start) if action_record.created_at %></span>
+      <i>-<%= truncate_u action_record.desc, length: 20 %></i>
+    <% end %>
+  </li>
+<% end %>

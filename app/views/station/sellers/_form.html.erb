@@ -1,22 +1,57 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2><%= Seller.model_name.human %></h2>
-  </div>
-  <div class="qa_big_cell">
-    <%= simple_form_for [:station, @workstation, @seller] do |f|%>
-      <%= f.error_notification %>
+<div class="article">
+  <div class="work-station">
+    <div class="station-title">
+      <h3><%= @seller.new_record? ? t('view.station.sellers.form.new_title') : t('view.station.sellers.form.edit_title') %></h3>
+    </div>
 
-      <div class="form-inputs">
-        <%= f.input :name %>
-        <%= f.input :email %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
-        <%= f.input :login_mobile %>
-      </div>
+    <div class="add-personnel">
+      <%= simple_form_for [:station, @workstation, @seller] do |f|%>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :name, t('view.station.sellers.form.name') %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :name, label: false, input_html: { placeholder: t('view.station.sellers.form.placeholders.name') } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :login_mobile, t('view.station.sellers.form.login_mobile') %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :login_mobile, label: false, input_html: { placeholder: t('view.station.sellers.form.placeholders.login_mobile') } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :password, t('view.station.sellers.form.password') %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :password, label: false, input_html: { placeholder: t('view.station.sellers.form.placeholders.password') } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :password_confirmation, t('view.station.sellers.form.password_confirmation') %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :password_confirmation, label: false, input_html: { placeholder: t('view.station.sellers.form.placeholders.password_confirmation') } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :email, t('view.station.sellers.form.email') %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :email, label: false, input_html: { placeholder: t('view.station.sellers.form.placeholders.email') } %>
+          </div>
+        </div>
 
-      <div class="form-actions">
-        <%= f.button :submit %>
-      </div>
-    <% end %>
+        <center>
+          <%= link_to t('common.cancel'), main_app.station_workstation_sellers_path(@workstation) %>
+          <%= f.submit t('common.save') %>
+        </center>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -705,6 +705,15 @@ course_teaching2_lesson2:
   status: 1
   replay_status: 0
 
+course_teaching3_lesson1:
+  course: course_teaching3
+  name: 第1节课
+  start_time: '06:00'
+  end_time: '07:00'
+  class_date: <%= Date.today %>
+  status: 2
+  replay_status: 0
+
 course_finished_lesson1:
   course: course_finished
   name: 第一节课

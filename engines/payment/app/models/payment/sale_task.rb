@@ -64,6 +64,31 @@ module Payment
       [target_balance - result_balance, 0].max
     end
 
+    # 销售目标 已完成的百分比
+    def cal_sell_amount_percentage
+      [((result_balance / target_balance) * 100.0).to_i, 100].min
+    end
+
+    # 考核天数
+    def period_days
+      (started_at.to_date..ended_at.to_date).count
+    end
+
+    # 已考核天数
+    def passed_period_days
+      [(started_at.to_date..Date.today).count, period_days].min
+    end
+
+    # 剩余天数
+    def left_period_days
+      [(period_days - passed_period_days), 0].max
+    end
+
+    # 计算 已考核天数比例
+    def cal_passed_period_days_percentage
+      ((passed_period_days / period_days) * 100.0).to_i
+    end
+
     # 考核期总收入
     def total_income
       target.cash_account.earning_records.where(created_at: (started_at..ended_at)).sum(:amount)

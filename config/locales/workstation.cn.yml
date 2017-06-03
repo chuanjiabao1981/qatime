@@ -26,6 +26,7 @@ cn:
         tab_node:
           show_title: 站点设置
           fund_title: 资金信息
+          fund_sub_title: 账户金额
           change_records_title: 出入账记录
           statistics_title: 销售额统计
         new:
@@ -85,14 +86,85 @@ cn:
         tab_node:
           show_title: 站点信息
       students:
+        tab_node:
+          students: 学生管理
+          teachers: 老师管理
+          schools: 学校管理
         index_title: 学生列表
         placeholders:
-          name: 学生名字,昵称或者邮箱
+          name: 输入人员名称或手机号
+        index:
+          name: 姓名
+          login_mobile: 手机
+          parent_phone: 家长手机
+          grade: 年级
+          show: 详细资料
       teachers:
         index_title: 教师列表
         placeholders:
           name: 老师名字,昵称或者邮箱
-
+        index:
+          nick_name: 昵称
+          category: 类型
+          subject: 科目
+      schools:
+        placeholders:
+          name: 输入学校名称
+        index:
+          new: 新增学校
+          name: 学校名称
+        new:
+          placeholders:
+            name: 输入完成的学校名称（最多20字）
+      action_records:
+        index_title: 全部动态
+      teaching_lessons:
+        index_title: 正在上课
+      statistics:
+        index_title: 销售明细
+      lessons:
+        index_title: 课程状态
+        more: 查看公共课程页面
+        state:
+          reviewing: 审核中
+          published: 已发布
+          rejected: 被驳回
+        course_full_name: 小节
+        info: 详细
+      sellers:
+        tab:
+          seller: 销售管理
+          waiter: 客服管理
+        new_btn: 新增人员
+        name: 姓名
+        login_mobile: 手机
+        email: 邮箱
+        form:
+          new_title: 新增销售人员
+          edit_title: 编辑销售人员
+          name: 人员姓名
+          login_mobile: 手机号码
+          password: 登录密码
+          password_confirmation: 确认密码
+          email: 个人邮箱
+          placeholders:
+            name: 请输入真实姓名
+            login_mobile: 填写后可作为登录账号（仅支持大陆地区11位）
+            password: 建议密码长度6位以上
+            password_confirmation: 再输入一次
+            email: 填写后可作为登录账号使用
+        valids:
+          created: "销售创建成功!"
+          updated: "销售更新成功!"
+          destroy: "销售删除成功!"
+      waiters:
+        form:
+          new_title: 新增客服人员
+          edit_title: 编辑客服人员
+        valids:
+          created: "客服创建成功!"
+          updated: "客服更新成功!"
+          destroy: "客服删除成功!"
   error:
       workstation:
         contract_end_date_at: 合同有效日期必须大于开始日期

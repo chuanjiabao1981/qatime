@@ -18,6 +18,7 @@ cn:
         reset: 清空
         query: 查询
         all: 全部
+        show_completed: 显示已结束课程
   view:
     live_studio/courses:
       show:

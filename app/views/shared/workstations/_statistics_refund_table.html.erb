@@ -1,18 +1,18 @@
-<table border="1" cellspacing="1" cellpadding="1">
+<table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><%= t('common.index_no') %></td>
-    <td><%= t('view.shared.workstations.statistics.refund_price') %></td>
-    <td><%= t('view.shared.workstations.statistics.sale_price') %></td>
-    <td><%= t('view.shared.workstations.statistics.course_name2') %></td>
-    <td><%= t('view.shared.workstations.statistics.refund_at') %></td>
-    <td><%= t('view.shared.workstations.statistics.sale_at') %></td>
-    <td><%= t('view.shared.workstations.statistics.user_name') %></td>
-    <td><%= t('view.shared.workstations.statistics.source') %></td>
+    <th><%= t('common.index_no') %></th>
+    <th><%= t('view.shared.workstations.statistics.refund_price') %></th>
+    <th><%= t('view.shared.workstations.statistics.sale_price') %></th>
+    <th><%= t('view.shared.workstations.statistics.course_name2') %></th>
+    <th><%= t('view.shared.workstations.statistics.refund_at') %></th>
+    <th><%= t('view.shared.workstations.statistics.sale_at') %></th>
+    <th><%= t('view.shared.workstations.statistics.user_name') %></th>
+    <th><%= t('view.shared.workstations.statistics.source') %></th>
   </tr>
 
   <% @statistics.each_with_index do |refund, index| %>
     <tr>
-      <td><%= index + 1 %></td>
+      <td><%= show_index(index, @statistics.limit_value) %></td>
       <td><%= number_to_currency(refund.amount.to_f, locale: :cn) %></td>
       <td><%= number_to_currency(refund.order.try(:amount).to_f, locale: :cn) %></td>
       <td>

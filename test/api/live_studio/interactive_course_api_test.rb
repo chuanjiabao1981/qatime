@@ -63,7 +63,7 @@ class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
     end
     assert Payment::Order.last.weixin?, "支付方式记录错误"
-    assert Payment::Order.last.source.app?, "订单来源错误"
+    assert Payment::Order.last.source.student_app?, "订单来源错误"
   end
 
   # 一对一直播状态

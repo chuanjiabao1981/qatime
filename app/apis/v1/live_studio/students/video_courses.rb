@@ -76,7 +76,6 @@ module V1
                 requires :student_id, type: Integer
                 optional :page, type: Integer
                 optional :per_page, type: Integer
-                optional :sell_type, type: String, desc: '查询状态 charge: 已购; free: 免费', values: %w(charge free)
               end
               get 'video_courses/tasting_list' do
                 tickets = @student.live_studio_taste_tickets.available.where(product_type: 'LiveStudio::VideoCourse')

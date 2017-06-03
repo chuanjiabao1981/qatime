@@ -327,7 +327,7 @@ cn:
     live_studio/station:
       courses:
         course:
-          send_qr_code: 生成
+          send_qr_code: 生成二维码
       course_records:
         buy_tickets_count: 招生购买
         course:

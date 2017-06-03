@@ -3,7 +3,7 @@ cn:
     menu:
       course_requests: 招生审核
       course_invitations: 开班邀请
-      courses: 直播课列表
+      courses: 直播课
       my_courses: 发行/经销
       my_course: 直播课
       interactive_course: 一对一
@@ -11,7 +11,7 @@ cn:
       customized_course: 专属课程
       curriculums: 公共课程
       question: 问答社区
-      video_courses: 视频课列表
+      video_courses: 视频课
       my_video_courses: 发行/销售
       manage_video_courses: 课程管理
       video_course_audits: 视频审核
@@ -166,8 +166,21 @@ cn:
         suit_crowd: 请输入适合人群
         lessons: 请添加至少一节课程
         teacher_percentage: 分成比例不正确
-
-
+      index:
+        name: 直播课名称
+        teacher: 老师
+        subject: 科目
+        grade: 年级
+        published_at: 发布时间
+        sell_workstation: 发行工作站
+        price: 价格
+        base_price: 服务扣费
+        sell_percentage: 销售分成
+        platform_percentage: 平台分成
+      filter:
+        workstation: 发行站
+        grade: 年级
+        subject: 科目
     live_studio/interactie_course:
       new:
         title: 创建新课程

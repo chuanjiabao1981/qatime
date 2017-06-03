@@ -1,14 +1,12 @@
-
 <tr>
   <td><%= show_index(interactive_course_counter, @interactive_courses.limit_value) %></td>
-  <td><%= link_to interactive_course.name, interactive_course_path(interactive_course), target: '_blank' %></td>
-  <td><%= interactive_course.grade %></td>
-  <td><%= interactive_course.subject %></td>
+  <td><%= interactive_course.name %></td>
   <td><%= interactive_course.teacher_name %></td>
   <td><%= number_to_currency(interactive_course.price, locale: 'cn') %></td>
   <td><%= number_to_percentage(interactive_course.teacher_percentage, precision: 0) %></td>
   <td><%= interactive_course.status_text %></td>
-  <td>
+  <td class="handle">
+    <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_interactive_courses_path(id: interactive_course), method: :post, target: '_blank' %>
     <% if allow? 'live_studio/interactive_courses', :update_class_date, @workstation %>
       <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_interactive_course_path(interactive_course) %>
     <% end %>

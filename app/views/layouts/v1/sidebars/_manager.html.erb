@@ -18,7 +18,7 @@
       <% end %>
     <% end if allow?('station/students', 'index', @workstation) %>
 
-    <%= content_tag :li, class: "#{'active' if manager_sidebar_nav_is?(:my_courses)}" do %>
+    <%= content_tag :li, class: "#{'active' if manager_sidebar_nav_is?(:all_courses)}" do %>
       <%= link_to live_studio.my_courses_station_workstation_courses_path(@workstation) do %>
         <span><i class="icon-control"></i><em><%= t("view.common_bars.courses") %></em></span>
       <% end %>

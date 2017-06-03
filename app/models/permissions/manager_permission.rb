@@ -72,6 +72,9 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/home', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       allow 'station/teachers', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
@@ -120,6 +123,16 @@ module Permissions
       allow 'recommend/banner_items', [:index, :new, :create, :edit, :destroy, :update]
       allow 'recommend/choiceness_items', [:index, :new, :create, :edit, :destroy, :update, :ajax_course_select]
       allow 'recommend/items', [:new, :create]
+
+      allow 'recommend/station/banner_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'recommend/station/teacher_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       ## end   recommend permission
 
       ## begin live studio permission
@@ -188,7 +201,7 @@ module Permissions
       allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|

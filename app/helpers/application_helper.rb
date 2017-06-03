@@ -73,11 +73,11 @@ module ApplicationHelper
       when "student"
         main_app.students_home_path
       when "manager"
-        main_app.managers_home_path
+        main_app.station_workstation_home_index_path(current_user.default_workstation)
       when "waiter"
-        main_app.waiters_home_path
+        main_app.station_workstation_home_index_path(current_user.workstation_id)
       when "seller"
-        main_app.sellers_home_path
+        main_app.station_workstation_home_index_path(current_user.workstation_id)
       else
         root_path
     end
@@ -397,7 +397,7 @@ module ApplicationHelper
   def manager_sidebar_nav_is?(nav)
     case nav.to_s.to_sym
     when :home
-      r = params[:controller] == 'managers/home' && action_name == 'main'
+      r = %w[station/home station/workstations payment/station/sale_tasks].include?(params[:controller]) && %w[index statistics teaching_lessons action_records].include?(action_name)
     when :station
       r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
     when :resources
@@ -409,11 +409,12 @@ module ApplicationHelper
       interactive_course_page = (params[:controller] == 'live_studio/interactive_courses' && %w[new update_class_date].include?(action_name))
       video_courses_page = (params[:controller] == 'live_studio/station/video_courses' && %w[audits list edit].include?(action_name))
       lessons_state_page = (params[:controller] == 'station/lessons' && action_name == 'state')
-      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || lessons_state_page
+      customized_courses_page = (params[:controller] == 'station/workstations' && action_name == 'customized_courses')
+      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || lessons_state_page || customized_courses_page
     when :seller_courses
       r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
     when :webpage
-      r = %w[recommend/positions].include?(params[:controller])
+      r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items].include?(params[:controller])
     when :sellers
       r = %w[station/workstations station/sellers station/waiters].include?(params[:controller]) && %w[sellers waiters new edit].include?(action_name)
     else

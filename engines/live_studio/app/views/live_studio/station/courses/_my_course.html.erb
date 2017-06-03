@@ -6,7 +6,9 @@
   <td><%= number_to_percentage(my_course.teacher_percentage, precision: 0) %></td>
   <td><%= my_course.status_text %></td>
   <td class="handle">
-    <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_courses_path(id: my_course), method: :post, target: '_blank' %>
+    <% if allow? 'live_studio/courses', :preview %>
+      <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_courses_path(id: my_course), method: :post, target: '_blank' %>
+    <% end %>
     <% if allow? 'live_studio/courses', :update_class_date, my_course %>
       <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_course_path(my_course) %>
     <% end %>

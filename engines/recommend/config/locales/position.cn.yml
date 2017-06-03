@@ -32,8 +32,8 @@ cn:
         logo: 注意：请选择尺寸1862px*316px的图片，以便达到最佳效果
     recommend/teacher_item:
       index:
-        new_title: 新增老师推荐
-        edit_title: 修改老师推荐
+        new_title: 新增老师
+        edit_title: 修改老师
         avatar: 老师头像
         teacher_name: 老师姓名
         index: 排序
@@ -47,7 +47,18 @@ cn:
         tag_name2: 标签2
         none_tag: 无标签
       prompt:
-        target_id: 请选择课程
+        target_type: 选择课程类型
+        target_id: 选择课程
+    recommend/station:
+      banner_items:
+        tab:
+          home: 首页管理
+        tab_items:
+          choiceness_item: 精选内容
+          teacher_item: 教师推荐
+        index:
+          add: 新增
+
   enums:
     recommend:
       status:

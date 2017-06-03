@@ -49,6 +49,17 @@ module Permissions
       allow 'welcome', [:download]
 
       allow 'recommend/positions', [:index, :show]
+
+      allow 'recommend/station/banner_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      allow 'recommend/station/choiceness_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      allow 'recommend/station/teacher_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]
 
@@ -56,10 +67,14 @@ module Permissions
       allow :lessons,[:show]
 
       # 专属课程
-      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :change_records, :statistics, :teaching_lessons] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 专属课程
+
+      allow 'station/home', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
 
       allow 'station/teachers', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
@@ -69,18 +84,25 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      allow 'station/schools', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/teacher/course_invitations', [:index]
       allow 'live_studio/student/courses', [:index, :show]
 
       # 辅导班管理
-      allow 'live_studio/station/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      allow 'live_studio/station/interactive_courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 
       allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/student/students', [:schedules]
-      allow 'live_studio/courses', [:schedule_sources]
+      allow 'live_studio/courses', [:schedule_sources, :index, :show, :preview]
       # 辅导班管理
 
       # 招生请求
@@ -99,12 +121,17 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      allow 'live_studio/interactive_courses', [:index, :show, :preview]
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true
       end
 
       allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :send_qr_code, :list] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'payment/station/sale_tasks', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
     end

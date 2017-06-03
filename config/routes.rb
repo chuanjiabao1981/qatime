@@ -114,9 +114,6 @@ Qatime::Application.routes.draw do
     resources :workstations do
       member do
         get :customized_courses
-        get :schools
-        # get :teachers
-        # get :students
         get :sellers
         get :waiters
         get :action_records
@@ -128,6 +125,7 @@ Qatime::Application.routes.draw do
         post :get_billing_item
         get :teaching_lessons
       end
+      resources :schools
       resources :teachers, only: [:index]
       resources :students, only: [:index]
       resources :sellers, except: [:index]

@@ -86,13 +86,36 @@ cn:
         tab_node:
           show_title: 站点信息
       students:
+        tab_node:
+          students: 学生管理
+          teachers: 老师管理
+          schools: 学校管理
         index_title: 学生列表
         placeholders:
-          name: 学生名字,昵称或者邮箱
+          name: 输入人员名称或手机号
+        index:
+          name: 姓名
+          login_mobile: 手机
+          parent_phone: 家长手机
+          grade: 年级
+          show: 详细资料
       teachers:
         index_title: 教师列表
         placeholders:
           name: 老师名字,昵称或者邮箱
+        index:
+          nick_name: 昵称
+          category: 类型
+          subject: 科目
+      schools:
+        placeholders:
+          name: 输入学校名称
+        index:
+          new: 新增学校
+          name: 学校名称
+        new:
+          placeholders:
+            name: 输入完成的学校名称（最多20字）
       action_records:
         index_title: 全部动态
       teaching_lessons:

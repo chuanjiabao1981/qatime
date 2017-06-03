@@ -400,6 +400,14 @@ module ApplicationHelper
         r = params[:controller] == 'managers/home' && action_name == 'main'
       when :station
         r = params[:controller] == 'station/workstations' && %w[show fund change_records].include?(action_name)
+      when :resources
+        r = %w[station/students station/teachers station/schools].include?(params[:controller])
+      when :seller_courses
+        r = %w[live_studio/station/courses].include?(params[:controller])
+      when :webpage
+        r = %w[recommend/positions].include?(params[:controller])
+      when :sellers
+        r = params[:controller] == 'station/workstations' && %w[sellers].include?(action_name)
       else
         r = false
     end

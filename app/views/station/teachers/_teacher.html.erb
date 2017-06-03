@@ -1,33 +1,14 @@
-<div class="row" style="padding:10px 36px 10px 36px;border-bottom: 1px solid #e2e2e2">
-  <div class="col-md-1">
-    <%= teacher_counter + 1 %>
-  </div>
-  <div class="col-md-3">
-    <%= link_to "#{teacher.name}[昵称:#{teacher.nick_name}]" , teacher_path(teacher) %>
-  </div>
-  <div class="col-md-2">
-    <%= "#{teacher.category}#{teacher.subject}"%>
-  </div>
-  <div class="col-md-2">
-    <%= teacher.school.try(:name) %>
-  </div>
-
-  <% if allow? :teachers, :destroy %>
-    <div class="col-md-1">
-      <%=link_to t('teachers.teacher.delete'), teacher_path(teacher), method: :delete, 'data-confirm'=> t('teachers.teacher.delete_confirm')%>
-    </div>
+<tr>
+  <td><%= show_index(teacher_counter, @teachers.limit_value) %></td>
+  <td><%= teacher.name %></td>
+  <td><%= teacher.login_mobile %></td>
+  <td><%= teacher.nick_name %></td>
+  <td><%= teacher.category %></td>
+  <td><%= teacher.subject %></td>
+  <td class="handling">
+    <% if allow? :teachers, :pass %>
+      <%= render partial: '/teachers/teacher_status', locals: {teacher: teacher}%>
     <% end %>
-
-  <% if allow? :teachers,:pass %>
-    <div class="col-md-1">
-      <%= render partial: '/teachers/teacher_status',locals: {teacher: teacher}%>
-    </div>
-  <% end %>
-  <% if allow? :teachers, :admin_edit %>
-    <div class="col-md-2">
-      <%= link_to admin_edit_teacher_path(teacher), method: :get, :remote => true, id: "teacher_#{teacher.id}" do %>
-        <%= t("teachers.teacher.edit_teacher") %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+    <%= link_to t('view.station.students.index.show'), teacher_path(teacher), target: '_blank' %>
+  </td>
+</tr>

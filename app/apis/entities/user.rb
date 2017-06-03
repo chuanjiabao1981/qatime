@@ -11,5 +11,6 @@ module Entities
     end
     expose :login_mobile
     expose :email
+    expose :is_guest
   end
 end

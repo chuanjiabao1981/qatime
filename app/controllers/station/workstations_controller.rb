@@ -9,11 +9,13 @@ class Station::WorkstationsController < Station::BaseController
   # 销售
   def sellers
     @sellers = @workstation.sellers.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 客服
   def waiters
     @waiters = @workstation.waiters.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   def action_records

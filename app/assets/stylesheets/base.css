@@ -105,7 +105,7 @@ a {
 }
 .active-1 {
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: normal;
   color: #333333;
 }
 .con {
@@ -7560,7 +7560,7 @@ ul {
   margin: 0px 1px 0px 0;
   font-size: 0;
   position: relative;
-  font-weight: 400;
+  font-weight: normal;
   text-decoration: none;
   -ms-text-size-adjust: none;
   -webkit-text-size-adjust: none;
@@ -7622,7 +7622,7 @@ ul {
   overflow: hidden;
 }
 .audio_area .audio_title {
-  font-weight: 400;
+  font-weight: normal;
   font-size: 17px;
   margin-top: -2px;
   margin-bottom: -3px;
@@ -8405,7 +8405,7 @@ ul {
 }
 .new-assess .form-group label {
   color: #000;
-  font-weight: 400;
+  font-weight: normal;
 }
 .assess-status {
   background-color: limegreen;
@@ -8510,7 +8510,7 @@ ul {
 }
 .admin-transfer .form-inline .form-group label {
   margin-right: 20px;
-  font-weight: 500;
+  font-weight: normal;
 }
 .admin-transfer .form-inline .form-group select {
   width: 165px;
@@ -10500,7 +10500,7 @@ ul {
   margin-top: 10px;
 }
 .arrange-list > li label {
-  font-weight: 500;
+  font-weight: normal;
   min-width: 90px;
   line-height: 32px;
   margin-bottom: 0px;
@@ -10607,7 +10607,7 @@ ul {
   color: #999999;
 }
 .adjust-editor > .modal-content > .modal-body label {
-  font-weight: 500;
+  font-weight: normal;
   width: 90px;
   line-height: 32px;
   color: #666;
@@ -11071,7 +11071,7 @@ ul {
 }
 .add-newclass .modal-body label {
   width: 90px;
-  font-weight: 500;
+  font-weight: normal;
   color: #666666;
 }
 .add-newclass .modal-body .col-md-4 input,.add-newclass .duration select{
@@ -11247,7 +11247,7 @@ ul {
   overflow: hidden;
 }
 .recorded-con .recorded-box label {
-  font-weight: 500 !important;
+  font-weight: normal !important;
 }
 .recorded-con .recorded-box  .row {
   padding: 0 80px 0px 80px;
@@ -12715,7 +12715,7 @@ ul {
 }
 /*学生信息编辑*/
 .contains > .user-edit form > ul label {
-  font-weight: 500;
+  font-weight: normal;
   line-height: 34px;
 }
 .contains > .user-edit form > ul textarea {
@@ -12976,7 +12976,7 @@ ul {
   padding-top: 28px;
 }
 .drawings > .row label {
-  font-weight: 500;
+  font-weight: normal;
   line-height: 34px;
   margin-bottom: 0px;
 }
@@ -13229,7 +13229,7 @@ ul {
 }
 .modifiy  label{
   display: block;
-  font-weight: 500;
+  font-weight: normal;
   color: #666;
   line-height: 34px;
   margin-bottom: 0px;
@@ -13524,7 +13524,7 @@ ul {
   margin: 0px;
 }
 .new-prepare .row label {
-  font-weight: 500;
+  font-weight: normal;
   line-height: 34px;
   margin-bottom: 0px;
 }
@@ -14887,10 +14887,10 @@ ul {
 }
 .filter > .filter-right  .space-item {
   float: left;
-  margin-left: 25px;
+  margin-right: 25px;
 }
-.filter > .filter-right  .space-item:first-child {
-  margin-left: 0px;
+.filter > .filter-right  .space-item:last-child {
+  margin-right: 0px;
 }
 .filter > .filter-right  .space-item > select {
   width: 95px !important;

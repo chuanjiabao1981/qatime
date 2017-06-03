@@ -68,11 +68,11 @@ module LiveStudio
     test "initialize channel for course" do
       course = live_studio_courses(:course_without_channel)
       assert_difference('course.channels.count', 2, "channel 初始化失败") do
-        course.init_channel
+        course.init_channels
       end
 
       assert_no_difference('course.channels.count', "channel 重复初始化") do
-        course.init_channel
+        course.init_channels
       end
     end
 
@@ -82,7 +82,7 @@ module LiveStudio
       response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
 
-      channel = course.init_channel
+      channel = course.init_channels
 
       streams1 = channel.push_streams.first
       streams2 = channel.pull_streams.first
@@ -100,7 +100,7 @@ module LiveStudio
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
       Typhoeus.stub('https://vcloud.163.com/app/channel/setAlwaysRecord').and_return(response_record)
 
-      channel = course.init_channel
+      channel = course.init_channels
       assert_equal true, channel.set_always_recorded, '频道未设置录制功能'
     end
 
@@ -111,7 +111,7 @@ module LiveStudio
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
 
-      channel = course.init_channel
+      channel = course.init_channels
       response = Typhoeus::Response.new(code: 200, body: @delete_response_body)
       Typhoeus.stub('https://vcloud.163.com/app/channel/delete').and_return(response)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)

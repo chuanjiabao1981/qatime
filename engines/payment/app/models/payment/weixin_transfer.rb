@@ -7,7 +7,7 @@ module Payment
       # 可能会有并发问题
       WxPay.set_apiclient_by_pkcs12(*WechatSetting[:app_cert])
       return fail! if Rails.env.test?
-      r = WxPay::Service.invoke_transfer(transfer_remote_params)
+      r = WxPay::Service.invoke_transfer(transfer_remote_params, weixin_options)
       self.hold_results = JSON.parse(r.to_json)
       self.hold_remotes = transfer_remote_params
       r['return_code'] == RESULT_SUCCESS && r['result_code'] == RESULT_SUCCESS ? pay! : fail!
@@ -28,8 +28,11 @@ module Payment
     end
 
     def pay_money
-      money = super
-      (money * 100).to_i
+      (amount * 100).to_i
+    end
+
+    def weixin_options
+      WechatSettings.pay.send(order.source.to_sym)
     end
   end
 end

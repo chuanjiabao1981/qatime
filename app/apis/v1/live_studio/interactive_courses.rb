@@ -29,6 +29,28 @@ module V1
             present interactive_courses, with: Entities::LiveStudio::SearchInteractiveCourse
           end
 
+          desc '新一对一详情' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/detail' do
+            interactive_course = ::LiveStudio::InteractiveCourse.find(params[:id])
+            ticket = interactive_course.tickets.available.find_by(student: current_user) if current_user
+            if current_user && current_user.teacher?
+              present interactive_course, root: :interactive_course, with: Entities::LiveStudio::InteractiveCourseLive, type: :full
+            elsif ticket
+              present interactive_course, root: :interactive_course, with: Entities::LiveStudio::InteractiveCoursePlay, type: :full
+            else
+              present interactive_course, root: :interactive_course, with: Entities::LiveStudio::InteractiveCourseDetail, type: :full
+            end
+            present ticket, root: :ticket, with: Entities::LiveStudio::InteractiveCourseTicket, type: :full
+          end
+
           desc '一对一直播详情' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

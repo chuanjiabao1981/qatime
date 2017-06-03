@@ -28,8 +28,14 @@ board_push_stream_one:
   address: board_push_stream_address
   type: LiveStudio::PushStream
 
-board_pull_stream_one:
+board_pull_stream_one_1:
   protocol: rtmp
+  channel: board_channel
+  address: board_pull_stream_address
+  type: LiveStudio::PullStream
+
+board_pull_stream_one_2:
+  protocol: http
   channel: board_channel
   address: board_pull_stream_address
   type: LiveStudio::PullStream
@@ -40,8 +46,14 @@ camera_push_stream_one:
   address: camera_push_stream_address
   type: LiveStudio::PushStream
 
-camera_pull_stream_one:
+camera_pull_stream_one_1:
   protocol: rtmp
+  channel: camera_channel
+  address: camera_pull_stream_address
+  type: LiveStudio::PullStream
+
+camera_pull_stream_one_2:
+  protocol: http
   channel: camera_channel
   address: camera_pull_stream_address
   type: LiveStudio::PullStream

@@ -1,13 +1,14 @@
-<tr>
-  <td><%=lesson_counter+1%></td>
-  <td>
-    <%= link_to lesson.name ,course_path(lesson.course, lesson_id:lesson.id)%>
-  </td>
-  <td>
-    <%= course_full_name(lesson.course) %>
-  </td>
-  <td>
-    <%= lesson.teacher.name %>
-  </td>
-
-</tr>
+<li>
+  <div class="row">
+    <div class="col-md-1">
+      <span><%= show_index(lesson_counter, @lessons.limit_value) %></span>
+    </div>
+    <div class="col-md-10 description-course">
+      <h4><%= lesson.name %></h4>
+      <p><%= t('view.station.lessons.course_full_name') %>：<%= course_full_name(lesson.course) %></p>
+    </div>
+    <div class="col-md-1">
+      <%= link_to t('view.station.lessons.info'), main_app.course_path(lesson.course, lesson_id: lesson.id) %>
+    </div>
+  </div>
+</li>

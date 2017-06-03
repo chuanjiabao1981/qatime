@@ -1,27 +1,26 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <div class="row">
-      <div class="col-md-4">
-        <h2>
-          <%= link_to t('view.station.students.index_title'), main_app.station_workstation_students_path(@workstation) %>
-        </h2>
-      </div>
-      <div class="col-md-8" style="padding-top:20px">
-        <%= simple_form_for @query, url: main_app.station_workstation_students_path(@workstation), html: {method: :get} do |f| %>
-          <div class="row">
-            <%= f.input :name_or_email_or_nick_name_cont, placeholder: t('view.station.students.placeholders.name'), label: false, wrapper_html: { class: 'col-md-6 col-md-offset-4' } %>
-            <%= f.submit "search", wrapper_html: { class: 'col-md-2' }, class: "btn btn-default" %>
-          </div>
-        <% end %>
-      </div>
+<div class="article">
+  <div class="work-station">
+    <%= render 'station/students/tab' %>
+    <%= render 'station/students/search' %>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.station.students.index.name') %></th>
+            <th><%= t('view.station.students.index.login_mobile') %></th>
+            <th><%= t('view.station.students.index.parent_phone') %></th>
+            <th><%= t('view.station.students.index.grade') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+
+          <%= render partial: 'station/students/student', collection: @students %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @students.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @students, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     </div>
-  </div>
-
-  <div>
-    <%= render partial: 'student', collection: @students %>
-  </div>
-
-  <div class="qa_cell">
-    <%= will_paginate @students, renderer: BootstrapPagination::Rails %>
   </div>
 </div>

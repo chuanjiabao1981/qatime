@@ -1,35 +1,21 @@
-
-<div class="condition-right">
-  <%= form_tag '', method: :get do -%>
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:owner_workstation) %></span>
+<div class="filter-right">
+  <%= form_tag url, method: :get do -%>
+    <div class="space-item">
+      <%= label_tag :select_workstation_id,  "#{t('view.live_studio/course.filter.workstation')}:" %>
       <%= select_tag :select_workstation_id, options_for_select(::Workstation.pluck(:name,:id), params[:select_workstation_id]),
                      prompt: t("live_studio.course.menu.all"),
                      class: 'immediately' %>
     </div>
-
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
-      <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all"),
-                     class: 'immediately' %>
-    </div>
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+    <div class="space-item">
+      <%= label_tag :grade,  "#{t('view.live_studio/course.filter.grade')}:" %>
       <%= select_tag :grade, options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]),
                      prompt: t("live_studio.course_request.menu.all"),
                      class: 'immediately' %>
     </div>
-
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:status) %></span>
-      <%= select_tag :status, options_for_select(LiveStudio::Course.status.options.select{|item| %w(published teaching).include?(item.last) }, params[:status]),
-                     prompt: t("live_studio.course.menu.all"),
+    <div class="space-item">
+      <%= label_tag :subject,  "#{t('view.live_studio/course.filter.subject')}:" %>
+      <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all"),
                      class: 'immediately' %>
-    </div>
-
-    <div class="condition-right ml10">
-      <%= link_to t("live_studio.course.menu.reset"), live_studio.station_workstation_courses_path(@workstation) %>
-      <%#= submit_tag t("live_studio.course.menu.query") %>
     </div>
   <% end %>
 </div>

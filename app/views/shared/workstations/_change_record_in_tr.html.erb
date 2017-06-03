@@ -25,12 +25,12 @@
     <% end %>
   </td>
   <td><%= localize(change_record.created_at, format: :long) %></td>
-  <td>
-    <%= link_to get_billing_item_station_workstation_path(@workstation, change_record_id: change_record.id), class: "pointer billing_item change_record_#{change_record.id}", data: {change_record_id: change_record.id} do %>
+  <td class="operation">
+    <%= link_to get_billing_item_station_workstation_path(@workstation, change_record_id: change_record.id), class: "billing_item change_record_#{change_record.id}", data: {change_record_id: change_record.id} do %>
       <span><%= t('view.shared.workstations.change_records.show_link') %></span>
       <i class="fa fa-angle-down"></i>
     <% end %>
   </td>
 </tr>
 
-<tr class="admin-record-msg" id="change_record_tr_<%= change_record.id %>"></tr>
+<tr class="assess-msg" id="change_record_tr_<%= change_record.id %>"></tr>

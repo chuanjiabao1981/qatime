@@ -1,7 +1,7 @@
 cn:
   view:
     common_bars:
-      aqtime: 答疑时间
+      qatime: 答疑时间
       teacher_register: 教师注册
       student_register: 学生注册
       sign_out: 退出
@@ -26,6 +26,11 @@ cn:
       switch_city: 切换
       phone: 400-838-8010
       workstation_info: 工作站信息
+      resources: 资源管理
+      courses: 课程管理
+      webpage: 网页管理
+      sellers: 员工管理
+      seller_courses: 课程代销
       live_studio/interactive_course: 一对一管理
       live_studio/video_course: 视频课
       live_studio/course: 直播课
@@ -37,6 +42,7 @@ cn:
       default_grade_lesson: 年级科目/共X课
       default_teach_years: XXX年教龄
       notification: 消息中心
+      manage: 管理中心
     qa_bars:
       courses: 辅导流程
       teacher: 老师如何开课
@@ -70,6 +76,8 @@ cn:
       video_manage: 视频管理
       notification: 消息中心
       teacher_syllabuses: 备课中心
+    manager_bars:
+      home: 首页
     today_lives:
       title: 今日直播
       live_end: 直播结束

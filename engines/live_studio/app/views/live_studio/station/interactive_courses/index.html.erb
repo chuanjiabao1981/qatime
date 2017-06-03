@@ -1,35 +1,35 @@
-<div class="panel panel-default">
-  <div class="new-curriculum">
-    <div class="curriculum-enter">
-      <% if allow? 'live_studio/interactive_courses', :new %>
-        <%= link_to t('view.live_studio/interactie_course.index.new'), new_interactive_course_path %>
-      <% end %>
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
+
+    <div class="filter">
+      <%= link_to live_studio.new_interactive_course_path, class: 'filter-left' do %>
+        <%= image_tag 'addclass.png' %>
+        <%= t('view.live_studio/interactie_course.index.new') %>
+      <% end if allow? 'live_studio/interactive_courses', :new %>
+
+      <%= render 'live_studio/station/interactive_courses/search' %>
     </div>
 
-    <div class="curriculum-con">
-      <table border="1" cellspacing="1" cellpadding="1">
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
         <tbody>
-        <tr>
-          <td><%= t('common.index_no') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.name') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.grade') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.subject') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.teacher') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.price') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.teacher_percentage') %></td>
-          <td><%= t('view.live_studio/interactie_course.index.status') %></td>
-          <td><%= t('common.operate') %></td>
-        </tr>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.name') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.teacher') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.price') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.teacher_percentage') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.status') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
 
-        <%= render partial: 'interactive_course', collection: @interactive_courses %>
+          <%= render partial: 'interactive_course', collection: @interactive_courses %>
         </tbody>
       </table>
-    </div>
 
-    <center>
-      <div class="pagination-fix">
-        <%= will_paginate @interactive_courses %>
-      </div>
-    </center>
+      <%= render 'shared/blank' if @interactive_courses.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @interactive_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
   </div>
 </div>

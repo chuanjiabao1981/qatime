@@ -89,7 +89,8 @@ module LiveStudio
     validates_associated :interactive_lessons
     validate :interactive_lessons_uniq
 
-    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
+    scope :uncompleted, -> { where('live_studio_interactive_courses.status < ?', statuses[:completed]) }
+    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
     scope :finished, -> { where(status: statuses.values_at(:completed, :refunded)) }
 

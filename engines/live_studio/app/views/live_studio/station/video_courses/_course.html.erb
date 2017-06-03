@@ -1,18 +1,15 @@
 <tr>
   <td><%= show_index(course_counter, @video_courses.limit_value) %></td>
-  <td>
-    <%= link_to truncate_u(course.name, length: 9), live_studio.preview_video_course_path(course), target: '_blank' %>
-  </td>
+  <td><%= truncate_u(course.try(:name), length: 9) %></td>
   <td><%= course.teacher_name %></td>
-  <td><%= course.grade %></td>
-  <td><%= course.subject %></td>
-  <td><%= localize(course.published_at) if course.published_at %></td>
-  <td><%= course.workstation.try(:name) %></td>
   <td><%= number_to_currency(course.price, precision: 2) %></td>
   <td><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.service_price) %></td>
   <td><%= number_to_percentage(course.sell_percentage_for(@workstation), precision: 0) %></td>
   <td><%= number_to_percentage(course.platform_percentage, precision: 0) %></td>
+  <td><%= course.workstation.try(:name) %></td>
+  <td><%= l(course.published_at) if course.published_at %></td>
   <td>
-    <input type="button" name="" class="send_qa_code" value="<%= t("view.live_studio/station.courses.course.send_qr_code") %>" data-url="<%= send_qr_code_station_workstation_video_course_path(@workstation,course) %>">
+    <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_video_course_path(course), target: '_blank' %>
+    <%= link_to t("view.live_studio/station.courses.course.send_qr_code"), send_qr_code_station_workstation_course_path(@workstation,course) %>
   </td>
 </tr>

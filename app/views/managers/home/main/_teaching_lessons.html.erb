@@ -1,0 +1,15 @@
+<div class="item-home">
+  <div class="subtitle">
+    <h3><%= t('view.managers.home.teaching_lessons.title') %></h3>
+    <%= link_to teaching_lessons_station_workstation_path(@workstation) do %>
+      <%= t('view.managers.home.teaching_lessons.more') %>
+      <i class="fa fa-angle-right"></i>
+    <% end %>
+  </div>
+
+  <div class="classing">
+    <ul>
+      <%= render partial: 'managers/home/main/teaching_lesson', collection: @teaching_lessons %>
+    </ul>
+  </div>
+</div>

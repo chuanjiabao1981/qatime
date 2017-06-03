@@ -1,49 +1,53 @@
-<div class="panel panel-default">
-  <div class="admin">
-    <%= render 'live_studio/station/video_tab' -%>
-    <div>
-      <div class="admin-list distribution">
-      	<%= render 'list_filter' -%>
-        <div class="admin-list-con">
-          <table class="table" border="1" cellspacing="1" cellpadding="1">
-            <tbody>
-              <tr>
-            		<td><%= LiveStudio::VideoCourse.human_attribute_name(:index) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:name) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:teacher_name) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:subject) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:video_lessons_count) %></td>
-                <td>
-                  <%= LiveStudio::VideoCourse.human_attribute_name(:published_at) if params[:cate] == 'has_created' -%>
-                  <%= LiveStudio::VideoCourse.human_attribute_name(:confirmed_at) unless params[:cate] == 'has_created' %>
-                </td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:total_duration) %></td>
-                <td><%= LiveStudio::VideoCourse.human_attribute_name(:operation) %></td>
-              </tr>
-              <% @video_courses.each_with_index do |video_course, index| -%>
-                <tr>
-                  <td><%= index + 1 %></td>
-                  <td>
-                    <%= video_course.name %>
-                  </td>
-                  <td><%= video_course.teacher.try(:name) %></td>
-                  <td><%= video_course.grade %></td>
-                  <td><%= video_course.subject %></td>
-                  <td><%= video_course.video_lessons_count %></td>
-                  <td>
-                    <%= localize(video_course.confirmed_at) if params[:cate] != 'has_created' && video_course.confirmed_at %>
-                    <%= localize(video_course.published_at) if params[:cate] == 'has_created' && video_course.published_at %>
-                  </td>
-                  <td><%= format_duration video_course.total_duration %></td>
-                  <td><%= render 'operation', video_course: video_course %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <center><div class="pagination-fix"><%= will_paginate @video_courses %></div></center>
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
+    <%= render 'live_studio/station/video_courses/tab' %>
+
+    <div class="filter">
+      <div class="filter-left">
+        <%= link_to t("view.video_course_filter.workstation.cate/waiting_create"),
+                    live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'confirmed'),
+                    class: "#{'active' if params[:cate] == 'confirmed' }" %>
+        <%= link_to t("view.video_course_filter.workstation.cate/has_created"),
+                    live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'completed'),
+                    class: "#{'active' if params[:cate] == 'completed' }" %>
+        <%= link_to t("view.video_course_filter.workstation.cate/published"),
+                    live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'published'),
+                    class: "#{'active' if params[:cate] == 'published' }" %>
       </div>
+      <%= render partial: 'audits_filter', locals: { url: live_studio.list_station_workstation_video_courses_path(@workstation, cate: params[:cate]) } %>
+    </div>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.live_studio/video_course.index.name') %></th>
+            <th><%= t('view.live_studio/video_course.index.teacher') %></th>
+            <th><%= t('view.live_studio/video_course.index.grade') %></th>
+            <th><%= t('view.live_studio/video_course.index.subject') %></th>
+            <% if params[:cate] == 'confirmed' %>
+              <th><%= t('view.live_studio/video_course.audits.lesson_count') %></th>
+              <th><%= t('view.live_studio/video_course.audits.total_duration') %></th>
+            <% else %>
+              <th><%= t('view.live_studio/video_course.list.price') %></th>
+              <th><%= t('view.live_studio/video_course.list.teacher_percentage') %></th>
+            <% end %>
+            <th>
+              <%= t('view.live_studio/video_course.list.confirmed_at') if params[:cate] == 'confirmed' %>
+              <%= t('view.live_studio/video_course.list.completed_at') if params[:cate] == 'completed' %>
+              <%= t('view.live_studio/video_course.list.published_at') if params[:cate] == 'published' %>
+            </th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+
+          <%= render partial: 'list_course', collection: @video_courses %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @video_courses.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @video_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     </div>
   </div>
 </div>

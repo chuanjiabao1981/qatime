@@ -26,6 +26,7 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require fancybox
+//= require echarts.common.min
 //= require edit_common
 //= require editable/bootstrap-editable
 //= require editable/rails
@@ -39,6 +40,8 @@
 //= require v1/home
 //= require util
 //= require qa_files
+//= require select2
+//= require select2_locale_zh-CN
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

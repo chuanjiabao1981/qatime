@@ -8,6 +8,7 @@
     avatar: "头像"
     save: "保存"
     submit: "提交"
+    back: '返回'
     saving: "正在保存"
     submitting: "正在提交"
     operate: "操作"

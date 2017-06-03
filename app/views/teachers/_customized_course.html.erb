@@ -2,8 +2,8 @@
   <div class="row proprietary-course">
     <div class="col-md-4">
       <%= link_to customized_course_path(customized_course) do %>
-        <%= image_tag @teacher.avatar_url(:small), class: 'handle_error_avatar' %>
-        <span><%= @teacher.view_name %></span>
+        <%= image_tag customized_course.student.avatar_url(:small), class: 'handle_error_avatar' %>
+        <span><%= customized_course.student.name %></span>
       <% end %>
     </div>
     <div class="col-md-8">

@@ -2,6 +2,8 @@
   <td><%= show_index(school_counter, @schools.limit_value) %></td>
   <td><%= school.name %></td>
   <td>
-    <%= link_to t('common.editor_toolbar_edit'), edit_station_workstation_school_path(@workstation, school) %>
+    <% if allow? 'station/schools', :edit, @workstation %>
+      <%= link_to t('common.editor_toolbar_edit'), edit_station_workstation_school_path(@workstation, school) %>
+    <% end %>
   </td>
 </tr>

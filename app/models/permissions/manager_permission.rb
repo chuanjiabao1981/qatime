@@ -198,7 +198,7 @@ module Permissions
       allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|

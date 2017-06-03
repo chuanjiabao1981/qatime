@@ -4,6 +4,7 @@ class Station::WorkstationsController < Station::BaseController
 
   def customized_courses
     @customized_courses = @workstation.customized_courses.order(:created_at).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 销售

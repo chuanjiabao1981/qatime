@@ -165,6 +165,16 @@ cn:
           created: "客服创建成功!"
           updated: "客服更新成功!"
           destroy: "客服删除成功!"
+      customized_courses:
+        index:
+          name: 专属课程
+          teacher: 讲师
+          is_keep_account: 是否计费
+          student: 学生
+          customized_tutorial: 课程
+          homework: 家庭作业
+          timeout_to_solve_homeworks: 超过3天未写的家庭作业数量
+          topics: 答疑专区
   error:
       workstation:
         contract_end_date_at: 合同有效日期必须大于开始日期

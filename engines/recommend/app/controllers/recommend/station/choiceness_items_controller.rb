@@ -51,7 +51,7 @@ module Recommend
 
       @choiceness_item = nil unless @choiceness_item.try(:target_type) == params[:target_type]
       @course_model = ChoicenessItem.target_type.find_value(params[:target_type]).try(:value).camelize.constantize rescue ::LiveStudio::Course
-      @courses_options = @course_model.where(workstation_id: @workstation.city_id).pluck(:name, :id)
+      @courses_options = @course_model.where(workstation_id: @workstation.id).pluck(:name, :id)
     end
 
     private

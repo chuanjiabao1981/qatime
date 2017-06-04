@@ -197,6 +197,11 @@ class ActiveSupport::TestCase
     @res = JSON.parse(response.body)
     assert_equal 1, @res['status'], "响应错误 #{@res}"
   end
+
+  def stub_chat_account
+    account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: SecureRandom.hex(16), token: SecureRandom.hex(16) } }.to_json)
+    Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
+  end
 end
 
 def random_str

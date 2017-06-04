@@ -23,7 +23,8 @@ class ManagerWorkstationsTest < ActionDispatch::IntegrationTest
     assert page.has_link?('合作信息')
 
     click_on '合作信息'
-    assert page.has_content?('已交加盟费')
+    assert page.has_content?('平台分成比')
+    assert page.has_content?('发行分成比')
     assert page.has_content?('服务费标准')
 
     click_on '资金信息'
@@ -32,6 +33,7 @@ class ManagerWorkstationsTest < ActionDispatch::IntegrationTest
     assert page.has_link? '入账记录'
 
     click_on '申请提现'
+    click_on '获取校验码'
     fill_in :withdraw_amount, with: 11
     fill_in :withdraw_payee, with: 'test withdraw'
     fill_in :withdraw_captcha_confirmation, with: 1234

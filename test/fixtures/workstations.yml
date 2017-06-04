@@ -1,4 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+workstation1:
+  name: MyString
+  city: yangquan
+  address: MyString
+  tel: 1
+  email: MyString
+  manager: manager
+  platform_percentage: 10
+  contract_start_date_at: <%= 1.days.ago %>
+  contract_end_date_at: <%= 1.days.ago + 12.days %>
 workstation_one:
   name: 第一个工作站
   city: chaoyang
@@ -12,17 +22,6 @@ workstation_one:
   caution_money: 5000
   platform_percentage: 8
   service_price: 4
-  contract_start_date_at: <%= 1.days.ago %>
-  contract_end_date_at: <%= 1.days.ago + 12.days %>
-
-workstation1:
-  name: MyString
-  city: yangquan
-  address: MyString
-  tel: 1
-  email: MyString
-  manager: manager
-  platform_percentage: 10
   contract_start_date_at: <%= 1.days.ago %>
   contract_end_date_at: <%= 1.days.ago + 12.days %>
 

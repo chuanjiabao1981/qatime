@@ -45,7 +45,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   end
 
   test 'Admin edit student' do
-    new_log_in_as(@admin)
+    log_in_as(@admin)
 
     student = users(:admin_edit_student)
     click_on '学生'
@@ -80,10 +80,9 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   end
 
   test 'Manager edit teacher' do
-    log_in_as(@manager)
-
-    # teacher = users(:admin_edit_teacher)
-    click_on '教师'
+    new_log_in_as(@manager)
+    click_on '资源管理'
+    click_on '老师管理'
     assert !has_content?('修改安全信息'), 'manager没有修改教师信息权限'
     # while !page.has_css?("#teacher_#{teacher.id}") do
     #   click_on "下一页"
@@ -107,13 +106,15 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     # assert_equal("edit_test_teacher2@teacher.com", teacher.email, '更新邮箱错误')
     # assert_equal("13892940001", teacher.login_mobile, '更新手机号错误')
 
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'Manager edit student' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     #student = users(:admin_edit_student)
-    click_on '学生'
+
+    click_on '资源管理'
+    click_on '学生管理'
     assert !has_content?('修改安全信息'), 'manager没有修改学生信息权限'
 
     # while !page.has_css?("#student_#{student.id}") do
@@ -142,13 +143,14 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     # assert_equal("13892940002", student.login_mobile, '更新手机号错误')
     # assert_equal("13892940003", student.parent_phone, '更新家长手机错误')
 
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager can billing' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     teacher = users(:teacher_two)
-    click_on '教师'
+    click_on '资源管理'
+    click_on '老师管理'
     click_link teacher.name
     click_link '财产管理'
     assert page.has_link?('结账')
@@ -157,67 +159,72 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
       click_on '结账', match: :first
     end
     assert page.has_content?('结账进行中')
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager cant modify teacher info' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     teacher = users(:teacher_two)
-    click_on '教师'
+    click_on '资源管理'
+    click_on '老师管理'
     assert_not page.has_content?('增加讲师')
     assert_not page.has_content?('修改安全信息')
     visit new_teacher_path
     assert page.has_content?('您没有权限进行这个操作!')
     visit admin_edit_teacher_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager cant modify course_library' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     teacher = users(:teacher_two)
-    click_on '教师'
+    click_on '资源管理'
+    click_on '老师管理'
     click_link teacher.name
     click_link '备课中心'
     assert page.has_content?('您没有权限进行这个操作!')
     visit course_library.teacher_syllabuses_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager cant read not belong himself teacher customized_courses' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
+    click_on '资源管理'
     teacher = users(:teacher2)
-    click_on '教师'
+    click_on '老师管理'
     click_link teacher.name
     click_on '专属课程'
     customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
     assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
     assert page.has_content?(customized_course.student.name)
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager cant read other workstation customized_courses' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     customized_course = customized_courses(:customized_course_other_workstation)
     visit customized_course_path(customized_course)
     assert page.has_content?('您没有权限进行这个操作!')
     assert_not_includes @manager.customized_courses, customized_course
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager only read self-customized_courses list' do
     @manager1 = users(:customized_courses_manager)
-    log_in_as(@manager1)
+    new_log_in_as(@manager1)
+    click_on '课程管理'
     click_on '专属课程'
     assert_equal all('a', text: '高中-数学').count, 2, '只能看见两个专属课程'
-    logout_as(@manager1)
+    new_logout_as(@manager1)
   end
 
   test 'manager cant read not belong himself student customized_courses' do
-    log_in_as(@manager)
+    new_log_in_as(@manager)
     student = users(:student1)
-    click_on '学生'
+    click_on '资源管理'
+    click_on '学生管理'
     click_link student.name, match: :first
     click_on '专属课程'
     customized_course = student.customized_courses.where(workstation: @manager.workstations).first
@@ -225,17 +232,18 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     assert page.has_content?(customized_course.student.name)
     visit new_student_path
     assert page.has_content?('您没有权限进行这个操作!')
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 
   test 'manager manage school' do
-    log_in_as(@manager)
-    click_on '学校'
+    new_log_in_as(@manager)
+    click_on '资源管理'
+    click_on '学校管理'
     school = schools(:school4)
     assert_not_equal school.city, @manager.city
     assert_not page.has_content?(school.name)
     visit edit_school_path(school)
     assert page.has_content?('您没有权限进行这个操作!')
-    logout_as(@manager)
+    new_logout_as(@manager)
   end
 end

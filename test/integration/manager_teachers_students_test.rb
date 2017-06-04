@@ -41,11 +41,10 @@ class ManagerTeachersStudentsTest < ActionDispatch::IntegrationTest
     click_on '资源管理'
     click_on '学校管理'
     assert page.has_content? '阳泉二中'
-    assert_equal @manager.schools.count, all('.sold-tab tr').size - 1, '工作站城市下的学校未区分'
+    assert_equal @manager.workstations.first.city.schools.count, all('.sold-tab tr').size - 1, '工作站城市下的学校未区分'
     click_on '新增学校'
     fill_in :school_name, with: '北京幼儿园'
     click_on '保存'
     assert page.has_content? '北京幼儿园'
   end
-
 end

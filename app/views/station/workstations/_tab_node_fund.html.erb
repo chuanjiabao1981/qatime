@@ -1,0 +1,9 @@
+<div class="station-link">
+  <% if allow? 'station/workstations', :fund, @workstation %>
+    <%= link_to t('view.admins.workstations.tab_node.fund_sub_title'), main_app.fund_station_workstation_path(@workstation), class: "#{'active' if 'station/workstations' == params[:controller] && action_name == 'fund'}"  %>
+  <% end %>
+  <% if allow? 'station/workstations', :change_records, @workstation %>
+    <%= link_to t('view.shared.workstations.change_records.out_record'), main_app.change_records_station_workstation_path(@workstation, from: 'out'), class: "#{'active' if params[:from] == 'out'}" %>
+    <%= link_to t('view.shared.workstations.change_records.in_record'), main_app.change_records_station_workstation_path(@workstation, from: 'in'), class: "#{'active' if params[:from] == 'in'}" %>
+  <% end %>
+</div>

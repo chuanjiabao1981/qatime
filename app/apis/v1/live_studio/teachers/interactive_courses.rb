@@ -1,5 +1,4 @@
 module V1
-  # 辅导班接口
   module LiveStudio
     module Teachers
       class InteractiveCourses < V1::Base
@@ -23,9 +22,13 @@ module V1
               end
               params do
                 requires :teacher_id, type: Integer
+                optional :page, type: Integer
+                optional :per_page, type: Integer
+                optional :status, type: String, desc: '状态 init: 初始化; published: 招生中; teaching: 已开课; completed: 已结束; refunded: 已结束 退款; finished: 已结束(包含退款[completed&refunded])', values: %w(init published teaching completed refunded finished)
               end
               get 'interactive_courses' do
-                interactive_courses = @teacher.live_studio_interactive_courses
+                course_data = LiveService::TeacherInteractiveCourseDirector.new(@teacher)
+                interactive_courses = course_data.interactive_courses(params).order(id: :desc).paginate(page: params[:page], per_page: params[:per_page])
                 present interactive_courses, with: Entities::LiveStudio::InteractiveCourse
               end
             end

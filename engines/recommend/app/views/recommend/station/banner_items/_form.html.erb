@@ -1,0 +1,76 @@
+<div class="row upload-banner">
+  <div class="col-md-2">
+    <%= f.label :logo %>
+  </div>
+  <div class="col-md-10">
+    <div class="file-banner">
+      <img src="<%= f.object.logo_url unless f.object.new_record? %>">
+    </div>
+    <div class="file-info">
+      <span class="prompt"><%= t('view.recommend/banner_item.hints.logo') %></span>
+      <span class="btn-file">
+        <%= f.file_field :logo %>
+        <a onclick="$('input[id=banner_item_logo]').click();"><%= t('view.recommend/banner_item.hints.btn') %></a>
+      </span>
+    </div>
+    <%= f.error :logo %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :index %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.number_field :index, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.index') %>
+    </div>
+    <%= f.error :index %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :title %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.text_field :title, class: 'form-control', maxlength: 30, placeholder: t('view.recommend/banner_item.placeholders.title') %>
+    </div>
+    <%= f.error :title %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :link, class: 'no-required' %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.text_field :link, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.link') %>
+    </div>
+    <%= f.error :link %>
+  </div>
+</div>
+<center><%= f.submit t('common.save') %></center>
+
+<script type="text/javascript">
+  function getObjectURL(file) {
+    var url = null;
+    if(window.createObjectURL != undefined) {
+      url = window.createObjectURL(file);
+    } else if(window.URL != undefined) {
+      url = window.URL.createObjectURL(file);
+    } else if(window.webkitURL != undefined) {
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  }
+  //触发事件
+  $('input[id=banner_item_logo]').change(function() {
+    var objUrl = getObjectURL(this.files[0]);
+    if(objUrl) {
+      $(".file-banner img").attr("src", objUrl);
+    }
+  });
+</script>

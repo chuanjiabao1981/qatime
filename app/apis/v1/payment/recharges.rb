@@ -43,7 +43,8 @@ module V1
               requires :pay_type, type: String, values: ::Payment::Recharge.pay_type.values, desc: '支付方式'
             end
             post 'recharges' do
-              recharge = @user.payment_recharges.new(amount: params[:amount], pay_type: params[:pay_type], remote_ip: client_ip, source: :app)
+              recharge = @user.payment_recharges.new(amount: params[:amount], pay_type: params[:pay_type],
+                                                     remote_ip: client_ip, source: :student_app)
               raise ActiveRecord::RecordInvalid, recharge unless recharge.save
               present recharge, with: Entities::Payment::Recharge
             end

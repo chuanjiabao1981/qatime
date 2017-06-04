@@ -1,0 +1,19 @@
+<div class="admin-title">
+  <div class="admin-title-left">
+    <% if allow? 'station/workstations', :show, @workstation %>
+      <%= link_to t('view.station.workstations.tab_node.show_title'), main_app.station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller] && action_name == 'show'}"  %>
+    <% end %>
+    <% if allow? 'station/workstations', :fund, @workstation %>
+      <%= link_to t('view.admins.workstations.tab_node.fund_title'), main_app.fund_station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller] && action_name == 'fund'}"  %>
+    <% end %>
+    <% if allow? 'station/workstations', :change_records, @workstation %>
+      <%= link_to t('view.admins.workstations.tab_node.change_records_title'), main_app.change_records_station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller] && action_name == 'change_records'}"  %>
+    <% end %>
+    <% if allow? 'station/workstations', :statistics, @workstation %>
+      <%= link_to t('view.admins.workstations.tab_node.statistics_title'), main_app.statistics_station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller] && action_name == 'statistics'}"  %>
+    <% end %>
+    <%= link_to Payment::SaleTask.model_name.human,
+                payment.station_workstation_sale_tasks_path(@workstation),
+                class: "#{'active-admin' if 'payment/station/sale_tasks' == params[:controller]}" if allow?('payment/station/sale_tasks', 'index', @workstation) -%>
+  </div>
+</div>

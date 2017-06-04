@@ -1,0 +1,32 @@
+<% course = teaching_lesson.course %>
+<li>
+  <ul>
+    <li>
+      <h5><%= teaching_lesson.name %></h5>
+    </li>
+    <li>
+      <p>
+        <i><%= t('view.managers.home.teaching_lessons.course_name') %>:</i>
+        <i><%= course.name %></i>
+      </p>
+    </li>
+    <li>
+      <p class="classing-info">
+        <em>
+          <span><%= course.model_name.human %></span>
+          <span><%= course.grade %><%= course.subject %></span>
+          <span><i><%= t('common.teacher') %>：</i><%= course.teacher_name %></span>
+          <span><i><%= t('common.student') %>：</i><%= course.buy_user_count %></span>
+        </em>
+        <em class="classing-enter">
+          <span><i><%= t('view.managers.home.teaching_lessons.start_at') %>：</i><%= l(teaching_lesson.start_at, format: :month_start) if teaching_lesson.start_at %></span>
+          <% if course.is_a?(LiveStudio::Course) %>
+            <%= link_to t('view.managers.home.teaching_lessons.play'), live_studio.play_course_path(course), target: '_blank' %>
+          <% else %>
+            <%= link_to t('view.managers.home.teaching_lessons.play'), 'javascript:void(0);' %>
+          <% end %>
+        </em>
+      </p>
+    </li>
+  </ul>
+</li>

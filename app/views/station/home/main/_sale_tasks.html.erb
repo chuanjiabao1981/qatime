@@ -1,0 +1,40 @@
+<div class="item-home">
+  <div class="subtitle">
+    <h3><%= t('view.managers.home.sale_tasks.title') %></h3>
+    <%= link_to payment.station_workstation_sale_tasks_path(@workstation) do %>
+      <%= t('view.managers.home.sale_tasks.more') %>
+      <i class="fa fa-angle-right"></i>
+    <% end %>
+  </div>
+
+  <div class="plan">
+    <ul>
+      <% @waiting_tasks.each_with_index do |task, index| -%>
+        <li>
+          <h6><%= t('view.managers.home.sale_tasks.period') %>：</h6>
+          <p class="cut-off"><%= t('view.managers.home.sale_tasks.ended_at') %><%= l(task.ended_at.to_date) if task.ended_at.to_date %></p>
+          <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.cal_passed_period_days_percentage %>%;">
+            </div>
+          </div>
+          <p class="time-remaining">
+            <span><%= number_to_percentage(task.cal_passed_period_days_percentage, precision: 0) %></span>
+            <span class="remaining-day"><%= t('view.managers.home.sale_tasks.left_ended_at', count: task.left_period_days) %></span>
+          </p>
+        </li>
+        <li>
+          <h6><%= t('view.managers.home.sale_tasks.target_balance') %>：</h6>
+          <p class="cut-off"><%= t('view.managers.home.sale_tasks.target_balance_text') %>：<%= number_to_currency(task.target_balance) %></p>
+          <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.cal_sell_amount_percentage %>%;">
+            </div>
+          </div>
+          <p class="time-remaining">
+            <span><%= number_to_percentage(task.cal_sell_amount_percentage, precision: 0) %></span>
+            <span class="remaining-day"><%= t('view.managers.home.sale_tasks.left_amount') %>：<%= number_to_currency(task.left_amount) %></span>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

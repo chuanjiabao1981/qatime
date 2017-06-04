@@ -12,7 +12,8 @@ module LiveStudio
       @workstation = @manager.workstations.sample
 
       @teacher = users(:teacher_for_billing)
-
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       log_in_as(@teacher)
     end
 

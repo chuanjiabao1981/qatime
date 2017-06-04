@@ -4,32 +4,24 @@ class Station::WorkstationsController < Station::BaseController
 
   def customized_courses
     @customized_courses = @workstation.customized_courses.order(:created_at).paginate(page: params[:page])
-  end
-
-  def schools
-    @schools = @city.schools.order(:created_at).paginate(page: params[:page])
-  end
-
-  def teachers
-    @teachers = Teacher.all.order(:created_at).paginate(page: params[:page])
-  end
-
-  def students
-    @students = Student.all.order(:created_at).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 销售
   def sellers
     @sellers = @workstation.sellers.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 客服
   def waiters
     @waiters = @workstation.waiters.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   def action_records
     @action_records = @workstation.action_records.order(id: :desc).paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   def edit
@@ -50,10 +42,12 @@ class Station::WorkstationsController < Station::BaseController
   end
 
   def show
+    render layout: 'v1/manager_home'
   end
 
   def fund
     @withdraw = Payment::Withdraw.new(pay_type: :station)
+    render layout: 'v1/manager_home'
   end
 
   # 申请提现
@@ -89,6 +83,7 @@ class Station::WorkstationsController < Station::BaseController
       @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawChangeRecord', 'Payment::SaleTaskPayRecord'])
     end
     @change_records = @change_records.order('created_at desc').paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   # 1. 辅导班结账收入 business_type: Payment::BillingItem
@@ -121,6 +116,13 @@ class Station::WorkstationsController < Station::BaseController
     # @series_data = [0, 600, 300, 134, 90, 230, 200]
     @sales_total = searchable.sales_total(@order_statistics, @refund_statistics)
     @statistics = searchable.results.paginate(page: params[:page])
+    render layout: 'v1/manager_home'
+  end
+
+  def teaching_lessons
+    home_data = DataService::ManagerHomeData.new(@workstation)
+    @teaching_lessons = home_data.teaching_lessons.paginate(page: params[:page])
+    render layout: 'v1/manager_home'
   end
 
   private

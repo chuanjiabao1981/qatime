@@ -87,7 +87,8 @@ module V1
           end
           post '/:id/orders' do
             course = ::LiveStudio::VideoCourse.find(params[:id])
-            order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app, user: current_user))
+            order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip,
+                                                                   source: :student_app, user: current_user))
             if params[:coupon_code].present?
               coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
               order.amount = course.coupon_price(coupon)

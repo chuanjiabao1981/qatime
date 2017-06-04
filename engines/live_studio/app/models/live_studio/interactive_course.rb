@@ -5,6 +5,7 @@ module LiveStudio
 
     include AASM
     extend Enumerize
+    include Channelable
 
     include Qatime::Stripable
     strip_field :name, :description
@@ -72,6 +73,7 @@ module LiveStudio
     has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
 
+    has_many :tickets, as: :product # 听课证
     has_many :buy_tickets, as: :product, class_name: 'LiveStudio::BuyTicket'
     has_many :students, through: :buy_tickets
 
@@ -89,8 +91,10 @@ module LiveStudio
     validates_associated :interactive_lessons
     validate :interactive_lessons_uniq
 
-    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
+    scope :uncompleted, -> { where('live_studio_interactive_courses.status < ?', statuses[:completed]) }
+    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
+    scope :finished, -> { where(status: statuses.values_at(:completed, :refunded)) }
 
     before_create do
       self.service_price = workstation.service_price if workstation
@@ -370,5 +374,8 @@ module LiveStudio
         ::LiveStudioInteractiveCourseNotification.create(from: workstation, receiver: t, notificationable: self, action_name: :assign)
       end
     end
+
+    # 不初始化摄像头推流地址
+    def init_camera_channels; end
   end
 end

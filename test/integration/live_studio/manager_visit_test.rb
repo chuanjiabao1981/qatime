@@ -9,19 +9,20 @@ module LiveStudio
       Capybara.current_driver = :selenium_chrome
 
       @manager = users(:manager)
-      @workstation = @manager.workstations.sample
+      @workstation = @manager.workstations.first
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       new_log_in_as(@manager)
     end
 
     def teardown
-      logout_as(@manager)
+      new_logout_as(@manager)
       Capybara.use_default_driver
     end
 
     test 'visit teacher page' do
       @teacher = users(:english_teacher)
       @course = @teacher.live_studio_courses.first
-      click_on '教师'
       visit chat.finish_live_studio_course_teams_path(@course)
       visit teacher_path(@teacher)
       click_on '我的直播课'
@@ -32,7 +33,6 @@ module LiveStudio
     test 'visit student page' do
       @student = users(:student_one_with_course)
       @course = live_studio_courses(:course_preview)
-      click_on '学生'
       visit student_path(@student)
       click_on '我的直播课'
       visit live_studio.student_course_path(@student, @course)
@@ -42,46 +42,5 @@ module LiveStudio
       assert_match('测试辅导1班', page.text, '没有正确跳转到辅导班搜索页')
     end
 
-    test 'new & create seller' do
-      click_on '销售'
-      click_on '新增销售',match: :first
-      fill_in :seller_name, with: 'seller'
-      fill_in :seller_email, with: "#{('a'..'z').to_a.sample(5).join}@qatime.cn"
-      fill_in :seller_login_mobile, with: "15911534521"
-      fill_in :seller_password, with: 'password'
-      fill_in :seller_password_confirmation, with: 'password'
-      click_on '新增销售'
-      assert_match('销售创建成功', page.text, '销售创建失败')
-    end
-
-    test 'edit & update seller' do
-      @seller = users(:seller)
-      click_on '销售'
-      visit main_app.edit_station_workstation_seller_path(@seller.workstation, @seller)
-      fill_in :seller_login_mobile, with: '13121246326'
-      click_on '更新销售', match: :first
-      assert_match('销售更新成功', page.text, '销售更新失败')
-    end
-
-    test 'new & create waiter' do
-      click_on '客服'
-      click_on '新增客服', match: :first
-      fill_in :waiter_name, with: 'seller'
-      fill_in :waiter_email, with: "#{('a'..'z').to_a.sample(5).join}@qatime.cn"
-      fill_in :waiter_login_mobile, with: "15911534520"
-      fill_in :waiter_password, with: 'password'
-      fill_in :waiter_password_confirmation, with: 'password'
-      click_on '新增客服'
-      assert_match('客服创建成功', page.text, '客服创建失败')
-    end
-
-    test 'edit & update waiter' do
-      @waiter = users(:waiter)
-      click_on '客服'
-      visit main_app.edit_station_workstation_waiter_path(@waiter.workstation, @waiter)
-      fill_in :waiter_login_mobile, with: '13121246328'
-      click_on '更新客服', match: :first
-      assert_match('客服更新成功', page.text, '客服更新失败')
-    end
   end
 end

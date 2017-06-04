@@ -5,7 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation, except: [:index, :show]
-    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons]
+    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
@@ -21,6 +21,7 @@ module LiveStudio
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
       10.times { @interactive_course.interactive_lessons.new }
+      render layout: 'v1/manager_home'
     end
 
     def create
@@ -30,7 +31,7 @@ module LiveStudio
         # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
-        render :new
+        render :new, layout: 'v1/manager_home'
       end
     end
 
@@ -51,6 +52,7 @@ module LiveStudio
 
     # 调课
     def update_class_date
+      render layout: 'v1/manager_home'
     end
 
     def update_lessons
@@ -60,8 +62,19 @@ module LiveStudio
         @interactive_course.ready_lessons
         redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
-        render :update_class_date
+        render :update_class_date, layout: 'v1/manager_home'
       end
+    end
+
+    def play
+      load_play_data
+      @current_lesson = @interactive_course.current_lesson
+      @teachers = @interactive_course.teachers
+      render layout: 'v1/live'
+    end
+
+    def live_info
+      render json: LiveService::InteractiveRealtimeService.new(params[:id]).live_detail(current_user.try(:id))
     end
 
     private
@@ -116,6 +129,15 @@ module LiveStudio
       end
       course.start_at, course.end_at = class_dates.min, class_dates.max
       course
+    end
+
+    def load_play_data
+      @chat_team = @interactive_course.chat_team
+      @chat_account = current_user.try(:chat_account)
+      if @chat_account.nil?
+        @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+      end
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
     end
 
   end

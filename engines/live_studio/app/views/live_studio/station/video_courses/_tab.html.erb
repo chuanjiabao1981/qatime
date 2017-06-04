@@ -1,0 +1,8 @@
+<div class="review-link">
+  <%= link_to t("live_studio.menu.video_course_audits"),
+              live_studio.audits_station_workstation_video_courses_path(@workstation),
+              class: "#{'active' if 'live_studio/station/video_courses' == params[:controller] && 'audits' == params[:action]}" if allow?('live_studio/station/video_courses', :audits, @workstation) %>
+  <%= link_to t("live_studio.menu.video_course_list"),
+              live_studio.list_station_workstation_video_courses_path(@workstation),
+              class: "#{'active' if 'live_studio/station/video_courses' == params[:controller] && params[:action] == 'list' }" if allow?('live_studio/station/video_courses', :list, @workstation) %>
+</div>

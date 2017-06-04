@@ -24,7 +24,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
     assert_equal 30, res['data']["amount"].to_f, "充值金额不正确"
     assert_equal 'unpaid', res['data']["status"], "充值状态不正确"
     assert_equal 'alipay', res['data']["pay_type"], "支付方式不正确"
-    assert_equal 'app', res['data']["source"], "下单来源不正确"
+    assert_equal 'student_app', res['data']["source"], "下单来源不正确"
   end
 
   test 'user weixin recharge' do

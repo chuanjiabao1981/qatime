@@ -12,7 +12,7 @@ module VCloud
     end
 
     # 删除频道
-    APP_CHANNEL_DELETE_REQUIRED_PARAMS = %w(name cid type).freeze
+    APP_CHANNEL_DELETE_REQUIRED_PARAMS = %w(cid).freeze
     def self.app_channel_delete(params, options = {})
       params.stringify_keys!
       required_params!(params, APP_CHANNEL_DELETE_REQUIRED_PARAMS)

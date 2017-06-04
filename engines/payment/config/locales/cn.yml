@@ -78,7 +78,7 @@ cn:
       alipay: 支付宝转账
       bank: 银行转账
     payment/sale_task:
-      detail: 明细
+      detail: 查看明细
       hide: 收起
       create: 新增
       edit: 编辑
@@ -128,7 +128,7 @@ cn:
         refund_lesson_count: 可退课时
         notice: 提示：退款过程中你将不能进行此课程的学习！
         reason_placeholder: 请输入退款原因（最多300字）
-        reason: 请输入退款原因
+        reason: 请选择退款原因
     payment/user:
       earning_records:
         keep_account_confirm: "确定结账吗?"

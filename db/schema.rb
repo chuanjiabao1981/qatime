@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519014112) do
+ActiveRecord::Schema.define(version: 20170601063652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,8 +106,6 @@ ActiveRecord::Schema.define(version: 20170519014112) do
     t.string   "owner",                 limit: 32
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.integer  "teamable_id"
-    t.string   "teamable_type"
     t.integer  "discussable_id"
     t.string   "discussable_type"
   end
@@ -539,6 +537,8 @@ ActiveRecord::Schema.define(version: 20170519014112) do
     t.integer  "use_for",                         default: 0
     t.integer  "live_status",                     default: 0
     t.boolean  "set_always_recorded",             default: false
+    t.integer  "channelable_id"
+    t.string   "channelable_type"
   end
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
@@ -1082,7 +1082,6 @@ ActiveRecord::Schema.define(version: 20170519014112) do
     t.string   "target_type"
     t.integer  "change_type"
     t.decimal  "amount",                        precision: 16, scale: 2, default: 0.0
-    t.integer  "from_user_id"
     t.integer  "billing_item_id"
     t.integer  "business_id"
     t.string   "business_type"
@@ -1092,7 +1091,6 @@ ActiveRecord::Schema.define(version: 20170519014112) do
 
   add_index "payment_change_records", ["billing_id"], name: "index_payment_change_records_on_billing_id", using: :btree
   add_index "payment_change_records", ["cash_account_id"], name: "index_payment_change_records_on_cash_account_id", using: :btree
-  add_index "payment_change_records", ["from_user_id"], name: "index_payment_change_records_on_from_user_id", using: :btree
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
   add_index "payment_change_records", ["target_type", "target_id"], name: "index_payment_change_records_on_target_type_and_target_id", using: :btree
 
@@ -1207,7 +1205,6 @@ ActiveRecord::Schema.define(version: 20170519014112) do
     t.integer  "product_id"
     t.string   "product_type"
     t.datetime "pay_at"
-    t.integer  "wechat_user_id"
     t.integer  "coupon_id"
     t.string   "openid"
     t.integer  "owner_id"
@@ -1615,14 +1612,6 @@ ActiveRecord::Schema.define(version: 20170519014112) do
   add_index "tags", ["tag_category_id"], name: "index_tags_on_tag_category_id", using: :btree
   add_index "tags", ["tag_group_id"], name: "index_tags_on_tag_group_id", using: :btree
 
-  create_table "tags_and_categories", force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "tag_category_id"
-  end
-
-  add_index "tags_and_categories", ["tag_category_id"], name: "index_tags_and_categories_on_tag_category_id", using: :btree
-  add_index "tags_and_categories", ["tag_id"], name: "index_tags_and_categories_on_tag_id", using: :btree
-
   create_table "teaching_programs", force: :cascade do |t|
     t.string   "name"
     t.string   "category"
@@ -1725,6 +1714,7 @@ ActiveRecord::Schema.define(version: 20170519014112) do
     t.integer  "teaching_years"
     t.string   "grade_range"
     t.string   "login_mobile"
+    t.boolean  "is_guest",                                  default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

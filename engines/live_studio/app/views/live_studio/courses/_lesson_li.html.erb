@@ -10,15 +10,15 @@
     </div>
     <div class="col-md-10">
       <div class="col-md-12">
+        <span><%= t('view.live_studio/interactie_course.update_class_date.lesson_name') %>：</span>
+        <span><%= lesson.name %></span>
+      </div>
+      <div class="col-md-12 course-time">
         <span><%= t('view.live_studio/interactie_course.update_class_date.class_date_was') %>：</span>
         <span><%= lesson.class_date_was %> <%= "#{lesson.start_time_was}-#{lesson.end_time_was}" %></span>
         <i class="<%= 'hide' unless lesson.class_date_changed? %>"><%= t('view.live_studio/interactie_course.update_class_date.edit_changed') %></i>
         <i class="<%= 'hide' unless lesson.class_date_changed? %> preview_class_date_<%= object_id %>"><%= lesson.class_date %> <%= "#{lesson.start_time}-#{lesson.end_time}" %></i>
         <%= f.error :class_date %>
-      </div>
-      <div class="col-md-12">
-        <span><%= t('view.live_studio/interactie_course.update_class_date.lesson_name') %>：</span>
-        <span><%= lesson.name %></span>
       </div>
     </div>
     <div class="col-md-1">

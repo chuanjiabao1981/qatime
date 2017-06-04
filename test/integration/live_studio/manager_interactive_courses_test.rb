@@ -9,6 +9,8 @@ module LiveStudio
       Capybara.current_driver = :selenium_chrome
 
       @manager = users(:manager_zhuji)
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       log_in_as(@manager)
     end
 
@@ -18,31 +20,32 @@ module LiveStudio
     end
 
     test 'manager interactive_course index' do
-      assert page.has_link? '一对一管理'
-      click_on '一对一管理'
+      click_on '课程管理'
+      click_on '一对一'
       assert page.has_link? '创建新课程'
-      # assert_difference 'LiveStudio::InteractiveCourse.count', -1, "一对一删除失败" do
-      #   assert_difference 'LiveStudio::InteractiveLesson.count', -10, "一对一课程删除失败" do
-      #     accept_prompt(with: '确定删除?') do
-      #       click_on '删除', match: :first
-      #     end
-      #     sleep(3)
-      #   end
-      # end
+      assert page.has_content? '测试一对一诸暨'
+      assert page.has_link? '预览'
+      assert page.has_link? '调课'
+      select '高二', from: :q_grade_eq
+      select '数学', from: :q_subject_eq
+      find(:css, '#show_completed').click
     end
 
     test 'manager create interactive_course' do
       visit live_studio.new_interactive_course_path
-      assert page.has_content? '一对一课程说明'
+      assert page.has_content? '创建新课程'
+      find(:css, '.course-hint').hover
+      assert page.has_content? '2.课程总时长共计450分钟，每课45分钟，共10课时（暂不支持修改）；'
+      assert page.has_content? '三、其他设置'
       assert page.has_content? '一对一互动课程-第一课时'
       assert page.has_content? '一对一互动课程-第十课时'
 
-      fill_in :interactive_course_name, with: '一对一互动测试'
-      find('div[contenteditable]').set('test description')
       select '高一', from: 'interactive_course_grade'
       select '数学', from: 'interactive_course_subject'
+      fill_in :interactive_course_name, with: '一对一互动测试'
       fill_in :interactive_course_objective, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目'
       fill_in :interactive_course_suit_crowd, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课1'
+      find('div[contenteditable]').set('test description')
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
 
@@ -82,14 +85,12 @@ module LiveStudio
       end
       new_interactive_course = LiveStudio::InteractiveCourse.last
       assert new_interactive_course.published?, "新创建今日开课状态不正确 #{new_interactive_course.status}"
-      assert_equal new_interactive_course.lessons.first.status, 'ready', '新创建今日课程状态为变'
+      assert_equal 'ready', new_interactive_course.lessons.first.status, '新创建今日课程状态为变'
     end
 
     test 'manager interactive_course update_class_date' do
-      click_on '一对一管理'
       interactive_course_zhuji = live_studio_interactive_courses(:interactive_course_zhuji)
       visit live_studio.update_class_date_interactive_course_path(interactive_course_zhuji)
-      assert page.has_content? '调课'
       assert page.has_content? interactive_course_zhuji.name
       assert_equal 9, page.all(".adjust-list li").size, "调课只能调unstart的课程"
 
@@ -106,8 +107,8 @@ module LiveStudio
       select '09', from: 'interactive_course_interactive_lessons_attributes_1_start_time_hour'
       select '30', from: 'interactive_course_interactive_lessons_attributes_1_start_time_minute'
       click_on '保存'
-      assert page.has_content? '<修改后> teacher1'
-      assert page.has_content? "<修改后> #{lesson2.class_date.to_s} 09:30-10:15"
+      assert page.has_content? '修改后> teacher1'
+      assert page.has_content? "修改后> #{lesson2.class_date.to_s} 09:30-10:15"
       click_on '保存调课'
       assert page.has_content? '上课时间不能重复'
 

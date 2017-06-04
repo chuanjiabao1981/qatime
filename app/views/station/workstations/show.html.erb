@@ -1,11 +1,81 @@
-<div class="panel panel-default">
-  <div class="admin new-workstation">
-
+<div class="article">
+  <div class="work-station">
     <%= render 'station/workstations/tab_node' %>
     <% if allow? :workstations, :edit, @workstation %>
       <%= link_to t('view.admins.workstations.show.edit_title'), edit_station_workstation_path(@workstation), class: 'edit-site' %>
     <% end %>
 
-    <%= render partial: 'shared/workstations/info', locals: {workstation: @workstation} %>
+    <div class="station-link">
+      <a href="#basic-msg" class="active" data-toggle="tab"><%= t('view.shared.workstations.info.base_title') %></a>
+      <a href="#teamwork-msg" data-toggle="tab"><%= t('view.shared.workstations.info.second_title') %></a>
+    </div>
+
+    <div class="station-msg">
+      <div class="tab-content">
+        <ul id="basic-msg" class="tab-pane fade in active">
+          <li>
+            <span><%= t('view.shared.workstations.info.name') %></span>
+            <span><%= @workstation.name %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.coupon_code') %></span>
+            <span><%= @workstation.coupon.try(:code) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.city') %></span>
+            <span><%= @workstation.city.try(:name) %><%= t('view.shared.workstations.info.is_default') if @workstation.is_default_of_city %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.manager') %></span>
+            <span><%= @workstation.manager.try(:name) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.address') %></span>
+            <span><%= @workstation.address %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.tel') %></span>
+            <span><%= @workstation.tel %></span>
+          </li>
+          <li>
+            <span><%= Manager.human_attribute_name(:login_mobile) %>：</span>
+            <span><%= @workstation.manager.try(:login_mobile) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.qq') %></span>
+            <span><%= @workstation.qq %></span>
+          </li>
+        </ul>
+
+        <ul id="teamwork-msg" class="tab-pane fade">
+          <li>
+            <span><%= t('view.shared.workstations.info.platform_percentage') %></span>
+            <span><%= number_to_percentage(@workstation.platform_percentage, precision: 0) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.publish_percentage') %></span>
+            <span><%= number_to_percentage(@workstation.publish_percentage, precision: 0) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.service_price') %></span>
+            <span><%= t('view.shared.workstations.info.service_price_text', service_price: @workstation.service_price.to_f, video_service_price: @workstation.video_service_price.to_f) %></span>
+          </li>
+          <li>
+            <span><%= t('view.shared.workstations.info.contract_date') %></span>
+            <span><%= t('view.shared.workstations.info.contract_date_text', start: @workstation.contract_start_date_at.try(:to_date), end: @workstation.contract_end_date_at.try(:to_date)) %></span>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function () {
+      $(".station-link > a").click(function() {
+        $(this).addClass("active").siblings().removeClass("active");
+      })
+    })
+  </script>
+<% end %>

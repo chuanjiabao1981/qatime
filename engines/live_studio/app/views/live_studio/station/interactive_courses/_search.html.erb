@@ -1,0 +1,40 @@
+<div class="filter-right">
+  <%= form_for @query, url: live_studio.station_workstation_interactive_courses_path(@workstation), html: { method: :get } do |f| -%>
+    <%= hidden_field_tag :hide_completed, params[:hide_completed] %>
+
+    <div class="space-item">
+      <%= f.label :grade_eq, "#{LiveStudio::Course.human_attribute_name(:grade)}:" %>
+      <%= f.select :grade_eq, APP_CONSTANT['grades_in_menu'],
+                   { include_blank: t("live_studio.course.menu.all") },
+                   { class: 'form-control immediately' } %>
+    </div>
+    <div class="space-item">
+      <%= f.label :subject_eq, "#{LiveStudio::Course.human_attribute_name(:subject)}:" %>
+      <%= f.select :subject_eq, APP_CONSTANT['subjects'],
+                   { include_blank: t("live_studio.course.menu.all") },
+                   { class: 'form-control immediately' } %>
+    </div>
+
+    <div class="space-item">
+      <label class="checked-box">
+        <%= check_box_tag :show_completed, '1', params[:hide_completed].blank? %>
+        <%= t("live_studio.course.menu.show_completed") %>
+      </label>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('change', '#show_completed', function(e){
+        if($(this).prop('checked')){
+          $('#hide_completed').val('');
+        }else{
+          $('#hide_completed').val('1');
+        }
+        $(this).parents('form').submit();
+      });
+    });
+  </script>
+<% end %>

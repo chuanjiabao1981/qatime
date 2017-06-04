@@ -44,7 +44,7 @@ cn:
           cross_percentage: 跨站经销分成比：
           cross_percentage_hint: (经销本站所发布的内容不收入任何分成)
           service_price: 服务费标准：
-          service_price_text: "%{price}/小时"
+          service_price_text: "直播课%{service_price}元/小时；视频课%{video_service_price}元/小时"
           contract_date: 合作有效期：
           contract_date_text: "%{start} 至 %{end}"
         fund:
@@ -85,7 +85,8 @@ cn:
             payee: 格式：收款人姓名+空格+收款人账号
             captcha_confirmation: 输入收到的手机校验码
           hints:
-            captcha_confirmation: (为确保账户资金安全，仅限经理本人进行操作)
+            notice: "提醒：为确保账户资金安全，仅限经理本人进行操作"
+            captcha_confirmation: (当前绑定手机：%{phone})
         change_records:
           out_record: 出账记录
           in_record: 入账记录
@@ -109,18 +110,18 @@ cn:
           withdraw_refund_record_name: 提现申请失败
         statistics:
           order_title: 售出记录
-          refund_title: 退款记录
+          refund_title: 退售记录
           sale_price: 销售价格
-          course_price: 辅导班原价
+          course_price: 原价
           coupon_price: 优惠价格
-          course_name: 销售内容（辅导班名称）
+          course_name: 销售内容（课程名称）
           sale_at: 销售时间
           user_name: 购买人
           source: 销售途径
           cross: 跨站销售
           sale_increment: 销售收入增加
           refund_price: 退款金额
-          course_name2: 退款内容（辅导班名称）
+          course_name2: 退款内容（课程名称）
           refund_at: 退款时间
           sale_decrement: 销售收入减少
           pic_title: 销售额曲线

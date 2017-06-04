@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default navbar-fixed-top nav-manager">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to main_app.home_path, class: 'navbar-brand' do %>
+        <%= image_tag 'mananger-logo.png' %>
+      <% end %>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="switchcity">
+          <span><%= current_user.try(:role).try(:capitalize) %></span>
+          <a href="<%= main_app.station_workstation_home_index_path(@workstation) %>">【<%= @workstation.try(:name) %>】</a>
+        </li>
+      </ul>
+
+      <% if signed_in? %>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="user-name">
+            <%= image_tag current_user.avatar_url(:small), class: 'handle_error_avatar' %>
+            <span><%= current_user.name %></span>
+          </li>
+          <li class="exit">
+            <span>|</span>
+            <%= link_to t("view.common_bars.sign_out"), main_app.signout_path, data: {method: :delete} %>
+          </li>
+        </ul>
+      <% else %>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="exit"><%= link_to t("view.common_bars.sing_in"), main_app.signin_path %></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>

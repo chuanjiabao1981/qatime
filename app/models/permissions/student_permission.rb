@@ -216,6 +216,9 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
 
+      # 游客绑定账号
+      api_allow :POST, "/api/v1/user/guests/[\\w-]+/bind"
+
       # 学生个人信息接口
       api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|
         student && student.id == user.id
@@ -279,6 +282,7 @@ module Permissions
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/refunds"
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds"
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/:id/cancel"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
       ## end api permission
 
       ## 获取授权token

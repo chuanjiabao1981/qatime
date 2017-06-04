@@ -7,7 +7,7 @@
   <td><%= number_to_currency(closed_task.available_balance, locale: 'cn') %></td>
   <td><%= l(closed_task.closed_at) if closed_task.closed_at %></td>
   <td class="operation">
-    <a href="javascript:void(0);">
+    <a href="javascript:void(0);" class='view-msg'>
       <span><%= t('view.payment/sale_task.detail') %></span>
       <i class="fa fa-angle-down"></i>
     </a>

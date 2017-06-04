@@ -10,15 +10,15 @@ module Payment
     end
 
     def teardown
-      logout_as(@user) if @user
+      new_logout_as(@user) if @user
       Capybara.use_default_driver
     end
 
     test 'manager sale tasks' do
       @user = users(:manager_zhuji)
       new_log_in_as(@user)
-      click_on '工作站信息'
-      click_on '考核'
+      click_on '首页'
+      click_on '考核记录'
       assert page.has_content?("通过")
       assert page.has_content?("未通过")
       all(".view-msg").first.click
@@ -29,7 +29,8 @@ module Payment
       new_log_in_as(@user)
       click_on '工作站'
       click_on '诸暨工作站'
-      click_on '考核'
+      click_on '首页'
+      click_on '考核记录'
       click_on '新增'
       fill_in 'sale_task_period', with: 1
       fill_in 'sale_task_target_balance', with: 100_000

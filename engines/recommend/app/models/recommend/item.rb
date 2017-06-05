@@ -10,13 +10,10 @@ module Recommend
     serialize :platforms, Array
     belongs_to :city
 
-    # 名师授课 最受欢迎
-    enum tag_one: { star_teacher: 1, best_seller: 2 }
-    # 免费试听 插班优惠
-    enum tag_two: { free_tastes: 1, join_cheap: 2 }
+    # 名师授课 最受欢迎 免费试听 插班优惠
+    enum tag_one: { star_teacher: 1, best_seller: 2, free_tastes: 3, join_cheap: 4 }
 
-    enumerize :tag_one, in: { star_teacher: 1, best_seller: 2 }
-    enumerize :tag_two, in: { free_tastes: 1, join_cheap: 2 }
+    enumerize :tag_one, in: { star_teacher: 1, best_seller: 2, free_tastes: 3, join_cheap: 4 }
 
     enum reason: %w(newest hottest)
     PLATFORMS = {

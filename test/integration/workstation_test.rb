@@ -32,8 +32,9 @@ class WorkstationIntegrateTest < LoginTestBase
 
   def new_page(user,user_session,new_path)
     user_session.get new_path
-    if not user.admin?
-      user_session.assert_redirected_to get_home_url(user)
+    unless user.admin?
+      @workstation = @manager.workstations.first
+      user_session.assert_redirected_to station_workstation_home_index_path(@workstation)
       return
     end
     user_session.assert_response :success
@@ -46,7 +47,8 @@ class WorkstationIntegrateTest < LoginTestBase
     if user.admin?
       user_session.assert_response :success
     else
-      user_session.assert_redirected_to managers_home_path
+      @workstation = @manager.workstations.first
+      user_session.assert_redirected_to station_workstation_home_index_path(@workstation)
     end
   end
 

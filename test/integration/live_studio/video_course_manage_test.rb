@@ -21,8 +21,9 @@ module LiveStudio
       @video_course = live_studio_video_courses(:confirmed_video_course)
       new_log_in_as(@user)
       visit main_app.station_workstation_path(@workstation)
-      click_on '视频课'
       click_on '课程管理'
+      click_on '视频课'
+      click_on '创建发布'
       find_link("创建", href: live_studio.edit_station_workstation_video_course_path(@workstation, @video_course)).click
       find('#video_course_sell_type_charge').click
       click_on '保存'
@@ -56,8 +57,9 @@ module LiveStudio
       @video_course = live_studio_video_courses(:completed_video_course)
       new_log_in_as(@user)
       visit main_app.station_workstation_path(@workstation)
-      click_on '视频课'
       click_on '课程管理'
+      click_on '视频课'
+      click_on '创建发布'
       click_on '已创建'
       find_link("发布", href: live_studio.publish_station_workstation_video_course_path(@workstation, @video_course)).click
       assert @video_course.reload.published?, "发布失败"

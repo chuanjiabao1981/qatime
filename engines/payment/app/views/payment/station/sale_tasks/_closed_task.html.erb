@@ -1,0 +1,53 @@
+<tr>
+  <td><%= show_index(closed_task_counter, @closed_tasks.limit_value) %></td>
+  <td class="<%= closed_task.result? ? 'pass' : 'no-pass' %>">
+    <%= Payment::SaleTask.human_attribute_name("result/#{closed_task.result}") %>
+  </td>
+  <td><%= number_to_currency(closed_task.charge_balance, locale: 'cn') %></td>
+  <td><%= number_to_currency(closed_task.available_balance, locale: 'cn') %></td>
+  <td><%= l(closed_task.closed_at) if closed_task.closed_at %></td>
+  <td class="operation">
+    <a href="javascript:void(0);" class='view-msg'>
+      <span><%= t('view.payment/sale_task.detail') %></span>
+      <i class="fa fa-angle-down"></i>
+    </a>
+  </td>
+</tr>
+
+<tr class="assess-msg">
+  <td class="row" colspan="6">
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>: </span>
+      <span><%= l(closed_task.started_at.to_date) if closed_task.started_at %></span>
+    </div>
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>: </span>
+      <span><%= l(closed_task.ended_at.to_date) if closed_task.ended_at %></span>
+    </div>
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:period) %>: </span>
+      <span><%= t('view.payment/sale_task.period', period: closed_task.period) %></span>
+    </div>
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>:</span>
+      <span><%= number_to_currency(closed_task.target_balance, locale: 'cn') %></span>
+    </div>
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
+      <span><%= number_to_currency(closed_task.result_balance, locale: 'cn') %></span>
+    </div>
+    <div class="col-md-4 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>:</span>
+      <span><%= number_to_currency(closed_task.left_amount, locale: 'cn') %></span>
+    </div>
+    <div class="col-md-12 inspection-line">
+      <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>:</span>
+      <span><%= number_to_currency(closed_task.charge_balance, locale: 'cn') %></span>
+      <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
+    </div>
+    <!--<div class="col-md-4 inspection-line">
+      <span><%#= Payment::SaleTask.human_attribute_name(:charge_percentage) %>:</span>
+      <span><%#= number_to_percentage(closed_task.charge_percentage, precision: 0) %></span>
+    </div>-->
+  </td>
+</tr>

@@ -8,6 +8,7 @@ class Qatime::CourseAnnouncementsAPITest < ActionDispatch::IntegrationTest
 
   test "publish course announcement" do
     course = @teacher.live_studio_courses.last
+    stub_chat_account
     assert_difference "course.announcements.count", 1, "教师发布公告失败" do
       post "/api/v1/live_studio/courses/#{course.id}/announcements",
            params: { content: "发个公告试试" },

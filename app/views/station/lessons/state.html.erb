@@ -1,28 +1,28 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <ul class="nav nav-tabs">
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"reviewing"} %>
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"rejected"} %>
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"published"} %>
-    </ul>
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
 
-    <table class="table table-striped">
-      <thead>
-      <th width="4%">#</th>
-      <th width="40%">
-        <%= Lesson.model_name.human %>
-      </th>
-      <th width="40%">
-        <%= Course.model_name.human %>
-      </th>
-      <th width="10%">
-        <%= Teacher.model_name.human %>
-      </th>
-      </thead>
-      <%= render @lessons %>
-    </table>
-    <%= will_paginate @lessons %>
+    <div class="create-header">
+      <h3><%= t('view.station.lessons.index_title') %></h3>
+      <%= link_to main_app.curriculums_path, class: 'course-hint', target: '_blank' do %>
+        <%= t('view.station.lessons.more') %>
+        <i class="fa fa-angle-right"></i>
+      <% end %>
+    </div>
 
+    <div class="state-line">
+      <%= link_to t('view.station.lessons.state.reviewing'), state_station_workstation_lessons_path(@workstation, state: 'reviewing'), class: "#{'active' if params[:state] == 'reviewing'}" %>
+      <%= link_to t('view.station.lessons.state.published'), state_station_workstation_lessons_path(@workstation, state: 'published'), class: "#{'active' if params[:state] == 'published'}" %>
+      <%= link_to t('view.station.lessons.state.rejected'), state_station_workstation_lessons_path(@workstation, state: 'rejected'), class: "#{'active' if params[:state] == 'rejected'}" %>
+    </div>
+
+    <div class="lesson-item">
+      <ul>
+        <%= render partial: 'station/lessons/lesson', collection: @lessons %>
+      </ul>
+
+      <%= render 'shared/blank' if @lessons.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @lessons, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
   </div>
 </div>
-

@@ -12,15 +12,16 @@ cn:
       default_message: "Please review the problems below:"
     labels:
       course:
-        price: 价格 (元)
-        grade: 年级类型
+        price: 设置价格
+        grade: 年级
         description: 详细说明
         name: 课程名称
-        taste_count: 试听设置
+        taste_count: 试听数量
         tag_list: 课程标签
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_id: 教师设置
+        teacher: 选择老师
         teacher_percentage: 教师分成
       course_invitation:
         user_mobile: 填写被邀请人
@@ -33,10 +34,10 @@ cn:
         expited_day: 请设置邀请的有效期限，逾期后将自动失效
       course:
         tag_list: 请选择课程标签
-        price: 请输入直播课原价（正整数）
-        taste_count: 请选择允许试听的课程数量（正整数）,不选择默认为0
+        price: 请输入课程售价（正整数）
+        taste_count: 请选择允许试听的课程数量，不选择默认为0（即不允许试听）
         name: 请输课程标题名称（最多20字）
-        description: 请输入直播课介绍（最多300字）
+        description: 请输入课程的详细介绍及说明（最多300字）
         teacher_percentage: 请输入教师获得分成比例（正整数）
       video_course:
         name: 请输入视频课名称

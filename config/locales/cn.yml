@@ -210,6 +210,7 @@ cn:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
       exact: ! '%Y年%b%d日 %H:%M:%S'
+      month_start: ! '%m-%d %H:%M:%S'
     pm: 下午
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:

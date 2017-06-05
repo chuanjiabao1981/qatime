@@ -14,11 +14,9 @@ class LessonsTest < ActionDispatch::IntegrationTest
   end
 
   def teardown
-    #@headless.destroy
     teacher = users(:teacher1)
-
     visit get_home_url(teacher)
-    click_on '退出'
+    new_logout_as(teacher)
     Capybara.use_default_driver
   end
 
@@ -26,7 +24,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
     # puts 1
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     visit new_teachers_course_lesson_path(@course)
     assert_difference 'Video.count',1 do
       attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
@@ -60,7 +58,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
   test "lesson new with single qa_file" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     visit new_teachers_course_lesson_path(@course)
 
     # 一次上传一个文件
@@ -94,7 +92,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
   # 测试一次上传多个文件，测试一下过滤
   test "lesson new with multi qa_files" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     visit new_teachers_course_lesson_path(@course)
     # 一次上传多个文件,其中有一个只是点击了添加链接，没有赋值
     assert_difference 'QaFile.count',2 do
@@ -137,7 +135,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
   test "lesson show with qa_files" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     lesson_with_qa_files  = lessons(:teacher1_lesson)
 
     visit course_path(@course,lesson_id:lesson_with_qa_files.id)
@@ -158,7 +156,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
   # 测试修改lesson，删除文件和添加文件
   test "update lesson add and remove qa_files" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
 
     visit edit_teachers_course_lesson_path(@course,@lesson)
 
@@ -200,7 +198,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
 
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     visit edit_teachers_course_lesson_path(@course,@lesson)
 
 
@@ -231,7 +229,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
   test "lesson edit" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     visit edit_teachers_course_lesson_path(@course,@lesson)
     # find('li input.default').set("常"+"\n")
 
@@ -257,7 +255,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
   test "update lesson without video" do
     teacher = users(:teacher1)
-    log_in_as(teacher)
+    new_log_in_as(teacher)
     lesson_without_video  = lessons(:teacher1_lesson_without_video)
     visit edit_teachers_course_lesson_path(@course,lesson_without_video)
     assert_difference 'Video.count',1 do

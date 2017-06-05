@@ -14,6 +14,7 @@ module Payment
                        end
       @waiting_tasks = @waiting_tasks.reorder(started_at: :asc)
       @closed_tasks = @workstation.sale_tasks.closed.paginate(page: params[:page])
+      render layout: 'v1/manager_home'
     end
 
     # GET /sale_tasks/1

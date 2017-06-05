@@ -1,47 +1,33 @@
-<div class="panel panel-default">
-  <div class="admin">
-    <%= render 'live_studio/station/video_tab' %>
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab_sell' %>
 
-    <div>
-      <div class="admin-list distribution">
-        <div class="admin-list-title">
-          <%= render partial: 'filter', locals: { url: live_studio.station_workstation_video_courses_path(@workstation) } %>
-        </div>
-        <div class="admin-list-con">
-          <table class="table" border="1" cellspacing="1" cellpadding="1">
-            <tbody>
-            <tr>
-              <td><%= t('common.index_no') %></td>
-              <td><%= t('view.live_studio/video_course.index.name') %></td>
-              <td><%= t('view.live_studio/video_course.index.teacher') %></td>
-              <td><%= t('view.live_studio/video_course.index.grade') %></td>
-              <td><%= t('view.live_studio/video_course.index.subject') %></td>
-              <td><%= t('view.live_studio/video_course.index.published_at') %></td>
-              <td><%= t('view.live_studio/video_course.index.workstation') %></td>
-              <td><%= t('view.live_studio/video_course.index.price') %></td>
-              <td><%= t('view.live_studio/video_course.index.service_price') %></td>
-              <td><%= t('view.live_studio/video_course.index.sell_percentage') %></td>
-              <td><%= t('view.live_studio/video_course.index.platform_percentage') %></td>
-              <td><%= t('view.live_studio/video_course.index.qr_code') %></td>
-            </tr>
+    <div class="filter">
+      <%= render partial: 'live_studio/station/video_courses/filter', locals: { url: live_studio.station_workstation_video_courses_path(@workstation) } %>
+    </div>
 
-            <%= render partial: 'course', collection: @video_courses %>
-            </tbody>
-          </table>
-        </div>
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.live_studio/video_course.index.name') %></th>
+            <th><%= t('view.live_studio/course.index.teacher') %></th>
+            <th><%= t('view.live_studio/course.index.price') %></th>
+            <th><%= t('view.live_studio/course.index.base_price') %></th>
+            <th><%= t('view.live_studio/course.index.sell_percentage') %></th>
+            <th><%= t('view.live_studio/course.index.platform_percentage') %></th>
+            <th><%= t('view.live_studio/course.index.sell_workstation') %></th>
+            <th><%= t('view.live_studio/course.index.published_at') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
 
-        <center><div class="pagination-fix"><%= will_paginate @video_courses %></div></center>
-      </div>
+          <%= render partial: 'course', collection: @video_courses %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @video_courses.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @video_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     </div>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    $(function() {
-      $(document).on('click', '.send_qa_code', function(event) {
-        location.href = $(this).data('url');
-      });
-    });
-  </script>
-<% end %>

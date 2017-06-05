@@ -1,0 +1,16 @@
+<tr>
+  <td>
+    <%= link_to main_app.customized_course_path(customized_course) do %>
+      <%= "#{customized_course.category}-#{customized_course.subject}" %>
+    <% end %>
+  </td>
+  <td><%= customized_course.teachers.map(&:view_name).join(",") %></td>
+  <td><%= t customized_course.is_keep_account.to_s %></td>
+  <td>
+    <%= link_to "#{customized_course.student.name}", main_app.customized_course_path(customized_course) %>
+  </td>
+  <td><%= customized_course.customized_tutorials_count%></td>
+  <td><%= customized_course.homeworks_count%></td>
+  <td><%= customized_course.timeout_to_solve_homeworks.count%></td>
+  <td><%= customized_course.topics_count%></td>
+</tr>

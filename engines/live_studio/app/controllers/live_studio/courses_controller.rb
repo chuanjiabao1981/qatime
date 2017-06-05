@@ -20,7 +20,7 @@ module LiveStudio
     def new
       @course = Course.new(workstation: @workstation, price: nil, taste_count: nil, teacher_percentage: nil)
       @course.generate_token
-      render layout: current_user_layout
+      render layout: 'v1/manager_home'
     end
 
     def edit
@@ -35,7 +35,7 @@ module LiveStudio
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
         redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
-        render :new, layout: current_user_layout
+        render :new, layout: 'v1/manager_home'
       end
     end
 
@@ -49,7 +49,7 @@ module LiveStudio
 
     # 调课
     def update_class_date
-      render layout: current_user_layout
+      render layout: 'v1/manager_home'
     end
 
     def update_lessons
@@ -59,7 +59,7 @@ module LiveStudio
         @course.ready_lessons
         redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
-        render :update_class_date, layout: current_user_layout
+        render :update_class_date, layout: 'v1/manager_home'
       end
     end
 

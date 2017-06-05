@@ -19,6 +19,18 @@ Recommend::Engine.routes.draw do
     end
   end
 
+  namespace :station do
+    resources :workstations, only: [] do
+      resources :banner_items
+      resources :choiceness_items do
+        member do
+          post :ajax_course_select
+        end
+      end
+      resources :teacher_items
+    end
+  end
+
   resources :positions do
     resources :teacher_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :live_studio_course_items, only: [:new, :create, :edit, :update, :destroy], shallow: true

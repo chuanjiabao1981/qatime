@@ -1,0 +1,15 @@
+<div class="item-home">
+  <div class="subtitle">
+    <h3><%= t('view.managers.home.action_records.title') %></h3>
+    <%= link_to action_records_station_workstation_path(@workstation) do %>
+      <%= t('view.managers.home.action_records.more') %>
+      <i class="fa fa-angle-right"></i>
+    <% end %>
+  </div>
+
+  <div class="dynamic">
+    <ul>
+      <%= render partial: 'station/home/main/action_record', collection: @action_records %>
+    </ul>
+  </div>
+</div>

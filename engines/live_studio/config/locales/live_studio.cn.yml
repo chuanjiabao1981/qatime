@@ -3,13 +3,19 @@ cn:
     menu:
       course_requests: 招生审核
       course_invitations: 开班邀请
-      courses: 直播课列表
+      courses: 直播课
       my_courses: 发行/经销
-      my_course: 直播课管理
-      video_courses: 视频课列表
+      my_course: 直播课
+      interactive_course: 一对一
+      video_course: 视频课
+      customized_course: 专属课程
+      curriculums: 公共课程
+      question: 问答社区
+      video_courses: 视频课
       my_video_courses: 发行/销售
       manage_video_courses: 课程管理
-      video_course_audits: 视频课审核
+      video_course_audits: 视频审核
+      video_course_list: 创建发布
       teacher:
         my_courses: 我的直播课
         my_interactive_courses: 我的一对一
@@ -93,10 +99,10 @@ cn:
           teaching: 已开课
           completed: 已结束
       live_studio/interactive_course:
-        name: 名称
+        name: 课程名称
         description: 详细说明
         grade: 年级
-        price: 价格
+        price: 设置价格
         subject: 科目
         objective: 课程目标
         suit_crowd: 适合人群
@@ -105,13 +111,14 @@ cn:
         workstation_id: 工作站
       live_studio/interactive_lesson:
         class_date: 上课时间
-        teacher_id: 教师
+        teacher_id: 授课教师
         name: 课程名称
   view:
     live_studio/course:
       new:
-        title: 创建新直播课
-        label: 直播课课程说明
+        title: 创建新课程
+        label: 课程说明
+        label0: 直播课说明
         label1: 1.允许多名学生购买，可以重复销售;
         label2: 2.默认使用系统直播课课程海报；
         add_lesson: 添加新课程
@@ -146,6 +153,7 @@ cn:
         description: 请输入课程介绍（最多300字）
       hint:
         taste_count: 课时
+        price: 元
       validates:
         name: 请输入课程名称
         description: 请输入课程介绍
@@ -158,18 +166,31 @@ cn:
         suit_crowd: 请输入适合人群
         lessons: 请添加至少一节课程
         teacher_percentage: 分成比例不正确
-
-
+      index:
+        name: 直播课名称
+        teacher: 老师
+        subject: 科目
+        grade: 年级
+        published_at: 发布时间
+        sell_workstation: 发行工作站
+        price: 价格
+        base_price: 服务扣费
+        sell_percentage: 销售分成
+        platform_percentage: 平台分成
+      filter:
+        workstation: 发行站
+        grade: 年级
+        subject: 科目
     live_studio/interactie_course:
       new:
         title: 创建新课程
-        label: 一对一课程说明
+        label: 一对一说明
         label1: 1.仅允许一名学生购买，不能重复销售;
-        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时（暂不支持修改）；
         label3: 3.默认使用系统一对一课程海报;
         intro_one: 一、课程介绍
         intro_two: 二、课程安排
-        intro_three: 三、价格和试听
+        intro_three: 三、其他设置
         preview: 预览
         submit: 发布招生
         lesson_name_text: "一对一互动课程-第%{index}课时"
@@ -178,8 +199,8 @@ cn:
         objective: 输入课程能够达到的学习目标(最多300个字)
         suit_crowd: 输入适合学习的人群(最多300个字)
         description: 请输入直播介绍（最多300字）
-        price: 请输入正数
-        teacher_percentage: 输入教师分成
+        price: 请输入课程售价（正整数）
+        teacher_percentage: 请输入教师获得分成比例（正整数）
         teacher_id: 选择老师
         class_date: 选择上课日期
       validate:
@@ -191,7 +212,7 @@ cn:
         grade: 年级
         price: 价格
         subject: 科目
-        teacher_percentage: 教师分成
+        teacher_percentage: 老师分成
         status: 状态
         teacher: 老师
         new: 创建新课程
@@ -199,13 +220,13 @@ cn:
       update_class_date:
         title: 调课
         submit: 保存调课
-        teacher_was: 教师
-        edit_changed: <修改后>
+        teacher_was: 授课老师
+        edit_changed: 修改后>
         class_date_was: 上课时间
         lesson_name: 课程名称
         edit_title: 编辑课程
-        modal_teacher_was: 原老师
-        modal_teacher_new: 新老师
+        modal_teacher_was: 原授课老师
+        modal_teacher_new: 新授课老师
         modal_class_date_was: 原上课日期
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
@@ -216,7 +237,7 @@ cn:
         label: 视频课说明
         label1: 1.视频课是一种可重复销售的课程，允许多人购买;
         label2: 2.视频课由学生自主观看学习，无需上课；
-        label3: 3.默认使用系统视频课程海报（如右图）；
+        label3: 3.默认使用系统视频课程海报；
       workstation_new:
         title: 创建新视频课
         label: 一对一课程说明
@@ -225,7 +246,7 @@ cn:
         label3: 3.默认使用系统一对一课程海报;
         intro_one: 一、课程介绍
         intro_two: 二、课程安排
-        intro_three: 三、价格和分成
+        intro_three: 三、其他设置
         preview: 预览
         submit: 发布招生
         save: 保存
@@ -273,7 +294,12 @@ cn:
         status_text:
           confirmed: 已通过
           rejected: 已驳回
-
+      list:
+        price: 价格
+        teacher_percentage: 老师分成
+        confirmed_at: 审核时间
+        completed_at: 创建时间
+        published_at: 发布时间
       my_video_courses:
         nav:
           my_publish: 我的发行

@@ -7,6 +7,8 @@ module LiveServiceTest
       course = live_studio_courses(:course_with_lessons)
       student = users(:student_with_order2)
       assert_difference "LiveStudio::TasteTicket.count", 1, "试听失败" do
+        account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
+        Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
         LiveService::CourseDirector.taste_course_ticket(student, course)
       end
     end

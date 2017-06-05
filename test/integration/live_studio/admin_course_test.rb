@@ -18,7 +18,7 @@ module LiveStudio
     end
 
     test "admin view course list" do
-      click_on "直播课列表"
+      click_on "直播课"
       assert page.has_content?('开课中'), "全部列表没有显示开课中辅导班"
       assert page.has_content?('招生中'), "全部列表没有显示招生中辅导班"
       assert page.has_no_content?('审核中'), "未审核辅导班显示"

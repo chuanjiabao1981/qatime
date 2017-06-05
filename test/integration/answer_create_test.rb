@@ -26,7 +26,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
 
     teacher1                  = users(:teacher1)
 
-    log_in_as(teacher1)
+    new_log_in_as(teacher1)
 
     visit questions_path
     click_on @student1_question1.title

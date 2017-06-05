@@ -1,0 +1,13 @@
+<div class="station-title">
+  <% if allow?('station/students', :index, @workstation) %>
+    <%= link_to t('view.station.students.tab_node.students'), main_app.station_workstation_students_path(@workstation), class: "#{'active' if 'station/students' == params[:controller] }"  %>
+  <% end %>
+
+  <% if allow?('station/teachers', :index, @workstation) %>
+    <%= link_to t('view.station.students.tab_node.teachers'), main_app.station_workstation_teachers_path(@workstation), class: "#{'active' if 'station/teachers' == params[:controller] }"  %>
+  <% end %>
+
+  <% if allow?('station/schools', :index, @workstation) %>
+    <%= link_to t('view.station.students.tab_node.schools'), main_app.station_workstation_schools_path(@workstation), class: "#{'active' if 'station/schools' == params[:controller] }"  %>
+  <% end %>
+</div>

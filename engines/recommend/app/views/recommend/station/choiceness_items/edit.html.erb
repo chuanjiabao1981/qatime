@@ -1,0 +1,18 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'recommend/station/tab' %>
+    <div class="create-header">
+      <%= link_to recommend.station_workstation_choiceness_items_path(@workstation, position_id: @position), class: 'back' do %>
+        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
+      <% end %>
+      <h3><%= t('view.recommend/choiceness_item.index.edit_title') %></h3>
+    </div>
+
+    <div class="banner-item">
+      <%= simple_form_for @item, url: recommend.station_workstation_choiceness_item_path(@workstation, @item, position_id: @position) do |f| %>
+        <%= render partial: 'form', locals: {f: f} %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

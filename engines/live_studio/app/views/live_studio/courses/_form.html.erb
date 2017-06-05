@@ -1,4 +1,4 @@
-<%= simple_form_for @course do |f| %>
+<%= simple_form_for @course, url: url do |f| %>
   <%= f.input :workstation_id, as: :hidden %>
   <div class="editor-item">
     <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>

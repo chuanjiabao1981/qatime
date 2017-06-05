@@ -2,16 +2,7 @@
   <td><%= show_index(item_counter, @items.limit_value) %></td>
   <td class="choiceness"><%= image_tag item.logo_url %></td>
   <td><%= item.title %></td>
-  <td class="recommended-tags">
-    <span>
-      <i><%= t('view.recommend/choiceness_item.index.tag_name1') %>:</i>
-      <i><%= item.tag_one_text.presence || t('view.recommend/position.none') %></i>
-    </span><br/>
-    <span>
-      <i><%= t('view.recommend/choiceness_item.index.tag_name2') %>:</i>
-      <i><%= item.tag_two_text || t('view.recommend/position.none') %></i>
-    </span>
-  </td>
+  <td><%= item.tag_one_text.presence || t('view.recommend/position.none') %></td>
   <td><%= link_to item.target.name, live_studio.send("#{item.target.model_name.singular_route_key}_path", item.target_id), target: '_blank' %></td>
   <td><%= item.index %></td>
   <td>

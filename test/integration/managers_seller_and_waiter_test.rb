@@ -2,7 +2,6 @@ require 'test_helper'
 
 class ManagersSellerAndWaiterTest < ActionDispatch::IntegrationTest
   self.use_transactional_tests = true
-  self.use_transactional_fixtures = true
 
   def setup
     @headless = Headless.new

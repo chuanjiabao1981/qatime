@@ -43,7 +43,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :tag_one %>
+    <%= f.label :tag_one, class: 'no-required' %>
   </div>
   <div class="col-md-10">
     <%= f.select :tag_one, options_for_select(Recommend::Item.tag_one.options, f.object.tag_one), {include_blank: t('view.recommend/choiceness_item.index.none_tag')}, {class: 'form-control'} %>
@@ -51,15 +51,6 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-2">
-    <%= f.label :tag_two %>
-  </div>
-  <div class="col-md-10">
-    <%= f.select :tag_two, options_for_select(Recommend::Item.tag_two.options, f.object.tag_two), {include_blank: t('view.recommend/choiceness_item.index.none_tag')}, {class: 'form-control'} %>
-    <%= f.error :tag_two %>
-  </div>
-</div>
 <center><%= f.submit t('common.save') %></center>
 
 <% content_for :javascript do %>

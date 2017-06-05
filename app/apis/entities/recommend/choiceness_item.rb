@@ -13,7 +13,9 @@ module Entities
         item.target.try(:publicize_url, :info)
       end
       expose :tag_one
-      expose :tag_two
+      expose :tag_two do |item|
+        nil
+      end
     end
   end
 end

@@ -13,7 +13,7 @@
     </div>
 
     <div class="course-adjust">
-      <%= simple_form_for @interactive_course, url: update_lessons_interactive_course_path(@interactive_course) do |f|%>
+      <%= simple_form_for @interactive_course, url: update_lessons_interactive_course_path(@interactive_course, workstation_id: @workstation) do |f|%>
         <ul class="adjust-list">
           <%= f.fields_for :interactive_lessons, @interactive_course.interactive_lessons.sort_by{|x| x.class_date_was } do |lesson| %>
             <% if lesson.object.unstart? %>

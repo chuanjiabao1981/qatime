@@ -10,7 +10,7 @@
       <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_courses_path(id: my_course), method: :post, target: '_blank' %>
     <% end %>
     <% if allow? 'live_studio/courses', :update_class_date, my_course %>
-      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_course_path(my_course) %>
+      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_course_path(my_course, workstation_id: @workstation) %>
     <% end %>
   </td>
 </tr>

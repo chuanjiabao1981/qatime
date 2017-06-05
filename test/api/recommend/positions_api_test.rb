@@ -43,7 +43,6 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_includes res['data'].map {|item| item['type']}, "Recommend::ChoicenessItem", "没有正确返回辅导班推荐类型"
     assert res['data'].find {|item| item['live_studio_course']}.present?, "没有正确返回推荐辅导班信息"
     assert_includes res['data'].map {|item| item['tag_one']}, 'star_teacher'
-    assert_includes res['data'].map {|item| item['tag_two']}, 'join_cheap'
 
     assert_includes res['data'].map {|item| item['target_type']}, "LiveStudio::Course", "没有正确返回课程类别"
     assert_includes res['data'].map {|item| item['target_type']}, "LiveStudio::InteractiveCourse", "没有正确返回课程类别"

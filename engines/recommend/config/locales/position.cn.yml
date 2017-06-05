@@ -45,7 +45,7 @@ cn:
         index: 位置排序
         tag_name1: 标签1
         tag_name2: 标签2
-        none_tag: 无标签
+        none_tag: 选择推荐标签
       prompt:
         target_type: 选择课程类型
         target_id: 选择课程
@@ -72,6 +72,8 @@ cn:
       tag_one:
         star_teacher: 名师授课
         best_seller: 最受欢迎
+        free_tastes: 免费试听
+        join_cheap: 插班优惠
       tag_two:
         free_tastes: 免费试听
         join_cheap: 插班优惠
@@ -114,7 +116,7 @@ cn:
       recommend/choiceness_item:
         title: 描述
         index: 排序位置
-        tag_one: 推荐标题1
+        tag_one: 推荐标签
         tag_two: 推荐标题2
         city: 城市
         city_id: 城市

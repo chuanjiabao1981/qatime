@@ -36,7 +36,7 @@ module LiveStudio
 
     # enumerize排序优先级会影响到enum 必须放在后面加载
     enumerize :sell_percentage_range, in: %w[low middle high]
-    enumerize :sell_type, in: { charge: 1, free: 2 }
+    enumerize :sell_type, in: { charge: 1, free: 2 }, scope: true
 
     aasm column: :status, enum: true do
       state :rejected

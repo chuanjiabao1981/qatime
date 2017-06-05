@@ -34,6 +34,11 @@ module DataService
       LiveService::RankManager.rank_of('all_published_rank', {city_id: @city_id})
     end
 
+    # 免费课程
+    def free_courses
+      @free_video_courses = LiveStudio::VideoCourse.for_sell.with_sell_type(:free).order(published_at: :desc)
+    end
+
     class << self
       def position_query(position, city_name)
         city = City.find_by(name: city_name)

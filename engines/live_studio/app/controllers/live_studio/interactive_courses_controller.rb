@@ -88,6 +88,9 @@ module LiveStudio
     end
 
     def find_workstation
+      if params[:workstation_id].present?
+        @workstation = ::Workstation.find(params[:workstation_id])
+      end
       @workstation ||= current_user.try(:workstations).try(:first) || current_user.try(:workstation)
     end
 

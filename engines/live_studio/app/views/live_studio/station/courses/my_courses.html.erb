@@ -3,7 +3,7 @@
     <%= render 'live_studio/station/tab' %>
 
     <div class="filter">
-      <%= link_to live_studio.new_course_path, class: 'filter-left' do %>
+      <%= link_to live_studio.new_course_path(workstation_id: @workstation), class: 'filter-left' do %>
         <%= image_tag 'addclass.png' %>
         <%= t('view.live_studio/interactie_course.index.new') %>
       <% end if allow? 'live_studio/courses', :new %>

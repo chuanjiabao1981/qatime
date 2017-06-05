@@ -13,7 +13,7 @@
       <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_video_course_path(course), target: '_blank' %>
     <% end %>
     <% if allow? 'live_studio/station/video_courses', :send_qr_code, @workstation %>
-      <%= link_to t("view.live_studio/station.courses.course.send_qr_code"), send_qr_code_station_workstation_course_path(@workstation,course) %>
+      <%= link_to t("view.live_studio/station.courses.course.send_qr_code"), send_qr_code_station_workstation_video_course_path(@workstation,course) %>
     <% end %>
   </td>
 </tr>

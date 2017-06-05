@@ -25,7 +25,7 @@
     <div class="new-curriculum">
       <div class="editor-con">
         <div class="editor-msg">
-          <%= render 'form' %>
+          <%= render 'form', url: live_studio.interactive_courses_path(workstation_id: @workstation) %>
         </div>
       </div>
     </div>

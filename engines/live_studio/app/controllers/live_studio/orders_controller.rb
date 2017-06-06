@@ -34,7 +34,7 @@ module LiveStudio
       # 用户之前的未支付订单 更新为无效订单
       waste_orders = Payment::Order.where(user: current_user, status: 0, product: @product)
       waste_orders.update_all(status: 99) if waste_orders.present?
-      buy_params = @product.order_params.merge(order_params)
+      buy_params = @product.order_params.merge(order_params.to_unsafe_h)
       @order = Payment::Order.new(buy_params.merge(user: current_user, remote_ip: request.remote_ip, source: order_source))
       @order.coupon_code = params[:coupon_code].presence
 

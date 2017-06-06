@@ -7,11 +7,11 @@
         <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %>：</span>
         <span class="col-md-11">
           <%= link_to t("view.course_filter.all"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { grade_eq: nil })),
+                      live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { grade_eq: nil })),
                       class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:grade_eq].blank? }" %>
           <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
             <%= link_to grade,
-                        live_studio.video_courses_path(@search_params.deep_merge(q: { grade_eq: grade })),
+                        live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { grade_eq: grade })),
                         class: "#{'active' if @search_params[:q] && @search_params[:q][:grade_eq] == grade }" %>
           <% end %>
         </span>
@@ -20,11 +20,11 @@
         <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %>：</span>
         <span class="col-md-11">
           <%= link_to t("view.course_filter.all"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { subject_eq: nil })),
+                      live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { subject_eq: nil })),
                       class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:subject_eq].blank? }" %>
           <% APP_CONSTANT['subjects'].each do |subject| %>
             <%= link_to subject,
-                        live_studio.video_courses_path(@search_params.deep_merge(q: { subject_eq: subject })),
+                        live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { subject_eq: subject })),
                         class: "#{'active' if @search_params[:q] && @search_params[:q][:subject_eq] == subject }" %>
           <% end %>
         </span>
@@ -39,15 +39,15 @@
 
         <span class="course-status">
           <%= link_to t("view.course_filter.sell_type_all"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: nil })),
+                      live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { sell_type_eq: nil })),
                       class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:sell_type_eq].blank? }" %>
 
           <%= link_to t("view.course_filter.sell_type_charge"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '1' })),
+                      live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { sell_type_eq: '1' })),
                       class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '1' }" %>
 
           <%= link_to t("view.course_filter.sell_type_free"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '2' })),
+                      live_studio.video_courses_path(@search_params.to_h.deep_merge(q: { sell_type_eq: '2' })),
                       class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '2' }" %>
         </span>
       </li>

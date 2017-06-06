@@ -12,7 +12,7 @@
       <div class="sales-statistics-title">
         <div class="statistics-title-left">
           <%= select_tag :statistics_days, options_for_select(::Payment::Transaction.statistics_days.options, params[:statistics_days]),
-                         data: {url: url_for(params)} %>
+                         data: {url: url_for(params.to_query)} %>
         </div>
         <div class="statistics-title-right">
           <span>

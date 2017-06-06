@@ -9,9 +9,9 @@
     <li>
       <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %>：</span>
       <span class="col-md-11">
-        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:grade_eq].blank? }" %>
+        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.to_unsafe_h.deep_merge(q: { grade_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:grade_eq].blank? }" %>
         <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
-          <%= link_to grade, live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: grade })), class: "#{'active' if @search_params[:q] && @search_params[:q][:grade_eq] == grade }" %>
+          <%= link_to grade, live_studio.courses_path(@search_params.to_h.deep_merge(q: { grade_eq: grade })), class: "#{'active' if @search_params[:q] && @search_params[:q][:grade_eq] == grade }" %>
         <% end %>
       </span>
     </li>
@@ -19,25 +19,25 @@
     <li>
       <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %>：</span>
       <span class="col-md-11">
-        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:subject_eq].blank? }" %>
+        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.to_h.deep_merge(q: { subject_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:subject_eq].blank? }" %>
         <% APP_CONSTANT['subjects'].each do |subject| %>
-          <%= link_to subject, live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: subject })), class: "#{'active' if @search_params[:q] && @search_params[:q][:subject_eq] == subject }" %>
+          <%= link_to subject, live_studio.courses_path(@search_params.to_h.deep_merge(q: { subject_eq: subject })), class: "#{'active' if @search_params[:q] && @search_params[:q][:subject_eq] == subject }" %>
         <% end %>
       </span>
     </li>
 
     <li>
       <span class="nav-all <%= 'active' if @search_params[:range].present? %>">
-        <%= link_to live_studio.courses_path(@search_params.merge(range: nil)) do %>
+        <%= link_to live_studio.courses_path(@search_params.to_h.merge(range: nil)) do %>
           <em><%= t("view.course_filter.range/#{@search_params[:range] || 'all'}") %></em>
           <i class="fa fa-angle-down"></i>
         <% end %>
         <ul>
           <% if @search_params[:range].present? %>
-            <li><%= link_to t("view.course_filter.range/all"), live_studio.courses_path(@search_params.merge(range: nil)) %></li>
+            <li><%= link_to t("view.course_filter.range/all"), live_studio.courses_path(@search_params.to_h.merge(range: nil)) %></li>
           <% end %>
           <% %w(1_months 2_months 3_months 6_months 1_years).delete_if {|v| v == @search_params[:range].to_s }.each do |range_name| -%>
-            <li><%= link_to t("view.course_filter.range/#{range_name}"), live_studio.courses_path(@search_params.merge(range: range_name)) %></li>
+            <li><%= link_to t("view.course_filter.range/#{range_name}"), live_studio.courses_path(@search_params.to_h.merge(range: range_name)) %></li>
           <% end %>
         </ul>
       </span>
@@ -64,9 +64,9 @@
       </span>
 
       <span class="course-status">
-        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { status: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:status].blank? }" %>
+        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.to_h.deep_merge(q: { status: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:status].blank? }" %>
         <% LiveStudio::Course.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
-          <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status: item.last })), class: "#{'active' if @search_params[:q] && @search_params[:q][:status] == item.last }" %>
+          <%= link_to item.first, live_studio.courses_path(@search_params.to_h.deep_merge(q: { status: item.last })), class: "#{'active' if @search_params[:q] && @search_params[:q][:status] == item.last }" %>
         <% end -%>
       </span>
     </li>

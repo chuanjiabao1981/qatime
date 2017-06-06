@@ -64,25 +64,26 @@ module LiveStudio
     # 按价格排序
     test 'sort by price' do
       click_on '价格'
-      assert page.has_content? '价格 ▲'
+      assert page.has_content? '人气'
+      assert find(".personal-nav .asc").has_content?('价格'), '价格排序不正确'
       click_on '价格'
-      assert page.has_content? '价格 ▼'
+      assert find(".personal-nav .desc").has_content?('价格'), '价格倒序排序不正确'
     end
 
     # 按人气排序
     test 'sort by users_count' do
       click_on '人气'
-      assert page.has_content? '人气 ▲'
+      assert find(".personal-nav .asc").has_content?('人气'), '人气排序不正确'
       click_on '人气'
-      assert page.has_content? '人气 ▼'
+      assert find(".personal-nav .desc").has_content?('人气'), '人气倒序排序不正确'
     end
 
     # 按发布时间排序
     test 'sort published_at' do
       click_on '最新'
-      assert page.has_content? '最新 ▲'
+      assert find(".personal-nav .asc").has_content?('最新'), '最新排序不正确'
       click_on '最新'
-      assert page.has_content? '最新 ▼'
+      assert find(".personal-nav .desc").has_content?('最新'), '最新倒序排序不正确'
     end
 
     # 标签过滤测试

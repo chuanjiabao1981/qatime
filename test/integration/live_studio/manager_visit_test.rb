@@ -35,12 +35,8 @@ module LiveStudio
       @course = live_studio_courses(:course_preview)
       visit student_path(@student)
       click_on '我的直播课'
-      visit live_studio.student_course_path(@student, @course)
-      assert_match @course.name, page.text, '--'
-      page.go_back
-      visit live_studio.courses_index_path
-      assert_match('测试辅导1班', page.text, '没有正确跳转到辅导班搜索页')
+      find(:xpath, "//a[@href=\'/live_studio/courses/#{@course.id}']", match: :first).click
+      assert page.has_content?(@course.name), "跳转错误"
     end
-
   end
 end

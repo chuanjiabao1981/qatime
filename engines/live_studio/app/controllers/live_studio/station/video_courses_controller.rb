@@ -43,7 +43,7 @@ module LiveStudio
     def audit
       @video_course.confirm! if params[:audit] == 'pass' && @video_course.may_confirm?
       @video_course.reject! if params[:audit] == 'reject' && @video_course.may_reject?
-      redirect_to :back
+      redirect_to action: :index
     end
 
     # 发送二维码

@@ -96,7 +96,7 @@ module LiveStudio
     end
 
     def order_source
-      request.variant ? 'wap' : 'web'
+      request.variant.present? ? 'wap' : 'web'
     end
 
     # 检查课程是否下架

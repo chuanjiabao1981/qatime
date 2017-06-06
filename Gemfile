@@ -160,7 +160,7 @@ gem 'settingslogic', '~> 2.0.9'
 # define default values for ActiveRecord models in a declarative manner
 gem 'default_value_for', '~> 3.0', '>= 3.0.2'
 # 查询
-gem 'ransack', '~> 1.8', '>= 1.8.2'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'select2-rails', '~> 3.5.9.3'
 
 gem 'rest-client'

@@ -466,4 +466,24 @@ module ApplicationHelper
   def with_none_tips(content)
     content || I18n.t('view.tips.none')
   end
+
+  def today_live_status(lesson)
+    if lesson.status_wating?
+      ''
+    elsif lesson.status_living?
+      'active'
+    else
+      'finish'
+    end
+  end
+
+  def today_live_status_text(lesson)
+    if lesson.status_wating?
+      I18n.t('view.today_lives.live_padding')
+    elsif lesson.status_living?
+      I18n.t('view.today_lives.living')
+    else
+      I18n.t('view.today_lives.live_end')
+    end
+  end
 end

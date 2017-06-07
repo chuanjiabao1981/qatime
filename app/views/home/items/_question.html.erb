@@ -1,0 +1,4 @@
+<li>
+  <%= link_to "#{question.vip_class.category}#{question.vip_class.subject}", vip_class_path(question.vip_class_id), class: 'btn-access' %>
+  <%= link_to question.title, question_path(question), class: 'answer-info' %>
+</li>

@@ -1,0 +1,15 @@
+<div class="homepage-banner">
+  <ul class="banner-show" id="banner-list">
+    <% @recommend_banners.each do |banner| %>
+      <li>
+        <%= link_to banner.link do %>
+          <%= image_tag banner.logo_url, alt: 'banner' %>
+        <% end %>
+      </li>
+    <% end %>
+    <% if @recommend_banners.blank? %>
+      <li><a href=""><%= image_tag '/imgs/home-banner.png' %></a></li>
+    <% end %>
+  </ul>
+</div>
+

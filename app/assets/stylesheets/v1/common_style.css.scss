@@ -1,7 +1,5 @@
 body {
   background-image: none !important;
-  padding-top: 109px  !important;
-  font-family: "微软雅黑";
 }
 .navbar {
   min-height: 72px !important;
@@ -12,9 +10,9 @@ body {
   top: 35px !important;
   z-index: 100 !important;
 }
-.navbar-header {
+.container >.navbar-header {
   height: 72px;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 .navbar-default {
   background-color: #FFFFFF !important;
@@ -29,9 +27,6 @@ body {
   font-size: 16px !important;
   color: #000000 !important;
   padding: 26px;
-}
-.navbar-nav {
-  margin-left: 20px !important;
 }
 .navbar-right img {
   vertical-align: middle;
@@ -143,4 +138,7 @@ footer .copyright {
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
   border-color: #ff5842 !important;
 }
+
+
+
 

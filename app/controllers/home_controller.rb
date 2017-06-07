@@ -19,6 +19,7 @@ class HomeController < ApplicationController
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses.limit(4)
+    @questions = home_data.questions.limit(9)
   end
 
   def switch_city

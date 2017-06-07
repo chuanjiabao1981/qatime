@@ -12,7 +12,7 @@ cn:
       default_message: "Please review the problems below:"
     labels:
       course:
-        price: 设置价格
+        price: 价格
         grade: 年级
         description: 详细说明
         name: 课程名称
@@ -21,7 +21,7 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_id: 教师设置
-        teacher: 选择老师
+        teacher: 老师
         teacher_percentage: 教师分成
       course_invitation:
         user_mobile: 填写被邀请人

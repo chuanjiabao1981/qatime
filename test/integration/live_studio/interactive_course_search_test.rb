@@ -16,7 +16,7 @@ module LiveStudio
     end
 
     test 'search page' do
-      assert page.has_content?('最新 ▼')
+      assert find(".personal-nav .desc").has_content?('最新'), '默认排序不正确'
       click_on '高一'
       assert_equal '高一', find('.grade-filter .active').text, "年级没有选中"
       click_on '物理'
@@ -29,18 +29,18 @@ module LiveStudio
     # 按价格排序
     test 'sort by price' do
       click_on '价格'
-      assert page.has_content?('价格 ▲')
+      assert find(".personal-nav .asc").has_content?('价格'), '价格排序不正确'
       click_on '价格'
-      assert page.has_content?('价格 ▼')
+      assert find(".personal-nav .desc").has_content?('价格'), '价格倒序排序不正确'
     end
 
     # 按发布时间排序
     test 'sort published_at' do
-      assert page.has_content?('最新 ▼')
+      assert find(".personal-nav .desc").has_content?('最新'), '最新排序不正确'
       click_on '最新'
-      assert page.has_content?('最新 ▲')
+      assert find(".personal-nav .asc").has_content?('最新'), '最新倒序排序不正确'
       click_on '最新'
-      assert page.has_content?('最新 ▼')
+      assert find(".personal-nav .desc").has_content?('最新'), '最新排序不正确'
     end
 
     test 'interactive course detail' do

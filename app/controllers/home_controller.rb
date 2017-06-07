@@ -18,6 +18,7 @@ class HomeController < ApplicationController
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
+    @free_courses = home_data.free_courses.limit(4)
   end
 
   def switch_city

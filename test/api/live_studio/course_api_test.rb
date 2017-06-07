@@ -337,4 +337,14 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status'], "请求出错 #{res}"
     assert_equal res['data'].count, 4, "标签获取失败"
   end
+
+  # 免费课程
+  test 'get free courses' do
+    get '/api/v1/live_studio/free_courses'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert res['data'][0].key?('product_type')
+    assert res['data'][0].key?('product')
+  end
 end

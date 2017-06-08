@@ -1,0 +1,32 @@
+<div class="container">
+  <%= form_for @query, url: main_app.teachers_home_index_path, id: 'search-form' do |f| %>
+    <ul class="personal-nav">
+      <li class="category-filter">
+        <span class="col-md-1"><%= t('view.home/teachers.filter.category') %>：</span>
+          <span class="col-md-11">
+            <%= link_to t("view.course_filter.all"),
+                        main_app.teachers_home_index_path(params.deep_merge(q: { category_eq: nil })),
+                        class: "#{'active' if params[:q].blank? || params[:q][:category_eq].blank? }" %>
+            <% APP_CONSTANT['categories'].each do |category| %>
+              <%= link_to category,
+                          main_app.teachers_home_index_path(params.deep_merge(q: { category_eq: category })),
+                          class: "#{'active' if params[:q] && params[:q][:category_eq] == category }" %>
+            <% end %>
+          </span>
+      </li>
+
+      <li class="subject-filter">
+        <span class="col-md-1"><%= t('view.home/teachers.filter.subject') %>：</span>
+          <span class="col-md-11">
+            <%= link_to t("view.course_filter.all"),
+                        main_app.teachers_home_index_path(params.deep_merge(q: { subject_eq: nil })),
+                        class: "#{'active' if params[:q].blank? || params[:q][:subject_eq].blank? }" %>
+            <% APP_CONSTANT['subjects'].each do |subject| %>
+              <%= link_to subject,
+                          main_app.teachers_home_index_path(params.deep_merge(q: { subject_eq: subject })),
+                          class: "#{'active' if params[:q] && params[:q][:subject_eq] == subject }" %>
+            <% end %>
+          </span>
+    </ul>
+  <% end %>
+</div>

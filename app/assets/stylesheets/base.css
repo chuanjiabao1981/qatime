@@ -8977,14 +8977,14 @@ ul {
   border: 1px solid #ff5842;
   padding: 2px 5px;
 }
-.header .navbar-form > .search-input .choose {
+.header .navbar-form > .search-input .choose-list {
   font-size: 14px;
   color: #ff5842;
   line-height: 24px;
   margin-bottom: 0px;
   position: relative;
 }
-.header .navbar-form > .search-input .choose > ul {
+.header .navbar-form > .search-input .choose-list > ul {
   display: none;
   position: absolute;
   left: -6px;
@@ -8996,22 +8996,22 @@ ul {
   box-shadow: 0 0 10px #ccc;
   z-index: 1000;
 }
-.header .navbar-form > .search-input .choose > ul li {
+.header .navbar-form > .search-input .choose-list > ul li {
   text-align: center;
   height: 30px;
   line-height: 30px;
   color: #9aabb8;
   cursor: pointer;
 }
-.header .navbar-form > .search-input .choose > ul li:hover {
+.header .navbar-form > .search-input .choose-list > ul li:hover {
   background-color: rgba(255,88,66,0.4);
   color: #fff;
 }
-.header .navbar-form > .search-input .choose > ul li.active {
+.header .navbar-form > .search-input .choose-list > ul li.active {
   background-color: #ff5842;
   color: #fff;
 }
-.header .navbar-form > .search-input .choose > i {
+.header .navbar-form > .search-input .choose-list > i {
   padding: 0 3px;
 }
 

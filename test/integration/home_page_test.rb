@@ -46,8 +46,26 @@ class HomePageTest < ActionDispatch::IntegrationTest
     click_on '选择全国'
   end
 
+  test "home page line_items" do
+    visit root_path
+    assert page.has_link?('高三', href: live_studio.courses_path(q: {grade_eq: '高三'}))
+    assert page.has_link?('答疑时间课程介绍')
+    assert page.has_link?('直播课')
+    assert page.has_link?('一对一')
+    assert page.has_link?('视频课')
+    assert page.has_content?('问答动态')
+
+    assert_equal 2, page.all(".category-answer ul li").size, '问答动态数量不对'
+    assert page.has_link?('更多', href: main_app.questions_path)
+
+    assert page.has_content? '今日直播'
+    assert page.has_link? '正在直播'
+    assert page.has_link? '尚未直播'
+  end
+
   test "home page choiceness" do
     visit root_path
+    assert page.has_content? '精心挑选为您推荐最优质的课程内容'
     assert_equal 8, page.all("#choiceness .item-handpick li").size, "精选内容显示数量显示不正确"
     assert_equal 5, page.all("#choiceness .item-handpick li.default").size, "默认精选内容显示数量显示不正确"
 
@@ -56,9 +74,22 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_xpath?("//a[@href='/live_studio/interactive_courses/#{interactive_course.id}']"), '一对一链接不正确'
   end
 
+  test "home page free_courses" do
+    visit root_path
+    assert page.has_content? '免费课程'
+    assert page.has_content? '让学习成本降到最低'
+    courses = DataService::HomeData.new(nil).free_courses.limit(4)
+    assert_equal courses.count, page.all("#free_courses .item-handpick li").size, "免费课程显示数量显示不正确"
+    courses.each do |course|
+      assert page.has_link?(course.name)
+      assert page.has_xpath?("//a[@href='/live_studio/#{course.model_name.route_key}/#{course.id}']"), '链接不正确'
+    end
+  end
+
   test "home page newest_courses" do
     visit root_path
     assert page.has_content? '新课发布'
+    assert page.has_content? '品尝新鲜知识的味道'
     assert_equal 4, page.all("#newest_courses .item-handpick li").size, "新课发布显示数量显示不正确"
     courses = LiveService::RankManager.rank_of('all_published_rank')
     courses.each do |course|
@@ -70,6 +101,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
   test "home page teachers" do
     visit root_path
     assert page.has_content? '教师推荐'
+    assert page.has_content? '品质教育第一步-从选择高质量教师开始'
     assert page.has_link? '更换'
     teachers = DataService::HomeData.new(nil).teachers
     assert_equal page.all('#recommend_teacher li').size, 6

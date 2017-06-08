@@ -51,7 +51,7 @@
     <form class="navbar-form pull-left hidden-xs" role="search">
       <div class="search-input">
         <div class="form-group">
-          <div class="choose pull-left">
+          <div class="choose-list pull-left">
             <em>课程</em><i class="fa fa-angle-down"></i><span>|</span>
             <ul style="display: none;">
               <li class="active">课程</li>
@@ -64,54 +64,6 @@
       </div>
     </form>
 
-    <%= render 'layouts/v1/login_info' %>
+    <%= render 'layouts/v1/login' %>
   </div>
 </header>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    $(function(){
-      var hoverset;
-      $(".user-title").hover(function() {
-        $(".nav-dropdown").show();
-        if(hoverset) {
-          clearTimeout(hoverset);
-        }
-      }, function() {
-        hoverset = setTimeout(function() {
-          $(".nav-dropdown").hide();
-        }, 200)
-      });
-
-      var navhover;
-      $(".nav-hover").hover(function() {
-        $(".dropdown-list").show();
-        if(navhover) {
-          clearTimeout(navhover);
-        }
-      }, function() {
-        navhover = setTimeout(function() {
-          $(".dropdown-list").hide();
-        }, 200)
-      });
-
-      var hoverinput;
-      $(".choose").hover(function() {
-        $(".choose > ul").show();
-
-        if(hoverinput) {
-          clearTimeout(hoverinput);
-        }
-      }, function() {
-        hoverinput = setTimeout(function() {
-          $(".choose > ul").hide();
-        }, 200)
-      });
-      $(".choose > ul li").click(function() {
-        $(this).addClass("active").siblings().removeClass("active");
-        $(".choose em").html($(this).html());
-        $(this).parent().hide();
-      });
-    });
-  </script>
-<% end %>

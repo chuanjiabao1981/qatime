@@ -16,10 +16,12 @@ class HomeController < ApplicationController
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
     @today_lives = home_data.today_lives.limit(12)
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
+    @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 3)
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses.limit(4)
-    @questions = home_data.questions.limit(9)
+    question_limit = @topic_items.count > 0 ? 6 : 9
+    @questions = home_data.questions.limit(question_limit)
   end
 
   def switch_city

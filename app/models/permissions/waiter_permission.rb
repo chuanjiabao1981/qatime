@@ -53,6 +53,9 @@ module Permissions
       allow 'recommend/station/banner_items', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'recommend/station/topic_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
       allow 'recommend/station/choiceness_items', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end

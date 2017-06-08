@@ -21,8 +21,13 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_id: 教师设置
-        teacher: 老师
+        teacher: 选择老师
         teacher_percentage: 教师分成
+        price: 设置价格
+      interactive_course:
+        price: 设置价格
+      video_course:
+        price: 设置价格
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

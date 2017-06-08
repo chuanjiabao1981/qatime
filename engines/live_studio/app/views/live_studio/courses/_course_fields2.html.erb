@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :teacher, label: t('view.live_studio/course.labels.teacher') %>
+    <%= f.label :teacher %>
   </div>
   <div class="col-md-10">
     <%= f.association :teacher, collection: Teacher.pluck(:name, :id), label: false, prompt: t('view.live_studio/interactie_course.placeholder.teacher_id'), input_html: {class: 'select2'} %>
@@ -21,7 +21,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :price, label: t('view.live_studio/interactie_course.labels.price'), required: true %>
+    <%= f.label :price, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :price, label: false, wrapper_html: {class: 'divided'} do %>

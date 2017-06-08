@@ -127,8 +127,8 @@ module LiveStudio
         course.interactive_lessons_count = 0
         class_dates = []
       else
-        course.interactive_lessons_count = params[:interactive_course][:interactive_lessons_attributes].try(:count) || 0
-        class_dates = params[:interactive_course][:interactive_lessons_attributes].map {|a| a.last[:class_date]}.reject(&:blank?)
+        course.interactive_lessons_count = params[:interactive_course].to_h[:interactive_lessons_attributes].try(:count) || 0
+        class_dates = params[:interactive_course].to_h[:interactive_lessons_attributes].map {|a| a.last[:class_date]}.reject(&:blank?)
       end
       course.start_at, course.end_at = class_dates.min, class_dates.max
       course

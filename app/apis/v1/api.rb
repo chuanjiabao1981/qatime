@@ -42,6 +42,9 @@ module V1
     mount V1::Payment::Coupons
     mount V1::Payment::ItunesProducts
 
+    # 首页搜索
+    mount V1::Home::Search
+
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }
   end

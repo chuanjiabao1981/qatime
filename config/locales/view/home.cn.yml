@@ -23,3 +23,11 @@ cn:
         questions:
           title: 问答动态
           more: 更多
+    search_teachers:
+      combo_msg1: 共找到
+      combo_msg2: 个与
+      combo_msg3: 相关的老师
+      course_link: 搜索相关课程
+    search_courses:
+      combo_msg3: 相关的课程
+      teacher_link: 搜索相关老师

@@ -48,6 +48,9 @@ cn:
         teacher: 全部老师
         replay: 回放列表
         more: 更多
+      search:
+        teacher: 教师
+        course: 课程
     qa_bars:
       courses: 辅导流程
       teacher: 老师如何开课

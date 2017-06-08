@@ -14,6 +14,24 @@ class HomePageTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
+  test "home page search" do
+    visit home_path
+    find(:css, '.fa-search').click
+    assert page.has_link?('搜索相关老师')
+
+    fill_in :search_key, with: '发布'
+    find(:css, '.fa-search').click
+    assert page.has_link?('发布的视频课2')
+    assert page.has_link?('发布的视频课1')
+
+    fill_in :search_key, with: '数学'
+    find(:css, '.fa-search').click
+    assert page.has_link?('数学辅导班4')
+    click_on '搜索相关老师'
+    assert page.has_link?('teacher_one')
+    assert page.has_content?('高中数学')
+  end
+
   test 'home page switch_city' do
     visit home_path
     click_link '切换'

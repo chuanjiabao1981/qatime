@@ -48,21 +48,23 @@
       </ul>
     </div>
 
-    <form class="navbar-form pull-left hidden-xs" role="search">
+    <%= form_tag main_app.search_home_index_path, class: 'navbar-form pull-left hidden-xs', method: :get do %>
       <div class="search-input">
         <div class="form-group">
           <div class="choose-list pull-left">
-            <em>课程</em><i class="fa fa-angle-down"></i><span>|</span>
-            <ul style="display: none;">
-              <li class="active">课程</li>
-              <li class="">教师</li>
+            <em><%= params[:search_cate] == 'teacher' ? t('view.common_bars.search.teacher') : t('view.common_bars.search.course') %></em><i class="fa fa-angle-down"></i><span>|</span>
+            <ul>
+              <li class="<%= 'active' if params[:search_cate].blank? || params[:search_cate] == 'course' %>" data-k="course"><%= t('view.common_bars.search.course') %></li>
+              <li class="<%= 'active' if params[:search_cate] == 'teacher' %>" data-k="teacher"><%= t('view.common_bars.search.teacher') %></li>
             </ul>
           </div>
-          <input type="text" class="" id="search">
+
+          <%= hidden_field_tag :search_cate, params[:search_cate].presence || 'course' %>
+          <%= text_field_tag :search_key, params[:search_key] %>
         </div>
         <button type="submit" class="fa fa-search"></button>
       </div>
-    </form>
+    <% end %>
 
     <%= render 'layouts/v1/login' %>
   </div>

@@ -44,6 +44,7 @@ $(function(){
 
   });
   $(".choose-list > ul li").click(function() {
+    $('#search_cate').val($(this).data('k'));
     $(this).addClass("active").siblings().removeClass("active");
     $(".choose-list em").html($(this).html());
     $(this).parent().hide();

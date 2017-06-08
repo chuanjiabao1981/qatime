@@ -1,0 +1,19 @@
+<li class="col-md-6 col-sm-6">
+  <%= link_to profile_teacher_path(teacher) do %>
+    <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+    <div class="tec-message">
+      <h4>
+        <b>
+          <span><%= teacher.name %></span>
+          <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+        </b>
+      </h4>
+      <p class="teach-age"><span><%= teacher.try(:teaching_years_text) %></span></p>
+      <p class="teach-details">
+        <span><%= "#{teacher.category}#{teacher.subject}" %></span>
+        <span> | </span>
+        <span><%= teacher.province.try(:name) %><%= teacher.try(:city).try(:name) %><%= teacher.school.try(:name) %></span>
+      </p>
+    </div>
+  <% end %>
+</li>

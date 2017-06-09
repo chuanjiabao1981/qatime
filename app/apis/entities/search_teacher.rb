@@ -9,5 +9,8 @@ module Entities
     expose :school do |s|
       s.school.try(:name)
     end
+    expose :total_entries do |teacher|
+      options[:total_entries]
+    end
   end
 end

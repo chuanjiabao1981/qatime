@@ -21,6 +21,7 @@ module Recommend
       click_on '网页管理'
       assert page.has_link?('首页管理')
       assert page.has_link?('Banner')
+      assert page.has_link?('板块专题')
       assert page.has_link?('精选内容')
       assert page.has_link?('教师推荐')
       assert page.has_link?('新增')
@@ -101,6 +102,32 @@ module Recommend
         click_on '删除', match: :first
       end
       assert page.has_no_content?('好课程啊')
+    end
+
+    test 'manager topic_items' do
+      click_on '网页管理'
+      click_on '板块专题'
+      assert page.has_content?('标题')
+      assert page.has_content?('跳转链接')
+
+      click_on '新增'
+      fill_in :topic_item_name, with: '社区送温暖'
+      fill_in :topic_item_index, with: '1'
+      fill_in :topic_item_title, with: '送的好啊'
+      fill_in :topic_item_link, with: '/'
+      assert_difference 'Recommend::TopicItem.count', 1 do
+        click_on '保存'
+        assert page.has_content?('社区送温暖')
+      end
+      sleep(1)
+      click_on '编辑', match: :first
+      fill_in :topic_item_name, with: '精选专区'
+      click_on '保存'
+      assert page.has_content?('精选专区')
+      accept_prompt(with: '确定删除?') do
+        click_on '删除', match: :first
+      end
+      assert page.has_no_content?('精选专区')
     end
   end
 end

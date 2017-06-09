@@ -102,7 +102,7 @@ cn:
         name: 课程名称
         description: 详细说明
         grade: 年级
-        price: 设置价格
+        price: 价格
         subject: 科目
         objective: 课程目标
         suit_crowd: 适合人群
@@ -154,6 +154,8 @@ cn:
       hint:
         taste_count: 课时
         price: 元
+      labels:
+        teacher: 选择老师
       validates:
         name: 请输入课程名称
         description: 请输入课程介绍
@@ -194,6 +196,8 @@ cn:
         preview: 预览
         submit: 发布招生
         lesson_name_text: "一对一互动课程-第%{index}课时"
+      labels:
+        price: 设置价格
       placeholder:
         name: 输入一对一课程标题
         objective: 输入课程能够达到的学习目标(最多300个字)

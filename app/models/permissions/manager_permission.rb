@@ -21,7 +21,7 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
-      allow :home,[:index,:new_index,:switch_city]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|
         user.cities.include? school.city
@@ -125,6 +125,9 @@ module Permissions
       allow 'recommend/items', [:new, :create]
 
       allow 'recommend/station/banner_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'recommend/station/topic_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|

@@ -50,6 +50,16 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert interactive_course_item['live_studio_interactive_course'].size > 0
   end
 
+  # 测试专题内容
+  test 'get recommend topic items for position' do
+    get "/api/v1/recommend/positions/index_topic_item/items"
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "接口响应错误 #{res}"
+    assert_equal 1, res['data'].count, "推荐返回错误"
+    assert_includes res['data'].map {|item| item['type']}, "Recommend::TopicItem", "没有正确返回推荐类型"
+  end
+
   # 批量获取推荐
   test 'get recommend items for batch' do
     get "/api/v1/recommend/positions/index_live_studio_course_recommend-index_teacher_recommend/items/batch"

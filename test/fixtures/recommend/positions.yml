@@ -18,3 +18,8 @@ index_choiceness_recommend:
   klass_name: Recommend::ChoicenessItem
   kee: index_choiceness_item
   status: 1
+index_topic_recommend:
+  name: 板块专题
+  klass_name: Recommend::TopicItem
+  kee: index_topic_item
+  status: 1

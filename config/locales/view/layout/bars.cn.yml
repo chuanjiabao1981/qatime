@@ -43,6 +43,14 @@ cn:
       default_teach_years: XXX年教龄
       notification: 消息中心
       manage: 管理中心
+      nav:
+        course: 选课中心
+        teacher: 全部老师
+        replay: 回放列表
+        more: 更多
+      search:
+        teacher: 教师
+        course: 课程
     qa_bars:
       courses: 辅导流程
       teacher: 老师如何开课
@@ -85,14 +93,22 @@ cn:
       live_padding: 尚未直播
     choiceness_items:
       title: 精选内容
+      subtitle: 精心挑选为您推荐最优质的课程内容
       lessons_count: "共%{count}课"
       more: 更多
+    line_items:
+      video_link: 答疑时间课程介绍
+    free_courses:
+      title: 免费课程
+      subtitle: 让学习成本降到最低
     recent_courses:
       title: 近期开课
     newest_courses:
       title: 新课发布
+      subtitle: 品尝新鲜知识的味道
     teacher_items:
       title: 教师推荐
+      subtitle: 品质教育第一步-从选择高质量教师开始
       replace: 更换
       ajax_none: 没有更多了!
     service:

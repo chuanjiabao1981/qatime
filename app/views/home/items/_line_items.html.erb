@@ -1,0 +1,76 @@
+<div class="line-item">
+  <div class="container">
+    <div class="col-md-3">
+      <div class="nav-aside">
+        <ul>
+          <% APP_CONSTANT['grades'].each do |grade_type, grades| %>
+            <li>
+              <h4><%= grade_type %></h4>
+              <div class="row">
+                <% grades.reverse_each do |grade| %>
+                  <div class="col-md-4 col-sm-4 col-xs-4">
+                    <%= link_to grade, live_studio.courses_path(q: {grade_eq: grade}) %>
+                  </div>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <a href="javascript:void(0);" class="video-item col-md-12">
+          <i></i> <%= t('view.line_items.video_link') %>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="category">
+        <div class="category-nav">
+          <div class="row">
+            <div class="col-md-4 col-sm-4">
+              <%= link_to live_studio.courses_path, class: 'color-orange' do %>
+                <p><%= t('view.new_index.line_items.category.course') %></p>
+              <% end %>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <%= link_to live_studio.interactive_courses_path, class: 'color-green' do %>
+                <p><%= t('view.new_index.line_items.category.interactive_course') %></p>
+              <% end %>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <%= link_to live_studio.video_courses_path, class: 'color-blue' do %>
+                <p><%= t('view.new_index.line_items.category.video_course') %></p>
+              <% end %>
+            </div>
+            <!-- 专题推荐 -->
+            <%= render partial: 'home/items/topic_item', collection: @topic_items %>
+          </div>
+        </div>
+
+        <div class="category-answer">
+          <h4><%= t('view.new_index.line_items.questions.title') %></h4>
+          <ul>
+            <%= render partial: 'home/items/question', collection: @questions %>
+          </ul>
+          <p>
+            <%= link_to main_app.questions_path do %>
+              <%= t('view.new_index.line_items.questions.more') %><i class="fa fa-angle-right"></i>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="live-today">
+        <center>
+          <h3><strong><%= t('view.new_index.line_items.today_lives.title') %></strong></h3>
+        </center>
+        <div class="liveing-info">
+          <ul>
+            <%= render partial: 'home/items/today_live', collection: @today_lives %>
+          </ul>
+          <%= render 'shared/blank' if @today_lives.blank? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

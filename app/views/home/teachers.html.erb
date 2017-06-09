@@ -1,0 +1,14 @@
+<div class="personal">
+  <%= render 'home/teachers/filter' %>
+
+  <div class="line-item">
+    <div class="container">
+      <ul class="teacher-list">
+        <%= render partial: 'home/search/teacher', collection: @teachers %>
+      </ul>
+
+      <%= render 'shared/blank' if @teachers.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @teachers, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

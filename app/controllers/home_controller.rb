@@ -51,7 +51,7 @@ class HomeController < ApplicationController
   end
 
   def teachers
-    @query = Teacher.order(created_at: :desc).ransack(params[:q])
+    @query = DataService::SearchManager.teachers_ransack(params[:q])
     @teachers = @query.result.paginate(page: params[:page], per_page: 8)
   end
 

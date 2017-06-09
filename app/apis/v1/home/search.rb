@@ -23,6 +23,20 @@ module V1
             end
           end
         end
+
+        resource :teachers do
+          desc '首页全部教师搜索'
+          params do
+            optional :category_eq, type: String, desc: '类型', values: APP_CONSTANT['categories']
+            optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
+            optional :page, type: Integer, desc: '当前页面'
+            optional :per_page, type: Integer, desc: '每页记录数'
+          end
+          get do
+            teachers = DataService::SearchManager.teachers_ransack(params).result.paginate(page: params[:page], per_page: params[:per_page])
+            present teachers, with: Entities::SearchTeacher, total_entries: teachers.total_entries
+          end
+        end
       end
     end
   end

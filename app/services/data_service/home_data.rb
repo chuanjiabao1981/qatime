@@ -39,6 +39,11 @@ module DataService
       @free_video_courses = LiveStudio::VideoCourse.for_sell.with_sell_type(:free).order(published_at: :desc)
     end
 
+    # 问答动态
+    def questions
+      ::Question.includes({learning_plan: :teachers}, :vip_class, :student).order(created_at: :desc)
+    end
+
     class << self
       def position_query(position, city_name)
         city = City.find_by(name: city_name)

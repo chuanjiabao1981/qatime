@@ -1,12 +1,12 @@
-<div class="line-item" id="newest_courses">
+<div class="line-item" id="free_courses">
   <div class="container">
     <center>
-      <h2><strong><%= t('view.newest_courses.title') %></strong></h2>
-      <h4><%= t('view.newest_courses.subtitle') %></h4>
+      <h2><strong><%= t('view.free_courses.title') %></strong></h2>
+      <h4><%= t('view.free_courses.subtitle') %></h4>
     </center>
 
     <ul class="item-handpick">
-      <% @newest_courses.each do |course| %>
+      <% @free_courses.each do |course| %>
         <li class="col-md-3 col-xs-6">
           <%= link_to live_studio.send("#{course.model_name.singular_route_key}_path", course) do %>
             <%= image_tag course.publicize_url(:list), class: 'handle_error_list' %>
@@ -19,16 +19,16 @@
             </p>
             <p>
               <span><%= course.grade %><%= course.subject %>/<%= t('view.choiceness_items.lessons_count', count: course.lessons_count) %></span>
-              <%= link_to truncate_u(course.teacher.try(:name), length: 8), profile_teacher_path(course.teacher) if course.teacher %>
+              <%= link_to truncate_u(course.teacher_name, length: 8), profile_teacher_path(course.teacher) if course.teacher %>
             </p>
           </div>
         </li>
       <% end %>
 
-      <%= render partial: 'home/items/default_courses' if @newest_courses.blank? %>
+      <%= render partial: 'home/items/default_courses' if @free_courses.blank? %>
     </ul>
     <p class="iteminfo-more">
-      <%= link_to live_studio.courses_path do %>
+      <%= link_to live_studio.video_courses_path(q: { sell_type_eq: '2' }) do %>
         <%= t('view.choiceness_items.more') %>
         <i class="fa fa-angle-right"></i>
       <% end %>

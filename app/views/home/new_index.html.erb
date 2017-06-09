@@ -1,14 +1,14 @@
+<!-- Banner -->
+<%= render 'layouts/v1/banners' %>
 
-<%= render 'layouts/v1/banner_and_tags' %>
-
-<!-- 今日直播 -->
-<%= render partial: 'home/items/today_lives' if @today_lives.present? %>
+<!-- 专题板块 -->
+<%= render partial: 'home/items/line_items' %>
 
 <!-- 精选内容 -->
 <%= render partial: 'home/items/choiceness' %>
 
-<!-- 近期开课 -->
-<%= render partial: 'home/items/recent_courses' %>
+<!-- 免费课程 -->
+<%= render partial: 'home/items/free_courses' %>
 
 <!-- 新课发布 -->
 <%= render partial: 'home/items/newest_courses' %>
@@ -19,6 +19,22 @@
 <!-- 服务项目 -->
 <%= render partial: 'home/items/service' %>
 
+<!--Modal弹窗-->
+<div class="modal-presentation">
+  <div class="modal-content">
+    <div class="popup-title">
+      <%= image_tag 'live-logo.png' %>
+      <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+    </div>
+    <div class="modal-body">
+      <div class="video-box">
+        <video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
+          <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
@@ -36,6 +52,63 @@
       $(".btn-previous").click(function() {
         $("#myCarousel").carousel('next');
       });
-    })
+
+      // 今日直播
+      $(".live-today").hover(function() {
+        var showHeight = $(".live-today  ul").height();
+        if(showHeight > 334) {
+          $(".live-today .liveing-info").css("overflow", "auto");
+        }
+      }, function() {
+        $(".live-today .liveing-info").animate({
+          scrollTop: 0
+        }, 200);
+
+        $(".live-today .liveing-info").css("overflow", "hidden");
+
+      });
+
+
+      $(".video-item").click(function() {
+        $(".modal-presentation").show();
+        $(".modal-presentation").css({
+          left: ($(window).width() - $(".modal-presentation").outerWidth()) / 2,
+          top: ($(window).height() - $(".modal-presentation").outerHeight()) / 2 + $(document).scrollTop()
+        });
+      })
+      $(".close").click(function() {
+        $(".modal-presentation").hide();
+      })
+
+      var obj = $(".modal-presentation");
+      drag(obj);
+
+    });
+
+    //拖动
+    function drag (obj) {
+      obj.bind("mousedown", start);
+
+      function start (event) {
+        deltaX = event.clientX - obj.offset().left;
+        deltaY = event.clientY - obj.offset().top;
+        $(document).bind("mousemove", move);
+        $(document).bind("mouseup", stop);
+        return false;
+      }
+
+      function move (event) {
+        obj.css({
+          "left": (event.clientX - deltaX) + "px",
+          "top": (event.clientY - deltaY) + "px"
+        })
+        return false;
+      }
+      function stop () {
+        $(document).unbind("mousemove", move);
+        $(document).unbind("mouseup", stop);
+      }
+    }
+
   </script>
 <% end %>

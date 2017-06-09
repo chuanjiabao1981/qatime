@@ -16,10 +16,10 @@ module V1
             search_data = DataService::SearchManager.new(params[:search_cate])
             if params[:search_cate] == 'teacher'
               teachers = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
-              present teachers, with: Entities::SearchTeacher
+              present teachers, with: Entities::SearchTeacher, total_entries: teachers.total_entries
             else
               courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
-              present courses, with: Entities::LiveStudio::HomeSearchCourse
+              present courses, with: Entities::LiveStudio::HomeSearchCourse, total_entries: courses.total_entries
             end
           end
         end

@@ -9,7 +9,7 @@ module DataService
     end
 
     def search_teachers(k)
-      ::Teacher.order(created_at: :desc).ransack(name_or_category_or_subject_cont: k).result
+      ::Teacher.order(created_at: :desc).ransack(name_or_category_or_subject_cont: k, name_present: '1').result
     end
 
     def search_courses(k)

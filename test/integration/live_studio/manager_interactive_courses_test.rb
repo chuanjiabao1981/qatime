@@ -37,8 +37,6 @@ module LiveStudio
       find(:css, '.course-hint').hover
       assert page.has_content? '2.课程总时长共计450分钟，每课45分钟，共10课时（暂不支持修改）；'
       assert page.has_content? '三、其他设置'
-      assert page.has_content? '一对一互动课程-第一课时'
-      assert page.has_content? '一对一互动课程-第十课时'
 
       select '高一', from: 'interactive_course_grade'
       select '数学', from: 'interactive_course_subject'
@@ -48,44 +46,45 @@ module LiveStudio
       find('div[contenteditable]').set('test description')
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
-
       teacher_names = ::Teacher.all.map(&:name)
-      10.times do |index|
-        select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
-        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
-        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
-      end
 
-      execute_script("$('#interactive_course_interactive_lessons_attributes_0_class_date').val('#{Date.today.to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(Date.today + 2.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(Date.today + 3.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_3_class_date').val('#{(Date.today + 4.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_4_class_date').val('#{(Date.today + 5.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_5_class_date').val('#{(Date.today + 6.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_6_class_date').val('#{(Date.today + 7.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_7_class_date').val('#{(Date.today + 8.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_8_class_date').val('#{(Date.today + 9.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_9_class_date').val('#{(Date.today + 10.days).to_s}')")
+      click_on '添加新课程'
+      sleep(2)
+      find('.class_date', match: :first).set((Date.today + 2.days).to_s)
+      find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
+      find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option
+      find('.lesson_name', match: :first).set('测试课程名称')
+      teacher_html_id = find(:css, '.select2-container').native.attribute('id')
+      select2(teacher_names.sample, '#' + teacher_html_id)
+      click_on '保存'
+
+      click_on '添加新课程'
+      sleep(2)
+      find('.class_date', match: :first).set((Date.today + 2.days).to_s)
+      find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
+      find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option
+      find('.lesson_name', match: :first).set('测试课程名称2')
+      teacher_html_id = find(:css, '.select2-container').native.attribute('id')
+      select2(teacher_names.sample, '#' + teacher_html_id)
+      click_on '保存'
 
       assert_difference 'LiveStudio::InteractiveCourse.count', 0, "一对一唯一日期校验失败" do
         assert_difference 'LiveStudio::InteractiveLesson.count', 0, "一对一唯一日期校验失败" do
-          execute_script("$('#interactive_course_interactive_lessons_attributes_8_class_date').val('#{(Date.today + 10.days).to_s}')")
-          execute_script("$('#interactive_course_interactive_lessons_attributes_9_class_date').val('#{(Date.today + 10.days).to_s}')")
           click_on '发布招生'
           assert page.has_content? '上课时间不能重复'
         end
       end
 
-      execute_script("$('#interactive_course_interactive_lessons_attributes_8_class_date').val('#{(Date.today + 9.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_9_class_date').val('#{(Date.today + 10.days).to_s}')")
       assert_difference 'LiveStudio::InteractiveCourse.count', 1, "一对一创建失败" do
-        assert_difference 'LiveStudio::InteractiveLesson.count', 10, "一对一创建失败" do
+        assert_difference 'LiveStudio::InteractiveLesson.count', 2, "一对一创建失败" do
+          click_on '编辑', match: :first
+          find('.class_date', match: :first).set((Date.today + 1.days).to_s)
+          click_on '保存'
           click_on '发布招生'
         end
       end
       new_interactive_course = LiveStudio::InteractiveCourse.last
       assert new_interactive_course.published?, "新创建今日开课状态不正确 #{new_interactive_course.status}"
-      assert_equal 'ready', new_interactive_course.lessons.first.status, '新创建今日课程状态为变'
     end
 
     test 'manager interactive_course update_class_date' do
@@ -99,6 +98,7 @@ module LiveStudio
 
       # 调重复失败
       find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      sleep(1)
       assert page.has_content? lesson1.teacher.name
       assert page.has_content? lesson1.class_date.to_s
       assert page.has_content? lesson1.start_time
@@ -113,9 +113,11 @@ module LiveStudio
       assert page.has_content? '上课时间不能重复'
 
       find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      sleep(1)
       execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(lesson1.class_date + 9.days).to_s}')")
       click_on '保存'
       find("a[data-target='#adjust_edit_#{lesson2.id}']").click
+      sleep(1)
       execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(lesson2.class_date + 9.days).to_s}')")
       click_on '保存'
       click_on '保存调课'
@@ -139,22 +141,16 @@ module LiveStudio
       fill_in :interactive_course_teacher_percentage, with: '90'
 
       teacher_names = ::Teacher.all.map(&:name)
-      10.times do |index|
-        select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
-        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
-        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
-      end
 
-      execute_script("$('#interactive_course_interactive_lessons_attributes_0_class_date').val('#{(Date.today + 1.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(Date.today + 2.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(Date.today + 3.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_3_class_date').val('#{(Date.today + 4.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_4_class_date').val('#{(Date.today + 5.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_5_class_date').val('#{(Date.today + 6.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_6_class_date').val('#{(Date.today + 7.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_7_class_date').val('#{(Date.today + 8.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_8_class_date').val('#{(Date.today + 9.days).to_s}')")
-      execute_script("$('#interactive_course_interactive_lessons_attributes_9_class_date').val('#{(Date.today + 10.days).to_s}')")
+      click_on '添加新课程'
+      sleep(2)
+      find('.class_date', match: :first).set((Date.today + 2.days).to_s)
+      find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
+      find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option
+      find('.lesson_name', match: :first).set('测试课程名称')
+      teacher_html_id = find(:css, '.select2-container').native.attribute('id')
+      select2(teacher_names.sample, '#' + teacher_html_id)
+      click_on '保存'
 
       new_window = window_opened_by { click_on '预览' }
       within_window new_window do

@@ -20,5 +20,10 @@ module DataService
       all_courses = courses.to_a + interactive_courses.to_a + video_courses.to_a
       all_courses.sort_by{ |x| x.published_at || Time.new(2000) }.reverse
     end
+
+    def self.teachers_ransack(params = {})
+      params = params.presence || {}
+      ::Teacher.order(created_at: :desc).ransack(params.merge(name_present: '1'))
+    end
   end
 end

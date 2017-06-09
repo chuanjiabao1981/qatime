@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Qatime::SearchAPITest < ActionDispatch::IntegrationTest
-
   # 搜索接口
   test 'home search teacher' do
     get "/api/v1/home/search", search_cate: 'teacher', search_key: 'teacher'
@@ -18,5 +17,4 @@ class Qatime::SearchAPITest < ActionDispatch::IntegrationTest
     assert res['data'][0].key? 'product'
     assert_equal DataService::SearchManager.new('course').search('测试').count, res['data'].count, '搜索结果不正确'
   end
-
 end

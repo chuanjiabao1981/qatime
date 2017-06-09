@@ -17,8 +17,8 @@
         <li class="<%= 'active' if %w[live_studio/courses live_studio/interactive_courses live_studio/video_courses].include?(params[:controller]) && action_name == 'index' %>">
           <%= link_to t("view.common_bars.nav.course"), live_studio.root_path %>
         </li>
-        <li>
-          <%= link_to t("view.common_bars.nav.teacher"), 'javascript:void(0);' %>
+        <li class="<%= 'active' if params[:controller] == 'home' && action_name == 'teachers' %>">
+          <%= link_to t("view.common_bars.nav.teacher"), main_app.teachers_home_index_path %>
         </li>
         <li>
           <%= link_to t("view.common_bars.nav.replay"), 'javascript:void(0);' %>

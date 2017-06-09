@@ -31,3 +31,7 @@ cn:
     search_courses:
       combo_msg3: 相关的课程
       teacher_link: 搜索相关老师
+    home/teachers:
+      filter:
+        category: 年级
+        subject: 科目

@@ -48,6 +48,11 @@ class HomeController < ApplicationController
     @courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 12)
   end
 
+  def teachers
+    @query = Teacher.order(created_at: :desc).ransack(params[:q])
+    @teachers = @query.result.paginate(page: params[:page], per_page: 8)
+  end
+
   private
 
   def set_user

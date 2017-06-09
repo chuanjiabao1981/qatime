@@ -14,6 +14,15 @@ class HomePageTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
+  test "home teachers index" do
+    visit home_path
+    click_on '全部老师'
+    click_on '高中'
+    click_on '物理'
+    assert page.has_link?('physics_teacher1')
+    assert 2, page.all('.teacher-list li').size
+  end
+
   test "home page search" do
     visit home_path
     find(:css, '.fa-search').click

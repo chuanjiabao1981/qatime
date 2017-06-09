@@ -29,6 +29,7 @@ Qatime::Application.routes.draw do
       get :search
       get :search_teachers
       get :search_courses
+      get :teachers
     end
   end
 

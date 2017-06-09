@@ -8,7 +8,7 @@ module Permissions
       allow :vip_classes,[:show]
 
       allow :sessions,[:destroy]
-      allow :home,[:index,:new_index,:switch_city]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
       allow "sellers/home", [:main]
 
       allow :sellers, [:customized_courses]

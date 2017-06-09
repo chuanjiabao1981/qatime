@@ -69,16 +69,16 @@
       });
 
 
-      $(".video-item").click(function() {
-        $(".modal-presentation").show();
-        $(".modal-presentation").css({
-          left: ($(window).width() - $(".modal-presentation").outerWidth()) / 2,
-          top: ($(window).height() - $(".modal-presentation").outerHeight()) / 2 + $(document).scrollTop()
-        });
-      })
-      $(".close").click(function() {
-        $(".modal-presentation").hide();
-      })
+//      $(".video-item").click(function() {
+//        $(".modal-presentation").show();
+//        $(".modal-presentation").css({
+//          left: ($(window).width() - $(".modal-presentation").outerWidth()) / 2,
+//          top: ($(window).height() - $(".modal-presentation").outerHeight()) / 2 + $(document).scrollTop()
+//        });
+//      })
+//      $(".close").click(function() {
+//        $(".modal-presentation").hide();
+//      })
 
       var obj = $(".modal-presentation");
       drag(obj);

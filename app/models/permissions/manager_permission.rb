@@ -127,6 +127,9 @@ module Permissions
       allow 'recommend/station/banner_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+      allow 'recommend/station/topic_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
         workstation && workstation.manager_id == user.id
       end

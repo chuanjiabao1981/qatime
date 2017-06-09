@@ -41,21 +41,7 @@
               <% end %>
             </div>
             <!-- 专题推荐 -->
-            <!--<div class="col-md-4 col-sm-4">
-              <a href="" class="color-pink">
-                <p>问答社区</p>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4">
-              <a href="" class="color-blue">
-                <p>微客保</p>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-4">
-              <a href="" class="color-orange">
-                <p>胡慧中</p>
-              </a>
-            </div>-->
+            <%= render partial: 'home/items/topic_item', collection: @topic_items %>
           </div>
         </div>
 

@@ -414,7 +414,7 @@ module ApplicationHelper
     when :seller_courses
       r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
     when :webpage
-      r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items].include?(params[:controller])
+      r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items].include?(params[:controller])
     when :sellers
       r = %w[station/workstations station/sellers station/waiters].include?(params[:controller]) && %w[sellers waiters new edit].include?(action_name)
     else

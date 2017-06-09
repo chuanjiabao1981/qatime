@@ -24,6 +24,11 @@ module DataService
       position_query(Recommend::ChoicenessItem.default, @city_id)
     end
 
+    # 板块专题
+    def topic_items
+      position_query(Recommend::TopicItem.default, @city_id)
+    end
+
     # 近期开课
     def recent_courses
       LiveService::RankManager.rank_of('start_rank', {city_id: @city_id})

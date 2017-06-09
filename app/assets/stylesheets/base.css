@@ -8878,6 +8878,7 @@ ul {
 .header .navbar-header .navbar-toggle {
   background-color: #ff5842;
   margin: 20px 0px 20px 10px;
+  outline: none;
 }
 .header .navbar-header .navbar-toggle > span {
   background-color: #fff;
@@ -9025,6 +9026,7 @@ ul {
   border: 0px;
   border-color: #fff;
   outline: none;
+  padding: 0 5px;
 }
 .header .navbar-form > .search-input button{
   background-color: #fff;
@@ -15071,8 +15073,9 @@ abbr {
   margin: 10px 0 20px 0;
 }
 .line-item .teacher-list a .teach-age > span {
+  display: inline-block;
   font-size: 12px;
-  padding: 3px 10px;
+  padding: 0px 10px;
   border: 1px solid #ff9d90;
   color: #ff9d90;
   border-radius: 10px;
@@ -15122,4 +15125,47 @@ abbr {
 }
 
 
-/*专题板块*/
+/*后台观看页*/
+
+.chat-view > .live-message  {
+  height: 480px;
+}
+.chat-view > .live-message .message-new {
+  height: 381px;
+}
+.chat-view .affiche {
+  height: 451px !important;
+}
+@media only screen and (min-width: 1400px)  {
+  .chat-view > .live-message  {
+    height: 583px;
+  }
+  .chat-view > .live-message .message-new {
+    height: 484px;
+  }
+  .chat-view .affiche {
+    height: 554px !important;
+  }
+}
+@media only screen and (min-width: 990px) and (max-width: 1200px) {
+  .chat-view > .live-message  {
+    height: 352px;
+  }
+  .chat-view > .live-message .message-new {
+    height: 253px;
+  }
+  .chat-view .affiche {
+    height: 323px !important;
+  }
+}
+@media only screen and (min-width: 0px) and (max-width: 990px) {
+  .chat-view > .live-message  {
+    height: 352px;
+  }
+  .chat-view > .live-message .message-new {
+    height: 253px;
+  }
+  .chat-view .affiche {
+    height: 323px !important;
+  }
+}

@@ -8707,7 +8707,7 @@ ul {
 .item-classify-list {
   padding-left: 0px;
   margin-bottom: 0px;
-  margin-top: 85px;
+  margin-top: 30px;
 }
 .item-classify-list li {
   display: inline-block;
@@ -8748,6 +8748,15 @@ ul {
 }
 .handpick-info p:last-child a:hover {
   color: #ff5842;
+}
+.slogan {
+  font-family: "宋体";
+  font-size: 45px;
+  color: #fff;
+  text-align: center;
+  margin-top: 40px;
+  text-shadow: #000 3px 3px 3px;
+  margin-bottom: 0px;
 }
 @media only screen and (max-width: 990px) {
   .item-classify-list {
@@ -9208,6 +9217,32 @@ ul {
 .category .color-pink {
   background-color: #f78e9d;
 }
+.category > .category-nav > .row > div:hover > a {
+  background-color: #fff;
+  border: 1px solid #ff9b5d;
+  padding: 21.5px 15px;
+}
+.category > .category-nav > .row > div:hover > a.color-orange p {
+  color: #ff9b5d;
+}
+.category > .category-nav > .row > div:hover > a.color-green {
+  border-color: #74cd8d;
+}
+.category > .category-nav > .row > div:hover > a.color-green p {
+  color: #74cd8d;
+}
+.category > .category-nav > .row > div:hover > a.color-blue {
+  border-color: #99afe8;
+}
+.category > .category-nav > .row > div:hover > a.color-blue p {
+  color: #99afe8;
+}
+.category > .category-nav > .row > div:hover > a.color-pink {
+  border-color: #f78e9d;
+}
+.category > .category-nav > .row > div:hover > a.color-pink p {
+  color: #f78e9d;
+}
 .category > .category-answer > ul > li .btn-access {
   display: inline-block;
   padding: 0px 8px;
@@ -9228,7 +9263,7 @@ ul {
   color: #ff5842;
 }
 .category > .category-answer > ul > li {
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -10881,6 +10916,9 @@ ul {
   height: 32px;
   display: inline-block;
 }
+.dropdown-select .select2-container.form-control {
+  display: inline-block;
+}
 .add-newclass .modal-body .starttime select {
   width: 70px;
   height: 32px;
@@ -10904,8 +10942,8 @@ ul {
   padding: 10px 0px;
 }
 @media only screen and (min-width: 768px) and (max-width: 992px) {
-  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input {
-    width: 89%;
+  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input,.duration .select2-container.form-control {
+    width: 89% !important;
   }
   .add-newclass .modal-body .starttime select {
     width: 44%;
@@ -10913,24 +10951,24 @@ ul {
 }
 
 @media only screen and (min-width: 620px) and (max-width: 768px) {
-  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input {
-    width: 82%;
+  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input,.duration .select2-container.form-control {
+    width: 82% !important;
   }
   .add-newclass .modal-body .starttime select {
     width: 40.3%;
   }
 }
 @media only screen and (max-width: 620px){
-  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input {
-    width: 70%;
+  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input,.duration .select2-container.form-control {
+    width: 70% !important;
   }
   .add-newclass .modal-body .starttime select {
     width: 34%;
   }
 }
 @media only screen and (max-width: 400px) {
-  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input {
-    width: 140px;
+  .add-newclass .modal-body .col-md-4 input, .add-newclass .duration select,.add-newclass .modal-body .classname input,.duration .select2-container.form-control {
+    width: 140px !important;
   }
   .add-newclass .modal-body .starttime select {
     width: 67px;
@@ -11168,6 +11206,7 @@ ul {
   width: 160px;
   height: 90px;
   background-color: #F2F2F2;
+  cursor: pointer;
 }
 .addvideo > img {
   width: 100%;

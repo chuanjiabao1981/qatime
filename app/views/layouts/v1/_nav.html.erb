@@ -20,9 +20,6 @@
         <li class="<%= 'active' if params[:controller] == 'home' && action_name == 'teachers' %>">
           <%= link_to t("view.common_bars.nav.teacher"), main_app.teachers_home_index_path %>
         </li>
-        <li>
-          <%= link_to t("view.common_bars.nav.replay"), 'javascript:void(0);' %>
-        </li>
         <li class="nav-hover">
           <%= link_to 'javascript:void(0);' do %>
             <%= t("view.common_bars.nav.more") %><i class="fa fa-angle-down"></i>

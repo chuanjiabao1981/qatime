@@ -132,6 +132,7 @@ cn:
             start_time_hour: 上课时间
             duration: 上课时长
             name: 课程名称
+            teacher_id: 授课老师
           placeholder:
             class_date: 选择上课日期
             name: 输入课程名称（最多20字）
@@ -145,6 +146,7 @@ cn:
             duration: 请选择上课时长
             duration_before: 不能早于当前时间
             duration_after: 上课时长不能跨天
+            teacher: 请选择老师
         delete_modal:
           title: 提示
           content: 是否确认删除此课程？

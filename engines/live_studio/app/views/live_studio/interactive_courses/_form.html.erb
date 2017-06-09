@@ -8,11 +8,13 @@
 
   <div class="editor-item">
     <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
-    <ul class="arrange-list">
+    <div class="live-arrangement">
       <%= f.fields_for :interactive_lessons do |lesson| %>
         <%= render 'interactive_lesson_fields', f: lesson %>
       <% end %>
-    </ul>
+
+      <%= raw link_to_add_fields(image_tag('/imgs/addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :interactive_lessons, 'live_studio/interactive_courses/') %>
+    </div>
   </div>
 
   <div class="editor-item">
@@ -56,7 +58,26 @@
         }, 200)
       });
 
-      $(".select2").select2({width: 'resolve', dropdownAutoWidth: 'true'});
     });
+    function _get_time(hour, minutes, duration){
+      return $.getLessonTime(hour, minutes, duration);
+    }
+    function remove_lesson(obj){
+      $(obj).parents("div.lesson_field").hide();
+      var b = $(obj).attr('rel');
+      $('#'+b).attr('checked', true);
+    }
+    function testShow(elem){
+      $.jeDate(elem,{
+        skinCell:"jedatered",
+        festival:false,
+        insTrigger:false,
+        isToday: false,
+        //isinitVal:true,
+        format:"YYYY-MM-DD",
+        isClear:false,
+        minDate: '<%= Date.today.to_s %>'
+      });
+    }
   </script>
 <% end %>

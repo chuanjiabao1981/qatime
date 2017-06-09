@@ -27,6 +27,27 @@ class HomeController < ApplicationController
     @selected_cities = cookies[:selected_cities].try(:split, '-')
   end
 
+  def search
+    params[:search_cate] ||= 'course'
+    if params[:search_cate] == 'teacher'
+      redirect_to main_app.search_teachers_home_index_path(search_key: params[:search_key])
+    else
+      redirect_to main_app.search_courses_home_index_path(search_key: params[:search_key])
+    end
+  end
+
+  def search_teachers
+    params[:search_cate] = 'teacher'
+    search_data = DataService::SearchManager.new(params[:search_cate])
+    @teachers = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 8)
+  end
+
+  def search_courses
+    params[:search_cate] = 'course'
+    search_data = DataService::SearchManager.new(params[:search_cate])
+    @courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 12)
+  end
+
   private
 
   def set_user

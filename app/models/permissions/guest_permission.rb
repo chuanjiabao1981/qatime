@@ -1,7 +1,7 @@
 module Permissions
   class GuestPermission < BasePermission
     def initialize
-      allow :home,[:index,:new_index,:switch_city]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses]
       allow :sessions,[:new,:create]
       allow :students,[:new,:create]
       allow :teachers,[:new,:create,:profile]

@@ -35,11 +35,11 @@ module LiveStudio
 
       assert page.has_selector?('div#my-video'), "播放器初始化错误"
     end
+
     test "student get course information with watch play" do
       visit chat.finish_live_studio_course_teams_path(@course)
       @course.reload
       visit live_studio.play_course_path(@course)
-
       assert page.has_content?(@course.name), '辅导班名称显示不正确'
       # assert page.has_content?('辅导详情'), '辅导详情按钮不存在'
       # assert find(:css, '#live_detail_area').has_content?('辅导概况'), '辅导概况按钮不存在'

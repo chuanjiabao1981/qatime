@@ -15,7 +15,7 @@ module LiveStudio
     end
 
     test 'search page' do
-      assert page.has_content?('最新 ▼')
+      assert page.has_content?('最新')
       assert page.has_link?('全部课程')
       assert page.has_link?('收费课程')
       assert page.has_link?('免费课程')
@@ -31,18 +31,18 @@ module LiveStudio
     # 按价格排序
     test 'sort by price' do
       click_on '价格'
-      assert page.has_content?('价格 ▲')
+      assert page.has_content?('价格')
       click_on '价格'
-      assert page.has_content?('价格 ▼')
+      assert page.has_content?('价格')
     end
 
     # 按发布时间排序
     test 'sort published_at' do
-      assert page.has_content?('最新 ▼')
+      assert page.has_content?('最新')
       click_on '最新'
-      assert page.has_content?('最新 ▲')
+      assert page.has_content?('最新')
       click_on '最新'
-      assert page.has_content?('最新 ▼')
+      assert page.has_content?('最新')
     end
 
     test 'search sell_type' do
@@ -58,6 +58,5 @@ module LiveStudio
       assert !page.has_link?(charge_course.name)
       assert page.has_link?(free_course.name)
     end
-
   end
 end

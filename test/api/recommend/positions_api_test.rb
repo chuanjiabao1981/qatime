@@ -8,7 +8,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 4, res['data'].count, "推荐返回错误"
+    assert_equal 5, res['data'].count, "推荐返回错误"
   end
 
   # 测试获取名师推荐

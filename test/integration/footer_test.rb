@@ -20,6 +20,7 @@ class  FooterTest < ActionDispatch::IntegrationTest
     assert page.has_link?('帮助中心')
     assert page.has_link?('程序下载')
 
+    assert page.has_content?('智造互联乐享教育—答疑时间与您共筑教育梦想')
     assert page.has_content?('名师')
     assert page.has_content?('多种学习模式')
     assert page.has_content?('直播+互动+视频')

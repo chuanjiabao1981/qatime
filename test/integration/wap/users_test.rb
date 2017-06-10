@@ -5,7 +5,6 @@ Sidekiq::Testing.inline!
 
 module Wap
   class UsersTest < ActionDispatch::IntegrationTest
-
     def setup
       @headless = Headless.new
       @headless.start
@@ -34,8 +33,6 @@ module Wap
         click_on "提交", match: :first
       end
       assert page.has_content?(course.name), "辅导班页面跳转失败"
-
     end
-
   end
 end

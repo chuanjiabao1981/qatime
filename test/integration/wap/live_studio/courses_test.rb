@@ -3,7 +3,6 @@ require 'test_helper'
 module Wap
   module LiveStudio
     class CoursesTest < ActionDispatch::IntegrationTest
-
       def setup
         @headless = Headless.new
         @headless.start
@@ -69,7 +68,6 @@ module Wap
         click_on "下载客户端"
         assert page.has_link?('下载'), "未跳转到下载页面"
       end
-
     end
   end
 end

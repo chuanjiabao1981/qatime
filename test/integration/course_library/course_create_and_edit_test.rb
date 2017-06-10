@@ -10,7 +10,6 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
     @syllabus = course_library_syllabuses(:syllabuses_one)
     @directory = course_library_directories(:directory_one)
     @course = course_library_courses(:course_one)
-
   end
 
   def teardown
@@ -45,6 +44,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
   test "course update video" do
     assert_difference 'Video.count', 1 do
       visit CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course)
@@ -54,8 +54,8 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
       click_on '更新大纲课程'
       assert page.has_css?("video")
     end
-
   end
+
   test "course add file" do
     count = @course.qa_files.count
     visit CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course)
@@ -64,6 +64,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
     click_on '更新大纲课程'
     assert page.has_content?('test.jpg')
   end
+
   test "course remove file" do
     count = @course.qa_files.count
     @course.qa_files << qa_files(:one)

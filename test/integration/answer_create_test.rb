@@ -4,34 +4,26 @@ require 'content_input_helper'
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
-
 class AnswerCreateTest < ActionDispatch::IntegrationTest
   include ContentInputHelper
 
   def setup
-
     @student1_question1        = questions(:student1_question1)
-
-
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
   end
 
   def teardown
-    #@headless.destroy
     Capybara.use_default_driver
   end
+
   test "answer question" do
-
     teacher1                  = users(:teacher1)
-
     new_log_in_as(teacher1)
 
     visit questions_path
     click_on @student1_question1.title
-
-
 
     assert_difference 'Answer.count',1 do
       assert_difference 'Video.where(videoable_type:"Answer").count',1 do
@@ -55,9 +47,6 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
         assert page.has_content? content
         assert_picture a
       end
-
     end
-
-
   end
 end

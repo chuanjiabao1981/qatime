@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class AdminVisitsTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
-
   def setup
     @admin = Admin.find(users(:admin).id)
     @headless = Headless.new

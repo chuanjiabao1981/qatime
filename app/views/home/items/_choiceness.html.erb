@@ -2,6 +2,7 @@
   <div class="container">
     <center>
       <h2><strong><%= t('view.choiceness_items.title') %></strong></h2>
+      <h4><%= t('view.choiceness_items.subtitle') %></h4>
     </center>
 
     <ul class="item-handpick">
@@ -13,7 +14,6 @@
 
             <span class="discount">
               <%= image_tag("tag_one#{item.tag_one_value}.png") if item.tag_one.present? %>
-              <%= image_tag("tag_two#{item.tag_two_value}.png") if item.tag_two.present? %>
             </span>
           <% end %>
           <div class="handpick-info">

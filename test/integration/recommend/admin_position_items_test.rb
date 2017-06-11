@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Recommend
   class AdminPositionItemsTest < ActionDispatch::IntegrationTest
-
     def setup
       @routes = Engine.routes
       @headless = Headless.new
@@ -40,9 +39,9 @@ module Recommend
       click_on '首页管理'
       assert page.has_link?('老师推荐管理')
       click_on '老师推荐管理'
-      assert page.has_link?('新增老师推荐')
+      assert page.has_link?('新增老师')
 
-      click_on '新增老师推荐'
+      click_on '新增老师'
       fill_in :teacher_item_index, with: '1'
       fill_in :teacher_item_title, with: '好老师啊'
       select '阳泉', from: :teacher_item_city_id
@@ -66,13 +65,11 @@ module Recommend
 
       select '测试辅导2班', from: :choiceness_item_target_id
       select '最受欢迎', from: :choiceness_item_tag_one
-      select '免费试听', from: :choiceness_item_tag_two
 
       assert_difference 'Recommend::ChoicenessItem.count', 1 do
         click_on '保存'
         assert page.has_content?('好课程啊')
-        assert page.has_content?('标签1: 最受欢迎')
-        assert page.has_content?('标签2: 免费试听')
+        assert page.has_content?('最受欢迎')
       end
     end
 
@@ -86,6 +83,5 @@ module Recommend
       sleep(1)
       assert_equal item.reload.target.name, '测试一对一'
     end
-
   end
 end

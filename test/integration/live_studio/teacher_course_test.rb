@@ -22,20 +22,19 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test "teacher update a courses" do
-      course = live_studio_courses(:course_one_of_teacher_one)
-      visit chat.finish_live_studio_course_teams_path(course)
-
-      visit live_studio.edit_course_path(course)
-      fill_in :course_name, with: '测试英语辅导课程更新'
-      fill_in :course_objective, with: '这是课程目标'
-      fill_in :course_suit_crowd, with: '这是适合人群'
-      find('div.note-editable').set('edit course description')
-      click_on '发布招生'
-      course.reload
-      assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
-      assert_equal('<p>edit course description</p>', course.description, '辅导班描述修改错误')
-    end
+    # test "teacher update a courses" do
+    #   course = live_studio_courses(:course_one_of_teacher_one)
+    #   visit chat.finish_live_studio_course_teams_path(course)
+    #   visit live_studio.edit_course_path(course)
+    #   fill_in :course_name, with: '测试英语辅导课程更新'
+    #   fill_in :course_objective, with: '这是课程目标'
+    #   fill_in :course_suit_crowd, with: '这是适合人群'
+    #   find('div.note-editable').set('edit course description')
+    #   click_on '发布招生'
+    #   course.reload
+    #   assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
+    #   assert_equal('<p>edit course description</p>', course.description, '辅导班描述修改错误')
+    # end
 
     test 'teacher visit other teacher course' do
       other_teacher = users(:english_teacher)

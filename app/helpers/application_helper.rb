@@ -414,7 +414,7 @@ module ApplicationHelper
     when :seller_courses
       r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
     when :webpage
-      r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items].include?(params[:controller])
+      r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items].include?(params[:controller])
     when :sellers
       r = %w[station/workstations station/sellers station/waiters].include?(params[:controller]) && %w[sellers waiters new edit].include?(action_name)
     else
@@ -465,5 +465,25 @@ module ApplicationHelper
 
   def with_none_tips(content)
     content || I18n.t('view.tips.none')
+  end
+
+  def today_live_status(lesson)
+    if lesson.status_wating?
+      ''
+    elsif lesson.status_living?
+      'active'
+    else
+      'finish'
+    end
+  end
+
+  def today_live_status_text(lesson)
+    if lesson.status_wating?
+      I18n.t('view.today_lives.live_padding')
+    elsif lesson.status_living?
+      I18n.t('view.today_lives.living')
+    else
+      I18n.t('view.today_lives.live_end')
+    end
   end
 end

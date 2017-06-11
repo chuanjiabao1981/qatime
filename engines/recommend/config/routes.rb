@@ -28,6 +28,7 @@ Recommend::Engine.routes.draw do
         end
       end
       resources :teacher_items
+      resources :topic_items
     end
   end
 

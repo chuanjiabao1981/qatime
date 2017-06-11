@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Wap
   class SessionsTest < ActionDispatch::IntegrationTest
-
     def setup
       @headless = Headless.new
       @headless.start
@@ -24,6 +23,5 @@ module Wap
 
       assert page.has_content?('欢迎登录!'), "登录不成功"
     end
-
   end
 end

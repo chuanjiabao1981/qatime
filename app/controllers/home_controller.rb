@@ -16,13 +16,43 @@ class HomeController < ApplicationController
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
     @today_lives = home_data.today_lives.limit(12)
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
+    @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 3)
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
+    @free_courses = home_data.free_courses.limit(4)
+    question_limit = @topic_items.count > 0 ? 6 : 9
+    @questions = home_data.questions.limit(question_limit)
   end
 
   def switch_city
     @hash_cities = City.has_default_workstation.to_a.group_by {|city| Spinying.parse(word: city.name).first }.sort.to_h
     @selected_cities = cookies[:selected_cities].try(:split, '-')
+  end
+
+  def search
+    params[:search_cate] ||= 'course'
+    if params[:search_cate] == 'teacher'
+      redirect_to main_app.search_teachers_home_index_path(search_key: params[:search_key])
+    else
+      redirect_to main_app.search_courses_home_index_path(search_key: params[:search_key])
+    end
+  end
+
+  def search_teachers
+    params[:search_cate] = 'teacher'
+    search_data = DataService::SearchManager.new(params[:search_cate])
+    @teachers = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 8)
+  end
+
+  def search_courses
+    params[:search_cate] = 'course'
+    search_data = DataService::SearchManager.new(params[:search_cate])
+    @courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 12)
+  end
+
+  def teachers
+    @query = DataService::SearchManager.teachers_ransack(params[:q])
+    @teachers = @query.result.paginate(page: params[:page], per_page: 8)
   end
 
   private

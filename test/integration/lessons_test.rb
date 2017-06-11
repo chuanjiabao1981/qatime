@@ -1,6 +1,5 @@
 require 'test_helper'
 
-
 class LessonsTest < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new
@@ -9,8 +8,6 @@ class LessonsTest < ActionDispatch::IntegrationTest
     @course = courses(:teacher1_course)
     @lesson  = lessons(:teacher1_lesson)
     # @video   = videos(:teacher1_lesson_video)
-
-
   end
 
   def teardown
@@ -269,7 +266,5 @@ class LessonsTest < ActionDispatch::IntegrationTest
       page.has_xpath?("//video[contains(@src,lesson_without_video.reload.video.name)]")
 
     end
-
   end
-
 end

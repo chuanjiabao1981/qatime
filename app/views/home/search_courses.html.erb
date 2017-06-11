@@ -1,0 +1,23 @@
+<div class="personal">
+  <div class="container">
+    <div class="search-item">
+      <div class="col-md-6 col-sm-6 align-left">
+        <p><%= t('view.search_teachers.combo_msg1') %><span><%= @courses.total_entries %></span><%= t('view.search_teachers.combo_msg2') %>“<span><%= params[:search_key] %></span>”<%= t('view.search_courses.combo_msg3') %></p>
+      </div>
+      <div class="col-md-6 col-sm-6 align-right">
+        <%= link_to t('view.search_courses.teacher_link'), main_app.search_teachers_home_index_path(search_key: params[:search_key]) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="line-item">
+    <div class="container">
+      <ul class="item-handpick">
+        <%= render partial: 'home/search/course', collection: @courses %>
+      </ul>
+
+      <%= render 'shared/blank' if @courses.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

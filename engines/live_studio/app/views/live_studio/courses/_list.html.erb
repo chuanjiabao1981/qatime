@@ -1,30 +1,32 @@
 <div class="line-item">
   <div class="container">
-    <ul class="item-handpick">
-      <% @courses.each do |course| %>
-        <li class="col-md-3 col-xs-6">
-          <%= link_to live_studio.course_path(course) do %>
-            <%= image_tag(course.publicize_url(:list), class: 'handle_error_list') %>
-          <% end %>
-          <div class="handpick-info">
-            <p>
-              <%= link_to live_studio.course_path(course) do %>
-                <strong><%= truncate_u course.name, length: 12 %></strong>
-              <% end %>
-            </p>
-            <p>
-              <span><%= course.grade %><%= course.subject %></span>
-              <span class="class-price"><%= number_to_currency(course.current_price) %></span>
-            </p>
-          </div>
-          <div class="classify-info">
-            <p>
-              <span><%= t('common.teacher') %>：<i><%= truncate_u course.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text2', count: course.buy_user_count) %></i></span>
-            </p>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+    <% if @courses.present? %>
+      <ul class="item-handpick">
+        <% @courses.each do |course| %>
+          <li class="col-md-3 col-xs-6">
+            <%= link_to live_studio.course_path(course) do %>
+              <%= image_tag(course.publicize_url(:list), class: 'handle_error_list') %>
+            <% end %>
+            <div class="handpick-info">
+              <p>
+                <%= link_to live_studio.course_path(course) do %>
+                  <strong><%= truncate_u course.name, length: 12 %></strong>
+                <% end %>
+              </p>
+              <p>
+                <span><%= course.grade %><%= course.subject %></span>
+                <span class="class-price"><%= number_to_currency(course.current_price) %></span>
+              </p>
+            </div>
+            <div class="classify-info">
+              <p>
+                <span><%= t('common.teacher') %>：<i><%= truncate_u course.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text2', count: course.buy_user_count) %></i></span>
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <%= render partial: 'shared/blank_search' if @courses.blank? %>
     <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>

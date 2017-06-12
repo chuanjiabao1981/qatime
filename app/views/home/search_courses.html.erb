@@ -12,9 +12,11 @@
 
   <div class="line-item">
     <div class="container">
-      <ul class="item-handpick">
-        <%= render partial: 'home/search/course', collection: @courses %>
-      </ul>
+      <% if @courses.present? %>
+        <ul class="item-handpick">
+          <%= render partial: 'home/search/course', collection: @courses %>
+        </ul>
+      <% end %>
 
       <%= render 'shared/blank' if @courses.blank? %>
       <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>

@@ -13,6 +13,12 @@ module LiveStudio
     def teardown
     end
 
+    test 'course search tab' do
+      assert find('.select-tab').has_link?('直播课')
+      assert find('.select-tab').has_link?('一对一')
+      assert find('.select-tab').has_link?('视频课')
+    end
+
     # 按最近时间搜索
     test 'search by range' do
       find('.nav-all').hover

@@ -1,0 +1,5 @@
+<div class="select-tab">
+  <%= link_to t('live_studio.menu.courses'), live_studio.courses_path, class: "#{'active' if params[:controller] == 'live_studio/courses' && action_name == 'index' }" %>
+  <%= link_to t('live_studio.menu.interactive_course'), live_studio.interactive_courses_path, class: "#{'active' if params[:controller] == 'live_studio/interactive_courses' && action_name == 'index' }" %>
+  <%= link_to t('live_studio.menu.video_course'), live_studio.video_courses_path, class: "#{'active' if params[:controller] == 'live_studio/video_courses' && action_name == 'index' }" %>
+</div>

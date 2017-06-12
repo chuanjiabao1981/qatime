@@ -10150,8 +10150,25 @@ ul {
 .personal {
   margin-bottom: 60px;
 }
+.select-tab {
+  min-height: 55px;
+}
+.select-tab > a {
+  font-size: 16px;
+  color: #000;
+  line-height: 55px;
+  margin-right: 45px;
+}
+.select-tab > a:last-child {
+  margin-right: 0px;
+}
+.select-tab > a:hover {
+  color: #ff5842;
+}
+.select-tab > a.active {
+  color: #ff5842;
+}
 .personal-nav {
-  margin-top: 30px;
   padding: 0;
   background-color: #F7F7F7;
   margin-bottom: 20px;

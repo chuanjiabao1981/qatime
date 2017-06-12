@@ -1,0 +1,8 @@
+<% color = 'pink' if topic_item_counter == 0 %>
+<% color = 'blue' if topic_item_counter == 1 %>
+<% color = 'orange' if topic_item_counter == 2 %>
+<div class="col-md-4 col-sm-4">
+  <%= link_to topic_item.link, class: "color-#{color}" do %>
+    <p><%= topic_item.name %></p>
+  <% end %>
+</div>

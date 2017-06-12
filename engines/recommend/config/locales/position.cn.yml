@@ -30,6 +30,14 @@ cn:
       hints:
         btn: 添加图片
         logo: 注意：请选择尺寸1862px*316px的图片，以便达到最佳效果
+    recommend/topic_item:
+      index:
+        new_title: 新增专题
+        edit_title: 修改专题
+        name: 标题
+        index: 位置排序
+      placeholders:
+        name: 输入新增板块的标题（最多10字）
     recommend/teacher_item:
       index:
         new_title: 新增老师
@@ -54,6 +62,7 @@ cn:
         tab:
           home: 首页管理
         tab_items:
+          topic_item: 板块专题
           choiceness_item: 精选内容
           teacher_item: 教师推荐
         index:
@@ -103,6 +112,17 @@ cn:
         index: 排序
         status: 状态
         reason: 推荐理由
+      recommend/topic_item:
+        name: 标题名称
+        title: 描述
+        position: 推荐位
+        owner: 所在区域
+        index: 排序位置
+        status: 状态
+        link: 跳转链接
+        city: 城市
+        city_id: 城市
+        platforms: 平台
       recommend/live_studio_course_item:
         title: 推荐标题
         logo: 图片

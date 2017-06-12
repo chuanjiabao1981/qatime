@@ -34,9 +34,7 @@ module LiveStudio
           click_on '添加新课程'
           id = find('.edit-modal')['id'].split('_').last
           fill_in "video_course_video_lessons_attributes_new_video_lessons_#{id}_name", with: "第#{i}节课"
-          find('.upload-video').click
-          page.execute_script("$('#video_file_#{id}').show()")
-          attach_file("video_file_#{id}", "#{Rails.root}/test/integration/test.mp4")
+          attach_file("video_file_#{id}", "#{Rails.root}/test/integration/test.mp4", visible: false)
           sleep(3)
           click_on "保存"
         end

@@ -84,6 +84,7 @@ class ActiveSupport::TestCase
   def new_logout_as(user, confirm = false)
     visit get_home_url(user)
     find('.nav-right-user').hover if page.has_selector?('div.nav-right-user')
+    find('.user-title').hover if page.has_selector?('li.user-title')
     click_on '退出'
   end
 
@@ -135,7 +136,7 @@ class ActiveSupport::TestCase
       # students_home_path
       '/students/home'
     when "manager"
-      managers_home_path
+      main_app.station_workstation_home_index_path(user.default_workstation)
     else
       root_path
     end

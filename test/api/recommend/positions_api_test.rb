@@ -8,7 +8,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 4, res['data'].count, "推荐返回错误"
+    assert_equal 5, res['data'].count, "推荐返回错误"
   end
 
   # 测试获取名师推荐
@@ -48,6 +48,16 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_includes res['data'].map {|item| item['target_type']}, "LiveStudio::InteractiveCourse", "没有正确返回课程类别"
     interactive_course_item = res['data'].find {|item| item['live_studio_interactive_course']}
     assert interactive_course_item['live_studio_interactive_course'].present?
+  end
+
+  # 测试专题内容
+  test 'get recommend topic items for position' do
+    get "/api/v1/recommend/positions/index_topic_item/items"
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "接口响应错误 #{res}"
+    assert_equal 1, res['data'].count, "推荐返回错误"
+    assert_includes res['data'].map {|item| item['type']}, "Recommend::TopicItem", "没有正确返回推荐类型"
   end
 
   # 批量获取推荐

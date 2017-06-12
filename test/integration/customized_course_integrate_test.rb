@@ -1,14 +1,11 @@
 require 'integration/shared/qa_common_state_test'
 
 class CustomizedCourseIntegrateTest < LoginTestBase
-
   include QaCommonStateTest
 
   def setup
     super
     @customized_course = customized_courses(:customized_course1)
-    
-
   end
 
   test "course show" do
@@ -25,7 +22,9 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     homeworks_page(@teacher,@teacher_session,homeworks_customized_course_path(@customized_course))
     homeworks_page(@student,@student_session,homeworks_customized_course_path(@customized_course))
   end
+
   private
+
   def homeworks_page(user,user_session,url)
     user_session.get url #homeworks_customized_course_path(@customized_course)
     user_session.assert_response :success
@@ -38,6 +37,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     #   check_state_change_link(user,user_session,h,false)
     # end
   end
+
   def action_record_page(user_session,action_record_path)
     customized_course_action_record_for_tutorial_create                     = action_records(:customized_course_action_record_for_tutorial_create)
     customized_course_action_record_for_exercise_create                     = action_records(:customized_course_action_record_for_exercise_create)
@@ -79,6 +79,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]', homework_solution_path(customized_course_state_change_record_from_completed_to_in_progress.actionable),
                                text: customized_course_state_change_record_from_completed_to_in_progress.desc,count: 1
   end
+
   def index_page(user_session,indexpath)
     user_session.get indexpath
     user_session.assert_response :success

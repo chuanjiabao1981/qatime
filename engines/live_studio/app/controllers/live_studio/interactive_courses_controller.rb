@@ -20,7 +20,6 @@ module LiveStudio
 
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
-      10.times { @interactive_course.interactive_lessons.new }
       render layout: 'v1/manager_home'
     end
 
@@ -103,6 +102,7 @@ module LiveStudio
     end
 
     def interactive_courses_params
+      params[:interactive_course][:interactive_lessons_attributes] = params[:interactive_course][:interactive_lessons_attributes].map(&:second) if params[:interactive_course] && params[:interactive_course][:interactive_lessons_attributes]
       params.require(:interactive_course).permit(:name, :grade, :subject, :price, :teacher_percentage, :description, :objective, :suit_crowd, :taste_count, :workstation_id, :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                                  interactive_lessons_attributes: [:id, :name, :class_date, :teacher_id, :start_time_hour, :start_time_minute, :duration, :_destroy])
     end
@@ -128,9 +128,11 @@ module LiveStudio
         class_dates = []
       else
         course.interactive_lessons_count = params[:interactive_course].to_h[:interactive_lessons_attributes].try(:count) || 0
-        class_dates = params[:interactive_course].to_h[:interactive_lessons_attributes].map {|a| a.last[:class_date]}.reject(&:blank?)
+        class_dates = params[:interactive_course].to_h[:interactive_lessons_attributes].map { |a| a[:class_date] if a[:_destroy] == '0' }.reject(&:blank?)
       end
-      course.start_at, course.end_at = class_dates.min, class_dates.max
+      course.class_date = class_dates.min
+      course.start_at = class_dates.min
+      course.end_at = class_dates.max
       course
     end
 
@@ -142,6 +144,5 @@ module LiveStudio
       end
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
     end
-
   end
 end

@@ -197,7 +197,6 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     click_link teacher.name
     click_on '专属课程'
     customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
-    assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
     assert page.has_content?(customized_course.student.name)
     new_logout_as(@manager)
   end

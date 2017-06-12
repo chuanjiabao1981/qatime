@@ -24,6 +24,11 @@ module DataService
       position_query(Recommend::ChoicenessItem.default, @city_id)
     end
 
+    # 板块专题
+    def topic_items
+      position_query(Recommend::TopicItem.default, @city_id)
+    end
+
     # 近期开课
     def recent_courses
       LiveService::RankManager.rank_of('start_rank', {city_id: @city_id})
@@ -32,6 +37,16 @@ module DataService
     # 新课发布
     def newest_courses
       LiveService::RankManager.rank_of('all_published_rank', {city_id: @city_id})
+    end
+
+    # 免费课程
+    def free_courses
+      @free_video_courses = LiveStudio::VideoCourse.for_sell.with_sell_type(:free).order(published_at: :desc)
+    end
+
+    # 问答动态
+    def questions
+      ::Question.includes({learning_plan: :teachers}, :vip_class, :student).order(created_at: :desc)
     end
 
     class << self

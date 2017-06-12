@@ -74,9 +74,11 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
     assert page.has_content?('基本信息')
     assert page.has_content?('合作信息')
     assert page.has_content?('注册编码')
-    assert page.has_content?('合作有效期')
     assert page.has_link?('编辑站点')
     assert page.has_content?(workstation_one.coupon.code), "admin show页面优惠码无法显示"
+    click_on '合作信息'
+    assert page.has_content?('合作有效期')
+    assert page.has_content?('服务费标准')
 
     new_logout_as(@admin)
     new_log_in_as(@manager)
@@ -85,7 +87,6 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
     assert page.has_content?('基本信息')
     assert page.has_content?('合作信息')
     assert page.has_content?('注册编码')
-    assert page.has_content?('合作有效期')
     assert page.has_content?(workstation_one.coupon.code), "manage show页面优惠码无法显示"
     new_logout_as(@manager)
     log_in_as(@admin)

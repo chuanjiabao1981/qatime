@@ -25,6 +25,12 @@ Rails.application.routes.draw do
 
   resources :home, only: [:index] do
     get :switch_city, on: :collection
+    collection do
+      get :search
+      get :search_teachers
+      get :search_courses
+      get :teachers
+    end
   end
 
   resources :qa_faqs do

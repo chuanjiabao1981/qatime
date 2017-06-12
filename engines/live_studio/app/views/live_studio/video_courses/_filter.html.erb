@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render partial: 'live_studio/courses/tab' %>
   <%= search_form_for @q, id: 'search-form' do |f| %>
     <%= f.search_field :grade_eq, type: 'hidden' %>
     <%= f.search_field :subject_eq, type: 'hidden' %>

@@ -9,3 +9,29 @@ cn:
       recent_selected: 最近选择
       pinyin_by: 按拼音首字母
       city_none_tips: 如果没有您要找的城市，则该城市暂未加盟
+    new_index:
+      line_items:
+        category:
+          course: 直播课
+          course_title: 高考外教精讲
+          interactive_course: 一对一
+          interactive_course_title: 中考命题老师
+          video_course: 视频课
+          video_course_title: 高考物理试卷讲解
+        today_lives:
+          title: 今日直播
+        questions:
+          title: 问答动态
+          more: 更多
+    search_teachers:
+      combo_msg1: 共找到
+      combo_msg2: 个与
+      combo_msg3: 相关的老师
+      course_link: 搜索相关课程
+    search_courses:
+      combo_msg3: 相关的课程
+      teacher_link: 搜索相关老师
+    home/teachers:
+      filter:
+        category: 年级
+        subject: 科目

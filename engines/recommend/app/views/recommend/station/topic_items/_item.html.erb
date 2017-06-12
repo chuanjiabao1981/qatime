@@ -1,0 +1,15 @@
+<tr>
+  <td><%= show_index(item_counter, @items.limit_value) %></td>
+  <td><%= item.name %></td>
+  <td><%= item.title %></td>
+  <td><%= link_to item.link, item.link, target: '_blank' %></td>
+  <td><%= item.index %></td>
+  <td>
+    <% if allow? "recommend/station/topic_items", :edit, @workstation %>
+      <%= link_to t('view.recommend/position.edit'), recommend.edit_station_workstation_topic_item_path(@workstation, item, position_id: @position) %>
+    <% end %>
+    <% if allow? "recommend/station/topic_items", :destroy, @workstation %>
+      <%= link_to t('view.recommend/position.destroy'), recommend.station_workstation_topic_item_path(@workstation, item, position_id: @position), data: { confirm: t('view.recommend/position.confirm'), method: :delete } %>
+    <% end %>
+  </td>
+</tr>

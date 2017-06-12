@@ -357,6 +357,8 @@ module Permissions
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/withdraws/:id/cancel"
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
       ## end 修改支付密码
+      # 收益记录
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/earning_records" # 设置支付密码
 
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"

@@ -60,7 +60,7 @@ module Payment
 
     # 开始
     def start
-      @sale_task.start! if @sale_task.unstart?
+      @sale_task.start! if @sale_task.unstart? && !@workstation.sale_tasks.ongoing.exists?
       redirect_to payment.station_workstation_sale_tasks_path(@workstation)
     end
 

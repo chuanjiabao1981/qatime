@@ -8185,10 +8185,171 @@ ul {
 
 
 
+/*首页广告位管理*/
+.addbanner {
+  display: inline-block;
+  width: 136px;
+  height: 34px;
+  border-radius: 4px;
+  background-color: limegreen;
+  text-align: center;
+  line-height: 34px;
+  color: #FFFFFF;
+  margin: 10px 0px;
+}
+.admin-recommend {
+  width: 100%;
+}
+.admin-recommend table {
+  width: 100%;
+}
+.admin-recommend table td {
+  word-wrap: break-word;
+  word-break: break-all;
+  font-size: 12px;
+  height: 76px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.admin-recommend table tr:first-child td {
+  height: 30px;
+}
+.advertising table td img {
+  width: 148px;
+  height: 39px;
+}
+.tec-recommend table td img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+.choiceness table td img {
+  width: 111px;
+  height: 58px;
+}
+/*精选内容管理*/
+.admin-recommend table tr .recommended-tags {
+  padding-left: 5px;
+  text-align: left;
+}
+.recommended-tags span {
+  display: block;
+}
+.admin-title-msg  {
+  color: #333;
+  font-size: 24px;
+}
+.admin-title-msg a {
+  color: #333333;
+}
+.new-common {
+  margin-top: 20px;
+}
+.new-common .form-group {
+  width: 100%;
+  min-height: 54px;
+  position: relative;
+}
+.new-common .form-group label {
+  width: 80px;
+  margin-right: 20px;
+  font-weight: 100;
+  color: #000;
+  margin-bottom: 0px;
+}
+.new-common .form-group input, .new-common .form-group select {
+  width: 88.7%;
+  border-radius: 0px;
+  color: #999;
+}
+.admin abbr {
+  color: red;
+}
+.new-common .form-group .has-error {
+  margin: 0 0 0 100px;
+}
+.new-common input[type='submit'] {
+  width: 120px;
+  height: 30px;
+  margin-top: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid #666;
+}
+
+
+.form-banner {
+  min-height: 178px !important;
+}
+.form-banner .form-upload,.form-banner label {
+  float: left;
+}
+.form-banner .form-upload .form-pic {
+  width: 600px;
+  height: 158px;
+  border: 1px solid #F2F2F2;
+}
+.form-banner .form-upload .form-pic img {
+  width: 100%;
+  height: 100%;
+}
+
+.form-banner .form-upload {
+  position: relative;
+  width: 88.7%;
+}
+.form-banner .form-upload .form-pic {
+  margin-left: 3px !important;
+}
+.form-banner .upload-pic {
+  position: absolute;
+  width: 180px;
+  right: 0px;
+  bottom: 0px;
+}
+.form-banner .upload-pic a {
+  position: static;
+  display: inline-block;
+  border: 1px solid #666666;
+  padding: 5px 20px;
+  color: #333333;
+}
+.form-banner .upload-pic span {
+  display: block;
+  font-size: 12px;
+}
+.form-banner .has-error {
+  clear: both;
+}
+@media only screen and (max-width: 1200px) {
+  .new-common .form-group input, .new-common .form-group select {
+    width: 100%;
+  }
+  .new-common .form-group .has-error {
+    margin: 0px;
+  }
+  .form-banner .form-upload .form-pic {
+    margin-left: 0px !important;
+  }
+  .form-banner .upload-pic {
+    position: static;
+    margin-top: 10px;
+  }
+}
+@media only screen  and (max-width: 670px) {
+  .form-banner .form-upload .form-pic,.form-banner .form-upload  {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
 /*首页新页面*/
 .site-nav {
-  /*position: absolute;
-	top: 0px;*/
   width: 100%;
   height: 35px;
   background-color: rgb(247,247,247);
@@ -8754,7 +8915,7 @@ ul {
   font-size: 45px;
   color: #fff;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 70px;
   text-shadow: #000 3px 3px 3px;
   margin-bottom: 0px;
 }
@@ -9191,20 +9352,6 @@ ul {
 .category > .category-nav > .row > div > a > p {
   margin-bottom: 0px;
 }
-.category > .category-answer {
-  margin-top: 5px;
-  padding: 0 15px;
-}
-.category > .category-answer > h4 {
-  margin: 0px;
-  color: #000000;
-  font-size: 16px;
-}
-.category > .category-answer > ul {
-  padding-left: 0px;
-  margin: 15px 0px 0px 0px;
-  font-size: 12px;
-}
 .category .color-orange {
   background-color: #ff9b5d;
 }
@@ -9243,6 +9390,100 @@ ul {
 .category > .category-nav > .row > div:hover > a.color-pink p {
   color: #f78e9d;
 }
+.replays {
+  padding: 0px 20px;
+  margin-top: 10px;
+}
+.replays > .info-notfound {
+  padding: 60px 0px;
+}
+.replays > .replays-title > h4 {
+  margin: 0px;
+  display: inline-block;
+  font-size: 16px;
+  color: #000;
+}
+.replays > .replays-title > a {
+  font-size: 12px;
+  color: #9aabb8;
+  float: right;
+}
+.replays > .replays-title > a i {
+  margin-left: 5px;
+}
+.replays > .replays-con > .row {
+  margin: 0px 0px 15px 0px;
+}
+.replays > .replays-con {
+  margin-top: 20px;
+}
+.replays > .replays-con > .row > .playback-image {
+  padding: 0px 17px 0px 0px;
+}
+.replays > .replays-con > .row > .playback-image a {
+  display: block;
+}
+.replays > .replays-con > .row > .playback-image a img {
+  width: 100%;
+  vertical-align: top;
+}
+.replays > .replays-con > .row > .playback-info {
+  padding-left: 0px;
+}
+.replays > .replays-con > .row > .playback-info > h5 {
+  margin: 0px;
+  font-size: 14px;
+}
+.replays > .replays-con > .row > .playback-info > h5 a
+,.replays > .replays-con > .row > .playback-info > p {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333333;
+}
+.replays > .replays-con > .row > .playback-info > h5:hover a {
+  color: #ff5842;
+}
+.replays > .replays-con > .row > .playback-info > p {
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  color: #666;
+}
+.replays > .replays-con > .row > .playback-number {
+  padding-right: 0px;
+}
+.replays > .replays-con > .row > .playback-number span {
+  display: block;
+  height: 20px;
+  text-align: right;
+  color: #999;
+  margin-top: 23px;
+}
+.replays > .replays-con > .row > .playback-number span > img {
+  position: relative;
+  top: -2px;
+}
+
+/*问答动态*/
+.category > .category-answer {
+  margin-top: 5px;
+  padding: 0 15px;
+}
+.category > .category-answer > h4 {
+  margin: 0px;
+  color: #000000;
+  font-size: 16px;
+}
+.category > .category-answer > ul {
+  padding-left: 0px;
+  margin: 15px 0px 0px 0px;
+  font-size: 12px;
+}
+
+
+
+
 .category > .category-answer > ul > li .btn-access {
   display: inline-block;
   padding: 0px 8px;
@@ -9278,6 +9519,12 @@ ul {
 .category > .category-answer > p > a:hover {
   color: #ff5842;
 }
+
+
+
+
+
+
 .live-today h3 {
   width: 130px;
   font-size: 16px;
@@ -9350,13 +9597,44 @@ ul {
 .live-today  ul > li.active a {
   color: #ff5842;
 }
+@media only screen  and (max-width: 1200px) {
+  .replays > .replays-con > .row > .playback-info > p {
+    margin-top: 0px;
+  }
+  .replays > .replays-con > .row > .playback-number span {
+    margin-top: 15px;
+  }
+}
 @media only screen and (max-width: 992px) {
   .category {
     height: auto;
     min-height: 390px;
   }
+  .replays > .replays-con > .row > .playback-info > p {
+    margin-top: 23px;
+  }
+  .replays > .replays-con > .row > .playback-number span {
+    margin-top: 38px;
+  }
 }
-
+@media only screen and (max-width: 768px) {
+  .replays > .replays-con > .row > .playback-image,.replays > .replays-con > .row > .playback-info {
+    padding-right: 0px;
+  }
+  .replays > .replays-con > .row > .playback-image {
+    margin-bottom: 10px;
+  }
+  .replays > .replays-con > .row > .playback-number {
+    padding-left: 0px;
+  }
+  .replays > .replays-con > .row > .playback-number span {
+    text-align: left;
+    margin-top: 0px;
+  }
+  .replays > .replays-con > .row > .playback-info > p {
+    margin-top: 0px;
+  }
+}
 
 /*视频展示*/
 .modal-presentation {
@@ -15088,6 +15366,9 @@ abbr {
   padding-left: 0px;
   zoom: 1;
 }
+.personal > .line-item .item-handpick {
+  min-height: 600px;
+}
 .line-item > .container > .teacher-list:after {
   display: block;
   content: "";
@@ -15224,4 +15505,43 @@ abbr {
   .chat-view .affiche {
     height: 323px !important;
   }
+}
+
+
+/*回放列表*/
+.replays-list  {
+  min-height: 700px;
+}
+.replays-list > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.replays-list> ul > li > .row {
+  border: 1px solid #ccc;
+  margin: 0px;
+}
+.replays-list> ul > li > .row > .playback-image {
+  padding: 0px 43px 0px 0px;
+}
+.replays-list> ul > li > .row > .playback-image > img {
+  width: 100%;
+  vertical-align: top;
+}
+.replays-list> ul > li > .row > .playback-info {
+  padding-left: 0px;
+}
+.replays-list> ul > li > .row > .playback-info > h5 {
+  margin: 0px 0px 20px 0px;
+  font-size: 14px;
+  color: #000000;
+}
+.replays-list> ul > li > .row > .playback-info > .row {
+  margin-bottom: 19px;
+}
+.replays-list> ul > li > .row > .playback-info > p {
+  margin-bottom: 0px;
+}
+.replays-list> ul > li > .row > .playback-info > p > img {
+  position: relative;
+  top: -2px;
 }

@@ -30,19 +30,18 @@ module LiveStudio
       attach_file('files', "#{Rails.root}/test/integration/test.jpg")
       click_on '下一步'
       assert_difference "@teacher.live_studio_video_courses.count", 1, "视频课创建失败" do
-        5.times do |i|
+        3.times do |i|
           click_on '添加新课程'
           id = find('.edit-modal')['id'].split('_').last
           fill_in "video_course_video_lessons_attributes_new_video_lessons_#{id}_name", with: "第#{i}节课"
           attach_file("video_file_#{id}", "#{Rails.root}/test/integration/test.mp4", visible: false)
-          sleep(3)
+          sleep(5)
           click_on "保存"
         end
         click_on '提交审核'
         sleep(1)
       end
-      sleep(2)
-      assert_equal 5, @teacher.live_studio_video_courses.last.video_lessons_count
+      assert_equal 3, @teacher.live_studio_video_courses.last.video_lessons_count
     end
   end
 end

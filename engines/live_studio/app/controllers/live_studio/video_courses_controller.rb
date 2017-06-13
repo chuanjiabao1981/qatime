@@ -103,7 +103,7 @@ module LiveStudio
       if params[:video_course][:video_lessons_attributes].blank?
         course.video_lessons_count = 0
       else
-        course.video_lessons_count = params[:video_course].to_h[:video_lessons_attributes].try(:count) || 0
+        course.video_lessons_count = params[:video_course].to_unsafe_hash[:video_lessons_attributes].try(:count) || 0
         course.taste_count = course.video_lessons.find_all {|x| x.tastable? }.count
       end
       course

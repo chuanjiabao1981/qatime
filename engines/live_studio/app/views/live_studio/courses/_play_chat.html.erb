@@ -84,7 +84,7 @@
 var chatInited = false;
 
 function refreshTeamMembersUI(teamId, fn) {
-  if(teamId != currentTeam.id) return;
+  if(teamId != currentTeam.id || !teamId) return;
   $.get('/chat/teams/' + teamId + '/members',function(data){
     $("#members-panel").html(data);
     if(fn) fn();

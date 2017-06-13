@@ -1,6 +1,6 @@
 <div class="nav-sub">
-  <%= link_to t('view.course_filter.none'), live_studio.courses_path(@search_params.merge(tags: nil)), class: "#{@search_params[:tags].present? ? '' : 'active'}" %>
+  <%= link_to t('view.course_filter.none'), live_studio.courses_path(@search_params.to_unsafe_h.merge(tags: nil)), class: "#{@search_params[:tags].present? ? '' : 'active'}" %>
   <% @tags.each do |tag| -%>
-    <%= link_to tag.name, live_studio.courses_path(@search_params.merge(tags: tag.name)), class: "#{@search_params[:tags] == tag.name ? 'active' : ''}" %>
+    <%= link_to tag.name, live_studio.courses_path(@search_params.to_unsafe_h.merge(tags: tag.name)), class: "#{@search_params[:tags] == tag.name ? 'active' : ''}" %>
   <% end -%>
 </div>

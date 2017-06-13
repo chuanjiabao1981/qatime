@@ -767,3 +767,21 @@ lesson_for_off_shelve:
   class_date: <%= 3.days.since.to_date + 2.day %>
   status: 4
   duration: 30
+
+lesson_for_taste_overflow:
+  name: 第1节课
+  course: course_for_taste_overflow
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 1.days.ago.to_date %>
+  status: 4
+  duration: 30
+
+lesson_for_taste_overflow:
+  name: 第2节课
+  course: course_for_taste_overflow
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 1.days.since.to_date %>
+  status: 0
+  duration: 30

@@ -29,6 +29,7 @@ Recommend::Engine.routes.draw do
       end
       resources :teacher_items
       resources :topic_items
+      resources :replay_items
     end
   end
 

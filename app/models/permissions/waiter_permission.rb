@@ -59,6 +59,9 @@ module Permissions
       allow 'recommend/station/choiceness_items', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'recommend/station/replay_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
       allow 'recommend/station/teacher_items', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end

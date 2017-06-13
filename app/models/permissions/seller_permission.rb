@@ -64,6 +64,9 @@ module Permissions
       allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'recommend/station/replay_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
       allow 'recommend/station/teacher_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|
         workstation && workstation.id == user.workstation_id
       end

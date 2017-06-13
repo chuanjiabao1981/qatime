@@ -1,0 +1,9 @@
+<% if params[:second].present? %>
+  $el = $('.<%= params[:second] %>');
+  <% if @lessons.blank? %>
+    $el.empty();
+    $el.append($("<option></option>").attr("value", '').text("<%= t('view.recommend/replay_item.prompt.target_id') %>"));
+  <% else %>
+    $el.html('<%= j options_for_select(@lessons.pluck(:name, :id).insert(0,[t('view.recommend/replay_item.prompt.target_id'), nil])) %>');
+  <% end %>
+<% end %>

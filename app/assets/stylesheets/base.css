@@ -11902,7 +11902,7 @@ ul {
 .modal-video > .modal-content >.popup-title >img {
   width: 176px;
   height: 34px;
-  margin-top: 6px;
+  margin-bottom: 4px;
 }
 .modal-video > .modal-content > .modal-body {
   padding: 0px;
@@ -11945,7 +11945,7 @@ ul {
 }
 .modal-video > .modal-content .playback-con > li > a > .row > .list-msg.active
 ,.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
-  color: #000000;
+  color: #ff5842;
 }
 
 
@@ -15512,12 +15512,21 @@ abbr {
 .replays-list  {
   min-height: 700px;
 }
+.replays-list > .info-notfound {
+  padding: 300px 0px;
+}
 .replays-list > ul {
   padding-left: 0px;
   margin-bottom: 0px;
 }
+.replays-list> ul > li {
+  padding: 30px 0px;
+  border-bottom: 1px solid #ccc;
+}
+.replays-list> ul > li:last-child {
+  border-bottom: 0px;
+}
 .replays-list> ul > li > .row {
-  border: 1px solid #ccc;
   margin: 0px;
 }
 .replays-list> ul > li > .row > .playback-image {
@@ -15530,18 +15539,240 @@ abbr {
 .replays-list> ul > li > .row > .playback-info {
   padding-left: 0px;
 }
-.replays-list> ul > li > .row > .playback-info > h5 {
-  margin: 0px 0px 20px 0px;
+.replays-list> ul > li > .row > .playback-info > h5,.replays-list> ul > li > .row > .playback-info > .row > .col-md-7 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0px 0px 19px 0px;
   font-size: 14px;
   color: #000000;
+}
+.replays-list> ul > li > .row > .playback-info > .row > .col-md-7 {
+  color: #666;
+  margin-bottom: 0px;
 }
 .replays-list> ul > li > .row > .playback-info > .row {
   margin-bottom: 19px;
 }
 .replays-list> ul > li > .row > .playback-info > p {
   margin-bottom: 0px;
+  color: #999;
 }
-.replays-list> ul > li > .row > .playback-info > p > img {
+.replays-list> ul > li > .row > .playback-info > p span > img {
   position: relative;
   top: -2px;
+}
+.replays-list> ul > li > .row > .playback-info > .row > .col-md-5 {
+  text-align: center;
+  color: #666;
+}
+.replays-list> ul > li > .row > .playback-view {
+  padding: 0px;
+}
+.replays-list> ul > li > .row > .playback-view > a {
+  display: block;
+  width: 120px;
+  height: 38px;
+  border: 1px solid #ff5842;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 36px;
+  color: #ff5842;
+  float: right;
+  margin-top: 28px;
+}
+.replays-list> ul > li > .row > .playback-view > a:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+@media only screen and (max-width: 1200px) {
+  .replays-list> ul > li > .row > .playback-info > h5,.replays-list> ul > li > .row > .playback-info > .row {
+    margin-bottom: 9px;
+  }
+  .replays-list> ul > li > .row > .playback-view > a {
+    margin-top: 18px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .replays-list> ul > li > .row > .playback-info > h5,.replays-list> ul > li > .row > .playback-info > .row {
+    margin-bottom: 0px;
+  }
+  .replays-list> ul > li > .row > .playback-view > a {
+    margin-top: 0px;
+  }
+
+}
+@media only screen and (max-width: 768px) {
+  .replays-list> ul > li > .row > .playback-image {
+    padding-right: 0px;
+    margin-bottom: 10px;
+  }
+  .replays-list> ul > li > .row > .playback-info > .row > .col-md-5 {
+    text-align: left;
+    padding-right: 0px;
+  }
+  .replays-list> ul > li > .row > .playback-view > a {
+    display: inline-block;
+    float: none;
+  }
+}
+
+
+/*回放课观看页*/
+.nav-live .playback-head > em {
+  padding-left: 0px;
+  margin-left: 0px;
+  border-left: 0px;
+  line-height: 22px;
+}
+.nav-live .playback-head > em,.nav-live .playback-head > i {
+  color: #999;
+}
+.view-info > .playback-title {
+  height: 42px;
+  line-height: 41px;
+}
+.view-info > .replay-msg {
+  padding: 15px 10px 0px 10px;
+  color: #999;
+}
+.view-info > .replay-msg > div span:first-child {
+  padding-right: 5px;
+}
+.view-info > .replay-msg > .teaname a > img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.view-info > .replay-msg > .teaname a {
+  color: #ff5842;
+}
+.view-info > .replay-msg > .teaname > span > img {
+  width: 14px;
+}
+.view-info > .replay-msg > div {
+  margin-bottom: 15px;
+}
+.view-info > .replay-msg > div:last-child {
+  margin-bottom: 0px;
+}
+@media only screen  and (min-width: 1200px) {
+  .live-item	{
+    margin-bottom: 250px;
+  }
+}
+@media only screen  and (max-width: 1200px) {
+  .live-item	{
+    margin-bottom: 300px;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .nav-live {
+    border-bottom: 0px;
+  }
+  .nav-live .container.live-big {
+    border-bottom: 1px solid #ff5842;
+  }
+}
+
+
+/*首页产品视频介绍*/
+.admin > .admin-title > span {
+  font-size: 24px;
+}
+.admin > .admin-video > table {
+  width: 100%;
+}
+.admin > .admin-video > table tr:first-child {
+  height: 40px;
+  background-color: #FAFAFA;
+}
+.admin > .admin-video > table tr td {
+  text-align: center;
+  border: 1px solid #F1F1F1;
+  color: #999;
+  padding: 8px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.admin > .admin-video > table tr .preview > img {
+  width: 200px;
+  height: 133px;
+}
+.admin > .admin-video > table tr .video-information {
+  text-align: left;
+}
+.admin > .admin-video > table tr .video-information > p:last-child {
+  margin-bottom: 0px;
+}
+.admin > .admin-video > table tr .enable > a {
+  display: inline-block;
+  width: 70px;
+  height: 26px;
+  line-height: 24px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #999;
+}
+.admin > .admin-video > table tr .enable > a.active {
+  background-color: #ff5842;
+  color: #fff !important;
+  border-color: #ff5842;
+}
+.modal-dialog.modal-presentation {
+  display: block;
+}
+
+/*admin新增视频*/
+.new-common > .editor-msg .addvideo {
+  width: 240px;
+  height: 160px;
+}
+.new-common > .editor-msg .addvideo-prompt{
+  left: 250px;
+}
+.new-common > .editor-msg .addvideo > .progress {
+  top: 165px;
+}
+.new-common > .editor-msg .upload-video {
+  line-height: 160px;
+}
+.new-common > .editor-msg form .info-video {
+  margin-bottom: 60px;
+}
+.new-common > .editor-msg .btn-preserve {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  text-align: center;
+  line-height: 36px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: #ccc;
+  margin-top: 20px;
+}
+
+
+/*回放列表后台管理*/
+.management-link > .link-checked {
+  float: right;
+  line-height: 50px;
+}
+.management-link > .link-checked form {
+  display: inline-block;
+}
+.management-link > .link-checked label {
+  font-weight: normal;
+  margin-bottom: 0px;
+  color: #9aabb8;
+}
+.management-link > .link-checked label > input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+}
+.banner-item > form > .row .recommend > label input[type='checkbox']{
+  position: relative;
+  top: 1px;
 }

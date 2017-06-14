@@ -43,7 +43,7 @@ class CourseFlowsTest < LoginTestBase
 
     c = @directory.courses.count
     @teacher_session.post CourseLibrary::Engine.routes.url_helpers.directory_courses_path(@directory),
-                          course: {title:"new course", description: "new description"}
+                          params: { course: { title:"new course", description: "new description" } }
     @teacher_session.assert_response :redirect
     @teacher_session.assert_equal c+1,@directory.courses.count
   end
@@ -53,7 +53,7 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_response :success
 
     @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.course_path(@course),
-                           course: {title:"course title", description:"new description"}
+                           params: { course: { title: "course title", description: "new description" } }
     @teacher_session.assert_response :redirect
     @course.reload
     @teacher_session.assert_equal "course title",@course.title
@@ -65,7 +65,7 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_directory_course_path(@directory)
     @teacher_session.assert_response :success
     @teacher_session.post CourseLibrary::Engine.routes.url_helpers.directory_courses_path(@directory),
-                          course: {title:"new course", description: "new description"}
+                          params: { course: { title: "new course", description: "new description" } }
     @directory.reload;
 
     @directory.courses.each_with_index do |c, index|

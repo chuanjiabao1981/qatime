@@ -28,9 +28,8 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.edit_solution_path(course_library_solutions(:solution_two_for_homework_one)),1
   end
 
-
   test "homework mark delete" do
-    assert_difference '@course.homeworks.count' ,-1 do
+    assert_difference '@course.homeworks.count', -1 do
       @teacher_session.delete CourseLibrary::Engine.routes.url_helpers.mark_delete_homework_path(@homework)
     end
   end
@@ -41,9 +40,9 @@ class CourseFlowsTest < LoginTestBase
 
     c = @course.homeworks.count
     @teacher_session.post CourseLibrary::Engine.routes.url_helpers.course_homeworks_path(@course),
-                          homework: {title:"new homework", description: "new description"}
+                          params: { homework: { title: "new homework", description: "new description" } }
     @teacher_session.assert_response :redirect
-    @teacher_session.assert_equal c+1,@course.homeworks.count
+    @teacher_session.assert_equal c + 1, @course.homeworks.count
   end
 
   test "homework edit and update" do
@@ -51,11 +50,10 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_response :success
 
     @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.homework_path(@homework),
-                           homework: {title:"homework title", description:"new description"}
+                           params: { homework: { title: "homework title", description: "new description" } }
     @teacher_session.assert_response :redirect
     @homework.reload
-    @teacher_session.assert_equal "homework title",@homework.title
-    @teacher_session.assert_equal "new description",@homework.description
+    @teacher_session.assert_equal "homework title", @homework.title
+    @teacher_session.assert_equal "new description", @homework.description
   end
-
 end

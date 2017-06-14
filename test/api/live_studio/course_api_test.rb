@@ -204,7 +204,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 3004, res['error']['code'], '未报试听错误'
 
     course = live_studio_courses(:course_for_taste_overflow)
-    get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
+    get "/api/v1/live_studio/courses/#{course.id}/taste", headers: { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 0, res['status']

@@ -34,7 +34,7 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
 
     # 游客绑定账号
 
-    post "/api/v1/captcha", send_to: '17600010398', key: 'register_captcha'
+    post "/api/v1/captcha", params: { send_to: '17600010398', key: 'register_captcha' }
     assert_response :success, "响应错误"
     post "/api/v1/user/guests/#{id}/bind",
          params: {

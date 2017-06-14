@@ -10,7 +10,7 @@ GIT
       polyamorous (~> 1.3)
 
 GIT
-  remote: https://github.com/rails/rails.git
+  remote: git://github.com/rails/rails.git
   revision: 4b77bc116e31202e6a16387530e3805961e08e60
   branch: 5-0-stable
   specs:

@@ -18,7 +18,6 @@
 //= require summernote
 //= require summernote/locales/summernote-zh-CN.js
 //= require jquery.form
-//= require live_studio/nep.min
 //= require video-js
 // require jwplayer/jwplayer
 // require jwplayer/jwpsrv_frq

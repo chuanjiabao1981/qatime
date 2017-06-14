@@ -9637,12 +9637,13 @@ ul {
 }
 
 /*视频展示*/
-.modal-presentation {
-  position: absolute;
-  display: none;
-  z-index: 10000;
-  cursor: pointer;
-}
+/*.modal-presentation {
+	position: absolute;
+	display: none;
+	z-index: 10000;
+	cursor: pointer;
+}*/
+
 @media screen and (min-width: 990px){
   .modal-presentation {
     width: 860px !important;
@@ -9665,20 +9666,24 @@ ul {
     width: 80%;
   }
 }
-.modal-presentation > .modal-content >.popup-title {
+.modal-iframe {
+  width: 860px !important;
+  padding: 0px !important;
+}
+.modal-presentation > .modal-content >.popup-title,.modal-iframe > .modal-content >.popup-title{
   height: 46px;
   line-height: 42px;
   padding: 0 10px;
   background-color: #fff;
 }
-.modal-presentation > .modal-content .video-box {
+.modal-presentation > .modal-content .video-box,.modal-iframe > .modal-content .video-box {
   width: 100%;
   position: relative;
   height: 0;
   padding-bottom: 56.25% !important;
   background-color: #fff;
 }
-.modal-presentation > .modal-content .modal-body {
+.modal-presentation > .modal-content .modal-body,.modal-iframe > .modal-content .modal-body {
   padding: 0 10px 10px 10px;
 }
 
@@ -10090,6 +10095,7 @@ ul {
 .synopsis-list > li > .synopsis-head > .head-introduce {
   color: #666;
   margin: 0px;
+  text-align: left;
 }
 .synopsis-more {
   text-align: center;
@@ -10183,11 +10189,6 @@ ul {
   color: #000000;
   margin-bottom: 0px;
 }
-.user-img > p > a {
-  display: inline-block;
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-}
 .user-img p:last-child > img {
   width: 14px;
   position: relative;
@@ -10196,6 +10197,7 @@ ul {
 .user-img p:first-child img {
   width: 120px;
   height: 120px;
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
 }
 .user-header {
@@ -13359,7 +13361,8 @@ ul {
   color: #ccc;
 }
 .contains > .qa_box .set-cell .cell-line p .prompt-info {
-  color: #ff5842;
+  color: #ff0000;
+  font-size: 12px;
 }
 .contains > .qa_box .set-cell .cell-line > em {
   color: #999;
@@ -15392,6 +15395,7 @@ abbr {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  border: 1px solid #ccc;
 }
 .line-item > .container > .teacher-list > li > a .tec-message {
   position: absolute;
@@ -15696,6 +15700,9 @@ abbr {
   word-wrap: break-word;
   word-break: break-all;
 }
+.admin > .admin-video > table tr td a {
+  outline: none;
+}
 .admin > .admin-video > table tr .preview > img {
   width: 200px;
   height: 133px;
@@ -15795,3 +15802,20 @@ abbr {
   position: relative;
   top: 2px;
 }
+
+
+/*视频播放页*/
+.video-line {
+  width: 100%;
+  height: 460px;
+  background-color: rgb(41,41,41);
+}
+.video-line  .videobox {
+  width: 840px;
+  height: 460px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fff;
+  position: relative;
+}
+

@@ -25,6 +25,11 @@
           <!--<%# end %>-->
         <!--</li>-->
         <li>
+          <%= link_to main_app.admins_course_intros_path do %>
+            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"><%= t('view.common_bars.course_intros') %></span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to main_app.admins_push_messages_path do %>
             <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">消息推送</span>
           <% end %>

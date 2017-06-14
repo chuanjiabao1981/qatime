@@ -22,6 +22,11 @@ Qatime::Application.routes.draw do
 
   resources :curriculums
   resources :settings, only: [:create, :update]
+  resources :course_intros, only: [] do
+    member do
+      get :play
+    end
+  end
 
   resources :home, only: [:index] do
     get :switch_city, on: :collection
@@ -107,6 +112,11 @@ Qatime::Application.routes.draw do
       end
     end
     resources :push_messages
+    resources :course_intros do
+      member do
+        get :change_status
+      end
+    end
   end
 
   namespace :managers do

@@ -55,6 +55,10 @@ class HomeController < ApplicationController
     @teachers = @query.result.paginate(page: params[:page], per_page: 8)
   end
 
+  def replays
+    @replay_items = Recommend::ReplayItem.default.items.order(updated_at: :desc).paginate(page: params[:page], per_page: 5)
+  end
+
   private
 
   def set_user

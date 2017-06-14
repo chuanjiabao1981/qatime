@@ -93,6 +93,7 @@
     teacher: '老师'
     student: '学生'
     off_shelve: 该课程已下架!
+    play_video: 观看
   tips:
     replay_used_up: '失败：回放次数已经耗尽'
   reply:

@@ -30,6 +30,7 @@ Qatime::Application.routes.draw do
       get :search_teachers
       get :search_courses
       get :teachers
+      get :replays
     end
   end
 

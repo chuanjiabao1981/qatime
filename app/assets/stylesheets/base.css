@@ -15776,3 +15776,22 @@ abbr {
   position: relative;
   top: 1px;
 }
+
+
+/*admin精彩回放*/
+.addreplays > .link-checked > form {
+  display: inline-block;
+}
+.addreplays > .link-checked {
+  float: right;
+  line-height: 54px;
+}
+.addreplays > .link-checked label{
+  font-weight: normal;
+  color: #9aabb8;
+  margin-bottom: 0px;
+}
+.addreplays > .link-checked label input[type='checkbox']{
+  position: relative;
+  top: 2px;
+}

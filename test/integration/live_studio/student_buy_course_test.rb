@@ -19,7 +19,6 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-
     test "student buy off shelve course" do
       course = live_studio_courses(:course_for_off_shelve)
       visit live_studio.course_path(course)
@@ -52,6 +51,15 @@ module LiveStudio
           sleep 2
         end
       end
+    end
+
+    test "student taste course overflow lessons_count" do
+      course = live_studio_courses(:course_for_taste_overflow)
+      visit live_studio.course_path(course)
+      message = accept_prompt(with: '该试听已失效,请直接购买') do
+        click_on '加入试听', match: :first
+      end
+      assert_equal '该试听已失效,请直接购买', message
     end
 
     test "student buy tasting course" do

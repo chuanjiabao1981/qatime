@@ -132,6 +132,11 @@ module LiveStudio
       buy_tickets_count > 0
     end
 
+    # 试听数量 超过课程数 不能试听
+    def taste_overflow?
+      false
+    end
+
     def order_params
       { amount: current_price, product: self }
     end

@@ -59,6 +59,14 @@ class HomeController < ApplicationController
     @replay_items = Recommend::ReplayItem.default.items.order(updated_at: :desc).paginate(page: params[:page], per_page: 5)
   end
 
+  def replay
+    @replay_item = Recommend::ReplayItem.default.items.find(params[:id])
+    @lesson = @replay_item.target
+    @teacher = @replay_item.target.try(:teacher)
+    @replay_item.increment_replay_times
+    render layout: 'v1/live'
+  end
+
   private
 
   def set_user

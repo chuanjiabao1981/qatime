@@ -4,7 +4,7 @@ module Permissions
       super(user)
 
       allow :sessions, [:destroy]
-      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow "waiters/home", [:main]
 
       allow :waiters, [:customized_courses]

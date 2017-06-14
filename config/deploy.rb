@@ -2,11 +2,10 @@
 load "config/recipes/nginx.rb"
 load "config/recipes/qtfaststart.rb"
 # config valid only for Capistrano 3.1
-lock '3.4.0'
+lock '3.8.1'
 
 set :application, 'qatime'
 
-set :scm, :git
 set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
 # set :git_https_username,'chuanjiabao1981@gmail.com'

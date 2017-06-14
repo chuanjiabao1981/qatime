@@ -22,6 +22,7 @@ module Recommend
       assert page.has_link?('首页管理')
       assert page.has_link?('Banner')
       assert page.has_link?('板块专题')
+      assert page.has_link?('精彩回放')
       assert page.has_link?('精选内容')
       assert page.has_link?('教师推荐')
       assert page.has_link?('新增')
@@ -128,6 +129,32 @@ module Recommend
         click_on '删除', match: :first
       end
       assert page.has_no_content?('精选专区')
+    end
+
+    test 'manager replay_items' do
+      click_on '网页管理'
+      click_on '精彩回放'
+      assert page.has_content?('课时名称')
+      assert page.has_content?('仅显示推荐内容')
+
+      click_on '新增'
+      select '回放测试辅导班', from: :replay_item_course_id
+      sleep(3)
+      select '第1节', from: :replay_item_target_id
+      check :replay_item_top
+      assert_difference 'Recommend::ReplayItem.count', 1 do
+        click_on '保存'
+        assert page.has_content?('第1节')
+      end
+      sleep(1)
+      click_on '编辑', match: :first
+      select '第2节', from: :replay_item_target_id
+      click_on '保存'
+      assert page.has_content?('第2节')
+      accept_prompt(with: '确定删除?') do
+        click_on '删除', match: :first
+      end
+      assert page.has_no_content?('第2节')
     end
   end
 end

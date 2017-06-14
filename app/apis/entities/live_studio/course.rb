@@ -81,6 +81,9 @@ module Entities
       expose :off_shelve do |course|
         course.off_shelve?
       end
+      expose :taste_overflow do |course|
+        course.taste_overflow?
+      end
     end
   end
 end

@@ -926,4 +926,19 @@ course_for_off_shelve:
   class_date: <%= 3.days.since.to_date %>
   start_at: <%= 3.days.since.to_date %>
 
-
+course_for_taste_overflow:
+  name: 试听数超出剩余课程
+  description: 试听数超出剩余课程
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 70
+  preset_lesson_count: 3
+  lessons_count: 2
+  closed_lessons_count: 1
+  taste_count: 1
+  price: 100
+  class_date: <%= 1.days.ago.to_date %>
+  start_at: <%= 1.days.ago.to_date %>

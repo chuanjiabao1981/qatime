@@ -210,6 +210,11 @@ module LiveStudio
       teaching? && closed_lessons_count > 0
     end
 
+    # 试听数量 超过剩余课程数 溢出限制
+    def taste_overflow?
+      (lessons_count.to_i - closed_lessons_count.to_i) <= taste_count.to_i
+    end
+
     def live_next_time
       lesson = lessons.include_today.unstart.first
       lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
@@ -269,6 +274,7 @@ module LiveStudio
     def can_taste?(user)
       return false unless user.student?
       return false if buy_tickets.where(student_id: user.id).exists?
+      return false if taste_overflow?
       !taste_tickets.where(student_id: user.id).exists?
     end
 

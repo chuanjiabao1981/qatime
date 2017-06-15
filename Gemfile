@@ -73,9 +73,9 @@ gem 'will_paginate-bootstrap'
 gem 'bootstrap-sass','3.0.2.0'
 
 
-#文件上传
-gem 'carrierwave'
-gem 'mini_magick','3.3'
+# 文件上传
+gem 'carrierwave', '0.10.0'
+gem 'mini_magick', '3.3'
 
 gem "font-awesome-rails"
 

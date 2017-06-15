@@ -289,7 +289,6 @@ GEM
     json (1.8.6)
     jwt (1.5.6)
     kgio (2.11.0)
-    libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -368,7 +367,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.3.0)
     redis (3.3.3)
-    ref (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -442,9 +440,6 @@ GEM
     temple (0.8.0)
     test-unit (3.2.4)
       power_assert
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thin (1.7.1)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -575,7 +570,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   state_machine
   test-unit
-  therubyracer
   thin
   turbolinks (~> 5)
   typhoeus

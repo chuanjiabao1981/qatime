@@ -1,13 +1,13 @@
 <div class="qa_object_item">
   <div class="pull-left">
-    <%=image_tag topicable.author.avatar.normal.url %>
+    <%= image_tag topicable.author.try(:avatar).try(:normal).try(:url) %>
   </div>
 
   <div class="title">
     <%= link_to topicable.title, send("#{topicable.model_name.singular_route_key}_path",topicable) %>
   </div>
   <div class="info">
-    <%= topicable.author.view_name %> •
+    <%= topicable.author.try(:view_name) %> •
     <%= localize(topicable.created_at,format: :long) %>创建 • <%=topicable.replies_count%>个回复
     <%= render partial: "#{topicable.model_name.route_key}/index_item_nav",locals: {topicable: topicable} %>
   </div>

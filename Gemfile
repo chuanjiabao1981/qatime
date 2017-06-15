@@ -176,6 +176,7 @@ gem 'slim'
 gem 'fancybox2-rails'
 
 gem 'x-editable-rails'
+gem 'wechat'
 
 gem 'whenever', require: false
 

@@ -9666,26 +9666,63 @@ ul {
     width: 80%;
   }
 }
-.modal-iframe {
-  width: 860px !important;
-  padding: 0px !important;
-}
+
 .modal-presentation > .modal-content >.popup-title,.modal-iframe > .modal-content >.popup-title{
   height: 46px;
   line-height: 42px;
   padding: 0 10px;
   background-color: #fff;
 }
-.modal-presentation > .modal-content .video-box,.modal-iframe > .modal-content .video-box {
+.modal-presentation > .modal-content .video-box{
   width: 100%;
   position: relative;
   height: 0;
   padding-bottom: 56.25% !important;
   background-color: #fff;
 }
-.modal-presentation > .modal-content .modal-body,.modal-iframe > .modal-content .modal-body {
+.modal-presentation > .modal-content .modal-body {
   padding: 0 10px 10px 10px;
 }
+
+
+/*视频展示*/
+.modal-iframe .video-box {
+  width: 100%;
+  height: 100%;
+}
+.modal-iframe .modal-body {
+  padding-top: 0px;
+}
+@media screen and (min-width: 990px) {
+  .modal-iframe {
+    width: 890px !important;
+  }
+  .modal-iframe .modal-body {
+    height: 552px !important;
+  }
+}
+@media only screen  and (max-width: 990px) {
+  .modal-iframe {
+    width: 568px !important;
+  }
+  .modal-iframe .modal-body {
+    height: 350px !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .modal-iframe {
+    width: 330px !important;
+    margin: 0 auto;
+  }
+  .modal-iframe .modal-body {
+    height: 202px !important;
+  }
+}
+
+
+
+
+
 
 /*筛选页*/
 .item-handpick li > a,.item-live li > a,.classify-msg li > a {
@@ -15805,17 +15842,32 @@ abbr {
 
 
 /*视频播放页*/
-.video-line {
+.play-page {
   width: 100%;
-  height: 460px;
   background-color: rgb(41,41,41);
 }
-.video-line  .videobox {
-  width: 840px;
-  height: 460px;
+.video-line {
   margin: 0 auto;
-  padding: 10px;
-  background-color: #fff;
-  position: relative;
 }
-
+@media screen and (min-width: 768px) {
+  .video-line {
+    width: 860px;
+    height: 537px;
+  }
+}
+.video-line .videobox,.videobox> #video {
+  width: 100%;
+  height: 100%;
+}
+@media only screen and (max-width: 768px) {
+  .video-line {
+    width: 536px;
+    height: 335px;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .video-line {
+    width: 300px;
+    height: 187px;
+  }
+}

@@ -1,6 +1,6 @@
 <div class="qa_cell topics_item">
     <div class="pull-left">
-      <%=image_tag topic.author.avatar.normal.url %>
+      <%=image_tag topic.author.try(:avatar).try(:normal).try(:url) %>
     </div>
 
     <div class="topic">
@@ -8,7 +8,7 @@
             <%= link_to topic.title, topic_path(topic) %>
         </div>
         <div class="info">
-            <%= topic.author.view_name %> •
+            <%= topic.author.try(:view_name) %> •
             <%= localize(topic.created_at,format: :long) %>创建 • <%=topic.replies_count%>个回复 •
             <%= link_to topic.topicable.name ,send("#{topic.topicable.model_name.singular_route_key}_path",topic.topicable) ,class: "qa_node"%>
 

@@ -10,13 +10,13 @@
     <div class="header">
 
       <div class="pull-right">
-        <%=image_tag  qa_object.author.avatar.normal.url %>
+        <%= image_tag qa_object.try(:author).try(:avatar).try(:normal).try(:url) %>
       </div>
       <div class="title">
         <h4><%= qa_object.title %></h4>
       </div>
       <div class="info">
-        <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+        <%= [qa_object.author.try(:view_name),"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
         <% if defined?(qa_object.state) %>
             • <%= qa_object.human_state_name %>
         <% end %>

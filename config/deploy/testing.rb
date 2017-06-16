@@ -1,6 +1,6 @@
 set :use_sudo, true 
 
-set :branch, 'testing'
+set :branch, 'QT-373'
 
 set :deploy_user, 'qatime'
 server '60.205.95.115', user: 'qatime', roles: %w{web app db}, primary:true

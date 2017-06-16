@@ -91,6 +91,7 @@ module V1
       post 'guests' do
         student = Student.create(password: params[:password], password_confirmation: params[:password_confirmation], is_guest: true)
         raise(ActiveRecord::RecordInvalid, student) unless student.update(name: student.id)
+        student.use_default_avatar unless student.avatar.present?
         login_token = sign_in(student, 'app')
         present login_token, with: Entities::LoginToken
       end

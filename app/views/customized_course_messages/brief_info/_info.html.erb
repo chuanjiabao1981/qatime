@@ -1,4 +1,4 @@
-<%= [customized_course_message.author.view_name,
+<%= [customized_course_message.author.try(:view_name),
      "#{localize(customized_course_message.created_at,format: :long)} 留言",
      "#{customized_course_message.customized_course_message_replies_count} 条回复"
 ].join(" • ")%>

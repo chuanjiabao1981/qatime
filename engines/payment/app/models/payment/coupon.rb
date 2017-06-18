@@ -12,6 +12,8 @@ module Payment
     validates :code, uniqueness: true
     validates :code, length: { is: 4 }, numericality: { only_integer: true }
 
+    attr_accessor :total_amount
+
     # 默认价格 配置固定
     default_value_for :price, GlobalSettings.default_coupon_price.to_f
 
@@ -23,5 +25,28 @@ module Payment
       self.code
     end
 
+    # 优惠金额
+    def coupon_amount(amount = nil)
+      amount ||= total_amount
+      discount_amount(amount.to_f)
+    end
+
+    # 优惠后金额
+    def after_amount(amount)
+      amount - coupon_amount(amount)
+    end
+
+    private
+
+    # 打折优惠金额
+    def discount_amount(amount)
+      amount * percent
+    end
+
+    # 固定金额优惠
+    def decrease(amount)
+      return 0 if price >= amount
+      price.to_f
+    end
   end
 end

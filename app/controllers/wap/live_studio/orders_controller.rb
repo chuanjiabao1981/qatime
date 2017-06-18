@@ -15,7 +15,8 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
                                                    source: 'wap',
                                                    openid: @openid))
     @coupon = Payment::Coupon.find_by(code: @order.coupon_code) if @order.coupon_code.present?
-    @order.amount = @product.coupon_price(@coupon)
+    # 使用优惠码
+    @order.use_coupon(@coupon) if @coupon.present?
     if @order.save
       redirect_to wap_payment_order_path(@order.transaction_no)
     else

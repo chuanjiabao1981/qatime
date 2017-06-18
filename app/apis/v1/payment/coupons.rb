@@ -8,14 +8,13 @@ module V1
           desc '优惠码校验'
           params do
             requires :code, type: String, desc: '优惠码'
+            optional :amount, type: Float, desc: '总金额'
           end
           post ':code/verify' do
             coupon = ::Payment::Coupon.find_by!(code: params[:code])
-            if coupon
-              present coupon, with: Entities::Payment::Coupon
-            end
+            coupon.total_amount = params[:amount]
+            present coupon, with: Entities::Payment::Coupon
           end
-
         end
       end
     end

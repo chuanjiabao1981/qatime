@@ -1,1 +1,1 @@
-<%= [customized_course_message_reply.author.view_name,"#{localize(customized_course_message_reply.created_at,:format => :long)} 回复"].join(" • ")%>
+<%= [customized_course_message_reply.author.try(:view_name),"#{localize(customized_course_message_reply.created_at,:format => :long)} 回复"].join(" • ")%>

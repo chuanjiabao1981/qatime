@@ -178,7 +178,7 @@ module LiveStudio
     end
 
     def order_params
-      { amount: current_price, product: self }
+      { total_amount: current_price, amount: current_price, product: self }
     end
 
     def status_text
@@ -431,7 +431,7 @@ module LiveStudio
 
     def coupon_price(coupon = nil)
       return current_price.to_f unless coupon.present?
-      [current_price.to_f - coupon.price, 0].max
+      coupon.coupon_amount(amount).to_f
     end
 
     def service_price

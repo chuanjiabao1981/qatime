@@ -6,11 +6,11 @@ class Student < User
   has_many :deposits
   has_many :recharge_records
 
-  has_many :courses,:through => :course_purchase_records
-  has_many :course_purchase_records ,:dependent => :destroy
-  has_many :questions,:dependent => :destroy
-  has_many :learning_plans ,-> { order 'created_at desc' } ,:dependent => :destroy
-  has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)},class_name:'LearningPlan'
+  has_many :courses, :through => :course_purchase_records
+  has_many :course_purchase_records, :dependent => :destroy
+  has_many :questions, :dependent => :destroy
+  has_many :learning_plans, -> { order 'created_at desc' }, :dependent => :destroy
+  has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)}, class_name: 'LearningPlan'
   has_many :customized_courses,->{order(created_at: :desc)},:dependent => :destroy
   has_many :solutions,:dependent => :destroy
 
@@ -18,15 +18,18 @@ class Student < User
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
   has_many :live_studio_buy_tickets, class_name: LiveStudio::BuyTicket
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
+
+  has_many :live_studio_ticket_items, class_name: 'LiveStudio::TicketItem', foreign_key: :user_id
+
   ## 直播课
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :product, source_type: LiveStudio::Course
-  has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
+  has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_ticket_items, source: :target, source_type: 'LiveStudio::Lesson'
   has_many :live_studio_bought_courses, class_name: LiveStudio::Course, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::Course
   has_many :live_studio_taste_courses, class_name: LiveStudio::Course, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::Course
 
   # 一对一
   has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
-  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_interactive_courses, source: :interactive_lessons
+  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_ticket_items, source: :target, source_type: 'LiveStudio::InteractiveLesson'
   has_many :live_studio_bought_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
   has_many :live_studio_taste_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
 

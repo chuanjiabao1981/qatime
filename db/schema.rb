@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619023105) do
+ActiveRecord::Schema.define(version: 20170619074220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -842,6 +842,7 @@ ActiveRecord::Schema.define(version: 20170619023105) do
     t.datetime "updated_at",              null: false
     t.integer  "target_id"
     t.string   "target_type"
+    t.integer  "user_id"
   end
 
   add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree

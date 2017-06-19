@@ -39,6 +39,7 @@ Recommend::Engine.routes.draw do
     resources :banner_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :choiceness_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :replay_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
+    resources :topic_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :items, only: [:new, :create], shallow: true
   end
 

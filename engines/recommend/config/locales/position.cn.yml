@@ -7,6 +7,7 @@ cn:
         live_studio_course_item: 辅导班推荐管理
         choiceness_item: 精选内容管理
         replay_item: 精彩回放管理
+        topic_item: 板块专题管理
       city: 全国
       edit: 编辑
       destroy: 删除
@@ -34,6 +35,7 @@ cn:
         logo: 注意：请选择尺寸1862px*316px的图片，以便达到最佳效果
     recommend/topic_item:
       index:
+        add: 新增专题
         new_title: 新增专题
         edit_title: 修改专题
         name: 标题

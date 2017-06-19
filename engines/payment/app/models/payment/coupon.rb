@@ -18,6 +18,7 @@ module Payment
 
     # 默认价格 配置固定
     default_value_for :price, GlobalSettings.default_coupon_price.to_f
+    default_value_for :percent, GlobalSettings.default_coupon_percent.to_f
 
     # 生成随机码
     def generate_code
@@ -29,7 +30,7 @@ module Payment
 
     # 优惠金额
     def coupon_amount(amount = nil)
-      amount ||= total_amount
+      amount ||= total_amount.to_f
       # 固定金额优惠
       return after_amount(amount.to_f) if amount?
       discount_amount(amount)

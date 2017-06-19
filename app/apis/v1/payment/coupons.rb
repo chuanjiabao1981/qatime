@@ -4,7 +4,6 @@ module V1
     class Coupons < V1::Base
       namespace "payment" do
         resource :coupons do
-
           desc '优惠码校验'
           params do
             requires :code, type: String, desc: '优惠码'

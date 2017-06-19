@@ -46,6 +46,8 @@ cn:
       workstation:
         coupon:
           code: 注册编码
+      course_intro:
+        video_id: 上传视频
     placeholders:
       live_studio/course_invitation:
         user_mobile: 填写被邀请人
@@ -78,6 +80,8 @@ cn:
       user:
         login_account: 手机号/邮箱账号
         password: 登陆密码
+      course_intro:
+        title: 输入描述内容（最多30字）
 
     # Labels and hints examples
     # labels:

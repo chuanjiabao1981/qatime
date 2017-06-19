@@ -1,0 +1,53 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'recommend/station/tab' %>
+    <%= render 'recommend/station/tab_items' %>
+
+    <div class="management-link">
+      <%= link_to recommend.new_station_workstation_replay_item_path(@workstation, position_id: params[:position_id]) do %>
+        <%= image_tag 'addclass.png' %>
+        <span><%= t('view.recommend/station.banner_items.index.add') %></span>
+      <% end if allow? 'recommend/station/replay_items', :new, @workstation %>
+
+      <span class="link-checked">
+        <%= form_tag recommend.station_workstation_replay_items_path(@workstation, position_id: @position), method: :get do %>
+          <label class="checked-box">
+            <%= hidden_field_tag :position_id, params[:position_id] %>
+            <%= check_box_tag :top, '1', params[:top].present? %>
+            <%= t('view.recommend/replay_item.index.filter_top') %>
+          </label>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="sold-tab">
+      <table class="tab-choiceness" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.recommend/replay_item.index.lesson_name') %></th>
+            <th><%= t('view.recommend/replay_item.index.lesson_info') %></th>
+            <th><%= t('view.recommend/replay_item.index.replay_times') %></th>
+            <th><%= t('view.recommend/replay_item.index.updated_at') %></th>
+            <th><%= t('view.recommend/replay_item.index.top') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+          <%= render partial: 'recommend/station/replay_items/item', collection: @items %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @items.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @items, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('change', '#top', function(e){
+        $(this).parents('form').submit();
+      });
+    });
+  </script>
+<% end %>

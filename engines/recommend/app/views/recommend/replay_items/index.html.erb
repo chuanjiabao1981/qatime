@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'recommend/banner_items/tab' %>
+
+    <div class="addreplays">
+      <% if allow? 'recommend/replay_items', :new %>
+        <%= link_to t('view.recommend/replay_item.index.add') , new_position_replay_item_path(@position), class: 'addbanner' %>
+      <% end %>
+
+      <span class="link-checked">
+        <%= form_tag recommend.position_replay_items_path(@position), method: :get do %>
+          <label class="checked-box">
+            <%= check_box_tag :top, '1', params[:top].present? %>
+            <%= t('view.recommend/replay_item.index.filter_top') %>
+          </label>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="admin-video">
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+          <tr>
+            <td><%= t('common.index_no') %></td>
+            <td><%= t('view.recommend/replay_item.index.lesson_name') %></td>
+            <td><%= t('view.recommend/replay_item.index.lesson_info') %></td>
+            <td><%= t('view.recommend/replay_item.index.replay_times') %></td>
+            <td><%= t('view.recommend/replay_item.index.updated_at') %></td>
+            <td><%= t('view.recommend/replay_item.index.top') %></td>
+            <td><%= t('view.recommend/banner_item.index.city') %></td>
+            <td><%= t('common.operate') %></td>
+          </tr>
+          <%= render partial: 'recommend/replay_items/item', collection: @items %>
+        </tbody>
+      </table>
+
+      <center><div class="pagination-fix"><%= will_paginate @items %></div></center>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(document).on('change', '#top', function(e){
+        $(this).parents('form').submit();
+      });
+    });
+  </script>
+<% end %>

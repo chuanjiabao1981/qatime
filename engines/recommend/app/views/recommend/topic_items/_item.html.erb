@@ -1,0 +1,16 @@
+<tr>
+  <td><%= show_index(item_counter, @items.limit_value) %></td>
+  <td><%= item.name %></td>
+  <td><%= item.title %></td>
+  <td><%= link_to item.link, item.link, target: '_blank' %></td>
+  <td><%= item.index %></td>
+  <td><%= item.city.try(:name).presence || t('view.recommend/position.city') %></td>
+  <td>
+    <% if allow? "recommend/topic_items", :edit %>
+      <%= link_to t('view.recommend/position.edit'), edit_topic_item_path(item) %>
+    <% end %>
+    <% if allow? "recommend/topic_items", :destroy %>
+      <%= link_to t('view.recommend/position.destroy'), topic_item_path(item), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

@@ -22,6 +22,11 @@ Qatime::Application.routes.draw do
 
   resources :curriculums
   resources :settings, only: [:create, :update]
+  resources :course_intros, only: [] do
+    member do
+      get :play
+    end
+  end
 
   resources :home, only: [:index] do
     get :switch_city, on: :collection
@@ -30,6 +35,10 @@ Qatime::Application.routes.draw do
       get :search_teachers
       get :search_courses
       get :teachers
+      get :replays
+    end
+    member do
+      get :replay
     end
   end
 
@@ -103,6 +112,11 @@ Qatime::Application.routes.draw do
       end
     end
     resources :push_messages
+    resources :course_intros do
+      member do
+        get :change_status
+      end
+    end
   end
 
   namespace :managers do
@@ -439,6 +453,8 @@ Qatime::Application.routes.draw do
         get 'home_questions'
         post :home_teachers
         post :teacher_profile_courses
+        get :option_courses
+        get :option_lessons
       end
     end
   end

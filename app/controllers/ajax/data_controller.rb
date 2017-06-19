@@ -1,5 +1,5 @@
 class Ajax::DataController < ApplicationController
-  before_action :set_variable
+  before_action :set_variable, only: [:option_cities, :option_schools]
   skip_before_action :authorize
 
   def option_cities
@@ -9,6 +9,24 @@ class Ajax::DataController < ApplicationController
   end
 
   def option_schools
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def option_courses
+    @course_type = params[:target_type]
+    @courses = LiveStudio::Course.all if @course_type == 'course'
+    @courses = LiveStudio::InteractiveCourse.all if @course_type == 'interactive_course'
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def option_lessons
+    @course = LiveStudio::Course.find_by(id: params[:course_id])
+    @lessons = @course.lessons.merged if @course
     respond_to do |format|
       format.js
     end

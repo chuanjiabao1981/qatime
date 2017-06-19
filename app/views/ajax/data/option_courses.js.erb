@@ -1,0 +1,14 @@
+<% if params[:second].present? %>
+  $el = $('.<%= params[:second] %>');
+  <% if @courses.blank? %>
+    $el.empty();
+    $el.append($("<option></option>").attr("value", '').text("<%= t('view.recommend/choiceness_item.prompt.target_id') %>"));
+  <% else %>
+    $el.html('<%= j options_for_select(@courses.pluck(:name, :id).insert(0,[t('view.recommend/choiceness_item.prompt.target_id'), nil])) %>');
+  <% end %>
+<% end %>
+
+<% if params[:third].present? %>
+  $('.<%= params[:third] %>').empty();
+  $('.<%= params[:third] %>').append($("<option></option>").attr("value", '').text("<%= t('view.recommend/replay_item.prompt.lesson_id') %>"));
+<% end %>

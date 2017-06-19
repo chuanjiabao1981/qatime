@@ -2,10 +2,13 @@ module LiveStudio
   class TicketItem < ActiveRecord::Base
     include AASM
 
+    scope :available, -> { where(status: statuses.values_at(:unused, :used, :finished)) }
+
     enum status: {
       unused: 0, # 未使用
       used: 1, # 已使用
       finished: 9, # 已经结账
+      expied: 97, # 已过期
       refunding: 98, # 退款中
       refunded: 99 # 已退款
     }

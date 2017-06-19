@@ -139,7 +139,7 @@ module LiveStudio
       @date_list = arr.map{|data| data[:date]}
       lesson_map = arr.select{|data| data[:date].to_time == moment}.first
       @lessons = lesson_map[:lessons].sort_by { |x| x.start_at } if lesson_map.present?
-      render partial: 'live_studio/student/students/lesson'
+      render partial: 'live_studio/schedule/lesson'
     end
 
     def live_status

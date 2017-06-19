@@ -11,7 +11,7 @@ module LiveStudio
       interactive_lessons_ticket_items = interactive_lessons_ticket_items.joins('left join live_studio_interactive_lessons on live_studio_interactive_lessons.id = live_studio_ticket_items.target_id').where('live_studio_interactive_lessons.class_date' => this_week)
 
       @close_lessons = (lessons_ticket_items + interactive_lessons_ticket_items).select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }.reverse
-      @wait_lessons = (lessons_ticket_items + interactive_lessons_ticket_items).select { |item| item.target.already_closed? }.sort_by { |item| item.target.start_at }
+      @wait_lessons = (lessons_ticket_items + interactive_lessons_ticket_items).select { |item| item.target.closed? }.sort_by { |item| item.target.start_at }
     end
 
     def settings

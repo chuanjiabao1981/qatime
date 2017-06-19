@@ -1,5 +1,5 @@
 module V1
-  # 优惠码接口
+  # 首页查询功能接口
   module Home
     class Search < V1::Base
       namespace "home" do
@@ -35,6 +35,31 @@ module V1
           get do
             teachers = DataService::SearchManager.teachers_ransack(params).result.paginate(page: params[:page], per_page: params[:per_page])
             present teachers, with: Entities::SearchTeacher, total_entries: teachers.total_entries
+          end
+        end
+
+        resource :replays do
+          desc '首页全部精彩回放'
+          params do
+            optional :s, type: String, desc: '默认updated_at desc排序(中间空格),需要正序加上 asc后缀 例如: updated_at desc updated_at asc replay_times desc replay_times desc', values: [ 'updated_at desc', 'updated_at asc', 'replay_times desc', 'replay_times asc' ]
+            optional :page, type: Integer, desc: '当前页面'
+            optional :per_page, type: Integer, desc: '每页记录数'
+          end
+          get do
+            items = DataService::SearchManager.replays_ransack(params).result.paginate(page: params[:page], per_page: params[:per_page])
+            present items, with: Entities::Recommend::ReplayItemSearch
+          end
+
+          desc '精彩回放播放页'
+          params do
+            requires :id, type: Integer, desc: 'id.'
+          end
+          route_param :id do
+            get :replay do
+              item = ::Recommend::ReplayItem.default.items.find(params[:id])
+              item.increment_replay_times if item
+              present item, with: Entities::Recommend::ReplayItemDetail
+            end
           end
         end
       end

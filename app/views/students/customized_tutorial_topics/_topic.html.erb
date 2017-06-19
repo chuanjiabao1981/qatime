@@ -4,7 +4,7 @@
     <%= link_to topic.title, send("#{topic.model_name.singular_route_key}_path", topic) %>
   </h4>
   <p>
-    <%= image_tag topic.author.avatar_url(:small), class: 'handle_error_avatar' %>
+    <%= image_tag topic.author.try(:avatar).try(:url, :small), class: 'handle_error_avatar' %>
     <%= render partial: "#{topic.model_name.route_key}/brief_info/v1_info", locals: {topic.model_name.singular_route_key.to_sym => topic} %>
   </p>
 </li>

@@ -4,6 +4,8 @@ module Entities
       expose :id
       expose :code
       expose :price
+      expose :total_amount
+      expose :coupon_amount
     end
   end
 end

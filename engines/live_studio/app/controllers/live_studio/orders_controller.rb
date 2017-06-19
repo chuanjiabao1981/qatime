@@ -36,13 +36,8 @@ module LiveStudio
       waste_orders.update_all(status: 99) if waste_orders.present?
       buy_params = @product.order_params.merge(order_params)
       @order = Payment::Order.new(buy_params.merge(user: current_user, remote_ip: request.remote_ip, source: order_source))
-      @order.coupon_code = params[:coupon_code].presence
-
       # 使用优惠码
-      if @coupon.present?
-        @order.coupon_id = @coupon.id
-        @order.amount = @product.coupon_price(@coupon)
-      end
+      @order.use_coupon(@coupon)
 
       if @order.save
         flash_msg(:success, '下单成功!')
@@ -63,8 +58,10 @@ module LiveStudio
 
     # ajax 校验优惠码 return json
     def check_coupon
-      if @coupon.present?
-        render json: {success: true, price: @coupon.price.to_f}
+      if @coupon.present? && params[:amount].present?
+        render json: { success: true, price: @coupon.coupon_amount(params[:amount].to_f) }
+      elsif @coupon.present?
+        render json: { success: true, price: @coupon.price.to_f }
       else
         render json: {success: false}
       end

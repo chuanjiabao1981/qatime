@@ -6,6 +6,7 @@ cn:
         teacher_item: 老师推荐管理
         live_studio_course_item: 辅导班推荐管理
         choiceness_item: 精选内容管理
+        replay_item: 精彩回放管理
       city: 全国
       edit: 编辑
       destroy: 删除
@@ -61,6 +62,7 @@ cn:
     recommend/replay_item:
       index:
         filter_top: 仅显示推荐内容
+        add: 新增回放
         new_title: 新增回放课时
         edit_title: 修改回放课时
         top_filter: 仅显示推荐内容

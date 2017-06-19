@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :course_id, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :course_id, options_for_select(LiveStudio::Course.pluck(:name, :id), f.object.course_id), {include_blank: t('view.recommend/replay_item.prompt.course_id')}, { class: 'form-control data-first' } %>
+    <%= f.error :course_id %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :target_id %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :target_id, options_for_select(@lesson_options, f.object.target_id), {include_blank: t('view.recommend/replay_item.prompt.target_id')}, { class: 'form-control data-second' } %>
+    <%= f.error :target_id %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :city_id, class: 'no-required' %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :city_id, options_for_select(@option_cities, f.object.city_id), {include_blank: false}, {class: 'form-control'} %>
+    <%= f.error :city_id %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :top, class: 'no-required' %>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group recommend">
+      <label for="replay_item_top">
+        <%= f.check_box :top %>
+        <span><%= t('view.recommend/replay_item.prompt.top') %></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<center><%= f.submit t('common.save') %></center>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $('form').on('change', '.data-first', function(event){
+        var course_id = $(this).val();
+        $.ajax({
+          url: '<%= main_app.option_lessons_ajax_data_path(second: 'data-second') %>',
+          type: 'GET',
+          dataType: 'script',
+          data: {course_id: course_id}
+        });
+      });
+    });
+  </script>
+<% end %>

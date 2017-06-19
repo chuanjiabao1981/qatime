@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'recommend/banner_items/tab' %>
+    <div class="admin-title">
+      <div class="admin-title-left admin-title-msg">
+        <%= link_to '', :back, class: 'fa fa-mail-reply' %>
+        <span><%= t('view.recommend/replay_item.index.edit_title') %></span>
+      </div>
+    </div>
+
+    <div class="banner-item">
+      <%= simple_form_for @item, url: replay_item_path(@item), html: {class: 'form-inline'} do |f| %>
+        <%= render partial: 'form', locals: {f: f} %>
+      <% end %>
+    </div>
+  </div>
+</div>

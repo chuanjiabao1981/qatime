@@ -4538,6 +4538,7 @@ ul {
   font-size: 20px;
   padding-bottom: 3px;
   margin-bottom: 30px;
+  outline: none;
 }
 .login-other span {
   display: inline-block;
@@ -5257,7 +5258,7 @@ ul {
   color: #666666;
 }
 .process-left-con {
-  margin-top: 120px;
+  padding-top: 25px;
 }
 .process-left-msg {
   min-height: 45px;
@@ -5306,10 +5307,10 @@ ul {
 .process-right-msg {
   min-height: 65px;
   padding: 0px 20px 0 10px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .process-left-msg:first-child {
-  margin-bottom: 55px;
+  margin-bottom: 25px;
 }
 .process-left-msg:last-child {
   margin-top: 45px;
@@ -5317,9 +5318,6 @@ ul {
 .process-right-con {
   padding-top: 25px;
   border-left: 1px dashed #666666;
-}
-.process-right-msg:nth-child(2) {
-  margin-bottom: 105px;
 }
 .process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
   margin-bottom: 25px;
@@ -5340,7 +5338,18 @@ ul {
   left: -12px;
   top: 765px;
 }
-
+@media only screen  and (max-width: 768px) {
+  .process-left,.process-right {
+    width: 100%;
+    float: none;
+  }
+  .process-end,.process-start {
+    display: none;
+  }
+  .process-right-con {
+    border-left: 0px;
+  }
+}
 
 
 
@@ -9402,11 +9411,13 @@ ul {
   display: inline-block;
   font-size: 16px;
   color: #000;
+  line-height: 20px;
 }
 .replays > .replays-title > a {
   font-size: 12px;
   color: #9aabb8;
   float: right;
+  line-height: 20px;
 }
 .replays > .replays-title > a i {
   margin-left: 5px;
@@ -9939,6 +9950,12 @@ ul {
     height: 231px !important;
   }
 }
+@media only screen and (max-width: 992px) {
+  .course-introduce {
+    padding-left: 0px !important;
+    padding-right: 0px;
+  }
+}
 .course-price {
   position: absolute;
   bottom: 0px;
@@ -10408,7 +10425,6 @@ ul {
 }
 .tec-live > p >img {
   width: 14px;
-  height: 21px;
   position: relative;
   top: -3px;
 }
@@ -10965,6 +10981,12 @@ ul {
 #calendar .calendar-title div .circle, #calendar .calendar-list div .circle {
   background: #ff5842 !important;
 }
+.audition {
+  background-color: #ff5842;
+  color: #fff;
+  padding: 2px 10px;
+  margin-right: 10px;
+}
 @media screen and (min-width: 768px){
   .modal-client {
     width: 400px !important;
@@ -11328,6 +11350,7 @@ ul {
 /*下载页面*/
 .common-space {
   margin: 30px 0 60px 0;
+  min-height: 690px;
 }
 
 /*学生我的视频课*/
@@ -15870,4 +15893,46 @@ abbr {
     width: 300px;
     height: 187px;
   }
+}
+
+
+/*帮助页学生用户协议*/
+.contains > .contains-title > .agreement-link {
+  float: none;
+  font-size: 18px;
+  color: #999;
+  text-decoration: underline !important;
+}
+.contains > .protocol-box {
+  padding: 0px 30px 20px 30px;
+}
+.contains > .protocol-box > h3 {
+  text-align: center;
+  font-size: 16px;
+  color: #000;
+  margin: 0px;
+  padding: 20px 0px;
+}
+.contains > .protocol-box > p {
+  color: #666;
+  font-size: 14px;
+}
+.contains > .protocol-box > ul {
+  padding-left: 0px;
+  margin: 25px 0px 0px 0px;
+}
+.contains > .protocol-box > ul > li {
+  margin-bottom: 25px;
+  display: block;
+  overflow: auto;
+}
+.contains > .protocol-box > ul > li > a,.contains > .protocol-box > ul > li > span {
+  float: left;
+}
+.contains > .protocol-box > ul > li > span {
+  color: #666;
+}
+.contains > .protocol-box > ul > li > a {
+  color: #58cff9;
+  margin-left: 30px;
 }

@@ -126,6 +126,10 @@ class User < ActiveRecord::Base
     self
   end
 
+  def use_default_avatar!
+    use_default_avatar.save
+  end
+
   def view_name
     return name unless teacher?
     return nick_name unless nick_name.nil? or nick_name.strip.empty?

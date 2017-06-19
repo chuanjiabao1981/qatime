@@ -1,1 +1,1 @@
-<%= reply.author.view_name %> • 回答于<%= localize(reply.created_at,:format => :long) %>
+<%= reply.author.try(:view_name) %> • 回答于<%= localize(reply.created_at,:format => :long) %>

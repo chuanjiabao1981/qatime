@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619023105) do
+ActiveRecord::Schema.define(version: 20170619104448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -842,6 +842,7 @@ ActiveRecord::Schema.define(version: 20170619023105) do
     t.datetime "updated_at",              null: false
     t.integer  "target_id"
     t.string   "target_type"
+    t.integer  "user_id"
   end
 
   add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree
@@ -1210,15 +1211,15 @@ ActiveRecord::Schema.define(version: 20170619023105) do
 
   create_table "payment_transactions", force: :cascade do |t|
     t.integer  "user_id"
-    t.decimal  "amount",                    precision: 8, scale: 2
-    t.string   "transaction_no", limit: 64
-    t.string   "remote_ip",      limit: 64
+    t.decimal  "amount",                     precision: 8, scale: 2
+    t.string   "transaction_no",  limit: 64
+    t.string   "remote_ip",       limit: 64
     t.integer  "pay_type"
     t.integer  "status"
     t.integer  "source"
-    t.string   "type",           limit: 64
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.string   "type",            limit: 64
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.datetime "deleted_at"
     t.integer  "product_id"
     t.string   "product_type"
@@ -1228,9 +1229,11 @@ ActiveRecord::Schema.define(version: 20170619023105) do
     t.integer  "owner_id"
     t.string   "owner_type"
     t.string   "payee"
-    t.boolean  "close",                                             default: false
+    t.boolean  "close",                                              default: false
     t.integer  "seller_id"
     t.string   "seller_type"
+    t.decimal  "discount_amount",            precision: 8, scale: 2, default: 0.0
+    t.decimal  "total_amount",               precision: 8, scale: 2, default: 0.0
   end
 
   add_index "payment_transactions", ["close"], name: "index_payment_transactions_on_close", using: :btree

@@ -8,7 +8,7 @@
               <% end %>
             </div>
             <div class="pull-right">
-              <%= image_tag course.author.avatar.normal ,style: "padding:4px"%>
+              <%= image_tag course.author.try(:avatar).try(:normal) ,style: "padding:4px"%>
             </div>
             <div class="pull-left main">
                 <%=link_to course_path(course) do %>

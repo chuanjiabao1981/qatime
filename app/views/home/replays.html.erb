@@ -1,0 +1,14 @@
+<div class="personal">
+  <div class="container">
+    <div class="replays-list">
+      <% if @replay_items.present? %>
+        <ul>
+          <%= render partial: 'home/replays/replay_item', collection: @replay_items %>
+        </ul>
+      <% end %>
+
+      <%= render 'shared/blank' if @replay_items.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @replay_items, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

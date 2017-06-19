@@ -21,7 +21,7 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
-      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|
         user.cities.include? school.city

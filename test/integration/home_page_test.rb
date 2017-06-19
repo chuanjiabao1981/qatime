@@ -23,6 +23,14 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert 2, page.all('.teacher-list li').size
   end
 
+  test "home replays page" do
+    visit replays_home_index_path
+    assert page.has_content?('第3节')
+    assert page.has_content?('老师：teacher1')
+    assert page.has_link?('观看')
+    assert Recommend::ReplayItem.default.items.count, page.all('.replays-list li').size
+  end
+
   test "home page search" do
     visit home_path
     find(:css, '.fa-search').click

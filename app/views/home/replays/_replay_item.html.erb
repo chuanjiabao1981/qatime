@@ -1,0 +1,35 @@
+<li>
+  <div class="row">
+    <div class="col-md-2 col-sm-2 playback-image">
+      <%= image_tag replay_item.logo_url %>
+    </div>
+    <div class="col-md-8 col-sm-8 playback-info">
+      <h5><%= replay_item.target.try(:name) %></h5>
+      <div class="row">
+        <div class="col-md-7 col-sm-7">
+          <span><%= replay_item.course.try(:grade) %><%= replay_item.course.try(:subject) %></span>
+          <i>|</i>
+          <span>
+            <em><%= t('common.teacher') %>：</em><em><%= replay_item.target.try(:teacher).try(:name) %></em>
+          </span>
+          <i>|</i>
+          <span>
+            <em><%= t('common.time') %>：</em><em><%= Util.duration_in_words replay_item.video.try(:duration).to_i %></em>
+          </span>
+        </div>
+        <div class="col-md-5 col-sm-5">
+          <span><%= l(replay_item.updated_at) if replay_item.updated_at %></span>
+        </div>
+      </div>
+      <p>
+        <span>
+          <%= image_tag 'view.png' %>
+          <i><%= replay_item.replay_times %></i>
+        </span>
+      </p>
+    </div>
+    <div class="col-md-2 col-sm-2 playback-view">
+      <%= link_to t('common.play_video'), 'javascript:void(0);' %>
+    </div>
+  </div>
+</li>

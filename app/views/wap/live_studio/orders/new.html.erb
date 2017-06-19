@@ -89,7 +89,7 @@
           <% if @coupon.nil? -%>
             <span><%= number_to_currency(@product.current_price, unit: '', precision: 2) %></span>
           <% else %>
-            <span><%= number_to_currency([@product.current_price - 10, 0].max, unit: '', precision: 2) %></span>
+            <span><%= number_to_currency(@coupon.after_amount(@product.current_price), unit: '', precision: 2) %></span>
           <% end %>
           <span><%= t('currency.cn') %></span>
         </div>

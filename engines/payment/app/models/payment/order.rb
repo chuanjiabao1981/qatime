@@ -256,12 +256,16 @@ module Payment
       BusinessService::CourseOrderManager.new(self).billing
     end
 
-    private
-
-    before_validation :set_coupon
-    def set_coupon
-      self.coupon = Payment::Coupon.find_by(code: coupon_code) unless coupon_code.blank?
+    def use_coupon(coupon)
+      coupon = Coupon.find_by(code: coupon) if coupon.is_a?(String)
+      return if coupon.blank?
+      self.coupon = coupon
+      self.coupon_code = coupon.code
+      self.discount_amount = coupon.coupon_amount(amount)
+      self.amount = total_amount - discount_amount
     end
+
+    private
 
     # 当有支付密码字段的时候验证支付密码
     def check_payment_password?

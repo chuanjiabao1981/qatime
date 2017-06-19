@@ -1,13 +1,13 @@
 <div id="comment-<%=comment.id%>" class="item">
   <div style="float:left">
-    <%=image_tag comment.author.avatar.small.url,class:"img-circle" %>
+    <%= image_tag comment.author.try(:avatar).try(:small).try(:url),class:"img-circle" %>
   </div>
   <div class="comment-content">
     <%= h(comment.content).gsub(/[\r\n]+/, "<br/>").html_safe%>
   </div>
   <div class="comment-info">
 
-    <strong style="color:green"><%= comment.author.name %></strong>
+    <strong style="color:green"><%= comment.author.try(:name) %></strong>
     <span style="color: #999"><%= localize(comment.created_at,:format => :long) %>发布</span>
 
       <div class="pull-right">

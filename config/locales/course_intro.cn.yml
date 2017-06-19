@@ -1,0 +1,35 @@
+cn:
+  activerecord:
+    models:
+      course_intro: 课程视频介绍
+    attributes:
+      course_intro:
+        title: 描述
+        video_id: 视频
+        video: 视频
+  view:
+    admins/course_intros:
+      index:
+        tab: 产品视频介绍
+        new: 新增视频
+        edit_title: 修改视频
+        video_capture: 视频预览
+        video_info: 视频信息
+        title: 描述
+        status: 视频启用
+        video_size: 文件大小
+        tmp_duration: 视频时长
+        video_type: 视频格式
+        created_at: 上传时间
+        run: 使用
+        stop: 停止使用
+        play: 播放
+      form:
+        video_tips: 说明
+        video_tips_1: '1.上传视频文件大小最多500M,视频长度30分钟以内最佳;'
+        video_tips_2: '2.目前仅支持MP4;'
+        upload_video: 点击添加视频
+        edit_video: 点击更换视频
+        uploading: 已上传
+        processing: 正在处理
+        uploaded: 上传完成

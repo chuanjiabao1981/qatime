@@ -65,7 +65,7 @@ module DataService
     private
 
     def position_query(position, city_id)
-      return position.none if position.blank?
+      return Recommend::Item.none if position.blank?
       position.items.by_city(city_id)
     end
   end

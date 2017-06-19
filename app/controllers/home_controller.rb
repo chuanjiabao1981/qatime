@@ -20,9 +20,8 @@ class HomeController < ApplicationController
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses.limit(4)
-    question_limit = @topic_items.count > 0 ? 6 : 9
-    @questions = home_data.questions.limit(question_limit)
-    @replay_items = []
+    replay_limit = @topic_items.count > 0 ? 3 : 4
+    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(replay_limit)
   end
 
   def switch_city

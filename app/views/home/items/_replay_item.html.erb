@@ -1,29 +1,29 @@
 <div class="row">
   <div class="col-md-2 col-sm-2 playback-image">
     <a href="">
-      <img src="../img/replays-img.png">
+      <%= image_tag(replay_item.logo_url) %>
     </a>
   </div>
   <div class="col-md-8 col-sm-8 playback-info">
     <h5>
-      <a href="">科学兴趣培养问答社区科学兴趣培养问答社区科学兴趣培养问答社区科学兴趣培养问答社区</a>
+      <%= link_to replay_item.target.try(:name), '' %>
     </h5>
     <p>
-      <span>高三语文</span>
+      <span><%= replay_item.course.try(:grade) %><%= replay_item.course.try(:subject) %></span>
       <i>|</i>
       <span>
-        <em><%= t('common.teacher') %>：</em><em>田浩然</em>
+        <em><%= t('common.teacher') %>：</em><em><%= replay_item.target.try(:teacher).try(:name) %></em>
       </span>
       <i>|</i>
       <span>
-        <em><%= t('common.time') %>：</em><em>17分33秒</em>
+        <em><%= t('common.time') %>：</em><em><%= Util.duration_in_words replay_item.video.try(:duration).to_i %></em>
       </span>
     </p>
   </div>
   <div class="col-md-2 col-sm-2 playback-number">
     <span>
       <%= image_tag 'view.png' %>
-      <i>888</i>
+      <i><%= replay_item.replay_times %></i>
     </span>
   </div>
 </div>

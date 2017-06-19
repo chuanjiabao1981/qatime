@@ -110,5 +110,38 @@ module Recommend
       end
       assert page.has_no_content?('第2节')
     end
+
+    test 'admin manage topic_items' do
+      click_on '首页管理'
+      assert page.has_link?('板块专题管理')
+      click_on '板块专题管理'
+      assert page.has_link?('新增专题')
+
+      click_on '新增专题'
+      fill_in :topic_item_name, with: '专题送温暖1'
+      fill_in :topic_item_index, with: '1'
+      fill_in :topic_item_title, with: '描述1'
+      fill_in :topic_item_link, with: '/home'
+      click_on '保存'
+      sleep(1)
+      assert page.has_content?('该城市排序位置已存在')
+
+      assert_difference 'Recommend::TopicItem.count', 1 do
+        fill_in :topic_item_index, with: '2'
+        click_on '保存'
+        assert page.has_content?('专题送温暖1')
+      end
+      sleep(1)
+      item = Recommend::TopicItem.last
+      click_link('编辑', href: recommend.edit_topic_item_path(item))
+      fill_in :topic_item_name, with: '专题送温暖2'
+      click_on '保存'
+
+      assert page.has_content?('专题送温暖2')
+      accept_prompt(with: '确定删除?') do
+        click_link('删除', href: recommend.topic_item_path(item))
+      end
+      assert page.has_no_content?('专题送温暖2')
+    end
   end
 end

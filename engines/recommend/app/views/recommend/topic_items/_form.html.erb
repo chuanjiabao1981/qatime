@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :name %>
+  </div>
+  <div class="col-md-10">
+    <%= f.text_field :name, class: 'form-control', maxlength: 10, placeholder: t('view.recommend/topic_item.placeholders.name') %>
+    <%= f.error :name %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :index %>
+  </div>
+  <div class="col-md-10">
+    <%= f.number_field :index, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.index') %>
+    <%= f.error :index %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :title %>
+  </div>
+  <div class="col-md-10">
+    <%= f.text_field :title, class: 'form-control', maxlength: 30, placeholder: t('view.recommend/banner_item.placeholders.title') %>
+    <%= f.error :title %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :link %>
+  </div>
+  <div class="col-md-10">
+    <%= f.text_field :link, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.link') %>
+    <%= f.error :link %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :city_id, class: 'no-required' %>
+  </div>
+  <div class="col-md-10">
+    <%= f.select :city_id, options_for_select(@option_cities, f.object.city_id), {include_blank: false}, {class: 'form-control'} %>
+    <%= f.error :city_id %>
+  </div>
+</div>
+
+<center><%= f.submit t('common.save') %></center>

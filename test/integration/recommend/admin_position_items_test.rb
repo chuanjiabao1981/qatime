@@ -83,5 +83,32 @@ module Recommend
       sleep(1)
       assert_equal item.reload.target.name, '测试一对一'
     end
+
+    test 'admin manage replay_items' do
+      click_on '首页管理'
+      assert page.has_link?('精彩回放管理')
+      click_on '精彩回放管理'
+      assert page.has_link?('新增回放')
+      assert page.has_content?('仅显示推荐内容')
+
+      click_on '新增回放'
+      select '回放测试辅导班', from: :replay_item_course_id
+      sleep(3)
+      select '第1节', from: :replay_item_target_id
+      check :replay_item_top
+      assert_difference 'Recommend::ReplayItem.count', 1 do
+        click_on '保存'
+        assert page.has_content?('第1节')
+      end
+      sleep(1)
+      click_on '编辑', match: :first
+      select '第2节', from: :replay_item_target_id
+      click_on '保存'
+      assert page.has_content?('第2节')
+      accept_prompt(with: '确定删除?') do
+        click_on '删除', match: :first
+      end
+      assert page.has_no_content?('第2节')
+    end
   end
 end

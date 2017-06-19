@@ -31,6 +31,18 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert Recommend::ReplayItem.default.items.count, page.all('.replays-list li').size
   end
 
+  test "home replay page" do
+    visit replays_home_index_path
+    item = Recommend::ReplayItem.default.items.first
+    visit replay_home_path(item)
+
+    assert page.has_content? item.name
+    assert page.has_content? "回放次数1"
+    assert page.has_content? '年级科目'
+    assert page.has_content? '视频时长'
+    assert page.has_link? item.target.teacher.name
+  end
+
   test "home page search" do
     visit home_path
     find(:css, '.fa-search').click

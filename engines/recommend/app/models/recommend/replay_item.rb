@@ -19,5 +19,9 @@ module Recommend
     def video
       target.replays.where(video_for: 0).first rescue nil
     end
+
+    def increment_replay_times
+      increment(:replay_times, 1).update_column(:replay_times, self[:replay_times])
+    end
   end
 end

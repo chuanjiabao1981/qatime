@@ -7,7 +7,7 @@
   <td><%= l(item.updated_at) if item.updated_at %></td>
   <td><%= check_box_tag nil, '1', item.top?, onclick: 'return false;' %></td>
   <td>
-    <a href="#" data-toggle="modal" data-target="#acceptModal">播放</a>
+    <%= link_to( t('live_studio.actions.workstation.video_course.play'), main_app.replay_home_path(item), target: '_blank') %>
     <% if allow? "recommend/station/replay_items", :edit, @workstation %>
       <%= link_to t('view.recommend/position.edit'), recommend.edit_station_workstation_replay_item_path(@workstation, item, position_id: @position) %>
     <% end %>

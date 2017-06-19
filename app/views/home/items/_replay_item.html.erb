@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-2 col-sm-2 playback-image">
-    <a href="">
+    <%= link_to main_app.replay_home_path(replay_item), target: '_blank' do %>
       <%= image_tag(replay_item.logo_url) %>
-    </a>
+    <% end %>
   </div>
   <div class="col-md-8 col-sm-8 playback-info">
     <h5>
-      <%= link_to replay_item.target.try(:name), '' %>
+      <%= link_to replay_item.target.try(:name), main_app.replay_home_path(replay_item), target: '_blank' %>
     </h5>
     <p>
       <span><%= replay_item.course.try(:grade) %><%= replay_item.course.try(:subject) %></span>

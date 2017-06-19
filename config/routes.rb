@@ -32,6 +32,9 @@ Qatime::Application.routes.draw do
       get :teachers
       get :replays
     end
+    member do
+      get :replay
+    end
   end
 
   resources :qa_faqs do

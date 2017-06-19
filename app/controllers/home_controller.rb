@@ -22,6 +22,7 @@ class HomeController < ApplicationController
     @free_courses = home_data.free_courses.limit(4)
     question_limit = @topic_items.count > 0 ? 6 : 9
     @questions = home_data.questions.limit(question_limit)
+    @replay_items = []
   end
 
   def switch_city

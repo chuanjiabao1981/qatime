@@ -23,6 +23,9 @@ cn:
         questions:
           title: 问答动态
           more: 更多
+        replay_items:
+          title: 精彩回放
+          more: 全部
     search_teachers:
       combo_msg1: 共找到
       combo_msg2: 个与

@@ -80,10 +80,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_link?('直播课')
     assert page.has_link?('一对一')
     assert page.has_link?('视频课')
-    assert page.has_content?('问答动态')
-
-    assert_equal 2, page.all(".category-answer ul li").size, '问答动态数量不对'
-    assert page.has_link?('更多', href: main_app.questions_path)
+    assert page.has_content?('精彩回放')
 
     assert page.has_content? '今日直播'
     assert page.has_link? '正在直播'

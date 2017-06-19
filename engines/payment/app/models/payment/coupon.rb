@@ -12,6 +12,8 @@ module Payment
     validates :code, uniqueness: true
     validates :code, length: { is: 4 }, numericality: { only_integer: true }
 
+    enum discount_tp: { percent: 0, amount: 1 }
+
     attr_accessor :total_amount
 
     # 默认价格 配置固定
@@ -21,14 +23,16 @@ module Payment
     def generate_code
       begin
         self.code = SecureRandom.hex(4)
-      end while self.class.exists?(code: self.code)
-      self.code
+      end while self.class.exists?(code: code)
+      code
     end
 
     # 优惠金额
     def coupon_amount(amount = nil)
       amount ||= total_amount
-      discount_amount(amount.to_f)
+      # 固定金额优惠
+      return after_amount(amount.to_f) if amount?
+      discount_amount(amount)
     end
 
     # 优惠后金额

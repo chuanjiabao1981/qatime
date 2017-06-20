@@ -1,0 +1,121 @@
+<%= simple_form_for [:admins, @course_intro] do |f| %>
+  <% object_id = f.object.object_id %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :video_id %>
+    </div>
+    <div class="col-md-10">
+      <div class="info-video">
+        <div class="addvideo">
+          <%= image_tag(f.object.video.try(:capture_url), class: "video_capture_edit") %>
+          <div class="upload-pic">
+            <input type="file" id="video_file_<%= object_id %>" class="video_file" token="<%= object_id %>" style="display: none;" >
+            <a class="upload-video" onclick="$(this).prev().click();">
+              <span><%= f.object.new_record? ? t("view.admins/course_intros.form.upload_video") : t("view.admins/course_intros.form.edit_video") %></span>
+            </a>
+          </div>
+          <span class="video-time"><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %><i class="video_duration_edit"><%= f.object.video.try(:format_tmp_duration) %></i></span>
+
+          <div class="progress" style="display: none;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+            <span class="upload-tips"><%= t('view.admins/course_intros.form.uploading') %> 0%</span>
+          </div>
+        </div>
+        <div class="addvideo-prompt">
+          <h3><%= t("view.admins/course_intros.form.video_tips") %>：</h3>
+          <p><%= t("view.admins/course_intros.form.video_tips_1") %></p>
+          <p><%= t("view.admins/course_intros.form.video_tips_2") %></p>
+        </div>
+      </div>
+      <%= f.input_field :video_id, as: :hidden, class: 'video_id' %>
+      <%= f.error :video_id %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :title %>
+    </div>
+
+    <div class="col-md-10">
+      <%= f.input_field :title %>
+      <%= f.error :title %>
+    </div>
+  </div>
+
+  <center>
+    <%= f.submit t('common.save'), class: 'btn-preserve' %>
+  </center>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      // 格式化视频时长
+      function formatDuration(duration) {
+        duration = parseInt(duration);
+        var second = parseInt(duration % 60);
+        if(second < 10) second = "0" + second;
+        duration = duration / 60;
+        var minute = parseInt(duration % 60);
+        if(minute < 10) minute = "0" + minute;
+        duration = duration / 60;
+        var hour = parseInt(duration % 60);
+        if(hour < 10) hour = "0" + hour;
+        return hour + ":" + minute + ":" + second;
+      }
+
+      // 视频上传
+      $('.addvideo').on('change', '.video_file', function(e) {
+        var currentNode = $(e.target).closest("div.row");
+        var progress = currentNode.find('.progress');
+        var progressBar = currentNode.find('.progress .progress-bar'); // 进度条
+        var uploadTips = currentNode.find('.progress .upload-tips'); // 上传提示
+        var file = e.target.files[0];
+        if(!file) return false;
+        if(!file.name.match(/.mp4$/i)) {
+          alert("<%= t('view.video_course_form.video_format_tips') %>");
+          return false;
+        }
+        var videoForm = '<form id="video_form" action="/videos" enctype="multipart/form-data" method="post"></form>';
+        var data = new FormData();
+        data.append("video[token]", $(e.target).attr('token'));
+        data.append("video[name]" , file, file.name);
+        data.append("capture", true);
+        currentNode.find(".video_id").val('');
+        $(videoForm).ajaxSubmit({
+          dataType: 'json',
+          formData: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          beforeSubmit: function(){
+            currentNode.find('.video_id').next('.has-error').text('');
+            progressBar.css({width: '0%'});
+            progress.show();
+            uploadTips.html('<%= t('view.admins/course_intros.form.uploading') %> ' + '0%').show();
+          },
+          uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            uploadTips.text('<%= t('view.admins/course_intros.form.uploading') %> ' + percentVal);
+            progressBar.css({width: percentVal});
+            if(percentVal == '100%') {
+              uploadTips.html('<%= t('view.admins/course_intros.form.processing') %>');
+            }
+          },
+          success: function(data) {
+            if(data.id) {
+              currentNode.find(".video_id").val(data.id); // 设置视频ID
+              currentNode.find(".upload-video span").text('<%= t("view.admins/course_intros.form.edit_video") %>'); // 设置上传视频提示
+              currentNode.find(".video_duration_edit").text(formatDuration(data.tmp_duration)); // 设置视频时长
+              currentNode.find(".video_capture_edit").attr('src', data.capture.url); // 设置视频截图
+            }
+            uploadTips.html('<%= t('view.admins/course_intros.form.uploaded') %>').removeClass('has-error');
+          }
+        });
+        // 初始化进度条
+      });
+    });
+  </script>
+<% end %>

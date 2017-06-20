@@ -29,6 +29,7 @@ Recommend::Engine.routes.draw do
       end
       resources :teacher_items
       resources :topic_items
+      resources :replay_items
     end
   end
 
@@ -37,6 +38,8 @@ Recommend::Engine.routes.draw do
     resources :live_studio_course_items, only: [:new, :create, :edit, :update, :destroy], shallow: true
     resources :banner_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :choiceness_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
+    resources :replay_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
+    resources :topic_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :items, only: [:new, :create], shallow: true
   end
 

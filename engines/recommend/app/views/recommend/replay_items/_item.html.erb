@@ -1,0 +1,18 @@
+<tr>
+  <td><%= show_index(item_counter, @items.limit_value) %></td>
+  <td><%= item.target.try(:name) %></td>
+  <td><%= "#{item.course.try(:grade)}#{item.course.try(:subject)}、#{item.target.teacher.try(:name)}、#{Util.duration_in_words(item.video.try(:duration).to_i)}" %></td>
+  <td><%= item.replay_times %></td>
+  <td><%= l(item.updated_at) if item.updated_at %></td>
+  <td><%= check_box_tag nil, '1', item.top?, onclick: 'return false;' %></td>
+  <td><%= item.city.try(:name).presence || t('view.recommend/position.city') %></td>
+  <td>
+    <%= link_to( t('live_studio.actions.workstation.video_course.play'), main_app.replay_home_path(item), target: '_blank') %>
+    <% if allow? "recommend/replay_items", :edit %>
+      <%= link_to t('view.recommend/position.edit'), edit_replay_item_path(item) %>
+    <% end %>
+    <% if allow? "recommend/replay_items", :destroy %>
+      <%= link_to t('view.recommend/position.destroy'), replay_item_path(item), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

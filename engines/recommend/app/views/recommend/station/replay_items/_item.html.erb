@@ -1,0 +1,18 @@
+
+<tr>
+  <td><%= show_index(item_counter, @items.limit_value) %></td>
+  <td><%= item.target.try(:name) %></td>
+  <td><%= "#{item.course.try(:grade)}#{item.course.try(:subject)}、#{item.target.teacher.try(:name)}、#{Util.duration_in_words(item.video.try(:duration).to_i)}" %></td>
+  <td><%= item.replay_times %></td>
+  <td><%= l(item.updated_at) if item.updated_at %></td>
+  <td><%= check_box_tag nil, '1', item.top?, onclick: 'return false;' %></td>
+  <td>
+    <%= link_to( t('live_studio.actions.workstation.video_course.play'), main_app.replay_home_path(item), target: '_blank') %>
+    <% if allow? "recommend/station/replay_items", :edit, @workstation %>
+      <%= link_to t('view.recommend/position.edit'), recommend.edit_station_workstation_replay_item_path(@workstation, item, position_id: @position) %>
+    <% end %>
+    <% if allow? "recommend/station/replay_items", :destroy, @workstation %>
+      <%= link_to t('view.recommend/position.destroy'), recommend.station_workstation_replay_item_path(@workstation, item, position_id: @position), data: { confirm: t('view.recommend/position.confirm'), method: :delete } %>
+    <% end %>
+  </td>
+</tr>

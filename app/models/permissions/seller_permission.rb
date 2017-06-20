@@ -8,7 +8,7 @@ module Permissions
       allow :vip_classes,[:show]
 
       allow :sessions,[:destroy]
-      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow "sellers/home", [:main]
 
       allow :sellers, [:customized_courses]
@@ -62,6 +62,9 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
       allow 'recommend/station/choiceness_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      allow 'recommend/station/replay_items', [:index, :new, :create, :edit, :update, :destroy, :ajax_course_select] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       allow 'recommend/station/teacher_items', [:index, :new, :create, :edit, :update, :destroy] do |workstation|

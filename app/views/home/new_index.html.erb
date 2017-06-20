@@ -4,6 +4,9 @@
 <!-- 专题板块 -->
 <%= render partial: 'home/items/line_items' %>
 
+<!-- 教师推荐 -->
+<%= render partial: 'home/items/teachers' %>
+
 <!-- 精选内容 -->
 <%= render partial: 'home/items/choiceness' %>
 
@@ -13,24 +16,21 @@
 <!-- 新课发布 -->
 <%= render partial: 'home/items/newest_courses' %>
 
-<!-- 教师推荐 -->
-<%= render partial: 'home/items/teachers' %>
-
 <!-- 服务项目 -->
 <%= render partial: 'home/items/service' %>
 
 <!--Modal弹窗-->
-<div class="modal-presentation">
-  <div class="modal-content">
-    <div class="popup-title">
-      <%= image_tag 'live-logo.png' %>
-      <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
-    </div>
-    <div class="modal-body">
-      <div class="video-box">
-        <video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
-          <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
-        </video>
+<div class="modal fade" id="course_intro_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-iframe">
+    <div class="modal-content">
+      <div class="popup-title">
+        <%= image_tag 'live-logo.png' %>
+        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+      </div>
+      <div class="modal-body">
+        <div class="video-box">
+          <iframe src="<%= main_app.play_course_intro_path(CourseIntro.top.presence || 0) %>" allowfullscreen mozallowfullscreen webkitallowfullscreen frameBorder="0" scrolling="no" border="0" width="100%" height="100%"></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -67,48 +67,6 @@
         $(".live-today .liveing-info").css("overflow", "hidden");
 
       });
-
-
-//      $(".video-item").click(function() {
-//        $(".modal-presentation").show();
-//        $(".modal-presentation").css({
-//          left: ($(window).width() - $(".modal-presentation").outerWidth()) / 2,
-//          top: ($(window).height() - $(".modal-presentation").outerHeight()) / 2 + $(document).scrollTop()
-//        });
-//      })
-//      $(".close").click(function() {
-//        $(".modal-presentation").hide();
-//      })
-
-      var obj = $(".modal-presentation");
-      drag(obj);
-
     });
-
-    //拖动
-    function drag (obj) {
-      obj.bind("mousedown", start);
-
-      function start (event) {
-        deltaX = event.clientX - obj.offset().left;
-        deltaY = event.clientY - obj.offset().top;
-        $(document).bind("mousemove", move);
-        $(document).bind("mouseup", stop);
-        return false;
-      }
-
-      function move (event) {
-        obj.css({
-          "left": (event.clientX - deltaX) + "px",
-          "top": (event.clientY - deltaY) + "px"
-        })
-        return false;
-      }
-      function stop () {
-        $(document).unbind("mousemove", move);
-        $(document).unbind("mouseup", stop);
-      }
-    }
-
   </script>
 <% end %>

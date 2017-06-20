@@ -29,6 +29,11 @@ module DataService
       position_query(Recommend::TopicItem.default, @city_id)
     end
 
+    # 精彩回放
+    def replay_items
+      position_query(Recommend::ReplayItem.default, @city_id)
+    end
+
     # 近期开课
     def recent_courses
       LiveService::RankManager.rank_of('start_rank', {city_id: @city_id})
@@ -60,7 +65,7 @@ module DataService
     private
 
     def position_query(position, city_id)
-      return position.none if position.blank?
+      return Recommend::Item.none if position.blank?
       position.items.by_city(city_id)
     end
   end

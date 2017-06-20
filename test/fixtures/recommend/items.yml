@@ -99,4 +99,12 @@ index_topic_recommend_one:
   position: index_topic_recommend
   type: Recommend::TopicItem
   index: 1
-
+  link: '/'
+index_replay_recommend_one:
+  name: 第3节
+  title: 第3节
+  position: index_replay_recommend
+  type: Recommend::ReplayItem
+  index: 1
+  target: replay_lessons_3 (LiveStudio::Lesson)
+  top: true

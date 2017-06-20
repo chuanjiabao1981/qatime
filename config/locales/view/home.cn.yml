@@ -23,6 +23,9 @@ cn:
         questions:
           title: 问答动态
           more: 更多
+        replay_items:
+          title: 精彩回放
+          more: 全部
     search_teachers:
       combo_msg1: 共找到
       combo_msg2: 个与
@@ -35,3 +38,9 @@ cn:
       filter:
         category: 年级
         subject: 科目
+    home/replay:
+      replay_times: 回放次数
+      title: 课时信息
+      grade_info: 年级科目
+      teacher: 授课老师
+      duration: 视频时长

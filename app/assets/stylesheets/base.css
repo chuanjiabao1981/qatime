@@ -4538,6 +4538,7 @@ ul {
   font-size: 20px;
   padding-bottom: 3px;
   margin-bottom: 30px;
+  outline: none;
 }
 .login-other span {
   display: inline-block;
@@ -5257,7 +5258,7 @@ ul {
   color: #666666;
 }
 .process-left-con {
-  margin-top: 120px;
+  padding-top: 25px;
 }
 .process-left-msg {
   min-height: 45px;
@@ -5306,10 +5307,10 @@ ul {
 .process-right-msg {
   min-height: 65px;
   padding: 0px 20px 0 10px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .process-left-msg:first-child {
-  margin-bottom: 55px;
+  margin-bottom: 25px;
 }
 .process-left-msg:last-child {
   margin-top: 45px;
@@ -5317,9 +5318,6 @@ ul {
 .process-right-con {
   padding-top: 25px;
   border-left: 1px dashed #666666;
-}
-.process-right-msg:nth-child(2) {
-  margin-bottom: 105px;
 }
 .process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
   margin-bottom: 25px;
@@ -5340,7 +5338,18 @@ ul {
   left: -12px;
   top: 765px;
 }
-
+@media only screen  and (max-width: 768px) {
+  .process-left,.process-right {
+    width: 100%;
+    float: none;
+  }
+  .process-end,.process-start {
+    display: none;
+  }
+  .process-right-con {
+    border-left: 0px;
+  }
+}
 
 
 
@@ -9402,11 +9411,13 @@ ul {
   display: inline-block;
   font-size: 16px;
   color: #000;
+  line-height: 20px;
 }
 .replays > .replays-title > a {
   font-size: 12px;
   color: #9aabb8;
   float: right;
+  line-height: 20px;
 }
 .replays > .replays-title > a i {
   margin-left: 5px;
@@ -9637,12 +9648,13 @@ ul {
 }
 
 /*视频展示*/
-.modal-presentation {
-  position: absolute;
-  display: none;
-  z-index: 10000;
-  cursor: pointer;
-}
+/*.modal-presentation {
+	position: absolute;
+	display: none;
+	z-index: 10000;
+	cursor: pointer;
+}*/
+
 @media screen and (min-width: 990px){
   .modal-presentation {
     width: 860px !important;
@@ -9665,13 +9677,14 @@ ul {
     width: 80%;
   }
 }
-.modal-presentation > .modal-content >.popup-title {
+
+.modal-presentation > .modal-content >.popup-title,.modal-iframe > .modal-content >.popup-title{
   height: 46px;
   line-height: 42px;
   padding: 0 10px;
   background-color: #fff;
 }
-.modal-presentation > .modal-content .video-box {
+.modal-presentation > .modal-content .video-box{
   width: 100%;
   position: relative;
   height: 0;
@@ -9681,6 +9694,46 @@ ul {
 .modal-presentation > .modal-content .modal-body {
   padding: 0 10px 10px 10px;
 }
+
+
+/*视频展示*/
+.modal-iframe .video-box {
+  width: 100%;
+  height: 100%;
+}
+.modal-iframe .modal-body {
+  padding-top: 0px;
+}
+@media screen and (min-width: 990px) {
+  .modal-iframe {
+    width: 890px !important;
+  }
+  .modal-iframe .modal-body {
+    height: 552px !important;
+  }
+}
+@media only screen  and (max-width: 990px) {
+  .modal-iframe {
+    width: 568px !important;
+  }
+  .modal-iframe .modal-body {
+    height: 350px !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .modal-iframe {
+    width: 330px !important;
+    margin: 0 auto;
+  }
+  .modal-iframe .modal-body {
+    height: 202px !important;
+  }
+}
+
+
+
+
+
 
 /*筛选页*/
 .item-handpick li > a,.item-live li > a,.classify-msg li > a {
@@ -9897,6 +9950,12 @@ ul {
     height: 231px !important;
   }
 }
+@media only screen and (max-width: 992px) {
+  .course-introduce {
+    padding-left: 0px !important;
+    padding-right: 0px;
+  }
+}
 .course-price {
   position: absolute;
   bottom: 0px;
@@ -10090,6 +10149,7 @@ ul {
 .synopsis-list > li > .synopsis-head > .head-introduce {
   color: #666;
   margin: 0px;
+  text-align: left;
 }
 .synopsis-more {
   text-align: center;
@@ -10183,11 +10243,6 @@ ul {
   color: #000000;
   margin-bottom: 0px;
 }
-.user-img > p > a {
-  display: inline-block;
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-}
 .user-img p:last-child > img {
   width: 14px;
   position: relative;
@@ -10196,6 +10251,7 @@ ul {
 .user-img p:first-child img {
   width: 120px;
   height: 120px;
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
 }
 .user-header {
@@ -10369,7 +10425,6 @@ ul {
 }
 .tec-live > p >img {
   width: 14px;
-  height: 21px;
   position: relative;
   top: -3px;
 }
@@ -10926,6 +10981,12 @@ ul {
 #calendar .calendar-title div .circle, #calendar .calendar-list div .circle {
   background: #ff5842 !important;
 }
+.audition {
+  background-color: #ff5842;
+  color: #fff;
+  padding: 2px 10px;
+  margin-right: 10px;
+}
 @media screen and (min-width: 768px){
   .modal-client {
     width: 400px !important;
@@ -11289,6 +11350,7 @@ ul {
 /*下载页面*/
 .common-space {
   margin: 30px 0 60px 0;
+  min-height: 690px;
 }
 
 /*学生我的视频课*/
@@ -11902,7 +11964,7 @@ ul {
 .modal-video > .modal-content >.popup-title >img {
   width: 176px;
   height: 34px;
-  margin-top: 6px;
+  margin-bottom: 4px;
 }
 .modal-video > .modal-content > .modal-body {
   padding: 0px;
@@ -11945,7 +12007,7 @@ ul {
 }
 .modal-video > .modal-content .playback-con > li > a > .row > .list-msg.active
 ,.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
-  color: #000000;
+  color: #ff5842;
 }
 
 
@@ -13359,7 +13421,8 @@ ul {
   color: #ccc;
 }
 .contains > .qa_box .set-cell .cell-line p .prompt-info {
-  color: #ff5842;
+  color: #ff0000;
+  font-size: 12px;
 }
 .contains > .qa_box .set-cell .cell-line > em {
   color: #999;
@@ -15392,6 +15455,7 @@ abbr {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  border: 1px solid #ccc;
 }
 .line-item > .container > .teacher-list > li > a .tec-message {
   position: absolute;
@@ -15678,3 +15742,197 @@ abbr {
 
 
 /*首页产品视频介绍*/
+.admin > .admin-title > span {
+  font-size: 24px;
+}
+.admin > .admin-video > table {
+  width: 100%;
+}
+.admin > .admin-video > table tr:first-child {
+  height: 40px;
+  background-color: #FAFAFA;
+}
+.admin > .admin-video > table tr td {
+  text-align: center;
+  border: 1px solid #F1F1F1;
+  color: #999;
+  padding: 8px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.admin > .admin-video > table tr td a {
+  outline: none;
+}
+.admin > .admin-video > table tr .preview > img {
+  width: 200px;
+  height: 133px;
+}
+.admin > .admin-video > table tr .video-information {
+  text-align: left;
+}
+.admin > .admin-video > table tr .video-information > p:last-child {
+  margin-bottom: 0px;
+}
+.admin > .admin-video > table tr .enable > a {
+  display: inline-block;
+  width: 70px;
+  height: 26px;
+  line-height: 24px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #999;
+}
+.admin > .admin-video > table tr .enable > a.active {
+  background-color: #ff5842;
+  color: #fff !important;
+  border-color: #ff5842;
+}
+.modal-dialog.modal-presentation {
+  display: block;
+}
+
+/*admin新增视频*/
+.new-common > .editor-msg .addvideo {
+  width: 240px;
+  height: 160px;
+}
+.new-common > .editor-msg .addvideo-prompt{
+  left: 250px;
+}
+.new-common > .editor-msg .addvideo > .progress {
+  top: 165px;
+}
+.new-common > .editor-msg .upload-video {
+  line-height: 160px;
+}
+.new-common > .editor-msg form .info-video {
+  margin-bottom: 60px;
+}
+.new-common > .editor-msg .btn-preserve {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  text-align: center;
+  line-height: 36px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: #ccc;
+  margin-top: 20px;
+}
+
+
+/*回放列表后台管理*/
+.management-link > .link-checked {
+  float: right;
+  line-height: 50px;
+}
+.management-link > .link-checked form {
+  display: inline-block;
+}
+.management-link > .link-checked label {
+  font-weight: normal;
+  margin-bottom: 0px;
+  color: #9aabb8;
+}
+.management-link > .link-checked label > input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+}
+.banner-item > form > .row .recommend > label input[type='checkbox']{
+  position: relative;
+  top: 1px;
+}
+
+
+/*admin精彩回放*/
+.addreplays > .link-checked > form {
+  display: inline-block;
+}
+.addreplays > .link-checked {
+  float: right;
+  line-height: 54px;
+}
+.addreplays > .link-checked label{
+  font-weight: normal;
+  color: #9aabb8;
+  margin-bottom: 0px;
+}
+.addreplays > .link-checked label input[type='checkbox']{
+  position: relative;
+  top: 2px;
+}
+
+
+/*视频播放页*/
+.play-page {
+  width: 100%;
+  background-color: rgb(41,41,41);
+}
+.video-line {
+  margin: 0 auto;
+}
+@media screen and (min-width: 768px) {
+  .video-line {
+    width: 860px;
+    height: 537px;
+  }
+}
+.video-line .videobox,.videobox> #video {
+  width: 100%;
+  height: 100%;
+}
+@media only screen and (max-width: 768px) {
+  .video-line {
+    width: 536px;
+    height: 335px;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .video-line {
+    width: 300px;
+    height: 187px;
+  }
+}
+
+
+/*帮助页学生用户协议*/
+.contains > .contains-title > .agreement-link {
+  float: none;
+  font-size: 18px;
+  color: #999;
+  text-decoration: underline !important;
+}
+.contains > .protocol-box {
+  padding: 0px 30px 20px 30px;
+}
+.contains > .protocol-box > h3 {
+  text-align: center;
+  font-size: 16px;
+  color: #000;
+  margin: 0px;
+  padding: 20px 0px;
+}
+.contains > .protocol-box > p {
+  color: #666;
+  font-size: 14px;
+}
+.contains > .protocol-box > ul {
+  padding-left: 0px;
+  margin: 25px 0px 0px 0px;
+}
+.contains > .protocol-box > ul > li {
+  margin-bottom: 25px;
+  display: block;
+  overflow: auto;
+}
+.contains > .protocol-box > ul > li > a,.contains > .protocol-box > ul > li > span {
+  float: left;
+}
+.contains > .protocol-box > ul > li > span {
+  color: #666;
+}
+.contains > .protocol-box > ul > li > a {
+  color: #58cff9;
+  margin-left: 30px;
+}

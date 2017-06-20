@@ -23,6 +23,26 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert 2, page.all('.teacher-list li').size
   end
 
+  test "home replays page" do
+    visit replays_home_index_path
+    assert page.has_content?('第3节')
+    assert page.has_content?('老师：teacher1')
+    assert page.has_link?('观看')
+    assert Recommend::ReplayItem.default.items.count, page.all('.replays-list li').size
+  end
+
+  test "home replay page" do
+    visit replays_home_index_path
+    item = Recommend::ReplayItem.default.items.first
+    visit replay_home_path(item)
+
+    assert page.has_content? item.name
+    assert page.has_content? "回放次数1"
+    assert page.has_content? '年级科目'
+    assert page.has_content? '视频时长'
+    assert page.has_link? item.target.teacher.name
+  end
+
   test "home page search" do
     visit home_path
     find(:css, '.fa-search').click
@@ -80,10 +100,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_link?('直播课')
     assert page.has_link?('一对一')
     assert page.has_link?('视频课')
-    assert page.has_content?('问答动态')
-
-    assert_equal 2, page.all(".category-answer ul li").size, '问答动态数量不对'
-    assert page.has_link?('更多', href: main_app.questions_path)
+    assert page.has_content?('精彩回放')
 
     assert page.has_content? '今日直播'
     assert page.has_link? '正在直播'

@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'recommend/banner_items/tab' %>
+
+    <div class="addreplays">
+      <% if allow? 'recommend/topic_items', :new %>
+        <%= link_to t('view.recommend/topic_item.index.add') , new_position_topic_item_path(@position), class: 'addbanner' %>
+      <% end %>
+    </div>
+
+    <div class="admin-video">
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+          <tr>
+            <td><%= t('common.index_no') %></td>
+            <td><%= t('view.recommend/topic_item.index.name') %></td>
+            <td><%= t('view.recommend/banner_item.index.title') %></td>
+            <td><%= t('view.recommend/banner_item.index.link') %></td>
+            <td><%= t('view.recommend/topic_item.index.index') %></td>
+            <td><%= t('view.recommend/banner_item.index.city') %></td>
+            <td><%= t('common.operate') %></td>
+          </tr>
+          <%= render partial: 'recommend/topic_items/item', collection: @items %>
+        </tbody>
+      </table>
+
+      <center><div class="pagination-fix"><%= will_paginate @items %></div></center>
+    </div>
+  </div>
+</div>

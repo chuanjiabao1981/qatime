@@ -3,9 +3,7 @@
     <div class="row">
       <div class="user-img">
         <p>
-          <%= link_to profile_teacher_path(@teacher.id) do %>
-            <%= image_tag @teacher.avatar, class: 'handle_error_avatar' %>
-          <% end %>
+          <%= image_tag @teacher.avatar, class: 'handle_error_avatar' %>
         </p>
         <p>
           <span><%= @teacher.name %></span>

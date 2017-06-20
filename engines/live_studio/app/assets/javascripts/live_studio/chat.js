@@ -422,7 +422,7 @@ function messageTag(msg, fromType) {
       var audioNode = $('<p class="weixinAudio"></p>');
       audioNode.append('<audio src="' + mp3Url + '" class="media"></audio>');
       var audioSpan = '<span  class="db audio_area">';
-      var audioSecond = parseInt(msg.file.dur) / 1000;
+      var audioSecond = parseInt((parseInt(msg.file.dur) + 500) / 1000);
       // 记录音频时长
       audioNode.attr('audio-second', audioSecond);
       audioSpan = audioSpan + '<span class="audio_wrp db">';

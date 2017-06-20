@@ -455,7 +455,7 @@ module LiveStudio
 
     def lower_price
       return 0 if sell_type.free?
-      video_lessons_count.to_i * 5
+      duration_minutes.ceil * 0.1
     end
 
     # 通知

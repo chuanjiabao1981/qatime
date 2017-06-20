@@ -42,7 +42,7 @@ module Wap
         click_on "新增订单"
         sleep(1)
       end
-      assert_equal(-10.0, ::Payment::Order.last.amount - course.current_price, "没有正确使用优惠券")
+      assert_equal(-25.0, ::Payment::Order.last.amount - course.current_price, "没有正确使用优惠券")
       assert_no_difference "@cash_account.reload.balance.to_f", "错误支付" do
         click_on '确认支付'
       end
@@ -55,7 +55,7 @@ module Wap
       assert page.has_content?("支付密码不正确"), "支付密码错误无提示"
 
       fill_in 'order_payment_password', with: '123123'
-      assert_difference "@cash_account.reload.balance.to_f", -490, "支付失败" do
+      assert_difference "@cash_account.reload.balance.to_f", -475, "支付失败" do
         assert_difference "@student.reload.live_studio_buy_tickets.count", 1, "辅导班购买失败" do
           click_on '确认支付'
           sleep(1)

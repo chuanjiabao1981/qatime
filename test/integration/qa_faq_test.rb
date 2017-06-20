@@ -16,15 +16,15 @@ class QaFaqTest < ActionDispatch::IntegrationTest
     new_log_in_as(@user)
     visit qa_faqs_path
     assert page.has_content?(QaFaq.last.title)
-    assert page.has_link? '辅导流程'
+    assert page.has_link? '平台使用流程'
     assert page.has_link? '老师如何开课'
     assert page.has_link? '学生如何学习'
     assert page.has_link? '常见问题'
     assert page.has_link? '增加常见问题'
     assert page.has_link? '用户协议'
 
-    click_link '辅导流程'
-    assert page.has_content?('观看直播')
+    click_link '平台使用流程'
+    assert page.has_content?('学习观看')
     assert page.has_content?('进行直播')
     new_logout_as(@user)
   end

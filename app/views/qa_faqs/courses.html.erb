@@ -2,59 +2,63 @@
   <div class="contains-title">
     <h3><%= t('view.qa_bars.courses') %></h3>
   </div>
+
   <div class="contains-discipline">
     <div class="process-con">
       <div class="process-left">
         <center>
           <div class="process-student">
-            <%= image_tag 'student-1.png' %>
-            <span>学生</span>
+            <%= image_tag 'student-head.png' %>
+            <span><%= t('common.student') %></span>
           </div>
         </center>
         <div class="process-left-con">
           <div class="process-left-msg">
             <div class="left-msg-title">
-              <span>查找辅导</span>
+              <span>注册登录</span>
               <span class="left-msg-num">01</span>
             </div>
             <div class="left-msg-con">
-              <span>通过查看辅导列表进行筛选辅导。</span>
+              <span>请仔细阅读《用户协议》，然后注册答疑时间学生账号并完成登录。</span>
             </div>
           </div>
           <div class="process-left-msg">
             <div class="left-msg-title">
-              <span>购买辅导</span>
+              <span>挑选课程</span>
               <span class="left-msg-num">02</span>
             </div>
             <div class="left-msg-con">
-              <span>通过查看辅导列表进行筛选辅导。</span>
+													<span>
+														学生可以通过搜索功能进行快速查找，也可以通过访问选课中心进行有针对性的筛选相关课程；查看全部教师时
+														也可以查看该教师所有的课程内容进行挑选课程。
+													</span>
             </div>
           </div>
           <div class="process-left-msg">
             <div class="left-msg-title">
-              <span>辅导开课</span>
+              <span>购买支付</span>
               <span class="left-msg-num">03</span>
             </div>
             <div class="left-msg-con">
-              <span>辅导开课后学生会接收到开课短信和系统通知，可在个人中心-我的辅导了解辅导班状态；同时也可以在课程表查看所有辅导班的上课信息和安排。</span>
+              <span>选择课程结束后请尽快下单，下单24小时内如未支付该订单会自动消失；支持多种支付方式（微信、支付宝）；支付时务必仔细核对订单内容的相关提示！</span>
             </div>
           </div>
           <div class="process-left-msg">
             <div class="left-msg-title">
-              <span>观看直播</span>
+              <span>学习观看</span>
               <span class="left-msg-num">04</span>
             </div>
             <div class="left-msg-con">
-              <span>查看"个人中心-我的辅导班"可以选择辅导班快速进入直播间，与直播间内的老师、同学进行互动和交流。</span>
+              <span>课程开始后学生可随时进入直播室进行观看学习，学习过程中请积极配合老师进行互动；错过课程可观看回放（直播课），视频课由学生自主学习，可永久观看。</span>
             </div>
           </div>
           <div class="process-left-msg">
             <div class="left-msg-title">
-              <span>辅导结束</span>
+              <span>课程结束</span>
               <span class="left-msg-num">05</span>
             </div>
             <div class="left-msg-con">
-              <span>辅导班直播间官博，系统自动对辅导班进行结算。</span>
+              <span>请在收到教师直播结束指令时离开直播室，以免影响学习；全部课程完成后此课程将自动置为已结束状态。</span>
             </div>
           </div>
         </div>
@@ -62,8 +66,8 @@
       <div class="process-right">
         <center>
           <div class="process-teacher">
-            <%= image_tag 'teacher-1.png' %>
-            <span>老师</span>
+            <%= image_tag 'teacher-head.png' %>
+            <span><%= t('common.teacher') %></span>
           </div>
         </center>
         <div class="process-start">Start</div>
@@ -71,28 +75,31 @@
           <div class="process-right-msg">
             <div class="right-msg-title">
               <span class="right-msg-num">01</span>
-              <span>查找辅导</span>
+              <span>注册登录</span>
             </div>
             <div class="right-msg-con">
-              <span>首先创建（或接受邀请）辅导班并设置内容，按照课时数合理规划并填充课程列表后发布招生，等待审核。</span>
+              <span>请仔细阅读《用户协议》，然后注册答疑时间老师账号并完成登录。</span>
             </div>
           </div>
           <div class="process-right-msg">
             <div class="right-msg-title">
               <span class="right-msg-num">02</span>
-              <span>辅导班招生</span>
+              <span>创建发布</span>
             </div>
             <div class="right-msg-con">
-              <span>审核通过后自动发布招生，学生即可查看和购买；审核未通过可编辑后重新提交审核。</span>
+													<span>
+														老师需向所属的工作站按照相关课程类型的素材模板提供素材，并经过素材审核后由工作站客服
+														人员创建课程；课程创建完成后并发布后老师会收到课程发布的系统消息通知。
+													</span>
             </div>
           </div>
           <div class="process-right-msg">
             <div class="right-msg-title">
               <span class="right-msg-num">03</span>
-              <span>辅导班开课</span>
+              <span>准时开课</span>
             </div>
             <div class="right-msg-con">
-              <span>辅导开课后老师会接收到开课短信和系统通知，可在个人中心-我的辅导了解辅导班状态；同时也可以在课程表查看所有辅导班上课信息和安排。</span>
+              <span>课程（除视频课）在开课当天会通过手机短信和系统消息两种方式通知老师；请做好上课准备并按时完成授课；如果特殊情况可联系工作站进行调课。</span>
             </div>
           </div>
           <div class="process-right-msg">
@@ -101,18 +108,23 @@
               <span>进行直播</span>
             </div>
             <div class="right-msg-con">
-              <span>首先下载"答疑时间直播助手"，登录后方可进行辅导班直播；可以再直播前、直播中、直播后与学生进行互动；同时可以在不同的辅导班中进行课程切换。</span>
+													<span>
+														老师需提前调试好设备并准时开启直播上课，上课过程中积极引导学生进行互动，相应学生的问题并予以解答；如果特殊情况来
+														时可使用禁言功能或联系客服给予解决。
+													</span>
+
             </div>
           </div>
           <div class="process-right-msg">
             <div class="right-msg-title">
               <span class="right-msg-num">05</span>
-              <span>辅导结束</span>
+              <span>课程结束</span>
             </div>
             <div class="right-msg-con">
-              <span>辅导班直播间官博，系统自动对辅导班进行结算。</span>
+              <span>直播结束时老师需在告知学生后关闭直播；课程全部完成时老师需要在最后一节课告知学生课程结束，系统将自动将课程置为已结束状态。</span>
             </div>
           </div>
+
         </div>
         <div class="process-end">End</div>
       </div>

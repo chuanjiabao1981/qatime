@@ -1777,7 +1777,8 @@ figcaption p {
   float: left;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: white;
+  background-color: transparent;
+  border: 2px solid rgb(255,153,102);
 }
 .banner-dot .active {
   background-color: rgb(255,153,102);
@@ -5362,6 +5363,7 @@ ul {
 
 
 /*常见问题*/
+
 .process-ask {
   width: 100%;
   min-height: 680px;
@@ -7310,8 +7312,8 @@ ul {
   margin-top: 10px;
 }
 .preferential-code .form-group label {
-  font-weight: 100;
-  color: #000000;
+  font-weight: normal;
+  color: #ff5842;
   line-height: 34px;
   margin-right: 10px;
 }
@@ -7329,6 +7331,11 @@ ul {
 .preferential-code .form-group .input-group input {
   border-radius: 0px;
 }
+.preferential-code .form-group .input-group input:first-child {
+  border-color: #ff5842;
+  box-shadow: none;
+  outline: none;
+}
 .preferential-code .form-group .input-group input:nth-child(2){
   position: absolute;
   right: 5px;
@@ -7336,10 +7343,12 @@ ul {
   z-index: 10;
   background-color: #FFFFFF;
   border: 1px solid #666;
+  outline: none;
 }
 .preferential-prompt {
   margin-left: 10px;
   line-height: 34px;
+  font-size: 12px;
 }
 .preferential-prompt .prompt-correct i {
   color: #1afa29;
@@ -7362,6 +7371,9 @@ ul {
   }
   .buy-footer-btn {
     padding-bottom: 30px !important;
+  }
+  .preferential-prompt {
+    margin-left: 0px;
   }
 }
 
@@ -10997,13 +11009,34 @@ ul {
   margin-right: 10px;
 }
 @media screen and (min-width: 768px){
-  .modal-client {
+  .modal-openclient {
+    width: 400px !important;
+    padding: 0px !important;
+  }
+  .modal-openclient {
     width: 400px !important;
     padding: 0px !important;
   }
 }
-
-
+.modal-openclient .popup-title {
+  background-color: #dedede;
+}
+.modal-openclient  .modal-body > p {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  margin: 15px 0px 30px 0px;
+}
+.modal-openclient  .modal-body  a {
+  display: inline-block;
+  width: 110px;
+  height: 30px;
+  border: 1px solid #c2c2c2;
+  line-height: 28px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #666;
+}
 
 
 /*学生一对一*/

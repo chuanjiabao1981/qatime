@@ -1,6 +1,5 @@
 <div class="station-title">
   <% if allow? 'recommend/station/banner_items', :index, @workstation %>
-    <%= link_to t('view.recommend/station.banner_items.tab.home'), recommend.station_workstation_banner_items_path(@workstation, position_id: Recommend::BannerItem.default.presence || 0), class: "#{'active' if %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items].include?(params[:controller])}"  %>
+    <%= link_to t('view.recommend/station.banner_items.tab.home'), recommend.station_workstation_banner_items_path(@workstation, position_id: Recommend::BannerItem.default.presence || 0), class: "#{'active' if %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items recommend/station/replay_items].include?(params[:controller])}"  %>
   <% end %>
-  <!--<a href="">服务信息管理 </a>-->
 </div>

@@ -34,7 +34,7 @@ module LiveStudio
       assert page.has_content?("我的一对一")
       order = Payment::Order.last
       assert_equal workstations(:workstation_zhuji).id, order.seller_id, "经销商记录失败"
-      assert_equal 395.0, order.amount.to_f, "订单未优惠"
+      assert_equal 360.0, order.amount.to_f, "订单未优惠"
     end
   end
 end

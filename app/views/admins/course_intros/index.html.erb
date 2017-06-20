@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <div class="admin-title">
+      <span><%= t('view.admins/course_intros.index.tab') %></span>
+    </div>
+    <%= link_to t('view.admins/course_intros.index.new'), new_admins_course_intro_path, class: 'addbanner' %>
+
+    <div class="admin-video">
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+          <tr>
+            <td><%= t('common.index_no') %></td>
+            <td><%= t('view.admins/course_intros.index.video_capture') %></td>
+            <td><%= t('view.admins/course_intros.index.video_info') %></td>
+            <td><%= t('view.admins/course_intros.index.title') %></td>
+            <td><%= t('view.admins/course_intros.index.status') %></td>
+            <td><%= t('common.operate') %></td>
+          </tr>
+
+          <%= render partial: 'course_intro', collection: @course_intros %>
+        </tbody>
+      </table>
+
+      <center><div class="pagination-fix"><%= will_paginate @course_intros %></div></center>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,7 @@ module Recommend
     }
 
     scope :by_city, ->(city_id) { where(city_id: city_id) }
+    scope :top, -> { where(top: true) }
 
     def self.default
       Position.by_klass_name(self.model_name.to_s).try(:first)

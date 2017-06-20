@@ -25,5 +25,11 @@ module DataService
       params = params.presence || {}
       ::Teacher.order(created_at: :desc).ransack(params.merge(name_present: '1'))
     end
+
+    def self.replays_ransack(params = {})
+      params = params.presence || {}
+      params['s'] ||= 'updated_at desc'
+      ::Recommend::ReplayItem.default.items.ransack(params)
+    end
   end
 end

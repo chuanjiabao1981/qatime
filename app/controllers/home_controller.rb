@@ -20,8 +20,8 @@ class HomeController < ApplicationController
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses.limit(4)
-    question_limit = @topic_items.count > 0 ? 6 : 9
-    @questions = home_data.questions.limit(question_limit)
+    replay_limit = @topic_items.count > 0 ? 3 : 4
+    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(replay_limit)
   end
 
   def switch_city
@@ -53,6 +53,18 @@ class HomeController < ApplicationController
   def teachers
     @query = DataService::SearchManager.teachers_ransack(params[:q])
     @teachers = @query.result.paginate(page: params[:page], per_page: 8)
+  end
+
+  def replays
+    @replay_items = Recommend::ReplayItem.default.items.order(updated_at: :desc).paginate(page: params[:page], per_page: 5)
+  end
+
+  def replay
+    @replay_item = Recommend::ReplayItem.default.items.find(params[:id])
+    @lesson = @replay_item.target
+    @teacher = @replay_item.target.try(:teacher)
+    @replay_item.increment_replay_times
+    render layout: 'v1/live'
   end
 
   private

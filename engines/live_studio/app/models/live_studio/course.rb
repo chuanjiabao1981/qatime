@@ -178,7 +178,7 @@ module LiveStudio
     end
 
     def order_params
-      { amount: current_price, product: self }
+      { total_amount: current_price, amount: current_price, product: self }
     end
 
     def status_text
@@ -208,6 +208,11 @@ module LiveStudio
     # 插班优惠?
     def join_cheap?
       teaching? && closed_lessons_count > 0
+    end
+
+    # 试听数量 超过剩余课程数 溢出限制
+    def taste_overflow?
+      (lessons_count.to_i - closed_lessons_count.to_i) <= taste_count.to_i
     end
 
     def live_next_time
@@ -269,6 +274,7 @@ module LiveStudio
     def can_taste?(user)
       return false unless user.student?
       return false if buy_tickets.where(student_id: user.id).exists?
+      return false if taste_overflow?
       !taste_tickets.where(student_id: user.id).exists?
     end
 
@@ -425,7 +431,7 @@ module LiveStudio
 
     def coupon_price(coupon = nil)
       return current_price.to_f unless coupon.present?
-      [current_price.to_f - coupon.price, 0].max
+      coupon.coupon_amount(amount).to_f
     end
 
     def service_price

@@ -65,8 +65,11 @@ module Wap
         visit weixin_url
         click_on "加入试听"
         sleep(3)
-        click_on "下载客户端"
-        assert page.has_link?('下载'), "未跳转到下载页面"
+        new_window = window_opened_by { click_on '下载客户端' }
+        within_window new_window do
+          assert page.has_link?('下载'), "未跳转到下载页面"
+        end
+        new_window.close
       end
     end
   end

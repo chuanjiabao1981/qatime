@@ -95,7 +95,7 @@
 			//更新总时间
 			updateTotalTime: function() {
 				var self = this;
-				audioTime = parseFloat($(self).attr('audio-second'));
+				audioTime = parseInt($this.attr('audio-second'));
 				self.$audio_length.text(audioTime + '"');
 				percentage = audioTime.toFixed(0) * 4 + 30;
 				if(percentage > 240) percentage = 240;

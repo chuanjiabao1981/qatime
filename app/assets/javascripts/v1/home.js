@@ -50,6 +50,14 @@ $(function(){
     $(this).parent().hide();
   });
 
+  $('form#home_search').submit(function(e){
+    var search_key = $('#search_key').val();
+    if( $.isBlank(search_key) ){
+      $('#search_key').val('');
+      return false;
+    }
+  });
+
   $(document).on('click', '#del_pay_password_warning', function(event){
     $('.warning-notices').hide();
     Cookies.set('payment_passd_warning', 'close');

@@ -52,6 +52,7 @@ cn:
       search:
         teacher: 教师
         course: 课程
+        search_key_text: 请输入搜索内容
     qa_bars:
       courses: 平台使用流程
       teacher: 老师如何开课

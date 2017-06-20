@@ -418,12 +418,11 @@ function messageTag(msg, fromType) {
       break;
     // 音频消息
     case 'audio':
-      console.log(msg);
       var mp3Url = live_chat.nim.audioToMp3({url: msg.file.url});
       var audioNode = $('<p class="weixinAudio"></p>');
       audioNode.append('<audio src="' + mp3Url + '" class="media"></audio>');
       var audioSpan = '<span  class="db audio_area">';
-      var audioSecond = parseInt(msg.dur) / 1000;
+      var audioSecond = parseInt(msg.file.dur) / 1000;
       // 记录音频时长
       audioNode.attr('audio-second', audioSecond);
       audioSpan = audioSpan + '<span class="audio_wrp db">';

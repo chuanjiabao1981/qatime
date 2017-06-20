@@ -5,7 +5,7 @@ require 'capybara/rails'
 require 'headless'
 
 Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome, service_log_path: '/tmp/t.log', args: ["--verbose"])
+  Capybara::Selenium::Driver.new(app, browser: :chrome, service_log_path: '/tmp/t.log', args: ["--verbose", "--window-size=1920,1080"])
 end
 
 class ActiveSupport::TestCase

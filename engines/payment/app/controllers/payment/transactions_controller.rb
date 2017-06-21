@@ -40,11 +40,11 @@ module Payment
         if @transaction.is_a? Payment::Recharge
           redirect_to payment.cash_user_path(@transaction.user)
         elsif @transaction.product.is_a? LiveStudio::InteractiveCourse
-          redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+          redirect_to live_studio.interactive_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         elsif @transaction.product.is_a? LiveStudio::VideoCourse
-          redirect_to live_studio.student_video_courses_path(@transaction.user)
+          redirect_to live_studio.video_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         else
-          redirect_to live_studio.student_courses_path(@transaction.user)
+          redirect_to live_studio.course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         end
       end
     end
@@ -73,11 +73,11 @@ module Payment
       elsif @transaction.is_a? Payment::Recharge
         redirect_to payment.cash_user_path(@transaction.user)
       elsif @transaction.product.is_a?(LiveStudio::InteractiveCourse)
-        redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+        redirect_to live_studio.interactive_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       elsif @transaction.product.is_a?(LiveStudio::VideoCourse)
-        redirect_to live_studio.student_video_courses_path(@transaction.user)
+        redirect_to live_studio.video_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       else
-        redirect_to live_studio.student_courses_path(@transaction.user)
+        redirect_to live_studio.course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       end
     end
 

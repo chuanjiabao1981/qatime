@@ -43,6 +43,14 @@ class QaFaqsController < ApplicationController
     render layout: 'v1/qa_faq'
   end
 
+  def user_agreements
+    if %w[student teacher].include?(params[:cate])
+      render template: "qa_faqs/user_agreements/#{params[:cate]}", layout: 'v1/qa_faq'
+    else
+      render layout: 'v1/qa_faq'
+    end
+  end
+
   private
 
   def current_resource

@@ -5257,6 +5257,11 @@ ul {
   margin-top: 18px;
   color: #666666;
 }
+.process-student > img ,.process-teacher > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
 .process-left-con {
   padding-top: 25px;
 }
@@ -5265,6 +5270,9 @@ ul {
   margin-bottom: 25px;
   padding-right: 10px;
   overflow: hidden;
+}
+.process-left-msg:nth-child(2){
+  margin-bottom: 45px;
 }
 .left-msg-num,.right-msg-num  {
   display: inline-block;
@@ -5357,6 +5365,7 @@ ul {
 .process-ask {
   width: 100%;
   min-height: 680px;
+  padding-bottom: 10px;
 }
 .ask-title,.study-title {
   margin: 0 10px;
@@ -12687,7 +12696,7 @@ ul {
 }
 .nav-side > .side-title {
   height: 78px;
-  margin: 0 30px 10px 30px;
+  margin: 0 30px 0px 30px;
   border-bottom: 1px solid #F0F0F0;
 }
 .nav-side > .side-title > h3 {

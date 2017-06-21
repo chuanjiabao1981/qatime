@@ -1777,7 +1777,8 @@ figcaption p {
   float: left;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: white;
+  background-color: transparent;
+  border: 2px solid rgb(255,153,102);
 }
 .banner-dot .active {
   background-color: rgb(255,153,102);
@@ -5257,6 +5258,11 @@ ul {
   margin-top: 18px;
   color: #666666;
 }
+.process-student > img ,.process-teacher > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
 .process-left-con {
   padding-top: 25px;
 }
@@ -5265,6 +5271,9 @@ ul {
   margin-bottom: 25px;
   padding-right: 10px;
   overflow: hidden;
+}
+.process-left-msg:nth-child(2){
+  margin-bottom: 45px;
 }
 .left-msg-num,.right-msg-num  {
   display: inline-block;
@@ -5354,9 +5363,11 @@ ul {
 
 
 /*常见问题*/
+
 .process-ask {
   width: 100%;
   min-height: 680px;
+  padding-bottom: 10px;
 }
 .ask-title,.study-title {
   margin: 0 10px;
@@ -7301,8 +7312,8 @@ ul {
   margin-top: 10px;
 }
 .preferential-code .form-group label {
-  font-weight: 100;
-  color: #000000;
+  font-weight: normal;
+  color: #ff5842;
   line-height: 34px;
   margin-right: 10px;
 }
@@ -7320,6 +7331,11 @@ ul {
 .preferential-code .form-group .input-group input {
   border-radius: 0px;
 }
+.preferential-code .form-group .input-group input:first-child {
+  border-color: #ff5842;
+  box-shadow: none;
+  outline: none;
+}
 .preferential-code .form-group .input-group input:nth-child(2){
   position: absolute;
   right: 5px;
@@ -7327,10 +7343,12 @@ ul {
   z-index: 10;
   background-color: #FFFFFF;
   border: 1px solid #666;
+  outline: none;
 }
 .preferential-prompt {
   margin-left: 10px;
   line-height: 34px;
+  font-size: 12px;
 }
 .preferential-prompt .prompt-correct i {
   color: #1afa29;
@@ -7353,6 +7371,9 @@ ul {
   }
   .buy-footer-btn {
     padding-bottom: 30px !important;
+  }
+  .preferential-prompt {
+    margin-left: 0px;
   }
 }
 
@@ -9021,7 +9042,8 @@ ul {
   text-align: center;
   line-height: 20px;
   margin-bottom: 0px;
-  color: #333;
+  color: #999;
+  font-size: 12px;
   background-color: rgba(252,237,201,0.4);
 }
 .warning-notices p span {
@@ -9150,7 +9172,7 @@ ul {
 }
 .header .navbar-form {
   padding: 0px;
-  margin: 21px 0;
+  margin: 21px 0 21px 60px;
 }
 .header .navbar-form > .search-input {
   height: 30px;
@@ -9684,6 +9706,9 @@ ul {
   padding: 0 10px;
   background-color: #fff;
 }
+.modal-iframe > .modal-content >.popup-title{
+  margin: 0 10px;
+}
 .modal-presentation > .modal-content .video-box{
   width: 100%;
   position: relative;
@@ -9703,6 +9728,15 @@ ul {
 }
 .modal-iframe .modal-body {
   padding-top: 0px;
+}
+.modal-iframe {
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  cursor: pointer;
+}
+.modal-iframe.active {
+  display: block;
 }
 @media screen and (min-width: 990px) {
   .modal-iframe {
@@ -10988,13 +11022,34 @@ ul {
   margin-right: 10px;
 }
 @media screen and (min-width: 768px){
-  .modal-client {
+  .modal-openclient {
+    width: 400px !important;
+    padding: 0px !important;
+  }
+  .modal-openclient {
     width: 400px !important;
     padding: 0px !important;
   }
 }
-
-
+.modal-openclient .popup-title {
+  background-color: #dedede;
+}
+.modal-openclient  .modal-body > p {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  margin: 15px 0px 30px 0px;
+}
+.modal-openclient  .modal-body  a {
+  display: inline-block;
+  width: 110px;
+  height: 30px;
+  border: 1px solid #c2c2c2;
+  line-height: 28px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #666;
+}
 
 
 /*学生一对一*/
@@ -12687,7 +12742,7 @@ ul {
 }
 .nav-side > .side-title {
   height: 78px;
-  margin: 0 30px 10px 30px;
+  margin: 0 30px 0px 30px;
   border-bottom: 1px solid #F0F0F0;
 }
 .nav-side > .side-title > h3 {

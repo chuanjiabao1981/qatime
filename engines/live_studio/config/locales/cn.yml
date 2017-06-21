@@ -213,7 +213,7 @@ cn:
       pay: 立即支付
       current_price: 价格
       coupon_code_tip: 使用优惠码
-      coupon_code: 优惠码（可选）：
+      coupon_code: 使用优惠码（可选）：
       coupon_code_input: 输入优惠码
       check_coupon_btn: 验证
       coupon_code_prompt1: (使用优惠码可立减%{price}元)

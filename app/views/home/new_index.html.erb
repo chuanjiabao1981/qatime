@@ -20,17 +20,15 @@
 <%= render partial: 'home/items/service' %>
 
 <!--Modal弹窗-->
-<div class="modal fade" id="course_intro_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-iframe">
-    <div class="modal-content">
-      <div class="popup-title">
-        <%= image_tag 'live-logo.png' %>
-        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
-      </div>
-      <div class="modal-body">
-        <div class="video-box">
-          <iframe src="<%= main_app.play_course_intro_path(CourseIntro.top.presence || 0) %>" allowfullscreen mozallowfullscreen webkitallowfullscreen frameBorder="0" scrolling="no" border="0" width="100%" height="100%" id="video_intro"></iframe>
-        </div>
+<div class="modal-iframe">
+  <div class="modal-content">
+    <div class="popup-title">
+      <%= image_tag 'live-logo.png' %>
+      <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+    </div>
+    <div class="modal-body">
+      <div class="video-box">
+        <iframe src="<%= main_app.play_course_intro_path(CourseIntro.top.presence || 0) %>" allowfullscreen mozallowfullscreen webkitallowfullscreen frameBorder="0" scrolling="no" border="0" width="100%" height="100%" id="video_intro"></iframe>
       </div>
     </div>
   </div>
@@ -38,6 +36,32 @@
 
 <% content_for :javascript do %>
   <script type="text/javascript">
+    // 拖动
+    function drag(obj) {
+      obj.bind("mousedown", start);
+
+      function start(event) {
+        deltaX = event.clientX - obj.offset().left;
+        deltaY = event.clientY - obj.offset().top;
+        $(document).bind("mousemove", move);
+        $(document).bind("mouseup", stop);
+        return false;
+      }
+
+      function move(event) {
+        obj.css({
+          "left": (event.clientX - deltaX) + "px",
+          "top": (event.clientY - deltaY) + "px"
+        });
+        return false;
+      }
+
+      function stop() {
+        $(document).unbind("mousemove", move);
+        $(document).unbind("mouseup", stop);
+      }
+    }
+
     $(function() {
       // 广告位轮播
       $("#banner-list").rotate();
@@ -68,21 +92,31 @@
 
       });
 
-      // 控制播放暂停
-      $(document).on('show.bs.modal', '#course_intro_video', function(){
-        try {
-          $('#video_intro').get(0).contentWindow.playVideo();
-        } catch(err) {
-          console.log('wait document loading');
+      // 视频
+      $(".video-item").click(function() {
+        $(".modal-iframe").addClass('active');
+        if( $(".modal-iframe").hasClass('active') ){
+          try {
+            $('#video_intro').get(0).contentWindow.playVideo();
+          } catch(err) {
+            console.log('wait document loading');
+          }
         }
+        $(".modal-iframe").css({
+          left: ($(window).width() - $(".modal-iframe").outerWidth()) / 2,
+          top: ($(window).height() - $(".modal-iframe").outerHeight()) / 2 + $(document).scrollTop()
+        });
       });
-      $(document).on('hide.bs.modal', '#course_intro_video', function(){
+      $(".close").click(function() {
+        $(".modal-iframe").removeClass('active');
         try {
           $('#video_intro').get(0).contentWindow.pauseVideo();
         } catch(err) {
           console.log('wait document loading');
         }
       });
+      var obj = $(".modal-iframe");
+      drag(obj);
     });
   </script>
 <% end %>

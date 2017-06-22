@@ -1,7 +1,7 @@
 <li>
   <div class="row">
     <div class="col-md-2 schedule-pic">
-      <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+      <%= link_to live_studio.interactive_course_path(item.target.interactive_course_id), class: 'education-label' do %>
         <%= image_tag item.target.interactive_course.publicize_url(:small), class: 'handle_error_list' %>
         <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
       <% end %>
@@ -13,7 +13,8 @@
             <% if item.ticket.taste? -%>
               <span class="audition"><%= '试听' %></span>
             <% end -%>
-            <%= item.target.name %></p>
+            <%= link_to item.target.name, live_studio.interactive_course_path(item.target.interactive_course_id) %>
+          </p>
         </div>
         <div class="col-md-12 col-sm-6 education-line">
           <span><%= item.target.interactive_course.grade %></span>

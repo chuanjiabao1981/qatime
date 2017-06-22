@@ -1,7 +1,7 @@
 <li class-date="<%= item.class_date.to_s %>">
   <div class="row">
     <div class="col-md-2 schedule-pic">
-      <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+      <%= link_to live_studio.course_path(item.course_id), class: 'education-label' do %>
         <%= image_tag item.course.publicize_url(:small), class: 'handle_error_list' %>
         <p><%= t('view.student.students.schedules.lesson.course') %></p>
       <% end %>
@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-md-12 education-title">
           <p>
-            <%= item.name %>
+            <%= link_to item.name, live_studio.course_path(item.course_id) %>
           </p>
         </div>
         <div class="col-md-12 col-sm-6 education-line">

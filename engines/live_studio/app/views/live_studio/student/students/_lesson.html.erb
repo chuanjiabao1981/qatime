@@ -19,7 +19,7 @@
     <li>
       <div class="row">
         <div class="col-md-2 schedule-pic">
-          <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+          <%= link_to live_studio.interactive_course_path(lesson.interactive_course_id), class: 'education-label' do %>
             <%= image_tag lesson.interactive_course.publicize_url(:small), class: 'handle_error_list' %>
             <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
           <% end %>
@@ -27,7 +27,7 @@
         <div class="col-md-<%= @user.student? ? '5' : '6' %> schedule-msg">
           <div class="row">
             <div class="col-md-12 education-title">
-              <p><%= lesson.name %></p>
+              <p><%= link_to lesson.name, live_studio.interactive_course_path(lesson.interactive_course_id) %></p>
             </div>
             <div class="col-md-12 col-sm-6 education-line">
               <span><%= lesson.interactive_course.grade %></span>
@@ -58,7 +58,7 @@
     <li>
       <div class="row">
         <div class="col-md-2 schedule-pic">
-          <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+          <%= link_to live_studio.course_path(lesson.course_id), class: 'education-label' do %>
             <%= image_tag lesson.course.publicize_url(:small), class: 'handle_error_list' %>
             <p><%= t('view.student.students.schedules.lesson.course') %></p>
           <% end %>
@@ -66,7 +66,7 @@
         <div class="col-md-<%= @user.student? ? '5' : '6' %> schedule-msg">
           <div class="row">
             <div class="col-md-12 education-title">
-              <p><%= lesson.name %></p>
+              <p><%= link_to lesson.name, live_studio.course_path(lesson.course_id) %></p>
             </div>
             <div class="col-md-12 col-sm-6 education-line">
               <span><%= lesson.course.grade %></span>

@@ -2742,14 +2742,14 @@ ul {
 }
 .message-title a {
   display: inline-block;
-  width: 33%;
+  width: 111.5px;
   float: left;
   color: #FFFFFF;
   font-size: 14px;
   text-align: center;
 }
 .message-title a:last-child {
-  width: 34% !important;
+  width: 112px !important;
 }
 .message-title .active {
   background-color: #FFFFFF;
@@ -9979,6 +9979,11 @@ ul {
   position: relative;
   height: 289px;
 }
+.price-right a.btn-disabled {
+  color: #ccc;
+  border-color: #ccc;
+  cursor: default;
+}
 @media only screen and (max-width: 1200px) {
   .course-introduce {
     height: 231px !important;
@@ -12570,7 +12575,6 @@ ul {
 .calendar-info > li > .row > .schedule-pic > a {
   position: relative;
   display: block;
-  cursor: default;
 }
 .calendar-info > li > .row > .schedule-pic > .education-label p {
   width: 100%;
@@ -12595,6 +12599,9 @@ ul {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  color: #000;
+}
+.calendar-info .schedule-msg > .row > .education-title p > a {
   color: #000;
 }
 .calendar-info .schedule-msg > .row > .education-line {
@@ -15631,6 +15638,15 @@ abbr {
   .chat-view .affiche {
     height: 323px !important;
   }
+  .nav-manager > .live-big {
+    background-color: #ff5842;
+  }
+  .live-head > .live-big {
+    background-color: rgb(41,41,41);
+  }
+  .live-head > .live-big .affiche{
+    border-bottom: 1px solid rgb(241,241,241);
+  }
 }
 
 
@@ -15997,4 +16013,62 @@ abbr {
 .contains > .protocol-box > ul > li > a {
   color: #58cff9;
   margin-left: 30px;
+}
+
+
+/*旁路直播后台观看*/
+.area-right-live {
+  height: 126px;
+  width: 335px;
+  padding: 2px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.area-right-live > .live-left-box,.area-right-live > .live-right-box {
+  width: 164px;
+  height: 100%;
+  position: relative;
+}
+.area-right-live > .live-left-box {
+  float: left;
+}
+.area-right-live > .live-right-box {
+  float: right;
+}
+.area-right-live > .live-left-box > #left-video,.area-right-live > .live-right-box > #right-video {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.bypass-live > .live-message .message-new {
+  height: 255px;
+}
+.bypass-live .affiche {
+  height: 326px !important;
+}
+@media only screen and (min-width: 1400px)  {
+  .bypass-live > .live-message .message-new {
+    height: 358px;
+  }
+  .bypass-live .affiche {
+    height: 429px !important;
+  }
+}
+@media only screen and (min-width: 990px) and (max-width: 1200px) {
+  .bypass-live > .live-message .message-new {
+    height: 127px;
+  }
+  .bypass-live .affiche {
+    height: 198px !important;
+  }
+}
+@media only screen and (min-width: 0px) and (max-width: 990px) {
+  .bypass-live > .live-message .message-new {
+    height: 127px;
+  }
+  .bypass-live .affiche {
+    height: 198px !important;
+  }
 }

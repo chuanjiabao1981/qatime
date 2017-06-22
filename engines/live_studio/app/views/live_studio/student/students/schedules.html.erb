@@ -43,7 +43,7 @@
 
       <div class="modal-body">
         <p><%= t('view.student.students.schedules.modal_content') %></p>
-        <center><%= link_to t('view.student.students.schedules.modal_link'), main_app.welcome_download_path %></center>
+        <center><%= link_to t('view.student.students.schedules.modal_link'), Software.latest_student_windows_client.try(:cdn_url).presence || main_app.welcome_download_path %></center>
       </div>
     </div>
   </div>

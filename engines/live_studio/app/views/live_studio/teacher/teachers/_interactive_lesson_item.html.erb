@@ -6,7 +6,7 @@
         <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
       <% end %>
     </div>
-    <div class="col-md-5 schedule-msg">
+    <div class="col-md-6 schedule-msg">
       <div class="row">
         <div class="col-md-12 education-title">
           <p><%= item.name %></p>
@@ -28,9 +28,6 @@
           <span><%= item.class_date %> <%= item.start_time %>-<%= item.end_time %></span>
         </div>
       </div>
-    </div>
-    <div class="col-md-1 schedule-enter">
-      <%= link_to t('view.student.students.schedules.lesson.enter'), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'active' %>
     </div>
   </div>
 </li>

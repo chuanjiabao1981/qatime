@@ -6,7 +6,7 @@
         <p><%= t('view.student.students.schedules.lesson.course') %></p>
       <% end %>
     </div>
-    <div class="col-md-5 schedule-msg">
+    <div class="col-md-6 schedule-msg">
       <div class="row">
         <div class="col-md-12 education-title">
           <p>
@@ -30,13 +30,6 @@
           <span><%= item.class_date %> <%= item.start_time %>-<%= item.end_time %></span>
         </div>
       </div>
-    </div>
-    <div class="col-md-1 schedule-enter">
-      <% if item.is_over? %>
-        <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);' %>
-      <% else %>
-        <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(item.course_id), class: 'active' %>
-      <% end %>
     </div>
   </div>
 </li>

@@ -5,13 +5,16 @@ module LiveStudio
     layout 'v1/home'
 
     def schedules
-      lessons_ticket_items = @student.live_studio_ticket_items.available.where(target_type: 'LiveStudio::Lesson').includes(:ticket, target: :course)
-      lessons_ticket_items = lessons_ticket_items.joins('left join live_studio_lessons on live_studio_lessons.id = live_studio_ticket_items.target_id').where('live_studio_lessons.class_date' => this_week)
-      interactive_lessons_ticket_items = @student.live_studio_ticket_items.available.where(target_type: 'LiveStudio::InteractiveLesson').includes(:ticket, target: :interactive_course)
-      interactive_lessons_ticket_items = interactive_lessons_ticket_items.joins('left join live_studio_interactive_lessons on live_studio_interactive_lessons.id = live_studio_ticket_items.target_id').where('live_studio_interactive_lessons.class_date' => this_week)
+      @items = LiveService::ScheduleService.schedule_for(@student).week
+      @close_lessons = @items.select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }.reverse
+      @wait_lessons = @items.select { |item| item.target.closed? }.sort_by { |item| item.target.start_at }
+    end
 
-      @close_lessons = (lessons_ticket_items + interactive_lessons_ticket_items).select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }.reverse
-      @wait_lessons = (lessons_ticket_items + interactive_lessons_ticket_items).select { |item| item.target.closed? }.sort_by { |item| item.target.start_at }
+    def schedule_data
+      @items = LiveService::ScheduleService.schedule_for(@student).month(date_params)
+      @items = @items.sort_by { |item| item.target.start_at }
+      @date_list = @items.group_by { |item| item.target.class_date.to_s }.keys
+      render layout: false
     end
 
     def settings
@@ -31,8 +34,8 @@ module LiveStudio
 
     private
 
-    def this_week
-      Time.now.beginning_of_week..(Time.now.end_of_week + 1.days)
+    def date_params
+      @date_params ||= (params[:date] || Time.now).to_time
     end
   end
 end

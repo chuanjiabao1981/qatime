@@ -84,7 +84,7 @@ module LiveStudio
 
     def taste
       @course = Course.find(params[:id])
-      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(@student, @course)
+      @taste_ticket = @course.taste(@student)
     end
 
     def show

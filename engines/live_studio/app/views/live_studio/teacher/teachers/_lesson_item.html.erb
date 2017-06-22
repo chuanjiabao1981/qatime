@@ -1,0 +1,45 @@
+<li class-date="<%= item.class_date.to_s %>">
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+        <%= image_tag item.course.publicize_url(:small), class: 'handle_error_list' %>
+        <p><%= t('view.student.students.schedules.lesson.course') %></p>
+      <% end %>
+    </div>
+    <div class="col-md-5 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p>
+            <% if item.taste? -%>
+              <span class="audition"><%= '试听' %></span>
+            <% end -%>
+            <%= item.name %>
+          </p>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.course.grade %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= item.course.buy_user_count %></em><%= t('view.common.people') %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 schedule-time">
+      <div class="row">
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.status_text %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.class_date %> <%= item.start_time %>-<%= item.end_time %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1 schedule-enter">
+      <% if item.is_over? %>
+        <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);' %>
+      <% else %>
+        <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(item.course_id), class: 'active' %>
+      <% end %>
+    </div>
+  </div>
+</li>

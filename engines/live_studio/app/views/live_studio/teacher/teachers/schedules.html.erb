@@ -1,8 +1,6 @@
-<% @user = @student || @teacher %>
 <div class="contains">
   <div class="contains-title">
     <h3><%= t("view.student_bars.schedules") %></h3>
-    <%#= link_to t("view.notification_setting.notice"), live_studio.send("settings_#{@user.role}_path", @user) %>
   </div>
 
   <div class="contains-discipline">
@@ -20,12 +18,12 @@
 
       <div id="wait_lesson" class="tab-pane fade">
         <ul class="calendar-info">
-          <%= render partial: '/live_studio/student/students/lesson', locals: { items: @wait_lessons } %>
+          <%= render partial: '/live_studio/teacher/teachers/lesson', locals: { items: @wait_lessons } %>
         </ul>
       </div>
       <div id="close_lessons" class="tab-pane fade">
         <ul class="calendar-info">
-          <%= render partial: '/live_studio/student/students/lesson', locals: { items: @close_lessons } %>
+          <%= render partial: '/live_studio/teacher/teachers/lesson', locals: { items: @close_lessons } %>
         </ul>
       </div>
     </div>
@@ -52,7 +50,7 @@
 <% content_for :javascript do -%>
 <script type="text/javascript" charset="utf-8">
   var calendar = $("#calendar").calendar({
-    data_url: '<%= live_studio.schedule_data_student_path(@student) %>',
+    data_url: '<%= live_studio.schedule_data_teacher_path(@teacher) %>',
     callback: function(data) {
       $('#calendar_data').html(data);
     }

@@ -318,7 +318,7 @@ cn:
       students:
         schedules:
           modal_title: 提示
-          modal_content: 一对一课程需要使用客户端才能进入，请安装最新版本。
+          modal_content: 一对一课程需要使用客户端学习，正在尝试打开PC客户端（如未打开请安装最新版本）
           modal_link: 安装客户端
           lesson:
             one_by_one: 一对一

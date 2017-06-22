@@ -24,6 +24,10 @@ class Software < ActiveRecord::Base
             scope: true,
             predicates: { prefix: true }
 
+  def self.latest_student_windows_client
+    published.where(software_category_id: 4).order(version: :desc).first
+  end
+
   def published!
     self.published_at = Time.now
     super

@@ -16,7 +16,7 @@
 <%= render 'shared/blank' if @items.blank? %>
 
 <% @items.each do |item| %>
-  <% next unless item.target.class_date == @date_params.to_date %>
-  <%= render 'interactive_lesson_item', item: item if item.target.is_a?(LiveStudio::InteractiveLesson) %>
-  <%= render 'lesson_item', item: item if item.target.is_a?(LiveStudio::Lesson) %>
+  <% next unless item.class_date == @date_params.to_date %>
+  <%= render 'interactive_lesson_item', item: item if item.is_a?(LiveStudio::InteractiveLesson) %>
+  <%= render 'lesson_item', item: item if item.is_a?(LiveStudio::Lesson) %>
 <% end unless @items.blank? %>

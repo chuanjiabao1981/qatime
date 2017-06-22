@@ -5,8 +5,8 @@ module LiveStudio
 
     def schedules
       @items = LiveService::ScheduleService.schedule_for(@teacher).week
-      @close_lessons = @items.select(&:unclosed?).sort_by(&:start_at).reverse
-      @wait_lessons = @items.select(&:had_closed?).sort_by(&:start_at)
+      @close_lessons = @items.select(&:had_closed?).sort_by(&:start_at).reverse
+      @wait_lessons = @items.select(&:unclosed?).sort_by(&:start_at)
     end
 
     def schedule_data

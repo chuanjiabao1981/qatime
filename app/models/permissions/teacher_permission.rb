@@ -13,7 +13,9 @@ module Permissions
       end
       allow :messages, [:index, :show]
       allow :qa_faqs,[:teacher]
-
+      allow :qa_faqs,[:show] do |faq|
+        faq && !faq.student?
+      end
 
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]

@@ -20,7 +20,7 @@ module LiveStudio
     test "student page tastes view" do
       click_on '我的试听'
       assert page.has_content? '我的试听'
-      assert page.has_link? '试听记录'
+      # assert page.has_link? '试听记录'
       assert page.has_link? '直播课'
       assert page.has_link? '视频课'
       student_data = LiveService::StudentLiveDirector.new(@student)
@@ -33,9 +33,9 @@ module LiveStudio
       assert_equal page.all("ul.calendar-info li").size, taste_video_courses.count
       assert page.has_content? taste_video_courses.first.name
 
-      click_on '试听记录'
-      taste_records = student_data.taste_records
-      assert_equal page.all("ul.calendar-info li").size, taste_records.count
+      # click_on '试听记录'
+      # taste_records = student_data.taste_records
+      # assert_equal page.all("ul.calendar-info li").size, taste_records.count
     end
 
   end

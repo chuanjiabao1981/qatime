@@ -52,11 +52,13 @@ cn:
       search:
         teacher: 教师
         course: 课程
+        search_key_text: 请输入搜索内容
     qa_bars:
-      courses: 辅导流程
+      courses: 平台使用流程
       teacher: 老师如何开课
       student: 学生如何学习
       faqs: 常见问题
+      user_agreements: 用户协议
     student_bars:
       my_wallet: 我的钱包
       my_orders: 我的订单

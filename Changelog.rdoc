@@ -515,3 +515,23 @@
         * [QT-1214](https://qatime.atlassian.net/browse/QT-1214)
         * [QT-1215](https://qatime.atlassian.net/browse/QT-1215)
         * [QT-1216](https://qatime.atlassian.net/browse/QT-1216)
+* 2.0.6
+    * feature
+        * [QT-1122](https://qatime.atlassian.net/browse/QT-1122)
+        * [QT-1123](https://qatime.atlassian.net/browse/QT-1123)
+        * [QT-1136](https://qatime.atlassian.net/browse/QT-1136)
+        * [QT-1137](https://qatime.atlassian.net/browse/QT-1137)
+        * [QT-1119](https://qatime.atlassian.net/browse/QT-1119)
+        * [QT-1144](https://qatime.atlassian.net/browse/QT-1144)
+        * [QT-1201](https://qatime.atlassian.net/browse/QT-1201)
+        * [QT-1209](https://qatime.atlassian.net/browse/QT-1209)
+        * [QT-1225](https://qatime.atlassian.net/browse/QT-1225)
+        * [QT-1226](https://qatime.atlassian.net/browse/QT-1226)
+        * [QT-1248](https://qatime.atlassian.net/browse/QT-1248)
+        * [QT-1251](https://qatime.atlassian.net/browse/QT-1251)
+    * bugfix
+        * [QT-1243](https://qatime.atlassian.net/browse/QT-1243)
+        * [QT-1166](https://qatime.atlassian.net/browse/QT-1166)
+        * [QT-1220](https://qatime.atlassian.net/browse/QT-1220)
+        * [QT-1224](https://qatime.atlassian.net/browse/QT-1224)
+        * [QT-1245](https://qatime.atlassian.net/browse/QT-1245)

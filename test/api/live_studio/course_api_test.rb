@@ -238,7 +238,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
       res = JSON.parse(response.body)
       assert res['data'].has_key?('coupon_code')
-      assert_equal course.coupon_price(coupon), res['data']['amount'].to_f, "优惠价格未扣除"
+      assert_equal 190, res['data']['amount'].to_f, "优惠价格未扣除"
     end
   end
 
@@ -336,7 +336,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert_equal 5, data.first['lessons'].count, '返回课程数量不对'
+    assert_equal 2, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_week.to_date && return_date <= Time.now.end_of_week.to_date, '返回数据日期不正确'
   end

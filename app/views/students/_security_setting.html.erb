@@ -7,7 +7,10 @@
       <div class="row">
         <div class="col-md-10 row-box">
           <div class="cell-line">
-            <p><span><%= t("students.security_setting.login_password") %></span><i>(<%= t("students.security_setting.this_password_is_not_visible") %>)</i></p>
+            <p>
+              <span><%= t("students.security_setting.login_password") %></span>
+              <i>(<%= t("students.security_setting.this_password_is_not_visible") %>)</i>
+            </p>
             <em><%= t('students.security_setting.required_authentication_password') %></em>
           </div>
         </div>
@@ -23,7 +26,10 @@
       <div class="row">
         <div class="col-md-10 row-box">
           <div class="cell-line">
-            <p><span><%= t("students.security_setting.payment_password") %></span><%= payment_password_hint(@student) %></p>
+            <p>
+              <span><%= t("students.security_setting.payment_password") %></span>
+              <%= payment_password_hint(@student) %>
+            </p>
             <em><%= t("students.security_setting.required_payment_password") %></em>
           </div>
         </div>
@@ -44,7 +50,7 @@
               <% if @student.login_mobile %>
                 <i>(<%= @student.login_mobile_was %>)</i>
               <% else %>
-                <i class="prompt-info"><%= t("view.common.no_bound_mobile") %></i>
+                <i class="prompt-info"><%= t('view.common.not_set') %></i>
               <% end %>
             </p>
             <em><%= t("students.security_setting.bound_mobile_desc") %></em>
@@ -69,10 +75,10 @@
                 <% if @student.email %>
                   <i>(<%= @student.email_was %>)</i>
                 <% else %>
-                  <i class="prompt-info"><%= t("view.common.no_bound_email") %></i>
+                  <i class="prompt-info"><%= t('view.common.not_set') %></i>
                 <% end %>
               <% else %>
-                <i class="prompt-info"><%= t("view.common.no_bound_mobile") %></i>
+                <i class="prompt-info"><%= t('view.common.not_set') %></i>
               <% end %>
             </p>
             <em><%= t("students.security_setting.bound_email_desc") %></em>
@@ -96,7 +102,7 @@
               <% if @student.parent_phone %>
                 <i>(<%= @student.parent_phone_was %>)</i>
               <% else %>
-                <i class="prompt-info"><%= t("view.common.no_bound_parent_phone") %></i>
+                <i class="prompt-info"><%= t('view.common.not_set') %></i>
               <% end %>
             </p>
             <em><%= t("students.security_setting.bound_parent_phone_desc") %></em>
@@ -117,7 +123,7 @@
             <p>
               <span><%= t("students.security_setting.wechat_bind") %></span>
               <% if @student.wechat_users.blank? %>
-                <i class="prompt-info"><%= t("view.common.no_bound_wechat") %></i>
+                <i class="prompt-info"><%= t('view.common.not_set') %></i>
               <% else %>
                 <i>(<%= @student.wechat_users.last.try(:userinfo)['info']['nickname'] %>)</i>
               <% end %>

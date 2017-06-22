@@ -24,14 +24,12 @@
           </div>
         </li>
       <% end %>
-
-      <%= render partial: 'home/items/default_courses' if @newest_courses.blank? %>
     </ul>
     <p class="iteminfo-more">
       <%= link_to live_studio.courses_path do %>
         <%= t('view.choiceness_items.more') %>
         <i class="fa fa-angle-right"></i>
-      <% end %>
+      <% end if @newest_courses.present? %>
     </p>
   </div>
 </div>

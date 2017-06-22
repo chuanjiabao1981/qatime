@@ -47,6 +47,7 @@ Qatime::Application.routes.draw do
       get 'courses'
       get 'teacher'
       get 'student'
+      get :user_agreements
     end
   end
 

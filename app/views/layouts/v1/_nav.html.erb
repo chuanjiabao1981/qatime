@@ -45,7 +45,7 @@
       </ul>
     </div>
 
-    <%= form_tag main_app.search_home_index_path, class: 'navbar-form pull-left hidden-xs', method: :get do %>
+    <%= form_tag main_app.search_home_index_path, class: 'navbar-form pull-left hidden-xs', id: 'home_search', method: :get do %>
       <div class="search-input">
         <div class="form-group">
           <div class="choose-list pull-left">
@@ -57,7 +57,7 @@
           </div>
 
           <%= hidden_field_tag :search_cate, params[:search_cate].presence || 'course' %>
-          <%= text_field_tag :search_key, params[:search_key] %>
+          <%= text_field_tag :search_key, params[:search_key], placeholder: t('view.common_bars.search.search_key_text') %>
         </div>
         <button type="submit" class="fa fa-search"></button>
       </div>

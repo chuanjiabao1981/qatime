@@ -249,7 +249,7 @@ module LiveStudio
       unstart? || %w(teaching paused).include?(status)
     end
 
-    def has_closed?
+    def had_closed?
       %w(closed finished billing completed).include?(status)
     end
 

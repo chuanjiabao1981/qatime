@@ -5,13 +5,13 @@ module LiveStudio
 
     def schedules
       @items = LiveService::ScheduleService.schedule_for(@teacher).week
-      @close_lessons = @items.select { |item| item.unclosed? }.sort_by { |item| item.start_at }.reverse
-      @wait_lessons = @items.select { |item| item.has_closed? }.sort_by { |item| item.start_at }
+      @close_lessons = @items.select(&:unclosed?).sort_by(&:start_at).reverse
+      @wait_lessons = @items.select(&:had_closed?).sort_by(&:start_at)
     end
 
     def schedule_data
       @items = LiveService::ScheduleService.schedule_for(@teacher).month(date_params)
-      @items = @items.sort_by { |item| item.start_at }
+      @items = @items.sort_by(&:start_at)
       @date_list = @items.group_by { |item| item.class_date.to_s }.keys
       render layout: false
     end

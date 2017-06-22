@@ -7,7 +7,7 @@ module LiveStudio
     def schedules
       @items = LiveService::ScheduleService.schedule_for(@student).week
       @close_lessons = @items.select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }.reverse
-      @wait_lessons = @items.select { |item| item.target.has_closed? }.sort_by { |item| item.target.start_at }
+      @wait_lessons = @items.select { |item| item.target.had_closed? }.sort_by { |item| item.target.start_at }
     end
 
     def schedule_data

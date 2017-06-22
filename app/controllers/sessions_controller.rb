@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
       flash[:info] = "欢迎登录!"
-      redirect_to params[:redirect_url].blank? ? user_home_path : params[:redirect_url]
+      redirect_to params[:redirect_url].blank? ? root_path : params[:redirect_url]
     else
       # @user = User.new(email: @user.try(:email))
        @user = User.new(login_mobile: @user.try(:login_account))

@@ -58,15 +58,11 @@
           <% end %>
 
           <% if Payment::Order::CATE_CANCELED.include?(order.status) %>
-            <% if course.is_a?(LiveStudio::VideoCourse) %>
-              <span class="reimburse"><%= image_tag 'reminder.png' %><%= t('view.payment/order.index.cannot_refund') %></span>
-            <% else %>
-              <%= order_operating(order) %>
-            <% end %>
             <%= link_to t('view.payment_show.new_order'), live_studio.course_path(course) if course.is_a?(LiveStudio::Course) %>
             <%= link_to t('view.payment_show.new_order'), live_studio.interactive_course_path(course) if course.is_a?(LiveStudio::InteractiveCourse) %>
             <%= link_to t('view.payment_show.new_order'), live_studio.video_course_path(course) if course.is_a?(LiveStudio::VideoCourse) %>
           <% end %>
+
           <%= link_to t('view.course_show.info'), user_order_path(@user, order.order_no) %>
         </div>
       </div>

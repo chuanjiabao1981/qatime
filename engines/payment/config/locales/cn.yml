@@ -338,9 +338,14 @@ cn:
     cate_text:
       order:
         unpaid: 等待付款
-        paid: 正在交易
+        paid: 交易完成
+        refunding: 退款中
+        refunded: 已退款
         completed: 交易完成
         canceled: 交易关闭
+        expired: 订单已过期
+        failed: 系统繁忙,下单失败
+        waste: 订单是无效订单
         others: 无效订单
   error:
     payment/order:

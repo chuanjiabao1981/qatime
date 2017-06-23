@@ -12559,7 +12559,6 @@ ul {
 .calendar-info > li > .row > .schedule-pic > a {
   position: relative;
   display: block;
-  cursor: default;
 }
 .calendar-info > li > .row > .schedule-pic > .education-label p {
   width: 100%;

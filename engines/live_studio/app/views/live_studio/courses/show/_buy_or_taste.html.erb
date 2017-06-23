@@ -14,7 +14,7 @@
   <% elsif @course.tasted?(current_user) %>
     <!-- 未购买试听结束 -->
     <!-- 试听结束和购买按钮 -->
-    <%= t('view.course_info_show.taste_end') %>
+    <%= link_to t('view.course_info_show.taste_end'), 'javascript:void(0);', class: 'btn-disabled' %>
     <% if @course.started_lessons_count > 0 -%>
       <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course), data: { confirm: t("view.course_info_show.buy_teaching_course_tips") }, class: 'btn-addclass' %>
     <% else -%>

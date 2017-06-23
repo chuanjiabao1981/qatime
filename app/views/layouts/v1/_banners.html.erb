@@ -1,15 +1,23 @@
-<div class="homepage-banner">
-  <ul class="banner-show" id="banner-list">
-    <% @recommend_banners.each do |banner| %>
-      <li>
+<div id="myCarousel" class="carousel slide homepage-banner">
+  <ul class="banner-show carousel-inner">
+    <% @recommend_banners.each_with_index do |banner, index| %>
+      <li class="item <%= 'active' if index == 0 %>">
         <%= link_to banner.link do %>
           <%= image_tag banner.logo_url, alt: 'banner' %>
         <% end %>
       </li>
-    <% end %>
+    <% end if @recommend_banners.present? %>
+
     <% if @recommend_banners.blank? %>
-      <li><a href=""><%= image_tag '/imgs/home-banner.png' %></a></li>
+      <li class="item active">
+        <a href=""><%= image_tag '/imgs/home-banner.png', alt: 'banner' %></a>
+      </li>
     <% end %>
   </ul>
-</div>
 
+  <ul class="banner-dot carousel-indicators">
+    <% @recommend_banners.each_with_index do |banner, index| %>
+      <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>"></li>
+    <% end if @recommend_banners.count > 1 %>
+  </ul>
+</div>

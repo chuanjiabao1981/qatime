@@ -64,17 +64,8 @@
 
     $(function() {
       // 广告位轮播
-      $("#banner-list").rotate();
       $('#myCarousel').carousel({
-        interval: false
-      });
-      $(".btn-nexts").click(function() {
-        $("#myCarousel").carousel('prev');
-        console.log($("#myCarousel").carousel('prev'))
-      });
-      // 循环轮播到下一个项目
-      $(".btn-previous").click(function() {
-        $("#myCarousel").carousel('next');
+        interval: 5000
       });
 
       // 今日直播

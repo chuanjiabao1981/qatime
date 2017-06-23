@@ -9978,6 +9978,9 @@ ul {
     padding-left: 0px !important;
     padding-right: 0px;
   }
+  .price-right {
+    margin-right: 10px;
+  }
 }
 .course-price {
   position: absolute;
@@ -12208,11 +12211,13 @@ ul {
 }
 .order-status > .status-handle .reimburse {
   color: #999;
+  font-size: 12px;
 }
 .order-status > .status-handle .reimburse > img {
   width: 14px;
   height: 14px;
-  margin-top: 3px;
+  position: relative;
+  top: 1px;
 }
 .order-status > .status-handle a:last-child {
   margin-bottom: 0px;
@@ -12559,7 +12564,6 @@ ul {
 .calendar-info > li > .row > .schedule-pic > a {
   position: relative;
   display: block;
-  cursor: default;
 }
 .calendar-info > li > .row > .schedule-pic > .education-label p {
   width: 100%;

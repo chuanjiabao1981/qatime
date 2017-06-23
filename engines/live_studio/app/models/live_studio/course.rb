@@ -11,6 +11,7 @@ module LiveStudio
     include QaToken
     include Channelable
     include Ticketable
+    include LiveCommon
 
     include Qatime::Stripable
     strip_field :name, :description

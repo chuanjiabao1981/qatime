@@ -6,6 +6,7 @@ module LiveStudio
     include AASM
     extend Enumerize
     include Channelable
+    include LiveCommon
 
     include Qatime::Stripable
     strip_field :name, :description

@@ -230,7 +230,7 @@ module Permissions
         teacher && teacher == user && permission
       end
 
-      allow 'live_studio/teacher/teachers', [:schedules, :settings]
+      allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 
       allow 'live_studio/teacher/lessons', [

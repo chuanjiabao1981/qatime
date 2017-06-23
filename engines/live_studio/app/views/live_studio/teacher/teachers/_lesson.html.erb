@@ -1,0 +1,6 @@
+<%= render 'shared/blank' if items.blank? %>
+
+<% items.each do |item| %>
+  <%= render 'interactive_lesson_item', item: item if item.is_a?(LiveStudio::InteractiveLesson) %>
+  <%= render 'lesson_item', item: item if item.is_a?(LiveStudio::Lesson) %>
+<% end unless items.blank? %>

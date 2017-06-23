@@ -1,8 +1,6 @@
-<% @user = @student || @teacher %>
 <div class="contains">
   <div class="contains-title">
     <h3><%= t("view.student_bars.schedules") %></h3>
-    <%#= link_to t("view.notification_setting.notice"), live_studio.send("settings_#{@user.role}_path", @user) %>
   </div>
 
   <div class="contains-discipline">
@@ -20,12 +18,12 @@
 
       <div id="wait_lesson" class="tab-pane fade">
         <ul class="calendar-info">
-          <%= render partial: '/live_studio/student/students/lesson', locals: { items: @wait_lessons } %>
+          <%= render partial: '/live_studio/teacher/teachers/lesson', locals: { items: @wait_lessons } %>
         </ul>
       </div>
       <div id="close_lessons" class="tab-pane fade">
         <ul class="calendar-info">
-          <%= render partial: '/live_studio/student/students/lesson', locals: { items: @close_lessons } %>
+          <%= render partial: '/live_studio/teacher/teachers/lesson', locals: { items: @close_lessons } %>
         </ul>
       </div>
     </div>
@@ -34,7 +32,7 @@
 
 
 <div class="modal fade" id="dawnloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-openclient">
+  <div class="modal-dialog modal-client">
     <div class="modal-content">
       <div class="popup-title">
         <span><%= t('view.student.students.schedules.modal_title') %></span>
@@ -43,7 +41,7 @@
 
       <div class="modal-body">
         <p><%= t('view.student.students.schedules.modal_content') %></p>
-        <center><%= link_to t('view.student.students.schedules.modal_link'), Software.latest_student_windows_client.try(:cdn_url).presence || main_app.welcome_download_path %></center>
+        <%= link_to t('view.student.students.schedules.modal_link'), main_app.welcome_download_path %>
       </div>
     </div>
   </div>
@@ -52,7 +50,7 @@
 <% content_for :javascript do -%>
 <script type="text/javascript" charset="utf-8">
   var calendar = $("#calendar").calendar({
-    data_url: '<%= live_studio.schedule_data_student_path(@student) %>',
+    data_url: '<%= live_studio.schedule_data_teacher_path(@teacher) %>',
     callback: function(data) {
       $('#calendar_data').html(data);
     }

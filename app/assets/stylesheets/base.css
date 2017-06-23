@@ -1741,28 +1741,11 @@ figcaption p {
 
 
 /*web首页*/
-.home-banner {
-  width: 100%;
-  height: 316px;
-  position: relative;
-  overflow: hidden;
-}
 .banner-show {
-  width: 400%;
-  height: 316px;
   padding: 0;
-  overflow: hidden;
-  list-style-type: none;
-  position: absolute;
-}
-.banner-show li {
-  width: 25%;
-  height: 316px;
-  float: left;
 }
 .banner-show li a img{
   width: 100%;
-  height: 316px;
 }
 .banner-dot {
   position: absolute;
@@ -1781,6 +1764,9 @@ figcaption p {
   border: 2px solid rgb(255,153,102);
 }
 .banner-dot .active {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
   background-color: rgb(255,153,102);
 }
 .panel-bottom {
@@ -8473,8 +8459,6 @@ ul {
 }
 .homepage-banner {
   width: 100%;
-  height: 315px;
-  position: relative;
   overflow: hidden;
 }
 .homepage-banner img {

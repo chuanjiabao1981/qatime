@@ -1,9 +1,35 @@
 <div class="play-page">
   <div class="video-line">
     <div class="videobox">
-      <video id="video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
+      <video id="video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="">
         <source src="<%= @course_intro.video.try(:name_url) %>" type="video/mp4">
       </video>
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      var myPlayer = neplayer('video', {
+        "autoplay": false,
+        controlBar: {
+          'currentTimeDisplay':true,
+          'timeDivider':true,
+          'durationDisplay':true,
+          'remainingTimeDisplay':false
+        }
+      },function (){
+        // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
+        // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
+      });
+
+      window.playVideo = function(){
+        myPlayer.play();
+      };
+      window.pauseVideo = function(){
+        myPlayer.pause();
+      };
+    });
+  </script>
+<% end %>

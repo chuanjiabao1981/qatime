@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
   def new_index
     home_data = DataService::HomeData.new(@location_city.try(:id))
-    @recommend_banners = home_data.banners.order(:index).limit(3)
+    @recommend_banners = home_data.banners.order(:index)
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
     @today_lives = home_data.today_lives.limit(12)
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)

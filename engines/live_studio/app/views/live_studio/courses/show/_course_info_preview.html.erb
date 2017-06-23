@@ -21,11 +21,7 @@
             <span>
               <i><%= t('view.live_studio/courses.show.date') %></i>
               <i>
-                <% if @course.start_at == @course.end_at %>
-                  <%= @course.start_at.try(:to_date).try(:to_s) %>
-                <% else %>
-                  <%= t('view.live_studio/courses.show.date_text', start_at: @course.start_at.try(:to_date).try(:to_s), end_at: @course.end_at.try(:to_date).try(:to_s)) %>
-                <% end %>
+                <%= t('view.live_studio/courses.show.date_text', start_at: @course.start_at.try(:to_date).try(:to_s), end_at: @course.end_at.try(:to_date).try(:to_s)) %>
               </i>
             </span>
           </li>
@@ -35,7 +31,13 @@
               <i><%= t('view.live_studio/courses.show.status') %></i>
               <i>
                 <%= @course.status_text %>
-                (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : t('view.live_studio/courses.show.status_text', one: @course.closed_lessons_count, two: @course.lessons_count) %>)
+                <% if @course.published? %>
+                  <% if @course.distance_days > 0 %>
+                    (<%= t('view.course_show.distance_text1') % @course.distance_days %>)
+                  <% end %>
+                <% else %>
+                  (<%= t('view.live_studio/courses.show.status_text', one: @course.closed_lessons_count, two: @course.lessons_count) %>)
+                <% end %>
               </i>
             </span>
           </li>

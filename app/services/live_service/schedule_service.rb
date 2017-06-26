@@ -11,7 +11,7 @@ module LiveService
     end
     module_function :schedule_for
 
-    # 磕碜表基础类
+    # 课程表基础类
     class Base
       def initialize(user)
         @user = user
@@ -43,8 +43,8 @@ module LiveService
       private
 
       def teacher_schedule_items(range)
-        course_lessons = @user.live_studio_lessons.where(class_date: range)
-        interactive_course_lessons = @user.live_studio_interactive_lessons.where(class_date: range)
+        course_lessons = @user.live_studio_lessons.includes(:course).where(class_date: range)
+        interactive_course_lessons = @user.live_studio_interactive_lessons.includes(:interactive_course).where(class_date: range)
         course_lessons.to_a + interactive_course_lessons.to_a
       end
     end

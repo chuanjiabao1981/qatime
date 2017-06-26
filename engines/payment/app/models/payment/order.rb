@@ -26,7 +26,8 @@ module Payment
 
     CATE_UNPAID = %w(unpaid).freeze
     CATE_PAID = %w(paid settled shipped completed refunding).freeze
-    CATE_CANCELED = %w(canceled expired refunded).freeze
+    CATE_CANCELED = %w(canceled refunded).freeze
+    CATE_OTHER = %w(expired failed waste).freeze
 
     # 有效订单
     # 成功支付就算有效订单
@@ -214,6 +215,8 @@ module Payment
       else
         'others'
       end
+
+      cate = status if %w[refunding refunded expired failed waste].include?(status)
 
       if completed?
         I18n.t("activerecord.cate_text.order.completed")

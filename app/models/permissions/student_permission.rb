@@ -8,9 +8,8 @@ module Permissions
       allow :sessions,[:destroy]
       allow :qa_faqs,[:student]
       allow :qa_faqs,[:show] do |faq|
-        faq and !faq.teacher?
+        faq && !faq.teacher?
       end
-
 
       allow :topics,[:new,:create] do |topicable|
         topicable_permission(topicable,user)

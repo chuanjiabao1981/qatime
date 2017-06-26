@@ -48,7 +48,7 @@ class VideoPublicizeUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    ActionController::Base.helpers.asset_path("video_courses/" + [version_name, "default.png"].compact.join('_'))
+    ActionController::Base.helpers.asset_path("video_courses/#{model.subject_name}/" + [version_name, "default.png"].compact.join('_'))
   end
 
   def filename

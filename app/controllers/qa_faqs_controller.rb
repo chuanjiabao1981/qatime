@@ -3,6 +3,8 @@ class QaFaqsController < ApplicationController
 
   def index
     @qa_faqs = QaFaq.order(:created_at)
+    @qa_faqs = @qa_faqs.common_teacher if current_user.try(:teacher?)
+    @qa_faqs = @qa_faqs.common_student if current_user.try(:student?)
     render layout: 'v1/qa_faq'
   end
 

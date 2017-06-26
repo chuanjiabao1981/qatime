@@ -3,7 +3,7 @@ module Permissions
     def initialize(user)
       super(user)
 
-
+      allow :qa_faqs,[:index,:show,:courses,:student,:teacher, :user_agreements]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :vip_classes,[:show]
 

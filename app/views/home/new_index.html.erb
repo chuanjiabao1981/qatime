@@ -4,6 +4,9 @@
 <!-- 专题板块 -->
 <%= render partial: 'home/items/line_items' %>
 
+<!-- 教师推荐 -->
+<%= render partial: 'home/items/teachers' %>
+
 <!-- 精选内容 -->
 <%= render partial: 'home/items/choiceness' %>
 
@@ -13,14 +16,11 @@
 <!-- 新课发布 -->
 <%= render partial: 'home/items/newest_courses' %>
 
-<!-- 教师推荐 -->
-<%= render partial: 'home/items/teachers' %>
-
 <!-- 服务项目 -->
 <%= render partial: 'home/items/service' %>
 
 <!--Modal弹窗-->
-<div class="modal-presentation">
+<div class="modal-iframe">
   <div class="modal-content">
     <div class="popup-title">
       <%= image_tag 'live-logo.png' %>
@@ -28,9 +28,7 @@
     </div>
     <div class="modal-body">
       <div class="video-box">
-        <video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
-          <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
-        </video>
+        <iframe src="<%= main_app.play_course_intro_path(CourseIntro.top.presence || 0) %>" allowfullscreen mozallowfullscreen webkitallowfullscreen frameBorder="0" scrolling="no" border="0" width="100%" height="100%" id="video_intro"></iframe>
       </div>
     </div>
   </div>
@@ -38,19 +36,36 @@
 
 <% content_for :javascript do %>
   <script type="text/javascript">
+    // 拖动
+    function drag(obj) {
+      obj.bind("mousedown", start);
+
+      function start(event) {
+        deltaX = event.clientX - obj.offset().left;
+        deltaY = event.clientY - obj.offset().top;
+        $(document).bind("mousemove", move);
+        $(document).bind("mouseup", stop);
+        return false;
+      }
+
+      function move(event) {
+        obj.css({
+          "left": (event.clientX - deltaX) + "px",
+          "top": (event.clientY - deltaY) + "px"
+        });
+        return false;
+      }
+
+      function stop() {
+        $(document).unbind("mousemove", move);
+        $(document).unbind("mouseup", stop);
+      }
+    }
+
     $(function() {
       // 广告位轮播
-      $("#banner-list").rotate();
       $('#myCarousel').carousel({
-        interval: false
-      });
-      $(".btn-nexts").click(function() {
-        $("#myCarousel").carousel('prev');
-        console.log($("#myCarousel").carousel('prev'))
-      });
-      // 循环轮播到下一个项目
-      $(".btn-previous").click(function() {
-        $("#myCarousel").carousel('next');
+        interval: 5000
       });
 
       // 今日直播
@@ -68,47 +83,31 @@
 
       });
 
-
-//      $(".video-item").click(function() {
-//        $(".modal-presentation").show();
-//        $(".modal-presentation").css({
-//          left: ($(window).width() - $(".modal-presentation").outerWidth()) / 2,
-//          top: ($(window).height() - $(".modal-presentation").outerHeight()) / 2 + $(document).scrollTop()
-//        });
-//      })
-//      $(".close").click(function() {
-//        $(".modal-presentation").hide();
-//      })
-
-      var obj = $(".modal-presentation");
+      // 视频
+      $(".video-item").click(function() {
+        $(".modal-iframe").addClass('active');
+        if( $(".modal-iframe").hasClass('active') ){
+          try {
+            $('#video_intro').get(0).contentWindow.playVideo();
+          } catch(err) {
+            console.log('wait document loading');
+          }
+        }
+        $(".modal-iframe").css({
+          left: ($(window).width() - $(".modal-iframe").outerWidth()) / 2,
+          top: ($(window).height() - $(".modal-iframe").outerHeight()) / 2 + $(document).scrollTop()
+        });
+      });
+      $(".close").click(function() {
+        $(".modal-iframe").removeClass('active');
+        try {
+          $('#video_intro').get(0).contentWindow.pauseVideo();
+        } catch(err) {
+          console.log('wait document loading');
+        }
+      });
+      var obj = $(".modal-iframe");
       drag(obj);
-
     });
-
-    //拖动
-    function drag (obj) {
-      obj.bind("mousedown", start);
-
-      function start (event) {
-        deltaX = event.clientX - obj.offset().left;
-        deltaY = event.clientY - obj.offset().top;
-        $(document).bind("mousemove", move);
-        $(document).bind("mouseup", stop);
-        return false;
-      }
-
-      function move (event) {
-        obj.css({
-          "left": (event.clientX - deltaX) + "px",
-          "top": (event.clientY - deltaY) + "px"
-        })
-        return false;
-      }
-      function stop () {
-        $(document).unbind("mousemove", move);
-        $(document).unbind("mouseup", stop);
-      }
-    }
-
   </script>
 <% end %>

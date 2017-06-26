@@ -73,11 +73,16 @@ module V1
               }
             end
             params do
+              optional :week, type: String, desc: '本周内: 2016-10-01 返回本周7天的数据'
               optional :month, type: String, desc: '月份: 2016-10-01 该值为空则默认返回当月数据'
               optional :state, type: String, desc: '课程状态:未上课 已完成 不传则默认返回全部', values: %w(unclosed closed)
             end
             get 'schedule' do
-              arr = LiveService::CourseDirector.courses_by_month(current_user, params[:month], params[:state])
+              if params[:week].present?
+                arr = LiveService::CourseDirector.courses_by_week(current_user, params[:week], params[:state])
+              else
+                arr = LiveService::CourseDirector.courses_by_month(current_user, params[:month], params[:state])
+              end
               present arr, with: Entities::LiveStudio::Schedule, type: :schedule
             end
           end
@@ -140,13 +145,8 @@ module V1
             order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type],
                                                                    remote_ip: client_ip,
                                                                    source: :student_app, user: current_user))
-            if params[:coupon_code].present?
-              coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
-              order.amount = course.coupon_price(coupon)
-              order.coupon = coupon
-            end
+            order.use_coupon(params[:coupon_code])
             order.save
-
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
           end

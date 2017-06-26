@@ -74,6 +74,45 @@ module LiveService
       hash.map{|date,lessons| {date: date, lessons: lessons}}
     end
 
+    # 根据参数查询一周课程安排
+    # 包括一对一课程
+    def self.courses_by_week(user, week=nil, state=nil)
+      week = week.blank? ? Time.now : week.to_time
+      hash = {}
+      lessons = user.live_studio_lessons.week(week)
+      lessons = case state
+                when 'unclosed'
+                  lessons.unclosed
+                when 'closed'
+                  lessons.already_closed
+                else
+                  lessons
+                end
+      lessons.map do |lesson|
+        date = lesson.class_date.to_s
+        hash[date] ||= []
+        hash[date] << lesson
+      end
+
+      # 一对一课程数据
+      interactive_lessons = user.live_studio_interactive_lessons.week(week)
+      interactive_lessons = case state
+                            when 'unclosed'
+                              interactive_lessons.unclosed
+                            when 'closed'
+                              interactive_lessons.already_closed
+                            else
+                              interactive_lessons
+                            end
+      interactive_lessons.map do |interactive_lesson|
+        date = interactive_lesson.class_date.to_s
+        hash[date] ||= []
+        hash[date] << interactive_lesson
+      end
+
+      hash.map{|date,lessons| {date: date, lessons: lessons}}
+    end
+
     # 过滤辅导班
     # 检索条件: subject grade status
     # 排序条件: class_date

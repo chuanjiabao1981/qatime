@@ -45,16 +45,17 @@
           </div>
         </div>
 
-        <div class="category-answer">
-          <h4><%= t('view.new_index.line_items.questions.title') %></h4>
-          <ul>
-            <%= render partial: 'home/items/question', collection: @questions %>
-          </ul>
-          <p>
-            <%= link_to main_app.questions_path do %>
-              <%= t('view.new_index.line_items.questions.more') %><i class="fa fa-angle-right"></i>
+        <div class="replays">
+          <div class="replays-title">
+            <h4><%= t('view.new_index.line_items.replay_items.title') %></h4>
+            <%= link_to main_app.replays_home_index_path do %>
+              <%= t('view.new_index.line_items.replay_items.more') %><i class="fa fa-angle-right"></i>
             <% end %>
-          </p>
+          </div>
+          <div class="replays-con">
+            <%= render partial: 'home/items/replay_item', collection: @replay_items %>
+          </div>
+          <%= render 'shared/blank' if @replay_items.blank? %>
         </div>
       </div>
     </div>

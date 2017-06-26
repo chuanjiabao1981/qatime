@@ -1,0 +1,35 @@
+<li class-date="<%= item.class_date.to_s %>">
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to live_studio.course_path(item.course_id), class: 'education-label' do %>
+        <%= image_tag item.course.publicize_url(:small), class: 'handle_error_list' %>
+        <p><%= t('view.student.students.schedules.lesson.course') %></p>
+      <% end %>
+    </div>
+    <div class="col-md-6 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p>
+            <%= link_to item.name, live_studio.course_path(item.course_id) %>
+          </p>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.course.grade %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= item.course.buy_user_count %></em><%= t('view.common.people') %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 schedule-time">
+      <div class="row">
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.status_text %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.class_date %> <%= item.start_time %>-<%= item.end_time %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

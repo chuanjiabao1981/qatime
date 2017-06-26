@@ -1,14 +1,14 @@
 module Permissions
   class GuestPermission < BasePermission
     def initialize
-      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow :sessions,[:new,:create]
       allow :students,[:new,:create]
       allow :teachers,[:new,:create,:profile]
       allow :teaching_videos,[:show]
-      allow :qa_faqs,[:index,:courses,:show]
+      allow :qa_faqs,[:index, :courses, :user_agreements]
       allow :qa_faqs,[:show] do |faq|
-        faq && !faq.teacher?
+        faq && faq.common?
       end
 
       # wechat payment callback url

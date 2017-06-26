@@ -56,7 +56,8 @@ module LiveStudio
     scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
-    scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :month, -> (month){ where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date, month.end_of_month.to_date) }
+    scope :week, -> (week){ where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', week.beginning_of_week.to_date, week.end_of_week.to_date) }
     scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
     scope :readied, -> { where("status >= ?", Lesson.statuses[:ready])} # 已就绪
 
@@ -246,6 +247,10 @@ module LiveStudio
     # 结束以后重新开始然后暂停算作已结束
     def unclosed?
       unstart? || %w(teaching paused).include?(status)
+    end
+
+    def had_closed?
+      %w(closed finished billing completed).include?(status)
     end
 
     # 是否已经结束

@@ -9,5 +9,11 @@
     <% if allow? 'recommend/teacher_items', :index %>
       <%= link_to t('view.recommend/position.tab.teacher_item'), position_teacher_items_path(Recommend::TeacherItem.default.presence || 0), class: "#{'active-admin' if 'recommend/teacher_items' == params[:controller]}"  %>
     <% end %>
+    <% if allow? 'recommend/topic_items', :index %>
+      <%= link_to t('view.recommend/position.tab.topic_item'), position_topic_items_path(Recommend::TopicItem.default.presence || 0), class: "#{'active-admin' if 'recommend/topic_items' == params[:controller]}"  %>
+    <% end %>
+    <% if allow? 'recommend/replay_items', :index %>
+      <%= link_to t('view.recommend/position.tab.replay_item'), position_replay_items_path(Recommend::ReplayItem.default.presence || 0), class: "#{'active-admin' if 'recommend/replay_items' == params[:controller]}"  %>
+    <% end %>
   </div>
 </div>

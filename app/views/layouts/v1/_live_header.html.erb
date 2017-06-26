@@ -2,7 +2,13 @@
   <div class="container live-big">
     <div class="row">
       <%= link_to image_tag("live-logo.png"), home_path %>
-      <% if params[:action] == 'replay' || params[:controller] == 'live_studio/video_lessons' %>
+      <% if params[:controller] == 'home' && action_name == 'replay' %>
+        <p class="playback-head">
+          <span><%= @lesson.try(:name) %></span>
+          <i>|</i>
+          <em><%= t('view.home/replay.replay_times') %><strong><%= @replay_item.try(:replay_times) %></strong></em>
+        </p>
+      <% elsif params[:action] == 'replay' || params[:controller] == 'live_studio/video_lessons' %>
         <p>
           <span><%= @lesson.try(:name) %></span>
         </p>

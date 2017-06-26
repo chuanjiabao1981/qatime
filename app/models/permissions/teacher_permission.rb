@@ -13,7 +13,9 @@ module Permissions
       end
       allow :messages, [:index, :show]
       allow :qa_faqs,[:teacher]
-
+      allow :qa_faqs,[:show] do |faq|
+        faq && !faq.student?
+      end
 
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
@@ -228,7 +230,7 @@ module Permissions
         teacher && teacher == user && permission
       end
 
-      allow 'live_studio/teacher/teachers', [:schedules, :settings]
+      allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 
       allow 'live_studio/teacher/lessons', [

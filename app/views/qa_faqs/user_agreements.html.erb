@@ -1,0 +1,17 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('view.qa_faqs/user_agreements.title') %></h3>
+  </div>
+  <div class="protocol-box">
+    <ul>
+      <li>
+        <span>01</span>
+        <%= link_to t('view.qa_faqs/user_agreements.student'), user_agreements_qa_faqs_path(cate: 'student') %>
+      </li>
+      <li>
+        <span>02</span>
+        <%= link_to t('view.qa_faqs/user_agreements.teacher'), user_agreements_qa_faqs_path(cate: 'teacher') %>
+      </li>
+    </ul>
+  </div>
+</div>

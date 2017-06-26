@@ -1,7 +1,10 @@
 module Permissions
   class UserPermission < BasePermission
     def initialize(user)
-      allow :qa_faqs,[:index,:show,:courses]
+      allow :qa_faqs,[:index, :show, :courses, :user_agreements]
+      allow :qa_faqs,[:show] do |faq|
+        faq && faq.common?
+      end
       allow :teachers, [:profile]
 
       allow :customized_course_message_boards,[:show] do |customized_course_message_board|
@@ -42,7 +45,7 @@ module Permissions
       allow 'live_studio/video_courses', [:index, :show, :taste, :deliver]
 
       allow 'qawechat/users', [:remove_wechat]
-      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'ajax/data', [:option_cities, :option_schools]

@@ -1,0 +1,31 @@
+<tr>
+  <td><%= show_index(course_intro_counter, @course_intros.limit_value) %></td>
+  <td class="preview"><%= image_tag course_intro.video.try(:capture_url), class: 'handle_error_list' %></td>
+  <td class="video-information">
+    <p>
+      <span><%= t('view.admins/course_intros.index.tmp_duration') %>：</span>
+      <span><%= Util.duration_in_words course_intro.video.try(:tmp_duration).to_i %></span>
+    </p>
+    <p>
+      <span><%= t('view.admins/course_intros.index.video_type') %>：</span>
+      <span><%= course_intro.video.try(:video_type) %></span>
+    </p>
+    <p>
+      <span><%= t('view.admins/course_intros.index.created_at') %>：</span>
+      <span><%= l(course_intro.created_at) if course_intro.created_at %></span>
+    </p>
+  </td>
+  <td><%= course_intro.title %></td>
+  <td class="enable">
+    <% if course_intro.stopping? %>
+      <%= link_to t('view.admins/course_intros.index.run'), change_status_admins_course_intro_path(course_intro) %>
+    <% else %>
+      <%= link_to t('view.admins/course_intros.index.stop'), change_status_admins_course_intro_path(course_intro), class: 'active' %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to t('view.admins/course_intros.index.play'), main_app.play_course_intro_path(course_intro), target: '_blank' %>
+    <%= link_to t('common.editor_toolbar_edit'), edit_admins_course_intro_path(course_intro) %>
+    <%= link_to t('common.delete'), admins_course_intro_path(course_intro), data: { method: :delete, confirm: t('common.confirm_delete') } %>
+  </td>
+</tr>

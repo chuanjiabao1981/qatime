@@ -3,7 +3,9 @@ coupon_one:
   owner: workstation_one (Workstation)
   code: '1234'
   price: 10.0
+  percent: 0.05
 coupon_two:
   owner: workstation_zhuji (Workstation)
   code: '4321'
   price: 5.0
+  percent: 0.1

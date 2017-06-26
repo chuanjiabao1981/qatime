@@ -6,6 +6,8 @@ cn:
         teacher_item: 老师推荐管理
         live_studio_course_item: 辅导班推荐管理
         choiceness_item: 精选内容管理
+        replay_item: 精彩回放管理
+        topic_item: 板块专题管理
       city: 全国
       edit: 编辑
       destroy: 删除
@@ -14,6 +16,7 @@ cn:
       banner_item_uniq_valid: 该城市排序位置已存在
       teacher_item_uniq_valid: 该城市老师排序位置已存在
       choiceness_item_uniq_valid: 该城市课程排序位置已存在
+      replay_item_uniq_valid: 该城市回放课时已存在
     recommend/banner_item:
       index:
         new_title: 新增Banner
@@ -32,6 +35,7 @@ cn:
         logo: 注意：请选择尺寸1862px*316px的图片，以便达到最佳效果
     recommend/topic_item:
       index:
+        add: 新增专题
         new_title: 新增专题
         edit_title: 修改专题
         name: 标题
@@ -57,6 +61,22 @@ cn:
       prompt:
         target_type: 选择课程类型
         target_id: 选择课程
+    recommend/replay_item:
+      index:
+        filter_top: 仅显示推荐内容
+        add: 新增回放
+        new_title: 新增回放课时
+        edit_title: 修改回放课时
+        top_filter: 仅显示推荐内容
+        lesson_name: 课时名称
+        lesson_info: 课时信息
+        replay_times: 回放次数
+        updated_at: 更新时间
+        top: 显示在首页
+      prompt:
+        course_id: 选择课程
+        target_id: 选择回放课时
+        top: 在首页精彩回放列表显示
     recommend/station:
       banner_items:
         tab:
@@ -65,6 +85,7 @@ cn:
           topic_item: 板块专题
           choiceness_item: 精选内容
           teacher_item: 教师推荐
+          replay_item: 精彩回放
         index:
           add: 新增
 
@@ -87,6 +108,11 @@ cn:
         free_tastes: 免费试听
         join_cheap: 插班优惠
     recommend/choiceness_item:
+      target_type:
+        course: 直播课
+        interactive_course: 一对一
+        video_course: 视频课
+    recommend/replay_item:
       target_type:
         course: 直播课
         interactive_course: 一对一
@@ -143,3 +169,15 @@ cn:
         target: 课程
         target_id: 选择课程
         target_type: 课程类型
+      recommend/replay_item:
+        title: 描述
+        index: 排序位置
+        tag_one: 推荐标签
+        tag_two: 推荐标题2
+        city: 城市
+        city_id: 城市
+        target: 课程
+        target_id: 课时
+        target_type: 课时
+        course_id: 课程
+        top: 首页推荐

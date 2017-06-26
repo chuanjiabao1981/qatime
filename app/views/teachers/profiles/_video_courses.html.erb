@@ -3,9 +3,6 @@
     <li class="col-md-4 col-sm-4 col-xs-6">
       <%= link_to live_studio.video_course_path(course), target: '_blank', class: "#{'course-link' if course.off_shelve?}" do %>
         <%= image_tag course.publicize_url(:info), class: 'handle_error_list' %>
-        <% if course.off_shelve? %>
-          <div class="class-finish"><i><%= t('teachers.profile.is_finished') %></i></div>
-        <% end %>
       <% end %>
       <div class="handpick-info">
         <p>

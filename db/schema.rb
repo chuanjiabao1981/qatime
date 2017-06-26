@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601063652) do
+ActiveRecord::Schema.define(version: 20170619074220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "comments_count", default: 0
+  end
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cash_operation_records", force: :cascade do |t|
@@ -161,6 +167,16 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.integer  "last_operator_id"
     t.integer  "template_id"
   end
+
+  create_table "course_intros", force: :cascade do |t|
+    t.integer  "video_id"
+    t.string   "title"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "course_intros", ["video_id"], name: "index_course_intros_on_video_id", using: :btree
 
   create_table "course_library_course_publications", force: :cascade do |t|
     t.boolean  "publish_lecture_switch", default: false
@@ -826,6 +842,7 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.datetime "updated_at",              null: false
     t.integer  "target_id"
     t.string   "target_type"
+    t.integer  "user_id"
   end
 
   add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree
@@ -1098,9 +1115,11 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.integer  "owner_id"
     t.string   "owner_type"
     t.string   "code"
-    t.decimal  "price",      precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.decimal  "price",       precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.decimal  "percent",     precision: 4, scale: 2, default: 1.0
+    t.integer  "discount_tp",                         default: 0
   end
 
   add_index "payment_coupons", ["code"], name: "index_payment_coupons_on_code", using: :btree
@@ -1410,8 +1429,8 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.string   "logo"
     t.integer  "index"
     t.string   "type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.datetime "deleted_at"
     t.integer  "reason"
     t.text     "platforms"
@@ -1419,6 +1438,9 @@ ActiveRecord::Schema.define(version: 20170601063652) do
     t.string   "link"
     t.integer  "tag_one"
     t.integer  "tag_two"
+    t.string   "name"
+    t.boolean  "top"
+    t.integer  "replay_times", default: 0
   end
 
   add_index "recommend_items", ["owner_type", "owner_id"], name: "index_recommend_items_on_owner_type_and_owner_id", using: :btree

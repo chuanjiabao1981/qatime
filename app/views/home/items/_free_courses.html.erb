@@ -24,14 +24,12 @@
           </div>
         </li>
       <% end %>
-
-      <%= render partial: 'home/items/default_courses' if @free_courses.blank? %>
     </ul>
     <p class="iteminfo-more">
       <%= link_to live_studio.video_courses_path(q: { sell_type_eq: '2' }) do %>
         <%= t('view.choiceness_items.more') %>
         <i class="fa fa-angle-right"></i>
-      <% end %>
+      <% end if @free_courses.present? %>
     </p>
   </div>
 </div>

@@ -4,3 +4,7 @@ cn:
       status:
         stopping: 未运营
         running: 运营中
+    course_intro:
+      status:
+        stopping: 未使用
+        running: 已使用

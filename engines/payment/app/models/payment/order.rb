@@ -26,7 +26,8 @@ module Payment
 
     CATE_UNPAID = %w(unpaid).freeze
     CATE_PAID = %w(paid settled shipped completed refunding).freeze
-    CATE_CANCELED = %w(canceled expired refunded).freeze
+    CATE_CANCELED = %w(canceled refunded).freeze
+    CATE_OTHER = %w(expired failed waste).freeze
 
     # 有效订单
     # 成功支付就算有效订单
@@ -215,6 +216,8 @@ module Payment
         'others'
       end
 
+      cate = status if %w[refunding refunded expired failed waste].include?(status)
+
       if completed?
         I18n.t("activerecord.cate_text.order.completed")
       else
@@ -256,12 +259,16 @@ module Payment
       BusinessService::CourseOrderManager.new(self).billing
     end
 
-    private
-
-    before_validation :set_coupon
-    def set_coupon
-      self.coupon = Payment::Coupon.find_by(code: coupon_code) unless coupon_code.blank?
+    def use_coupon(coupon)
+      coupon = Coupon.find_by(code: coupon) if coupon.is_a?(String)
+      return if coupon.blank?
+      self.coupon = coupon
+      self.coupon_code = coupon.code
+      self.discount_amount = coupon.coupon_amount(amount)
+      self.amount = total_amount - discount_amount
     end
+
+    private
 
     # 当有支付密码字段的时候验证支付密码
     def check_payment_password?

@@ -1,0 +1,41 @@
+<li>
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to live_studio.interactive_course_path(item.target.interactive_course_id), class: 'education-label' do %>
+        <%= image_tag item.target.interactive_course.publicize_url(:small), class: 'handle_error_list' %>
+        <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
+      <% end %>
+    </div>
+    <div class="col-md-5 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p>
+            <% if item.ticket.taste? -%>
+              <span class="audition"><%= '试听' %></span>
+            <% end -%>
+            <%= link_to item.target.name, live_studio.interactive_course_path(item.target.interactive_course_id) %>
+          </p>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.interactive_course.grade %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= item.target.interactive_course.buy_user_count %></em><%= t('view.common.people') %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 schedule-time">
+      <div class="row">
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.status_text %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.class_date %> <%= item.target.start_time %>-<%= item.target.end_time %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1 schedule-enter">
+      <%= link_to t('view.student.students.schedules.lesson.enter'), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'active' %>
+    </div>
+  </div>
+</li>

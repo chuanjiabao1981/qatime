@@ -153,10 +153,10 @@ module LiveStudio
       assert page.has_css?('input.active'), "验证按钮未变灰"
       assert page.has_content?('通过验证,立减'), "验证优惠码成功后未提示"
       order_total = page.find_by_id('order_total')
-      assert_equal order_total.text.gsub('¥ ', '').to_f, course.current_price - @coupon_one.price, "验证优惠码,应付金额未改变"
+      assert_equal order_total.text.gsub('¥ ', '').to_f, 47.5, "验证优惠码,应付金额未改变"
 
-      assert_difference "@student_balance.cash_account!.reload.balance.to_f", -40, "没有正确扣除优惠余额" do
-        assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 40, "优惠总消费计算不正确" do
+      assert_difference "@student_balance.cash_account!.reload.balance.to_f", -47.5, "没有正确扣除优惠余额" do
+        assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 47.5, "优惠总消费计算不正确" do
           assert_difference "Payment::ConsumptionRecord.count", 1, "没有生成消费记录" do
             assert_difference '@student_balance.reload.orders.count', 1, "辅导班下单失败" do
               click_on '立即支付'

@@ -1,0 +1,22 @@
+<% if @date_list.present? %>
+  <script type="text/javascript" charset="utf-8">
+    //callback(data['result']);
+    var arr = '<%= @date_list.join(',') %>'.split(',');
+    for (var i = 0; i < arr.length; i++){
+      var tmp_date = arr[i];
+      tmp_date = new Date(tmp_date);
+      var tmp_cell = $("#calendar").find('.cell-'+(tmp_date.getMonth()+1)+'-'+tmp_date.getDate());
+      $(tmp_cell).attr('rel', arr[i]);
+      $(tmp_cell).append('<span class="circle">&nbsp;</span>');
+    }
+  </script>
+<% end %>
+
+
+<%= render 'shared/blank' if @items.blank? %>
+
+<% @items.each do |item| %>
+  <% next unless item.class_date == @date_params.to_date %>
+  <%= render 'interactive_lesson_item', item: item if item.is_a?(LiveStudio::InteractiveLesson) %>
+  <%= render 'lesson_item', item: item if item.is_a?(LiveStudio::Lesson) %>
+<% end unless @items.blank? %>

@@ -3,8 +3,9 @@ module Permissions
     def initialize(user)
       super(user)
 
+      allow :qa_faqs,[:index,:show,:courses,:student,:teacher, :user_agreements]
       allow :sessions, [:destroy]
-      allow :home,[:index,:new_index,:switch_city]
+      allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow "waiters/home", [:main]
 
       allow :waiters, [:customized_courses]
@@ -57,6 +58,9 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
       allow 'recommend/station/choiceness_items', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      allow 'recommend/station/replay_items', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       allow 'recommend/station/teacher_items', [:index] do |workstation|

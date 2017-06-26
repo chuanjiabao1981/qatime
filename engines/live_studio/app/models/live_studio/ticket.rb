@@ -86,7 +86,7 @@ module LiveStudio
 
     after_create :instance_items
     def instance_items
-      ticket_items.create(item_targets.map { |l| { target: l } }) unless item_targets.blank?
+      ticket_items.create(item_targets.map { |l| { target: l, user_id: student_id } }) unless item_targets.blank?
     end
   end
 end

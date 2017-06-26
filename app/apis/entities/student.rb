@@ -13,6 +13,9 @@ module Entities
     expose :school do |s|
       s.school_id
     end
+    expose :school_name do |s|
+      s.school.try(:name).to_s
+    end
     expose :school_id
     expose :desc
     expose :chat_account, using: Entities::LiveStudio::ChatAccount

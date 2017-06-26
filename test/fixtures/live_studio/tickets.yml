@@ -381,7 +381,25 @@ ticket_for_student_one_with_course2:
   sell_percentage: 40
   platform_percentage: 15
 
+ticket_for_course_with_order2:
+  student: student_with_order2
+  product: course_with_order2 (LiveStudio::Course)
+  payment_order: order2
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  sell_percentage: 40
+  platform_percentage: 15
 
+ticket_for_course_with_order2_2:
+  student: student_with_order2
+  product: course_with_order2 (LiveStudio::Course)
+  payment_order: order7
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  sell_percentage: 40
+  platform_percentage: 15
 
 ### 下面是一对一直播
 ticket_for_student_one_with_interactive_course_three_1:

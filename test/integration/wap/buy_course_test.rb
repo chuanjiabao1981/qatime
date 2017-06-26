@@ -15,7 +15,6 @@ module Wap
       Capybara.use_default_driver
     end
 
-
     # 测试余额购买辅导班
     test 'use account balance buy a course' do
       course = live_studio_courses(:billing_course_one)

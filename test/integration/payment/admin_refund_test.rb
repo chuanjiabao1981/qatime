@@ -10,6 +10,7 @@ module Payment
 
       @admin = users(:admin)
       new_log2_in_as(@admin)
+      visit get_home_url(@admin)
     end
 
     def teardown

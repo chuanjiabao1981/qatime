@@ -16,7 +16,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'Admin edit teacher' do
     log_in_as(@admin)
-
+    visit get_home_url(@admin)
     teacher = users(:admin_edit_teacher)
     click_on '教师'
 
@@ -46,7 +46,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'Admin edit student' do
     log_in_as(@admin)
-
+    visit get_home_url(@admin)
     student = users(:admin_edit_student)
     click_on '学生'
 
@@ -81,6 +81,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'Manager edit teacher' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     click_on '资源管理'
     click_on '老师管理'
     assert !has_content?('修改安全信息'), 'manager没有修改教师信息权限'
@@ -112,7 +113,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   test 'Manager edit student' do
     new_log_in_as(@manager)
     #student = users(:admin_edit_student)
-
+    visit get_home_url(@manager)
     click_on '资源管理'
     click_on '学生管理'
     assert !has_content?('修改安全信息'), 'manager没有修改学生信息权限'
@@ -148,10 +149,11 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager can billing' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     teacher = users(:teacher_two)
     click_on '资源管理'
     click_on '老师管理'
-    click_link teacher.name
+    visit teacher_path(teacher)
     click_link '财产管理'
     assert page.has_link?('结账')
 
@@ -164,6 +166,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager cant modify teacher info' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     teacher = users(:teacher_two)
     click_on '资源管理'
     click_on '老师管理'
@@ -178,10 +181,11 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager cant modify course_library' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     teacher = users(:teacher_two)
     click_on '资源管理'
     click_on '老师管理'
-    click_link teacher.name
+    visit teacher_path(teacher)
     click_link '备课中心'
     assert page.has_content?('您没有权限进行这个操作!')
     visit course_library.teacher_syllabuses_path(teacher)
@@ -191,10 +195,11 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager cant read not belong himself teacher customized_courses' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     click_on '资源管理'
     teacher = users(:teacher2)
     click_on '老师管理'
-    click_link teacher.name
+    visit teacher_path(teacher)
     click_on '专属课程'
     customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
     assert page.has_content?(customized_course.student.name)
@@ -213,6 +218,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   test 'manager only read self-customized_courses list' do
     @manager1 = users(:customized_courses_manager)
     new_log_in_as(@manager1)
+    visit get_home_url(@manager)
     click_on '课程管理'
     click_on '专属课程'
     assert_equal all('a', text: '高中-数学').count, 2, '只能看见两个专属课程'
@@ -221,10 +227,11 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager cant read not belong himself student customized_courses' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     student = users(:student1)
     click_on '资源管理'
     click_on '学生管理'
-    click_link student.name, match: :first
+    visit student_path(student)
     click_on '专属课程'
     customized_course = student.customized_courses.where(workstation: @manager.workstations).first
     assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
@@ -236,6 +243,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
   test 'manager manage school' do
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     click_on '资源管理'
     click_on '学校管理'
     school = schools(:school4)

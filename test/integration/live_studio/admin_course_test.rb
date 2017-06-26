@@ -10,6 +10,7 @@ module LiveStudio
 
       @admin = users(:admin)
       log_in_as(@admin)
+      visit get_home_url(@admin)
     end
 
     def teardown

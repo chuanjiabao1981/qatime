@@ -30,7 +30,9 @@ module V1
     mount V1::LiveStudio::VideoCourses
     mount V1::LiveStudio::VideoLessons
     mount V1::LiveStudio::Students::VideoCourses
+    mount V1::LiveStudio::Students::Schedule
     mount V1::LiveStudio::Teachers::VideoCourses
+    mount V1::LiveStudio::Teachers::Schedule
 
     mount V1::Payment::Orders
     mount V1::Payment::Recharges

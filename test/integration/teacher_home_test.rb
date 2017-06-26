@@ -35,5 +35,4 @@ class TeacherHomeTest < ActionDispatch::IntegrationTest
     assert page.has_content? datas.first.teaching_program.subject
     assert_equal page.all('.common .row a').size, datas.count, "数量不正确"
   end
-
 end

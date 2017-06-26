@@ -12,9 +12,6 @@ class CorrectionIntegrateTest < LoginTestBase
     assert @exercise_solution.valid?
   end
 
-
-
-
   test 'create page' do
 
     _create_page(@teacher,@teacher_session,@solution,HomeworkCorrection)

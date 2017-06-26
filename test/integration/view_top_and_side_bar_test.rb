@@ -25,6 +25,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
   test "manager view top and side bar" do
     manager = users(:manager)
     log_in_as(manager)
+    visit get_home_url(manager)
     assert page.has_content?(manager.role.capitalize)
     assert page.has_link?('首页')
     assert page.has_link?('工作站信息')
@@ -39,6 +40,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
   test "admin view top bar" do
     admin = users(:admin)
     log_in_as(admin)
+    visit get_home_url(admin)
 
     assert find('div.navbar-collapse').has_content?('首页'), 'topbar首页不存在'
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'

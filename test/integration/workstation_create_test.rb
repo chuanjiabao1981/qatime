@@ -82,6 +82,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
 
     new_logout_as(@admin)
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
     assert page.has_content?('工作站信息'), "工作站信息页签未显示"
     visit station_workstation_path(workstation_one)
     assert page.has_content?('基本信息')

@@ -65,6 +65,7 @@ LiveStudio::Engine.routes.draw do
       patch :update_lessons
       get :play # 观看直播
       get :live_info
+      get :interactive # 互动
     end
 
     resources :orders, only: [:new, :create]

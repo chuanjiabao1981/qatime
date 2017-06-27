@@ -454,6 +454,10 @@ module LiveStudio
       self.price = 0 if sell_type.free?
     end
 
+    after_create do
+      teacher.increment!(:all_courses_count) if teacher
+    end
+
     def lower_price
       return 0 if sell_type.free?
       duration_minutes.ceil * 0.1

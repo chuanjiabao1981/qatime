@@ -5312,7 +5312,7 @@ ul {
 }
 .process-right-con {
   padding-top: 25px;
-  border-left: 1px dashed #666666;
+  border-left: 3px solid #F7F7F7;
 }
 .process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
   margin-bottom: 25px;
@@ -10011,7 +10011,7 @@ ul {
 .nav-item a:last-child {
   margin-right: 0px;
 }
-.nav-item .active {
+.nav-item a.active {
   color: #ff5842 !important;
 }
 .lessons-detail {
@@ -10555,6 +10555,9 @@ ul {
   margin-left: 29px;
   text-align: center;
   color: #9aabb8;
+}
+.personal-nav > li:last-child > a:hover {
+  color: #ff5842;
 }
 .personal-nav > li:last-child > a.desc,.personal-nav > li:last-child > a.asc {
   color: #ff5842;
@@ -15678,6 +15681,11 @@ abbr {
   font-size: 14px;
   color: #000000;
 }
+.replays-list> ul > li > .row > .playback-info > h5 {
+  font-size: 115%;
+  font-weight: normal;
+  line-height: 1.42857143;
+}
 .replays-list> ul > li > .row > .playback-info > .row > .col-md-7 {
   color: #666;
   margin-bottom: 0px;
@@ -16061,3 +16069,135 @@ abbr {
     height: 198px !important;
   }
 }
+
+
+/*帮助页面  提现充值和说明*/
+.explain {
+  padding: 30px;
+  margin-bottom: 0px;
+}
+.explain > li > h4 {
+  margin: 0px;
+  font-size: 16px;
+  color: #333;
+}
+.explain > li > h5 {
+  margin: 20px 0px 5px 0px;
+  padding-left: 25px;
+  font-size: 15px;
+  color: #666;
+  font-weight: normal;
+  line-height: 1.42857143;
+}
+.explain > li {
+  padding-bottom: 25px;
+}
+.explain > li > p {
+  padding-left: 40px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0px;
+}
+
+/*了解答疑时间*/
+.realize {
+  padding: 0px 30px 30px 30px;
+}
+.realize > .realize-title {
+  padding: 35px 0px;
+  text-align: center;
+}
+.realize > .realize-info > p {
+  text-indent: 30px;
+  line-height: 22px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0px;
+}
+.realize > .realize-line {
+  padding-top: 30px;
+}
+.realize > .realize-line > h3 {
+  margin: 0px;
+  font-size: 16px;
+  color: #333;
+  position: relative;
+}
+.realize > .realize-line > h3 > span {
+  position: relative;
+  padding-right: 30px;
+  background-color: #fff;
+  z-index: 1;
+}
+.realize > .realize-line > h3:after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 8px;
+  height: 1px;
+  background: #F0F0F0;
+}
+.realize > .realize-line > .relation-list {
+  padding-left: 0px;
+  margin: 25px 0px 0px 0px;
+}
+.realize > .realize-line > .relation-list > li {
+  zoom: 1;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+.realize > .realize-line > .relation-list > li:last-child {
+  margin-bottom: 0px;
+}
+.realize > .realize-line > .relation-list > li:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.realize > .realize-line > .relation-list > li span {
+  float: left;
+}
+.realize > .realize-line > .relation-list > li .relation-title {
+  min-width: 95px;
+}
+.realize > .realize-line > .relation-list > li > img {
+  width: 400px;
+  height: 343px;
+}
+.realize-line > .wechat-public > img {
+  width: 160px;
+  height: 160px;
+  box-shadow: 0 0 1px #ccc;
+}
+.realize-line > .wechat-public {
+  margin-top: 25px;
+}
+.realize-line > .wechat-public > p {
+  padding: 10px 0px 0px 4px;
+  margin-bottom: 0px;
+  color: #666;
+}
+@media only screen  and (max-width: 560px) {
+  .realize > .realize-line > .relation-list > li span {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .realize > .realize-line > .relation-list > li > img {
+    width: 100%;
+    height: auto;
+  }
+}
+@media only screen  and (max-width: 420px) {
+  .realize > .realize-title > img {
+    width: 100%;
+    height: auto;
+  }
+}
+

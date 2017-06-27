@@ -77,7 +77,7 @@ class ExaminationIntegrateTest < LoginTestBase
       user_session.follow_redirect!
       user_session.assert_select 'h4',title
     else
-      user_session.assert_redirected_to get_home_url(user)
+      user_session.assert_redirected_to root_path(user)
     end
   end
 

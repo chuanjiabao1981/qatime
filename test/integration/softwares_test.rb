@@ -24,6 +24,7 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
   test 'create a software' do
     admin = users(:admin)
     log_in_as(admin)
+    visit get_home_url(admin)
     click_on "下载管理"
     click_button "新增"
     select('“答疑时间” 直播助手', from: 'software_software_category_id')

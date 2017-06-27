@@ -46,10 +46,9 @@ class HomePageTest < ActionDispatch::IntegrationTest
   test "home page search" do
     visit home_path
     find(:css, '.fa-search').click
-    assert page.has_link?('搜索相关老师')
-
     fill_in :search_key, with: '发布'
     find(:css, '.fa-search').click
+    assert page.has_link?('搜索相关老师')
     assert page.has_link?('发布的视频课2')
     assert page.has_link?('发布的视频课1')
 
@@ -110,8 +109,8 @@ class HomePageTest < ActionDispatch::IntegrationTest
   test "home page choiceness" do
     visit root_path
     assert page.has_content? '精心挑选为您推荐最优质的课程内容'
-    assert_equal 8, page.all("#choiceness .item-handpick li").size, "精选内容显示数量显示不正确"
-    assert_equal 5, page.all("#choiceness .item-handpick li.default").size, "默认精选内容显示数量显示不正确"
+
+    assert_equal 3, page.all("#choiceness .item-handpick li").size, "精选内容显示数量显示不正确"
 
     interactive_course = live_studio_interactive_courses(:interactive_course_zhuji)
     assert page.has_link?('测试一对一诸暨'), "一对一精选未显示"

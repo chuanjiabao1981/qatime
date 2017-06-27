@@ -5,13 +5,16 @@ module LiveStudio
     layout 'v1/home'
 
     def schedules
-      course_lessons = @student.live_studio_lessons
-      interactive_course_lessons = @student.live_studio_interactive_lessons
+      @items = LiveService::ScheduleService.schedule_for(@student).week
+      @close_lessons = @items.select { |item| item.target.had_closed? }.sort_by { |item| item.target.start_at }.reverse
+      @wait_lessons = @items.select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }
+    end
 
-      @wait_lessons = course_lessons.unclosed.to_a + interactive_course_lessons.unclosed.to_a
-      @close_lessons = course_lessons.already_closed.to_a + interactive_course_lessons.already_closed.to_a
-      @wait_lessons = @wait_lessons.sort_by {|x| x.start_at }.reverse
-      @close_lessons = @close_lessons.sort_by {|x| x.start_at }
+    def schedule_data
+      @items = LiveService::ScheduleService.schedule_for(@student).month(date_params)
+      @items = @items.sort_by { |item| item.target.start_at }
+      @date_list = @items.group_by { |item| item.target.class_date.to_s }.keys
+      render layout: false
     end
 
     def settings
@@ -29,5 +32,10 @@ module LiveStudio
       @taste_records = student_data.taste_records.paginate(page: params[:page])
     end
 
+    private
+
+    def date_params
+      @date_params ||= (params[:date] || Time.now).to_time
+    end
   end
 end

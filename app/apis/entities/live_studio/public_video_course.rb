@@ -16,6 +16,9 @@ module Entities
       end
       expose :status
       expose :lessons_count
+      expose :off_shelve do |course|
+        course.off_shelve?
+      end
     end
   end
 end

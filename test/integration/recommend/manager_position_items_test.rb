@@ -10,6 +10,7 @@ module Recommend
 
       @manager = users(:manager)
       new_log_in_as(@manager)
+      visit get_home_url(@manager)
     end
 
     def teardown

@@ -22,6 +22,7 @@ module Payment
       @student = users(:student_order_for_refund)
       order = payment_transactions(:order_for_refund)
       new_log_in_as(@student)
+      visit get_home_url(@student)
       click_on '我的订单'
       click_on '已付款'
       find(:xpath, "//a[@href='#{payment.refund_user_order_path(@student, order.transaction_no)}']").click
@@ -48,6 +49,7 @@ module Payment
       # assert course can sell to student
       @admin = users(:admin)
       new_log_in_as(@admin)
+      visit get_home_url(@admin)
       click_on '退款审核'
       ra = Payment::Refund.init.first
       user_account = ra.user.cash_account
@@ -79,6 +81,7 @@ module Payment
       # 退款状态
       @admin = users(:admin)
       new_log_in_as(@admin)
+      visit get_home_url(@admin)
       click_on '退款审核'
       ra = Payment::Refund.init.last
       accept_prompt(with: "确认") do

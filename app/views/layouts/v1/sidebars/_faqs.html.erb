@@ -15,8 +15,12 @@
       <%= link_to t('view.qa_bars.student'), student_qa_faqs_path %>
     <% end if current_user && !current_user.teacher? %>
 
-    <%= content_tag :li, class: "#{'active' if current_page?('/qa_faqs') || params[:action] == 'show' }" do -%>
+    <%= content_tag :li, class: "#{'active' if params[:controller] == 'qa_faqs' && %w[index show].include?(params[:action]) }" do -%>
       <%= link_to t('view.qa_bars.faqs'), qa_faqs_path %>
+    <% end %>
+
+    <%= content_tag :li, class: "#{'active' if params[:controller] == 'qa_faqs' && params[:action] == 'user_agreements' }" do -%>
+      <%= link_to t('view.qa_bars.user_agreements'), user_agreements_qa_faqs_path %>
     <% end %>
   </ul>
 </div>

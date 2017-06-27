@@ -9978,6 +9978,9 @@ ul {
     padding-left: 0px !important;
     padding-right: 0px;
   }
+  .price-right {
+    margin-right: 10px;
+  }
 }
 .course-price {
   position: absolute;
@@ -11061,6 +11064,8 @@ ul {
 }
 .user-portrait > p >img {
   width: 14px;
+  position: relative;
+  top: -3px;
 }
 .nav-menu {
   padding-left: 0px;
@@ -12200,13 +12205,19 @@ ul {
   margin-bottom: 10px;
   color: #ff5842;
 }
+.order-status > .status-handle .disable,.trading-msg > .order-right a.disable {
+  color: #ccc !important;
+  cursor: default !important;
+}
 .order-status > .status-handle .reimburse {
   color: #999;
+  font-size: 12px;
 }
 .order-status > .status-handle .reimburse > img {
   width: 14px;
   height: 14px;
-  margin-top: 3px;
+  position: relative;
+  top: 1px;
 }
 .order-status > .status-handle a:last-child {
   margin-bottom: 0px;

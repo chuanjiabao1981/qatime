@@ -193,6 +193,7 @@ LiveStudio::Engine.routes.draw do
     resources :teachers, only: [] do
       member do
         get :schedules
+        get :schedule_data
         get :settings
       end
       resources :courses, only: [:index, :show, :edit, :update, :create, :destroy] do
@@ -242,6 +243,7 @@ LiveStudio::Engine.routes.draw do
     resources :students, only: [] do
       member do
         get :schedules
+        get :schedule_data
         get :settings
         get :tastes
         get :taste_records

@@ -19,6 +19,9 @@ module Entities
       expose :is_finished do |course|
         course.is_finished?
       end
+      expose :off_shelve do |course|
+        course.off_shelve?
+      end
     end
   end
 end

@@ -17,7 +17,7 @@ module LiveStudio
 
     # GET /teacher/video_courses/new
     def new
-      @video_course = VideoCourse.new
+      @video_course = VideoCourse.new(subject: @teacher.subject)
     end
 
     # GET /teacher/video_courses/1/edit

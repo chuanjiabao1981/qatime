@@ -23,5 +23,4 @@ class StudentHomeTest < ActionDispatch::IntegrationTest
     plan = @student.learning_plans.first
     assert page.has_link?(nil, href: vip_class_path(plan.vip_class))
   end
-
 end

@@ -7,6 +7,7 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     @headless.start
     Capybara.current_driver = :selenium_chrome
     log_in_as(@admin)
+    visit get_home_url(@admin)
   end
 
   def teardown

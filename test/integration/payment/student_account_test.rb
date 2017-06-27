@@ -7,9 +7,7 @@ module Payment
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-
       @student = users(:student1)
-
       new_log_in_as(@student)
     end
 

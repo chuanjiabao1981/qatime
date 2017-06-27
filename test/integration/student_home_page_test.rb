@@ -37,7 +37,6 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
 
   end
 
-
   test "customized tutorial topics" do
     topic1 = topics(:customized_tutorial_topic1)
     topic2 = topics(:customized_tutorial_topic2)

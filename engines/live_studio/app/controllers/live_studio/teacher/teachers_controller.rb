@@ -4,18 +4,26 @@ module LiveStudio
     layout 'v1/home'
 
     def schedules
-      course_lessons = @teacher.live_studio_lessons
-      interactive_course_lessons = @teacher.live_studio_interactive_lessons
+      @items = LiveService::ScheduleService.schedule_for(@teacher).week
+      @close_lessons = @items.select(&:had_closed?).sort_by(&:start_at).reverse
+      @wait_lessons = @items.select(&:unclosed?).sort_by(&:start_at)
+    end
 
-      @wait_lessons = course_lessons.unclosed.to_a + interactive_course_lessons.unclosed.to_a
-      @close_lessons = course_lessons.already_closed.to_a + interactive_course_lessons.already_closed.to_a
-      @wait_lessons = @wait_lessons.sort_by {|x| x.start_at }.reverse
-      @close_lessons = @close_lessons.sort_by {|x| x.start_at }
-      render 'live_studio/student/students/schedules'
+    def schedule_data
+      @items = LiveService::ScheduleService.schedule_for(@teacher).month(date_params)
+      @items = @items.sort_by(&:start_at)
+      @date_list = @items.group_by { |item| item.class_date.to_s }.keys
+      render layout: false
     end
 
     def settings
       @setting = NotificationSetting.find_by(owner: @teacher) || NotificationSetting.default
+    end
+
+    private
+
+    def date_params
+      @date_params ||= (params[:date] || Time.now).to_time
     end
   end
 end

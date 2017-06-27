@@ -14,3 +14,13 @@ cn:
   view:
     index:
       add_qa_faq: 增加常见问题
+    qa_faqs/user_agreements:
+      title: 用户协议
+      student: 学生版用户协议和隐私条款
+      teacher: 老师版用户协议和隐私条款
+      cate:
+        student:
+          title: 学生版
+        teacher:
+          title: 老师版
+

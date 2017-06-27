@@ -10,6 +10,8 @@ module LiveStudio
     extend Enumerize
     include QaToken
     include Channelable
+    include Ticketable
+    include LiveCommon
 
     include Qatime::Stripable
     strip_field :name, :description
@@ -193,6 +195,12 @@ module LiveStudio
       [lessons_count - finished_lessons_count, 0].max
     end
 
+    # 未结束课程数量
+    # 需要购买课程数量
+    def unclosed_lessons_count
+      lessons_count - closed_lessons_count
+    end
+
     # 当前价格
     def current_price
       return 0 if lessons_count <= closed_lessons_count
@@ -222,13 +230,7 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      ticket_price = order.amount.to_f / left_lessons_count
-      check_ticket!(order)
-      ticket = buy_tickets.create(student_id: order.user_id, lesson_price: ticket_price,
-                                  payment_order_id: order.id, buy_count: lesson_count_left,
-                                  item_targets: lessons.where(live_end_at: nil))
-      ticket.active!
-      ticket
+      grant(order)
     end
 
     def for_sell?
@@ -449,6 +451,14 @@ module LiveStudio
     end
 
     private
+
+    def buy_items
+      lessons.where(live_end_at: nil)
+    end
+
+    def taste_items
+      order_lessons.where(live_end_at: nil).limit(taste_count)
+    end
 
     def check_ticket!(order_or_user)
       user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user

@@ -12,6 +12,7 @@ module LiveStudio
       account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: 'xxxxx', token: 'thisisatoken' } }.to_json)
       Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
       log_in_as(@manager)
+      visit get_home_url(@manager)
     end
 
     def teardown

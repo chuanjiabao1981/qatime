@@ -16,14 +16,15 @@ class QaFaqTest < ActionDispatch::IntegrationTest
     new_log_in_as(@user)
     visit qa_faqs_path
     assert page.has_content?(QaFaq.last.title)
-    assert page.has_link? '辅导流程'
+    assert page.has_link? '平台使用流程'
     assert page.has_link? '老师如何开课'
     assert page.has_link? '学生如何学习'
     assert page.has_link? '常见问题'
     assert page.has_link? '增加常见问题'
+    assert page.has_link? '用户协议'
 
-    click_link '辅导流程'
-    assert page.has_content?('观看直播')
+    click_link '平台使用流程'
+    assert page.has_content?('学习观看')
     assert page.has_content?('进行直播')
     new_logout_as(@user)
   end
@@ -56,5 +57,18 @@ class QaFaqTest < ActionDispatch::IntegrationTest
     assert !page.has_content?('老师如何开课'), '游客不该找到 "老师如何开课"'
     visit teacher_qa_faqs_path
     assert page.has_content?('您没有权限进行这个操作!'), '游客不应该访问 "老师如何开课"'
+  end
+
+  test 'visit user_agreements page' do
+    visit user_agreements_qa_faqs_path
+    assert page.has_link? '学生版用户协议和隐私条款'
+    assert page.has_link? '老师版用户协议和隐私条款'
+
+    click_on '学生版用户协议和隐私条款'
+    assert page.has_content? '《答疑时间》学习网学生使用协议和隐私条款'
+
+    visit user_agreements_qa_faqs_path
+    click_on '老师版用户协议和隐私条款'
+    assert page.has_content? '《答疑时间》学习网答疑名师服务协议'
   end
 end

@@ -17,6 +17,7 @@ module Payment
     test 'manager sale tasks' do
       @user = users(:manager_zhuji)
       new_log_in_as(@user)
+      visit get_home_url(@user)
       click_on '首页'
       click_on '考核记录'
       assert page.has_content?("通过")
@@ -27,6 +28,7 @@ module Payment
     test 'admin create sale tasks' do
       @user = users(:admin)
       new_log_in_as(@user)
+      visit get_home_url(@user)
       click_on '工作站'
       click_on '诸暨工作站'
       click_on '首页'

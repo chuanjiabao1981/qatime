@@ -42,6 +42,7 @@
 //= require qa_files
 //= require select2
 //= require select2_locale_zh-CN
+//= require jquery-calendar
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

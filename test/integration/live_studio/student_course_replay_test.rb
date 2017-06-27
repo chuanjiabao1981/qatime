@@ -21,7 +21,6 @@ module LiveStudio
     end
 
     test 'student visit replays' do
-
       visit live_studio.course_path(@course)
       assert page.has_content?("观看回放"), "辅导班详情页没有回放链接"
       visit live_studio.play_course_path(@course)

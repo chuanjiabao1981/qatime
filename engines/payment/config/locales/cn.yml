@@ -45,6 +45,7 @@ cn:
       weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
       alipay_tips: 提示：核对信息后再点击确认访问支付宝页面进行支付，遇到问题请拨打客服电话 400-838-8010
       offline_tips: 请联系管理员确认付款 400-838-8010
+      pay_success: 支付成功
     withdraw:
       common:
         ok: 确定
@@ -337,9 +338,14 @@ cn:
     cate_text:
       order:
         unpaid: 等待付款
-        paid: 正在交易
+        paid: 交易完成
+        refunding: 退款中
+        refunded: 已退款
         completed: 交易完成
         canceled: 交易关闭
+        expired: 订单已过期
+        failed: 系统繁忙,下单失败
+        waste: 订单是无效订单
         others: 无效订单
   error:
     payment/order:

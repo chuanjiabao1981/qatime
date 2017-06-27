@@ -7,6 +7,7 @@ class ManagerTeachersStudentsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :selenium_chrome
     @manager = users(:manager)
     new_log_in_as(@manager)
+    visit get_home_url(@manager)
   end
 
   def teardown

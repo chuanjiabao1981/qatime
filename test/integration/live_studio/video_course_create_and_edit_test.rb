@@ -12,6 +12,7 @@ module LiveStudio
       Capybara.current_driver = :selenium_chrome
       @teacher = users(:teacher_one)
       log_in_as(@teacher)
+      visit get_home_url(@teacher)
     end
 
     def teardown

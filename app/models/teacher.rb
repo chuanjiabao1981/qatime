@@ -118,6 +118,20 @@ class Teacher < User
     self
   end
 
+  # 重新统计发布的课程数量
+  def collect_all_courses_count
+    count1 = live_studio_courses.published_start.count
+    count2 = live_studio_interactive_courses.published_start.count
+    count3 = live_studio_video_courses.published.count
+    self.all_courses_count = [count1, count2, count3].sum
+    self
+  end
+
+  def collect_all_courses_count!
+    collect_all_courses_count
+    save
+  end
+
   private
 
   # 老师的地区信息从学校获取

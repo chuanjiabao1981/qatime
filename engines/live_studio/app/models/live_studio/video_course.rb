@@ -69,6 +69,9 @@ module LiveStudio
           self.published_at = Time.now
           self.taste_count = video_lessons.find_all {|x| x.tastable? }.count
         end
+        after_commit do
+          teacher.increment!(:all_courses_count) if teacher
+        end
         transitions from: :completed, to: :published
       end
 
@@ -452,10 +455,6 @@ module LiveStudio
     before_validation :check_sell_type
     def check_sell_type
       self.price = 0 if sell_type.free?
-    end
-
-    after_create do
-      teacher.increment!(:all_courses_count) if teacher
     end
 
     def lower_price

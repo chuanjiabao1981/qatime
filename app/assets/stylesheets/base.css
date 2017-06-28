@@ -1755,18 +1755,30 @@ figcaption p {
   cursor: pointer;
 }
 .banner-dot li {
+  position: relative;
   width: 10px;
   height: 10px;
   float: left;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: transparent;
-  border: 2px solid rgb(255,153,102);
+  background-color: #fff;
+}
+.banner-dot li > span {
+  position: absolute;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgb(255,153,102);
+  top: 0px;
+  left: 0px;
 }
 .banner-dot .active {
   width: 10px;
   height: 10px;
   margin: 0 5px;
+}
+.banner-dot .active > span {
   background-color: rgb(255,153,102);
 }
 .panel-bottom {
@@ -4864,6 +4876,7 @@ ul {
 .register-right-title {
   font-size: 18px;
   color: #333333;
+  margin-bottom: 10px;
 }
 .tea-register-right img {
   width: 250px;
@@ -4873,7 +4886,7 @@ ul {
   margin-right: 15px;
 }
 .register-right-msg {
-  margin-top: 12px;
+  margin-top: 10px;
   color: #CCCCCC;
 }
 @media only screen and (max-width: 990px) {
@@ -5205,8 +5218,8 @@ ul {
 
 /*辅导班流程页面*/
 #login_container iframe{
-  width: 246px;
-  height: 180px;
+  width: 252px;
+  height: 252px;
 }
 .process-list {
   padding-left: 0px;
@@ -5312,7 +5325,7 @@ ul {
 }
 .process-right-con {
   padding-top: 25px;
-  border-left: 1px dashed #666666;
+  border-left: 3px solid #F7F7F7;
 }
 .process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
   margin-bottom: 25px;
@@ -5889,6 +5902,9 @@ ul {
   div.live-big {
     width: 1376px !important;
   }
+  .nav-manager div.live-big {
+    padding-right: 0px;
+  }
   .area-left {
     width: 1040px;
   }
@@ -6297,17 +6313,16 @@ ul {
   width: 100%;
   color: #999999;
   border: 1px solid #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   line-height: 16px;
 }
-.account .input-group-btn .active:hover {
-  background-color: #FFFFFF !important;
+.account .input-group-btn .btn-default.active:hover {
+  background-color: #ff5842 !important;
+  color: #fff;
 }
 .account .input-group-btn .btn-default.active {
-  color: #be0b0b;
+  color: #ff5842;
   background-color: #FFFFFF;
-  border: 1px solid #be0b0b !important;
-  box-shadow: inset 0 3px 5px #FFFFFF;
+  border: 1px solid #ff5842 !important;
 }
 .prompt-confirm {
   text-align: center;
@@ -8845,8 +8860,8 @@ ul {
   display: block;
 }
 .item-recommend li a img {
-  width: 78px;
-  height: 78px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 .item-recommend li a p span {
@@ -9160,12 +9175,12 @@ ul {
 }
 .header .navbar-form > .search-input {
   height: 30px;
-  border: 1px solid #ff5842;
+  border: 1px solid #e7eaec;
   padding: 2px 5px;
 }
 .header .navbar-form > .search-input .choose-list {
   font-size: 14px;
-  color: #ff5842;
+  color: #333;
   line-height: 24px;
   margin-bottom: 0px;
   position: relative;
@@ -9218,7 +9233,7 @@ ul {
   padding: 0px;
   border: 0px;
   outline: none;
-  color: #ff5842;
+  color: #e7eaec;
   margin: 5px 0px;
 }
 @media only screen and (max-width: 1200px) {
@@ -9285,11 +9300,11 @@ ul {
 .nav-aside > ul {
   padding-left: 0px;
   margin-bottom: 0px;
+  border: 1px solid #e7eaec;
 }
 .nav-aside > ul > li {
   padding: 20px 10px 0px 10px;
-  background-color: #ff9d90;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #e7eaec;
 }
 .nav-aside > ul > li:last-child {
   border-bottom: 0px;
@@ -9298,10 +9313,10 @@ ul {
   margin: 0px 0px 15px 0px;
   font-size: 16px;
   text-align: center;
-  color: #fff;
+  color: #333;
 }
 .nav-aside > ul > li a {
-  color: #fff;
+  color: #666;
 }
 .nav-aside > ul > li > .row > div:nth-child(3n) {
   text-align: right;
@@ -9319,17 +9334,17 @@ ul {
 .nav-aside > .video-item {
   display: block;
   height: 50px;
-  border: 1px solid #ff9d90;
+  border: 1px solid #e7eaec;
   text-align: center;
   line-height: 48px;
-  color: #ff9d90;
+  color: #666;
   font-size: 16px;
   margin-top: 20px;
   outline: none;
 }
 .nav-aside > .video-item:hover {
-  background-color: #ff9d90;
-  color: #fff;
+  border-color: #ff5842;
+  color: #ff5842;
 }
 .nav-aside > .video-item > i {
   display: inline-block;
@@ -9566,7 +9581,7 @@ ul {
   top: 8px;
 }
 .live-today  ul {
-  padding-left: 15px;
+  padding: 0 15px;
   margin-bottom: 0px;
 }
 .live-today .liveing-info {
@@ -9589,7 +9604,8 @@ ul {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #999;
+  background-color: #fff;
+  border: 1px solid #ccc;
   position: absolute;
   top: 0px;
   left: -5px;
@@ -9597,22 +9613,29 @@ ul {
 .live-today  ul > li > a {
   padding-left: 15px;
   display: block;
-  color: #999;
+  color: #333;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.live-today  ul > li.finish > a {
+.live-today  ul > li > em {
+  padding-left: 15px;
+  display: block;
+  font-size: 12px;
   color: #ccc;
 }
-.live-today  ul > li.active .status-origin {
-  background-color: #ff5842;
+.live-today  ul > li.active em {
+  color: #ff5842;
 }
 .live-today  ul > li.finish .status-origin {
   background-color: #ccc;
 }
-.live-today  ul > li.active a {
+.live-today  ul > li:hover a,.live-today  ul > li:hover em{
   color: #ff5842;
+}
+.live-today  ul > li:hover .status-origin {
+  background-color: #ff5842;
+  border-color: #ff5842;
 }
 @media only screen  and (max-width: 1200px) {
   .replays > .replays-con > .row > .playback-info > p {
@@ -10011,7 +10034,7 @@ ul {
 .nav-item a:last-child {
   margin-right: 0px;
 }
-.nav-item .active {
+.nav-item a.active {
   color: #ff5842 !important;
 }
 .lessons-detail {
@@ -10555,6 +10578,9 @@ ul {
   margin-left: 29px;
   text-align: center;
   color: #9aabb8;
+}
+.personal-nav > li:last-child > a:hover {
+  color: #ff5842;
 }
 .personal-nav > li:last-child > a.desc,.personal-nav > li:last-child > a.asc {
   color: #ff5842;
@@ -11425,10 +11451,29 @@ ul {
   background-color: #FF5842;
   color: #FFFFFF;
 }
+.watch.finished,.watch.active {
+  width: auto;
+  height: auto;
+  border: 0px;
+  background-color: #fff;
+  color: #ccc;
+  cursor: default;
+}
+.watch.finished:hover {
+  color: #ccc;
+}
+.watch.active {
+  cursor: pointer;
+  color: #ff5842;
+}
+.watch.active:hover {
+  color: #ff5842;
+}
 .course-state {
   padding: 0px;
 }
 .course-state > i {
+  padding: 0px;
   display: inline-block;
   margin-top: 10px;
 }
@@ -11447,14 +11492,20 @@ ul {
   position: relative;
   top: -1.5px;
 }
+@media only screen  and (max-width: 1200px) {
+  .watch.active,.watch.finished {
+    margin-top: 10px;
+  }
+}
 @media only screen and (max-width: 990px) {
   .course-state > i {
     margin-top: 0px;
     padding-left: 0px;
   }
-  .watch {
+  .watch ,.watch.active,.watch.finished{
     margin-top: 0px;
   }
+
 }
 
 
@@ -15678,6 +15729,11 @@ abbr {
   font-size: 14px;
   color: #000000;
 }
+.replays-list> ul > li > .row > .playback-info > h5 {
+  font-size: 115%;
+  font-weight: normal;
+  line-height: 1.42857143;
+}
 .replays-list> ul > li > .row > .playback-info > .row > .col-md-7 {
   color: #666;
   margin-bottom: 0px;
@@ -16006,6 +16062,95 @@ abbr {
 
 
 /*旁路直播后台观看*/
+.video-area > .area-member {
+  height: 480px;
+}
+.video-area > .area-left > .item {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #fff;
+  background-color: #5e6064;
+}
+.video-area > .area-left > .item .prompt-item {
+  color: #fff;
+  text-align: center;
+}
+.video-area > .area-left > .item .prompt-item h4{
+  font-size: 40px;
+}
+.video-area > .area-left > .item .prompt-item p {
+  font-size: 20px;
+}
+.video-area .item .tip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: 0;
+  display: block;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.video-area .area-member .item .prompt-item {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -190px;
+  margin-top: -51px;
+}
+.video-area .area-right .prompt-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -39px;
+  margin-top: 15px;
+  color: #fff;
+  font-size: 12px;
+}
+.video-area .item .tip {
+  color: #b6b5b5;
+  line-height: 1;
+  font-size: 14px;
+}
+.video-area .item .tip i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background: rgba(255, 255, 255, 0.1);
+  animation: animation-loading 1s linear infinite alternate forwards;
+}
+.video-area .item .tip i:nth-child(2) {
+  animation-delay: 0.3s
+}
+
+.video-area .item .tip i:last-child {
+  animation-delay: 0.7s
+}
+@keyframes animation-loading {
+  0% {
+    background: rgba(255, 255, 255, 0.1)
+  }
+  50% {
+    background: rgba(255, 255, 255, 0.5)
+  }
+  100% {
+    background: rgba(255, 255, 255, 1)
+  }
+}
+@media only screen and (min-width: 1400px)  {
+  .video-area > .area-member {
+    height: 583px;
+  }
+  .video-area > .area-left > .item {
+    height: 583px;
+  }
+}
 .area-right-live {
   height: 126px;
   width: 335px;
@@ -16016,7 +16161,12 @@ abbr {
 .area-right-live > .live-left-box,.area-right-live > .live-right-box {
   width: 164px;
   height: 100%;
+  display: inline-block;
+  border: 1px solid #000;
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #fff;
 }
 .area-right-live > .live-left-box {
   float: left;
@@ -16052,6 +16202,9 @@ abbr {
   .bypass-live .affiche {
     height: 198px !important;
   }
+  .video-area > .area-member {
+    height: 352px;
+  }
 }
 @media only screen and (min-width: 0px) and (max-width: 990px) {
   .bypass-live > .live-message .message-new {
@@ -16060,4 +16213,139 @@ abbr {
   .bypass-live .affiche {
     height: 198px !important;
   }
+  .video-area > .area-member {
+    height: 352px;
+  }
 }
+
+
+/*帮助页面  提现充值和说明*/
+.explain {
+  padding: 30px;
+  margin-bottom: 0px;
+}
+.explain > li > h4 {
+  margin: 0px;
+  font-size: 16px;
+  color: #333;
+}
+.explain > li > h5 {
+  margin: 20px 0px 5px 0px;
+  padding-left: 25px;
+  font-size: 15px;
+  color: #666;
+  font-weight: normal;
+  line-height: 1.42857143;
+}
+.explain > li {
+  padding-bottom: 25px;
+}
+.explain > li > p {
+  padding-left: 40px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0px;
+}
+
+/*了解答疑时间*/
+.realize {
+  padding: 0px 30px 30px 30px;
+}
+.realize > .realize-title {
+  padding: 35px 0px;
+  text-align: center;
+}
+.realize > .realize-info > p {
+  text-indent: 30px;
+  line-height: 22px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0px;
+}
+.realize > .realize-line {
+  padding-top: 30px;
+}
+.realize > .realize-line > h3 {
+  margin: 0px;
+  font-size: 16px;
+  color: #333;
+  position: relative;
+}
+.realize > .realize-line > h3 > span {
+  position: relative;
+  padding-right: 30px;
+  background-color: #fff;
+  z-index: 1;
+}
+.realize > .realize-line > h3:after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 8px;
+  height: 1px;
+  background: #F0F0F0;
+}
+.realize > .realize-line > .relation-list {
+  padding-left: 0px;
+  margin: 25px 0px 0px 0px;
+}
+.realize > .realize-line > .relation-list > li {
+  zoom: 1;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+.realize > .realize-line > .relation-list > li:last-child {
+  margin-bottom: 0px;
+}
+.realize > .realize-line > .relation-list > li:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.realize > .realize-line > .relation-list > li span {
+  float: left;
+}
+.realize > .realize-line > .relation-list > li .relation-title {
+  min-width: 95px;
+}
+.realize > .realize-line > .relation-list > li > img {
+  width: 400px;
+  height: 343px;
+}
+.realize-line > .wechat-public > img {
+  width: 160px;
+  height: 160px;
+  box-shadow: 0 0 1px #ccc;
+}
+.realize-line > .wechat-public {
+  margin-top: 25px;
+}
+.realize-line > .wechat-public > p {
+  padding: 10px 0px 0px 4px;
+  margin-bottom: 0px;
+  color: #666;
+}
+@media only screen  and (max-width: 560px) {
+  .realize > .realize-line > .relation-list > li span {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .realize > .realize-line > .relation-list > li > img {
+    width: 100%;
+    height: auto;
+  }
+}
+@media only screen  and (max-width: 420px) {
+  .realize > .realize-title > img {
+    width: 100%;
+    height: auto;
+  }
+}
+

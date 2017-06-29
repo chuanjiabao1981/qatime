@@ -4329,6 +4329,10 @@ ul {
 }
 .up-img a {
   color: #CCCCCC;
+  cursor: default;
+}
+.up-img a:hover {
+  color: #ccc;
 }
 .tecmsg-img .has-error {
   margin-left: 0px !important;
@@ -5428,9 +5432,8 @@ ul {
 }
 .study-nav a {
   display: inline-block;
-  width: 100px;
-  height: 14px;
-  color: #00a2ee;
+  padding: 0 10px;
+  color: #ff5842;
   line-height: 14px;
   border-right: 1px solid rgb(73,73,73);
 }
@@ -5813,7 +5816,7 @@ ul {
 }
 .complete-prompt {
   margin-top: 10px;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 .complete-prompt>.complete-prompt-left>a {
   color: #ff5842;
@@ -5821,6 +5824,9 @@ ul {
 .prompt-pay {
   display: block;
   line-height: 85px;
+}
+.prompt-pay > i {
+  color: #ff5842;
 }
 @media only screen  and (max-width: 990px) {
   .complete-con .col-md-6:first-child {
@@ -5979,125 +5985,10 @@ ul {
   padding: 0px;
   overflow: hidden;
 }
-.student-buy-left {
-  width: 57%;
-}
-.student-buy-center {
-  width: 15%;
-}
-.student-buy-right {
-  width: 28%;
-}
-.student-buy-left,.student-buy-center,.student-buy-right {
-  float: left;
-}
-.buy-left-con,.buy-center-con,.buy-right-con {
-  border: 1px solid #CCCCCC;
-  min-height: 164px;
-}
-.buy-left-con {
-  border-left: 0px;
-  padding: 20px 0 20px 20px;
-  overflow: hidden;
-}
-.buy-center-con {
-  border-left: 0px;
-  border-right: 0px;
-}
-.buy-right-con {
-  border-right: 0px;
-}
-.buy-left-title,.buy-center-title,.buy-right-title {
-  text-align: center;
-  height: 34px;
-  font-size: 16px;
-  line-height: 34px;
-  color: #999999;
-  border-top: 1px solid #ccc;
-  background-color: #f9f9f9;
-}
-.buy-left-con img {
-  width: 31%;
-  height: 120px;
-  vertical-align: top;
-  float: left;
-}
-.buy-left-msg {
-  float: left;
-  margin-left: 30px;
-}
-.buy-left-con table {
-  width: 66%;
-  height: 120px;
-  color: #999;
-  float: right;
-}
-.buy-left-con table h3 {
-  margin: 0px;
-  font-size: 14px;
-  color: #333;
-  padding-bottom: 10px;
-}
-.buy-left-con table td span:nth-child(2) {
-  color: #666666;
-}
-.buy-left-con table tr:first-child span {
-  position: relative;
-  top: -5px;
-}
-.buy-left-con table tr:last-child span {
-  position: relative;
-  top: 5px;
-}
-.buy-left-con table tr:nth-child(2) td{
-  display:table-cell;
-  vertical-align:top;
-}
-.buy-left-con table tr:nth-child(4) td {
-  display:table-cell;
-  vertical-align:bottom;
-}
-.buy-center-con span {
-  display: inline-block;
-  line-height: 162px;
-  color: #000;
-  font-size: 20px;
-}
-.buy-right-con {
-  padding: 29px 0px;
-  position: relative;
-  color: #666666;
-}
-.buy-right-con img {
-  margin: 0 5px 0 20px;
-}
-.buy-right-con .form-group {
-  margin-bottom: 17px;
-}
-.buy-right-con .form-group:last-child {
-  margin-bottom: 0px;
-}
-.buy-right-way {
-  position: absolute;
-  margin-left: -90px;
-  left: 50%;
-}
-.buy-right-way em {
-  color: #999;
-}
-.buy-right-way label {
-  font-weight: normal;
-}
-.buy-right-con .input-group {
-  float: left;
-}
-.msg-line-left,.msg-line-right {
-  float: left;
-}
+
 .student-buy-footer {
   clear: both;
   padding: 0 20px;
-  border-bottom: 1px solid #CCCCCC;
 }
 .student-buy-footer p {
   color: #999999;
@@ -6158,6 +6049,108 @@ ul {
 }
 
 
+.student-buy .goods-msg > p,.student-buy .pay-method > p {
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 0px;
+  border-top: 1px solid rgb(241, 241, 241);
+  border-bottom: 1px solid rgb(241,241,241);
+  background-color: #f9f9f9;
+}
+.student-buy .goods-msg {
+  padding-right: 0px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.student-buy .pay-method {
+  padding-left: 0px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.student-buy .goods-msg > .goods-info {
+  padding: 20px;
+  border-right: 1px solid #F2F2F2;
+}
+.student-buy .goods-msg > .goods-info > .row img {
+  width: 100%;
+}
+.student-buy  .goods-info .info-product > .row > .col-md-6,.student-buy  .goods-info .info-product > .row > .col-md-12 {
+  padding-left: 0px;
+}
+.student-buy  .goods-info .info-product > .row > p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 0px;
+  padding-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.student-buy  .goods-info .info-product > .row {
+  margin-bottom: 12.5px;
+}
+.student-buy  .goods-info .info-product > .row span {
+  color: #666;
+}
+.student-buy  .goods-info .info-product > .row span:first-child {
+  color: #999;
+}
+.student-buy  .goods-info .info-product > .row:last-child {
+  margin-bottom: 0px;
+}
+.student-buy .pay-method > .method-info {
+  padding: 20px;
+}
+.student-buy .pay-method > .method-info label {
+  font-weight: normal;
+  color: #666;
+}
+.student-buy .pay-method > .method-info label > img {
+  margin: 0 5px 0 15px;
+}
+.student-buy .pay-method > .method-info input[type='radio']{
+  position: relative;
+  top: 3px;
+}
+.student-buy .pay-method > .method-info > .row > .col-md-12 {
+  padding-left: 90px;
+}
+.student-buy .pay-method > .method-info > .row {
+  margin-bottom: 18px;
+}
+.student-buy .pay-method > .method-info > .row:last-child {
+  margin-bottom: 0px;
+}
+@media only screen  and (max-width: 1200px) {
+  .student-buy  .goods-info .info-product > .row{
+    margin-bottom: 0px;
+  }
+  .student-buy .pay-method > .method-info > .row  {
+    margin-bottom: 4.5px;
+  }
+}
+@media only screen  and (max-width: 990px) {
+  .student-buy .goods-msg > .goods-info {
+    padding-right: 35px;
+    border-right: 0px;
+  }
+  .student-buy  .goods-info .info-product > .row > p {
+    padding-left: 15px;
+  }
+  .student-buy  .goods-info .info-product > .row > .col-md-6, .student-buy  .goods-info .info-product > .row > .col-md-12 {
+    padding-left: 15px;
+  }
+  .student-buy .pay-method > .method-info > .row > .col-md-12 {
+    padding-left: 35px;
+  }
+  .student-buy .goods-msg > p, .student-buy .pay-method > p {
+    margin-right: 15px;
+  }
+}
+
+
+
 /*支付宝支付*/
 .alipay-con .complete-con-left,.alipay-con .complete-con-right {
   height: auto !important;
@@ -6180,8 +6173,8 @@ ul {
   position: absolute;
 }
 .alipay-con .complete-btn {
-  right: 10px;
-  top: 8px;
+  right: 20px;
+  top: 10px;
 }
 .alipay-con .complete-prompt-center {
   left: 50%;
@@ -6214,6 +6207,9 @@ ul {
 .alipay-con .complete-prompt {
   top: 0px;
   min-height: 100px;
+}
+.alipay-con .alipay {
+  min-height: 70px;
 }
 .apply-tea {
   position: relative;
@@ -6300,11 +6296,15 @@ ul {
   position: relative;
   top: 5px;
 }
+.account .form-group a {
+  color: #ff5842;
+}
 .account .form-group label,.account .form-group .input-group,.account .form-group a {
   float: left;
 }
 .account .has-error {
   clear: both;
+  margin: 0px;
 }
 .account .input-group-btn {
   width: 28%;
@@ -6325,8 +6325,11 @@ ul {
   border: 1px solid #ff5842 !important;
 }
 .prompt-confirm {
+  color: #999;
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 20px 0px 20px;
+  padding: 10px 0px;
+  border-top: 1px solid #F2F2F2;
 }
 .prompt-confirm>span>i {
   color: #ff5842;
@@ -6362,14 +6365,13 @@ ul {
   .alipay-con .complete-btn a {
     margin-top: 0px;
   }
-  .alipay-con .complete-prompt {
-    height: 120px;
-  }
-  .weixin .complete-prompt {
-    height: 60px !important;
+  .alipay-con .weixin.complete-prompt {
+    height: auto !important;
+    min-height: 40px !important;
   }
   .account div.form-group {
     width: 100% !important;
+    height: 80px !important;
     margin: 0px !important;
   }
   .account .form-group .input-group {
@@ -6415,7 +6417,7 @@ ul {
     line-height: 20px;
   }
   .complete-con-right > .row > .col-md-5,.complete-con-right > .row > .col-md-7 {
-    padding: 0px 30px;
+    padding: 0px 35px;
   }
 }
 
@@ -7308,6 +7310,7 @@ ul {
   position: absolute;
   right: 0px;
   z-index: 100;
+  outline: none;
 }
 .preferential-code {
   margin-top: 10px;
@@ -7317,6 +7320,12 @@ ul {
   color: #ff5842;
   line-height: 34px;
   margin-right: 10px;
+}
+.preferential-code .form-group label > img {
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  margin-right: 5px;
 }
 .preferential-code, .preferential-code .form-group label,.preferential-code .form-group .input-group,.preferential-prompt {
   float: left;
@@ -16363,3 +16372,48 @@ abbr {
   }
 }
 
+
+/*帮助:老师使用指引*/
+.guide {
+  padding: 30px;
+}
+.guide > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.guide > ul > li {
+  margin-bottom: 25px;
+}
+.guide > ul > li:last-child {
+  margin-bottom: 0px;
+}
+.guide > ul > li > a {
+  color: #58cff9;
+}
+
+/*老师:账号注册和登录*/
+.contains .student-study > .study-title{
+  height: auto;
+  border-bottom: 0px;
+  padding: 20px 0px;
+  margin: 0 30px;
+}
+.contains .student-study > .study-title .study-nav {
+  padding-top: 0px;
+}
+.accout-box {
+  margin: 0 30px;
+}
+.accout-box > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.accout-box > ul > li > h3 {
+  color: #333;
+  font-size: 16px;
+  margin: 0 0 15px 0;
+}
+.accout-box > ul > li > p {
+  font-size: 14px;
+  color: #666;
+}

@@ -213,7 +213,7 @@ cn:
       pay: 立即支付
       current_price: 价格
       coupon_code_tip: 使用优惠码
-      coupon_code: 使用优惠码（可选）：
+      coupon_code: 使用优惠码（可选）
       coupon_code_input: 输入优惠码
       check_coupon_btn: 验证
       coupon_code_prompt1: (使用优惠码可立减%{price}元)
@@ -227,7 +227,7 @@ cn:
       available_balance_error: 余额不足
       total_money: 应付金额
       pay_type: 支付方式
-      tips: 请核对订单并选择支付方式后再提交支付。
+      tips: 提示：请核对订单并选择支付方式再提交支付。
       product_name: 商品名称
       subject: 科目类型
       grade: 年级类型

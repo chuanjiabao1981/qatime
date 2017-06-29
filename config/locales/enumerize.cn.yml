@@ -8,3 +8,12 @@ cn:
       status:
         stopping: 未使用
         running: 已使用
+    qa_faq:
+      show_type:
+        faq: 常见问题
+        agreement: 用户协议
+        static_page: 静态页面
+      qa_faq_type:
+        common: 通用
+        teacher: 老师
+        student: 学生

@@ -3,7 +3,7 @@ module Permissions
     def initialize(user)
       super(user)
 
-      allow :qa_faqs,[:index,:show,:courses,:student,:teacher, :user_agreements]
+      allow :qa_faqs,[:index,:show,:static_page, :agreements, :agreement]
       allow :sessions, [:destroy]
       allow :home,[:index,:new_index,:switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay]
       allow "waiters/home", [:main]

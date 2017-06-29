@@ -1,7 +1,7 @@
 module Permissions
   class UserPermission < BasePermission
     def initialize(user)
-      allow :qa_faqs,[:index, :show, :courses, :user_agreements]
+      allow :qa_faqs,[:index, :show, :static_page, :agreements, :agreement]
       allow :qa_faqs,[:show] do |faq|
         faq && faq.common?
       end

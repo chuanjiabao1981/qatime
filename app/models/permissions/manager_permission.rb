@@ -2,7 +2,7 @@ module Permissions
   class ManagerPermission < StaffPermission
     def initialize(user)
       super(user)
-      allow :qa_faqs,[:index,:show,:courses,:student,:teacher, :user_agreements]
+      allow :qa_faqs,[:index,:show,:static_page, :agreements, :agreement]
 
       allow "managers/register_codes",[:index,:create,:new]
       allow "managers/lessons",[:state,:update]

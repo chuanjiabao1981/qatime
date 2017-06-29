@@ -6,7 +6,7 @@ module Permissions
       allow :students,[:new,:create]
       allow :teachers,[:new,:create,:profile]
       allow :teaching_videos,[:show]
-      allow :qa_faqs,[:index, :courses, :user_agreements]
+      allow :qa_faqs,[:index, :static_page, :agreements, :agreement]
       allow :qa_faqs,[:show] do |faq|
         faq && faq.common?
       end

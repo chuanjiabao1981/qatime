@@ -44,13 +44,13 @@ Qatime::Application.routes.draw do
 
   resources :qa_faqs do
     collection do
-      get 'courses'
-      get 'teacher'
-      get 'student'
-      get :user_agreements
+      get :agreements
+    end
+    member do
+      get :static_page
+      get :agreement
     end
   end
-
 
   resources :pictures
 

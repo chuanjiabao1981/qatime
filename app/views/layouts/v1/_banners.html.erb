@@ -17,7 +17,7 @@
 
   <ul class="banner-dot carousel-indicators">
     <% @recommend_banners.each_with_index do |banner, index| %>
-      <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>"></li>
+      <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>"><span></span></li>
     <% end if @recommend_banners.count > 1 %>
   </ul>
 </div>

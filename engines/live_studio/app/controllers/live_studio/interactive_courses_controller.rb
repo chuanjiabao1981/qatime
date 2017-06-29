@@ -20,6 +20,7 @@ module LiveStudio
 
     def interactive
       @interactive_course = LiveStudio::InteractiveCourse.find(params[:id])
+      @course = @interactive_course
       render layout: 'v1/live'
     end
 

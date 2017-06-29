@@ -2,7 +2,7 @@
   <div class="video-area video-info" id="player-and-chat">
     <div class="area-left">
       <div class="area-left-con">
-        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" type="video/mp4" data-setup="{}">
+        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="">
           <source src="<%= @video.name_url %>" type="video/mp4">
         </video>
       </div>
@@ -38,8 +38,8 @@
   </div>
 </div>
 
-<%= content_for :javascript do %>
-  <script>
+<% content_for :javascript do %>
+  <script type="text/javascript">
     $(function() {
       var myPlayer = neplayer('my-video', {
         "autoplay": true,
@@ -49,11 +49,11 @@
           'durationDisplay':true,
           'remainingTimeDisplay':false
         }
-      },function  () {
+      },function (){
         // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
         // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
       });
-
+      myPlayer.play();
       // var Component = neplayer.getComponent("Component");
       // var ClarityComponent = neplayer.extend(Component,{
       //     createEl:function(){
@@ -86,6 +86,7 @@
       if(!flashChecker().f) {
         $("#player-and-chat").hide();
         $("#no-flash-area").show(); //提示div
+        myPlayer.pause();
       }
     });
   </script>

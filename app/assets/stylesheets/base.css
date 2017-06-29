@@ -4864,6 +4864,7 @@ ul {
 .register-right-title {
   font-size: 18px;
   color: #333333;
+  margin-bottom: 10px;
 }
 .tea-register-right img {
   width: 250px;
@@ -4873,7 +4874,7 @@ ul {
   margin-right: 15px;
 }
 .register-right-msg {
-  margin-top: 12px;
+  margin-top: 10px;
   color: #CCCCCC;
 }
 @media only screen and (max-width: 990px) {
@@ -5205,8 +5206,8 @@ ul {
 
 /*辅导班流程页面*/
 #login_container iframe{
-  width: 246px;
-  height: 180px;
+  width: 252px;
+  height: 252px;
 }
 .process-list {
   padding-left: 0px;
@@ -16014,6 +16015,33 @@ abbr {
 
 
 /*旁路直播后台观看*/
+.video-area > .area-left > .item {
+  width: 1036px;
+  height: 583px;
+  display: inline-block;
+  border: 1px solid #000;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .area-right-live {
   height: 126px;
   width: 335px;

@@ -381,6 +381,12 @@ module LiveStudio
       end
     end
 
+    after_create do
+      teachers.each do |t|
+        t.increment!(:all_courses_count) if t
+      end
+    end
+
     # 不初始化摄像头推流地址
     def init_camera_channels; end
   end

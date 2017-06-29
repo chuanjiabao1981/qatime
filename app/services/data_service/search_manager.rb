@@ -23,7 +23,7 @@ module DataService
 
     def self.teachers_ransack(params = {})
       params = params.presence || {}
-      ::Teacher.order(created_at: :desc).ransack(params.merge(name_present: '1'))
+      ::Teacher.order(all_courses_count: :desc, created_at: :desc).ransack(params.merge(name_present: '1'))
     end
 
     def self.replays_ransack(params = {})

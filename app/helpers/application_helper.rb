@@ -61,6 +61,24 @@ module ApplicationHelper
     @location_city
   end
 
+  # 登录跳转调整
+  def after_sign_in_path
+    return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
+
+    case current_user.role
+    when "admin"
+      main_app.admins_course_intros_path
+    when "manager"
+      main_app.station_workstation_home_index_path(current_user.default_workstation)
+    when "waiter"
+      main_app.station_workstation_home_index_path(current_user.workstation_id)
+    when "seller"
+      main_app.station_workstation_home_index_path(current_user.workstation_id)
+    else
+      main_app.home_path
+    end
+  end
+
   def user_home_path
     return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 

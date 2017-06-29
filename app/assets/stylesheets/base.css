@@ -16102,6 +16102,13 @@ abbr {
   margin-left: -190px;
   margin-top: -51px;
 }
+.video-area .area-member .item canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  transform: translate(-50%, -50%);
+}
 .video-area .area-right .prompt-item {
   position: absolute;
   top: 50%;
@@ -16167,6 +16174,13 @@ abbr {
   overflow: hidden;
   box-sizing: border-box;
   color: #fff;
+}
+.video-area .area-right-live .item canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  transform: translate(-50%, -50%);
 }
 .area-right-live > .live-left-box {
   float: left;

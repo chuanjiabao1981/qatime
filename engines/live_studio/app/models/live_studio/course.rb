@@ -572,6 +572,10 @@ module LiveStudio
       ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
+    after_create do
+      teacher.increment!(:all_courses_count) if teacher
+    end
+
     def lower_price
       lp = 0
       lp = lessons.size * 5 if lessons.size > 0

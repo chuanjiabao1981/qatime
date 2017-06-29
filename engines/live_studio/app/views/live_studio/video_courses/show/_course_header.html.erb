@@ -25,7 +25,7 @@
         </div>
 
         <div class="course-price">
-          <% if @course.off_shelve? %>
+          <% if @course.off_shelve? && !@course.bought_by?(current_user) %>
             <%= link_to t('view.course_info_show.shelves'), 'javascript:void(0);', class: 'btn-shelves' %>
           <% else %>
             <% if @course.sell_type.free? %>

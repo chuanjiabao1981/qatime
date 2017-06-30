@@ -8,7 +8,7 @@
     <% end unless @transaction.is_a? Payment::Recharge %>
   </div>
 
-  <div class="complete-btn">
-    <%= link_to t("view.payment_show.confirm"), @transaction.remote_order.payment_url, target: "_blank" %>
+  <div class="complete-btn btn-alipay">
+    <%= link_to t("view.payment_show.confirm_to_alipay"), @transaction.remote_order.payment_url, target: "_blank" %>
   </div>
 </div>

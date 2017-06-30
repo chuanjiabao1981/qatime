@@ -5681,6 +5681,9 @@ ul {
 .tea-right-send input {
   margin-top: 25px;
 }
+.btn-alipay a {
+  width: 160px;
+}
 .complete-btn a {
   display: inline-block;
   float: none;
@@ -8869,8 +8872,8 @@ ul {
   display: block;
 }
 .item-recommend li a img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 .item-recommend li a p span {
@@ -9263,12 +9266,15 @@ ul {
 }
 @media only screen and (max-width: 992px) {
   .header .navbar-form > .search-input input[type="text"] {
-    width: 70px;
+    width: 110px;
+  }
+  .header .navbar-form {
+    margin-left: 30px;
   }
 }
 @media only screen and (max-width: 900px) {
   .header .navbar-form {
-    display: none;
+    display: none !important;
   }
 }
 @media only screen  and (max-width: 768px) {
@@ -12811,7 +12817,7 @@ ul {
 .nav-side > .side-title > h3 {
   margin: 0px;
   line-height: 78px;
-  font-size: 18px;
+  font-size: 20px;
   color: #34495e;
 }
 .nav-side > .side-list {
@@ -16408,6 +16414,12 @@ abbr {
   padding-left: 0px;
   margin-bottom: 0px;
 }
+.accout-box > ul > li {
+  margin-bottom: 20px;
+}
+.accout-box > ul > li:last-child {
+  margin-bottom: 0px;
+}
 .accout-box > ul > li > h3 {
   color: #333;
   font-size: 16px;
@@ -16416,4 +16428,9 @@ abbr {
 .accout-box > ul > li > p {
   font-size: 14px;
   color: #666;
+  line-height: 22px;
+}
+.accout-box > ul > li > img {
+  width: 100%;
+  border: 1px solid #cdcdcd;
 }

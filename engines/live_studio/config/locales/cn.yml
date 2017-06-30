@@ -205,11 +205,15 @@ cn:
       weixin_tips2: 扫描二维码支付
       alipay_confirm: 提示：核对信息后再点击确认访问支付宝支付页面进行支付
       confirm: 确定
+      confirm_to_alipay: 前往支付宝支付
       order: 订单支付
       payment_password: 支付密码
       placeholder: 请在此输入支付密码（6位纯数字）
       confirm_pay: 确认支付
       password_back: 找回支付密码
+      modal_tip: 提示
+      modal_content: 设置或更改后将在2小时内不能使用支付密码，是否继续?
+      modal_continue: 继续
     course_order_new:
       pay: 立即支付
       current_price: 价格

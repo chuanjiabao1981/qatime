@@ -4,20 +4,20 @@
       <div class="row">
         <div class="video-area">
           <div class="area-left area-member">
-            <div class="item" id="board-area">
+            <div class="item" id="teacher-board-area">
             </div>
           </div>
 
           <div class="area-right bypass-live">
             <div class="area-right-live">
-              <div class="item live-left-box">
+              <div class="item live-left-box" id="teacher-camera-area">
                 <span class="tip">
                   <i></i>
                   <i></i>
                   <i></i>
                 </span>
               </div>
-              <div class="item live-right-box">
+              <div class="item live-right-box" id="student-camera-area">
                 <span class="tip">
                   <i></i>
                   <i></i>
@@ -25,14 +25,12 @@
                 </span>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="course-con">
   <div class="container">
@@ -53,10 +51,11 @@ $(function() {
     role: "<%= current_user.role %>"
   };
   var appKey = "<%= Chat::IM.app_key %>";
-  var channelName = "60366056";
+  var channelName = "60733953";
   
   var bridge = new NetcallBridge({ user: user, appKey: appKey, channelName: channelName });
   bridge.connect(function() {
+    console.log('xxxxxx');
     bridge.init();
   });
 });

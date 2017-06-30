@@ -35,6 +35,7 @@
 //= require jquery.jedate
 //= require weixin-audio
 //= require v1/home
+//= require live_studio/chat_nim
 //= require live_studio/netcall
 //= require live_studio/netcall_ui
 //= require live_studio/netcall_meeting

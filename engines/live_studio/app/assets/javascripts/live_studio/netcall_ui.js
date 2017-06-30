@@ -32,12 +32,58 @@ NetcallBridge.fn.checkPlatform = function (done, failure) {
  * 切换到白板互动
  */
 NetcallBridge.fn.switchToBoard = function () {
-
+  var obj = this.teacherObj;
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: 164, height: 122 });
+  // 白板互动时视频画面切换到摄像头位置
+  obj.node = document.getElementById('teacher-camera-area');
+  this.showBoardTips();
+  this.playVideo(this.teacherObj);
 }
 
 /*
  * 切换到桌面互动
  */
 NetcallBridge.fn.switchToDesktop = function () {
+  var obj = this.teacherObj;
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: 1036, height: 583 });
+  // 桌面互动时视频画面切换到白板位置
+  obj.node = document.getElementById('teacher-board-area');
+  this.showDesktopTips();
+  this.playVideo(obj);
+}
+
+/*
+ * 显示学生画面
+ */
+NetcallBridge.fn.showStudent = function (obj) {
+  obj.node = document.getElementById('student-camera-area');
+  this.netcall.setVideoViewRemoteSize({ width: 164, height: 122 });
+  this.playVideo(obj);
+}
+
+/*
+ * 视频播放开始
+ */
+NetcallBridge.fn.playVideo = function (obj) {
+  var that = this;
+  that.netcall.startDevice({
+    type: Netcall.DEVICE_TYPE_AUDIO_OUT_CHAT
+  }).catch(function () {
+    that.log('播放对方的声音失败')
+  });
+  this.netcall.startRemoteStream(obj);
+}
+
+/*
+ * 白板互动提示
+ */
+NetcallBridge.fn.showBoardTips = function () {
+
+}
+
+/*
+ * 屏幕共享提示
+ */
+NetcallBridge.fn.showDesktopTips = function () {
 
 }

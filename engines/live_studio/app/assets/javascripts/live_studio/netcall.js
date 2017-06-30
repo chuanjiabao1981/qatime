@@ -7,13 +7,15 @@ function NetcallBridge (config) {
   this.channelName = config.channelName;
   this.user = config.user;
   this.appKey = config.appKey;
-  this.currentType = config.currentType;
+  // this.currentType = config.currentType;
+  this.currentType = 'board';
+  this.chatNim = config.chatNim;
 }
 
 NetcallBridge.fn = NetcallBridge.prototype;
 NetcallBridge.fn.init = function () {
   this.initNetcall();
-  this.initNetcallMeeting();
+  this.fetchPlayStatus();
 }
 
 /*
@@ -22,6 +24,7 @@ NetcallBridge.fn.init = function () {
 NetcallBridge.fn.initNetcall = function () {
   var that = this;
   NIM.use(Netcall);
+
   var netcall = this.netcall = Netcall.getInstance({
     nim: window.nim,
     mirror: false,
@@ -56,21 +59,37 @@ NetcallBridge.fn.initNetcallMeeting = function () {
  */
 NetcallBridge.fn.connect = function (cb) {
   var that = this;
-  window.nim = NIM.getInstance({
-    // debug: true,
+  this.chatNim = new ChatNim({
     appKey: that.appKey,
     account: that.user.account,
     token: that.user.token,
-    onconnect: function() {
-      cb();
-    },
-    onwillreconnect: function() {
-    },
-    ondisconnect:  function() {
-    },
-    onerror: function(err) {
-      console.log('连接失败');
-      console.log(err);
+    teamID: that.channelName,
+    cb: cb
+  });
+  // 自定义消息订阅
+  this.chatNim.subscribe('custom', that.onCustomMsg);
+};
+
+// 自定义消息处理
+NetcallBridge.fn.onCustomMsg = function (msg) {
+  console.log(msg);
+  if (msg.data) {
+    this.initNetcallMeeting();
+  }
+}
+
+// 查询互动状态
+NetcallBridge.fn.fetchPlayStatus = function () {
+  var that = this;
+
+  this.chatNim.nim.sendCustomMsg({
+    scene: 'team',
+    to: that.channelName,
+    content: JSON.stringify({event: 'FetchPlayStatus'}),
+    text: JSON.stringify({event: 'FetchPlayStatus'}),
+    done: function () {
+      console.log('正在查询直播状态');
     }
   });
 };
+

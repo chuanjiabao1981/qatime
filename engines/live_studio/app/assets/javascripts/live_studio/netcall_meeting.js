@@ -26,17 +26,38 @@ NetcallBridge.fn.joinChannel = function () {
 };
 
 NetcallBridge.fn.onJoinChannel = function (obj) {
-  if (obj.role == 'teacher') { // 主播
-
-  } else if (obj.role == 'member') { // 参与者
-
+  if (this.isTeacher(obj.account)) { // 主播
+    this.teacherJoin(obj);
+  } else if (this.isMember(obj.account)) { // 参与者
+    this.memberJoin(obj);
   }
-  console.log('开始播放', obj);
-  obj.node = document.getElementById('board-area');
-  this.netcall.setVideoViewRemoteSize({ width: 640, height: 480 });
-  this.netcall.startRemoteStream(obj);
+};
+
+// 显示主播画面
+NetcallBridge.fn.teacherJoin = function (obj) {
+  this.teacherObj = obj;
+  if (this.currentType == 'board') {
+    this.switchToBoard();
+  } else {
+    this.switchToDesktop();
+  }
+};
+
+// 显示参与者画面
+NetcallBridge.fn.memberJoin = function (obj) {
+  this.showStudent(obj);
 };
 
 NetcallBridge.fn.onLeaveChannel = function (obj) {
 
 };
+
+// 判断是否主播
+NetcallBridge.fn.isTeacher = function (account) {
+  return true;
+}
+
+// 判断是否参与者
+NetcallBridge.fn.isMember = function (account) {
+  return true;
+}

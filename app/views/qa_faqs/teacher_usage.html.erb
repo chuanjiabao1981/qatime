@@ -1,0 +1,16 @@
+<div class="contains">
+  <div class="contains-title">
+    <%= link_to QaFaq.show_type.teacher_usage.text, teacher_usages_qa_faqs_path, class: 'agreement-link' %>
+    <i class="fa fa-angle-right"></i>
+    <h3>
+      <%= @qa_faq.title %>
+      <% if allow? :qa_faqs, :edit %>
+        <%= link_to edit_qa_faq_path(@qa_faq) do %>
+          <button type="button" class="btn btn-xs btn-success"><%= t('common.editor_toolbar_edit') %></button>
+        <% end %>
+      <% end %>
+    </h3>
+  </div>
+
+  <%= raw @qa_faq.content %>
+</div>

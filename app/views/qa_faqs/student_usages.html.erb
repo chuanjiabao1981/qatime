@@ -1,0 +1,15 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= QaFaq.show_type.student_usage.text %></h3>
+  </div>
+
+  <div class="guide">
+    <ul>
+      <% @qa_faqs.each_with_index do |faq, index| %>
+        <li>
+          <%= link_to faq.title, student_usage_qa_faq_path(faq) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

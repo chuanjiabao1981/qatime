@@ -1,5 +1,6 @@
 class QaFaqsController < ApplicationController
   respond_to :html
+  before_action :find_faq, only: [:edit, :update, :static_page, :agreement, :teacher_usage, :student_usage]
 
   def index
     @qa_faqs = QaFaq.faq.order(:created_at)
@@ -19,6 +20,10 @@ class QaFaqsController < ApplicationController
     case @qa_faq.show_type
     when 'agreement'
       redirect_to action: :agreement, id: @qa_faq
+    when 'teacher_usage'
+      redirect_to action: :teacher_usage, id: @qa_faq
+    when 'student_usage'
+      redirect_to action: :student_usage, id: @qa_faq
     when 'static_page'
       redirect_to action: :static_page, id: @qa_faq
     else
@@ -31,16 +36,18 @@ class QaFaqsController < ApplicationController
   end
 
   def edit
-    @qa_faq = QaFaq.find(params[:id])
   end
 
   def update
-    @qa_faq = QaFaq.find(params[:id])
     @qa_faq.update_attributes(params[:qa_faq].permit!)
 
     case @qa_faq.show_type
     when 'agreement'
       redirect_to action: :agreement, id: @qa_faq
+    when 'teacher_usage'
+      redirect_to action: :teacher_usage, id: @qa_faq
+    when 'student_usage'
+      redirect_to action: :student_usage, id: @qa_faq
     when 'static_page'
       redirect_to action: :static_page, id: @qa_faq
     else
@@ -49,7 +56,24 @@ class QaFaqsController < ApplicationController
   end
 
   def static_page
-    @qa_faq = QaFaq.find(params[:id])
+    render layout: 'v1/qa_faq'
+  end
+
+  def teacher_usages
+    @qa_faqs = QaFaq.teacher_usage.order(:position)
+    render layout: 'v1/qa_faq'
+  end
+
+  def teacher_usage
+    render layout: 'v1/qa_faq'
+  end
+
+  def student_usages
+    @qa_faqs = QaFaq.student_usage.order(:position)
+    render layout: 'v1/qa_faq'
+  end
+
+  def student_usage
     render layout: 'v1/qa_faq'
   end
 
@@ -59,11 +83,14 @@ class QaFaqsController < ApplicationController
   end
 
   def agreement
-    @qa_faq = QaFaq.find(params[:id])
     render layout: 'v1/qa_faq'
   end
 
   private
+
+  def find_faq
+    @qa_faq = QaFaq.find(params[:id])
+  end
 
   def current_resource
     @qa_faq = QaFaq.find(params[:id]) if params[:id]

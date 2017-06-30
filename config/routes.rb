@@ -45,10 +45,14 @@ Qatime::Application.routes.draw do
   resources :qa_faqs do
     collection do
       get :agreements
+      get :teacher_usages
+      get :student_usages
     end
     member do
       get :static_page
       get :agreement
+      get :teacher_usage
+      get :student_usage
     end
   end
 

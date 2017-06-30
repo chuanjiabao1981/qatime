@@ -5432,9 +5432,8 @@ ul {
 }
 .study-nav a {
   display: inline-block;
-  width: 100px;
-  height: 14px;
-  color: #00a2ee;
+  padding: 0 10px;
+  color: #ff5842;
   line-height: 14px;
   border-right: 1px solid rgb(73,73,73);
 }
@@ -5443,80 +5442,6 @@ ul {
 }
 .study-search {
   padding-left: 10px;
-}
-.study-search-title {
-  margin: 15px 0px;
-  font-size: 16px;
-  color: #000000;
-}
-.study-search-msg {
-  padding: 0 15px 0 5px;
-  color: #666666;
-}
-.study-search-msg p {
-  padding-bottom: 10px;
-  margin-bottom: 0px;
-}
-.study-search-list p {
-  padding-bottom: 5px;
-}
-.study-search-msg img {
-  width: 100%;
-}
-.study-search-img {
-  padding-top: 25px;
-}
-.study-search-btn img {
-  width: 89px;
-  height: 29px;
-}
-.study-search-new img {
-  width: 440px;
-  height: 458px;
-}
-.search-new-msg {
-  overflow: hidden;
-}
-.search-nolive {
-  width: 336px;
-  float: left;
-  margin-left: 47px;
-}
-.search-nolive img {
-  width: 336px;
-  height: 249px;
-}
-.search-nocaream {
-  width: 360px;
-  float: left;
-  margin-top: 51px;
-  margin-left: 82px;
-}
-.search-nocaream img {
-  width: 360px;
-  height: 197px;
-}
-.search-new-msg span {
-  display: inline-block;
-  margin-top: 20px;
-  color: #666666;
-}
-.student-help {
-  position: fixed;
-  width: 280px;
-  background-color: #FFFFFF
-}
-@media only screen and (max-width: 1000px) {
-  .col-study {
-    padding-right: 0px !important;
-  }
-  .student-help {
-    width: 100%;
-    position: static !important;
-  }
-  .search-nocaream {
-    margin-left: 47px;
-  }
 }
 .teacher-study-msg {
   color: #999999;
@@ -5682,6 +5607,9 @@ ul {
 .tea-right-send input {
   margin-top: 25px;
 }
+.btn-alipay a {
+  width: 160px;
+}
 .complete-btn a {
   display: inline-block;
   float: none;
@@ -5821,6 +5749,7 @@ ul {
 }
 .complete-prompt>.complete-prompt-left>a {
   color: #ff5842;
+  outline: none;
 }
 .prompt-pay {
   display: block;
@@ -8870,8 +8799,8 @@ ul {
   display: block;
 }
 .item-recommend li a img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 .item-recommend li a p span {
@@ -9264,12 +9193,15 @@ ul {
 }
 @media only screen and (max-width: 992px) {
   .header .navbar-form > .search-input input[type="text"] {
-    width: 70px;
+    width: 110px;
+  }
+  .header .navbar-form {
+    margin-left: 30px;
   }
 }
 @media only screen and (max-width: 900px) {
   .header .navbar-form {
-    display: none;
+    display: none !important;
   }
 }
 @media only screen  and (max-width: 768px) {
@@ -12812,7 +12744,7 @@ ul {
 .nav-side > .side-title > h3 {
   margin: 0px;
   line-height: 78px;
-  font-size: 18px;
+  font-size: 20px;
   color: #34495e;
 }
 .nav-side > .side-list {
@@ -12845,19 +12777,7 @@ ul {
   margin-left: -10px;
   margin-top: -25px;
 }
-.contains-discipline > .student-study > .study-title {
-  margin: 0 30px 10px 30px;
-  border-bottom: 0px;
-}
-.contains-discipline > .student-study .study-search-msg {
-  padding: 0px;
-}
-.contains-discipline > .student-study .search-nocaream {
-  margin-left: 55px;
-}
-.contains-discipline > .student-study > .study-search {
-  padding: 0 30px;
-}
+
 
 
 /*下载页面*/
@@ -16373,3 +16293,59 @@ abbr {
   }
 }
 
+
+/*帮助:老师使用指引*/
+.guide {
+  padding: 30px;
+}
+.guide > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.guide > ul > li {
+  margin-bottom: 25px;
+}
+.guide > ul > li:last-child {
+  margin-bottom: 0px;
+}
+.guide > ul > li > a {
+  color: #58cff9;
+}
+
+/*老师:账号注册和登录*/
+.contains .student-study > .study-title{
+  height: auto;
+  border-bottom: 0px;
+  padding: 20px 0px;
+  margin: 0 30px;
+}
+.contains .student-study > .study-title .study-nav {
+  padding-top: 0px;
+}
+.accout-box {
+  margin: 0 30px;
+}
+.accout-box > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.accout-box > ul > li {
+  margin-bottom: 20px;
+}
+.accout-box > ul > li:last-child {
+  margin-bottom: 0px;
+}
+.accout-box > ul > li > h3 {
+  color: #333;
+  font-size: 16px;
+  margin: 0 0 15px 0;
+}
+.accout-box > ul > li > p {
+  font-size: 14px;
+  color: #666;
+  line-height: 22px;
+}
+.accout-box > ul > li > img {
+  width: 100%;
+  border: 1px solid #cdcdcd;
+}

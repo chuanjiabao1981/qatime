@@ -13,6 +13,8 @@ cn:
         faq: 常见问题
         agreement: 用户协议
         static_page: 静态页面
+        teacher_usage: 老师使用指引
+        student_usage: 学生使用指引
       qa_faq_type:
         common: 通用
         teacher: 老师

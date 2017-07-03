@@ -69,6 +69,9 @@ module LiveStudio
           self.published_at = Time.now
           self.taste_count = video_lessons.find_all {|x| x.tastable? }.count
         end
+        after_commit do
+          teacher.increment!(:all_courses_count) if teacher
+        end
         transitions from: :completed, to: :published
       end
 

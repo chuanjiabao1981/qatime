@@ -9,7 +9,9 @@
     <div class="col-md-6 schedule-msg">
       <div class="row">
         <div class="col-md-12 education-title">
-          <p><%= course.name %></p>
+          <p>
+            <%= link_to course.name, live_studio.send("#{course.model_name.singular_route_key}_path", course) %>
+          </p>
         </div>
         <div class="col-md-6 col-sm-4 col-xs-6 education-line">
           <span><%= t('view.live_studio/courses.show.grade') %></i></span>

@@ -63,7 +63,7 @@
         <% @order.class.pay_type.options.each do |item| -%>
           <div class="form-group">  
             <div class="input-group">
-              <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
+              <%= f.radio_button(:pay_type, item.last, checked: (item.last == 'weixin'), class: 'order_pay_type') %>
             </div>
             <span>
               <label for="order_pay_type_<%= item.last %>">

@@ -4,7 +4,7 @@ module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons, :for_free]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
     before_action :detect_device_format, only: [:show]
@@ -85,6 +85,12 @@ module LiveStudio
     def taste
       @course = Course.find(params[:id])
       @taste_ticket = @course.taste(@student)
+    end
+
+    # 免费上课
+    def for_free
+      @course.free_grant(current_user) if current_user.student?
+      redirect_to live_studio.course_path(@course)
     end
 
     def show
@@ -211,7 +217,8 @@ module LiveStudio
 
     def courses_params
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :subject, :price, :invitation_id, :description, :token, :taste_count, :workstation_id, :tag_list, :objective, :suit_crowd, :teacher_percentage, :teacher_id,
+      params.require(:course).permit(:name, :grade, :subject, :price, :invitation_id, :description, :token, :taste_count, :sell_type,
+                                     :workstation_id, :tag_list, :objective, :suit_crowd, :teacher_percentage, :teacher_id,
                                      :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                      lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute, :duration, :_destroy])
     end

@@ -50,7 +50,7 @@ module LiveStudio
     # 返回下一次合并视频ID
     def current_pending_vids!
       pending_vids.unshift(vid) if vid && pending_vids.exclude?(vid)
-      pending_vids.first(3)
+      pending_vids.first(4)
     end
 
     # 异步合并视频片段

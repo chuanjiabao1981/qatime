@@ -132,7 +132,6 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ReplaysSyncWorker.perform_async(id)
         end
         transitions from: [:closed], to: :finished
       end

@@ -13,6 +13,12 @@ module LiveStudio
       refunded: 99 # 已退款
     }
 
+    enum tp: {
+      normal: 0, # 正常购买
+      free: 1, # 免费
+      taste: 2 # 试听
+    }
+
     aasm column: :status, enum: true do
       state :unused, initial: true
       state :used
@@ -46,7 +52,7 @@ module LiveStudio
     belongs_to :ticket
     belongs_to :user
 
-    scope :billingable, -> { where(status: LiveStudio::TicketItem.statuses.slice(:unused, :used).values) }
+    scope :billingable, -> { where(tp: LiveStudio::TicketItem.tps[:normal], status: LiveStudio::TicketItem.statuses.slice(:unused, :used).values) }
 
     private
 

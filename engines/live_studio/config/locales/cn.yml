@@ -473,6 +473,7 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         watchers_count: 观看人数
+        sell_type: 类型
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度

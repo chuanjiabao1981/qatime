@@ -208,7 +208,7 @@ module LiveStudio
       return false unless student.student?
       return false unless sell_type.free?
       check_ticket!(student)
-      ticket = buy_tickets.create(student_id: student.id, lesson_price: lesson_price,
+      ticket = buy_tickets.create(student_id: student.id, lesson_price: 0,
                                   payment_order_id: nil, buy_count: video_lessons_count,
                                   item_targets: video_lessons)
       ticket.active!

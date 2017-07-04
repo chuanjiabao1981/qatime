@@ -91,7 +91,7 @@ module LiveStudio
     # 合并文件名称
     def merging_name(vid_list)
       return name if vid_list.blank?
-      name.replace(/board_replay\w*$/, "board_replay_#{vid_list.split('-')}")
+      name.gsub(/board_replay\w*$/, "board_replay_#{vid_list.split('-')}")
     end
 
     def merged_vids(video_name)

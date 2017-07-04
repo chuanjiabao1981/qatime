@@ -16,22 +16,27 @@ module V1
             optional :nId
           end
           post 'callback' do
-            code = 500
-            if params[:beginTime].present?
-              channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
-              lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
-              lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).find(lesson_id)
-              result = lesson.channel_videos.create(
-                name: params['video_name'],
-                vid: params['vid'],
-                begin_time: params['beginTime'],
-                end_time: params['endTime'],
-                channel_id: channel.id,
-                video_for: channel.use_for) if lesson && lesson.channel_videos.find_by(vid: params['vid']).nil?
-              code = 200 if result
-            else
-              replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
-              code = 200 if replay && replay.merge_callback(params)
+            begin
+              code = 500
+              if params[:beginTime].present?
+                channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
+                lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
+                lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).find(lesson_id)
+                result = lesson.channel_videos.create(
+                  name: params['video_name'],
+                  vid: params['vid'],
+                  begin_time: params['beginTime'],
+                  end_time: params['endTime'],
+                  channel_id: channel.id,
+                  video_for: channel.use_for) if lesson && lesson.channel_videos.find_by(vid: params['vid']).nil?
+                code = 200 if result
+              else
+                replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
+                code = 200 if replay && replay.merge_callback(params)
+              end
+            rescue StandardError => e
+              p e
+              p params
             end
             {
               code: code

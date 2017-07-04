@@ -11211,7 +11211,10 @@ ul {
   font-weight: 500;
 }
 .info-state span:first-child,.info-user span:first-child {
-  margin-right: 20px;
+  margin-right: 10px;
+}
+.info-state > .col-md-4:last-child {
+  padding: 0px;
 }
 .info-user p {
   overflow: hidden;
@@ -11474,8 +11477,9 @@ ul {
   color: #ff5842;
   border-color: #ff5842;
 }
-.watch.active:hover {
-  color: #ff5842;
+.course-state .watch.active:hover {
+  background-color: #ff5842;
+  color: #fff;
 }
 .course-state {
   padding: 0px;
@@ -12675,6 +12679,10 @@ ul {
 }
 .calendar-info .schedule-enter > a.active {
   color: #ff5842;
+}
+.calendar-info .schedule-enter > a.active:hover {
+  background-color: #ff5842;
+  color: #fff;
 }
 @media only screen and (max-width: 1200px) {
   .calendar-info .schedule-msg > .row > .education-line

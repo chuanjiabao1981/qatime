@@ -79,6 +79,11 @@ module ApplicationHelper
     end
   end
 
+  # 退出跳转
+  def after_sign_out_path
+    params[:redirect_url].presence || main_app.home_path
+  end
+
   def user_home_path
     return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 

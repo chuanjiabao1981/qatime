@@ -16,7 +16,7 @@ NetcallBridge.fn = NetcallBridge.prototype;
 NetcallBridge.fn.init = function () {
   this.initNetcall();
   this.fetchPlayStatus();
-}
+};
 
 /*
  * 初始化音视频
@@ -59,23 +59,24 @@ NetcallBridge.fn.initNetcallMeeting = function () {
  */
 NetcallBridge.fn.connect = function (cb) {
   var that = this;
-  this.chatNim = new ChatNim({
-    appKey: that.appKey,
-    account: that.user.account,
-    token: that.user.token,
-    teamID: that.channelName,
-    cb: cb
-  });
+  if (this.chatNim) {
+    cb();
+  } else {
+    this.chatNim = new ChatQatime({
+      appKey: that.appKey,
+      account: that.user.account,
+      token: that.user.token,
+      teamID: that.channelName,
+      cb: cb
+    });
+  }
   // 自定义消息订阅
-  this.chatNim.subscribe('custom', that.onCustomMsg);
+  // this.chatNim.subscribe('custom', that.onCustomMsg);
 };
 
 // 自定义消息处理
 NetcallBridge.fn.onCustomMsg = function (msg) {
   console.log(msg);
-  if (msg.data) {
-    this.initNetcallMeeting();
-  }
 }
 
 // 查询互动状态

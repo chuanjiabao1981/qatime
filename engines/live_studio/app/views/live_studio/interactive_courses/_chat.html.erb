@@ -1,0 +1,78 @@
+<div class="live-message">
+  <div class="message-title">
+    <%= link_to t("view.play.talk"), "javascript:void(0);", class: "active" %>
+    <%= link_to t("view.play.announcement"), "javascript:void(0);" %>
+    <%= link_to t("view.play.members"), "javascript:void(0);" %>
+  </div>
+  <div class="message-content">
+    <div class="message-con active" id="chat">
+      <div class="message-new" id="messages">
+      </div>
+
+      <div class="information-face">
+        <%= image_tag 'face-2.png', id: "emotion-btn" %>
+        <%= image_tag 'face-1.png', id: "clear-btn" %>
+        <%= link_to t("view.play.chat_history"), "javascript: void(0);", id: "history-btn",
+                    "data-toggle" => "modal", "data-target" => "#history-modal", style: "float: right;" %>
+      </div>
+
+
+      <div class="information-send">
+        <%= form_tag '', id: 'message-form', remote: true do -%>
+        <div class="send-msg">
+          <%= text_area_tag "message-area" %>
+          <%= submit_tag t("view.play.send_msg") %>
+        </div>
+        <% end -%>
+      </div>
+    </div>
+
+    <div class="message-con" id="announcements">
+      <div class="message-new affiche" id="notice-panel">
+      </div>
+    </div>
+
+    <div class="message-con" id="members">
+      <div class="message-new affiche" id="members-panel">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= content_for :mask do %>
+  <div id="histories" class="message-logging">
+    <div class="logging-title">
+      <div class="logging-left">
+        <span><%= t("common.message_history") %></span>
+      </div>
+      <div class="logging-center">
+        <span class="glyphicon glyphicon-chevron-left subtract-jedate"></span>
+        <input type="text" class="workinput wicon mr25" id="inpstart" />
+        <span class="glyphicon glyphicon-chevron-right add-jedate"></span>
+        <label for="inpstart" class="glyphicon glyphicon-calendar date-icon"></label>
+      </div>
+
+      <div class="logging-right">
+        <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
+      </div>
+    </div>
+    <div class="history-content">
+      <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
+      <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
+
+      <div class="message-con active" id="messages-group">
+      </div>
+    </div>
+  </div>
+
+  <div class="outerdiv">
+    <div class="innerdiv">
+      <div class="accept-down"></div>
+      <img class="bigimg" src="" >
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :javascript do %>
+<% end %>

@@ -25,6 +25,10 @@
                 </span>
               </div>
             </div>
+
+            <div class="area-right chat-view">
+              <%= render 'chat' %>
+            </div>
           </div>
         </div>
       </div>
@@ -51,13 +55,18 @@ $(function() {
     role: "<%= current_user.role %>"
   };
   var appKey = "<%= Chat::IM.app_key %>";
-  var channelName = "60733953";
-  
-  var bridge = new NetcallBridge({ user: user, appKey: appKey, channelName: channelName });
-  bridge.connect(function() {
-    console.log('xxxxxx');
-    bridge.init();
-  });
+  var channelName = "41827835";
+
+  var bridge;
+  var chatUI;
+  var chatNim = new ChatQatime({ appKey: appKey, account: user.account, token: user.token, teamID: channelName, done: function () {
+    console.log(123);
+    chatUI = new ChatQatimeUI(chatNim, {});
+    bridge = new NetcallBridge({ user: user, appKey: appKey, channelName: channelName, chatNim: chatNim });
+    bridge.connect(function() {
+      bridge.init();
+    });
+  }});
 });
 </script>
 <% end %>

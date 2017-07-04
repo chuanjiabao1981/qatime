@@ -35,8 +35,8 @@ module V1
                 code = 200 if replay && replay.merge_callback(params)
               end
             rescue StandardError => e
-              p e
-              p params
+              Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
+              Rails.logger.info params
             end
             {
               code: code

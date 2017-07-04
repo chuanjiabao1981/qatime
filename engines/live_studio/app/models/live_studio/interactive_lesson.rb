@@ -347,20 +347,6 @@ module LiveStudio
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
     end
 
-    # 合并视频
-    def merge_replays
-      # 摄像头视频合并
-      # replays.create(video_for: ChannelVideo.video_fors['camera'],
-      #                name: camera_replay_name,
-      #                vids: camera_video_vids,
-      #                channel: course.channels.find_by(use_for: Channel.use_fors['camera']))
-      # 白板视频合并
-      replays.create(video_for: ChannelVideo.video_fors['board'],
-                     name: board_replay_name,
-                     vids: board_video_vids,
-                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
-    end
-
     def replay_name(video_for)
       "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
     end

@@ -6,6 +6,9 @@
         <%=link_to new_admins_software_path do %>
           <button type="button" class="btn btn-xs btn-success">新增</button>
         <% end %>
+        <%=link_to admins_software_categories_path do %>
+          <button type="button" class="btn btn-xs btn-success">分类管理</button>
+        <% end if allow? 'admins/software_categories', :index %>
       </h2>
     </div>
 

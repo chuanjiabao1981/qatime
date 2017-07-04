@@ -1,0 +1,42 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= link_to @software_category.class.model_name.human, admins_software_categories_path %> &gt; <%= @software_category.title %></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:title) %>
+    <br/>
+    <%= @software_category.title %> <%= link_to 'edit', edit_admins_software_category_path(@software_category)%>
+  </div>
+
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:sub_title) %>
+    <br/><%= @software_category.sub_title %>
+  </div>
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:logo) %>
+    <br/><%= image_tag @software_category.logo_url %>
+  </div>
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:platform) %>
+    <br/><%= @software_category.platform_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:category) %>
+    <br/><%= @software_category.category_text %>
+  </div>
+
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:desc) %>
+    <br/><%= @software_category.desc %>
+  </div>
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:download_description) %>
+    <br/><%= @software_category.download_description %>
+  </div>
+
+  <div class="qa_big_cell">
+    <%= SoftwareCategory.human_attribute_name(:role) %>
+    <br/><%= @software_category.role %>
+  </div>
+
+</div>

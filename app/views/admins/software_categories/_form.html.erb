@@ -1,0 +1,19 @@
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= SoftwareCategory.model_name.human %></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins, @software_category] do |f|%>
+      <%= f.input :logo, as: :file %>
+      <%= f.input :title %>
+      <%= f.input :sub_title %>
+      <%= f.input :desc %>
+      <%= f.input :platform %>
+      <%= f.input :role %>
+      <%= f.input :category %>
+      <%= f.input :download_description %>
+      <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

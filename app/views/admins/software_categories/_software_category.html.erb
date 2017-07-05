@@ -1,0 +1,23 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= software_category_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to software_category.title, admins_software_category_path(software_category) %>
+  </div>
+  <div class="col-md-1">
+    <%= software_category.platform_text %>
+  </div>
+  <div class="col-md-2">
+    <%= software_category.role_text %>
+  </div>
+  <div class="col-md-1">
+    <%= software_category.category_text %>
+  </div>
+  <div class="col-md-1">
+    <%= software_category.position %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to t('common.editor_toolbar_edit'), edit_admins_software_category_path(software_category) %>
+  </div>
+</div>

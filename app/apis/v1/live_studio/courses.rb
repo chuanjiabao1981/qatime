@@ -274,6 +274,22 @@ module V1
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
           end
 
+          desc '新直播课详情' do
+            headers 'Remember-Token' => {
+                        description: 'RememberToken',
+                        required: false
+                    }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/detail' do
+            course = ::LiveStudio::Course.find(params[:id])
+            ticket = course.tickets.available.find_by(student: current_user) if current_user
+            present course, root: :course, with: Entities::LiveStudio::CourseDetail
+            present ticket, root: :ticket, with: Entities::LiveStudio::CourseTicket, type: :full
+          end
+
           desc '辅导班排行'
           params do
             requires :names, type: String, desc: '排行名称多个获逗号分隔 published_rank: 最新发布; start_rank: 最近开课;'

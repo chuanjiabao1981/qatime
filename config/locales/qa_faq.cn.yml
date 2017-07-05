@@ -7,6 +7,8 @@ cn:
         title: 问题
         content: 内容
         qa_faq_type: 类型
+        show_type: 展现形式
+        position: 位置排序
         qa_faq_type_enum:
           common: 通用
           student: 学生

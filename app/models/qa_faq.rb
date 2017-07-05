@@ -1,6 +1,12 @@
 class QaFaq < ActiveRecord::Base
-  enum qa_faq_type: { common: 0, student: 1, teacher: 2 }
   include QaToken
+  extend Enumerize
+
+  enum qa_faq_type: { common: 0, student: 1, teacher: 2 }
+  enumerize :qa_faq_type, in: { common: 0, student: 1, teacher: 2 }
+
+  enum show_type: { faq: 0, static_page: 1, agreement: 2, teacher_usage: 3, student_usage: 4 }
+  enumerize :show_type, in: { faq: 0, static_page: 1, agreement: 2, teacher_usage: 3, student_usage: 4 }
 
   scope :common_teacher, -> { where(qa_faq_type: [qa_faq_types[:common], qa_faq_types[:teacher]]) }
   scope :common_student, -> { where(qa_faq_type: [qa_faq_types[:common], qa_faq_types[:student]]) }

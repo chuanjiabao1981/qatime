@@ -61,6 +61,10 @@
     <%= Software.human_attribute_name(:logo) %>
     <br/><%= image_tag @software.logo_url %>
   </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:position) %>
+    <br/><%= @software.position %>
+  </div>
   <%= content_tag :div, class: 'qa_big_cell' do %>
     <%= Software.human_attribute_name(:qr_code) %>
     <br/>

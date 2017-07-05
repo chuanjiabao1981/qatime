@@ -31,6 +31,7 @@ getToolbar = ->
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['insert', ['qa_image']],
+      ['Misc', ['codeview']]
     ]
 
 $(document).ready ->

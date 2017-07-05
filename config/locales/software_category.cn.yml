@@ -1,0 +1,16 @@
+cn:
+  activerecord:
+    models:
+      software_category: 软件分类
+    attributes:
+      software_category:
+        title: 名称
+        logo: 图标
+        sub_title: 软件说明
+        platform: 平台
+        category: 分类
+        desc: 软件介绍
+        role: 下载用户
+        description: 更新说明
+        download_description: 下载描述
+        position: 排序

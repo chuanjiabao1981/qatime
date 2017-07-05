@@ -12,7 +12,6 @@ module Permissions
         picture and picture.author and picture.author_id == user.id
       end
       allow :messages, [:index, :show]
-      allow :qa_faqs,[:teacher]
       allow :qa_faqs,[:show] do |faq|
         faq && !faq.student?
       end

@@ -219,8 +219,11 @@ module LiveStudio
     end
 
     # 试听数量 超过剩余课程数 溢出限制
+    # 2. 收费课时数=总课时数-试听最大数
+    # 3. 剩余课时数≤收费课时数时不能加入试听
     def taste_overflow?
-      (lessons_count.to_i - closed_lessons_count.to_i) <= taste_count.to_i
+      charge_lessons_count = lessons_count.to_i - taste_count.to_i
+      (lessons_count.to_i - closed_lessons_count.to_i) <= charge_lessons_count
     end
 
     def live_next_time

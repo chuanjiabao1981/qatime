@@ -132,7 +132,7 @@ module LiveService
     end
 
     def self.courses_for_teacher_index(user, params)
-      @courses = user.live_studio_courses
+      @courses = user.live_studio_courses.published_start
       if params[:status] == 'today'
         # 根据分类过滤辅导班
         # status: today今日上课辅导班

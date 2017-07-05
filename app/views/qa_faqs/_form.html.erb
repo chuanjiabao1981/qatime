@@ -1,14 +1,10 @@
 <div class="qa_box">
-    <div class="qa_big_cell">
-      <%= simple_form_for @qa_faq do |f|%>
-          <%= f.input :qa_faq_type,
-                      collection:
-                              QaFaq.qa_faq_types.inject({}) {
-                                      |f,(k,v)| f.merge(t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{k}")=>k)
-                              },
-                      include_blank: false
-          %>
-          <%= render partial: "shared/qa_objects/form",locals: {f: f} %>
-      <% end %>
-    </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for @qa_faq do |f| %>
+      <%= f.input :show_type, collection: QaFaq.show_type.options, include_blank: false %>
+      <%= f.input :position %>
+      <%= f.input :qa_faq_type, collection: QaFaq.qa_faq_type.options, include_blank: false %>
+      <%= render partial: "shared/qa_objects/form",locals: {f: f} %>
+    <% end %>
+  </div>
 </div>

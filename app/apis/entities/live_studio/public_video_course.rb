@@ -19,6 +19,7 @@ module Entities
       expose :off_shelve do |course|
         course.off_shelve?
       end
+      expose :sell_type
     end
   end
 end

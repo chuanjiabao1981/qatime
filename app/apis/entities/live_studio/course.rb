@@ -84,6 +84,7 @@ module Entities
       expose :taste_overflow do |course|
         course.taste_overflow?
       end
+      expose :sell_type
     end
   end
 end

@@ -5,18 +5,68 @@
 
 (function(e) {
   var chatNim;
+
+
+  function ChatHandler (chatNim) {
+    this.chatNim = chatNim;
+  }
+  ChatHandler.fn = ChatHandler.prototype;
+
+  // 链接完成回调
+  ChatHandler.fn.onConnect = function () {
+    this.chatNim.done();
+  };
+
+  // 收到消息
+  ChatHandler.fn.onMsg = function () {
+    // 非本群组消息不处理
+    if (!validMsg(msg)) return false;
+    // 消息分发
+    this.chatNim.publish('chat', msg);
+  }
+
+  // 离线消息
+  ChatHandler.fn.onOfflineMsgs = function (obj) {
+    // 不是本群组离线消息
+    if (!validMsg(obj)) return false;
+    $.each(obj.msgs, function(index, msg) {
+      this.chatNim.publish('offline', msg.type, msg);
+    });
+  };
+
+  // 漫游消息
+  ChatHandler.fn.onRoamingMsgs = function (obj) {
+    // 不是本群组离线消息
+    if (!validMsg(obj)) return false;
+    $.each(obj.msgs, function(index, msg) {
+      this.chatNim.publish('offline', msg.type, msg);
+    });
+  };
+
+  // 历史消息
+  ChatHandler.fn.onHistoryMsgs = function (obj) {
+    // 不是本群组离线消息
+    if (!validMsg(obj)) return false;
+    $.each(obj.msgs, function(index, msg) {
+      this.chatNim.publish('offline', msg.type, msg);
+    });
+  };
+
   function ChatQatime (config) {
-    this.appKey = config.appKey;
+    this.appKey = qatimeConfig.chat.appKey;
     this.account = config.account;
     this.token = config.token;
     this.teamID = config.teamID;
     this.subscribers = {};
-    this.init(config.done);
+    this.done = config.done;
+    this.handlers = new ChatHandler(this);
+    this.init();
   }
   window.ChatQatime = ChatQatime;
   ChatQatime.fn = ChatQatime.prototype;
 
-  ChatQatime.fn.init = function (cb) {
+  ChatQatime.fn.init = function () {
+    var that = this;
     chatNim = window.chatNim = this;
     window.nim = chatNim.nim = NIM.getInstance({
       // debug: true,
@@ -25,42 +75,23 @@
       token: chatNim.token,
       db: false,
       autoMarkRead: false, // 取消自动标记已读
-      onconnect: cb,
-      onwillreconnect: chatNim.onWillReconnect,
-      ondisconnect: chatNim.onDisconnect,
-      onerror: chatNim.onError,
-      onteams: chatNim.onTeams,
-      onsynccreateteam: chatNim.onCreateTeam,
-      onteammembers: chatNim.onTeamMembers,
-      onsyncteammembersdone: chatNim.onSyncTeamMembersDone,
-      onupdateteammember: chatNim.onUpdateTeamMember,
+      onconnect: this.handlers.onConnect,
+      onwillreconnect: this.handlers.onWillReconnect,
+      ondisconnect: this.handlers.onDisconnect,
+      onerror: function(error) {
+        console.log(error);
+      },
+      onteams: this.handlers.onTeams,
+      onsynccreateteam: this.handlers.onCreateTeam,
+      onteammembers: this.handlers.onTeamMembers,
+      onsyncteammembersdone: this.handlers.onSyncTeamMembersDone,
+      onupdateteammember: this.handlers.onUpdateTeamMember,
       // 消息
-      onroamingmsgs: chatNim.onRoamingMsgs,
-      onofflinemsgs: chatNim.onOfflineMsgs,
-      onmsg: chatNim.onMsg
+      onroamingmsgs: this.handlers.onRoamingMsgs,
+      onofflinemsgs: this.handlers.onOfflineMsgs,
+      onmsg: this.handlers.onMsg
     });
   };
-
-  // 聊天消息处理
-  ChatQatime.fn.onMsg = function (msg) {
-    // 非本群组消息不处理
-    if (!validMsg(msg)) return false;
-    // 消息分发
-    chatNim.publish('chat', msg);
-  };
-
-  // 离线消息
-  ChatQatime.fn.onOfflineMsgs = function (obj) {
-    // 不是本群组离线消息
-    if (!validMsg(obj)) return false;
-    $.each(obj.msgs, function(index, msg) {
-      chatNim.publish('offline', msg.type, msg);
-    });
-  };
-
-  // 漫游消息
-
-  // 历史消息
 
   // 是否本群组消息
   function validMsg (obj) {

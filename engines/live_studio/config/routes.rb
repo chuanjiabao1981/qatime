@@ -123,7 +123,11 @@ LiveStudio::Engine.routes.draw do
           patch :cancel
         end
       end
-      resources :interactive_courses, only: [:index]
+      resources :interactive_courses, only: [:index] do
+        member do
+          get :play
+        end
+      end
       resources :video_courses, only: [:index, :edit, :update] do
         collection do
           get :my_publish

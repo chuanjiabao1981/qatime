@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <%= stylesheet_link_tag "manager_home", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "v1/application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
+</head>
+<body>
+  <%= render 'layouts/station/page_nav' %>
+  <%= render 'shared/flash_msg' %>
+
+  <%= yield %>
+
+  <%= yield :mask %>
+  <%= yield :javascript %>
+</body>
+</html>

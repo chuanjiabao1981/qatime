@@ -6,7 +6,7 @@ function NetcallBridge (config) {
   this.errorNode = $("#necall-error");
   this.channelName = config.channelName;
   this.user = config.user;
-  this.appKey = config.appKey;
+  this.appKey = qatimeConfig.chat.appKey;
   // this.currentType = config.currentType;
   this.currentType = 'board';
   this.chatNim = config.chatNim;
@@ -38,7 +38,7 @@ NetcallBridge.fn.initNetcall = function () {
 /*
  * 初始化多人音视频
  */
-NetcallBridge.fn.initNetcallMeeting = function () {
+NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   var netcall = this.netcall, that = this;
   netcall.on('joinChannel', function (obj) {
     that.onJoinChannel(obj);
@@ -51,6 +51,7 @@ NetcallBridge.fn.initNetcallMeeting = function () {
     that.joinChannel();
   }).catch(err => {
     that.signalInited = false;
+    if (fail) fail(err);
   });
 };
 
@@ -59,6 +60,7 @@ NetcallBridge.fn.initNetcallMeeting = function () {
  */
 NetcallBridge.fn.connect = function (cb) {
   var that = this;
+  console.log('1222222');
   if (this.chatNim) {
     cb();
   } else {
@@ -70,27 +72,5 @@ NetcallBridge.fn.connect = function (cb) {
       cb: cb
     });
   }
-  // 自定义消息订阅
-  // this.chatNim.subscribe('custom', that.onCustomMsg);
-};
-
-// 自定义消息处理
-NetcallBridge.fn.onCustomMsg = function (msg) {
-  console.log(msg);
-}
-
-// 查询互动状态
-NetcallBridge.fn.fetchPlayStatus = function () {
-  var that = this;
-
-  this.chatNim.nim.sendCustomMsg({
-    scene: 'team',
-    to: that.channelName,
-    content: JSON.stringify({event: 'FetchPlayStatus'}),
-    text: JSON.stringify({event: 'FetchPlayStatus'}),
-    done: function () {
-      console.log('正在查询直播状态');
-    }
-  });
 };
 

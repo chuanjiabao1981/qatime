@@ -1,0 +1,60 @@
+<div class="live-player">
+  <div class="live-head">
+    <div class="container live-big">
+      <div class="row">
+        <div class="video-area">
+          <div class="area-left area-member">
+            <div class="item">
+              <span class="tip">
+                <i></i>
+                <i></i>
+                <i></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="area-right bypass-live">
+            <div class="area-right-live">
+              <div class="item live-left-box">
+                <span class="tip">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </span>
+              </div>
+            </div>
+            <%= render 'live_studio/layouts/shared/chat' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+<%= javascript_include_tag "live_studio/interactive" %>
+<script>
+$(function() {
+  // 聊天账户
+  var user = {
+    account: "<%= @chat_account.try(:accid) %>",
+    token: "<%= @chat_account.try(:token) %>",
+    role: "<%= current_user.role %>"
+  };
+
+  // 云信聊天
+  var channelName = "<%= @chat_team.team_id %>";
+  var bridge;
+  var chatUI;
+  var chatNim = new ChatQatime({ account: user.account, token: user.token, teamID: channelName, done: function () {
+    console.log(123);
+    chatUI = new ChatQatimeUI(chatNim, {});
+    // 音视频
+    bridge = new NetcallBridge({ user: user, channelName: channelName, chatNim: chatNim });
+    bridge.connect(function() {
+      bridge.init();
+    });
+  }});
+});
+</script>>
+<% end %>

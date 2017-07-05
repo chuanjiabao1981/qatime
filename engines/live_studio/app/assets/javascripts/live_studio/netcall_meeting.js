@@ -2,6 +2,7 @@
  * 视频会议
  */
 var fn = NetcallBridge.fn;
+NetcallBridge.timer = null;
 
 /*
  * 加入音视频房间
@@ -61,3 +62,33 @@ NetcallBridge.fn.isTeacher = function (account) {
 NetcallBridge.fn.isMember = function (account) {
   return true;
 }
+
+// 开始互动
+NetcallBridge.fn.start = function () {
+  var that = this;
+  that.initNetcallMeeting(function() {
+
+  }, function(err) {
+    // 加入失败以后两秒后轮训互动状态
+    setTimeout(function() {
+      that.fetchPlayStatus();
+    }, 2 * 1000);
+  });
+};
+
+// 查询互动状态
+NetcallBridge.fn.fetchPlayStatus = function () {
+  var that = this;
+  if(!this.playStatusUrl) this.playStatusUrl = "/live_studio/teams/" + channelName + "/status";
+  $.getJSON(this.playStatusUrl, function(result) {
+    if (result.status == 'playing') {
+      clearInterval(NetcallBridge.timer);
+      NetcallBridge.timer = null;
+      that.start();
+    } else if (!NetcallBridge.timer) {
+      NetcallBridge.timer = setInterval(function () {
+        that.fetchPlayStatus();
+      }, 5 * 1000);
+    }
+  });
+};

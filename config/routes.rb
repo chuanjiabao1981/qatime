@@ -98,6 +98,7 @@ Qatime::Application.routes.draw do
         patch :offline
       end
     end
+    resources :software_categories
     resources :withdraws do
       collection do
         get :audit

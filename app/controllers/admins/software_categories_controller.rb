@@ -40,6 +40,6 @@ class Admins::SoftwareCategoriesController < ApplicationController
   end
 
   def software_category_params
-    params.require(:software_category).permit(:title, :sub_title, :platform, :role, :category, :desc, :download_description, :logo)
+    params.require(:software_category).permit(:title, :sub_title, :platform, :role, :category, :desc, :download_description, :logo, :position)
   end
 end

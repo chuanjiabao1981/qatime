@@ -13,3 +13,4 @@ cn:
         role: 下载用户
         description: 更新说明
         download_description: 下载描述
+        position: 排序

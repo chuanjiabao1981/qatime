@@ -80,10 +80,10 @@ module Entities
         lesson.try(:course_id) || lesson.try(:interactive_course_id)
       end
       expose :product_interactive_course, using: Entities::LiveStudio::InteractiveCourse, if: { type: :schedule } do |lesson|
-        lesson.try(:interactive_course)
+        lesson.try(:interactive_course) if lesson.is_a?(::LiveStudio::InteractiveLesson)
       end
       expose :product_course, using: Entities::LiveStudio::Course, if: { type: :schedule } do |lesson|
-        lesson.try(:course)
+        lesson.try(:course) if lesson.is_a?(::LiveStudio::Lesson)
       end
       expose :course_id, if: {type: :schedule} do |lesson|
         lesson.course.try(:id).to_s

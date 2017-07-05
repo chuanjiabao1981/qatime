@@ -17,6 +17,8 @@ module LiveStudio
 
     # 免费课程
     def free_grant(user)
+      return false unless respond_to?(:sell_type)
+      return false unless sell_type.free?
       return false unless check_ticket(user)
       buy_tickets.create(free_params(user))
     end

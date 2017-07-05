@@ -28,7 +28,8 @@ cn:
         course:
           all: 全部
           waiting: 待开始
-          teaching: 进行中
+          published: 招生中
+          teaching: 开课中
           finished: 已结束
         video_course:
           step_one: "①设置课程介绍"

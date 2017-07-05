@@ -121,6 +121,7 @@ cn:
         status: 状态
         published_at: 发布时间
         category: 软件分类
+        position: 排序
       push_message:
         push_type: 类型
         display_type: 形式

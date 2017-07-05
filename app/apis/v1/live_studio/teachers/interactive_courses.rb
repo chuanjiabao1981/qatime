@@ -24,7 +24,7 @@ module V1
                 requires :teacher_id, type: Integer
                 optional :page, type: Integer
                 optional :per_page, type: Integer
-                optional :status, type: String, desc: '状态 init: 初始化; published: 招生中; teaching: 已开课; completed: 已结束; refunded: 已结束 退款; finished: 已结束(包含退款[completed&refunded])', values: %w(init published teaching completed refunded finished)
+                optional :status, type: String, desc: '状态 published: 招生中; teaching: 已开课; completed: 已结束; refunded: 已结束 退款; finished: 已结束(包含退款[completed&refunded])', values: %w(published teaching completed refunded finished)
               end
               get 'interactive_courses' do
                 course_data = LiveService::TeacherInteractiveCourseDirector.new(@teacher)

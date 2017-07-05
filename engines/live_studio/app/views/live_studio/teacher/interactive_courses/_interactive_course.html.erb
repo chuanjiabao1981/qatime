@@ -29,8 +29,8 @@
     </div>
     <div class="col-md-3 course-state">
       <span class="col-md-12 col-sm-4 col-xs-4"><%= interactive_course.status.text %></span>
-      <%= link_to t("common.preview"), live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank' %>
-      <%= link_to t("common.announcement"), live_studio.interactive_course_announcements_path(interactive_course) if interactive_course.teaching? %>
+      <%= link_to t("common.preview"), live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank', class: 'col-md-12 col-sm-4 col-xs-4' %>
+      <%= link_to t("common.announcement"), live_studio.interactive_course_announcements_path(interactive_course), class: 'col-md-12 col-sm-4 col-xs-4' if interactive_course.teaching? %>
     </div>
   </div>
 </li>

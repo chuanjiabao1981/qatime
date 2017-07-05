@@ -44,13 +44,17 @@ Qatime::Application.routes.draw do
 
   resources :qa_faqs do
     collection do
-      get 'courses'
-      get 'teacher'
-      get 'student'
-      get :user_agreements
+      get :agreements
+      get :teacher_usages
+      get :student_usages
+    end
+    member do
+      get :static_page
+      get :agreement
+      get :teacher_usage
+      get :student_usage
     end
   end
-
 
   resources :pictures
 
@@ -94,6 +98,7 @@ Qatime::Application.routes.draw do
         patch :offline
       end
     end
+    resources :software_categories
     resources :withdraws do
       collection do
         get :audit

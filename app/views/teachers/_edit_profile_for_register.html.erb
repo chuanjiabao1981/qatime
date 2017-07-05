@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="detail-title">
-        欢迎使用答疑时间，完成最后一步即可开始学习。
+        <%= t("students.edit_profile_for_register.welcome") %>
       </div>
       <div class="detail-content">
         <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :register, by: :register) ) do |f| %>
@@ -93,10 +93,10 @@
               </div>
               <div class="tecmsg-img">
                 <div class="pre-3">
-                  <%= image_tag('', id: 'teacher_avatar_preview2', data: {toggle: 'modal', target: '#edit_avatar'}) %>
+                  <%= image_tag('avatar_teacher.png', id: 'teacher_avatar_preview2', data: {toggle: 'modal', target: '#edit_avatar'}) %>
                 </div>
                 <br>
-                <span class="up-img"><a href="javascript:void(0);">点击头像上传</a></span>
+                <span class="up-img"><a href="javascript:void(0);"><%= t("students.edit_profile_for_register.avatar_tips") %></a></span>
                 <span class="help-block has-error"></span>
                 <%= f.error :avatar %>
               </div>

@@ -4606,6 +4606,7 @@ ul {
   width: 100%;
   min-height: 600px;
   background-color: #FFFFFF;
+  overflow: hidden;
 }
 .wechat-title {
   margin-top: 120px;
@@ -4975,6 +4976,7 @@ ul {
 @media only screen and (max-width: 1000px) {
   .detail-content {
     padding: 0 10px;
+    padding-left: 25px;
     width: 100%;
     margin: 0;
   }
@@ -4982,7 +4984,7 @@ ul {
     position: relative;
   }
   .tecmsg-con .form-group {
-    height: 82px !important;
+    min-height: 82px !important;
   }
   .detail-content label {
     position: absolute;
@@ -5474,6 +5476,7 @@ ul {
   color: #ff5842;
   line-height: 14px;
   border-right: 1px solid rgb(73,73,73);
+  padding-left: 5px;
 }
 .study-nav a:last-child {
   border-right: 0px;
@@ -16165,17 +16168,15 @@ abbr {
   }
 }
 .area-right-live {
-  height: 126px;
+  height: 189px;
   width: 335px;
-  padding: 2px;
   background-color: #fff;
   overflow: hidden;
 }
 .area-right-live > .live-left-box,.area-right-live > .live-right-box {
-  width: 164px;
+  width: 100%;
   height: 100%;
   display: inline-block;
-  border: 1px solid #000;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -16202,25 +16203,25 @@ abbr {
   height: 100%;
 }
 .bypass-live > .live-message .message-new {
-  height: 255px;
+  height: 190px;
 }
 .bypass-live .affiche {
-  height: 326px !important;
+  height: 263px !important;
 }
 @media only screen and (min-width: 1400px)  {
   .bypass-live > .live-message .message-new {
-    height: 358px;
+    height: 295px;
   }
   .bypass-live .affiche {
-    height: 429px !important;
+    height: 366px !important;
   }
 }
 @media only screen and (min-width: 990px) and (max-width: 1200px) {
   .bypass-live > .live-message .message-new {
-    height: 127px;
+    height: 64px;
   }
   .bypass-live .affiche {
-    height: 198px !important;
+    height: 134px !important;
   }
   .video-area > .area-member {
     height: 352px;
@@ -16228,10 +16229,10 @@ abbr {
 }
 @media only screen and (min-width: 0px) and (max-width: 990px) {
   .bypass-live > .live-message .message-new {
-    height: 127px;
+    height: 64px;
   }
   .bypass-live .affiche {
-    height: 198px !important;
+    height: 134px !important;
   }
   .video-area > .area-member {
     height: 352px;
@@ -16387,7 +16388,9 @@ abbr {
 .guide > ul > li > a {
   color: #58cff9;
 }
-
+.guide > ul > li > a:hover {
+  color: #ff5842;
+}
 /*老师:账号注册和登录*/
 .contains .student-study > .study-title{
   height: auto;
@@ -16422,10 +16425,16 @@ abbr {
   line-height: 22px;
   margin-bottom: 5px;
 }
+.accout-box > ul > li > p a {
+  color: #ff5842;
+}
 .accout-box > ul > li > img {
   width: 100%;
   border: 1px solid #cdcdcd;
   margin-bottom: 15px;
+}
+.accout-box > ul > li > img.app-pic {
+  width: 40%;
 }
 .accout-box > ul > li > p.knobble {
   margin-bottom: 10px;

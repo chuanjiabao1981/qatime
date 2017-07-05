@@ -22,7 +22,7 @@ module LiveStudio
     enum status: {
            rejected: -1, # 被拒绝
            init: 0, # 初始化 待审核
-           confirmed: 1, # 审核通过
+           confirmed: 1, # 审核通过 待创建
            completed: 2, # 已创建
            published: 3 # 已发布
          }
@@ -30,7 +30,7 @@ module LiveStudio
     enumerize :status, in: {
                          rejected: -1, # 被拒绝
                          init: 0, # 初始化
-                         confirmed: 1, # 审核通过
+                         confirmed: 1, # 审核通过 待创建
                          completed: 2, # 已创建
                          published: 3 # 已发布
                      }

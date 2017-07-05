@@ -26,7 +26,7 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
+                optional :status, type: String, desc: '过滤条件 published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)
@@ -43,7 +43,7 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
+                optional :status, type: String, desc: '过滤条件 published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get :full do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)

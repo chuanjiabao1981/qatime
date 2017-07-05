@@ -1,0 +1,39 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div>
+      <h2>
+        <%= SoftwareCategory.model_name.human %>
+        <%= link_to new_admins_software_category_path do %>
+          <button type="button" class="btn btn-xs btn-success">新增</button>
+        <% end %>
+      </h2>
+    </div>
+
+  </div>
+  <div class="row qa_big_cell">
+    <div class="col-md-1">
+      <%= t('common.index_no') %>
+    </div>
+    <div class="col-md-3">
+      <%= SoftwareCategory.human_attribute_name(:title) %>
+    </div>
+    <div class="col-md-1">
+      <%= SoftwareCategory.human_attribute_name(:platform) %>
+    </div>
+    <div class="col-md-2">
+      <%= SoftwareCategory.human_attribute_name(:role) %>
+    </div>
+    <div class="col-md-1">
+      <%= SoftwareCategory.human_attribute_name(:category) %>
+    </div>
+    <div class="col-md-1">
+      <%= SoftwareCategory.human_attribute_name(:position) %>
+    </div>
+    <div class="col-md-1">
+      <%= t('common.operate') %>
+    </div>
+  </div>
+  <div>
+    <%= render partial: 'software_category', collection: @software_categories %>
+  </div>
+</div>

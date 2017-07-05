@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-5 col-sm-6 item-time">
               <span><%= t('view.payment/order.show.pay_at') %>：</span>
-              <span><%= l(@order.pay_at) if @order.pay_at %></span>
+              <span><%= @order.pay_at.present? ? l(@order.pay_at) : t('common.none') %></span>
             </div>
           </div>
           <div class="row teaching-amount">

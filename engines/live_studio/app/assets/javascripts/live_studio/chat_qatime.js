@@ -12,11 +12,12 @@
 
   // 链接完成回调
   ChatHandler.fn.onConnect = function () {
+    chatNim.chatInited = true;
     chatNim.done();
   };
 
   // 收到消息
-  ChatHandler.fn.onMsg = function () {
+  ChatHandler.fn.onMsg = function (msg) {
     // 非本群组消息不处理
     if (!validMsg(msg)) return false;
     // 消息分发
@@ -48,6 +49,11 @@
     $.each(obj.msgs, function(index, msg) {
       this.chatNim.publish('offline', msg.type, msg);
     });
+  };
+
+  // 消息发送结束回调
+  ChatHandler.fn.sendMsgDone = function (error, msg) {
+    chatNim.handlers.onMsg(msg);
   };
 
   function ChatQatime (config) {
@@ -91,6 +97,30 @@
       onmsg: this.handlers.onMsg
     });
   };
+
+  ChatQatime.fn.sendMsgCheck = function (msgArea, penddingArea) {
+    // 聊天未初始
+    if(!this.chatInited) return false;
+    // 被禁言
+    if(this.mute && msgArea) {
+      msgArea.val("").attr("placeholder", "您被禁言了").attr("disabled", true);
+      return false;
+    }
+    // 正在发送消息
+    return !penddingArea.hasClass('pendding');
+  };
+
+  // 消息发送
+  ChatQatime.fn.sendMsg = function (content) {
+    var that = this;
+    this.nim.sendText({
+      scene: 'team',
+      to: this.teamID,
+      text: content,
+      done: that.handlers.sendMsgDone
+    });
+  };
+
 
   // 是否本群组消息
   function validMsg (obj) {

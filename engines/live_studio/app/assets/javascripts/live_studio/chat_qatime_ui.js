@@ -7,7 +7,11 @@
   var defaultContainers = {
     messages: "#messages",
     histories: "#histories",
-    barrage: "#barrage"
+    barrage: "#barrage",
+    members: '#members-panel',
+    announcements: '#notice-panel',
+    tab: '#chat-tab a',
+    msgSend: '#message-form'
   };
 
   var chatUI;
@@ -15,8 +19,9 @@
     this.chatNim = chatNim;
     this.nim = chatNim.nim;
     this.containers = options.containers || defaultContainers;
-    this.members = {};
     this.bindEvent();
+    this.initEvent();
+    this.onTeamMembers();
   }
 
   window.ChatQatimeUI = ChatQatimeUI;
@@ -30,9 +35,74 @@
     this.chatNim.subscribe('chat', 'text', this.onChat);
     // 弹幕消息
     this.chatNim.subscribe('chat', 'text', this.onBarrage);
-    // 群成员变动
-    this.chatNim.subscribe('ui', 'members', this.onTeamMembers);
   };
+
+  // 事件绑定
+  ChatQatimeUI.fn.initEvent = function () {
+    var that = this;
+    this.initTabEvent();
+    this.initSendMsgEvent();
+  };
+
+  // 聊天tab切换
+  ChatQatimeUI.fn.initTabEvent = function () {
+    var that = this;
+    $(that.containers['tab']).click(function  () {
+      var index = $(that.containers['tab']).index($(this));
+      $(this).addClass('message-content active').siblings().removeClass('message-content active');
+      $('.message-con').eq(index).show().siblings().hide();
+    });
+  };
+
+  // 发送聊天消息事件
+  ChatQatimeUI.fn.initSendMsgEvent = function () {
+    var that = this;
+    // 聊天输入区域
+    $(that.containers['msgSend']).submit(function() {
+      console.log('11111');
+      // 聊天消息发送检查
+      if(!that.chatNim.sendMsgCheck($("#message-area"), $("#message-form :submit"))) return false;
+      // 添加发送中样式
+      $("#message-form :submit").addClass("pendding");
+      $("#message-form :submit").attr("disabled", true);
+      that.sendMsgCounter();
+      msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+
+      if(msg === '') return false;
+      var msg = that.chatNim.sendMsg(msg, function (msg) {
+        console.log(msg);
+      });
+      $("#message-area").val('');
+      return false;
+    });
+
+    // 回车提交表单
+    $('#message-area').keydown(function(event) {
+      if (event.keyCode === 13 && !event.shiftKey) {
+        $('#message-form').submit();
+        return false;
+      }
+    });
+
+  };
+
+
+  ChatQatimeUI.fn.sendMsgCounter = function () {
+    var counter = 2;
+    var submitText = $("#message-form :submit").val();
+    $("#message-form :submit").val("(" + counter + "s)");
+    var chatTimer = setInterval(function() {
+      counter = counter - 1;
+      $("#message-form :submit").val("(" + counter + "s)");
+      if(counter <= 0) {
+        clearInterval(chatTimer);
+        $("#message-form :submit").removeClass("pendding");
+        $("#message-form :submit").removeAttr("disabled");
+        $("#message-form :submit").val(submitText);
+      }
+    }, 1000);
+  };
+
 
   // 弹幕消息
   ChatQatimeUI.fn.onBarrage = function (msg) {
@@ -49,10 +119,19 @@
   };
 
   // 群组成员变动
-  ChatQatimeUI.fn.onTeamMembers = function (msg) {
-    var members = msg.members;
-    that.chatNim.members = result.members;
-    that.refreshTeamsUI();
+  ChatQatimeUI.fn.onTeamMembers = function () {
+    var members = this.chatNim.members;
+    var container = $(chatUI.containers['members']);
+    container.empty();
+    $.each(members, function(index, member) {
+      var node = $("<div class='new-information'></div>");
+      var titleNode = $("<div class='information-title'></div>");
+      titleNode.append("<img src='" + member.avatar + "' class='information-title-img' /> ");
+      titleNode.append("<span class='information-user'>" + member.nickname + "</span> ");
+      titleNode.append("<span class='information-category'>" + member.role + "</span>");
+      node.append(titleNode);
+      container.append(node);
+    });
   };
 
   // 获取群组成员
@@ -114,13 +193,13 @@
 
   // 用户头像
   function accountAvatar (account) {
-    var member = chatUI.members[account];
+    var member = chatUI.chatNim.members[account];
     if (member ) return member.avatar;
   }
 
   // 用户昵称
   function magicNickname (msg) {
-    var member = chatUI.members[msg.from];
+    var member = chatUI.chatNim.members[msg.from];
     if (msg.from == chatUI.chatNim.account) {
       return msg.fromNick + " (我)";
     } else if (member && member.role == 'teacher') {
@@ -150,7 +229,6 @@
 
   // 文字消息
   ChatQatimeUI.fn.textMsgTag = function (msg) {
-    console.log(1222222);
     var tag = $('<div class="new-information" id="msg-' + msg.idClient + '"></div>');
     tag.append(this.messageTitleTag(msg)); // 消息头
     tag.append("<div class='information-con'>" + formatMsgContent(msg.text) + "</div>"); // 消息体

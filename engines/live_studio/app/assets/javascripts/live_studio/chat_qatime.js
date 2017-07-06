@@ -53,7 +53,11 @@
 
   // 消息发送结束回调
   ChatHandler.fn.sendMsgDone = function (error, msg) {
-    chatNim.handlers.onMsg(msg);
+    if (error) {
+      console.log("消息发送失败", error);
+    } else {
+      chatNim.handlers.onMsg(msg);
+    }
   };
 
   function ChatQatime (config) {

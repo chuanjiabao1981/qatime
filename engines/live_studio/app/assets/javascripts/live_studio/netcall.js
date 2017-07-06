@@ -48,7 +48,7 @@ NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   });
   netcall.initSignal().then(() => {
     this.signalInited = true;
-    that.joinChannel();
+    that.joinChannel(done, fail);
   }).catch(err => {
     that.signalInited = false;
     if (fail) fail(err);

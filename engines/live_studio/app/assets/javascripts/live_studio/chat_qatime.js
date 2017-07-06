@@ -6,15 +6,13 @@
 (function(e) {
   var chatNim;
 
-
-  function ChatHandler (chatNim) {
-    this.chatNim = chatNim;
+  function ChatHandler () {
   }
   ChatHandler.fn = ChatHandler.prototype;
 
   // 链接完成回调
   ChatHandler.fn.onConnect = function () {
-    this.chatNim.done();
+    chatNim.done();
   };
 
   // 收到消息
@@ -22,7 +20,7 @@
     // 非本群组消息不处理
     if (!validMsg(msg)) return false;
     // 消息分发
-    this.chatNim.publish('chat', msg);
+    chatNim.publish('chat', msg);
   }
 
   // 离线消息
@@ -30,7 +28,7 @@
     // 不是本群组离线消息
     if (!validMsg(obj)) return false;
     $.each(obj.msgs, function(index, msg) {
-      this.chatNim.publish('offline', msg.type, msg);
+      chatNim.publish('offline', msg.type, msg);
     });
   };
 
@@ -60,6 +58,7 @@
     this.subscribers = {};
     this.done = config.done;
     this.handlers = new ChatHandler(this);
+    this.members = config.members;
     this.init();
   }
   window.ChatQatime = ChatQatime;

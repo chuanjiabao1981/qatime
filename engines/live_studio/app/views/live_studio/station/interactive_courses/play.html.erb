@@ -37,24 +37,36 @@
 $(function() {
   // 聊天账户
   var user = {
-    account: "<%= @chat_account.try(:accid) %>",
-    token: "<%= @chat_account.try(:token) %>",
+    // account: "<%= @chat_account.try(:accid) %>",
+    account: "d5e42f9a6e32d463f91b16a14adbde83",
+    // token: "<%= @chat_account.try(:token) %>",
+    token: '365383b66fac5b18209be02582d9a198',
     role: "<%= current_user.role %>"
   };
 
   // 云信聊天
-  var channelName = "<%= @chat_team.team_id %>";
+  // var channelName = "<%= @chat_team.team_id %>";
+  var channelName = "41827835";
   var bridge;
+
+
   var chatUI;
-  var chatNim = new ChatQatime({ account: user.account, token: user.token, teamID: channelName, done: function () {
-    console.log(123);
-    chatUI = new ChatQatimeUI(chatNim, {});
-    // 音视频
-    bridge = new NetcallBridge({ user: user, channelName: channelName, chatNim: chatNim });
-    bridge.connect(function() {
-      bridge.init();
-    });
-  }});
+  var chatNim = new ChatQatime({
+    account: user.account,
+    token: user.token,
+    teamID: channelName,
+    members: <%= raw @members.to_json %>,
+    done: function () {
+      console.log(123);
+      chatUI = new ChatQatimeUI(chatNim, {});
+      // 音视频
+      bridge = new NetcallBridge({ user: user, channelName: channelName, chatNim: chatNim });
+      bridge.setTeachers(<%= raw @teacher_accounts %>);
+      bridge.connect(function() {
+        bridge.init();
+      });
+    }
+  });
 });
 </script>>
 <% end %>

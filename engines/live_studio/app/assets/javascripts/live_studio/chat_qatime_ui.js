@@ -30,6 +30,8 @@
     this.chatNim.subscribe('chat', 'text', this.onChat);
     // 弹幕消息
     this.chatNim.subscribe('chat', 'text', this.onBarrage);
+    // 群成员变动
+    this.chatNim.subscribe('ui', 'members', this.onTeamMembers);
   };
 
   // 弹幕消息
@@ -44,6 +46,23 @@
     if(!container) return false;
     container.append(chatUI.messageTag(msg));
     chatUI.nim.markMsgRead(msg);
+  };
+
+  // 群组成员变动
+  ChatQatimeUI.fn.onTeamMembers = function (msg) {
+    var members = msg.members;
+    that.chatNim.members = result.members;
+    that.refreshTeamsUI();
+  };
+
+  // 获取群组成员
+  ChatQatimeUI.fn.getMembers = function (done) {
+    var that = this;
+    if(!this.teamMembersUrl) this.teamMembersUrl = qatimeConfig.teamMembersUrl.replace(':team_id', this.teamID);
+    $.getJSON(this.teamMembersUrl, function(result) {
+      that.chatNim.publish('ui', { type: 'members', members: result.members });
+      if(done) done(result.members);
+    });
   };
 
   // 消息标签

@@ -56,8 +56,17 @@ NetcallBridge.fn.switchToDesktop = function () {
  * 显示学生画面
  */
 NetcallBridge.fn.showStudent = function (obj) {
-  obj.node = document.getElementById('student-camera-area');
+  obj.node = document.getElementById('student-area');
   this.netcall.setVideoViewRemoteSize({ width: 164, height: 122 });
+  this.playVideo(obj);
+}
+
+/*
+ * 显示老师画面
+ */
+NetcallBridge.fn.showTeacher = function (obj) {
+  obj.node = document.getElementById('teacher-area');
+  this.netcall.setVideoViewRemoteSize({ width: 1036, height: 583 });
   this.playVideo(obj);
 }
 

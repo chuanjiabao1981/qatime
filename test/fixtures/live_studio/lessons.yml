@@ -785,3 +785,12 @@ lesson_for_taste_overflow:
   class_date: <%= 1.days.since.to_date %>
   status: 0
   duration: 30
+
+lesson_for_course_free:
+  name: 第1节课
+  course: course_for_free
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 1.days.since.to_date %>
+  status: 0
+  duration: 30

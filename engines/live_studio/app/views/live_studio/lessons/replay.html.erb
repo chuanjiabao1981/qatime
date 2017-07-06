@@ -1,13 +1,17 @@
-<div class="live-head playback">
-  <div class="container live-big">
-    <%= render 'back_player' %>
+<div class="live-player">
+  <div class="live-head playback">
+    <div class="container live-big">
+      <%= render 'player' %>
+    </div>
   </div>
 </div>
 
-<div class="container">
-  <%= render 'live_studio/courses/replay_course_info' %>
-</div>
-
-<div class="container">
-  <%= render 'live_studio/courses/replay_teacher_info' %>
+<div class="live-content">
+  <div class="container">
+    <div class="row">
+      <%= render 'live_studio/courses/play_course_info' %>
+      <%= render 'live_studio/courses/play_teacher_info' %>
+      <%= render 'replay_lesson_plan' %>
+    </div>
+  </div>
 </div>

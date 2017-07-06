@@ -7,6 +7,7 @@ class AdminCourseIntroTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :selenium_chrome
     @admin = users(:admin)
     new_log_in_as(@admin)
+    visit get_home_url(@admin)
   end
 
   def teardown
@@ -24,6 +25,7 @@ class AdminCourseIntroTest < ActionDispatch::IntegrationTest
     attach_file("video_file_#{id}", "#{Rails.root}/test/integration/test.mp4", visible: false)
     sleep(3)
     click_on '保存'
+
     assert page.has_content? '测试视屏1'
 
     click_on '编辑', match: :first

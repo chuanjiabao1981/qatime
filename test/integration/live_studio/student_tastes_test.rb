@@ -10,6 +10,7 @@ module LiveStudio
 
       @student = users(:student_for_tastes)
       new_log_in_as(@student)
+      visit get_home_url(@student)
     end
 
     def teardown

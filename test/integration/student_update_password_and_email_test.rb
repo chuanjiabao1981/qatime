@@ -102,7 +102,7 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     visit info_student_path(student)
     click_on "安全设置"
 
-    assert page.has_content?('还未绑定手机'), '还未绑定手机显示错误'
+    assert page.has_content?('未设置'), '还未绑定手机显示错误'
 
     click_on "修改绑定邮箱", match: :first
     assert page.has_content?('请先绑定手机号'), '请先绑定手机号显示错误'
@@ -126,7 +126,7 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     visit info_student_path(student)
     click_on "安全设置"
 
-    assert page.has_content?('还未绑定邮箱'), '还未绑定邮箱显示错误'
+    assert page.has_content?('未设置'), '还未绑定邮箱显示错误'
 
     click_on "修改绑定邮箱", match: :first
     click_on "获取验证码", match: :first
@@ -154,7 +154,7 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     visit info_student_path(student)
     click_on "安全设置"
 
-    assert page.has_content?('还未绑定家长手机'), '还未绑定家长手机显示错误'
+    assert page.has_content?('未设置'), '还未绑定家长手机显示错误'
 
     click_on "修改家长手机", match: :first
     fill_in "student_current_password", with: "password"

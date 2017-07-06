@@ -26,10 +26,6 @@ class SolutionCreateTest < ActionDispatch::IntegrationTest
     _create_with_picture(@exercise,ExerciseSolution)
   end
 
-
-
-
-
   def _create_with_picture(e,s)
     new_path      = send("new_#{e.model_name.singular_route_key}_#{e.model_name.singular_route_key}_solution_path",e)
 

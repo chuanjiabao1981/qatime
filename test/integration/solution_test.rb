@@ -36,8 +36,6 @@ class SolutionIntegrateTest < LoginTestBase
     edit_page(@teacher,@teacher_session,homework_solution)
     edit_page(@student,@student_session,exercise_solution)
     edit_page(@teacher,@teacher_session,exercise_solution)
-
-
   end
 
   test "show page" do

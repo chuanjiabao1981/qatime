@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="video-area" id="player-and-chat">
+    <div class="area-left">
+      <div class="area-left-con">
+        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" type="video/mp4" data-setup="{}">
+          <source src="<%= @video.orig_url %>" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="area-right">
+      <div class="playback-title"><%= t("view.replay.directory") %></div>
+      <ul class="playback-con">
+        <% @lessons.each_with_index do |lesson, index| %>
+          <li>
+            <% if allow?("live_studio/lessons", "replay", lesson) -%>
+              <% link = lesson.id == @lesson.id ? 'javascript: void(0);' : live_studio.replay_lesson_path(lesson) -%>
+              <%= link_to link do -%>
+                <div class="row">
+                  <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
+                  <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
+                  <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span></div>
+                </div>
+              <% end -%>
+            <% elsif lesson.left_replay_times <= 0 %>
+              <%= link_to 'javascript: void(0);', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
+                <div class="row">
+                  <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
+                  <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
+                  <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span></div>
+                </div>
+              <% end -%>
+            <% end -%>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id="no-flash-area" style="display: none;">
+    <p align="center">
+      <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %>
+      <%= link_to t("activerecord.view.flash_can_not_call_msg.click_here_msg"), "https://get.adobe.com/cn/flashplayer/"  %>
+      <%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
+    </p>
+  </div>
+</div>
+
+<%= content_for :mask do  %>
+  <div class="modal fade" id="failure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="prompt-pwd">
+      <div class="prompt-pwd-title"><%= t("common.tips") %></div>
+      <div class="prompt-pwd-con">
+        <center>
+          <p><%= t("tips.replay_used_up") %></p>
+        </center>
+        <center>
+          <p>
+            <a href="javascript:void(0);" class="apply-change" data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
+          </p>
+        </center>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<%= content_for :javascript do %>
+  <script>
+    $(function() {
+      var myPlayer = neplayer('my-video', {
+        "autoplay": true,
+        controlBar: {
+          'currentTimeDisplay':true,
+          'timeDivider':true,
+          'durationDisplay':true,
+          'remainingTimeDisplay':false
+        }
+      },function  () {
+        // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
+        // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
+      });
+
+      // var Component = neplayer.getComponent("Component");
+      // var ClarityComponent = neplayer.extend(Component,{
+      //     createEl:function(){
+      //         var button = document.createElement("button");
+      //         button.className = "vjs-clarity-control vjs-control vjs-button vjs-playing";
+      //         button.innerHTML = "高清";
+      //         return button;
+      //     }
+      // });
+      // var clarityComponent = new ClarityComponent();
+      // var DefinitionComponent = neplayer.extend(Component,{
+      //     createEl:function(){
+      //         var div = document.createElement("div");
+      //         div.className = "vjs-control-definition vjs-control vjs-button vjs-playing";
+      //         div.innerHTML = '<input type="radio"  name="clarity" id="clarity1" value="高清" /><label for="clarity1">高清</label><br /><input type="radio"  name="clarity" id="clarity2" value="标清" /><label for="clarity2">标清</label>';
+      //         return div;
+      //     }
+      // });
+      // var definitionComponent = new DefinitionComponent();
+      // $("#my-video .vjs-control-bar").on('click', ".vjs-clarity-control", function  () {
+      //   $(".vjs-control-definition").css("visibility","visible");
+      // })
+      // $("#my-video .vjs-control-bar").on('click', ".vjs-control-definition input", function  () {
+      //   $(".vjs-clarity-control").html($(this).val());
+      //   $(".vjs-control-definition").css("visibility","hidden");
+      // })
+
+
+      //判断flash是否安装
+      if(!flashChecker().f) {
+        $("#player-and-chat").hide();
+        $("#no-flash-area").show() //提示div
+      }
+    });
+  </script>
+
+<% end %>

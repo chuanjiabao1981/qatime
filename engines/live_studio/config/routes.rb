@@ -41,6 +41,7 @@ LiveStudio::Engine.routes.draw do
       get :live_status
       get :live_info
       get :update_class_date
+      get :for_free
       patch :update_lessons
     end
 

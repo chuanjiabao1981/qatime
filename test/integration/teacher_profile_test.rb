@@ -31,6 +31,5 @@ class TeacherProfileTest < ActionDispatch::IntegrationTest
     assert page.all('ul#courses li').size, teacher_data.profile_courses.count
     assert page.all('ul#interactive_courses li').size, teacher_data.profile_interactive_courses.count
     assert page.all('ul#video_courses li').size, teacher_data.profile_video_courses.count
-
   end
 end

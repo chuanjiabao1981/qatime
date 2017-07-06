@@ -38,7 +38,11 @@
                   </div>
                   <div class="col-md-11">
                     <% cities.each do |city| %>
-                      <%= link_to city.name, home_path(city_name: city.name) %>
+                      <% if city.workstation_id.present? %>
+                        <%= link_to city.name, home_path(city_name: city.name) %>
+                      <% else %>
+                        <%= link_to city.name, 'javascript:void(0);' %>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>

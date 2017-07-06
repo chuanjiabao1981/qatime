@@ -10,6 +10,7 @@ module LiveStudio
 
       @manager = users(:manager_zhuji)
       log_in_as(@manager)
+      visit get_home_url(@manager)
     end
 
     def teardown

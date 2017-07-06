@@ -7,10 +7,9 @@ module Payment
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-
       @student = users(:student_recharge)
-
       new_log_in_as(@student)
+      visit get_home_url(@student)
     end
 
     def teardown

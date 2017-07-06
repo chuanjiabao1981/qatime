@@ -17,6 +17,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     @user = users(:teacher1)
     @lesson = live_studio_lessons(:lesson_for_start_at_today1)
     log_in_as(@user)
+    visit get_home_url(@user)
     click_on "消息中心"
     assert_equal find(:css, '.news').text.to_i, @user.unread_notifications_count, '未读消息数目不对'
     if page.has_selector?('div.nav-right-user')
@@ -38,6 +39,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     @user = users(:student1)
     @lesson = live_studio_lessons(:lesson_for_start_at_today1)
     log_in_as(@user)
+    visit get_home_url(@user)
     click_on "消息中心"
     assert_equal find(:css, '.news').text.to_i, @user.unread_notifications_count, '未读消息数目不对'
     if page.has_selector?('div.nav-right-user')
@@ -54,6 +56,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "others view notification" do
     @user = users(:teacher1)
     log_in_as(@user)
+    visit get_home_url(@user)
     click_on "消息中心"
     assert page.has_content?("您的课程 \"今日开课辅导班-第一节课\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"), "未上课通知不正确"
   end

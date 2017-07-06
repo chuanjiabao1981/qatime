@@ -15,6 +15,12 @@ module LiveStudio
       buy_tickets.create(buy_params(order))
     end
 
+    # 免费课程
+    def free_grant(user)
+      return false unless check_ticket(user)
+      buy_tickets.create(free_params(user))
+    end
+
     # 试听
     def taste(user)
       # 试听检查
@@ -48,6 +54,16 @@ module LiveStudio
         student_id: order.user_id,
         lesson_price: ticket_price,
         payment_order: order,
+        buy_count: unclosed_lessons_count,
+        item_targets: buy_items,
+        status: 'active'
+      }
+    end
+
+    def free_params(user)
+      {
+        student_id: user.id,
+        lesson_price: 0,
         buy_count: unclosed_lessons_count,
         item_targets: buy_items,
         status: 'active'

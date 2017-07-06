@@ -98,17 +98,16 @@ module LiveStudio
 
     # 检查课程是否下架
     def check_product_for_sell
-      if @product.off_shelve?
-        return redirect_to live_studio.send("#{@product.model_name.singular_route_key}_path", @product), notice: t('common.off_shelve')
-      end
+      return unless @product.off_shelve?
+      redirect_to live_studio.send("#{@product.model_name.singular_route_key}_path", @product), notice: t('common.off_shelve')
     end
 
     # 免费课程跳过下单直接发票
     def check_free_product
-      if @product.is_a?(VideoCourse) && @product.sell_type.free?
-        return redirect_to live_studio.deliver_video_course_path(@product)
-      end
+      return false if @product.is_a?(LiveStudio::InteractiveCourse)
+      return false unless @product.sell_type.free?
+      redirect_to live_studio.deliver_video_course_path(@product) if @product.is_a?(LiveStudio::VideoCourse)
+      redirect_to live_studio.for_free_course_path(@product) if @product.is_a?(LiveStudio::Course)
     end
-
   end
 end

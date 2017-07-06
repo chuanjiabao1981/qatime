@@ -25,6 +25,7 @@ module Chat
     end
 
     test "update teacher account when teacher update name" do
+      visit get_home_url(@teacher)
       click_on "用户设置"
       click_on "安全设置"
       click_on "个人信息"

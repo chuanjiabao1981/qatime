@@ -16,11 +16,11 @@ NetcallBridge.fn.joinChannel = function (done, fail) {
       role: that.user.role
     },
     sessionConfig: {}
-  }).then(obj => { // 加入成功
+  }).then(function () { // 加入成功
     that.signalInited = true;
     console.log('joinChannel', obj);
     done();
-  }).catch(err => { // 加入错误
+  }).catch(function (err) { // 加入错误
     that.signalInited = false;
     console.log('joinChannelError', err);
     that.showError("加入房间错误");

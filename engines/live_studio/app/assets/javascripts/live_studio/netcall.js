@@ -46,10 +46,10 @@ NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   netcall.on('leaveChannel', function (obj) {
     that.onLeaveChannel(obj);
   });
-  netcall.initSignal().then(() => {
+  netcall.initSignal().then(function() {
     this.signalInited = true;
     that.joinChannel(done, fail);
-  }).catch(err => {
+  }).catch(function(err) {
     that.signalInited = false;
     if (fail) fail(err);
   });

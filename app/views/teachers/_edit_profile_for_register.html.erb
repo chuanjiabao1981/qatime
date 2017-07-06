@@ -104,7 +104,7 @@
             <div class="tecmsg-send">
               <center>
                 <%= hidden_field_tag :more_alter %>
-                <a href="javascript:void(0);" id="more_info">完善更多</a>
+                <%= link_to t("students.edit_profile_for_register.reg_sign_out"), main_app.signout_path(redirect_url: main_app.signin_path), data: { method: :delete } %>
                 <input type="submit" name="" id="" value="立即进入">
               </center>
             </div>
@@ -118,11 +118,6 @@
 
 <script type="text/javascript">
   $(function  () {
-
-    $("#more_info").click(function(){
-      $("#more_alter").val('true');
-      document.forms[0].submit();
-    });
     $(".tecmsg-drop").click(function  () {
       $(".tecmsg-subject").toggle();
     })

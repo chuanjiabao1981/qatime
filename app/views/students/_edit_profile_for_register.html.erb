@@ -65,7 +65,7 @@
 
           <div class="form-group">
             <div class="input-button">
-              <input type="button" id="edit-more-profile" value='<%= t("students.edit_profile_for_register.edit_more_profile") %>' />
+              <%= link_to t("students.edit_profile_for_register.reg_sign_out"), main_app.signout_path(redirect_url: main_app.signin_path), data: { method: :delete } %>
               <%= f.submit t("students.edit_profile_for_register.submit_profile") %>
             </div>
           </div>
@@ -98,12 +98,6 @@ $(function() {
     }
     return url;
   }
-
-  // 完善更多提交
-  $("#edit-more-profile").click(function() {
-    $("#return-to-field").val("<%= raw main_app.edit_student_path(@student, by: 'profile', cate: 'edit_profile') %>");
-    $(this).parents("form").submit();
-  });
 });
 </script>
 <% end %>

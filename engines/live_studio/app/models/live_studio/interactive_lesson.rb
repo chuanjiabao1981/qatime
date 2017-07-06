@@ -132,7 +132,6 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ReplaysSyncWorker.perform_async(id)
         end
         transitions from: [:closed], to: :finished
       end
@@ -346,20 +345,6 @@ module LiveStudio
       c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
                              user_id: user.id).where('created_at < ?', Date.today).count
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
-    end
-
-    # 合并视频
-    def merge_replays
-      # 摄像头视频合并
-      # replays.create(video_for: ChannelVideo.video_fors['camera'],
-      #                name: camera_replay_name,
-      #                vids: camera_video_vids,
-      #                channel: course.channels.find_by(use_for: Channel.use_fors['camera']))
-      # 白板视频合并
-      replays.create(video_for: ChannelVideo.video_fors['board'],
-                     name: board_replay_name,
-                     vids: board_video_vids,
-                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
     end
 
     def replay_name(video_for)

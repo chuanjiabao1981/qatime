@@ -195,7 +195,8 @@ cn:
       transaction_no: 订单编号
       created_at: 创建时间
       pay_tips: 遇到支付问题，请拨打电话
-      weixin_pay_tips: 提示：请在您提交订单后24小时内完成支付否则订单会自动取消。
+      pay_tips_info: 如遇到支付问题请拨打客服电话
+      weixin_pay_tips: 提示：请在您提交订单后24小时内完成支付，否则订单会自动取消。
       pay_tips_tel: 400-838-8010
       recharge: 账户充值
       recharge_info: 交易信息
@@ -204,16 +205,20 @@ cn:
       weixin_tips2: 扫描二维码支付
       alipay_confirm: 提示：核对信息后再点击确认访问支付宝支付页面进行支付
       confirm: 确定
+      confirm_to_alipay: 前往支付宝支付
       order: 订单支付
       payment_password: 支付密码
       placeholder: 请在此输入支付密码（6位纯数字）
       confirm_pay: 确认支付
       password_back: 找回支付密码
+      modal_tip: 提示
+      modal_content: 设置或更改后将在2小时内不能使用支付密码，是否继续?
+      modal_continue: 继续
     course_order_new:
       pay: 立即支付
       current_price: 价格
       coupon_code_tip: 使用优惠码
-      coupon_code: 使用优惠码（可选）：
+      coupon_code: 使用优惠码（可选）
       coupon_code_input: 输入优惠码
       check_coupon_btn: 验证
       coupon_code_prompt1: (使用优惠码可立减%{price}元)
@@ -227,7 +232,7 @@ cn:
       available_balance_error: 余额不足
       total_money: 应付金额
       pay_type: 支付方式
-      tips: 请核对订单并选择支付方式后再提交支付。
+      tips: 提示：请核对订单并选择支付方式再提交支付。
       product_name: 商品名称
       subject: 科目类型
       grade: 年级类型
@@ -473,6 +478,7 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         watchers_count: 观看人数
+        sell_type: 类型
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度

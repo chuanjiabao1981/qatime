@@ -98,7 +98,7 @@ cn:
       parent_phone_confirmation_ph: 再输入一次进行确认
       email_ph: 绑定后可通过邮箱进行登录
       email_confirmation_ph: 再输入一次进行确认
-      welcome: 欢迎使用答疑时间，还差最后一步即刻开始学习。
+      welcome: 欢迎使用答疑时间，完成最后一步即可开始学习。
       avatar_tips: 点击头像更换
       edit_more_profile: 完善更多
       submit_profile: 立即进入

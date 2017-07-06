@@ -1,7 +1,7 @@
 <li>
   <div class="row">
     <div class="col-md-3 discipline-pic">
-      <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course), target: '_blank' %>
+      <%= link_to image_tag(course.publicize_url(:list), class: 'handle_error_list'), live_studio.course_path(course), target: '_blank' %>
     </div>
     <div class="col-md-7 discipline-info">
       <div class="row info-title">
@@ -33,9 +33,12 @@
       </div>
     </div>
     <div class="col-md-2 course-state">
-      <i class="col-md-12">
-        <%= link_to t("live_studio.actions.enter"), live_studio.course_path(course), target: '_blank' %>
-      </i>
+      <% if course.published? %>
+        <i class="col-md-12"><%= link_to t("live_studio.actions.enter"), 'javascript:void(0);', class: 'watch finished' %></i>
+      <% elsif course.teaching? %>
+        <i class="col-md-12"><%= link_to t("live_studio.actions.enter"), live_studio.play_course_path(course), target: '_blank', class: 'watch active' %></i>
+      <% else %>
+      <% end %>
     </div>
   </div>
 </li>

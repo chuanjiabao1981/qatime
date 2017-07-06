@@ -48,9 +48,9 @@ module LiveStudio
     end
 
     # 返回下一次合并视频ID
-    def shift_pending_vids!
+    def current_pending_vids!
       pending_vids.unshift(vid) if vid && pending_vids.exclude?(vid)
-      pending_vids.shift(3)
+      pending_vids.first(4)
     end
 
     # 异步合并视频片段
@@ -61,17 +61,19 @@ module LiveStudio
     # 合并视频片段
     def merge_replays
       return if pending_vids.blank?
-      self.name = "#{name}_#{vid}" if vid && !name.end_with?("_#{vid}")
-      vid_list = shift_pending_vids!
+      vid_list = current_pending_vids!
+      self.name = merging_name(vid_list)
       save!
       VCloud::Service.app_video_merge(outputName: name, vidList: vid_list)
     end
 
     # 合并回调
     def merge_callback(params)
+      return unless params[:video_name] == name
       with_lock do
-        return unless params[:video_name] == name
+        # 删除已经合并的视频ID
         self.vid = params['vid']
+        self.pending_vids -= merged_vids(params[:video_name])
         self.orig_video_key = params['orig_video_key']
         self.uid = params['uid']
         self.n_id = params['nID']
@@ -85,6 +87,17 @@ module LiveStudio
     end
 
     private
+
+    # 合并文件名称
+    def merging_name(vid_list)
+      return name if vid_list.blank?
+      name.gsub(/board_replay\w*$/, "board_replay_#{vid_list.join('-')}")
+    end
+
+    def merged_vids(video_name)
+      return [] unless video_name =~ /board_replay_\d+/
+      video_name.split('board_replay').last.split('-')
+    end
 
     def single_merge
       video = ChannelVideo.find_by(vid: vids.first)

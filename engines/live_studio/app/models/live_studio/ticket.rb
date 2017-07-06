@@ -86,7 +86,13 @@ module LiveStudio
 
     after_create :instance_items
     def instance_items
-      ticket_items.create(item_targets.map { |l| { target: l, user_id: student_id } }) unless item_targets.blank?
+      tp = item_tp
+      ticket_items.create(item_targets.map { |l| { target: l, user_id: student_id, tp: tp } }) unless item_targets.blank?
+    end
+
+    def item_tp
+      return 'taste' if taste?
+      lesson_price > 0 ? 'normal' : 'free'
     end
   end
 end

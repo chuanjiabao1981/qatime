@@ -1,4 +1,4 @@
-<%= render 'shared/blank' if items.blank? %>
+<%= render 'shared/blank', { msg: t('view.tips.week_schedule_none') } if items.blank? %>
 
 <% items.each do |item| %>
   <%= render 'interactive_lesson_item', item: item if item.is_a?(LiveStudio::InteractiveLesson) %>

@@ -108,6 +108,22 @@ module V1
             present ticket, with: Entities::LiveStudio::Ticket
           end
 
+          desc '购买免费的直播课(无需下单直接出票)' do
+            headers 'Remember-Token' => {
+                        description: 'RememberToken',
+                        required: true
+                    }
+          end
+          params do
+            requires :id, desc: '直播课ID'
+          end
+          post '/:id/deliver_free' do
+            course = ::LiveStudio::Course.find(params[:id])
+            ticket = course.free_grant(current_user) if current_user.student?
+            raise ActiveRecord::RecordNotFound if ticket.blank?
+            present ticket, with: Entities::LiveStudio::Ticket
+          end
+
           desc '公告 成员状态 直播列表' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

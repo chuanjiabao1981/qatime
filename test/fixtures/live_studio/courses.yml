@@ -926,3 +926,21 @@ course_for_taste_overflow:
   price: 100
   class_date: <%= 1.days.ago.to_date %>
   start_at: <%= 1.days.ago.to_date %>
+
+course_for_free:
+  name: 免费直播课1
+  description: 免费直播课1
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 1
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 0
+  preset_lesson_count: 3
+  lessons_count: 1
+  closed_lessons_count: 0
+  taste_count: 0
+  price: 0
+  sell_type: 2
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= 1.days.since.to_date %>

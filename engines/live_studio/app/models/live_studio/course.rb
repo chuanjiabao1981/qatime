@@ -48,6 +48,7 @@ module LiveStudio
 
     # enumerize排序优先级会影响到enum 必须放在后面加载
     enumerize :sell_percentage_range, in: %w[low middle high]
+    enumerize :sell_type, in: { charge: 1, free: 2 }, scope: true
 
     aasm column: :status, enum: true do
       state :rejected
@@ -98,7 +99,7 @@ module LiveStudio
 
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }
 
     validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
     validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
@@ -575,11 +576,20 @@ module LiveStudio
       ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
+    before_validation :check_sell_type
+    def check_sell_type
+      return unless sell_type.free?
+      self.price = 0
+      self.taste_count = 0
+      self.teacher_percentage = 0
+    end
+
     after_create do
       teacher.increment!(:all_courses_count) if teacher
     end
 
     def lower_price
+      return 0 if sell_type.free?
       lp = 0
       lp = lessons.size * 5 if lessons.size > 0
       lp

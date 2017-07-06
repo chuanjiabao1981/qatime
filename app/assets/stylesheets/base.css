@@ -10535,12 +10535,14 @@ ul {
 }
 .select-tab {
   min-height: 55px;
+  padding: 0 25px;
 }
 .select-tab > a {
-  font-size: 16px;
+  font-size: 14px;
   color: #000;
   line-height: 55px;
   margin-right: 45px;
+  padding: 5px;
 }
 .select-tab > a:last-child {
   margin-right: 0px;
@@ -10550,6 +10552,7 @@ ul {
 }
 .select-tab > a.active {
   color: #ff5842;
+  border-bottom: 2px solid #ff5842;
 }
 .personal-nav {
   padding: 0;
@@ -10558,7 +10561,7 @@ ul {
   border: 1px solid #f0f0f0;
 }
 .personal-nav > li {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 38px;
   margin: 0 15px;
   zoom: 1;
@@ -10574,16 +10577,15 @@ ul {
   background-color: #FFFFFF;
   margin: 0px;
 }
-.personal-nav > li:last-child > a {
+.personal-nav > li:last-child .nav-hot a {
   display: inline-block;
-  margin-left: 29px;
   text-align: center;
   color: #9aabb8;
 }
-.personal-nav > li:last-child > a:hover {
+.personal-nav > li:last-child .nav-hot a:hover {
   color: #ff5842;
 }
-.personal-nav > li:last-child > a.desc,.personal-nav > li:last-child > a.asc {
+.personal-nav > li:last-child .nav-hot a.desc,.personal-nav > li:last-child .nav-hot a.asc {
   color: #ff5842;
 }
 .personal-nav > li:last-child > a > span {
@@ -11931,17 +11933,24 @@ ul {
 
 
 /*视频课筛选页*/
-.personal-nav > li > .course-status {
+.personal-nav > li > .nav-status {
   display: inline-block;
   float: right;
   height: 38px;
-  font-size: 16px;
   color: #9aabb8;
 }
-.personal-nav > li > .course-status > a {
-  margin-right: 30px !important;
+.personal-nav > li > .nav-status > a {
+  margin-right: 15px !important;
 }
-.personal-nav > li > .course-status > a.active {
+.personal-nav > li > .nav-status > a > i,.personal-nav > li > .nav-order > a > i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+}
+.personal-nav > li > .nav-status > a.active {
   color: #ff5842;
 }
 .item-handpick li:hover .classify-info {
@@ -14311,17 +14320,43 @@ ul {
 
 
 /*筛选页统一样式*/
+.personal-nav > li.filter-condition > span {
+  display: inline-block;
+  float: left;
+  color: #ccc;
+}
+.personal-nav > li.filter-condition  {
+  zoom: 1;
+}
+.personal-nav > li.filter-condition:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.personal-nav > li .nav-hot a {
+  margin-right: 0px;
+  float: left;
+  margin-right: 20px;
+}
+.personal-nav > li .nav-hot {
+  margin: 0 30px;
+}
+.personal-nav > li .nav-hot a > span {
+  margin-left: 5px;
+}
 .personal-nav > li > .nav-all {
   position: relative;
   width: 94px;
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 13px;
 }
 .personal-nav > li > .nav-all > a {
   padding-left: 30px;
 }
 .personal-nav > li > .nav-all > ul {
-  width: 114px;
+  width: 110px;
   border: 1px solid #f0f0f0;
   background-color: #fff;
   padding-left: 0px;
@@ -14332,6 +14367,7 @@ ul {
   z-index: 1000;
   border-top: 0px;
   display: none;
+  font-size: 14px;
 }
 .personal-nav > li > .nav-all > ul > li > a {
   display: block;
@@ -14357,7 +14393,7 @@ ul {
   min-width: 320px;
   height: 40px;
   text-align: left;
-  margin-left: 20px
+  margin-left: 30px
 }
 .personal-nav > li > .nav-time > a {
   margin-right: 10px;
@@ -14369,6 +14405,7 @@ ul {
   border: 1px solid #fff;
   border-bottom: 1px solid #9aabb8;
   outline: none;
+  color: #333;
 }
 .nav-datetime {
   position: relative
@@ -14421,8 +14458,19 @@ ul {
 .item-handpick li .classify-info p > span > em {
   padding: 0 5px;
 }
-
-
+.personal-nav > li.filter-condition .nav-order,.personal-nav > li.filter-condition .nav-status {
+  float: right;
+}
+.personal-nav > li > .nav-order {
+  margin-right: 30px;
+  margin-left: 50px;
+}
+.personal-nav > li > .nav-order > a {
+  color: #9aabb8;
+}
+.personal-nav > li > .nav-order > a.active {
+  color: #ff5842;
+}
 
 
 

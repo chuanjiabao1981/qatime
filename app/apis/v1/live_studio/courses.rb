@@ -398,9 +398,8 @@ module V1
           optional :count, type: Integer, desc: '记录数'
         end
         get 'free_courses' do
-          params[:count] ||= 4
           home_data = DataService::HomeData.new
-          free_courses = home_data.free_courses.limit(params[:count])
+          free_courses = home_data.free_courses(limit: params[:count].presence)
           present free_courses, with: Entities::LiveStudio::FreeCourse
         end
       end

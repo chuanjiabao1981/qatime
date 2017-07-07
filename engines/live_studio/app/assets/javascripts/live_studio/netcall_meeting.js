@@ -110,13 +110,6 @@ NetcallBridge.fn.fetchPlayStatus = function () {
     if(that.status != result.live_info.status) {
       that.statusSwitch(result.live_info.status);
       // clearInterval(NetcallBridge.timer);
-    } else {
-      // 定时查询互动状态
-      if (!NetcallBridge.timer) {
-        NetcallBridge.timer = setInterval(function () {
-          that.fetchPlayStatus();
-        }, 5 * 1000);
-      }
     }
   });
 };

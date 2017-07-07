@@ -66,14 +66,13 @@ NetcallBridge.fn.statusSwitch = function (status) {
   this.status = status;
   if(status == 'teaching') {
     this.switchToTeaching();
-    return true;
   } else if (status == 'paused') {
     this.switchToPause();
   } else {
     this.switchToStop();
   }
   // 互动结束以后开始轮训状态
-  this.fetchPlayStatus();
+  // this.fetchPlayStatus();
 };
 
 // 直播状态
@@ -102,13 +101,15 @@ NetcallBridge.fn.setTeachers = function (accounts) {
 
 // 查询互动状态
 NetcallBridge.fn.fetchPlayStatus = function () {
+  console.log("=====>>>获取直播状态");
   var that = this;
   if(!this.playStatusUrl) this.playStatusUrl = qatimeConfig.teamStatusUrl.replace(':team_id', this.channelName);
+  var status;
   $.getJSON(this.playStatusUrl, function(result) {
     // 如果播放状态不一致切换播放状态
     if(that.status != result.live_info.status) {
       that.statusSwitch(result.live_info.status);
-      clearInterval(NetcallBridge.timer);
+      // clearInterval(NetcallBridge.timer);
     } else {
       // 定时查询互动状态
       if (!NetcallBridge.timer) {

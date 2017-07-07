@@ -16,7 +16,7 @@ NetcallBridge.fn.joinChannel = function (done, fail) {
       role: that.user.role
     },
     sessionConfig: {}
-  }).then(function () { // 加入成功
+  }).then(function (obj) { // 加入成功
     that.signalInited = true;
     console.log('joinChannel', obj);
     done();
@@ -107,7 +107,8 @@ NetcallBridge.fn.fetchPlayStatus = function () {
   $.getJSON(this.playStatusUrl, function(result) {
     // 如果播放状态不一致切换播放状态
     if(that.status != result.live_info.status) {
-      that.statusSwitch(result.live_info.status)
+      that.statusSwitch('teaching');
+      // clearInterval(NetcallBridge.timer);
     } else {
       // 定时查询互动状态
       if (!NetcallBridge.timer) {

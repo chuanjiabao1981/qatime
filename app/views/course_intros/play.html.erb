@@ -1,7 +1,7 @@
 <div class="play-page">
   <div class="video-line">
     <div class="videobox">
-      <video id="video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="">
+      <video id="video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="">
         <source src="<%= @course_intro.video.try(:name_url) %>" type="video/mp4">
       </video>
     </div>
@@ -13,6 +13,7 @@
     $(function() {
       var myPlayer = neplayer('video', {
         "autoplay": false,
+        errorDisplay: false,
         controlBar: {
           'currentTimeDisplay':true,
           'timeDivider':true,
@@ -20,6 +21,9 @@
           'remainingTimeDisplay':false
         }
       },function (){
+        // 错误背景图
+        var errorImage = $('<div class="vjs-error-image"></div>');
+        $("#video .vjs-control-bar").before(errorImage);
         // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
         // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
       });

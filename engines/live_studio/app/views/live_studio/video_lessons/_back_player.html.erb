@@ -2,7 +2,7 @@
   <div class="video-area video-info" id="player-and-chat">
     <div class="area-left">
       <div class="area-left-con">
-        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="">
+        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="">
           <source src="<%= @video.name_url %>" type="video/mp4">
         </video>
       </div>
@@ -43,6 +43,7 @@
     $(function() {
       var myPlayer = neplayer('my-video', {
         "autoplay": true,
+        errorDisplay: false,
         controlBar: {
           'currentTimeDisplay':true,
           'timeDivider':true,
@@ -50,6 +51,9 @@
           'remainingTimeDisplay':false
         }
       },function (){
+        // 错误背景图
+        var errorImage = $('<div class="vjs-error-image"></div>');
+        $("#my-video .vjs-control-bar").before(errorImage);
         // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
         // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
       });

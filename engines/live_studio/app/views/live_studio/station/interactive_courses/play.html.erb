@@ -4,7 +4,7 @@
       <div class="row">
         <div class="video-area">
           <div class="area-left area-member">
-            <div class="item">
+            <div class="item" id="teacher-area">
               <span class="tip">
                 <i></i>
                 <i></i>
@@ -15,7 +15,7 @@
 
           <div class="area-right bypass-live">
             <div class="area-right-live">
-              <div class="item live-left-box">
+              <div class="item live-left-box" id="student-area">
                 <span class="tip">
                   <i></i>
                   <i></i>
@@ -40,7 +40,7 @@ $(function() {
     account: "<%= @chat_account.try(:accid) %>",
     // account: "d5e42f9a6e32d463f91b16a14adbde83",
     token: "<%= @chat_account.try(:token) %>",
-    //token: '365383b66fac5b18209be02582d9a198',
+    // token: '365383b66fac5b18209be02582d9a198',
     role: "<%= current_user.role %>"
   };
 
@@ -67,5 +67,5 @@ $(function() {
     }
   });
 });
-</script>>
+</script>
 <% end %>

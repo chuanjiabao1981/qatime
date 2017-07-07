@@ -29,7 +29,7 @@
     // 不是本群组离线消息
     if (!validMsg(obj)) return false;
     $.each(obj.msgs, function(index, msg) {
-      chatNim.publish('offline', msg.type, msg);
+      chatNim.publish('offline', msg);
     });
   };
 
@@ -38,7 +38,7 @@
     // 不是本群组离线消息
     if (!validMsg(obj)) return false;
     $.each(obj.msgs, function(index, msg) {
-      this.chatNim.publish('offline', msg.type, msg);
+      this.chatNim.publish('roaming', msg);
     });
   };
 
@@ -47,7 +47,7 @@
     // 不是本群组离线消息
     if (!validMsg(obj)) return false;
     $.each(obj.msgs, function(index, msg) {
-      this.chatNim.publish('offline', msg.type, msg);
+      this.chatNim.publish('history', msg);
     });
   };
 
@@ -171,6 +171,54 @@
     if(!subscribers || subscribers.length <= 0) return;
     $.each(subscribers, function(i, subscriber) {
       subscriber(msg, from);
+    });
+  };
+
+
+
+  function messageHistory(messageDate, endTime) {
+    messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
+    beginTime = Date.parse(messageDate);
+    if(!endTime) {
+      // 第一次加载时清空数据
+      $("#messages-group").empty();
+      endTime = beginTime + 24 * 60 * 60 * 1000;
+    }
+    // 聊天窗口群组没有初始化不能加载聊天新记录
+    if(!chatInited) return false;
+    // 显示加载状态
+    var historyParams = {
+      scene: 'team',
+      to: live_chat.teamId,
+      beginTime: beginTime,
+      endTime: endTime,
+      asc: true,
+      done: getHistoryMsgsDone
+    }
+
+    $("#logging-more").hide();
+    $("#logging-nomore").hide();
+    $("#messages-group").prepend("<div class='logging-con'><center>加载中......</center></div>");
+    live_chat.nim.getHistoryMsgs(historyParams);
+  }
+
+  
+
+  ChatQatime.fn.loadHistoryMessages = function (messageDate, endTime) {
+    var that = this;
+    this.nim.getHistoryMsgs({
+      scene: 'team',
+      to: this.teamId,
+      endTime: end_time,
+      asc: true,
+      limit: 20,
+      done: function (error, obj) {
+        if(error) {
+          // TODO 错误处理
+        } else {
+          that.onHistoryMsgs(obj);
+        }
+      }
     });
   };
 })(this);

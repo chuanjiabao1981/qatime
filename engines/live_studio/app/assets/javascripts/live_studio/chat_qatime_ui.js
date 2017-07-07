@@ -33,8 +33,14 @@
     chatUI = this;
     // 聊天消息
     this.chatNim.subscribe('chat', 'text', this.onChat);
+    this.chatNim.subscribe('chat', 'image', this.onChat);
+    this.chatNim.subscribe('chat', 'audio', this.onChat);
     // 弹幕消息
     this.chatNim.subscribe('chat', 'text', this.onBarrage);
+    // 历史消息
+    this.chatNim.subscribe('history', 'text', this.onHistory);
+    this.chatNim.subscribe('history', 'image', this.onHistory);
+    this.chatNim.subscribe('history', 'audio', this.onHistory);
   };
 
   // 事件绑定
@@ -42,6 +48,8 @@
     var that = this;
     this.initTabEvent();
     this.initSendMsgEvent();
+    this.initBarrage();
+    this.initToolBar();
   };
 
   // 聊天tab切换
@@ -86,6 +94,36 @@
 
   };
 
+  // 弹幕
+  ChatQatimeUI.fn.initBarrage = function () {
+    this.chatNim.subscribe('chat', 'text', this.onBarrage);
+  };
+
+  // 工具条
+  ChatQatimeUI.fn.initToolBar = function () {
+    var that = this;
+    // 聊天表情
+    $("#emotion-btn").qqFace({ assign: "message-area", path: "/assets/face/" }, function() {
+      $("#message-area").focus();
+    });
+    // 清空聊天消息
+    $("#clear-btn").click(function() {
+      $("#messages").empty();
+    });
+
+    // 历史消息
+    $('#history-btn').click(function(event) {
+      // TODO
+      alert('暂不支持历史记录');
+      return false;
+      $("#histories").show();
+      that.chatNim.loadHistoryMessages();
+    });
+
+    $("#history-close").click(function() {
+      $("#histories").hide();
+    });
+  };
 
   ChatQatimeUI.fn.sendMsgCounter = function () {
     var counter = 2;
@@ -103,11 +141,9 @@
     }, 1000);
   };
 
-
   // 弹幕消息
   ChatQatimeUI.fn.onBarrage = function (msg) {
-    // TODO
-    // chatUI.containers('barrage').append(this.messageTag(msg));
+    // TODO 暂时不支持弹幕
   };
 
   // 聊天消息
@@ -219,12 +255,46 @@
 
   // 图片消息
   ChatQatimeUI.fn.imageMsgTag = function (msg) {
-    // TODO
+    var tag = $('<div class="new-information" id="msg-' + msg.idClient + '"></div>');
+    tag.append(this.messageTitleTag(msg)); // 消息头
+    var messageTag = $("<div class='information-con'></div>");
+    var imageNode = $('<img class="accept-img" src="' + msg.file.url + '">');
+    imageNode.one("load", function() {
+      $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+    });
+    messageTag.append(imageNode);
+    messageTag.append(messageTag);
+    return tag;
   };
 
   // 语音消息
   ChatQatimeUI.fn.audioMsgTag = function (msg) {
-    // TODO
+    var tag = $('<div class="new-information" id="msg-' + msg.idClient + '"></div>');
+    tag.append(this.messageTitleTag(msg)); // 消息头
+    var messageNode = $("<div class='information-con'></div>");
+    var mp3Url = this.chatNim.nim.audioToMp3({url: msg.file.url});
+    var audioNode = $('<p class="weixinAudio"></p>');
+    audioNode.append('<audio src="' + mp3Url + '" class="media"></audio>');
+    var audioSpan = '<span  class="db audio_area">';
+    var audioSecond = parseInt((parseInt(msg.file.dur) + 500) / 1000);
+    // 记录音频时长
+    audioNode.attr('audio-second', audioSecond);
+    audioSpan = audioSpan + '<span class="audio_wrp db">';
+    audioSpan = audioSpan + '<span class="audio_play_area">';
+    audioSpan = audioSpan + '<i class="icon_audio_default"></i>';
+    audioSpan = audioSpan + '<i class="icon_audio_playing"></i>';
+    audioSpan = audioSpan + '</span>';
+    audioSpan = audioSpan + '</span>';
+    audioSpan = audioSpan + '<span class="audio_length tips_global"></span>';
+    // 本地消息和漫游消息不显示未读标记
+    if(fromType !== 'roaming' && fromType !== 'local') audioSpan = audioSpan + '<span class="unlisten"></span>';
+    audioSpan = audioSpan + '</span>';
+    audioNode.append(audioSpan);
+    messageNode.append(audioNode);
+    var audio = audioNode.weixinAudio();
+    audio.updateTotalTime();
+    messageTag.append(messageNode);
+    return tag;
   }
 
   // 文字消息

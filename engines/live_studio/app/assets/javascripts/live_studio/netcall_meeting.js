@@ -107,8 +107,8 @@ NetcallBridge.fn.fetchPlayStatus = function () {
   $.getJSON(this.playStatusUrl, function(result) {
     // 如果播放状态不一致切换播放状态
     if(that.status != result.live_info.status) {
-      that.statusSwitch('teaching');
-      // clearInterval(NetcallBridge.timer);
+      that.statusSwitch(result.live_info.status);
+      clearInterval(NetcallBridge.timer);
     } else {
       // 定时查询互动状态
       if (!NetcallBridge.timer) {

@@ -7,6 +7,7 @@ module Entities
       expose :class_date
       expose :replayable
       expose :left_replay_times
+      expose :live_time
       expose :model_type do |lesson|
         lesson.model_name.to_s
       end
@@ -15,6 +16,13 @@ module Entities
           lesson.interactive_course.name.to_s
         else
           lesson.course.name.to_s
+        end
+      end
+      expose :teacher_name do |lesson|
+        if lesson.is_a? ::LiveStudio::InteractiveLesson
+          lesson.teacher.try(:name).to_s
+        else
+          lesson.course.teacher.try(:name).to_s
         end
       end
       expose :course_publicize do |lesson|

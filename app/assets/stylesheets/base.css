@@ -2723,6 +2723,16 @@ ul {
 }
 .affiche {
   height: 263px !important;
+  position: relative;
+}
+.affiche > .no-announcement > p {
+  color: #ccd0df;
+}
+.affiche > .no-announcement {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .affiche img {
   width: 18px !important;
@@ -2803,6 +2813,22 @@ ul {
 .history-content {
   height: 578px;
   overflow-y: auto;
+  position: relative;
+}
+.history-content > .no-message > p {
+  font-size: 14px;
+  color: #ccd0df;
+  text-align: center;
+}
+.history-content > .no-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -28px;
+  margin-top: -36px;
+}
+.history-content > .no-message img {
+  width: 44px;
 }
 .message-logging .active {
   display: block;
@@ -3003,7 +3029,10 @@ ul {
 .area-left-con .vjs-barrage-control img {
   width:14px;
 }
-
+.area-left-con .vjs-refresh-control img,.area-left-con .vjs-barrage-control img {
+  position: relative;
+  top: -2px;
+}
 
 
 
@@ -5326,7 +5355,7 @@ ul {
   color: #FFFFFF;
   text-align: center;
   line-height: 25px;
-  background-color: rgb(190,11,11);
+  background-color: #ff5842;
   border-radius: 50%;
 }
 .right-msg-num {
@@ -5419,7 +5448,9 @@ ul {
   border-bottom: 1px solid rgb(241,241,241);
 }
 .ask-title {
-  line-height: 40px;
+  height: 78px;
+  line-height: 78px;
+  margin: 0 30px;
 }
 .process-content {
   padding: 0 34px;
@@ -5441,8 +5472,15 @@ ul {
 .process-ask ul li a {
   color: #58cff9;
 }
+.process-ask ul li a:hover {
+  color: #ff5842;
+}
 .ask-title a {
   color: #666666;
+  text-decoration: underline !important;
+}
+.ask-title a:hover {
+  color: #ff5842;
 }
 .ask-question {
   color: #666666;
@@ -5456,8 +5494,12 @@ ul {
 .ask-response span:first-child {
   color: #069dd5;
 }
-
-
+.process-news > h3 {
+  font-size: 18px;
+}
+.process-news > p > img {
+  width: 100% !important;
+}
 
 /*帮助学生*/
 .student-study {
@@ -5880,6 +5922,7 @@ ul {
   }
   .nav-manager div.live-big {
     padding-right: 0px;
+    padding-left: 0px;
   }
   .area-left {
     width: 1040px;
@@ -8806,6 +8849,9 @@ ul {
 .handpick-info p:first-child a {
   color: #34495e;
 }
+.handpick-info p:first-child a:hover {
+  color: #ff5842;
+}
 .handpick-info p:first-child {
   line-height: 22px;
   overflow: hidden;
@@ -9047,7 +9093,7 @@ ul {
   border-bottom: 2px solid #ff5842;
   position: relative;
 }
-.pull-left {
+.header .pull-left {
   float: left;
 }
 .header .navbar-header .navbar-brand {
@@ -9103,7 +9149,7 @@ ul {
 }
 .header .pull-right .nav-login > li.user-enter span {
   position: relative;
-  top: 2px;
+  top: 1px;
 }
 .header .pull-right .nav-login > li.user-title {
   position: relative;
@@ -10147,7 +10193,7 @@ ul {
   color: #666;
 }
 .playlist:last-child {
-  padding-bottom: 30px;
+  padding-bottom: 0px;
 }
 .course-item-arrangement {
   padding-bottom: 0px;
@@ -10407,8 +10453,6 @@ ul {
 
 /*直播页面*/
 .nav-live {
-  /*position: absolute;
-	top: 0px;*/
   width: 100%;
   height: 42px;
   border-bottom: 1px solid #ff5842;
@@ -10446,9 +10490,6 @@ ul {
 .nav-live  .site-nav-right {
   margin-top: 3px;
 }
-/*.live-player {
-    margin-top: -29px !important;
-}*/
 .live-player > .live-head {
   margin-bottom: 0px;
 }
@@ -10456,13 +10497,14 @@ ul {
   overflow: hidden;
   position: relative;
 }
-.tec-live > img {
+.tec-live > a >  img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   margin-right: 30px;
+  border: 1px solid #ccc;
 }
-.tec-live > img,.tec-live > p{
+.tec-live > a > img,.tec-live > p{
   float: left;
 }
 .tec-live > p {
@@ -10471,9 +10513,14 @@ ul {
   margin-top: -12.5px;
   display: inline-block;
   font-size: 18px;
+}
+.tec-live > p > a {
   color: #555555;
 }
-.tec-live > p >img {
+.tec-live > p > a:hover {
+  color: #ff5842;
+}
+.tec-live > p > a >img {
   width: 14px;
   position: relative;
   top: -3px;
@@ -10481,9 +10528,9 @@ ul {
 .live-content .nav-item span {
   color: #34495e;
 }
-.live-content .course-item:last-child {
-  padding-bottom: 0px;
-}
+/*.live-content .course-item:last-child {
+	padding-bottom: 0px;
+}*/
 .live-content {
   margin-bottom: 60px;
 }
@@ -10589,7 +10636,7 @@ ul {
   color: #ff5842;
 }
 .personal-nav > li:last-child > a > span {
-  margin-left: 5px;
+  margin-left: -5px;
 }
 .personal-nav > li > .col-md-1 {
   padding-right: 0px;
@@ -11214,9 +11261,9 @@ ul {
 .discipline-info > .info-title  strong {
   font-weight: 500;
 }
-.info-state span:first-child,.info-user span:first-child {
-  margin-right: 10px;
-}
+/*.info-state span:first-child,.info-user span:first-child {
+	margin-right: 10px;
+}*/
 .info-state > .col-md-4:last-child {
   padding: 0px;
 }
@@ -11240,7 +11287,7 @@ ul {
 }
 @media only screen  and (max-width: 1200px) {
   .discipline-info > .row {
-    margin-bottom: 0px;
+    margin-bottom: 8px;
   }
 }
 @media only screen  and (max-width: 990px) {
@@ -11249,6 +11296,12 @@ ul {
   }
   .side-nav {
     margin-bottom: 30px;
+  }
+  .info-state > .col-md-4:last-child {
+    padding: 0px 15px;
+  }
+  .discipline-info > .row {
+    margin-bottom: 0px;
   }
 }
 
@@ -11510,7 +11563,10 @@ ul {
 }
 @media only screen  and (max-width: 1200px) {
   .watch.active,.watch.finished {
-    margin-top: 10px;
+    margin-top: 18px;
+  }
+  .watch {
+    margin-top: 18px;
   }
 }
 @media only screen and (max-width: 990px) {
@@ -11939,8 +11995,11 @@ ul {
   height: 38px;
   color: #9aabb8;
 }
-.personal-nav > li > .nav-status > a {
+.personal-nav > li > .nav-status > a,.personal-nav > li > .nav-order > a {
   margin-right: 15px !important;
+}
+.personal-nav > li > .nav-status > a:last-child,.personal-nav > li > .nav-order > a:last-child {
+  margin-right: 0px !important;
 }
 .personal-nav > li > .nav-status > a > i,.personal-nav > li > .nav-order > a > i {
   display: inline-block;
@@ -12722,15 +12781,15 @@ ul {
   text-align: center;
   line-height: 83px;
 }
-.calendar-info .schedule-msg > .row > .education-line span:first-child {
-  margin-right: 20px;
-}
 .audition-con {
   margin-top: 0px;
 }
 .contains > .contains-title > h3 > a {
   text-decoration: underline !important;
   color: #999;
+}
+.contains > .contains-title > h3 > a:hover {
+  color: #ff5842;
 }
 @media only screen  and (max-width: 1200px) {
   .calendar-info .schedule-listen > .row span {
@@ -16083,6 +16142,9 @@ abbr {
   color: #999;
   text-decoration: underline !important;
 }
+.contains > .contains-title > .agreement-link:hover {
+  color: #ff5842;
+}
 .contains > .protocol-box {
   padding: 0px 30px 20px 30px;
 }
@@ -16116,7 +16178,9 @@ abbr {
   color: #58cff9;
   margin-left: 30px;
 }
-
+.contains > .protocol-box > ul > li > a:hover {
+  color: #ff5842;
+}
 
 /*旁路直播后台观看*/
 .video-area > .area-member {
@@ -16486,4 +16550,47 @@ abbr {
 }
 .accout-box > ul > li > p.knobble {
   margin-bottom: 10px;
+}
+
+
+/* 视屏加载中背景 */
+.vjs-loading-image{
+  display: none;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+}
+
+.vjs-waiting .vjs-loading-image, .vjs-seeking .vjs-loading-image{
+  display:block;
+}
+
+/* 视屏播放错误背景 */
+.vjs-error-image{
+  display: none;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+}
+
+.vjs-error .vjs-error-image{
+  display:block;
 }

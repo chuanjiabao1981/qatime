@@ -15,7 +15,7 @@
             <span><%=Student.human_attribute_name(:name)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.name %></span>
+            <span><%= @student.name.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -25,7 +25,7 @@
             <span><%=Student.human_attribute_name(:gender)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.gender_text %></span>
+            <span><%= @student.gender_text.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -35,7 +35,7 @@
             <span><%=Student.human_attribute_name(:birthday)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.birthday %></span>
+            <span><%= @student.birthday.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -45,7 +45,7 @@
             <span><%=Student.human_attribute_name(:grade)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.grade %></span>
+            <span><%= @student.grade.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -55,7 +55,7 @@
             <span><%=Student.human_attribute_name(:city)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.city.try(:name_with_province) %></span>
+            <span><%= @student.city.try(:name_with_province).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -65,7 +65,7 @@
             <span><%=Student.human_attribute_name(:school)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @student.school.try(:name) %></span>
+            <span><%= @student.school.try(:name).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -76,7 +76,7 @@
             <span><%=Student.human_attribute_name(:desc)%></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <%= raw @student.desc %>
+            <%= raw(@student.desc).presence || t('view.common.not_set') %>
           </div>
         </div>
       </li>

@@ -15,7 +15,7 @@
             <span><%= Teacher.human_attribute_name(:name) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.name %></span>
+            <span><%= @teacher.name.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -25,7 +25,7 @@
             <span><%= Teacher.human_attribute_name(:nick_name) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.nick_name %></span>
+            <span><%= @teacher.nick_name.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -36,7 +36,7 @@
             <span><%= Teacher.human_attribute_name(:gender) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.gender_text %></span>
+            <span><%= @teacher.gender_text.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -46,7 +46,7 @@
             <span><%= Teacher.human_attribute_name(:birthday) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.birthday %></span>
+            <span><%= @teacher.birthday.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -56,7 +56,7 @@
             <span><%= Teacher.human_attribute_name(:category) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.category %></span>
+            <span><%= @teacher.category.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -66,7 +66,7 @@
             <span><%= Teacher.human_attribute_name(:city) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.city.try(:name_with_province) %></span>
+            <span><%= @teacher.city.try(:name_with_province).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -76,7 +76,7 @@
             <span><%= Teacher.human_attribute_name(:school) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.school.try(:name) %></span>
+            <span><%= @teacher.school.try(:name).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -86,7 +86,7 @@
             <span><%= Teacher.human_attribute_name(:subject) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.subject %></span>
+            <span><%= @teacher.subject.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -96,7 +96,7 @@
             <span><%= Teacher.human_attribute_name(:teaching_years) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.teaching_years_text %></span>
+            <span><%= @teacher.teaching_years_text.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -106,7 +106,7 @@
             <span><%= Teacher.human_attribute_name(:desc) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <%= raw @teacher.desc %>
+            <%= raw(@teacher.desc).presence || t('view.common.not_set') %>
           </div>
         </div>
       </li>

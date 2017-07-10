@@ -93,12 +93,16 @@ footer {
 .nav-footer li a {
   color: #999999;
 }
+.nav-footer li a:hover {
+  color: #ff5842;
+}
 .nav-footer li:last-child {
   border-right: 0px;
 }
 footer .copyright {
   color: #999999;
   text-align: center;
+  padding-bottom: 20px;
 }
 .qa_sep_15 {
   height: 15px;

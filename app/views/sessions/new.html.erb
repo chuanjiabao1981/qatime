@@ -36,12 +36,13 @@
               <%= f.input_field :password, placeholder: t('.password_placeholder') %>
             </div>
             <div class="input-password">
-                <span><input type="checkbox" name="" id="password" value="">
-                  <label for="password"><%= t('.remember_account') %></label>
-                </span>
-                <span>
-                  <%= link_to t(".forget_password"), new_password_path %>
-                </span>
+              <span>
+                <%= check_box_tag :remember_account %>
+                <%= label_tag :remember_account, t('.remember_account') %>
+              </span>
+              <span>
+                <%= link_to t(".forget_password"), new_password_path %>
+              </span>
             </div>
             <%= button_tag t('.sign_now'),class: 'login-send' %>
             <div class="login-other">

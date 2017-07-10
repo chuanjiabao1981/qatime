@@ -416,4 +416,16 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert res['data'][0].key?('product_type')
     assert res['data'][0].key?('product')
   end
+
+  test "get course detail" do
+    course = live_studio_courses(:course_preview)
+
+    get "/api/v1/live_studio/courses/#{course.id}/detail", {}, { 'Remember-Token' => @student_remember_token }
+
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert res['data'].key?('course')
+    assert res['data'].key?('ticket')
+  end
 end

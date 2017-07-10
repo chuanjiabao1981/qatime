@@ -1,8 +1,8 @@
 <ul class="fixed-bar">
   <li class="fixed-phone">
-    <a href="javascript:void(0);">
+    <%= link_to main_app.static_page_qa_faq_path(34) do %>
       <%= image_tag 'phonenumber.png' %>
-    </a>
+    <% end %>
     <div class="phonenumber">
       <p>400-838-8010</p>
     </div>
@@ -18,9 +18,9 @@
     <% end %>
   </li>
   <li class="fixed-weixin">
-    <a href="javascript:void(0);">
+    <%= link_to main_app.static_page_qa_faq_path(34) do %>
       <%= image_tag 'code-1.png' %>
-    </a>
+    <% end %>
     <div class="weixin-code">
       <%= image_tag 'publiccode.jpg' %>
       <p><%= t('view.footer.weixin_code') %></p>
@@ -38,13 +38,13 @@
   <div class="qa_sep_15"></div>
   <ul class="nav-footer">
     <li>
-      <%= link_to t('view.footer.weixin_public'), 'javascript:void(0);' %>
+      <%= link_to t('view.footer.weixin_public'), main_app.static_page_qa_faq_path(34) %>
     </li>
     <li>
-      <%= link_to t('view.footer.about_us'), 'javascript:void(0);' %>
+      <%= link_to t('view.footer.about_us'), main_app.static_page_qa_faq_path(34) %>
     </li>
     <li>
-      <%= link_to t('view.footer.contact_us'), 'javascript:void(0);' %>
+      <%= link_to t('view.footer.contact_us'), main_app.static_page_qa_faq_path(34) %>
     </li>
     <li>
       <%= link_to t('view.footer.help_center'), main_app.qa_faqs_path %>

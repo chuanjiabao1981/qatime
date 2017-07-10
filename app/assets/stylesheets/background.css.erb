@@ -299,6 +299,16 @@
   /*background-blend-mode: darken;*/
 }
 
+/*筛选页选中*/
+.personal-nav > li > .nav-status > a > i,.personal-nav > li > .nav-order > a > i {
+  background: url("<%= asset_path('no-selected.png') %>") no-repeat;
+  background-size: 100% 100%;
+}
+.personal-nav > li > .nav-status > a.active > i,.personal-nav > li > .nav-order > a.active > i {
+  background: url("<%= asset_path('selected.png') %>") no-repeat;
+  background-size: 100% 100%;
+}
+
 /*视频加载*/
 .vjs-loading-image{
   background: url("<%= asset_path('live_cover_loading.png') %>") no-repeat;

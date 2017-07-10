@@ -5,6 +5,7 @@ cn:
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
       download: 下载APP
       notfund: 暂无数据
+      week_schedule_none: 本周无课
       none: 无
       video_lesson:
         name_blank: 课时名称不能为空

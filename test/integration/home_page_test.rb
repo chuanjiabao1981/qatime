@@ -77,7 +77,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       assert page.has_link? name, '加盟城市未显示'
     end
     other_city = City.where(workstation_id: nil).first
-    assert page.has_no_link? other_city.name, "未加盟城市显示出来了"
+    # assert page.has_no_link? other_city.name, "未加盟城市显示出来了"
 
     click_link '阳泉', match: :first
     assert find(:css, '.site-nav-left').has_content?('阳泉'), '城市切换不成功'
@@ -102,8 +102,8 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_content?('精彩回放')
 
     assert page.has_content? '今日直播'
-    assert page.has_link? '正在直播'
-    assert page.has_link? '尚未直播'
+    assert find('.live-today').has_content? '正在直播'
+    assert find('.live-today').has_content? '尚未直播'
   end
 
   test "home page choiceness" do
@@ -121,7 +121,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
     assert page.has_content? '免费课程'
     assert page.has_content? '让学习成本降到最低'
-    courses = DataService::HomeData.new(nil).free_courses.limit(4)
+    courses = DataService::HomeData.new(nil).free_courses(limit: 4)
     assert_equal courses.count, page.all("#free_courses .item-handpick li").size, "免费课程显示数量显示不正确"
     courses.each do |course|
       assert page.has_link?(course.name)

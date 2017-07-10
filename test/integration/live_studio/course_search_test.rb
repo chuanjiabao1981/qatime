@@ -51,6 +51,16 @@ module LiveStudio
       assert page.has_no_link?('招生中的辅导班')
     end
 
+    # 销售类型查询
+    test 'search by sell type' do
+      click_on '收费课程'
+      assert page.has_link?('测试辅导2班')
+      assert page.has_no_link?('免费直播课1')
+      click_on '免费课程'
+      assert page.has_link?('免费直播课1')
+      assert page.has_no_link?('测试辅导2班')
+    end
+
     test 'search by tags' do
     end
 

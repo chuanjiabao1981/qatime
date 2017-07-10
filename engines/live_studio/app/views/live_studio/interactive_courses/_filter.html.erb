@@ -30,11 +30,14 @@
           <% end %>
         </span>
       </li>
-      <li>
-        <%= f.sort_link :published_at,
-                        LiveStudio::InteractiveCourse.human_attribute_name(:latest) %>
-        <%= f.sort_link :price,
-                        LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
+
+      <li class="filter-condition">
+        <span class="nav-hot">
+          <%= f.sort_link :published_at,
+                          LiveStudio::InteractiveCourse.human_attribute_name(:latest) %>
+          <%= f.sort_link :price,
+                          LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
+        </span>
       </li>
     </ul>
   <% end %>

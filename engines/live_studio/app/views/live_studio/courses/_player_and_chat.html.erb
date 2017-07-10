@@ -43,6 +43,7 @@ $(function() {
   boardPlayer = neplayer("my-video", {
     bigPlayButton: false,
     errorDisplay: false,
+    loadingSpinner: false,
     controlBar: {
       progressControl: false,
       remainingTimeDisplay: false
@@ -80,6 +81,8 @@ $(function() {
     // 错误背景图
     var errorImage = $('<div class="vjs-error-image"></div>');
     $("#my-video .vjs-control-bar").before(errorImage);
+    var loadingImage = $('<div class="vjs-loading-image"></div>');
+    $("#my-video .vjs-control-bar").before(loadingImage);
 
   });
 
@@ -108,11 +111,14 @@ $(function() {
   cameraPlayer = neplayer("small-video", {
     bigPlayButton: false,
     errorDisplay: false,
+    loadingSpinner: false,
     controlBar: false
   }, function() {
     // 错误背景图
     var errorImage = $('<div class="vjs-error-image"></div>');
     $("#small-video .vjs-caption-settings").before(errorImage);
+    var loadingImage = $('<div class="vjs-loading-image"></div>');
+    $("#small-video .vjs-caption-settings").before(loadingImage);
   });
   // cameraPlayer.play();
   cameraPlayer.onError(function(err){

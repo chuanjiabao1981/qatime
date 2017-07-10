@@ -299,24 +299,14 @@
   /*background-blend-mode: darken;*/
 }
 
-/* 视屏播放错误背景 */
-.vjs-error-image{
-  display: none;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: contain;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  background-image: url("<%= asset_path('live_cover_fail.png') %>");
+/*视频加载*/
+.vjs-loading-image{
+  background: url("<%= asset_path('live_cover_loading.png') %>") no-repeat;
+  background-size: 100% 100%;
 }
 
-.vjs-error .vjs-error-image{
-  display:block;
+/* 视屏播放错误背景 */
+.vjs-error-image{
+  background: url("<%= asset_path('live_cover_fail.png') %>") no-repeat;
+  background-size: 100% 100%;
 }

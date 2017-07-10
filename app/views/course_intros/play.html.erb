@@ -14,6 +14,7 @@
       var myPlayer = neplayer('video', {
         "autoplay": false,
         errorDisplay: false,
+        loadingSpinner: false,
         controlBar: {
           'currentTimeDisplay':true,
           'timeDivider':true,
@@ -24,6 +25,8 @@
         // 错误背景图
         var errorImage = $('<div class="vjs-error-image"></div>');
         $("#video .vjs-control-bar").before(errorImage);
+        var loadingImage = $('<div class="vjs-loading-image"></div>');
+        $("#video .vjs-control-bar").before(loadingImage);
         // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
         // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
       });

@@ -1,10 +1,14 @@
 <% teacher = @course.teacher %>
 <div class="course-lessons">
   <div class="lessons-detail tec-live">
-    <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+    <%= link_to profile_teacher_path(teacher.id) do %>
+      <%= image_tag teacher.avatar_url, class: "handle_error_avatar" %>
+    <% end %>
     <p>
-      <span><%= teacher.name %></span>
-      <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+      <%= link_to profile_teacher_path(teacher.id) do %>
+        <span><%= teacher.name %></span>
+        <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+      <% end %>
     </p>
   </div>
   <div class="lessons-detail">

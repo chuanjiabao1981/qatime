@@ -305,6 +305,7 @@ cn:
       send_msg: 发送
       more: 查看更多
       nomore: 没有更多消息
+      message_none: 暂无消息
       live_studio_detail: 直播详情
       base_info: 辅导概况
       teacher_info: 教师资料

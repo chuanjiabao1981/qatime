@@ -18,21 +18,17 @@ module V1
           post 'callback' do
             begin
               code = 500
-              if params[:beginTime].present?
+              if params[:beginTime].blank? # 视频合并结果
+                replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
+                code = 200 if replay && replay.merge_callback(params)
+              elsif params['video_name'] =~ /^lessons\d+camera/ # 摄像头录制不处理
+                code = 200
+              else # 白板录制视频
                 channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
                 lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
                 lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).find(lesson_id)
-                result = lesson.channel_videos.create(
-                  name: params['video_name'],
-                  vid: params['vid'],
-                  begin_time: params['beginTime'],
-                  end_time: params['endTime'],
-                  channel_id: channel.id,
-                  video_for: channel.use_for) if lesson && lesson.channel_videos.find_by(vid: params['vid']).nil?
-                code = 200 if result
-              else
-                replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
-                code = 200 if replay && replay.merge_callback(params)
+                lesson.instance_videos(channel, params)
+                code = 200
               end
             rescue StandardError => e
               Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"

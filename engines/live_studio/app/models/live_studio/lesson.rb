@@ -115,7 +115,7 @@ module LiveStudio
         transitions from: :teaching, to: :paused
       end
 
-      event :close do
+      event :close, after_commit: :close_hook  do
         before do
           # 第一次结束直播增加结束数量
           increment_course_counter(:closed_lessons_count) if live_end_at.nil?
@@ -263,6 +263,11 @@ module LiveStudio
       # 记录播放记录
       instance_play_records
       # 获取回放视频
+      async_fetch_replays
+    end
+
+    # 结束直播回调
+    def close_hook
       async_fetch_replays
     end
 

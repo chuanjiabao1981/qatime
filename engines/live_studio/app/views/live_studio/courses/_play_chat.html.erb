@@ -34,6 +34,9 @@
             <%= @chat_team.announcement %>
           </div>
         </div>
+        <% if @chat_team.announcement.blank? %>
+          <div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>
+        <% end %>
       </div>
     </div>
 
@@ -383,6 +386,9 @@ function refreshNotice() {
         $("#notice-panel").html(item);
       }
     });
+    if(data.length == 0){
+      $("#notice-panel").html('<div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>')
+    }
   });
 }
 // refreshNotice();

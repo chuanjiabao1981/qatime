@@ -5,10 +5,14 @@
 
   <div class="course-lessons">
     <div class="lessons-detail tec-live">
-      <%= image_tag @course.teacher.avatar_url, class: "handle_error_avatar" %>
+      <%= link_to profile_teacher_path(@course.teacher.id) do %>
+        <%= image_tag @course.teacher.avatar_url, class: "handle_error_avatar" %>
+      <% end %>
       <p>
-        <span><%= @course.teacher.name %></span>
-        <%= image_tag "#{@course.teacher.gender || 'male'}_big.png" %>
+        <%= link_to profile_teacher_path(@course.teacher.id) do %>
+          <span><%= @course.teacher.name %></span>
+          <%= image_tag "#{@course.teacher.gender || 'male'}_big.png" %>
+        <% end %>
       </p>
     </div>
     <div class="lessons-detail">

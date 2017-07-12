@@ -2903,7 +2903,7 @@ ul {
 }
 .information-name {
   color: #e78c8c;
-  margin-left: -1px;
+  margin-left: 5px;
   font-size: 14px;
 }
 .new-information-else .information-name,.new-information-stu .information-name {

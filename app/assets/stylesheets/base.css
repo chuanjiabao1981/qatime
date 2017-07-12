@@ -16594,9 +16594,9 @@ abbr {
 .vjs-error .vjs-error-image{
   display:block;
 }
-
-
-
+.vjs-error .vjs-error-display{
+  display: none;
+}
 .player-live .video-js .vjs-control-bar {
   height: 30px;
 }

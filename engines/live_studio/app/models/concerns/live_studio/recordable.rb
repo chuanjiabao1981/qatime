@@ -32,7 +32,7 @@ module LiveStudio
 
     # 查询或者创建录制视频
     def instance_videos(channel, attrs)
-      video = channel_videos.find_by(vid: params['vid'])
+      video = channel_videos.find_by(vid: attrs['vid'])
       return video if video
       channel_videos.create(
         name: attrs['video_name'],

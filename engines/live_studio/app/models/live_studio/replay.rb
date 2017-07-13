@@ -91,7 +91,7 @@ module LiveStudio
 
     def merged_vids(video_name)
       return [] unless video_name =~ /board_replay_\d+/
-      video_name.split('board_replay').last.split('-')
+      video_name.split('board_replay_').last.split('-')
     end
 
     def single_merge

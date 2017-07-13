@@ -64,7 +64,7 @@ module LiveStudio
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records # 听课记录
+    has_many :play_records, -> { where(product_type: 'LiveStudio::Course') } # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
     has_many :channel_videos
     has_many :replays

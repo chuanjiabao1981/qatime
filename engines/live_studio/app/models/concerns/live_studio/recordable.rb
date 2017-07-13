@@ -20,16 +20,28 @@ module LiveStudio
     def fetch_replays
       channels.map {|c| c.sync_video_for(self) if c.board? }
       synced! if channel_videos.count > 0
-      # 设置合并任务
-      init_replays if synced?
     end
 
-    # 初始化回放记录
-    def init_replays
-      replays.create(video_for: ChannelVideo.video_fors['board'],
+    # 初始化回放
+    def instance_replays
+      return replays.last unless replays.blank?
+      replays.create!(video_for: ChannelVideo.video_fors['board'],
                      name: board_replay_name,
-                     vids: board_video_vids,
-                     channel: channels.find_by(use_for: Channel.use_fors['board']))
+                     channel: board_channel)
+    end
+
+    # 查询或者创建录制视频
+    def instance_videos(channel, attrs)
+      video = channel_videos.find_by(vid: attrs['vid'])
+      return video if video
+      channel_videos.create(
+        name: attrs['video_name'],
+        vid: attrs['vid'],
+        begin_time: attrs['beginTime'],
+        end_time: attrs['endTime'],
+        channel_id: channel.id,
+        video_for: channel.use_for
+      )
     end
   end
 end

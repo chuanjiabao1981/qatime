@@ -32,5 +32,17 @@ module LiveStudio
         create_time: result[:createTime]
       )
     end
+
+    # 视频合并
+    after_commit :merge_to, on: :create
+    def merge_to
+      replay = lesson.instance_replays
+      replay.with_lock do
+        replay.vids.push(vid)
+        replay.pending_vids.push(vid.to_s)
+        replay.save
+        replay.async_merge_video
+      end
+    end
   end
 end

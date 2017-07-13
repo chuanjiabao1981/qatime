@@ -227,6 +227,11 @@ module LiveStudio
       (lessons_count.to_i - closed_lessons_count.to_i) <= charge_lessons_count
     end
 
+    # 是否可以试听
+    def tastable?
+      taste_count > 0 && !taste_overflow?
+    end
+
     def live_next_time
       lesson = lessons.include_today.unstart.first
       lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')

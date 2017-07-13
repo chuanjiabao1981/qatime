@@ -39,7 +39,7 @@ module LiveStudio
       replay = lesson.instance_replays
       replay.with_lock do
         replay.vids.push(vid)
-        replay.pending_vids.push(vid)
+        replay.pending_vids.push(vid.to_s)
         replay.save
         replay.async_merge_video
       end

@@ -2903,7 +2903,7 @@ ul {
 }
 .information-name {
   color: #e78c8c;
-  margin-left: -1px;
+  margin-left: 5px;
   font-size: 14px;
 }
 .new-information-else .information-name,.new-information-stu .information-name {
@@ -3029,10 +3029,10 @@ ul {
 .area-left-con .vjs-barrage-control img {
   width:14px;
 }
-.area-left-con .vjs-refresh-control img,.area-left-con .vjs-barrage-control img {
-  position: relative;
-  top: -2px;
-}
+/*.area-left-con .vjs-refresh-control img,.area-left-con .vjs-barrage-control img {
+	position: relative;
+	top: -1px;
+}*/
 
 
 
@@ -5470,7 +5470,7 @@ ul {
   margin-right: 5px;
 }
 .process-ask ul li a {
-  color: #58cff9;
+  color: #666;
 }
 .process-ask ul li a:hover {
   color: #ff5842;
@@ -16175,7 +16175,7 @@ abbr {
   color: #666;
 }
 .contains > .protocol-box > ul > li > a {
-  color: #58cff9;
+  color: #666;
   margin-left: 30px;
 }
 .contains > .protocol-box > ul > li > a:hover {
@@ -16498,7 +16498,7 @@ abbr {
   margin-bottom: 0px;
 }
 .guide > ul > li > a {
-  color: #58cff9;
+  color: #666;
 }
 .guide > ul > li > a:hover {
   color: #ff5842;
@@ -16594,3 +16594,24 @@ abbr {
 .vjs-error .vjs-error-image{
   display:block;
 }
+.vjs-error .vjs-error-display{
+  display: none;
+}
+.player-live .video-js .vjs-control-bar {
+  height: 30px;
+}
+.player-live .video-js .vjs-fullscreen-control,.player-live .video-js .vjs-barrage-control,.player-live .video-js .vjs-volume-menu-button {
+  position: absolute;
+}
+.player-live .video-js .vjs-fullscreen-control {
+  right: 0;
+}
+.player-live .video-js .vjs-barrage-control {
+  right: 4em;
+}
+.player-live .video-js .vjs-volume-menu-button {
+  right: 8em;
+}
+
+
+

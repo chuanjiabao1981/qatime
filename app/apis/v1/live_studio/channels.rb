@@ -26,7 +26,7 @@ module V1
               else # 白板录制视频
                 channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
                 lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
-                lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).find(lesson_id)
+                lesson = ::LiveStudio::Lesson.where(course_id: channel.channelable_id).find(lesson_id)
                 lesson.instance_videos(channel, params)
                 code = 200
               end

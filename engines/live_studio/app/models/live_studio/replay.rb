@@ -100,7 +100,7 @@ module LiveStudio
         self.vid = video.vid
         self.orig_video_key = video.orig_video_key
         self.uid = video.uid
-        self.pending_vids.delete(video.vid)
+        self.pending_vids.delete(video.vid.to_s)
         save!
       end
       video_get

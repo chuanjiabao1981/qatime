@@ -14,7 +14,7 @@ module LiveStudio
     after_commit :async_merge_video, on: :create
     def merge_video
       return single_merge unless vids.count > 1 # 不需要合并
-      self.pending_vids = vids
+      self.pending_vids = vids.map(&:to_s)
       save!
       async_merge_replays
     end
@@ -96,7 +96,7 @@ module LiveStudio
 
     def merged_vids(video_name)
       return [] unless video_name =~ /board_replay_\d+/
-      video_name.split('board_replay').last.split('-')
+      video_name.split('board_replay_').last.split('-')
     end
 
     def single_merge

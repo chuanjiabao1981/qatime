@@ -318,6 +318,7 @@ cn:
           init: 审核中
           allowed: 通过审核
           refused: 提现失败
+          paid: 提现成功
           canceled: 已取消
         admin:
           init: 等待审核

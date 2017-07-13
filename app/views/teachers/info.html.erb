@@ -15,7 +15,7 @@
             <span><%= Teacher.human_attribute_name(:name) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.name.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.name.blank? %>"><%= @teacher.name.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -25,7 +25,7 @@
             <span><%= Teacher.human_attribute_name(:nick_name) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.nick_name.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.nick_name.blank? %>"><%= @teacher.nick_name.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -36,7 +36,7 @@
             <span><%= Teacher.human_attribute_name(:gender) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.gender_text.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.gender_text.blank? %>"><%= @teacher.gender_text.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -46,7 +46,7 @@
             <span><%= Teacher.human_attribute_name(:birthday) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.birthday.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.birthday.blank? %>"><%= @teacher.birthday.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -56,7 +56,7 @@
             <span><%= Teacher.human_attribute_name(:category) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.category.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.category.blank? %>"><%= @teacher.category.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -66,7 +66,7 @@
             <span><%= Teacher.human_attribute_name(:city) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.city.try(:name_with_province).presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.city.try(:name_with_province).blank? %>"><%= @teacher.city.try(:name_with_province).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -76,7 +76,7 @@
             <span><%= Teacher.human_attribute_name(:school) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.school.try(:name).presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.school.try(:name).blank? %>"><%= @teacher.school.try(:name).presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -86,7 +86,7 @@
             <span><%= Teacher.human_attribute_name(:subject) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.subject.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.subject.blank? %>"><%= @teacher.subject.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -96,7 +96,7 @@
             <span><%= Teacher.human_attribute_name(:teaching_years) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <span><%= @teacher.teaching_years_text.presence || t('view.common.not_set') %></span>
+            <span class="<%= 'not-set' if @teacher.teaching_years_text.blank? %>"><%= @teacher.teaching_years_text.presence || t('view.common.not_set') %></span>
           </div>
         </div>
       </li>
@@ -106,7 +106,9 @@
             <span><%= Teacher.human_attribute_name(:desc) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
-            <%= raw(@teacher.desc).presence || t('view.common.not_set') %>
+            <span class="<%= 'not-set' if @teacher.desc.blank? %>">
+              <%= @teacher.desc.presence || t('view.common.not_set') %>
+            </span>
           </div>
         </div>
       </li>

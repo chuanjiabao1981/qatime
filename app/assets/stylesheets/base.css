@@ -13112,6 +13112,9 @@ ul {
   font-size: 16px;
   color: #666;
 }
+.contains > .user-smg  ul li .not-set {
+  color: #FF0000;
+}
 .contains > .user-smg  ul .edit-info {
   margin-bottom: 25px;
 }
@@ -13136,6 +13139,7 @@ ul {
   background-color: #ff5842;
   color: #FFFFFF;
 }
+
 /*学生信息编辑*/
 .contains > .user-edit form > ul label {
   font-weight: normal;

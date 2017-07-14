@@ -17,6 +17,9 @@ class  FooterTest < ActionDispatch::IntegrationTest
     find('.fixed-weixin').hover
     assert page.has_content?('微信公众号:答疑时间')
 
+    assert page.has_link?('微信公众号')
+    assert page.has_link?('关于我们')
+    assert page.has_link?('联系我们')
     assert page.has_link?('帮助中心')
     assert page.has_link?('程序下载')
 

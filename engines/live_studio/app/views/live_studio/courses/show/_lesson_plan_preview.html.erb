@@ -1,6 +1,6 @@
 <% interactive = @course.is_a? LiveStudio::InteractiveCourse %>
 <% @lessons.each_with_index do |lesson, i| %>
-  <div class="row playlist <%= lesson.is_over? ? 'end' : '' %>">
+  <div class="row playlist <%= lesson.had_closed? ? 'end' : '' %>">
     <div class="col-md-1">
       <span><%= beautify_index(i) %></span>
     </div>

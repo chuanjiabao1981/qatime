@@ -14,22 +14,25 @@
         <% @lessons.each_with_index do |lesson, index| %>
           <li>
             <% if allow?("live_studio/lessons", "replay", lesson) -%>
-              <% link = lesson.id == @lesson.id ? 'javascript: void(0);' : live_studio.replay_lesson_path(lesson) -%>
-              <%= link_to link do -%>
-                <div class="row">
-                  <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
-                  <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
-                  <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span></div>
-                </div>
-              <% end -%>
-            <% elsif lesson.left_replay_times <= 0 %>
-              <%= link_to 'javascript: void(0);', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
-                <div class="row">
-                  <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
-                  <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
-                  <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span></div>
-                </div>
-              <% end -%>
+              <% my_replay_times = lesson.user_left_times(current_user) %>
+              <% if my_replay_times > 0 %>
+                <% link = lesson.id == @lesson.id ? 'javascript: void(0);' : live_studio.replay_lesson_path(lesson) -%>
+                <%= link_to link do -%>
+                  <div class="row">
+                    <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
+                    <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
+                    <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: my_replay_times) %></span></div>
+                  </div>
+                <% end -%>
+              <% else %>
+                <%= link_to 'javascript: void(0);', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
+                  <div class="row">
+                    <div class="col-md-2 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
+                    <div class="col-md-10 list-msg <%= 'active' if lesson.id == @lesson.id %>"><span><%= lesson.name %></span></div>
+                    <div class="col-md-10 col-md-offset-2 playback-con-time"><span><%= t("view.replay.left_replay_times2", count: my_replay_times) %></span></div>
+                  </div>
+                <% end -%>
+              <% end %>
             <% end -%>
           </li>
         <% end %>

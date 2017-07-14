@@ -509,4 +509,18 @@ module ApplicationHelper
       I18n.t('view.today_lives.live_end')
     end
   end
+
+  # 直播课回放按钮
+  def replay_button_of(lesson, preview = false)
+    return lesson.status_text if current_user.blank?
+    return lesson.status_text(current_user.try(:role)) unless lesson.replayable
+    return lesson.status_text(current_user.try(:role)) unless allow?("live_studio/lessons", "replay", lesson)
+    my_replay_times = lesson.user_left_times(current_user)
+
+    if preview
+      render 'live_studio/courses/show/replay_button_preview', { lesson: lesson, my_replay_times: my_replay_times}
+    else
+      render 'live_studio/courses/show/replay_button', { lesson: lesson, my_replay_times: my_replay_times}
+    end
+  end
 end

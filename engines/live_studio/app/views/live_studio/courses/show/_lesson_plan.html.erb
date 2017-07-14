@@ -26,29 +26,7 @@
         <% if interactive %>
           <%= lesson.status_text(current_user.try(:role)) %>
         <% else %>
-          <% if current_user %>
-            <% if lesson.replayable %>
-              <% if allow?("live_studio/lessons", "replay", lesson) -%>
-                <% if lesson.user_left_times(current_user) > 0 %>
-                  <%= link_to live_studio.replay_lesson_path(lesson), class: 'active', target: '_blank' do -%>
-                    <em><%= LiveStudio::Lesson.human_attribute_name(:replay) %></em>
-                    <em><%= t("view.live_studio/courses.show.left_replay_times", count: lesson.user_left_times(current_user)) %></em>
-                  <% end -%>
-                <% else %>
-                  <%= link_to 'javascript: void(0);' do -%>
-                    <em><%= LiveStudio::Lesson.human_attribute_name(:replay) %></em>
-                    <em><%= t("view.live_studio/courses.show.left_replay_times", count: lesson.user_left_times(current_user)) %></em>
-                  <% end -%>
-                <% end %>
-              <% else %>
-                <%= lesson.status_text(current_user.try(:role)) %>
-              <% end %>
-            <% else %>
-              <%= lesson.status_text(current_user.try(:role)) %>
-            <% end %>
-          <% else %>
-            <%= lesson.status_text %>
-          <% end %>
+          <%= replay_button_of(lesson) %>
         <% end %>
       </i>
     </div>

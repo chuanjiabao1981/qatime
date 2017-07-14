@@ -86,6 +86,6 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     should_paused = live_studio_lessons(:teaching_lesson)
     LiveService::LessonDirector.pause_lessons
     should_paused.reload
-    assert should_paused.paused?, '课程未暂停'
+    assert should_paused.closed?, '课程暂停未关闭'
   end
 end

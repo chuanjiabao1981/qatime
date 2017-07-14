@@ -55,7 +55,8 @@ module LiveStudio
       assert lesson.replayable_for?(admin), "管理员观看回放失败" # 管理员可以观看回放
       student = users(:student_for_replays)
       assert lesson.replayable_for?(student), "学生观看回放失败" # 已经购买并且没有用完回放次数可以回放
-      assert_not lesson2.replayable_for?(student), "回放权限控制失效" # 已经购买并且没有用完回放次数可以回放
+      assert lesson2.replayable_for?(student), "回放权限控制失效" # 已经购买并且回放次数用完 不能回放, 能显示按钮和次数
+      assert lesson2.user_left_times(student).zero?, "回放次数为0不能播放"
 
       student2 = users(:student_can_no_replays)
       assert_not lesson.replayable_for?(student2), "回放权限控制失效"

@@ -38,63 +38,6 @@ module Payment
       new_logout_as(@student)
     end
 
-    test 'admin pass refund test' do
-      # assert refund status success
-      # assert buy_tickets status refunded
-      # assert buy_ticket status refunded
-      # assert order status refunded
-      # assert cash_admin.cash_account change balance
-      # assert admin operating record
-      # assert refund create
-      # assert course can sell to student
-      @admin = users(:admin)
-      new_log_in_as(@admin)
-      visit get_home_url(@admin)
-      click_on '退款审核'
-      ra = Payment::Refund.init.first
-      user_account = ra.user.cash_account
-      assert_difference 'user_account.balance', +ra.amount, '未退款至学生账户' do
-        assert_difference 'CashAdmin.current!.cash_account.balance', -ra.amount, '管理员资金未变动' do
-          accept_prompt(with: "确认") do
-            find(:xpath, "//a[@href='#{pass_admins_refund_path(ra)}']").click
-          end
-          sleep 3
-        end
-        user_account.reload
-      end
-      click_on '已审核'
-      assert has_content?('正在退款')
-      assert ra.status, 'refunded'
-
-      assert_equal ra.user.live_studio_buy_tickets.unscope(where: :status).where(product: ra.product).first.status, 'refunded'
-      assert_equal ra.order.status, 'refunded'
-      assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
-      assert_not ra.product.bought_by?(ra.user), '无法再次购买'
-      assert_equal Notification.last.notificationable, ra.order, '没有审核创建通知'
-      new_logout_as(@admin)
-    end
-
-    test 'admin unpass refund test' do
-      # assert buy ticket status active
-      # assert order status complete
-      # assert admin operating record
-      # 退款状态
-      @admin = users(:admin)
-      new_log_in_as(@admin)
-      visit get_home_url(@admin)
-      click_on '退款审核'
-      ra = Payment::Refund.init.last
-      accept_prompt(with: "确认") do
-        find(:xpath, "//a[@href='#{unpass_admins_refund_path(ra)}']").click
-      end
-      sleep 2
-      assert_equal ra.user.live_studio_buy_tickets.where(product: ra.product).first.status, 'active'
-      assert_equal ra.order.status, 'completed', '订单状态未恢复'
-      assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
-      assert_equal Notification.last.notificationable, ra.order, '没有审核创建通知'
-      new_logout_as(@admin)
-    end
-
     test 'billed lesson refund test' do
       # 测试辅导班已结算的费用是否扣除
       buy_ticket = live_studio_tickets(:ticket_for_refund3)

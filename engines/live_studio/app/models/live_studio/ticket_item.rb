@@ -8,7 +8,7 @@ module LiveStudio
       unused: 0, # 未使用
       used: 1, # 已使用
       finished: 9, # 已经结账
-      expied: 97, # 已过期
+      expired: 97, # 已过期
       refunding: 98, # 退款中
       refunded: 99 # 已退款
     }
@@ -23,6 +23,7 @@ module LiveStudio
       state :unused, initial: true
       state :used
       state :finished
+      state :expired
       state :refunding
       state :refunded
 
@@ -45,6 +46,11 @@ module LiveStudio
       # 退款
       event :refund do
         transitions from: :unused, to: :refunding
+      end
+
+      # 失效
+      event :expire do
+        transitions from: [:unused, :used, :finished], to: :expired
       end
     end
 

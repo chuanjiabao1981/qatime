@@ -1,0 +1,11 @@
+<% if my_replay_times > 0 %>
+  <%= link_to live_studio.replay_lesson_path(lesson), class: 'active', target: '_blank' do -%>
+    <em><%= LiveStudio::Lesson.human_attribute_name(:replay) %></em>
+    <em><%= t("view.live_studio/courses.show.left_replay_times", count: my_replay_times) %></em>
+  <% end -%>
+<% else %>
+  <%= link_to 'javascript: void(0);' do -%>
+    <em><%= LiveStudio::Lesson.human_attribute_name(:replay) %></em>
+    <em><%= t("view.live_studio/courses.show.left_replay_times", count: my_replay_times) %></em>
+  <% end -%>
+<% end %>

@@ -1,9 +1,9 @@
 <li>
   <div class="row">
     <div class="col-md-3 discipline-pic">
-      <%= link_to image_tag(interactive_course.publicize_url(:list)), live_studio.interactive_course_path(interactive_course) -%>
+      <%= link_to image_tag(interactive_course.publicize_url(:list), class: 'handle_error_list'), live_studio.interactive_course_path(interactive_course) -%>
     </div>
-    <div class="col-md-9 discipline-info">
+    <div class="col-md-7 discipline-info">
       <div class="row info-title">
         <div class="col-md-12">
           <%= link_to live_studio.interactive_course_path(interactive_course) do -%>
@@ -33,6 +33,11 @@
           </p>
         </div>
       </div>
+    </div>
+    <div class="col-md-2 course-state">
+      <% if interactive_course.teaching? %>
+        <i class="col-md-12"><%= link_to t("live_studio.actions.enter"), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'watch active' %></i>
+      <% end %>
     </div>
   </div>
 </li>

@@ -61,6 +61,29 @@ module ApplicationHelper
     @location_city
   end
 
+  # 登录跳转调整
+  def after_sign_in_path
+    return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
+
+    case current_user.role
+    when "admin"
+      main_app.admins_course_intros_path
+    when "manager"
+      main_app.station_workstation_home_index_path(current_user.default_workstation)
+    when "waiter"
+      main_app.station_workstation_home_index_path(current_user.workstation_id)
+    when "seller"
+      main_app.station_workstation_home_index_path(current_user.workstation_id)
+    else
+      main_app.home_path
+    end
+  end
+
+  # 退出跳转
+  def after_sign_out_path
+    params[:redirect_url].presence || main_app.home_path
+  end
+
   def user_home_path
     return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 
@@ -484,6 +507,20 @@ module ApplicationHelper
       I18n.t('view.today_lives.living')
     else
       I18n.t('view.today_lives.live_end')
+    end
+  end
+
+  # 直播课回放按钮
+  def replay_button_of(lesson, preview = false)
+    return lesson.status_text if current_user.blank?
+    return lesson.status_text(current_user.try(:role)) unless lesson.replayable
+    return lesson.status_text(current_user.try(:role)) unless allow?("live_studio/lessons", "replay", lesson)
+    my_replay_times = lesson.user_left_times(current_user)
+
+    if preview
+      render 'live_studio/courses/show/replay_button_preview', { lesson: lesson, my_replay_times: my_replay_times}
+    else
+      render 'live_studio/courses/show/replay_button', { lesson: lesson, my_replay_times: my_replay_times}
     end
   end
 end

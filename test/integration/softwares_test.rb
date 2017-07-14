@@ -45,7 +45,6 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
     assert page.all('ul.spinner li').size, Software.published.count
 
     assert page.has_content? software.title
-    assert page.has_content? software.sub_title
     assert page.has_content? software.desc
     assert page.has_link? '点击下载'
 

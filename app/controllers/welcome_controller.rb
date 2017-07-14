@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   layout 'v1/application'
 
   def download
-    @softwares = Software.published.order("software_category_id, version desc")
+    @softwares = Software.published.order("position, version desc")
   end
 
   def courses

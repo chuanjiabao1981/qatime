@@ -36,9 +36,9 @@
     </div>
     <div class="col-md-1 schedule-enter">
       <% if item.target.is_over? %>
-        <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);' %>
+        <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);', class: 'watch finished' %>
       <% else %>
-        <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(item.target.course_id), class: 'active' %>
+        <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(item.target.course_id), class: 'watch active' %>
       <% end %>
     </div>
   </div>

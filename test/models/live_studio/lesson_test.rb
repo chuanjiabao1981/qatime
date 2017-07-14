@@ -55,22 +55,71 @@ module LiveStudio
       assert lesson.replayable_for?(admin), "管理员观看回放失败" # 管理员可以观看回放
       student = users(:student_for_replays)
       assert lesson.replayable_for?(student), "学生观看回放失败" # 已经购买并且没有用完回放次数可以回放
-      assert_not lesson2.replayable_for?(student), "回放权限控制失效" # 已经购买并且没有用完回放次数可以回放
+      assert lesson2.replayable_for?(student), "回放权限控制失效" # 已经购买并且回放次数用完 不能回放, 能显示按钮和次数
+      assert lesson2.user_left_times(student).zero?, "回放次数为0不能播放"
 
       student2 = users(:student_can_no_replays)
       assert_not lesson.replayable_for?(student2), "回放权限控制失效"
     end
 
     test 'merge replays' do
+      sync_replay_res = {
+        code: 200,
+        msg: '',
+        ret: {
+          videoList: [{
+            vid: 't1111',
+            name: 'first_video',
+            url: 'http://baidu.com',
+            beginTime: 40.minutes.ago.to_i * 100,
+            endTime: 10.minutes.ago.to_i * 100
+          }, {
+            vid: 't2222',
+            name: 'video2',
+            url: 'http://baidu.com',
+            beginTime: 40.minutes.ago.to_i * 100,
+            endTime: 10.minutes.ago.to_i * 100
+          }]
+        }
+      }.to_json
+      Typhoeus.stub('https://vcloud.163.com/app/vodvideolist').and_return(Typhoeus::Response.new(code: 200, body: sync_replay_res))
+
+
+      video_res = {
+        code: 200,
+        msg: '',
+        ret: {
+          duration: 20,
+          orig_url: 'http://baidu.com'
+        }
+      }.to_json
+      Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
+
       lesson = live_studio_lessons(:replay_lessons_7)
       assert_difference "lesson.reload.replays.merging.count", 1, "视频合并失败" do
-        lesson.init_replays
+        lesson.fetch_replays
+        sleep(2)
         lesson.reload.replays.last.merge_video
       end
       assert lesson.reload.replays.first.merging?, "提交合并任务后状态不正确"
     end
 
     test 'need not mrege replays' do
+      sync_replay_res = {
+        code: 200,
+        msg: '',
+        ret: {
+          videoList: [{
+            vid: 't3333',
+            name: 'first_video',
+            url: 'http://baidu.com',
+            beginTime: 40.minutes.ago.to_i * 100,
+            endTime: 10.minutes.ago.to_i * 100
+          }]
+        }
+      }.to_json
+      Typhoeus.stub('https://vcloud.163.com/app/vodvideolist').and_return(Typhoeus::Response.new(code: 200, body: sync_replay_res))
+
       video_res = {
         code: 200,
         msg: '',
@@ -81,10 +130,10 @@ module LiveStudio
       }.to_json
       Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
       lesson = live_studio_lessons(:replay_lessons_8)
-      assert_difference "lesson.reload.replays.merged.count", 1, "视频合并失败" do
-        lesson.init_replays
-        lesson.reload.replays.last.merge_video
-      end
+      lesson.fetch_replays
+      sleep(2)
+      lesson.reload.replays.last.merge_video
+      assert lesson.reload.merged?, "视频合并失败"
       assert lesson.reload.merged?, "合并完成后课程状态不正确"
     end
   end

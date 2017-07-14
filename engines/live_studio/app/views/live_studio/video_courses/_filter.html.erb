@@ -30,26 +30,24 @@
           <% end %>
         </span>
       </li>
-      <li>
-        <%= f.sort_link :published_at,
-                        LiveStudio::InteractiveCourse.human_attribute_name(:latest) %>
-        <%= f.sort_link :price,
-                        LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
-        <%= f.sort_link :buy_tickets_count,
-                        LiveStudio::Course.human_attribute_name(:users_count) %>
 
-        <span class="course-status">
-          <%= link_to t("view.course_filter.sell_type_all"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: nil })),
-                      class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:sell_type_eq].blank? }" %>
-
-          <%= link_to t("view.course_filter.sell_type_charge"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '1' })),
-                      class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '1' }" %>
-
-          <%= link_to t("view.course_filter.sell_type_free"),
-                      live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '2' })),
-                      class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '2' }" %>
+      <li class="filter-condition">
+        <span class="nav-hot">
+          <%= f.sort_link :published_at,
+                          LiveStudio::InteractiveCourse.human_attribute_name(:latest) %>
+          <%= f.sort_link :price,
+                          LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
+          <%= f.sort_link :buy_tickets_count,
+                          LiveStudio::Course.human_attribute_name(:users_count) %>
+        </span>
+        <span>|</span>
+        <span class="nav-order">
+          <% LiveStudio::VideoCourse.sell_type.options.each do |item| %>
+            <% sell_type_id = LiveStudio::VideoCourse.sell_type.find_value(item.last).try(:value) %>
+              <%= link_to live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: sell_type_id })), class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == sell_type_id.to_s }" do %>
+              <i></i><%= item.first %>
+            <% end %>
+          <% end %>
         </span>
       </li>
     </ul>

@@ -34,6 +34,9 @@
             <%= @chat_team.announcement %>
           </div>
         </div>
+        <% if @chat_team.announcement.blank? %>
+          <div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>
+        <% end %>
       </div>
     </div>
 
@@ -43,7 +46,6 @@
     </div>
   </div>
 </div>
-
 
 <%= content_for :mask do %>
   <div id="histories" class="message-logging">
@@ -59,7 +61,7 @@
       </div>
 
       <div class="logging-right">
-        <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
+        <%= link_to "", "javascript: void(0);", id: "history-close", class: "fa fa-times" %>
       </div>
     </div>
     <div class="history-content">
@@ -67,6 +69,11 @@
       <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
 
       <div class="message-con active" id="messages-group">
+      </div>
+
+      <div class="no-message" id="logging-empty">
+        <center><%= image_tag 'news.png' %></center>
+        <p><%= t("view.play.message_none") %></p>
       </div>
     </div>
   </div>
@@ -204,12 +211,17 @@ $(function() {
           $("#messages-group div:first").append(messageNode);
         }
       });
+
       if(obj.msgs.length >= 100) {
         // 加载更多消息按钮
         $("#logging-more").show();
+        $('#logging-empty').hide();
+      } else if(obj.msgs.length == 0 && $("#messages-group div:first").children().length == 0) {
+        $('#logging-empty').show();
       } else {
         // 没有更多消息
         $("#logging-nomore").show();
+        $('#logging-empty').hide();
       }
     }
   }
@@ -383,6 +395,9 @@ function refreshNotice() {
         $("#notice-panel").html(item);
       }
     });
+    if(data.length == 0){
+      $("#notice-panel").html('<div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>')
+    }
   });
 }
 // refreshNotice();

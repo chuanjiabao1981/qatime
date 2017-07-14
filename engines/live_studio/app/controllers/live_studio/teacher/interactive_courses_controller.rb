@@ -8,6 +8,5 @@ module LiveStudio
       course_data = LiveService::TeacherInteractiveCourseDirector.new(@teacher)
       @interactive_courses = course_data.interactive_courses(params).order(id: :desc).paginate(page: params[:page])
     end
-
   end
 end

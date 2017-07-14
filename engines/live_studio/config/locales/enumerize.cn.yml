@@ -48,7 +48,7 @@ cn:
       status:
         rejected: 审核被拒
         init: 审核中
-        confirmed: 审核通过
+        confirmed: 待创建
         completed: 已创建
         published: 已发布
       sell_type:

@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-2 course-state">
       <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
-      <%= link_to t("common.preview"), live_studio.preview_courses_path(id: course.id), data: {method: :post}, target: '_blank' %>
-      <%= link_to t("common.announcement"), live_studio.course_announcements_path(course) if course.teaching? %>
+      <%= link_to t("common.preview"), live_studio.preview_courses_path(id: course.id), data: {method: :post}, target: '_blank', class: 'col-md-12 col-sm-4 col-xs-4' %>
+      <%= link_to t("common.announcement"), live_studio.course_announcements_path(course), class: 'col-md-12 col-sm-4 col-xs-4' if course.teaching? %>
     </div>
   </div>

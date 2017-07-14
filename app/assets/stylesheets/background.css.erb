@@ -285,3 +285,38 @@
   background: url("<%= asset_path('video-active.png') %>") no-repeat;
   background-size: 100% 100%;
 }
+
+
+/*音视频互动*/
+.video-area .area-right-live  .live-left-box{
+  background: rgba(0, 0, 0, 0.5) url("<%= asset_path('share.png') %>") no-repeat center;
+  background-size: 100% 100%;
+  /*background-blend-mode: darken;*/
+}
+.video-area .area-right-live .live-right-box {
+  background: rgba(0, 0, 0, 0.5) url("<%= asset_path('member.png') %>") no-repeat center;
+  background-size: 100% 100%;
+  /*background-blend-mode: darken;*/
+}
+
+/*筛选页选中*/
+.personal-nav > li > .nav-status > a > i,.personal-nav > li > .nav-order > a > i {
+  background: url("<%= asset_path('no-selected.png') %>") no-repeat;
+  background-size: 100% 100%;
+}
+.personal-nav > li > .nav-status > a.active > i,.personal-nav > li > .nav-order > a.active > i {
+  background: url("<%= asset_path('selected.png') %>") no-repeat;
+  background-size: 100% 100%;
+}
+
+/*视频加载*/
+.vjs-loading-image{
+  background: url("<%= asset_path('live_cover_loading.png') %>") no-repeat;
+  background-size: 100% 100%;
+}
+
+/* 视屏播放错误背景 */
+.vjs-error-image{
+  background: url("<%= asset_path('live_cover_fail.png') %>") no-repeat;
+  background-size: 100% 100%;
+}

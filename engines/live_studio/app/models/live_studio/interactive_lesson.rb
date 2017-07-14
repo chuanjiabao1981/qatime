@@ -65,7 +65,7 @@ module LiveStudio
     belongs_to :course, class_name: 'InteractiveCourse', foreign_key: :interactive_course_id
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
+    has_many :play_records, -> { where(product_type: 'LiveStudio::InteractiveCourse') }, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
     has_many :channel_videos
     has_many :replays
@@ -319,7 +319,7 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      merged?
+      had_closed? &&merged?
     end
 
     # 是否可观看回放

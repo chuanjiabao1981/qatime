@@ -11,11 +11,8 @@ module LiveStudio
       merged: 1
     }
 
-    after_commit :async_merge_video, on: :create
     def merge_video
-      return single_merge unless vids.count > 1 # 不需要合并
-      self.pending_vids = vids.map(&:to_s)
-      save!
+      return single_merge unless vids.count > 1 # 单个视频不需要合并
       async_merge_replays
     end
 
@@ -24,7 +21,7 @@ module LiveStudio
     end
 
     def video_get
-      return unless vid.present? && merging?
+      return unless vid.present?
       res = VCloud::Service.app_vod_video_get(vid: vid)
       result = JSON.parse(res.body).symbolize_keys[:ret].symbolize_keys
       update(
@@ -45,6 +42,7 @@ module LiveStudio
         shd_mp4_size: result[:shdMp4Size],
         create_time: result[:createTime]
       )
+      lesson.merged! unless lesson.merged?
     end
 
     # 返回下一次合并视频ID
@@ -79,11 +77,8 @@ module LiveStudio
         self.n_id = params['nID']
         save!
       end
-      if pending_vids.blank? # 合并完成
-        finish_merge
-      else
-        async_merge_replays
-      end
+      video_get
+      async_merge_replays unless pending_vids.blank? # 如果有未合并视频继续合并
     end
 
     private
@@ -91,7 +86,7 @@ module LiveStudio
     # 合并文件名称
     def merging_name(vid_list)
       return name if vid_list.blank?
-      name.gsub(/board_replay\w*$/, "board_replay_#{vid_list.join('-')}")
+      name.gsub(/board_replay_?[\w-]*$/, "board_replay_#{vid_list.join('-')}")
     end
 
     def merged_vids(video_name)
@@ -101,17 +96,14 @@ module LiveStudio
 
     def single_merge
       video = ChannelVideo.find_by(vid: vids.first)
-      update(video.slice(:vid, :orig_video_key, :uid))
+      with_lock do
+        self.vid = video.vid
+        self.orig_video_key = video.orig_video_key
+        self.uid = video.uid
+        self.pending_vids.delete(video.vid.to_s)
+        save!
+      end
       video_get
-      merged!
-      lesson.merged!
-    end
-
-    # 完成合并
-    def finish_merge
-      video_get
-      merged!
-      lesson.merged!
     end
   end
 end

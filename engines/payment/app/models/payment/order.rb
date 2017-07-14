@@ -117,7 +117,7 @@ module Payment
       end
 
       event :refuse_refund do
-        transitions from: [:refunding], to: :completed
+        transitions from: [:refunding], to: :paid
       end
 
       event :trash do

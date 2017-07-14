@@ -102,7 +102,7 @@ window.currentTeam = {
   // marked是否已经标记为已读
   // fromType 消息来源 offline: 离线消息, roaming: 漫游消息, immediate: 即时消息
   function onMsg(msg, marked, fromType) {
-    if(!fromType) fromType = 'immediate'; 
+    if(!fromType) fromType = 'immediate';
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
       return;
@@ -294,7 +294,11 @@ window.currentTeam = {
   }
 
   function teamAnnouncement(announcement) {
-    if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下";
+    if(!announcement || announcement == ''){
+      $("#announcement-empty").show();
+    }else{
+      $("#announcement-empty").hide();
+    };
     $("#notice-content").text(announcement);
     // refreshNotice();
   }

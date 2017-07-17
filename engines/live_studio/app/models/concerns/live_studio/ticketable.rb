@@ -32,6 +32,14 @@ module LiveStudio
       taste_tickets.create(taste_params(user))
     end
 
+    def ticket_for(user)
+      # 正在使用的听课证
+      ticket = tickets.available.find_by(student: user)
+      # 试听历史
+      ticket ||= taste_tickets.find_by(student: user)
+      ticket
+    end
+
     private
 
     # 清理旧的听课证

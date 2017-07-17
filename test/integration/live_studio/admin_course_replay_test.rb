@@ -12,10 +12,11 @@ module LiveStudio
       @course = live_studio_courses(:course_for_replay)
 
       @admin = users(:admin)
-      log_in_as(@admin)
+      new_log_in_as(@admin)
     end
 
     def teardown
+      new_logout_as(@admin)
       Capybara.use_default_driver
     end
 
@@ -24,7 +25,6 @@ module LiveStudio
       visit live_studio.course_path(@course)
       assert page.has_content?("观看回放"), "辅导班详情页没有回放链接"
       visit live_studio.replay_lesson_path(lesson)
-      click_on '退出'
     end
   end
 end

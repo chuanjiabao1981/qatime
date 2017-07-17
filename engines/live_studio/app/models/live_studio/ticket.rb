@@ -73,7 +73,12 @@ module LiveStudio
       self[:status] < Ticket.statuses[:pre_used]
     end
 
+    after_update :update_items_status, if: :status_changed?
+
     private
+
+    def update_items_status
+    end
 
     after_create :add_to_team
     def add_to_team

@@ -5,7 +5,7 @@ module LiveStudio
     belongs_to :seller, polymorphic: true
 
     private
-    after_update :update_items_status, if: :status_changed?
+
     def update_items_status
       ticket_items.where(status: LiveStudio::TicketItem.statuses[:refunding]).map(&:finish!) if refunded?
       ticket_items.where(status: LiveStudio::TicketItem.statuses[:refunding]).map(&:active!) if active?

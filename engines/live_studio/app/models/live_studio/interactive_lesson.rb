@@ -319,7 +319,7 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      merged?
+      had_closed? &&merged?
     end
 
     # 是否可观看回放

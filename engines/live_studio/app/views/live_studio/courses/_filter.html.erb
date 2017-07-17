@@ -26,7 +26,7 @@
       </span>
     </li>
 
-    <li>
+    <li class="filter-condition">
       <span class="nav-all <%= 'active' if @search_params[:range].present? %>">
         <%= link_to live_studio.courses_path(@search_params.merge(range: nil)) do %>
           <em><%= t("view.course_filter.range/#{@search_params[:range] || 'all'}") %></em>
@@ -41,10 +41,14 @@
           <% end %>
         </ul>
       </span>
+      <span>|</span>
 
-      <%= f.sort_link :published_at, LiveStudio::Course.human_attribute_name(:latest) %>
-      <%= f.sort_link :left_price, LiveStudio::Course.human_attribute_name(:left_price) %>
-      <%= f.sort_link :buy_tickets_count, LiveStudio::Course.human_attribute_name(:users_count) %>
+      <span class="nav-hot">
+        <%= f.sort_link :published_at, LiveStudio::Course.human_attribute_name(:latest) %>
+        <%= f.sort_link :left_price, LiveStudio::Course.human_attribute_name(:left_price) %>
+        <%= f.sort_link :buy_tickets_count, LiveStudio::Course.human_attribute_name(:users_count) %>
+      </span>
+      <span>|</span>
 
       <span class="nav-time">
         <%= link_to "javascript:void(0);" do -%>
@@ -63,16 +67,24 @@
         </i>
       </span>
 
-      <span class="course-status">
-        <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { status: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:status].blank? }" %>
+      <span class="nav-order">
+        <% LiveStudio::Course.sell_type.options.each do |item| %>
+          <% sell_type_id = LiveStudio::Course.sell_type.find_value(item.last).try(:value) %>
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { sell_type_eq: sell_type_id })), class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == sell_type_id.to_s }" do %>
+            <i></i><%= item.first %>
+          <% end %>
+        <% end %>
+      </span>
+      <span class="nav-status">
         <% LiveStudio::Course.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
-          <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status: item.last })), class: "#{'active' if @search_params[:q] && @search_params[:q][:status] == item.last }" %>
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { status: item.last })), class: "#{'active' if @search_params[:q] && @search_params[:q][:status] == item.last }" do %>
+            <i></i><%= item.first %>
+          <% end %>
         <% end -%>
       </span>
     </li>
   </ul>
 <% end %>
-
 
 <% content_for :javascript do %>
   <script type="text/javascript">

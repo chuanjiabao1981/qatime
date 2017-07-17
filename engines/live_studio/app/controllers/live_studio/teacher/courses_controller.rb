@@ -7,8 +7,8 @@ module LiveStudio
     before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date, :desrtoy, :update_lessons]
 
     def index
-      @courses = @teacher.live_studio_courses
-      @courses = @courses.where(course_search_params) if course_search_params.present?
+      @courses = @teacher.live_studio_courses.published_start
+      @courses = @courses.where(status: LiveStudio::Course.statuses[params[:cate].to_sym]) if %w(published teaching completed).include?(params[:cate])
       @courses = @courses.order(id: :desc).paginate(page: params[:page])
     end
 

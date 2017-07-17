@@ -28,14 +28,19 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   # end
 
   test 'user login' do
-    user =  users(:teacher1)
+    user = users(:teacher1)
     visit root_path
     click_on "登录", match: :first
 
     fill_in :user_login_account, with: user.email
     fill_in :user_password, with: 'password'
+    check :remember_account
     click_button "登录", match: :first
 
     assert page.has_content?('欢迎登录!'), "登录不成功"
+    new_logout_as(user)
+    visit root_path
+    click_on "登录", match: :first
+    assert_equal user.email, find(:css, '#user_login_account').value, "没有记住帐号"
   end
 end

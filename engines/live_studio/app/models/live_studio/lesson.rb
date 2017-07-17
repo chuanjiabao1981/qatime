@@ -9,7 +9,7 @@ module LiveStudio
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :course
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, to: :course
     delegate :channels, to: :course
 
     enum replay_status: {
@@ -64,7 +64,7 @@ module LiveStudio
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records # 听课记录
+    has_many :play_records, -> { where(product_type: 'LiveStudio::Course') } # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
     has_many :channel_videos
     has_many :replays
@@ -115,7 +115,7 @@ module LiveStudio
         transitions from: :teaching, to: :paused
       end
 
-      event :close do
+      event :close, after_commit: :close_hook  do
         before do
           # 第一次结束直播增加结束数量
           increment_course_counter(:closed_lessons_count) if live_end_at.nil?
@@ -266,6 +266,11 @@ module LiveStudio
       async_fetch_replays
     end
 
+    # 结束直播回调
+    def close_hook
+      async_fetch_replays
+    end
+
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
     def instance_play_records
@@ -315,17 +320,16 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      merged?
+      had_closed? && merged?
     end
 
     # 是否可观看回放
     def replayable_for?(user)
-      return false if user.nil?
+      return false if user.blank?
       return true if user.admin?
-      return false unless course.buy_tickets.where(student_id: user.id).available.exists?
-      return false unless course.play_authorize(user, nil)
-      play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
-                         user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
+      return true if course.buy_tickets.where(student_id: user.id).available.exists?
+      return true if course.play_authorize(user, nil)
+      false
     end
 
     # 是否显示剩余次数
@@ -338,8 +342,7 @@ module LiveStudio
     # 用户剩余播放次数
     def user_left_times(user)
       return 0 if user.nil?
-      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
-                         user_id: user.id).where('created_at < ?', Date.today).count
+      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay], user_id: user.id).where('created_at < ?', Date.today).count
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
     end
 

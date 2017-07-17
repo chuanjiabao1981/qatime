@@ -113,7 +113,7 @@ module LiveService
     # teaching状态下10分钟没有收到心跳的课程
     def self.pause_lessons
       LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |lesson|
-        lesson.pause!
+        lesson.close!
         LiveService::RealtimeService.update_lesson_live(lesson)
       end
     end

@@ -11,15 +11,15 @@
     <div class="row">
       <div class="video-area">
         <div class="area-left">
-          <div class="area-left-con">
-            <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+          <div class="area-left-con player-live">
+            <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
             </video>
           </div>
         </div>
             
         <div class="area-right">
           <div class="area-right-con">
-            <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'small_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+            <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
             </video>
 
           </div>
@@ -42,6 +42,7 @@ $(function() {
   // 白板播放器
   boardPlayer = neplayer("my-video", {
     bigPlayButton: false,
+    loadingSpinner: false,
     controlBar: {
       progressControl: false,
       remainingTimeDisplay: false
@@ -76,6 +77,12 @@ $(function() {
       // set_timer();
     });
 
+    // 错误背景图
+    var errorImage = $('<div class="vjs-error-image"></div>');
+    $("#my-video .vjs-control-bar").before(errorImage);
+    var loadingImage = $('<div class="vjs-loading-image"></div>');
+    $("#my-video .vjs-control-bar").before(loadingImage);
+
   });
 
   boardPlayer.onError(function(err){
@@ -102,8 +109,14 @@ $(function() {
   // 摄像头
   cameraPlayer = neplayer("small-video", {
     bigPlayButton: false,
+    loadingSpinner: false,
     controlBar: false
   }, function() {
+    // 错误背景图
+    var errorImage = $('<div class="vjs-error-image"></div>');
+    $("#small-video .vjs-caption-settings").before(errorImage);
+    var loadingImage = $('<div class="vjs-loading-image"></div>');
+    $("#small-video .vjs-caption-settings").before(loadingImage);
   });
   // cameraPlayer.play();
   cameraPlayer.onError(function(err){
@@ -189,7 +202,7 @@ $(function() {
     });
   } else{
     $("#player-and-chat").hide();
-    $("#no-flash-area").show() //提示div
+    $("#no-flash-area").show(); //提示div
   }
 });
 </script>

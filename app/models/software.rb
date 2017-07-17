@@ -50,6 +50,11 @@ class Software < ActiveRecord::Base
     File.delete(tmp_path)
   end
 
+  def copy_attr_from_category!
+    copy_attr_from_category
+    save
+  end
+
   private
 
   before_update :generate_download_links
@@ -63,12 +68,13 @@ class Software < ActiveRecord::Base
     return unless software_category
     self.role = software_category.role
     self.platform = software_category.platform
-    self.logo = software_category.logo
+    self.remote_logo_url = software_category.logo_url if software_category.logo.present?
     self.title = software_category.title
     self.sub_title = software_category.sub_title
     self.desc = software_category.desc
     self.download_description = software_category.download_description
     self.category = software_category.category
+    self.position = software_category.position
   end
 
   class << self

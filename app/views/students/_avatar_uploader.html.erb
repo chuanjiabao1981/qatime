@@ -108,12 +108,13 @@
       $('#<%= user_type %>_crop_y').val(parseInt(coords.y * 240.0 / 386));
       $('#<%= user_type %>_crop_w').val(parseInt(coords.w * 240.0 / 386));
       $('#<%= user_type %>_crop_h').val(parseInt(coords.h * 240.0 / 386));
-      if(coords.w < 240){
+
+      if( $('#<%= user_type %>_avatar_preview').get(0).width < 240 ){
         $('#<%= user_type %>_crop_x').val('');
         $('#<%= user_type %>_crop_y').val('');
         $('#<%= user_type %>_crop_w').val('');
       }
-      if(coords.h < 240){
+      if( $('#<%= user_type %>_avatar_preview').get(0).height < 240 ){
         $('#<%= user_type %>_crop_x').val('');
         $('#<%= user_type %>_crop_y').val('');
         $('#<%= user_type %>_crop_h').val('');
@@ -145,7 +146,12 @@
           $("#<%= user_type %>_avatar_preview2").attr('src', e.target.result);
           $("#<%= user_type %>_avatar_preview3").attr('src', e.target.result);
           $("#<%= user_type %>_avatar_preview4").attr('src', e.target.result);
-
+        };
+        if (jcrop_api){
+          jcrop_api.destroy();
+        }
+        filerdr.readAsDataURL(input.files[0]);
+        filerdr.onloadend = function(e){
           var preview_height = $('#<%= user_type %>_avatar_preview').height();
           var preview_width = $('#<%= user_type %>_avatar_preview').width();
           if(preview_height > preview_width) {
@@ -161,14 +167,9 @@
             });
             min = preview_height;
           }
-        };
-        if (jcrop_api){
-          jcrop_api.destroy();
-        }
-        filerdr.readAsDataURL(input.files[0]);
-        filerdr.onloadend = function(e){
+
           $('#<%= user_type %>_avatar_preview').Jcrop({
-            bgFade:     true,
+            bgFade: true,
             bgOpacity: .4,
             aspectRatio: 1,
             setSelect: [0, 0, 240, 240],

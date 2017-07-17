@@ -1,0 +1,24 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.title,
+.info {
+  display: none;
+}
+
+.wrp_code {
+  line-height: 0;
+}
+
+.impowerBox .qrcode {
+  margin-top: 0px;
+  width: 250px !important;
+  border: 1px solid #E2E2E2;
+}
+
+#login_container iframe {
+  width: 252px !important;
+  height: 252px !important;
+}

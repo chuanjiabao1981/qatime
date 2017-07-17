@@ -38,6 +38,10 @@ module LiveStudio
       pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
     end
 
+    def board_channel
+      channels.find_by(use_for: Channel.use_fors['board'])
+    end
+
     private
 
     def init_board_channels

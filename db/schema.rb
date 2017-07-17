@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704072712) do
+ActiveRecord::Schema.define(version: 20170705022357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -837,13 +837,14 @@ ActiveRecord::Schema.define(version: 20170704072712) do
   create_table "live_studio_ticket_items", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "lesson_id"
-    t.integer  "status",      default: 0
+    t.integer  "status",                default: 0
     t.datetime "used_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "target_id"
     t.string   "target_type"
     t.integer  "user_id"
+    t.integer  "tp",          limit: 2, default: 0
   end
 
   add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree
@@ -1530,9 +1531,12 @@ ActiveRecord::Schema.define(version: 20170704072712) do
     t.integer  "platform"
     t.string   "role"
     t.string   "category"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "position",             default: 0
   end
+
+  add_index "software_categories", ["position"], name: "index_software_categories_on_position", using: :btree
 
   create_table "softwares", force: :cascade do |t|
     t.string   "logo"
@@ -1553,8 +1557,10 @@ ActiveRecord::Schema.define(version: 20170704072712) do
     t.string   "cdn_url"
     t.integer  "software_category_id"
     t.string   "download_description"
+    t.integer  "position",             default: 0
   end
 
+  add_index "softwares", ["position"], name: "index_softwares_on_position", using: :btree
   add_index "softwares", ["software_category_id"], name: "index_softwares_on_software_category_id", using: :btree
 
   create_table "solutions", force: :cascade do |t|

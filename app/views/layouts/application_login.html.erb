@@ -16,16 +16,11 @@
         <%= link_to image_tag('homepage-logo.png'), main_app.root_path %>
       </div>
       <div class="login-right">
+        <i><%= t('view.common_bars.login_head_title') %></i>
         <span>
-          <%= link_to t('view.common_bars.download'), main_app.welcome_download_path %>
+          <%= image_tag 'phone.png' %>
+          <%= t('view.common_bars.phone') %>
         </span>
-        <span>
-          <%= link_to t('view.common_bars.common_problem'), main_app.qa_faqs_path %>
-        </span>
-   				<span>
-            <%= image_tag 'phone.png' %>
-            <%= t('view.common_bars.phone') %>
-   				</span>
       </div>
     </div>
   </div>

@@ -1,8 +1,8 @@
 <li class="<%= today_live_status(today_live) %>">
   <i class="status-origin"></i>
   <%= link_to today_live.name, live_studio.course_path(today_live.course) %>
-  <%= link_to live_studio.course_path(today_live.course) do %>
+  <em>
     <span><%= today_live_status_text(today_live) %></span>
     <span><%= today_live.live_time %></span>
-  <% end %>
+  </em>
 </li>

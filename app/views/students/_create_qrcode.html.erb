@@ -26,6 +26,6 @@
     redirect_uri: "<%= "#{WECHAT_CONFIG['host']}/wechat/login_callback?register_type=#{type}" %>",
     state: 'wwtd',
     style: "black",
-    href: "https://www.genshuixue.com/asset/css/common/component/wechatQrcode.css"
+    href: "<%= asset_url('wechatQrcode.css', host: 'https://qatime.cn') %>"
   });
 </script>

@@ -6,7 +6,6 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
-      allow :qa_faqs,[:student]
       allow :qa_faqs,[:show] do |faq|
         faq && !faq.teacher?
       end

@@ -10,6 +10,10 @@ module LiveStudio
 
     private
 
+    def update_items_status
+      ticket_items.available.map(&:expire!) if replaced?
+    end
+
     def set_buy_count
       self.buy_count = product.try(:taste_count).to_i
     end

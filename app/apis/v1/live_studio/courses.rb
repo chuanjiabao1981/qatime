@@ -26,7 +26,7 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
+                optional :status, type: String, desc: '过滤条件 published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)
@@ -43,7 +43,7 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
+                optional :status, type: String, desc: '过滤条件 published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get :full do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)
@@ -232,7 +232,7 @@ module V1
             present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
           end
 
-          desc '搜索辅导班' do
+          desc '搜索直播课' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
               required: false
@@ -247,14 +247,16 @@ module V1
               optional :status_eq, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
               optional :grade_eq, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
               optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
+              optional :sell_type_eq, type: String, desc: '销售类型 charge: 收费; free: 免费', values: %w[charge free]
               optional :class_date_gteq, type: String, desc: '开课日期开始时间'
               optional :class_date_lt, type: String, desc: '开课日期结束时间'
             end
             optional :sort_by, type: String, desc: '排序方式', values: %w(left_price left_price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
-            search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt])
+            search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :sell_type_eq, :class_date_gteq, :class_date_lt])
             search_params[:q][:status_eq] = ::LiveStudio::Course.statuses[search_params[:q][:status_eq]] if search_params[:q][:status_eq].present?
+            search_params[:q][:sell_type_eq] = ::LiveStudio::Course.sell_type.find_value(search_params[:q][:sell_type_eq]).try(:value) if search_params[:q][:sell_type_eq].present?
             search_params[:q][:s] =
               if search_params[:sort_by].present?
                 by, direction = search_params[:sort_by].split('.')
@@ -267,14 +269,14 @@ module V1
             present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
           end
 
-          desc '检索辅导班详情接口' do
+          desc '检索直播课详情接口' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
               required: false
             }
           end
           params do
-            requires :id, desc: '辅导班ID'
+            requires :id, desc: '直播课ID'
           end
           get '/:id' do
             course = ::LiveStudio::Course.find(params[:id])
@@ -288,6 +290,22 @@ module V1
             end
 
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
+          end
+
+          desc '新直播课详情' do
+            headers 'Remember-Token' => {
+                        description: 'RememberToken',
+                        required: false
+                    }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/detail' do
+            course = ::LiveStudio::Course.find(params[:id])
+            ticket = course.tickets.available.find_by(student: current_user) if current_user
+            present course, root: :course, with: Entities::LiveStudio::CourseDetail
+            present ticket, root: :ticket, with: Entities::LiveStudio::CourseTicket, type: :full
           end
 
           desc '辅导班排行'
@@ -398,9 +416,8 @@ module V1
           optional :count, type: Integer, desc: '记录数'
         end
         get 'free_courses' do
-          params[:count] ||= 4
           home_data = DataService::HomeData.new
-          free_courses = home_data.free_courses.limit(params[:count])
+          free_courses = home_data.free_courses(limit: params[:count].presence)
           present free_courses, with: Entities::LiveStudio::FreeCourse
         end
       end

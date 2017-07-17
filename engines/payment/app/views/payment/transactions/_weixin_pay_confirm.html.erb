@@ -1,15 +1,10 @@
 <div class="complete-prompt weixin">
   <div class="complete-prompt-left">
     <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
-      &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
-    <% end if  @transaction.is_a? Payment::Recharge %>
-    <%= link_to live_studio.new_course_order_path(@transaction.product) do %>
-      &lt;<%= Payment::Order.human_attribute_name(:reset_pay_type) %>
+      &lt; <%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
+    <% end if @transaction.is_a? Payment::Recharge %>
+    <%= link_to live_studio.send("new_#{@transaction.product.model_name.singular_route_key}_order_path", @transaction.product) do %>
+      &lt; <%= Payment::Order.human_attribute_name(:reset_pay_type) %>
     <% end unless @transaction.is_a? Payment::Recharge %>
   </div>
-  <!-- <div class="complete-prompt-center"><span>提示：核对信息后支付</span></div>    -->
-
-  <div class="complete-prompt-center">
-    <span><%= t('view.payment_show.weixin_pay_tips') %></span>
-  </div> 
 </div>

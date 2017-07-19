@@ -19,7 +19,7 @@ module LiveStudio
     # 获取视频回放
     def fetch_replays
       channels.map {|c| c.sync_video_for(self) if c.board? }
-      synced! if channel_videos.count > 0
+      synced! if channel_videos.count > 0 && unsync?
     end
 
     # 初始化回放

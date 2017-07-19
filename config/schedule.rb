@@ -60,10 +60,6 @@ every 5.minutes do
   runner "LessonPauseWorker.perform_async"
 end
 
-every [5, 15, 25].map { |d| "0 0 #{d} * *" } do
-  runner 'WechatWorker.perform_async("transfer")'
-end
-
 # 每天处理考核任务
 every 1.day, :at => '00:30 am', :roles => [:web] do
   runner "BusinessService::TaskBillingDirector.handle_tasks"

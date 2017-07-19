@@ -37,16 +37,16 @@
 $(function() {
   // 聊天账户
   var user = {
-    account: "<%= @chat_account.try(:accid) %>",
-    // account: "d5e42f9a6e32d463f91b16a14adbde83",
-    token: "<%= @chat_account.try(:token) %>",
-    // token: '365383b66fac5b18209be02582d9a198',
+    // account: "<%= @chat_account.try(:accid) %>",
+    account: "d5e42f9a6e32d463f91b16a14adbde83",
+    // token: "<%= @chat_account.try(:token) %>",
+    token: '365383b66fac5b18209be02582d9a198',
     role: "<%= current_user.role %>"
   };
 
   // 云信聊天
-  var channelName = "<%= @chat_team.team_id %>";
-  // var channelName = "65272603";
+  // var channelName = "<%= @chat_team.team_id %>";
+  var channelName = "65272603";
   var bridge;
 
 

@@ -54,6 +54,7 @@ module Entities
         course.taste_overflow?
       end
       expose :sell_type
+      expose :tastable?, as: :tastable
     end
   end
 end

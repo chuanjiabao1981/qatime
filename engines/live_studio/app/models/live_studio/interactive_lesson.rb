@@ -3,6 +3,7 @@ module LiveStudio
   class InteractiveLesson < ActiveRecord::Base
     has_soft_delete
     extend Enumerize
+    prepend PlayRecordWithJob
 
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
@@ -262,21 +263,15 @@ module LiveStudio
 
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
-    def instance_play_records
+    def instance_play_records(immediately = false)
       # 防止重复记录
       user_ids = play_records.map(&:user_id)
       # 查询所有的可用听课证
-      course.tickets.available.find_each(batch_size: 50) do |ticket|
+      interactive_course.tickets.available.find_each(batch_size: 50) do |ticket|
         next if user_ids.include?(ticket.student_id)
         ticket.record_play(play_records_params.merge(user_id: ticket.student_id, ticket_id: ticket.id))
       end
     end
-
-    def instance_play_records_with_job(immediately = false)
-      return instance_play_records_without_job if immediately
-      LiveStudio::LessonPlayRecordJob.perform_later(id)
-    end
-    alias_method_chain :instance_play_records, :job
 
     def self.beat_step
       APP_CONFIG[:live_beat_step] || 10
@@ -457,11 +452,13 @@ module LiveStudio
 
     def play_records_params
       {
-          course_id: course_id,
+          course_id: interactive_course_id,
           lesson_id: id,
           start_time_at: live_start_at,
           end_time_at: live_end_at,
-          tp: 'student'
+          tp: 'student',
+          product_id: interactive_course_id,
+          product_type: 'LiveStudio::InteractiveCourse'
       }
     end
 

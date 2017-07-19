@@ -1,5 +1,5 @@
 <% @recommend_teachers.each do |teacher| %>
-  <li class="col-md-2 col-sm-3 col-xs-4">
+  <li class="col-md-2 col-sm-3 col-xs-6">
     <%= link_to profile_teacher_path(teacher.target) do %>
       <p><%= image_tag teacher.logo_url, class: 'handle_error_avatar' %></p>
       <p>

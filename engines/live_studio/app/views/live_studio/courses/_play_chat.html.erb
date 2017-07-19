@@ -34,9 +34,7 @@
             <%= @chat_team.announcement %>
           </div>
         </div>
-        <% if @chat_team.announcement.blank? %>
-          <div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>
-        <% end %>
+        <div class="no-announcement" id="announcement-empty" style="display: <%= @chat_team.announcement.blank? ? 'block' : 'none' %>;"><p><%= t("view.play.announcement_none") %></p></div>
       </div>
     </div>
 

@@ -4,17 +4,17 @@
 # rvm 2.2.1@qatime do bundle exec unicorn -c ..........
 
 # 获取当前项目路径
-APP_PATH = File.expand_path('../../current', File.dirname(__FILE__))
+APP_PATH = File.expand_path('../../', File.dirname(__FILE__))
 
 # worker 数
 worker_processes 4
 
 # 项目目录，部署后的项目指向 current，如：/srv/project_name/current
-working_directory APP_PATH
+working_directory "#{APP_PATH}/current"
 
 # we use a shorter backlog for quicker failover when busy
 # 可同时监听 Unix 本地 socket 或 TCP 端口
-listen "/tmp/qatime.sock", :backlog => 64
+listen "#{APP_PATH}/shared/tmp/qatime.sock", :backlog => 64
 # 开启tcp 端口，可不使用 apache 或 nginx 做代理，直接本地：http://localhost:port
 listen 8082, :tcp_nopush => true
 
@@ -29,18 +29,18 @@ timeout 180
 
 # unicorn master pid
 # unicorn pid 存放路径
-pid APP_PATH + "/tmp/pids/unicorn.pid"
+pid APP_PATH + "/shared/tmp/pids/unicorn.pid"
 
 # unicorn 日志
-stderr_path APP_PATH + "/log/unicorn.stderr.log"
-stdout_path APP_PATH + "/log/unicorn.stdout.log"
+stderr_path APP_PATH + "/shared/log/unicorn.stderr.log"
+stdout_path APP_PATH + "/shared/log/unicorn.stdout.log"
 
 preload_app true
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
   sleep(2)
-  old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"
+  old_pid = "#{APP_PATH}/shared/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)

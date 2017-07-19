@@ -5,3 +5,22 @@ qa_one:
   content: test_desc
   qa_faq_type: 0
   token: customized_tutorial_teacher_earnings_1_token
+
+static_page1:
+  title: 平台使用流程
+  content: 平台使用流程desc
+  qa_faq_type: 0
+  position: 1
+  show_type: 1
+static_page4:
+  title: 充值和提现说明
+  content: 充值和提现说明
+  qa_faq_type: 0
+  position: 4
+  show_type: 1
+static_page3:
+  title: 了解答疑时间
+  content: 了解答疑时间
+  qa_faq_type: 0
+  position: 5
+  show_type: 1

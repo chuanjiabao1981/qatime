@@ -8,6 +8,7 @@ module Entities
       expose :ticket_items, as: :progress, if: { type: :full }, using: Entities::LiveStudio::CourseTicketItem
       expose :product, using: Entities::LiveStudio::CourseBase, as: :course
       expose :status
+      expose :type
     end
   end
 end

@@ -15,7 +15,14 @@ NetcallBridge.fn.joinChannel = function (done, fail) {
     custom: { // 自定义字段
       role: that.user.role
     },
-    sessionConfig: {}
+    sessionConfig: {
+      videoQuality: Netcall.CHAT_VIDEO_QUALITY_480P,
+      videoFrameRate: Netcall.CHAT_VIDEO_FRAME_RATE_NORMAL,
+      videoBitrate: 0,
+      recordVideo: false,
+      recordAudio: false,
+      highAudio: false
+    }
   }).then(function (obj) { // 加入成功
     that.signalInited = true;
     console.log('joinChannel', obj);

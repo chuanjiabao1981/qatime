@@ -156,14 +156,12 @@ class SmsWorker
   end
 
   def notify2(options)
-    return unless Settings[:alert_mobiles].is_a?(Array)
     to        = options["to"]
     message   = options["message"]
+    mobile    = options["mobile"]
     sms_info  = "【答疑时间】#{to}，你好，#{message}#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
-    Settings[:alert_mobiles].each do |mobile|
-      _send_message do
-        send_message(mobile,sms_info)
-      end
+    _send_message do
+      send_message(mobile,sms_info)
     end
   end
   # def tutorial_create_notify(options)

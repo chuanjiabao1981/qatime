@@ -304,6 +304,17 @@ module V1
           get ':id/detail' do
             course = ::LiveStudio::Course.find(params[:id])
             ticket = course.tickets.available.find_by(student: current_user) if current_user
+
+
+            # 临时解决方案
+            @paly_records = current_user.nil? ? [] : ::LiveStudio::PlayRecord.where(lesson_id: course.lessons.map(&:id),
+                                                                             play_type: ::LiveStudio::PlayRecord.play_types[:replay],
+                                                                             user_id: current_user.id).to_a
+            course.lessons.each do |l|
+              l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
+            end
+            
+
             present course, root: :course, with: Entities::LiveStudio::CourseDetail
             present ticket, root: :ticket, with: Entities::LiveStudio::CourseTicket, type: :full
           end

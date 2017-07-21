@@ -98,8 +98,14 @@ class User < ActiveRecord::Base
 
   scope :by_city, ->(city_id) { where(city_id: city_id) }
 
+  def chat_account!
+    return chat_account if chat_account
+    self.chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+    chat_account
+  end
+
   def unread_notifications_count
-    self.notifications.unread.count
+    notifications.unread.count
   end
 
   def self.find_by_login_account(login_account)

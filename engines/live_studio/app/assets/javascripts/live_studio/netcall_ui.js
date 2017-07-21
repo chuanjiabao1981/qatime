@@ -57,7 +57,9 @@ NetcallBridge.fn.switchToDesktop = function () {
  */
 NetcallBridge.fn.showStudent = function (obj) {
   obj.node = document.getElementById('student-area');
-  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: '100%', height: '100%' });
+  var width = $("#student-area").width();
+  var height = $("#student-area").height();
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: width, height: height });
   this.playVideo(obj);
 }
 
@@ -66,7 +68,9 @@ NetcallBridge.fn.showStudent = function (obj) {
  */
 NetcallBridge.fn.showTeacher = function (obj) {
   obj.node = document.getElementById('teacher-area');
-  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: '100%', height: '100%' });
+  var width = $("#teacher-area").width();
+  var height = $("#teacher-area").height();
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: width, height: height });
   this.playVideo(obj);
 }
 

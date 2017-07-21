@@ -74,3 +74,14 @@ NetcallBridge.fn.connect = function (cb) {
   }
 };
 
+
+/** 播放远程声音 */
+fn.startDeviceAudioOutChat = function () {
+  var that = this;
+  that.netcall.startDevice({
+    type: Netcall.DEVICE_TYPE_AUDIO_OUT_CHAT
+  }).catch(function () {
+    that.log('播放对方的声音失败')
+  });
+};
+

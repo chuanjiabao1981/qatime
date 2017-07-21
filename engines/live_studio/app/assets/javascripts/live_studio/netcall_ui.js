@@ -75,11 +75,7 @@ NetcallBridge.fn.showTeacher = function (obj) {
  */
 NetcallBridge.fn.playVideo = function (obj) {
   var that = this;
-  that.netcall.startDevice({
-    type: Netcall.DEVICE_TYPE_AUDIO_OUT_CHAT
-  }).catch(function () {
-    that.log('播放对方的声音失败')
-  });
+  this.startDeviceAudioOutChat();
   this.netcall.startRemoteStream(obj);
 }
 

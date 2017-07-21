@@ -48,7 +48,10 @@ NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   netcall.on('leaveChannel', function (obj) {
     that.onLeaveChannel(obj);
   });
-  netcall.on("control", this.onControl.bind(this));
+  netcall.on("control", function(obj) {
+    console.log('........control', obj);
+    that.onControl(obj);
+  });
   netcall.initSignal().then(function() {
     this.signalInited = true;
     that.joinChannel(done, fail);

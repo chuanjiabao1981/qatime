@@ -48,6 +48,7 @@ NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   netcall.on('leaveChannel', function (obj) {
     that.onLeaveChannel(obj);
   });
+  netcall.on("control", this.onControl.bind(this));
   netcall.initSignal().then(function() {
     this.signalInited = true;
     that.joinChannel(done, fail);
@@ -74,6 +75,14 @@ NetcallBridge.fn.connect = function (cb) {
       cb: cb
     });
   }
+};
+
+/*
+ * 控制变动
+ */
+
+NetcallBridge.fn.onControl = function (obj) {
+   this.onMeetingControl(obj);
 };
 
 /** 播放远程声音 */

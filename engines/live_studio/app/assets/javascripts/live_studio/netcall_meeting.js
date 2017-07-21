@@ -106,7 +106,65 @@ NetcallBridge.fn.switchToStop = function () {
 // 设置老师
 NetcallBridge.fn.setTeachers = function (accounts) {
   this.teachers = accounts;
-}
+};
+
+NetcallBridge.fn.onMeetingControl = function (obj) {
+  var account = obj.account;
+  var members = this.chatNim.members;
+  if (!members[account]) return;
+
+  switch (obj.type) {
+    // NETCALL_CONTROL_COMMAND_NOTIFY_AUDIO_ON 通知对方自己打开了音频
+    case Netcall.NETCALL_CONTROL_COMMAND_NOTIFY_AUDIO_ON:
+      this.log("对方打开了麦克风");
+      break;
+    // NETCALL_CONTROL_COMMAND_NOTIFY_AUDIO_OFF 通知对方自己关闭了音频
+    case Netcall.NETCALL_CONTROL_COMMAND_NOTIFY_AUDIO_OFF:
+      this.log("对方关闭了麦克风");
+      break;
+    // NETCALL_CONTROL_COMMAND_NOTIFY_VIDEO_ON 通知对方自己打开了视频
+    case Netcall.NETCALL_CONTROL_COMMAND_NOTIFY_VIDEO_ON:
+      this.log("对方打开了摄像头");
+      this.nodeLoadingStatus(obj.account, '');
+      this.nodeCameraStatus(obj.account, true);
+        break;
+    // NETCALL_CONTROL_COMMAND_NOTIFY_VIDEO_OFF 通知对方自己关闭了视频
+    case Netcall.NETCALL_CONTROL_COMMAND_NOTIFY_VIDEO_OFF:
+      this.log("对方关闭了摄像头");
+      this.nodeLoadingStatus(obj.account, '对方关闭了摄像头');
+      this.nodeCameraStatus(obj.account, false);
+      break;
+    // NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO_REJECT 拒绝从音频切换到视频
+    case Netcall.NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO_REJECT:
+      this.log("对方拒绝从音频切换到视频通话");
+      break;
+    // NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO 请求从音频切换到视频
+    case Netcall.NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO:
+      this.log("对方请求从音频切换到视频通话");
+      break;
+    // NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO_AGREE 同意从音频切换到视频
+    case Netcall.NETCALL_CONTROL_COMMAND_SWITCH_AUDIO_TO_VIDEO_AGREE:
+      this.log("对方同意从音频切换到视频通话");
+      break;
+    // NETCALL_CONTROL_COMMAND_SWITCH_VIDEO_TO_AUDIO 从视频切换到音频
+    case Netcall.NETCALL_CONTROL_COMMAND_SWITCH_VIDEO_TO_AUDIO:
+      this.log("对方请求从视频切换为音频");
+      break;
+    // NETCALL_CONTROL_COMMAND_BUSY 占线
+    case Netcall.NETCALL_CONTROL_COMMAND_BUSY:
+      this.log("对方正在通话中");
+      this.log("取消通话");
+      this.nodeLoadingStatus(obj.account, '对方正在通话中');
+      break;
+    // NETCALL_CONTROL_COMMAND_SELF_CAMERA_INVALID 自己的摄像头不可用
+    case Netcall.NETCALL_CONTROL_COMMAND_SELF_CAMERA_INVALID:
+      this.log("对方摄像头不可用");
+      this.nodeLoadingStatus(obj.account, '对方摄像头不可用');
+      this.nodeCameraStatus(obj.account, false);
+      break;
+  }
+
+};
 
 // 查询互动状态
 NetcallBridge.fn.fetchPlayStatus = function () {
@@ -124,4 +182,23 @@ NetcallBridge.fn.fetchPlayStatus = function () {
       }, 5 * 1000);
     }
   });
+};
+
+NetcallBridge.fn.nodeLoadingStatus = function (account, message) {
+  var box = this.boxOf(account);
+  box.removeClass('loading').find('.tip').html(message || '');
+};
+
+NetcallBridge.fn.nodeCameraStatus = function (account, isEnable) {
+  isEnable = isEnable || false;
+  var box = this.boxOf(account);
+  box.find('canvas').toggleClass('hide', !isEnable);
+}
+
+NetcallBridge.fn.boxOf = function (account) {
+  if(this.isTeacher(account)) {
+    return $("#teacher-area");
+  } else {
+    return $("#student-area");
+  }
 };

@@ -41,6 +41,8 @@ NetcallBridge.fn.initNetcall = function () {
 NetcallBridge.fn.initNetcallMeeting = function (done, fail) {
   var netcall = this.netcall, that = this;
   netcall.on('joinChannel', function (obj) {
+    console.log('xxxxxxxxxxxxxxxxxxx');
+    console.log('新用户加入', obj);
     that.onJoinChannel(obj);
   });
   netcall.on('leaveChannel', function (obj) {

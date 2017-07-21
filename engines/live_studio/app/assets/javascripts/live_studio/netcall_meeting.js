@@ -55,7 +55,9 @@ NetcallBridge.fn.memberJoin = function (obj) {
 };
 
 NetcallBridge.fn.onLeaveChannel = function (obj) {
-
+  if (this.isTeacher(obj.account)) { // 主播
+    this.switchToStop();
+  }
 };
 
 // 判断是否主播
@@ -98,7 +100,7 @@ NetcallBridge.fn.switchToPause = function () {
 
 // 未开始状态
 NetcallBridge.fn.switchToStop = function () {
-
+  if(!NetcallBridge.timer) this.fetchPlayStatus();
 };
 
 // 设置老师
@@ -111,12 +113,15 @@ NetcallBridge.fn.fetchPlayStatus = function () {
   console.log("=====>>>获取直播状态");
   var that = this;
   if(!this.playStatusUrl) this.playStatusUrl = qatimeConfig.teamStatusUrl.replace(':team_id', this.channelName);
-  var status;
   $.getJSON(this.playStatusUrl, function(result) {
     // 如果播放状态不一致切换播放状态
     if(that.status != result.live_info.status) {
+      clearInterval(NetcallBridge.timer);
       that.statusSwitch(result.live_info.status);
-      // clearInterval(NetcallBridge.timer);
+    } else if (!NetcallBridge.timer) {
+      NetcallBridge.timer = setInterval(function() {
+        that.fetchPlayStatus();
+      }, 5 * 1000);
     }
   });
 };

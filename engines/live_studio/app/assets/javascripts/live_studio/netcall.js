@@ -74,9 +74,8 @@ NetcallBridge.fn.connect = function (cb) {
   }
 };
 
-
 /** 播放远程声音 */
-fn.startDeviceAudioOutChat = function () {
+NetcallBridge.fn.startDeviceAudioOutChat = function () {
   var that = this;
   that.netcall.startDevice({
     type: Netcall.DEVICE_TYPE_AUDIO_OUT_CHAT

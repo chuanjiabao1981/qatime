@@ -45,7 +45,7 @@ NetcallBridge.fn.switchToBoard = function () {
  */
 NetcallBridge.fn.switchToDesktop = function () {
   var obj = this.teacherObj;
-  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: 1036, height: 583 });
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: '100%', height: '100%' });
   // 桌面互动时视频画面切换到白板位置
   obj.node = document.getElementById('teacher-board-area');
   this.showDesktopTips();
@@ -57,7 +57,7 @@ NetcallBridge.fn.switchToDesktop = function () {
  */
 NetcallBridge.fn.showStudent = function (obj) {
   obj.node = document.getElementById('student-area');
-  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: 164, height: 122 });
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: '100%', height: '100%' });
   this.playVideo(obj);
 }
 
@@ -66,7 +66,7 @@ NetcallBridge.fn.showStudent = function (obj) {
  */
 NetcallBridge.fn.showTeacher = function (obj) {
   obj.node = document.getElementById('teacher-area');
-  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: 1036, height: 583 });
+  this.netcall.setVideoViewRemoteSize({ account: obj.account, width: '100%', height: '100%' });
   this.playVideo(obj);
 }
 

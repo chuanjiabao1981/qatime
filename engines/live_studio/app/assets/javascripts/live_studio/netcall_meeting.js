@@ -36,6 +36,8 @@ NetcallBridge.fn.joinChannel = function (done, fail) {
 };
 
 NetcallBridge.fn.onJoinChannel = function (obj) {
+  var box = this.boxOf(account);
+  box.addClass('loading');
   if (this.isTeacher(obj.account)) { // 主播
     this.teacherJoin(obj);
   } else if (this.isMember(obj.account)) { // 参与者
@@ -55,8 +57,12 @@ NetcallBridge.fn.memberJoin = function (obj) {
 };
 
 NetcallBridge.fn.onLeaveChannel = function (obj) {
-  if (this.isTeacher(obj.account)) { // 主播
+  if (this.isTeacher(obj.account)) { // 直播结束
     this.switchToStop();
+  } else { // 关闭摄像头画面
+    var box = this.boxOf(account);
+    box.find('canvas').hide();
+    box.removeClass('loading');
   }
 };
 
@@ -100,7 +106,9 @@ NetcallBridge.fn.switchToPause = function () {
 
 // 未开始状态
 NetcallBridge.fn.switchToStop = function () {
-  if(!NetcallBridge.timer) this.fetchPlayStatus();
+  this.netcall.leaveChannel().then(function() {
+    if(!NetcallBridge.timer) this.fetchPlayStatus();
+  });
 };
 
 // 设置老师

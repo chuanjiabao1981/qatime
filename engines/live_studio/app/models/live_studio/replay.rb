@@ -43,6 +43,7 @@ module LiveStudio
         create_time: result[:createTime]
       )
       lesson.merged! unless lesson.merged?
+      merged! unless merged?
     end
 
     # 返回下一次合并视频ID

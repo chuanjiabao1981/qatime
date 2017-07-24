@@ -21,4 +21,8 @@ cn:
       completed: 已结束
       paused_inner: 暂停中
       missed: 待补课
-
+  offline_lesson_status:
+    init: 未开始
+    ready: 待上课
+    teaching: 上课中
+    completed: 已结束

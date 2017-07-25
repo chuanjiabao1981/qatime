@@ -23,6 +23,7 @@ class EmailWorker
   end
 
   def live_studio_lesson_start(options)
-    NotificationMailer.send(:live_studio_lesson_start, options).deliver_now!
+    # 没有邮件模板暂时不发邮件
+    # NotificationMailer.send(:live_studio_lesson_start, options).deliver_now!
   end
 end

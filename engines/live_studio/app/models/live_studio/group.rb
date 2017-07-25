@@ -1,13 +1,12 @@
 module LiveStudio
   class Group < ActiveRecord::Base
-    extend Enumerize
+    has_soft_delete
 
     include AASM
+    extend Enumerize
     include QaToken
     include LiveCommon
     include Qatime::Stripable
-
-    has_soft_delete
     strip_field :name, :description
 
     enum status: {

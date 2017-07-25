@@ -1,10 +1,9 @@
 require 'encryption'
 module LiveStudio
   class Event < ActiveRecord::Base
-    extend Enumerize
-    include AASM
-
     has_soft_delete
+    include AASM
+    extend Enumerize
 
     attr_accessor :start_time_hour, :start_time_minute, :_update
 

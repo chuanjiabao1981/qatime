@@ -133,7 +133,7 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'live_studio/station/interactive_courses', [:index] do |workstation|
+      allow 'live_studio/station/interactive_courses', [:index, :play] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 

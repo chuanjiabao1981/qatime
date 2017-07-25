@@ -62,7 +62,7 @@ module LiveStudio
     scope :started, -> { where("status >= ?", statuses[:teaching]) } # 已开始
     scope :readied, -> { where("status >= ?", statuses[:ready]) } # 已就绪
 
-    belongs_to :group, counter_cache: 'lessons_count'
+    belongs_to :group, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records, -> { where(product_type: 'LiveStudio::Group') } # 听课记录
@@ -375,7 +375,7 @@ module LiveStudio
     def update_course
       return unless group.present?
       lesson_dates = group.events(true).map(&:class_date)
-      group.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
+      group.update(start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 
     def update_course_price

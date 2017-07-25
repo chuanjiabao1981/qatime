@@ -56,7 +56,7 @@ module LiveStudio
       event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
-          self.billing_type = 'Payment::LiveGroupBilling'
+          # self.billing_type = 'Payment::LiveGroupBilling'
         end
         transitions from: :init, to: :published
       end
@@ -74,8 +74,8 @@ module LiveStudio
     default_value_for :status, Group.statuses[:published]
     before_create do
       self.published_at = Time.now
-      self.billing_type = 'Payment::LiveGroupBilling'
-      self.class_date = events.map(&:class_date).try(:min)
+      # self.billing_type = 'Payment::LiveGroupBilling'
+      self.start_at = events.map(&:class_date).try(:min)
     end
     after_commit :ready_lessons, on: :create
 
@@ -123,7 +123,7 @@ module LiveStudio
     belongs_to :author, class_name: User
 
     require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
+    mount_uploader :publicize, ::GroupPublicizeUploader
 
     scope :month, ->(month) {where('live_studio_groups.class_date >= ? AND live_studio_groups.class_date <= ?',
                                    month.beginning_of_month.to_date,
@@ -148,8 +148,8 @@ module LiveStudio
 
     def distance_days
       today = Date.today
-      return 0 if class_date.blank? || class_date < today
-      (class_date.to_time - today.to_time) / 60 /60 / 24
+      return 0 if start_at.blank? || start_at < today
+      (start_at.to_time - today.to_time) / 60 /60 / 24
     end
 
     def order_params
@@ -360,7 +360,7 @@ module LiveStudio
     end
 
     def ready_lessons
-      tmp_class_date = [class_date, events.map(&:class_date).min].min rescue class_date
+      tmp_class_date = [start_at, events.map(&:class_date).min].min rescue start_at
       return if tmp_class_date.blank?
       return if tmp_class_date > Date.today
       teaching! if published?

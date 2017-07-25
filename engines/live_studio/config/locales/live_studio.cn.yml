@@ -143,6 +143,7 @@ cn:
             minute: 分
           set_errors:
             name: 请输入课程名称
+            class_address: 请输入上课地点
             class_date: 请选择上课日期
             start_time: 请选择开始时间
             duration: 请选择上课时长
@@ -325,6 +326,8 @@ cn:
         intro_two: 二、上课安排
         scheduled_lesson_title: 线上直播
         offline_lesson_title: 线下授课
+      offline_lesson_field:
+        class_address_text: 上课地点
     student:
       students:
         schedules:

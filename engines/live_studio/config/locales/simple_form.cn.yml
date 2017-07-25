@@ -46,6 +46,8 @@ cn:
         sell_type: 类型
         price: 设置价格
         teacher_percentage: 教师分成
+      event:
+        class_address: 上课地点
     placeholders:
       course_invitation:
         user_mobile: 填写想要邀请的老师的手机号
@@ -73,6 +75,8 @@ cn:
         suit_crowd: 输入适合学习的人群（最多300字）
         teacher_percentage: 请输入教师获得分成比例（正整数）
         price: 请输入课程售价（正整数）
+      event:
+        class_address: 请输入具体地点或教室
     prompts:
       customized_group:
         grade: 请选择年级

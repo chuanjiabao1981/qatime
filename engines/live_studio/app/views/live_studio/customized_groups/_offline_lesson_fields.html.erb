@@ -21,6 +21,10 @@
         <%= lesson.start_time %>-<%= lesson.end_time %>
       </span>
     </p>
+    <p>
+      <span><%= t('view.live_studio/customized_group.offline_lesson_field.class_address_text') %>：</span>
+      <span id="class_address_<%= object_id %>"><%= lesson.class_address %></span>
+    </p>
   </div>
 
   <div class="col-md-1 arrangement-set">
@@ -61,6 +65,14 @@
               <%= f.text_field :name, placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.name'), maxlength: 20, class: 'lesson_name form-control'%>
               <br>
               <span class="has-error name-error-<%= object_id %>"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 classname">
+              <%= f.label :class_address, t('simple_form.labels.event.class_address') %>
+              <%= f.text_field :class_address, placeholder: t('simple_form.placeholders.event.class_address'), class: 'classaddress form-control'%>
+              <br>
+              <span class="has-error classaddress-error-<%= object_id %>"></span>
             </div>
           </div>
 
@@ -137,6 +149,7 @@
       var start_time_minute_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_minute)).at_css('input').attributes['id'].value %>';
       var duration_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:duration)).at_css('select').attributes['id'].value %>';
       var name_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:name)).at_css('input').attributes['id'].value %>';
+      var class_address_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:class_address)).at_css('input').attributes['id'].value %>';
       var hour = $(start_time_hour_id).val();
       var minutes = $(start_time_minute_id).val();
       var duration = $(duration_id).val();
@@ -144,22 +157,30 @@
       var end_time = _get_time(hour, minutes, duration);
       var class_date = $(class_date_id).val();
       var name = $(name_id).val();
-      var flag = set_errors(o_id, name, class_date, hour, minutes, start_time, duration, end_time);
+      var class_address = $(class_address_id).val();
+      var flag = set_errors(o_id, name, class_address, class_date, hour, minutes, start_time, duration, end_time);
       if(flag){
         $('#class_date_'+o_id).html(class_date);
         $('#start_time_'+o_id).html(start_time + '-' + end_time);
         $('#name_'+o_id).html(name);
+        $('#class_address_'+o_id).html(class_address);
       }
       return flag;
     }
 
-    function set_errors(id, name, class_date, hour, minutes, start_time, duration, end_time){
+    function set_errors(id, name, class_address, class_date, hour, minutes, start_time, duration, end_time){
       var return_flag = true;
       if(name.trim() == ''){
         return_flag = false;
         $('.name-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.name') %>');
       }else{
         $('.name-error-'+id).html('');
+      }
+      if(class_address.trim() == ''){
+        return_flag = false;
+        $('.classaddress-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.class_address') %>');
+      }else{
+        $('.classaddress-error-'+id).html('');
       }
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;

@@ -65,3 +65,13 @@ cn:
         hours_3: 3小时
         hours_half_210: 3小时30分
         hours_4: 4小时
+    live_studio/group:
+      status:
+        rejected: 审核被拒
+        init: 审核中
+        published: 招生中
+        teaching: 开课中
+        completed: 已结束
+      sell_type:
+        charge: 收费课程
+        free: 免费课程

@@ -39,6 +39,7 @@ module Permissions
 
       allow :courses,[:show]
       allow :lessons,[:show]
+      allow 'chat/teams', [:finish, :members, :member_visit, :status]
       allow 'welcome', [:download]
 
       ## begin live studio permission

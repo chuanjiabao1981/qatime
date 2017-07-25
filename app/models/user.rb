@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 
   def chat_account!
     return chat_account if chat_account
-    self.chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+    self.chat_account = LiveService::ChatAccountFromUser.new(self).instance_account
     chat_account
   end
 

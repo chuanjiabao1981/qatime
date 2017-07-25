@@ -47,6 +47,7 @@ module Permissions
       allow :notifications, [:index] do |resource_user|
         resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
       end
+      allow 'chat/teams', [:finish, :members, :member_visit, :status]
       allow 'welcome', [:download]
 
       allow 'recommend/positions', [:index, :show]

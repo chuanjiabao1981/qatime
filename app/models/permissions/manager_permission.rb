@@ -202,7 +202,7 @@ module Permissions
       end
 
       ## end live studio permission
-      allow 'chat/teams', [:finish, :members, :member_visit]
+      allow 'chat/teams', [:finish, :members, :member_visit, :status]
       allow 'welcome', [:download]
       allow 'payment/users', [:cash, :recharges, :withdraws, :consumption_records, :earning_records, :refunds]
       allow 'payment/orders', [:index, :show]

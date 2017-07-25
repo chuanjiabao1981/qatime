@@ -36,7 +36,7 @@ NetcallBridge.fn.joinChannel = function (done, fail) {
 };
 
 NetcallBridge.fn.onJoinChannel = function (obj) {
-  var box = this.boxOf(account);
+  var box = this.boxOf(obj.account);
   box.addClass('loading');
   if (this.isTeacher(obj.account)) { // 主播
     this.teacherJoin(obj);

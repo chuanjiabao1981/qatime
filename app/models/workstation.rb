@@ -34,6 +34,10 @@ class Workstation < ActiveRecord::Base
   has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse
   has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse
 
+  # 我的专属课
+  has_many :live_studio_groups, class_name: LiveStudio::Group
+  has_many :live_studio_customized_groups, class_name: LiveStudio::CustomizedGroup
+
   # 我的lesson
   has_many :live_studio_lessons, through: :live_studio_courses, source: :lessons, class_name: LiveStudio::Lesson
   has_many :live_studio_interactive_lessons, through: :live_studio_interactive_courses, source: :interactive_lessons, class_name: LiveStudio::InteractiveLesson

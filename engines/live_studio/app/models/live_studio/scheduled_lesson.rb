@@ -23,7 +23,7 @@ module LiveStudio
       event :teach do
         before do
           # 第一次开始直播增加开始数量
-          increment_course_counter(:started_lessons_count) if unstart?
+          increment_course_counter(:started_events_count) if unstart?
         end
         transitions from: [:ready, :paused, :missed, :closed], to: :teaching
       end
@@ -35,7 +35,7 @@ module LiveStudio
       event :close, after_commit: :close_hook  do
         before do
           # 第一次结束直播增加结束数量
-          increment_course_counter(:closed_lessons_count) if live_end_at.nil?
+          increment_course_counter(:closed_events_count) if live_end_at.nil?
           self.live_end_at = Time.now
         end
         transitions from: [:teaching, :paused], to: :closed
@@ -50,10 +50,6 @@ module LiveStudio
       end
 
       event :complete do
-        after do
-          # 结算后增加辅导班结算数量
-          increment_course_counter(:completed_lessons_count)
-        end
         transitions from: [:finished, :billing], to: :completed
       end
     end

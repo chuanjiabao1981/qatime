@@ -137,6 +137,10 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      allow 'live_studio/station/customized_groups', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       # 招生请求
       allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|
         workstation && workstation.id == user.workstation_id
@@ -167,6 +171,7 @@ module Permissions
       end
 
       allow 'live_studio/interactive_courses', [:index, :show, :preview]
+      allow 'live_studio/customized_groups', [:index, :show, :preview]
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true

@@ -1,0 +1,35 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
+
+    <div class="filter">
+      <%= link_to live_studio.new_customized_group_path(workstation_id: @workstation), class: 'filter-left' do %>
+        <%= image_tag 'addclass.png' %>
+        <%= t('view.live_studio/interactie_course.index.new') %>
+      <% end if allow? 'live_studio/customized_groups', :new %>
+
+      <%= render 'live_studio/station/customized_groups/search' %>
+    </div>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.name') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.teacher') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.price') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.teacher_percentage') %></th>
+            <th><%= t('view.live_studio/interactie_course.index.status') %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+
+          <%= render partial: 'customized_group', collection: @customized_groups %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @customized_groups.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @customized_groups, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

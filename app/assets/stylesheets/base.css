@@ -10185,17 +10185,13 @@ ul {
   display: inline-block;
 }
 .playlist .coursehead > span{
-  display: inline-block;
-  width: 100%;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #666;
 }
 .playlist:last-child {
-  padding-bottom: 0px;
-}
-.course-item-arrangement {
   padding-bottom: 0px;
 }
 .instructions-line {
@@ -11346,17 +11342,26 @@ ul {
   font-size: 14px;
   color: #666;
 }
+.live-arrangement .line-title {
+  margin: 0px 15px 20px 15px;
+  color: #333;
+}
 .live-arrangement > .row > .col-md-10 > p {
   margin-bottom: 0px;
   line-height: 25px;
 }
-.live-arrangement > .row {
+.live-arrangement > .row,.live-arrangement > .online-live > .row,.live-arrangement > .row,.live-arrangement > .offline-live > .row {
   padding: 20px 0px;
   border-top: 1px solid #e7eaec;
   margin: 0px;
 }
-.live-arrangement > .row:first-child {
+.live-arrangement > .offline-live {
+  border-top: 1px solid #e7eaec;
+  padding-top: 30px;
+}
+.live-arrangement > .row:first-child,.live-arrangement > .online-live > .line-title + .row,.live-arrangement > .offline-live > .line-title + .row {
   border-top: 0px !important;
+  padding-top: 0px;
 }
 .live-arrangement > .row > .col-md-10 > .begin-time
 ,.live-arrangement > .row > .col-md-10 > .instructor {
@@ -11489,6 +11494,57 @@ ul {
   white-space:nowrap;
 }
 
+/*答疑课调课*/
+.course-adjust > .online-live > ul,.course-adjust > .offline-live > ul {
+  margin-top: 0px;
+}
+.course-adjust > .online-live > p,.course-adjust > .offline-live > p {
+  margin: 20px 0px 0px 0px;
+  font-size: 16px;
+  color: #333;
+}
+.course-adjust > .offline-live {
+  border-top: 1px solid #ccc;
+}
+
+/*答疑课详情页*/
+.course-item > .nav-item > .btn-release {
+  float: right;
+  color: #ff5842 !important;
+  outline: none;
+}
+.course-item > .nav-item > a.btn-release:hover {
+  color: #ff5842 !important;
+}
+.course-item > .nav-item > .btn-release > img {
+  vertical-align: middle;
+  position: relative;
+  top: -3px;
+  right: 5px;
+}
+.course-item > .online-live > p,.course-item > .offline-live > p {
+  font-size: 14px;
+  color: #333;
+  margin: 20px 0px;
+}
+.course-item > .offline-live > p {
+  margin-bottom: 0px;
+}
+.course-item > .online-live .playlist:first-child{
+  margin-top: 0px;
+}
+.course-item > .online-live .playlist:last-child {
+  margin-bottom: 20px;
+}
+.course-item > .offline-live  {
+  border-top: 1px solid #f0f0f0;
+}
+.course-item > .offline-live .playlist:first-child  {
+  margin-top: 20px;
+}
+.playlist .coursehead > span.venue {
+  color: #999;
+}
 
 
 /*下载页面*/
@@ -12039,7 +12095,7 @@ ul {
 /*工作站视频课创建*/
 .scheduling {
   padding-left: 0px;
-  margin: 0px -10px 0px 0px;
+  margin: 0px;
 }
 .scheduling > li {
   position: relative;
@@ -12086,9 +12142,6 @@ ul {
 .course-checkbox > span > input {
   position: relative;
   top: 2px;
-}
-.editor-msg .charge-state {
-  padding-left: 15px;
 }
 .editor-msg .charge-state > .radio > label {
   padding-left: 0px;

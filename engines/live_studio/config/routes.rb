@@ -97,6 +97,38 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  # 专属课
+  resources :customized_groups, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    resources :orders, only: [:new, :create, :pay, :show] # 下单
+    resources :announcements, only: [:index, :update, :create], shallow: true
+
+    collection do
+      post :preview
+      patch :preview
+    end
+
+    member do
+      get :play # 观看直播
+      post :update_notice
+      patch :publish
+      get :refresh_current_lesson
+      get :live_status
+      get :live_info
+      get :update_class_date
+      get :for_free
+      patch :update_lessons
+    end
+
+    resources :events, only: [:show], shallow: true do
+      member do
+        get :play
+        patch :completed
+        get :videos
+        get :replay
+      end
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
@@ -137,6 +169,7 @@ LiveStudio::Engine.routes.draw do
           post :audit
         end
       end
+      resources :customized_groups, only: [:index]
     end
   end
 

@@ -1,27 +1,12 @@
 require 'encryption'
 module LiveStudio
   class Event < ActiveRecord::Base
-    has_soft_delete
-    include AASM
     extend Enumerize
-    include Recordable # 直播录制
-    prepend PlayRecordWithJob
+    include AASM
 
-    attr_accessor :replay_times
+    has_soft_delete
+
     attr_accessor :start_time_hour, :start_time_minute, :_update
-    BEAT_STEP = 10 # 心跳频率/秒
-
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, to: :group
-    delegate :channels, to: :group
-
-    enum replay_status: {
-             unsync: 0, # 未同步
-             synced: 1, # 已同步
-             merging: 2, # 正在合并
-             merged: 3, # 已合并
-             sync_error: 98, # 同步失败
-             merge_error: 99 # 合并失败
-         }
 
     enum status: {
              missed: -1, # 已错过
@@ -34,7 +19,6 @@ module LiveStudio
              billing: 6, # 结算中
              completed: 7 # 已结算
          }
-
     enumerize :duration, in: {
                            minutes_30: 30,
                            minutes_45: 45,
@@ -47,38 +31,13 @@ module LiveStudio
                            hours_4: 240
                        }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
 
-    scope :unfinish, -> { where("live_studio_events.status < ?", statuses[:finished]) } # 未完成的课程
-    scope :unclosed, -> { where('live_studio_events.status < ?', statuses[:closed]) } # 未关闭的课程
-    scope :already_closed, -> { where('live_studio_events.status >= ?', statuses[:closed]) } # 已关闭的课程
-    scope :unstart, -> { where('status < ?', statuses[:teaching]) } # 未开始的课程
-    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
-    scope :teached, -> { where("status > ?", statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
-    scope :today, -> { where(class_date: Date.today) }
-    scope :since_today, -> {where('class_date > ?', Date.today)}
-    scope :include_today, -> {where('class_date >= ?',Date.today)}
-    scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]]) }
-    scope :month, -> (month){ where('live_studio_events.class_date >= ? AND live_studio_events.class_date <= ?', month.beginning_of_month.to_date, month.end_of_month.to_date) }
-    scope :week, -> (week){ where('live_studio_events.class_date >= ? AND live_studio_events.class_date <= ?', week.beginning_of_week.to_date, week.end_of_week.to_date) }
-    scope :started, -> { where("status >= ?", statuses[:teaching]) } # 已开始
-    scope :readied, -> { where("status >= ?", statuses[:ready]) } # 已就绪
-
     belongs_to :group, counter_cache: true
-    belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
-
-    has_many :play_records, -> { where(product_type: 'LiveStudio::Group') } # 听课记录
-    has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
-    has_many :channel_videos
-    has_many :replays
-
-    has_many :live_sessions, as: :sessionable # 直播 心跳记录
-    has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
-    has_many :ticket_items, as: :target
+    belongs_to :teacher, class_name: '::Teacher'
 
     validates :name, :class_date, presence: true
 
     before_create :data_preview
     after_commit :update_course
-    after_commit :update_course_price
 
     before_validation :reset_status, if: :class_date_changed?, on: :update
 
@@ -101,266 +60,7 @@ module LiveStudio
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
     end
 
-    # 尚未直播
-    def status_wating?
-      %w[missed init ready].include?(status)
-    end
-
-    # 正在直播
-    def status_living?
-      %w[teaching paused].include?(status)
-    end
-
-    def can_play?
-      ready? || teaching?
-    end
-
-    # 是否可以准备上课
-    def ready_for?
-      init? && class_date == Date.today
-    end
-
-    def short_description(len = 20)
-      description.try(:truncate, len)
-    end
-
-    def live_time
-      "#{start_time}-#{end_time}"
-    end
-
-    def live_begin_time
-      "#{class_date} #{start_time}"
-    end
-
-    # 开始时间
-    def start_at
-      Time.parse("#{class_date} #{start_time}")
-    end
-
-    # 心跳
-    def heartbeats(timestamp, beat_step, token = nil)
-      @live_session = session_by_token(token)
-      return @live_session.token if @live_session.timestamp && @live_session.timestamp >= timestamp
-      @live_session.heartbeat_count += 1
-      @live_session.duration += beat_step
-      @live_session.heartbeat_at = Time.now
-      @live_session.timestamp = timestamp
-      @live_session.beat_step = beat_step
-      @live_session.save
-      self.heartbeat_time = Time.now
-      teach if ready? || paused? || closed?
-      save
-      @live_session.token
-    end
-
-    def start_live_session
-      new_live_session
-    end
-
-    def session_by_token(token)
-      live_session = live_sessions.find_by(token: token) if token.present?
-      live_session ||= new_live_session
-      live_session
-    end
-
-    def current_live_session
-      live_sessions.last || new_live_session
-    end
-
-    def last_heartbeat_at
-      current_live_session.heartbeat_at
-    end
-
-    def is_over?
-      # 判断课程是否已经结束
-      %w(finished billing completed).include?(status)
-    end
-
-    # 判断课程是否未开始
-    # 待补课, 初始化, 待上课算作没开始
-    def unstart?
-      %w(missed init ready).include?(status)
-    end
-
-    # 没开始课程算作没有结束
-    # 暂停中或者上课中算作没有结束
-    # 结束以后重新开始算作已经结束
-    # 结束以后重新开始然后暂停算作已结束
-    def unclosed?
-      unstart? || %w(teaching paused).include?(status)
-    end
-
-    def had_closed?
-      %w(closed finished billing completed).include?(status)
-    end
-
-    # 是否已经结束
-    def lesson_finished?
-      %w(finished billing completed).include?(status)
-    end
-
-    # 课程完成回调
-    def finish_hook
-      # 记录播放记录
-      instance_play_records
-      # 获取回放视频
-      async_fetch_replays
-    end
-
-    # 结束直播回调
-    def close_hook
-      async_fetch_replays
-    end
-
-    # 记录播放记录
-    # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
-    def instance_play_records(immediately = false)
-      # 防止重复记录
-      user_ids = play_records.map(&:user_id)
-      # 查询所有的可用听课证
-      group.tickets.available.find_each(batch_size: 50) do |ticket|
-        next if user_ids.include?(ticket.student_id)
-        ticket.record_play(play_records_params.merge(user_id: ticket.student_id, ticket_id: ticket.id))
-      end
-    end
-
-    def self.beat_step
-      APP_CONFIG[:live_beat_step] || 10
-    end
-
-    def billing_amount
-      @billing_amount ||= ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
-    end
-
-    # 点播次数
-    def total_play_times
-      play_records.replay.count
-    end
-
-    # 视频回放开始时间
-    def replays_start_at
-      (live_start_at.to_i - 6.minutes) * 1000
-    end
-
-    # 视频回放结束时间
-    def replays_end_at
-      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 6.minutes) * 1000
-    end
-
-    # 剩余回放时间
-    def left_replay_times
-      return 0 unless replay_times
-      [LiveStudio::ChannelVideo::TOTAL_REPLAY - replay_times, 0].max
-    end
-
-    # 是否可以回放
-    def replayable
-      had_closed? && merged?
-    end
-
-    # 是否可观看回放
-    def replayable_for?(user)
-      return false if user.blank?
-      return true if user.admin?
-      return true if group.buy_tickets.where(student_id: user.id).available.exists?
-      return true if group.play_authorize(user, nil)
-      false
-    end
-
-    # 是否显示剩余次数
-    def replays_for(user)
-      return false if user.nil?
-      return true if user.admin?
-      group.buy_tickets.where(student_id: user.id).available.exists?
-    end
-
-    # 用户剩余播放次数
-    def user_left_times(user)
-      return 0 if user.nil?
-      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay], user_id: user.id).where('created_at < ?', Date.today).count
-      [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
-    end
-
-    def replay_name(video_for)
-      "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
-    end
-
-    # 视频时长单位分钟
-    def duration_minutes
-      (real_time.to_i / 60.0).round(4)
-    end
-
-    def duration_hours
-      (real_time.to_i / 60.0 / 60.0).round(4)
-    end
-
     private
-
-    def camera_replay_name
-      "#{Rails.env}_lesson_#{id}_camera_replay"
-    end
-
-    def board_replay_name
-      "#{Rails.env}_lesson_#{id}_board_replay"
-    end
-
-    # 摄像头视频id
-    def camera_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).order(:begin_time).map(&:vid)
-    end
-
-    # 白板视频id
-    def board_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['board']).order(:begin_time).map(&:vid)
-    end
-
-    # 过期试听证
-    def used_taste_tickets
-      group.taste_tickets.pre_used.map(&:used!)
-    end
-
-    # 系统服务费
-    def system_fee!(money, billing)
-      system_money = Group::SYSTEM_FEE * live_count * real_time
-      system_money = money if system_money > money
-      increase_cash_admin_account(system_money, billing)
-      system_money
-    end
-
-    # 教师分成
-    def teacher_fee!(money, billing)
-      teacher_money = money * group.teacher_percentage.to_f / 100
-      teacher.cash_account!.earning(teacher_money, billing.target, billing, "课程完成 - #{id} - #{name} - #{teacher_money}/#{money}")
-      teacher_money
-    end
-
-    # 代理商分成
-    # 代理商的分成打入workstation账户下
-    def manager_fee!(money, billing)
-      group.workstation.cash_account!.earning(money, billing.target, billing, "课程完成 - #{id} - #{name}")
-    end
-
-    # 结算完成后
-    # 系统账户 支出结算金额
-    def decrease_cash_admin_account(money, billing)
-      CashAdmin.decrease_cash_account(money, billing, '课程完成 - 支出结算')
-    end
-
-    # 结算完成后
-    # 系统账户 收取服务费
-    def increase_cash_admin_account(money, billing)
-      CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
-    end
-
-    def new_live_session
-      live_sessions.create(
-          token: ::Encryption.md5("#{id}#{Time.now}").downcase,
-          heartbeat_count: 0,
-          duration: 0, # 单位(秒)
-          heartbeat_at: 1,
-          beat_step: LiveStudio::Event.beat_step
-      )
-    end
 
     # 今日课程立即是ready状态
     def data_preview
@@ -376,22 +76,6 @@ module LiveStudio
       return unless group.present?
       lesson_dates = group.events(true).map(&:class_date)
       group.update(start_at: lesson_dates.min, end_at: lesson_dates.max)
-    end
-
-    def update_course_price
-      group.reset_left_price if group
-    end
-
-    def play_records_params
-      {
-          course_id: group_id,
-          lesson_id: id,
-          start_time_at: live_start_at,
-          end_time_at: live_end_at,
-          tp: 'student',
-          product_id: group_id,
-          product_type: 'LiveStudio::Event'
-      }
     end
 
     # 增加计数器

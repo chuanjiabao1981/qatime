@@ -17,8 +17,8 @@
     <p>
       <span><%= t('view.live_studio/course.lesson_field.class_date_text') %>：</span>
       <span id="class_date_<%= object_id %>"><%= lesson.class_date %></span>
-      <span id="start_time_<%= object_id %>">
-        <%= lesson.start_time %>-<%= lesson.end_time %>
+      <span id="start_at_<%= object_id %>">
+        <%= lesson.start_at %>-<%= lesson.end_at %>
       </span>
     </p>
   </div>
@@ -44,10 +44,10 @@
               <span class="has-error class_date-error-<%= object_id %>"></span>
             </div>
             <div class="col-md-4 starttime">
-              <%= f.label :start_time_hour, t('view.live_studio/course.lesson_field.edit_modal.label.start_time_hour') %>
-              <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,[t('view.live_studio/course.lesson_field.edit_modal.placeholder.hour'),nil]),{}, class: 'start_time_hour form-control' %>
-              <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.minute'), nil]),{}, class: 'start_time_minute form-control' %>
-              <span class="has-error start_time-error-<%= object_id %>"></span>
+              <%= f.label :start_at_hour, t('view.live_studio/course.lesson_field.edit_modal.label.start_at_hour') %>
+              <%= f.select :start_at_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,[t('view.live_studio/course.lesson_field.edit_modal.placeholder.hour'),nil]),{}, class: 'start_at_hour form-control' %>
+              <%= f.select :start_at_min, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.minute'), nil]),{}, class: 'start_at_min form-control' %>
+              <span class="has-error start_at-error-<%= object_id %>"></span>
             </div>
             <div class="col-md-4 duration">
               <%= f.label :duration, t('view.live_studio/course.lesson_field.edit_modal.label.duration') %>
@@ -133,27 +133,27 @@
 
     function change_save(){
       var class_date_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:class_date)).at_css('input').attributes['id'].value %>';
-      var start_time_hour_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_hour)).at_css('input').attributes['id'].value %>';
-      var start_time_minute_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_minute)).at_css('input').attributes['id'].value %>';
+      var start_at_hour_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_at_hour)).at_css('input').attributes['id'].value %>';
+      var start_at_min_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_at_min)).at_css('input').attributes['id'].value %>';
       var duration_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:duration)).at_css('select').attributes['id'].value %>';
       var name_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:name)).at_css('input').attributes['id'].value %>';
-      var hour = $(start_time_hour_id).val();
-      var minutes = $(start_time_minute_id).val();
+      var hour = $(start_at_hour_id).val();
+      var minutes = $(start_at_min_id).val();
       var duration = $(duration_id).val();
-      var start_time = hour + ':' + minutes;
+      var start_at = hour + ':' + minutes;
       var end_time = _get_time(hour, minutes, duration);
       var class_date = $(class_date_id).val();
       var name = $(name_id).val();
-      var flag = set_errors(o_id, name, class_date, hour, minutes, start_time, duration, end_time);
+      var flag = set_errors(o_id, name, class_date, hour, minutes, start_at, duration, end_time);
       if(flag){
         $('#class_date_'+o_id).html(class_date);
-        $('#start_time_'+o_id).html(start_time + '-' + end_time);
+        $('#start_at_'+o_id).html(start_at + '-' + end_time);
         $('#name_'+o_id).html(name);
       }
       return flag;
     }
 
-    function set_errors(id, name, class_date, hour, minutes, start_time, duration, end_time){
+    function set_errors(id, name, class_date, hour, minutes, start_at, duration, end_time){
       var return_flag = true;
       if(name.trim() == ''){
         return_flag = false;
@@ -169,17 +169,17 @@
       }
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;
-        $('.start_time-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.start_time') %>');
+        $('.start_at-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.start_at') %>');
       }else{
-        $('.start_time-error-'+id).html('');
+        $('.start_at-error-'+id).html('');
       }
 
       var nowTime = new Date();
-      var startAt = new Date(class_date + " " + start_time);
+      var startAt = new Date(class_date + " " + start_at);
       if(startAt < nowTime){
         return_flag = false;
         $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_before') %>');
-      } else if(end_time < start_time){
+      } else if(end_time < start_at){
         return_flag = false;
         $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_after') %>');
       }else if(duration.trim() == '' || duration == null){

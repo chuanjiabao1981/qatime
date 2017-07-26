@@ -1,5 +1,6 @@
 module LiveStudio
   class OfflineLesson < Event
+
     enum status: {
              init: 0, # 未开始
              ready: 1, # 待上课

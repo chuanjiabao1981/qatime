@@ -1,4 +1,4 @@
-<%= simple_form_for [:staiton, @workstation, @customized_group], url: url do |f| %>
+<%= simple_form_for [:station, @workstation, @customized_group] do |f| %>
   <%= f.input :workstation_id, as: :hidden %>
   <div class="editor-item">
     <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>

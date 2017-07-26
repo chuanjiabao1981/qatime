@@ -3,10 +3,10 @@
     <%= render 'live_studio/station/tab' %>
 
     <div class="filter">
-      <%= link_to live_studio.new_customized_group_path(workstation_id: @workstation), class: 'filter-left' do %>
+      <%= link_to live_studio.new_station_workstation_customized_group_path(@workstation), class: 'filter-left' do %>
         <%= image_tag 'addclass.png' %>
         <%= t('view.live_studio/interactie_course.index.new') %>
-      <% end if allow? 'live_studio/customized_groups', :new %>
+      <% end if allow? 'live_studio/station/customized_groups', :new %>
 
       <%= render 'live_studio/station/customized_groups/search' %>
     </div>

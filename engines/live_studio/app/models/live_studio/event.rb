@@ -5,53 +5,45 @@ module LiveStudio
     include AASM
     extend Enumerize
 
-    attr_accessor :start_time_hour, :start_time_minute, :_update
+    attr_accessor :_update
 
     enum status: {
-             missed: -1, # 已错过
-             init: 0, # 初始化
-             ready: 1, # 等待上课
-             teaching: 2, # 上课中
-             paused: 3, # 暂停中 意外中断可以继续直播
-             closed: 4, # 直播结束 可以继续直播
-             finished: 5, # 已完成 不可继续直播
-             billing: 6, # 结算中
-             completed: 7 # 已结算
-         }
+      missed: -1, # 已错过
+      init: 0, # 初始化
+      ready: 1, # 等待上课
+      teaching: 2, # 上课中
+      paused: 3, # 暂停中 意外中断可以继续直播
+      closed: 4, # 直播结束 可以继续直播
+      finished: 5, # 已完成 不可继续直播
+      billing: 6, # 结算中
+      completed: 7 # 已结算
+    }
+
     enumerize :duration, in: {
-                           minutes_30: 30,
-                           minutes_45: 45,
-                           hours_1: 60,
-                           hours_half_90: 90,
-                           hours_2: 120,
-                           hours_half_150: 150,
-                           hours_3: 180,
-                           hours_half_210: 210,
-                           hours_4: 240
-                       }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
+      minutes_30: 30,
+      minutes_45: 45,
+      hours_1: 60,
+      hours_half_90: 90,
+      hours_2: 120,
+      hours_half_150: 150,
+      hours_3: 180,
+      hours_half_210: 210,
+      hours_4: 240
+    }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
 
     belongs_to :group, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher'
 
     validates :name, :class_date, presence: true
 
-    before_create :data_preview
-    after_commit :update_course
-
-    before_validation :reset_status, if: :class_date_changed?, on: :update
-
-    after_find do |lesson|
-      lesson.start_time_hour, lesson.start_time_minute = lesson.start_time.split(":") if lesson.start_time.present?
+    # 开始时间
+    def start_time
+      start_at.try(:strftime, '%H:%M')
     end
 
-    before_validation :calculate_start_and_end_time
-    def calculate_start_and_end_time
-      self.start_time = "#{start_time_hour}:#{start_time_minute}" if start_time_hour.present? && start_time_minute.present?
-      if start_time_changed? || duration_changed?
-        end_hour = format("%02d", start_time_hour.to_i + (start_time_minute.to_i + duration_value) / 60)
-        end_minute = format("%02d", (duration_value + start_time_minute.to_i) % 60)
-        self.end_time = "#{end_hour}:#{end_minute}"
-      end
+    # 结束时间
+    def end_time
+      end_at.try(:strftime, '%H:%M')
     end
 
     def status_text(role = nil, outer = true)
@@ -60,6 +52,32 @@ module LiveStudio
     end
 
     private
+
+    # 活动时间是否修改
+    def event_time_changed?
+      class_date_changed? || start_at_hour_changed? || start_at_min_changed?
+    end
+
+    # 计算活动时间
+    before_validation :calculate_event_time, if: :event_time_changed?
+    def calculate_event_time
+      return if class_date.nil? || start_at_hour.nil? || start_at_min.nil?
+      calculate_start_at!
+      return if start_at.nil? || duration.nil?
+      calculate_end_at!
+    end
+
+    # 计算开始时间
+    def calculate_start_at!
+      self.start_at = class_date.to_time
+      self.start_at += start_at_hour.to_i.hours
+      self.start_at += start_at_min.to_i.minutes
+    end
+
+    # 计算结束时间
+    def calculate_end_at!
+      self.end_at = start_at + duration_value.minutes
+    end
 
     # 今日课程立即是ready状态
     def data_preview

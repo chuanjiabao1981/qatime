@@ -10,12 +10,12 @@ module LiveStudio
     strip_field :name, :description
 
     enum status: {
-             rejected: -1, # 被拒绝
-             init: 0, # 初始化
-             published: 1, # 招生中
-             teaching: 2, # 已开课
-             completed: 3 # 已结束
-         }
+      rejected: -1, # 被拒绝
+      init: 0, # 初始化
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
 
     enumerize :status, in: {
                          rejected: -1, # 被拒绝
@@ -95,6 +95,7 @@ module LiveStudio
 
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
     scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
+
 
     def teacher_name
       teacher.try(:name)

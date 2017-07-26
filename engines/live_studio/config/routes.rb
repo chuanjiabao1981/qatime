@@ -169,7 +169,7 @@ LiveStudio::Engine.routes.draw do
           post :audit
         end
       end
-      resources :customized_groups, only: [:index]
+      resources :customized_groups, only: [:index, :new, :create]
     end
   end
 

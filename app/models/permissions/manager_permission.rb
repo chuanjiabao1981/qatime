@@ -197,7 +197,8 @@ module Permissions
       end
 
       allow 'live_studio/customized_groups', [:index, :new, :create, :show, :preview]
-      allow 'live_studio/customized_groups', [:update_class_date, :update_lessons] do |workstation|
+      allow 'live_studio/station/customized_groups', [:new, :create]
+      allow 'live_studio/station/customized_groups', [:index, :update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
 
@@ -216,9 +217,6 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|
-        workstation && workstation.manager_id == user.id
-      end
-      allow 'live_studio/station/customized_groups', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :audit, :send_qr_code, :list, :edit, :update, :publish] do |workstation|

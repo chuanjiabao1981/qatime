@@ -48,6 +48,7 @@ cn:
         teacher_percentage: 教师分成
       event:
         class_address: 上课地点
+        start_time: 上课时间
     placeholders:
       course_invitation:
         user_mobile: 填写想要邀请的老师的手机号

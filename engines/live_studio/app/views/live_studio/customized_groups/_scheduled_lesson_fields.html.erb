@@ -39,12 +39,12 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4">
-              <%= f.label :class_date, t('view.live_studio/course.lesson_field.edit_modal.label.class_date') %>
+              <%= f.label :class_date %>
               <%= f.text_field :class_date, as: :string, class: 'class_date', placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.class_date'), onclick: 'testShow(this)' %>
               <span class="has-error class_date-error-<%= object_id %>"></span>
             </div>
             <div class="col-md-4 starttime">
-              <%= f.label :start_at_hour, t('view.live_studio/course.lesson_field.edit_modal.label.start_at_hour') %>
+              <%= f.label :start_time %>
               <%= f.select :start_at_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,[t('view.live_studio/course.lesson_field.edit_modal.placeholder.hour'),nil]),{}, class: 'start_at_hour form-control' %>
               <%= f.select :start_at_min, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.minute'), nil]),{}, class: 'start_at_min form-control' %>
               <span class="has-error start_at-error-<%= object_id %>"></span>

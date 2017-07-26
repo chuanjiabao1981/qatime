@@ -1,0 +1,31 @@
+scheduled_lesson_one:
+  name: 第一节线上课
+  group: group_one
+  class_date: <%= Date.tomorrow %>
+  start_at: <%= "#{Date.tomorrow.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{Date.tomorrow.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+
+offline_lesson_one:
+  name: 第一节线下课
+  group: group_one
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+
+invalid_offline_lesson_one:
+  name: 第一节线下课
+  group: group_one
+  class_date: <%= 2.days.since.to_date %>
+  start_at_hour: 18
+  start_at_min: 00
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+

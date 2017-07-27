@@ -31,8 +31,8 @@ module V1
                            desc: '状态 published: 招生中; teaching: 开课中; completed: 已结束; 多个用逗号分隔'
                 end
                 get do
-                  status = params[:status].split(/[\s,]+/)
-                  groups = @teacher.live_studio_customized_groups.where(status: ::LiveStudio::CustomizedGroup.statuses.values_at(status))
+                  status = ::LiveStudio::CustomizedGroup.statuses.values_at(*params[:status].split(/[\s,]+/))
+                  groups = @teacher.live_studio_customized_groups.where(status: status)
                   groups = groups.paginate(page: params[:page], per_page: params[:per_page])
                   present groups, with: Entities::LiveStudio::TeacherGroup
                 end

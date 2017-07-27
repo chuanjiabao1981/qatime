@@ -107,6 +107,10 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      allow 'live_studio/station/customized_groups', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/student/students', [:schedules]
       allow 'live_studio/courses', [:schedule_sources, :index, :show, :preview]
@@ -129,6 +133,7 @@ module Permissions
       end
 
       allow 'live_studio/interactive_courses', [:index, :show, :preview]
+      allow 'live_studio/customized_groups', [:index, :show, :preview]
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true

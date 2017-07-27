@@ -7,6 +7,7 @@ cn:
       my_courses: 发行/经销
       my_course: 直播课
       interactive_course: 一对一
+      customized_group: 专属课
       video_course: 视频课
       customized_course: 专属课程
       curriculums: 公共课程
@@ -142,6 +143,7 @@ cn:
             minute: 分
           set_errors:
             name: 请输入课程名称
+            class_address: 请输入上课地点
             class_date: 请选择上课日期
             start_time: 请选择开始时间
             duration: 请选择上课时长
@@ -315,6 +317,17 @@ cn:
         nav:
           audited: 已审核
           no_audit: 未审核
+    live_studio/customized_group:
+      new:
+        label0: 专属课课说明
+        label1: 1.允许多名学生购买，可以重复销售；
+        label2: 2.不支持试听课程和插班购买；
+        label3: 3.默认使用系统专属课课程海报。
+        intro_two: 二、上课安排
+        scheduled_lesson_title: 线上直播
+        offline_lesson_title: 线下授课
+      offline_lesson_field:
+        class_address_text: 上课地点
     student:
       students:
         schedules:

@@ -97,6 +97,14 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  # 专属课
+  resources :customized_groups, only: [:index, :show] do
+    collection do
+      post :preview
+      patch :preview
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
@@ -137,6 +145,7 @@ LiveStudio::Engine.routes.draw do
           post :audit
         end
       end
+      resources :customized_groups, only: [:index, :new, :create]
     end
   end
 

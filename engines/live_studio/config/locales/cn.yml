@@ -401,6 +401,9 @@ cn:
       live_studio/course_invitation: 开班邀请
       live_studio/video_lesson: 视频课程
       live_studio/announcement: 公告
+      live_studio/customized_group: 专属课
+      live_studio/offline_lesson: 线下授课
+      live_studio/scheduled_lesson: 线上直播
     attributes:
       payment/order:
         payment_password: 支付密码
@@ -545,6 +548,10 @@ cn:
         left_time: 剩余有效期
         status: 当前状态
         operation: 操作
+      live_studio/event:
+        class_date: 上课日期
+        start_time: 上课时间
+        duration: 上课时长
     status:
       live_studio/lesson:
         init: 初始化

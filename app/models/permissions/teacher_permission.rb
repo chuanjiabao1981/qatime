@@ -271,6 +271,10 @@ module Permissions
       allow 'live_studio/video_courses', [:preview]
       ## 视频课 end
 
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
+      ## 专属课 end
+
       ## begin payment permission
 
       allow 'payment/change_records', [:index] do |resource|

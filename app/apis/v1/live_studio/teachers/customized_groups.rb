@@ -25,13 +25,14 @@ module V1
                   requires :teacher_id, type: Integer
                   optional :page, type: Integer
                   optional :per_page, type: Integer
-                  optional :status,
-                           type: Array[String],
-                           coerce_with: ->(val) { val.split(/[\s,]+/) },
+                  requires :status,
+                           type: String,
+                           default: 'published',
                            desc: '状态 published: 招生中; teaching: 开课中; completed: 已结束; 多个用逗号分隔'
                 end
                 get do
-                  groups = @teacher.live_studio_customized_groups.where(status: ::LiveStudio::CustomizedGroup.statuses.values_at(params[:status]))
+                  status = params[:status].split(/[\s,]+/)
+                  groups = @teacher.live_studio_customized_groups.where(status: ::LiveStudio::CustomizedGroup.statuses.values_at(status))
                   groups = groups.paginate(page: params[:page], per_page: params[:per_page])
                   present groups, with: Entities::LiveStudio::TeacherGroup
                 end

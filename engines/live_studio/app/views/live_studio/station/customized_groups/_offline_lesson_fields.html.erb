@@ -43,8 +43,8 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4">
-              <%= f.label :class_date %>
-              <%= f.text_field :class_date, as: :string, class: 'class_date', placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.class_date'), onclick: 'testShow(this)' %>
+              <%= f.label :class_date, t('view.live_studio/course.lesson_field.edit_modal.label.class_date') %>
+              <%= f.text_field :class_date, as: :string, class: 'class_date form-control', placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.class_date'), onclick: 'testShow(this)' %>
               <span class="has-error class_date-error-<%= object_id %>"></span>
             </div>
             <div class="col-md-4 starttime">

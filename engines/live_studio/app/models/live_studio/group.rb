@@ -6,6 +6,8 @@ module LiveStudio
     extend Enumerize
     include QaToken
     include LiveCommon
+    include Channelable
+    include Ticketable
     include Qatime::Stripable
     strip_field :name, :description
 

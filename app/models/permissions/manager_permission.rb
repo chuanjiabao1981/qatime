@@ -196,7 +196,7 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
 
-      allow 'live_studio/customized_groups', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/customized_groups', [:index, :show, :preview]
       allow 'live_studio/station/customized_groups', [:new, :create]
       allow 'live_studio/station/customized_groups', [:index, :update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id

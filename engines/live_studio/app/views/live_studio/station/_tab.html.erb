@@ -10,7 +10,7 @@
               class: "#{'active' if 'live_studio/station/video_courses' == params[:controller] && %w[audits list edit].include?(params[:action])}" if allow?('live_studio/station/video_courses', 'audits', @workstation) %>
   <%= link_to t("live_studio.menu.customized_group"),
               live_studio.station_workstation_customized_groups_path(@workstation),
-              class: "#{'active' if %w[live_studio/station/customized_groups live_studio/customized_groups].include?(params[:controller]) && %w[index new update_class_date].include?(action_name)}" if allow?('live_studio/station/customized_groups', 'index', @workstation) %>
+              class: "#{'active' if 'live_studio/station/customized_groups' == params[:controller] && %w[index new update_class_date].include?(action_name)}" if allow?('live_studio/station/customized_groups', 'index', @workstation) %>
   <%= link_to t("live_studio.menu.customized_course"),
               main_app.customized_courses_station_workstation_path(@workstation),
               class: "#{'active' if 'station/workstations' == params[:controller] && 'customized_courses' == params[:action]}" if allow?('station/workstations', 'customized_courses', @workstation) %>

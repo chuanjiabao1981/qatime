@@ -7,23 +7,6 @@ module LiveStudio
     def index
     end
 
-    def new
-      @customized_group = CustomizedGroup.new(workstation: @workstation, price: nil, teacher_percentage: nil)
-      @customized_group.generate_token
-      render layout: 'v1/manager_home'
-    end
-
-    def create
-      @course = Course.new(courses_params.merge(author: current_user))
-      @course.taste_count ||= 0
-      if @course.save
-        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
-        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
-      else
-        render :new, layout: 'v1/manager_home'
-      end
-    end
-
     def show
     end
 

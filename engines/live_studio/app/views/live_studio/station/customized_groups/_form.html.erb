@@ -14,7 +14,7 @@
           <%= render 'scheduled_lesson_fields', f: lesson %>
         <% end %>
 
-        <%= raw link_to_add_fields(image_tag('addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :scheduled_lessons, 'live_studio/customized_groups/') %>
+        <%= raw link_to_add_fields(image_tag('addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :scheduled_lessons, 'live_studio/station/customized_groups/') %>
       </div>
       <%= f.input :scheduled_lessons, label: false, input_html: {style: 'display: none;'} %>
 
@@ -24,7 +24,7 @@
           <%= render 'offline_lesson_fields', f: lesson %>
         <% end %>
 
-        <%= raw link_to_add_fields(image_tag('addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :offline_lessons, 'live_studio/customized_groups/') %>
+        <%= raw link_to_add_fields(image_tag('addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :offline_lessons, 'live_studio/station/customized_groups/') %>
       </div>
       <%= f.input :offline_lessons, label: false, input_html: {style: 'display: none;'} %>
     </div>

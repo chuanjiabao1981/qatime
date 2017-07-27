@@ -16,5 +16,31 @@ module LiveStudio
     def current_price
       price.to_f.round(2)
     end
+
+    def order_params
+      { total_amount: current_price, amount: current_price, product: self }
+    end
+
+    # 订单验证
+    def validate_order(order)
+      user = order.user
+      order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '课程只对学生销售' unless user.student?
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 发货
+    def deliver(order)
+      grant(order)
+    end
+
+    def for_sell?
+      published? || teaching?
+    end
+
+    # 未结束课程数量
+    def unclosed_lessons_count
+      events_count - closed_events_count
+    end
   end
 end

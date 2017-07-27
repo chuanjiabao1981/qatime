@@ -70,8 +70,8 @@ module V1
             optional :coupon_code, type: String, desc: '使用优惠码(可不填)'
           end
           post '/:id/orders' do
-            group = ::LiveStudio::CustomizedGroup.find(params[:id])
-            order = ::Payment::Order.new(group.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip,
+            course = ::LiveStudio::CustomizedGroup.find(params[:id])
+            order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip,
                                          source: :student_app, user: current_user))
             order.use_coupon(params[:coupon_code])
             order.save

@@ -37,6 +37,12 @@ module LiveStudio
     scope :by_product, ->(product) { where(product_id: product.id, product_type: product.model_name.to_s) }
     scope :by_student_id, ->(student_id) { where(student_id: student_id)}
 
+    def product_type=(class_name)
+      p class_name
+      p class_name.constantize.base_class.to_s
+      super(class_name.constantize.base_class.to_s)
+    end
+
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?
       I18n.t("live_studio/ticket.type_name.buy_#{status}")

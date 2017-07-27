@@ -35,6 +35,7 @@ module V1
 
     # 专属课 start
     mount V1::LiveStudio::CustomizedGroups
+    mount V1::LiveStudio::Students::CustomizedGroups
     # 专属课 end
 
     mount V1::LiveStudio::Teachers::Schedule

@@ -14,6 +14,7 @@ module Entities
       expose :current_price
       expose :view_tickets_count
       expose :events_count
+      expose :closed_events_count
       expose :start_at
       expose :end_at
       expose :objective

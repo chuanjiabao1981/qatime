@@ -9,8 +9,8 @@
     <% if allow? 'live_studio/customized_groups', :preview %>
       <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_customized_groups_path(id: customized_group), method: :post, target: '_blank' %>
     <% end %>
-    <% if allow? 'live_studio/customized_groups', :update_class_date, @workstation %>
-      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_customized_group_path(customized_group, workstation_id: @workstation) %>
+    <% if allow? 'live_studio/station/customized_groups', :update_class_date, @workstation %>
+      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), live_studio.update_class_date_station_workstation_customized_group_path(@workstation, customized_group) %>
     <% end %>
   </td>
 </tr>

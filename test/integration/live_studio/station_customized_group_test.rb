@@ -80,5 +80,50 @@ module LiveStudio
       course = LiveStudio::CustomizedGroup.last
       assert_equal 3, course.events_count, "课程数量计算不正确"
     end
+
+    test "manager customized group index page" do
+      click_on "课程管理"
+      click_on "专属课"
+      assert page.has_link? '创建新课程'
+      assert page.has_content? '专属课调课1'
+      assert page.has_link? '预览'
+      assert page.has_link? '调课'
+      select '高一', from: :q_grade_eq
+      select '语文', from: :q_subject_eq
+      find(:css, '#show_completed').click
+    end
+
+    test "manager update_class_date customized group" do
+      customized_group = live_studio_groups(:group_for_update_class_date)
+      visit live_studio.update_class_date_station_workstation_customized_group_path(@manager.default_workstation, customized_group)
+      assert page.has_content? customized_group.name
+
+      lesson1 = customized_group.scheduled_lessons.first
+      lesson2 = customized_group.offline_lessons.first
+
+      find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      assert page.has_content? lesson1.class_date.to_s
+      assert page.has_content? lesson1.start_time
+      execute_script("$('#customized_group_scheduled_lessons_attributes_0_class_date').val('#{Date.today.to_s}')")
+      select '21', from: 'customized_group_scheduled_lessons_attributes_0_start_at_hour'
+      select '00', from: 'customized_group_scheduled_lessons_attributes_0_start_at_min'
+      click_on '保存'
+      assert page.has_content? "修改后> #{Date.today.to_s} 21:00-22:00"
+
+      find("a[data-target='#adjust_edit_#{lesson2.id}']").click
+      execute_script("$('#customized_group_offline_lessons_attributes_0_class_date').val('#{(lesson2.class_date + 3.days).to_s}')")
+      select '21', from: 'customized_group_offline_lessons_attributes_0_start_at_hour'
+      select '00', from: 'customized_group_offline_lessons_attributes_0_start_at_min'
+      click_on '保存'
+      assert page.has_content? "修改后> #{(lesson2.class_date + 3.days).to_s} 21:00-22:00"
+
+      click_on '保存调课'
+      sleep(3)
+
+      old_class_date2 = lesson2.class_date
+      assert_equal lesson1.reload.class_date, Date.today, "调课不成功"
+      assert_equal lesson2.reload.class_date, old_class_date2 + 3.days, "调课不成功"
+      assert_equal customized_group.reload.status, 'teaching', "调课到今日,课程状态未开课"
+    end
   end
 end

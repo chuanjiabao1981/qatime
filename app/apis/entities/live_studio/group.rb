@@ -12,6 +12,7 @@ module Entities
         group.price.to_f.round(2)
       end
       expose :current_price
+      expose :sell_type
       expose :view_tickets_count
       expose :events_count
       expose :closed_events_count
@@ -20,6 +21,13 @@ module Entities
       expose :objective
       expose :suit_crowd
       expose :description
+      expose :icons do
+        expose :refund_any_time
+        expose :coupon_free
+        expose :cheap_moment
+        expose :join_cheap
+        expose :free_taste
+      end
     end
   end
 end

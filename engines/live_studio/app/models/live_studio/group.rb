@@ -140,6 +140,10 @@ module LiveStudio
       false
     end
 
+    def self.beat_step
+      APP_CONFIG[:live_beat_step] || 10
+    end
+
     private
 
     # 结账比例验证

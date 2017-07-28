@@ -1,6 +1,6 @@
 module LiveStudio
   class ScheduledLesson < Event
-    validates :name, :class_date, :start_at, :endt_at, presence: true
+    validates :name, :class_date, :start_at, :end_at, presence: true
 
     aasm column: :status, enum: true do
       state :init, initial: true

@@ -26,11 +26,11 @@ module V1
             requires :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否, 2: 已关闭'
           end
           post ':id/live_start' do
-            LiveService::EventDirector.new(@event).live_start(params[:board], params[:camera]) if @event.can_live?
+            live_session = LiveService::EventDirector.new(@event).live_start(params[:board], params[:camera]) if @event.can_live?
             {
               status: @event.status,
-              live_token: @event.current_live_session.token,
-              beat_step: ::LiveStudio::Event.beat_step
+              live_token: live_session.try(:token),
+              beat_step: ::LiveStudio::Group.beat_step
             }
           end
 

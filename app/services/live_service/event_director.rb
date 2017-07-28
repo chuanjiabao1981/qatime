@@ -2,7 +2,7 @@ module LiveService
   class EventDirector
     def initialize(event)
       @event = event
-      @group = @lesson.group
+      @group = @event.group
     end
 
     # 开始直播
@@ -15,11 +15,12 @@ module LiveService
       end
       @event.record! # 设置录制
       LiveService::EventDirector.live_status_change(@group, board, camera, @event) # 更新直播状态
+      @event.heartbeats(Time.now.to_i, ::LiveStudio::Event.beat_step)
     end
 
     # 直播心跳
     def heartbeats(t, step, token = nil)
-      event.heartbeats(t, step, token)
+      @event.heartbeats(t, step, token)
     end
 
     # 直播完成

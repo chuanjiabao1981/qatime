@@ -9,8 +9,6 @@ module LiveStudio
 
     attr_accessor :_update
 
-    validates :group, presence: true
-
     enum status: {
       missed: -1, # 已错过
       init: 0, # 初始化

@@ -1,6 +1,6 @@
 module LiveStudio
   class OfflineLesson < Event
-    validates :name, :class_date, :start_at, :endt_at, presence: true
+    validates :name, :class_date, :start_at, :end_at, presence: true
 
     enum status: {
              init: 0, # 未开始

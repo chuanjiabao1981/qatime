@@ -273,6 +273,11 @@ module Permissions
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课
+      api_allow :POST, '/api/v1/live_studio/events/\d+/heart_beat' # 直播心跳
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_switch' # 状态切换
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_end' # 直播结束
+
       ## 专属课 end
 
       ## begin payment permission

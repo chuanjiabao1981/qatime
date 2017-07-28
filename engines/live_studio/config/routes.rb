@@ -105,6 +105,7 @@ LiveStudio::Engine.routes.draw do
     end
 
     resources :orders, only: [:new, :create, :pay, :show] # 下单
+    resources :announcements, only: [:index, :update, :create], shallow: true
   end
 
   namespace :station do

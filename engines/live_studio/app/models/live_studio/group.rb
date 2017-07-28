@@ -84,7 +84,7 @@ module LiveStudio
     belongs_to :workstation
 
     has_many :events, -> { order('id asc') }
-    has_many :lessons
+    has_many :announcements, as: :announcementable
 
     belongs_to :province
     belongs_to :city

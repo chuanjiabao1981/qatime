@@ -12,6 +12,9 @@ module LiveStudio
     def index
       @announcements = @course.announcements.order(id: :desc).paginate(page: params[:page])
       @announcement = @course.announcements.new
+      if @course.is_a?(LiveStudio::CustomizedGroup)
+        render nothing: true
+      end
     end
 
     # POST /announcements
@@ -47,8 +50,10 @@ module LiveStudio
       @course ||=
         if params[:course_id].present?
           LiveStudio::Course.find(params[:course_id])
-        else
+        elsif params[:interactive_course_id].present?
           LiveStudio::InteractiveCourse.find(params[:interactive_course_id])
+        else
+          LiveStudio::CustomizedGroup.find(params[:customized_group_id])
         end
     end
 
@@ -62,7 +67,7 @@ module LiveStudio
     end
 
     def current_resource
-      return set_announcement.course if params[:id]
+      return set_announcement.announcementable if params[:id]
       set_course
     end
   end

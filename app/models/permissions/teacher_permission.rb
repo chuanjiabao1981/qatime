@@ -250,8 +250,8 @@ module Permissions
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
 
       allow 'live_studio/announcements', [:index, :create, :update] do |course|
-        if course.is_a? LiveStudio::Course
-          course && course.teacher_id = user.id
+        if course.is_a?(LiveStudio::Course) || course.is_a?(LiveStudio::CustomizedGroup)
+          course && course.teacher_id == user.id
         else
           course && course.teachers.include?(user)
         end

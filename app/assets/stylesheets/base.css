@@ -11309,7 +11309,7 @@ ul {
 }
 .course-state > span {
   display: inline-block;
-  margin: 27px 0px;
+  margin: 0px 0px 27px 0px;
 }
 .course-state > a {
   color: #ff5842;
@@ -11319,7 +11319,7 @@ ul {
 }
 @media only screen and (max-width: 1200px) {
   .course-state > span {
-    margin: 0px;
+    margin: 0px 0px 5px 0px;
   }
 }
 @media only screen and (max-width: 990px) {
@@ -11495,18 +11495,24 @@ ul {
 }
 
 /*答疑课调课*/
-.course-adjust > .online-live > ul,.course-adjust > .offline-live > ul {
+.course-adjust .online-live > ul,.course-adjust .offline-live > ul {
   margin-top: 0px;
 }
-.course-adjust > .online-live > p,.course-adjust > .offline-live > p {
+.course-adjust .online-live > p,.course-adjust .offline-live > p {
   margin: 20px 0px 0px 0px;
   font-size: 16px;
   color: #333;
 }
-.course-adjust > .offline-live {
+.course-adjust .offline-live {
   border-top: 1px solid #ccc;
 }
-
+.course-adjust .online-live .adjust-list > li,.course-adjust .offline-live .adjust-list > li {
+  border-bottom: 0px;
+  border-top: 1px solid #ccc;
+}
+.course-adjust .online-live .adjust-list > li:first-child,.course-adjust .offline-live .adjust-list > li:first-child {
+  border-top: 0px;
+}
 /*答疑课详情页*/
 .course-item > .nav-item > .btn-release {
   float: right;
@@ -12764,6 +12770,9 @@ ul {
 }
 .calendar-info > li > .row > .schedule-pic > .education-label > .status-personal {
   background-color: #ffb6c1;
+}
+.calendar-info > li > .row > .schedule-pic > .education-label > .status-exclusive {
+  background-color: #00ccff;
 }
 .calendar-info > li > .row > .schedule-pic > a > img {
   width: 100%;
@@ -16647,7 +16656,6 @@ abbr {
   left: 0;
   height: 100%;
 }
-
 .vjs-error .vjs-error-image{
   display:block;
 }

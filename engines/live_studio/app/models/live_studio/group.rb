@@ -106,7 +106,7 @@ module LiveStudio
     end
 
     def ready_lessons
-      tmp_class_date = [start_at, events.map(&:class_date).min].min rescue start_at
+      tmp_class_date = events.map(&:class_date).compact.min
       return if tmp_class_date.blank?
       return if tmp_class_date > Date.today
       teaching! if published?

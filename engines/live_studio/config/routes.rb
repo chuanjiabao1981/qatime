@@ -145,7 +145,12 @@ LiveStudio::Engine.routes.draw do
           post :audit
         end
       end
-      resources :customized_groups, only: [:index, :new, :create]
+      resources :customized_groups, only: [:index, :new, :create] do
+        member do
+          get :update_class_date
+          patch :update_lessons
+        end
+      end
     end
   end
 

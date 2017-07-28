@@ -26,7 +26,7 @@ module V1
             requires :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否, 2: 已关闭'
           end
           post ':id/live_start' do
-            live_session = LiveService::EventDirector.new(@event).live_start(params[:board], params[:camera]) if @event.can_live?
+            live_session = LiveService::EventDirector.new(@event).live_start(params[:board], params[:camera])
             {
               status: @event.status,
               live_token: live_session.try(:token),
@@ -63,7 +63,7 @@ module V1
             optional :timestamp, type: Integer, desc: '心跳时间戳'
           end
           post ':id/heart_beat' do
-            live_token LiveService::EventDirector.heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
+            live_token = LiveService::EventDirector.new(@event).heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
             {
               result: 'ok',
               live_token: live_token

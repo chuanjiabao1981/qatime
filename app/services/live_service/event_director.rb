@@ -11,11 +11,11 @@ module LiveService
       @group.teaching! if @group.published?
       LiveStudio::Event.transaction do
         @group.scheduled_lessons.waiting_close.where("id <> ?", @event.id).map(&:close!)
-        @event.teach!
+        @event.teach! if @event.can_live?
       end
       @event.record! # 设置录制
       LiveService::EventDirector.live_status_change(@group, board, camera, @event) # 更新直播状态
-      @event.heartbeats(Time.now.to_i, ::LiveStudio::Event.beat_step)
+      @event.heartbeats(Time.now.to_i, ::LiveStudio::Group.beat_step)
     end
 
     # 直播心跳

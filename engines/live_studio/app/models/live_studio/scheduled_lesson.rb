@@ -1,5 +1,8 @@
 module LiveStudio
   class ScheduledLesson < Event
+    include Recordable # 直播录制
+    prepend PlayRecordWithJob
+
     validates :name, :class_date, :start_at, :end_at, presence: true
 
     aasm column: :status, enum: true do
@@ -53,6 +56,11 @@ module LiveStudio
       event :complete do
         transitions from: [:finished, :billing], to: :completed
       end
+    end
+
+    private
+
+    def close_hook
     end
   end
 end

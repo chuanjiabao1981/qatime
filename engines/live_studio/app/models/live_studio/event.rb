@@ -5,6 +5,8 @@ module LiveStudio
     include AASM
     extend Enumerize
 
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, :channels, to: :group
+
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
 
     attr_accessor :_update
@@ -64,18 +66,18 @@ module LiveStudio
       ready? || paused? || closed?
     end
 
-    def heartbeats(t, step, token)
+    def heartbeats(t, step, token = nil)
       live_session = session_by_token(token)
       return live_session.token if live_session.timestamp && live_session.timestamp >= t
-      live_session.heartbeat_count += 1
-      live_session.duration += step
+      live_session.heartbeat_count = live_session.heartbeat_count.to_i + 1
+      live_session.duration = live_session.duration.to_i + step
       live_session.heartbeat_at = Time.now
       live_session.timestamp = t
       live_session.beat_step = step
       live_session.save
       self.heartbeat_time = Time.now
       save
-      live_session.token
+      live_session
     end
 
     private

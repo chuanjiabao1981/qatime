@@ -17,7 +17,7 @@ module LiveService
 
     # 用户更新在线通知
     def online_notify(user_id)
-      auto_expire_cache("live_studio/group-#{@group_id}-online-users") do
+      GroupRealtimeService.auto_expire_cache("live_studio/group-#{@group_id}-online-users") do
         Redis.current.zadd("live_studio/group-#{@group_id}-online-users", timestamp, user_id)
       end
     end
@@ -31,7 +31,7 @@ module LiveService
     # 更新时间, 不更新直播信息
     def touch_live(attrs = nil)
       attrs ||= { t: timestamp }
-      auto_expire_cache("live_studio/group-#{@group_id}-online-users") do
+      GroupRealtimeService.auto_expire_cache("live_studio/group-#{@group_id}-online-users") do
         Redis.current.hmset("live_studio/group-#{@group_id}-live-info", *attrs.to_a.flatten)
       end
       attrs
@@ -57,10 +57,14 @@ module LiveService
 
       # 更新课程直播状态
       def update_lesson_live(event)
-        update_status(lesson, event.status)
+        update_status(event, event.status)
         update_status(event.group, event.status)
-      rescue e
-        p e
+      end
+
+      # 自动清理缓存
+      def auto_expire_cache(kee)
+        yield if block_given?
+        Redis.current.expire(kee, 5.minutes)
       end
     end
 
@@ -86,12 +90,6 @@ module LiveService
     # 如果查询不到直播缓存信息立即初始化缓存
     def init_live
       update_live(LiveStudio::Group.find(@group_id).current_event, 0, 0)
-    end
-
-    # 自动清理缓存
-    def auto_expire_cache(kee)
-      yield if block_given?
-      Redis.current.expire(kee, 5.minutes)
     end
   end
 end

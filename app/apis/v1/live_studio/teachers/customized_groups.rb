@@ -4,10 +4,10 @@ module V1
     module Teachers
       class CustomizedGroups < V1::Base
         namespace "live_studio" do
+          before do
+            authenticate!
+          end
           namespace :teachers do
-            before do
-              authenticate!
-            end
             route_param :teacher_id do
               helpers do
                 def auth_params
@@ -37,6 +37,27 @@ module V1
                   present groups, with: Entities::LiveStudio::TeacherGroup
                 end
               end
+            end
+          end
+
+          resource :customized_groups do
+            helpers do
+              def auth_params
+                @group ||= ::LiveStudio::CustomizedGroup.find(params[:id])
+              end
+            end
+
+            desc '直播上课信息' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :id, type: Integer
+            end
+            get ':id/live' do
+              present @group, with: Entities::LiveStudio::GroupLiveDetail
             end
           end
         end

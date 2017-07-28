@@ -1,6 +1,8 @@
 module Entities
   module LiveStudio
     class Group < Grape::Entity
+      format_with(:local_timestamp, &:to_i)
+
       expose :id
       expose :name
       expose :publicizes_url
@@ -16,8 +18,6 @@ module Entities
       expose :view_tickets_count
       expose :events_count
       expose :closed_events_count
-      expose :start_at
-      expose :end_at
       expose :objective
       expose :suit_crowd
       expose :description
@@ -27,6 +27,10 @@ module Entities
         expose :cheap_moment
         expose :join_cheap
         expose :free_taste
+      end
+      with_options(format_with: :local_timestamp) do
+        expose :start_at
+        expose :end_at
       end
     end
   end

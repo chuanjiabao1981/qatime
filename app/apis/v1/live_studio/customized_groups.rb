@@ -58,6 +58,12 @@ module V1
             authenticate!
           end
 
+          helpers do
+            def auth_params
+              @group ||= ::LiveStudio::CustomizedGroup.find(params[:id])
+            end
+          end
+
           desc '专属课购买' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
@@ -70,13 +76,25 @@ module V1
             optional :coupon_code, type: String, desc: '使用优惠码(可不填)'
           end
           post '/:id/orders' do
-            group = ::LiveStudio::CustomizedGroup.find(params[:id])
-            order = ::Payment::Order.new(group.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip,
+            order = ::Payment::Order.new(@group.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip,
                                          source: :student_app, user: current_user))
             order.use_coupon(params[:coupon_code])
             order.save
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
+          end
+
+          desc '直播观看信息' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer
+          end
+          get ':id/play' do
+            present @group, with: Entities::LiveStudio::GroupPlayDetail
           end
         end
       end

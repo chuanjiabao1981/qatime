@@ -8,6 +8,7 @@ module LiveStudio
     include LiveCommon
     include Channelable
     include Ticketable
+    include Qatime::Discussable
     include Qatime::Stripable
     strip_field :name, :description
 

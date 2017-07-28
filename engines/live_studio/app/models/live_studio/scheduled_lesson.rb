@@ -1,5 +1,6 @@
 module LiveStudio
   class ScheduledLesson < Event
+    validates :name, :class_date, :start_at, :endt_at, presence: true
 
     aasm column: :status, enum: true do
       state :init, initial: true
@@ -32,7 +33,7 @@ module LiveStudio
         transitions from: :teaching, to: :paused
       end
 
-      event :close, after_commit: :close_hook  do
+      event :close, after_commit: :close_hook do
         before do
           # 第一次结束直播增加结束数量
           increment_course_counter(:closed_events_count) if live_end_at.nil?

@@ -1,5 +1,6 @@
 module LiveStudio
   class OfflineLesson < Event
+    validates :name, :class_date, :start_at, :endt_at, presence: true
 
     enum status: {
              init: 0, # 未开始
@@ -36,6 +37,11 @@ module LiveStudio
 
     def status_text(role = nil, outer = true)
       I18n.t("offline_lesson_status.#{status}")
+    end
+
+    # 是否可以直播
+    def can_live?
+      false
     end
   end
 end

@@ -96,6 +96,19 @@ module V1
           get ':id/play' do
             present @group, with: Entities::LiveStudio::GroupPlayDetail
           end
+
+          desc '实时直播状态' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer
+          end
+          get ':id/realtime' do
+            LiveService::GroupRealtimeService.new(@group).live_detail(current_user.try(:id))
+          end
         end
       end
     end

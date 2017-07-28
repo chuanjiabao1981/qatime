@@ -1,6 +1,6 @@
 module Entities
   module LiveStudio
-    class TeacherGroup < Group
+    class TeacherGroup < GroupLiveDetail
       expose :teacher_percentage
     end
   end

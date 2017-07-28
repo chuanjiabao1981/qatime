@@ -1,0 +1,32 @@
+<% teacher = @customized_group.teacher %>
+<div class="col-md-3">
+  <div class="tec-synopsis">
+    <div class="synopsis-title">
+      <h2><%= t('view.course_info_show.teacher_label')%></h2>
+    </div>
+    <ul class="synopsis-list">
+      <li>
+        <div class="synopsis-head">
+          <p class="head-pic">
+            <%= link_to profile_teacher_path(teacher.id) do %>
+              <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+            <% end %>
+          </p>
+          <p class="head-gender">
+            <%= link_to teacher.name, profile_teacher_path(teacher.id) %>
+            <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+          </p>
+          <p class="head-school">
+            <span><%= teacher.school.try(:name) %></span>
+          </p>
+          <p class="head-year">
+            <span><%= teacher.try(:teaching_years_text) %></span>
+          </p>
+          <p class="head-introduce">
+            <%= truncate_u teacher.desc, length: 145 %>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

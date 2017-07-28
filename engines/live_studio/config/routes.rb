@@ -103,6 +103,8 @@ LiveStudio::Engine.routes.draw do
       post :preview
       patch :preview
     end
+
+    resources :orders, only: [:new, :create, :pay, :show] # 下单
   end
 
   namespace :station do

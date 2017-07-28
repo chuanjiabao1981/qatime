@@ -1,0 +1,7 @@
+<% if current_user.blank? %>
+  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' %>
+<% elsif @customized_group.bought_by?(current_user) %>
+  <%= link_to t('view.course_info_show.start_learning'), '#', class: 'btn-startclass', target: '_blank' %>
+<% else %>
+  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' %>
+<% end %>

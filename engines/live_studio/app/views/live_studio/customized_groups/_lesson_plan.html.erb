@@ -1,0 +1,34 @@
+<div class="online-live">
+  <p><%= t('view.live_studio/customized_groups.show.scheduled_lesson') %></p>
+  <div>
+    <% @customized_group.scheduled_lessons.order(:start_at).each_with_index do |lesson, i| %>
+      <div class="row playlist <%= lesson.had_closed? ? 'end' : '' %>">
+        <div class="col-md-1"><span><%= beautify_index(i) %></span></div>
+        <div class="col-md-3"><span><%= lesson.class_date %> <%= lesson.live_time %></span></div>
+        <div class="col-md-5 coursehead"><span><%= truncate_u lesson.name, length: 30 %></span></div>
+        <div class="col-md-3">
+          <i><%= lesson.status_text(current_user.try(:role)) %></i>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="offline-live">
+  <p><%= t('view.live_studio/customized_groups.show.offline_lesson') %></p>
+  <div>
+    <% @customized_group.offline_lessons.order(:start_at).each_with_index do |lesson, i| %>
+      <div class="row playlist <%= lesson.had_closed? ? 'end' : '' %>">
+        <div class="col-md-1"><span><%= beautify_index(i) %></span></div>
+        <div class="col-md-3"><span><%= lesson.class_date %> <%= lesson.live_time %></span></div>
+        <div class="col-md-5 coursehead">
+          <span><%= truncate_u lesson.name, length: 30 %></span>
+          <span class="venue"><em><%= LiveStudio::OfflineLesson.human_attribute_name(:class_address) %>：</em><em><%= lesson.class_address %></em></span>
+        </div>
+        <div class="col-md-3">
+          <i><%= lesson.status_text %></i>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

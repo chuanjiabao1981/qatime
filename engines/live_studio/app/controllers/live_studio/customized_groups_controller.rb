@@ -2,7 +2,9 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class CustomizedGroupsController < ApplicationController
+    layout 'v1/application'
     before_action :find_workstation, except: [:index, :show]
+    before_action :set_customized_group, only: [:show]
 
     def index
     end

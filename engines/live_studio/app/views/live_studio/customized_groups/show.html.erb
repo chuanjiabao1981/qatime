@@ -1,0 +1,94 @@
+<%= render partial: 'group_header' %>
+
+<div class="course-con">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <a name="introduce"></a>
+        <div class="course-item">
+          <div class="nav-item">
+            <a href="#introduce" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
+            <a href="#arrange"><%= t('view.live_studio/courses.show.arrange') %></a>
+            <a href="#study"><%= t('view.live_studio/courses.show.study') %></a>
+            <a href="javascript:void(0);" class="btn-release" data-toggle="modal" data-target="#acceptModal">
+              <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
+            </a>
+          </div>
+
+          <div class="course-lessons">
+            <div class="lessons-detail">
+              <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
+              <ul>
+                <li>
+                  <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @customized_group.subject %></i></span>
+                  <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @customized_group.grade %></i></span>
+                  <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @customized_group.events_count) %></i></span>
+                </li>
+
+                <li>
+                  <span>
+                    <i><%= t('view.live_studio/courses.show.date') %></i>
+                    <i><%= t('view.live_studio/courses.show.date_text', start_at: @customized_group.start_at.try(:to_date).try(:to_s), end_at: @customized_group.end_at.try(:to_date).try(:to_s)) %></i>
+                  </span>
+                </li>
+
+                <li>
+                  <span>
+                    <i><%= t('view.live_studio/courses.show.status') %></i>
+                    <i>
+                      <%= @customized_group.status_text %>
+                      <% if @customized_group.published? %>
+                        <% if @customized_group.distance_days > 0 %>
+                          (<%= t('view.course_show.distance_text1') % @customized_group.distance_days %>)
+                        <% end %>
+                      <% else %>
+                        (<%= t('view.live_studio/courses.show.status_text', one: @customized_group.closed_events_count, two: @customized_group.events_count) %>)
+                      <% end %>
+                    </i>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="lessons-detail">
+              <h3><%= t('view.live_studio/courses.show.objective') %></h3>
+              <p><%= @customized_group.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+            </div>
+
+            <div class="lessons-detail">
+              <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
+              <p><%= @customized_group.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+            </div>
+
+            <div class="lessons-detail">
+              <h3><%= t('view.live_studio/courses.show.desc') %></h3>
+              <%= raw(@customized_group.description) %>
+            </div>
+
+            <%= render partial: 'live_studio/courses/show/study_process' %>
+          </div>
+        </div>
+
+        <a name="arrange"></a>
+        <div class="course-item course-item-arrangement">
+          <div class="nav-item">
+            <span><%= t('view.live_studio/courses.show.arrange') %></span>
+          </div>
+
+          <%= render partial: 'lesson_plan' %>
+        </div>
+
+        <a name="study"></a>
+        <div class="course-item">
+          <div class="nav-item">
+            <span><%= t('view.live_studio/courses.show.study') %></span>
+          </div>
+
+          <%= render partial: 'live_studio/courses/show/study' %>
+        </div>
+      </div>
+
+      <%= render partial: 'teacher_info' %>
+    </div>
+  </div>
+</div>

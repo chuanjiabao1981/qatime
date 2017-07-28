@@ -25,20 +25,16 @@
         </div>
 
         <div class="course-price">
-          <% if @customized_group.off_shelve? %>
-            <%= link_to t('view.course_info_show.shelves'), 'javascript:void(0);', class: 'btn-shelves' %>
+          <% if @customized_group.sell_type.free? %>
+            <span class="price-left"><%= t('common.free_of_charge') %></span>
           <% else %>
-            <% if @customized_group.sell_type.free? %>
-              <span class="price-left"><%= t('common.free_of_charge') %></span>
-            <% else %>
-              <span class="price-left"><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
-            <% end %>
-            <span class="price-right">
-              <%= render partial: "buy_or_taste" if (current_user.blank? || current_user.student?) && @customized_group.for_sell? %>
-            </span>
+            <span class="price-left"><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
           <% end %>
-        </div>
 
+          <span class="price-right">
+            <%= render partial: "buy_or_taste" if (current_user.blank? || current_user.student_or_teacher?) %>
+          </span>
+        </div>
       </div>
     </div>
   </div>

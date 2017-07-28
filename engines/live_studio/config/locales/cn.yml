@@ -596,6 +596,7 @@ cn:
       buy_now: 立即购买
       enroll_now: 立即报名
       enroll_now2: 立即学习
+      enroll_completed: 已结束
       buy_new_course: 购买新辅导
       buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。

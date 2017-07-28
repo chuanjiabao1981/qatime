@@ -1,7 +1,18 @@
 <% if current_user.blank? %>
-  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' %>
+  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' if @customized_group.for_sell? %>
+  <%= link_to t('view.course_info_show.shelves'), "javascript:void(0);", class: 'btn-disabled' if @customized_group.off_shelve? %>
+<% elsif current_user.teacher? %>
+  <% if @customized_group.completed? && @customized_group.teacher_id == current_user.id %>
+    <%= link_to t('activerecord.view.enroll_completed'), "javascript:void(0);", class: 'btn-disabled' %>
+  <% elsif @customized_group.completed? %>
+    <%= link_to t('view.course_info_show.shelves'), "javascript:void(0);", class: 'btn-disabled' %>
+  <% else %>
+    <%= link_to t('activerecord.view.enroll_now'), "javascript:alert('#{t('view.live_studio/courses.show.teacher_notice')}');", class: 'btn-addclass' %>
+  <% end %>
+  <!-- 以下是学生逻辑 -->
 <% elsif @customized_group.bought_by?(current_user) %>
   <%= link_to t('view.course_info_show.start_learning'), '#', class: 'btn-startclass', target: '_blank' %>
 <% else %>
-  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' %>
+  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' if @customized_group.for_sell? %>
+  <%= link_to t('view.course_info_show.shelves'), "javascript:void(0);", class: 'btn-disabled' if @customized_group.off_shelve? %>
 <% end %>

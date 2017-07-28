@@ -49,6 +49,7 @@ cn:
         play_video_notice: 购买后才能观看
         login_notice: 请先登录
         taste_overflow: 该试听已失效,请直接购买
+        teacher_notice: 请使用学生帐号操作
         date: 日期
         date_text: "%{start_at}至%{end_at}"
         status: 状态

@@ -59,7 +59,7 @@ function jeDateShow(elem){
   var vDay = d.getDate();
   var min_date = vYear + '-' + (vMon<10 ? "0" + vMon : vMon) + '-' + (vDay<10 ? "0"+ vDay : vDay);
   $.jeDate(elem,{
-    skinCell:"jedateblue",
+    skinCell:"jedatered",
     festival:false,
     insTrigger:false,
     isToday: true,

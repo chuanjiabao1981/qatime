@@ -51,6 +51,12 @@ module LiveStudio
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
     end
 
+    # 判断课程是否未开始
+    # 待补课, 初始化, 待上课算作没开始
+    def unstart?
+      %w(missed init ready).include?(status)
+    end
+
     private
 
     # 活动时间是否修改
@@ -89,7 +95,8 @@ module LiveStudio
       self.status = 'init' if class_date > Date.today && status == 'missed'
     end
 
-    def update_course
+    after_commit :update_group
+    def update_group
       return unless group.present?
       lesson_dates = group.events(true).map(&:class_date)
       group.update(start_at: lesson_dates.min, end_at: lesson_dates.max)

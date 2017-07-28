@@ -80,6 +80,10 @@ module LiveStudio
       live_session
     end
 
+    def waiting_close?
+      teaching? || paused?
+    end
+
     private
 
     def session_by_token(token)

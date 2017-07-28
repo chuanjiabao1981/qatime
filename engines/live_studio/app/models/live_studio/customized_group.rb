@@ -42,5 +42,10 @@ module LiveStudio
     def unclosed_lessons_count
       events_count - closed_events_count
     end
+
+    # 当前直播课程
+    def current_event
+      @current_event ||= scheduled_lessons.last
+    end
   end
 end

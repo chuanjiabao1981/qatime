@@ -24,7 +24,15 @@ module LiveService
 
     # 更新直播信息
     def update_live(event, board, camera)
-      live_attrs = { id: event.id, name: event.name, status: event.status, board: board, camera: camera, type: event.model_name.to_s, t: timestamp }
+      live_attrs = {
+        id: event.try(:id),
+        name: event.try(:name),
+        status: event.try(:status),
+        board: board,
+        camera: camera,
+        type: event.try(:model_name).to_s,
+        t: timestamp
+      }
       touch_live(live_attrs)
     end
 

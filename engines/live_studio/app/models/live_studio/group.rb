@@ -84,7 +84,7 @@ module LiveStudio
     belongs_to :workstation
 
     has_many :events, -> { order('id asc') }
-    has_many :lessons
+    has_many :announcements, as: :announcementable
 
     belongs_to :province
     belongs_to :city
@@ -96,6 +96,9 @@ module LiveStudio
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
     scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
 
+    def for_sell?
+      published? || teaching?
+    end
 
     def teacher_name
       teacher.try(:name)
@@ -111,6 +114,34 @@ module LiveStudio
       return if tmp_class_date > Date.today
       teaching! if published?
       events.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+    end
+
+    def distance_days
+      today = Date.today
+      return 0 if start_at.blank? || start_at < today
+      (start_at.to_time - today.to_time) / 60 / 60 / 24
+    end
+
+    # 已下架
+    def off_shelve?
+      completed?
+    end
+
+    # 当前价格
+    def current_price
+      price
+    end
+
+    # 购买人数
+    def buy_user_count
+      buy_tickets_count + adjust_tickets_count
+    end
+
+    # 已经购买
+    def bought_by?(user)
+      return false unless user.present?
+      return false unless user.student?
+      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::CustomizedGroup' }.present?
     end
 
     private

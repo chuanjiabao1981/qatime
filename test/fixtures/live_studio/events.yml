@@ -64,3 +64,77 @@ offline_lesson_for_update_class_date1:
   duration: 60
   type: 'LiveStudio::OfflineLesson'
   status: 0
+
+published_group1_scheduled_lesson1:
+  name: 第一节线上课
+  group: published_group1
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group1_scheduled_lesson2:
+  name: 第二节线上课
+  group: published_group1
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group1_offline_lesson1:
+  name: 第一节线下课
+  group: published_group1
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= "#{3.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 0
+  class_address: '教学大厦1层403'
+
+completed_group1_scheduled_lesson1:
+  name: 第一节线上课
+  group: completed_group1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 7
+
+completed_group1_scheduled_lesson2:
+  name: 第二节线上课
+  group: completed_group1
+  class_date: <%= 2.days.ago.to_date %>
+  start_at: <%= "#{2.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 7
+
+completed_group1_offline_lesson1:
+  name: 第一节线下课
+  group: completed_group1
+  class_date: <%= 1.days.ago.to_date %>
+  start_at: <%= "#{1.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 7
+  class_address: '教学大厦1层404'

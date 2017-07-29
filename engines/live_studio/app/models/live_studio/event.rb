@@ -46,6 +46,10 @@ module LiveStudio
       end_at.try(:strftime, '%H:%M')
     end
 
+    def live_time
+      "#{start_time}-#{end_time}"
+    end
+
     def status_text(role = nil, outer = true)
       role == 'teacher' || role = 'student'
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
@@ -55,6 +59,10 @@ module LiveStudio
     # 待补课, 初始化, 待上课算作没开始
     def unstart?
       %w(missed init ready).include?(status)
+    end
+
+    def had_closed?
+      %w(closed finished billing completed).include?(status)
     end
 
     private

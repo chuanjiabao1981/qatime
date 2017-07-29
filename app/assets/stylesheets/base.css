@@ -4392,7 +4392,7 @@ ul {
 .login-body {
   background-image:none!important;
   padding-top: 90px !important;
-  /*background-color: #F1F1F1;*/
+  background-color: #F1F1F1;
 }
 .login-body .head {
   width: 100%;

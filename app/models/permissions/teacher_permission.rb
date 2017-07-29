@@ -271,6 +271,8 @@ module Permissions
       allow 'live_studio/video_courses', [:preview]
       ## 视频课 end
 
+      allow 'live_studio/teacher/customized_groups', [:index]
+
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课

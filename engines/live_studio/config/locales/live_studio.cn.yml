@@ -21,6 +21,7 @@ cn:
         my_courses: 我的直播课
         my_interactive_courses: 我的一对一
         my_video_courses: 我的视频课
+        my_customized_groups: 我的专属课
         new_course: 邀请和创建
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建

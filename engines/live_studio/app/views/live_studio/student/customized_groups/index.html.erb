@@ -1,0 +1,17 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('live_studio.menu.student.my_customized_groups') %></h3>
+  </div>
+  <div class="contains-discipline">
+    <%= render 'tab' %>
+    <div class="tab-content">
+      <div class="discipline-con">
+        <ul>
+          <%= render partial: 'customized_group', collection: @customized_groups %>
+        </ul>
+        <%= render 'shared/blank' if @customized_groups.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @customized_groups, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

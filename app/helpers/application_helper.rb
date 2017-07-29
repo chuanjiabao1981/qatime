@@ -359,6 +359,8 @@ module ApplicationHelper
       r = controller_name == 'interactive_courses'
     when :video_courses
       r = controller_name == 'video_courses'
+    when :customized_groups
+      r = controller_name == 'customized_groups'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes

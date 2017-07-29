@@ -39,6 +39,10 @@ class Student < User
   has_many :live_studio_bought_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::VideoCourse
   has_many :live_studio_taste_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::VideoCourse
 
+  # 专属课
+  has_many :live_studio_customized_groups, class_name: LiveStudio::CustomizedGroup, through: :live_studio_tickets, source: :product, source_type: LiveStudio::Group
+  has_many :live_studio_bought_customized_groups, class_name: LiveStudio::CustomizedGroup, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::Group
+
   attr_reader :student_columns_required
 
   validates_confirmation_of :parent_phone

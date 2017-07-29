@@ -144,7 +144,7 @@ module LiveStudio
     def bought_by?(user)
       return false unless user.present?
       return false unless user.student?
-      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::CustomizedGroup' }.present?
+      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Group' }.present?
     end
 
     # 随时可退

@@ -118,6 +118,7 @@ module Permissions
       allow 'live_studio/teacher/customized_groups', [:index]
       allow 'live_studio/teacher/course_invitations', [:index]
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/student/customized_groups', [:index]
 
       # 辅导班管理
       allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|

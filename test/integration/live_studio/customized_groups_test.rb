@@ -61,5 +61,27 @@ module LiveStudio
       assert page.has_no_link? '发布公告'
       new_logout_as(teacher2)
     end
+
+    test "customized group index page" do
+      visit live_studio.customized_groups_path
+      assert find('.select-tab').has_link?('专属课')
+      find('.nav-all').hover
+      click_on '近2个月'
+      assert page.has_content?('近2个月')
+
+      click_on '高一'
+      click_on '语文'
+      assert page.has_content?('高一语文')
+      assert page.has_no_content?('高二英语')
+
+      click_on '招生中'
+      assert page.has_link?('发布的专属课1')
+
+      click_on '收费课程'
+      assert page.has_link?('发布的专属课1')
+      fill_in :q_start_at_gteq, with: Date.today.to_s
+      fill_in :q_start_at_lt, with: 3.days.since.to_date.to_s
+      execute_script("$('#search-form').submit();")
+    end
   end
 end

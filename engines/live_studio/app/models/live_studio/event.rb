@@ -5,6 +5,10 @@ module LiveStudio
     include AASM
     extend Enumerize
 
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, :channels, to: :group
+
+    has_many :live_sessions, as: :sessionable # 直播 心跳记录
+
     attr_accessor :_update
 
     enum status: {
@@ -34,7 +38,7 @@ module LiveStudio
     belongs_to :group, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher'
 
-    validates :name, :class_date, presence: true
+    scope :waiting_close, -> { where(status: statuses.values_at(:teaching, :paused)) }
 
     # 开始时间
     def start_time
@@ -65,7 +69,35 @@ module LiveStudio
       %w(closed finished billing completed).include?(status)
     end
 
+    # 是否可以直播
+    def can_live?
+      ready? || paused? || closed?
+    end
+
+    def heartbeats(t, step, token = nil)
+      live_session = session_by_token(token)
+      return live_session.token if live_session.timestamp && live_session.timestamp >= t
+      live_session.heartbeat_count = live_session.heartbeat_count.to_i + 1
+      live_session.duration = live_session.duration.to_i + step
+      live_session.heartbeat_at = Time.now
+      live_session.timestamp = t
+      live_session.beat_step = step
+      live_session.save
+      self.heartbeat_time = Time.now
+      save
+      live_session
+    end
+
+    def waiting_close?
+      teaching? || paused?
+    end
+
     private
+
+    def session_by_token(token)
+      token ||= ::Encryption.md5("#{id}#{Time.now}").downcase
+      live_sessions.find_or_create_by(token: token)
+    end
 
     # 活动时间是否修改
     def event_time_changed?

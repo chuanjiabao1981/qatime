@@ -53,6 +53,11 @@ module Permissions
       api_allow :GET, "/api/v1/user/check"
       api_allow :POST, "/api/v1/user/wechat_regsiter"
 
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/customized_groups' # 列表
+      api_allow :GET, '/api/v1/live_studio/customized_groups/[\\w-]+/detail' # 详情
+      ## 专属课 end
+
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"

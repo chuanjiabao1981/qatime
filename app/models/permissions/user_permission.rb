@@ -63,6 +63,13 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
 
+      
+
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/customized_groups' # 列表
+      api_allow :GET, '/api/v1/live_studio/customized_groups/[\\w-]+/detail' # 详情
+      ## 专属课 end
+
       # 安全设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/email" do |resource|
         resource.id == user.id

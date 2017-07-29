@@ -6,6 +6,7 @@ module Entities
       expose :buy_count
       expose :lesson_price
       expose :status
+      expose :type
     end
   end
 end

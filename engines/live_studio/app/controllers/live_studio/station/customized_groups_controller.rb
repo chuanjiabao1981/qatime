@@ -23,6 +23,7 @@ module LiveStudio
       if @customized_group.save
         redirect_to live_studio.station_workstation_customized_groups_path(@workstation)
       else
+        p  @customized_group.errors
         render :new
       end
     end

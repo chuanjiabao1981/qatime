@@ -27,9 +27,9 @@ module LiveStudio
       end
 
       event :complete do
-        after do
-          # 结算后增加辅导班结算数量
-          increment_course_counter(:closed_events_count)
+        before do
+          increment_course_counter(:closed_events_count) if live_end_at.nil?
+          self.live_end_at = Time.now
         end
         transitions from: [:teaching], to: :completed
       end

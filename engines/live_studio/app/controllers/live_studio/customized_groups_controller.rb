@@ -4,7 +4,7 @@ module LiveStudio
   class CustomizedGroupsController < ApplicationController
     layout 'v1/application'
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_customized_group, only: [:show]
+    before_action :set_customized_group, only: [:show, :for_free]
 
     def index
       @q = LiveService::GroupDirector.search(search_params)
@@ -12,6 +12,12 @@ module LiveStudio
     end
 
     def show
+    end
+
+    # 免费上课
+    def for_free
+      @customized_group.free_grant(current_user) if current_user.student?
+      redirect_to live_studio.customized_group_path(@customized_group)
     end
 
     private

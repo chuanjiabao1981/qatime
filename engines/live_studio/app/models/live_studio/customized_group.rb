@@ -43,9 +43,19 @@ module LiveStudio
       events_count - closed_events_count
     end
 
+    def lessons_count
+      events_count
+    end
+
     # 当前直播课程
     def current_event
       @current_event ||= scheduled_lessons.last
+    end
+
+    private
+
+    def buy_items
+      events.where(live_end_at: nil)
     end
   end
 end

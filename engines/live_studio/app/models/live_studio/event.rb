@@ -39,6 +39,7 @@ module LiveStudio
     belongs_to :teacher, class_name: '::Teacher'
 
     scope :waiting_close, -> { where(status: statuses.values_at(:teaching, :paused)) }
+    scope :unstart, -> { where('status < ?', statuses[:teaching]) } # 未开始的课程
 
     # 开始时间
     def start_time

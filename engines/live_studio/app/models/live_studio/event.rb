@@ -101,6 +101,10 @@ module LiveStudio
       teaching? || paused?
     end
 
+    # 剩余回放时间
+    def left_replay_times
+    end
+
     private
 
     def session_by_token(token)

@@ -43,5 +43,10 @@ module LiveStudio
     def can_live?
       false
     end
+
+    # 是否可以回放
+    def replayable
+      false
+    end
   end
 end

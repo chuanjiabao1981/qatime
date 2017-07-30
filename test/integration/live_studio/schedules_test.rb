@@ -23,6 +23,7 @@ module LiveStudio
 
       week_items = LiveService::ScheduleService.schedule_for(user).week
       wait_lessons = week_items.select { |item| item.target.unclosed? }.sort_by { |item| item.target.start_at }
+      close_lessons = week_items.select { |item| item.target.had_closed? }.sort_by { |item| item.target.start_at }.reverse
       ticket_item = wait_lessons.first
 
       assert page.has_link?(ticket_item.target.name)
@@ -31,6 +32,11 @@ module LiveStudio
       assert page.has_content? '一对一课程需要使用客户端学习，正在尝试打开PC客户端（如未打开请安装最新版本'
       find("span[aria-label='Close']").click
 
+      page.find("#close_lessons_ceil").click
+      sleep(1)
+      assert_equal close_lessons.select{|x| x.target.is_a?(::LiveStudio::Event)}.count, page.all('.status-exclusive').size, '已上课专属课数量不对'
+
+      assert page.has_content? '线下课时'
       page.find("#schedules_ceil").click
       sleep(1)
 
@@ -51,6 +57,7 @@ module LiveStudio
       wait_lessons = week_items.select(&:unclosed?).sort_by(&:start_at)
       assert page.has_link?(week_items.first.name)
       assert_equal wait_lessons.select{|x| x.is_a?(::LiveStudio::InteractiveLesson)}.count, page.all('.status-personal').size, '未上课一对一数量不对'
+      assert_equal wait_lessons.select{|x| x.is_a?(::LiveStudio::Event)}.count, page.all('.status-exclusive').size, '未上课专属课数量不对'
       assert page.has_content? '直播课'
       assert page.has_content? '学生人数'
 

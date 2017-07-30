@@ -11,7 +11,8 @@
   <% end %>
   <!-- 以下是学生逻辑 -->
 <% elsif @customized_group.bought_by?(current_user) %>
-  <%= link_to t('view.course_info_show.start_learning'), '#', class: 'btn-startclass', target: '_blank' %>
+  <%= link_to(t('view.course_info_show.start_learning'), "javascript:alert('#{t('view.live_studio/customized_groups.show.learn_alert')}');", class: 'btn-startclass') if @customized_group.published? %>
+  <%= link_to t('view.course_info_show.start_learning'), live_studio.play_customized_group_path(@customized_group), class: 'btn-startclass', target: '_blank' unless @customized_group.published? %>
 <% else %>
   <%= link_to t('activerecord.view.enroll_now'), live_studio.new_customized_group_order_path(@customized_group), class: 'btn-addclass' if @customized_group.for_sell? %>
   <%= link_to t('view.course_info_show.shelves'), "javascript:void(0);", class: 'btn-disabled' if @customized_group.off_shelve? %>

@@ -33,6 +33,7 @@ class Teacher < User
   has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
 
   has_many :live_studio_customized_groups, class_name: LiveStudio::CustomizedGroup
+  has_many :live_studio_events, class_name: 'LiveStudio::Event', through: :live_studio_customized_groups, source: :events
 
   # has_many :corrections
   # has_many :replies

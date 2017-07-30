@@ -1,0 +1,49 @@
+<li class-date="<%= item.target.class_date.to_s %>">
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to live_studio.customized_group_path(item.target.group_id), class: 'education-label' do %>
+        <%= image_tag item.target.group.publicize_url(:small), class: 'handle_error_list' %>
+        <p class="status-exclusive"><%= t('view.student.students.schedules.lesson.customized_group') %></p>
+      <% end %>
+    </div>
+    <div class="col-md-5 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p>
+            <% if item.ticket.taste? -%>
+              <span class="audition"><%= '试听' %></span>
+            <% end -%>
+            <%= link_to item.target.name, live_studio.customized_group_path(item.target.group_id) %>
+          </p>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.group.grade %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= item.target.group.buy_user_count %></em><%= t('view.common.people') %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 schedule-time">
+      <div class="row">
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.status_text %></span>
+        </div>
+        <div class="col-md-12 col-sm-6 education-line">
+          <span><%= item.target.class_date %> <%= item.target.live_time %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1 schedule-enter">
+      <% if item.target.is_a?(LiveStudio::OfflineLesson) %>
+        <%= link_to t('view.student.students.schedules.lesson.offline_lesson_text'), 'javascript:void(0);', class: 'watch finished' %>
+      <% else %>
+        <% if item.target.had_closed? %>
+          <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);', class: 'watch finished' %>
+        <% else %>
+          <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_customized_group_path(item.target.group_id), class: 'watch active' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</li>

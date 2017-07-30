@@ -180,3 +180,20 @@ items2002:
   user: student_one_with_course
   status: 0
 
+### 专属课 课程表
+
+schedule_items1:
+  ticket: ticket_for_schedule_published_group1
+  target: schedule_published_group1_lesson1 (LiveStudio::Event)
+  user: student_one_with_course
+  status: 0
+schedule_completed_items1:
+  ticket: ticket_for_schedule_completed_group1
+  target: schedule_completed_group1_lesson1 (LiveStudio::Event)
+  user: student_one_with_course
+  status: 0
+schedule_completed_items2:
+  ticket: ticket_for_schedule_completed_group1
+  target: schedule_completed_group1_lesson2 (LiveStudio::Event)
+  user: student_one_with_course
+  status: 0

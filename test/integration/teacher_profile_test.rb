@@ -23,6 +23,7 @@ class TeacherProfileTest < ActionDispatch::IntegrationTest
     assert page.has_content? '直播课'
     assert page.has_content? '一对一'
     assert page.has_content? '视频课'
+    assert page.has_content? '专属课'
 
     teacher_data = DataService::TeacherData.new(teacher)
     assert page.all('ul#courses li').size, 6
@@ -31,5 +32,6 @@ class TeacherProfileTest < ActionDispatch::IntegrationTest
     assert page.all('ul#courses li').size, teacher_data.profile_courses.count
     assert page.all('ul#interactive_courses li').size, teacher_data.profile_interactive_courses.count
     assert page.all('ul#video_courses li').size, teacher_data.profile_video_courses.count
+    assert page.all('ul#customized_groups li').size, teacher_data.profile_customized_groups.limit(6).count
   end
 end

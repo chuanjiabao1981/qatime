@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-1 schedule-enter">
       <% if item.target.is_a?(LiveStudio::OfflineLesson) %>
-        <%= link_to t('view.student.students.schedules.lesson.offline_lesson_text'), 'javascript:void(0);', class: 'watch finished' %>
+        <%= link_to t('view.student.students.schedules.lesson.offline_lesson_text'), 'javascript:void(0);', class: 'watch finished offline' %>
       <% else %>
         <% if item.target.had_closed? %>
           <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);', class: 'watch finished' %>

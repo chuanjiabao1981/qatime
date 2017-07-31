@@ -66,6 +66,8 @@ class Ajax::DataController < ApplicationController
         @courses = teacher_data.profile_interactive_courses
       when 'video_courses'
         @courses = teacher_data.profile_video_courses
+      when 'customized_groups'
+        @courses = teacher_data.profile_customized_groups
       else
         @courses = []
     end

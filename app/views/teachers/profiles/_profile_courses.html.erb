@@ -51,7 +51,23 @@
     </div>
   <% end %>
 
-  <% if @courses.blank? && @interactive_courses.blank? && @video_courses.blank? %>
+  <% if @customized_groups.present? %>
+    <div class="class-info">
+      <h3>
+        <%= image_tag 'iconexclusive.png' %>
+        <span><%= t('teachers.profile.customized_group') %></span>
+      </h3>
+      <%= render partial: 'teachers/profiles/customized_groups', locals: { courses: @customized_groups } %>
+
+      <p class="iteminfo-more">
+        <%= link_to 'javascript:void(0);', class: 'more_course', data: {cate: 'customized_groups'} do %>
+          <%= t('teachers.profile.more') %><i class="fa fa-angle-right"></i>
+        <% end if @customized_group_has_more %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if @courses.blank? && @interactive_courses.blank? && @video_courses.blank? && @customized_groups.blank? %>
     <div class="class-info">
       <div class="info-notfound">
         <center><%= image_tag 'notfound.png' %></center>

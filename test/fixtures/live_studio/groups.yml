@@ -168,3 +168,79 @@ schedule_completed_group1:
   start_at: <%= 2.days.ago.to_date %>
   end_at: <%= 1.days.ago.to_date %>
   published_at: <%= 2.days.ago.to_date %>
+
+group_for_search_1:
+  name: 搜索过滤
+  subject: 英语
+  grade: 初一
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 3
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>
+
+group_for_search_2:
+  name: 搜索过滤
+  subject: 英语
+  grade: 初二
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 3
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>
+
+group_for_search_3:
+  name: 搜索过滤
+  subject: 化学
+  grade: 初三
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 3
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>
+
+group_for_search_4:
+  name: 搜索过滤
+  subject: 英语
+  grade: 高三
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 3
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>

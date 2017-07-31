@@ -2990,6 +2990,7 @@ ul {
   margin: 0px;
   text-align: center;
   font-size: 12px;
+  line-height: 16px;
   color: #999;
 }
 .new-information > .announcement > p {
@@ -11576,7 +11577,7 @@ ul {
   text-align: center;
   border-radius: 4px;
   font-size: 14px;
-  margin-top: 36px;
+  margin-top: 26px;
 }
 .watch:hover {
   background-color: #FF5842;
@@ -11590,6 +11591,9 @@ ul {
 }
 .watch.finished:hover {
   color: #ccc;
+}
+.watch.finished.offline {
+  border: 0px;
 }
 .watch.active {
   cursor: pointer;
@@ -12260,9 +12264,15 @@ ul {
 .class-info > h3 {
   margin: 0px 15px 15px 15px;
   font-size: 16px;
+  line-height: 26px;
 }
 .class-info > h3 > img {
   margin-right: 10px;
+  vertical-align: middle;
+}
+.class-info > h3 > span {
+  position: relative;
+  top: 1px;
 }
 .basic-class > .class-header {
   margin-bottom: 0px;
@@ -14537,7 +14547,7 @@ ul {
 }
 .nav-datetime label {
   position: absolute;
-  right: 3px;
+  right: 6px;
   color: #9aabb8;
 }
 .nav-datetime:last-child label {

@@ -17,6 +17,7 @@ cn:
           interactive_course: 一对一
           interactive_course_title: 中考命题老师
           video_course: 视频课
+          customized_group: 专属课
           video_course_title: 高考物理试卷讲解
         today_lives:
           title: 今日直播

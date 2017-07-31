@@ -340,9 +340,11 @@ cn:
           lesson:
             one_by_one: 一对一
             course: 直播课
+            customized_group: 专属课
             student_count: 学生人数
             student_count_text: "%{count}人"
             enter: 进入
+            offline_lesson_text: 线下课时
         tastes:
           taste_record: 试听记录
           tasted_count: "已试听%{num}/%{count}"

@@ -14,6 +14,8 @@ module Entities
       expose :course_name do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course.name.to_s
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.name.to_s
         else
           lesson.course.name.to_s
         end
@@ -21,6 +23,8 @@ module Entities
       expose :teacher_name do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.teacher.try(:name).to_s
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.teacher.try(:name).to_s
         else
           lesson.course.teacher.try(:name).to_s
         end
@@ -28,6 +32,8 @@ module Entities
       expose :course_publicize do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           ''
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.publicize_url(:list).to_s
         else
           lesson.course.publicize_url(:list).to_s
         end
@@ -35,6 +41,8 @@ module Entities
       expose :subject do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course.subject.to_s
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.subject.to_s
         else
           lesson.course.subject.to_s
         end
@@ -42,6 +50,8 @@ module Entities
       expose :grade do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course.grade.to_s
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.try(:grade).to_s
         else
           lesson.course.try(:grade).to_s
         end
@@ -49,6 +59,8 @@ module Entities
       expose :buy_tickets_count do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course.buy_user_count
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.buy_user_count
         else
           lesson.course.buy_user_count
         end
@@ -56,6 +68,8 @@ module Entities
       expose :product_id do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course_id
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group_id
         else
           lesson.course_id
         end
@@ -63,6 +77,8 @@ module Entities
       expose :product_type do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
           lesson.interactive_course.model_name
+        elsif lesson.is_a?(::LiveStudio::Event)
+          lesson.group.model_name
         else
           lesson.course.model_name
         end

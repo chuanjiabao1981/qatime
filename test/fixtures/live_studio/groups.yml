@@ -130,3 +130,41 @@ completed_group_for_student_view1:
   start_at: <%= 1.days.since.to_date %>
   end_at: <%= 3.days.since.to_date %>
   published_at: <%= 1.days.ago.to_date %>
+
+schedule_published_group1:
+  name: 待上课专属课1-课程表
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher_with_chat_account
+  workstation: workstation1
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 1.days.since.to_date %>
+  published_at: <%= Date.today.to_date %>
+
+schedule_completed_group1:
+  name: 已上课专属课1-课程表
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 3
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher_with_chat_account
+  workstation: workstation1
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 2.days.ago.to_date %>
+  end_at: <%= 1.days.ago.to_date %>
+  published_at: <%= 2.days.ago.to_date %>

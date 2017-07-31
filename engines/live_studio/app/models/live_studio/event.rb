@@ -66,6 +66,14 @@ module LiveStudio
       %w(missed init ready).include?(status)
     end
 
+    # 没开始课程算作没有结束
+    # 暂停中或者上课中算作没有结束
+    # 结束以后重新开始算作已经结束
+    # 结束以后重新开始然后暂停算作已结束
+    def unclosed?
+      unstart? || %w(teaching paused).include?(status)
+    end
+
     def had_closed?
       %w(closed finished billing completed).include?(status)
     end
@@ -91,6 +99,10 @@ module LiveStudio
 
     def waiting_close?
       teaching? || paused?
+    end
+
+    # 剩余回放时间
+    def left_replay_times
     end
 
     private

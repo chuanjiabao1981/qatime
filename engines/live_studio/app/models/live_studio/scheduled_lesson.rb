@@ -58,6 +58,11 @@ module LiveStudio
       end
     end
 
+    # 是否可以回放
+    def replayable
+      had_closed? && merged?
+    end
+
     private
 
     def close_hook

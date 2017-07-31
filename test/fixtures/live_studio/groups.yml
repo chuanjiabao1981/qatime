@@ -54,3 +54,60 @@ completed_group1:
   start_at: <%= 3.days.ago.to_date %>
   end_at: <%= 1.days.ago.to_date %>
   published_at: <%= 3.days.ago.to_date %>
+
+published_group_for_student_view1:
+  name: 我的专属课published
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>
+
+teaching_group_for_student_view1:
+  name: 我的专属课teaching
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 2
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>
+
+completed_group_for_student_view1:
+  name: 我的专属课completed
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 3
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 3.days.since.to_date %>
+  published_at: <%= 1.days.ago.to_date %>

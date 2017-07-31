@@ -166,6 +166,7 @@ module Permissions
       end
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/teacher/customized_groups', [:index]
+      allow 'live_studio/student/customized_groups', [:index]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]

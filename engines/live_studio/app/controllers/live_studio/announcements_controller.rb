@@ -12,9 +12,6 @@ module LiveStudio
     def index
       @announcements = @course.announcements.order(id: :desc).paginate(page: params[:page])
       @announcement = @course.announcements.new
-      if @course.is_a?(LiveStudio::CustomizedGroup)
-        render nothing: true
-      end
     end
 
     # POST /announcements

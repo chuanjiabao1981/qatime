@@ -478,3 +478,33 @@ video_course_ticket_for_taste1:
   used_count: 1
   lesson_price: 0
   type: LiveStudio::TasteTicket
+
+ticket_for_student_view_customized_group1:
+  student: student_view_customized_group
+  product: published_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+
+ticket_for_student_view_customized_group2:
+  student: student_view_customized_group
+  product: teaching_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+
+ticket_for_student_view_customized_group3:
+  student: student_view_customized_group
+  product: completed_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10

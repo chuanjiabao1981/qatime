@@ -97,7 +97,6 @@ module Chat
     private_class_method
 
     def self.post_request(uri, body)
-      body = body.map {|k, v| "#{k}=#{v}"}.join("&") if body.is_a?(Hash)
       res = Typhoeus.post("#{IM_HOST}/nimserver#{uri}", headers: headers, body: body)
       Rails.logger.info(res.body) if res.success?
       return JSON.parse(res.body) if res.success?

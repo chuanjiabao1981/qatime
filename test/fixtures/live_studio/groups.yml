@@ -37,7 +37,7 @@ published_group1:
   published_at: <%= 1.days.ago.to_date %>
 
 completed_group1:
-  name: 发布的专属课1
+  name: 结束的专属课1
   subject: 语文
   grade: 高一
   description: 描述

@@ -234,6 +234,7 @@ LiveStudio::Engine.routes.draw do
       resources :course_invitations, only: [:index, :destroy]
       resources :interactive_courses, only: [:index]
       resources :video_courses
+      resources :customized_groups, only: [:index]
     end
   end
 

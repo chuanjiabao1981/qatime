@@ -1,0 +1,14 @@
+<div class="discipline-nav">
+  <%= link_to t("live_studio.menu.teacher.course.all"),
+              live_studio.teacher_customized_groups_path(@teacher),
+              class: "#{ 'active' if params[:cate].blank? }" %>
+  <%= link_to t("live_studio.menu.teacher.course.published"),
+              live_studio.teacher_customized_groups_path(@teacher, cate: 'published'),
+              class: "#{ 'active' if 'published' == params[:cate] }" %>
+  <%= link_to t("live_studio.menu.teacher.course.teaching"),
+              live_studio.teacher_customized_groups_path(@teacher, cate: 'teaching'),
+              class: "#{ 'active' if 'teaching' == params[:cate] }" %>
+  <%= link_to t("live_studio.menu.teacher.course.finished"),
+              live_studio.teacher_customized_groups_path(@teacher, cate: 'completed'),
+              class: "#{ 'active' if 'completed' == params[:cate] }" %>
+</div>

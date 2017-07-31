@@ -8,7 +8,7 @@ module LiveStudio
     def publish_to_team
       team = announcementable.try(:chat_team)
       return true unless team.present?
-      Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: URI.encode(content))
+      Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: content)
       # 发送通知消息
       LiveService::CourseNotificationSender.new(announcementable).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
     end

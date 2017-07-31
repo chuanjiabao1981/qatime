@@ -43,6 +43,8 @@ module Payment
           redirect_to live_studio.interactive_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         elsif @transaction.product.is_a? LiveStudio::VideoCourse
           redirect_to live_studio.video_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
+        elsif @transaction.product.is_a? LiveStudio::CustomizedGroup
+          redirect_to live_studio.customized_group_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         else
           redirect_to live_studio.course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
         end
@@ -76,6 +78,8 @@ module Payment
         redirect_to live_studio.interactive_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       elsif @transaction.product.is_a?(LiveStudio::VideoCourse)
         redirect_to live_studio.video_course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
+      elsif @transaction.product.is_a?(LiveStudio::CustomizedGroup)
+        redirect_to live_studio.customized_group_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       else
         redirect_to live_studio.course_path(@transaction.product), notice: I18n.t('view.payment/transaction.pay_success')
       end

@@ -104,7 +104,10 @@ LiveStudio::Engine.routes.draw do
       patch :preview
     end
 
-    resources :orders, only: [:new, :create, :pay, :show] # 下单
+    member do
+      get :for_free
+    end
+    resources :orders, only: [:new, :create] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true
   end
 

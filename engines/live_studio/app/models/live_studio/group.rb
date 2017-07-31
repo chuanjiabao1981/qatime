@@ -87,6 +87,7 @@ module LiveStudio
     belongs_to :workstation
 
     has_many :events, -> { order('id asc') }
+    has_many :lessons, dependent: :destroy, class_name: 'LiveStudio::Event', foreign_key: :group_id
     has_many :announcements, as: :announcementable
 
     belongs_to :province
@@ -174,6 +175,11 @@ module LiveStudio
 
     def self.beat_step
       APP_CONFIG[:live_beat_step] || 10
+    end
+
+    # 是否可退款
+    def can_refund?
+      for_sell?
     end
 
     private

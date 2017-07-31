@@ -10,6 +10,8 @@
       location.href = "<%= live_studio.interactive_course_path(@transaction.product) %>";
     <% elsif @transaction.product.is_a? LiveStudio::VideoCourse %>
       location.href = "<%= live_studio.video_course_path(@transaction.product) %>";
+    <% elsif @transaction.product.is_a? LiveStudio::CustomizedGroup %>
+      location.href = "<%= live_studio.customized_group_path(@transaction.product) %>";
     <% else %>
       location.href = "<%= live_studio.course_path(@transaction.product) %>";
     <% end %>

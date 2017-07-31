@@ -107,7 +107,7 @@ module V1
             requires :id, type: Integer
           end
           get ':id/realtime' do
-            LiveService::GroupRealtimeService.new(@group).live_detail(current_user.try(:id))
+            LiveService::GroupRealtimeService.new(@group.id).live_detail(current_user.try(:id))
           end
         end
       end

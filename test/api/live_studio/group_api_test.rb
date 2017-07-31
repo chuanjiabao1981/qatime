@@ -2,8 +2,6 @@ require 'test_helper'
 
 class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
   def setup
-    @teacher = users(:teacher1)
-    @remember_token = api_login_by_pc(@teacher, :teacher_live)
     @student = users(:student_one_with_course)
     @student_remember_token = api_login(@student, :app)
   end
@@ -40,5 +38,24 @@ class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
     assert_request_success?
     assert_equal group2.name, @res['data']['customized_group']['name'], "专属课详情获取失败"
     assert_not_nil @res['data']['ticket'], "已购买ticket返回错误"
+  end
+
+  # 直播观看信息
+  test "customized group play detail" do
+    group = live_studio_groups(:published_group2)
+    get "/api/v1/live_studio/customized_groups/#{group.id}/play", {}, 'Remember-Token' => @student_remember_token
+    assert_request_success?
+    assert_not_nil @res['data']['chat_team'], "聊天群组信息没有正确返回"
+    # TODO 填充测试数据
+    assert_not_nil @res['data']['board_pull_stream'], "白板拉流地址没有返回"
+    assert_not_nil @res['data']['camera_pull_stream'], "摄像头拉流地址没有返回"
+  end
+
+  # 实时直播状态
+  test "customized group realtime info" do
+    group = live_studio_groups(:published_group2)
+    get "/api/v1/live_studio/customized_groups/#{group.id}/realtime", {}, 'Remember-Token' => @student_remember_token
+    assert_request_success?
+    assert_equal "LiveStudio::ScheduledLesson", @res['data']['live_info']['type']
   end
 end

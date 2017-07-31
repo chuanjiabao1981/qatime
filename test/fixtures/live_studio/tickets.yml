@@ -498,6 +498,7 @@ ticket_for_student_view_customized_group2:
   seller: workstation_zhuji (Workstation)
   sell_percentage: 45
   platform_percentage: 10
+  payment_order_id: xxxx
 
 ticket_for_student_view_customized_group3:
   student: student_view_customized_group
@@ -508,6 +509,7 @@ ticket_for_student_view_customized_group3:
   seller: workstation_zhuji (Workstation)
   sell_percentage: 45
   platform_percentage: 10
+  payment_order_id: xxxx
 
 ticket_for_schedule_published_group1:
   student: student_one_with_course
@@ -518,6 +520,7 @@ ticket_for_schedule_published_group1:
   seller: workstation1 (Workstation)
   sell_percentage: 45
   platform_percentage: 10
+  payment_order_id: xxxx
 
 ticket_for_schedule_completed_group1:
   student: student_one_with_course
@@ -528,6 +531,7 @@ ticket_for_schedule_completed_group1:
   seller: workstation1 (Workstation)
   sell_percentage: 45
   platform_percentage: 10
+  payment_order_id: xxxx
 
 ticket_for_schedule_completed_group1:
   student: student_one_with_course
@@ -538,7 +542,8 @@ ticket_for_schedule_completed_group1:
   seller: workstation1 (Workstation)
   sell_percentage: 45
   platform_percentage: 10
+  payment_order_id: xxxx
 
 
 
-  
+

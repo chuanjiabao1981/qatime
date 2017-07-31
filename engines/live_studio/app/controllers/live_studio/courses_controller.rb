@@ -131,8 +131,7 @@ module LiveStudio
 
       team.team_announcements.create(attrs.merge(edit_at: Time.now))
       team.reload
-      # 使用announcement创建回调实现
-      # Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
+      Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 
       # 发送通知消息
       LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)

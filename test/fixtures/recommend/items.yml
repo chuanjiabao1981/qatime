@@ -93,6 +93,14 @@ index_choiceness_recommend_three:
   target: interactive_course_zhuji (LiveStudio::InteractiveCourse)
   tag_one: 2
   tag_two: 1
+index_choiceness_recommend_four:
+  title: 首页专属课推荐1
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 4
+  target: published_group1 (LiveStudio::Group)
+  tag_one: 2
+  tag_two: 1
 index_topic_recommend_one:
   name: 测试板块1
   title: 板块专题1

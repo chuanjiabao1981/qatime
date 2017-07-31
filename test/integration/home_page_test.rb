@@ -99,6 +99,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_link?('直播课')
     assert page.has_link?('一对一')
     assert page.has_link?('视频课')
+    assert page.has_link?('专属课')
     assert page.has_content?('精彩回放')
 
     assert page.has_content? '今日直播'
@@ -110,11 +111,12 @@ class HomePageTest < ActionDispatch::IntegrationTest
     visit root_path
     assert page.has_content? '精心挑选为您推荐最优质的课程内容'
 
-    assert_equal 3, page.all("#choiceness .item-handpick li").size, "精选内容显示数量显示不正确"
+    assert_equal 4, page.all("#choiceness .item-handpick li").size, "精选内容显示数量显示不正确"
 
     interactive_course = live_studio_interactive_courses(:interactive_course_zhuji)
     assert page.has_link?('测试一对一诸暨'), "一对一精选未显示"
     assert page.has_xpath?("//a[@href='/live_studio/interactive_courses/#{interactive_course.id}']"), '一对一链接不正确'
+    assert find('#choiceness').has_link?('发布的专属课1'), "精选内容未显示专属课"
   end
 
   test "home page free_courses" do
@@ -127,6 +129,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       assert page.has_link?(course.name)
       assert page.has_xpath?("//a[@href='/live_studio/#{course.model_name.route_key}/#{course.id}']"), '链接不正确'
     end
+    assert find('#free_courses').has_link?('免费专属课1'), "免费课程未显示专属课"
   end
 
   test "home page newest_courses" do

@@ -46,7 +46,6 @@ class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
     get "/api/v1/live_studio/customized_groups/#{group.id}/play", {}, 'Remember-Token' => @student_remember_token
     assert_request_success?
     assert_not_nil @res['data']['chat_team'], "聊天群组信息没有正确返回"
-    # TODO 填充测试数据
     assert_not_nil @res['data']['board_pull_stream'], "白板拉流地址没有返回"
     assert_not_nil @res['data']['camera_pull_stream'], "摄像头拉流地址没有返回"
   end

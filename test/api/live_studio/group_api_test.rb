@@ -58,4 +58,26 @@ class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
     assert_request_success?
     assert_equal "LiveStudio::ScheduledLesson", @res['data']['live_info']['type']
   end
+
+  # 下单
+  test 'create customized group order by student' do
+    group = live_studio_groups(:published_group1)
+    assert_difference "Payment::Order.count", 1, "专属课下单失败" do
+      post "/api/v1/live_studio/customized_groups/#{group.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @student_remember_token}
+      assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
+    end
+  end
+
+  test 'create customized group order by student use coupon' do
+    group = live_studio_groups(:published_group1)
+    coupon = payment_coupons(:coupon_one)
+
+    assert_difference "Payment::Order.count", 1, "专属课使用优惠码下单失败" do
+      post "/api/v1/live_studio/customized_groups/#{group.id}/orders", {pay_type: :weixin, coupon_code: coupon.code}, {'Remember-Token' => @student_remember_token}
+      assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
+      res = JSON.parse(response.body)
+      assert res['data'].has_key?('coupon_code')
+      assert_equal 95, res['data']['amount'].to_f, "优惠价格未扣除"
+    end
+  end
 end

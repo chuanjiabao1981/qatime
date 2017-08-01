@@ -14,13 +14,13 @@ module V1
               optional :grade_eq, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
               optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
               optional :sell_type_eq, type: String, desc: '销售类型 charge: 收费; free: 免费', values: %w[charge free]
-              optional :class_date_gteq, type: String, desc: '开课日期开始时间'
-              optional :class_date_lt, type: String, desc: '开课日期结束时间'
+              optional :start_at_gteq, type: String, desc: '开课日期开始时间'
+              optional :end_at_lt, type: String, desc: '开课日期结束时间'
             end
             optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
-            search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :sell_type_eq, :class_date_gteq, :class_date_lt])
+            search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :sell_type_eq, :start_at_gteq, :start_at_lt])
             search_params[:q][:status_eq] = ::LiveStudio::CustomizedGroup.statuses[search_params[:q][:status_eq]] if search_params[:q][:status_eq].present?
             search_params[:q][:sell_type_eq] = ::LiveStudio::CustomizedGroup.sell_type.find_value(search_params[:q][:sell_type_eq]).try(:value) if search_params[:q][:sell_type_eq].present?
             search_params[:q][:s] =

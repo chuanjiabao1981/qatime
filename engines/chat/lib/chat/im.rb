@@ -15,6 +15,7 @@ module Chat
     end
 
     def self.team_add(tid, owner, msg, members)
+      members = members.to_s if members.is_a?(Array)
       params = { magree: 0, tid: tid, owner: owner, msg: msg, members: members }
       post_request("/team/add.action", params)
     end
@@ -31,7 +32,7 @@ module Chat
     end
 
     def self.team_query(tid, ope = 1)
-      params = { tids: [tid], ope: ope }
+      params = { tids: [tid].to_s, ope: ope }
       result = post_request("/team/query.action", params)
       result['tinfos'][0] if result
     end
@@ -77,9 +78,10 @@ module Chat
 
     # 获取用户名片
     def self.get_uinfo(accid)
-      params = { accids: [accid] }
+      params = { accids: [accid].to_s }
       result = post_request("/user/getUinfos.action", params)
       if result['code'] == 200
+
         result = result['uinfos'][0]
         result.delete('gender')
         return result

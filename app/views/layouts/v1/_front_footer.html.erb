@@ -2,6 +2,7 @@
   <li class="fixed-phone">
     <%= link_to main_app.static_page_qa_faq_path(34) do %>
       <%= image_tag 'phonenumber.png' %>
+      <p><%= t('view.footer.contact_us') %></p>
     <% end %>
     <div class="phonenumber">
       <p>400-838-8010</p>
@@ -10,16 +11,19 @@
   <li>
     <%= link_to main_app.qa_faqs_path do %>
       <%= image_tag 'issue.png' %>
+      <p><%= t('view.footer.help_center') %></p>
     <% end %>
   </li>
   <li>
     <%= link_to main_app.welcome_download_path do %>
       <%= image_tag 'download-1.png' %>
+      <p><%= t('view.footer.software_down') %></p>
     <% end %>
   </li>
   <li class="fixed-weixin">
     <%= link_to main_app.static_page_qa_faq_path(34) do %>
       <%= image_tag 'code-1.png' %>
+      <p><%= t('view.footer.weixin_text') %></p>
     <% end %>
     <div class="weixin-code">
       <%= image_tag 'publiccode.jpg' %>
@@ -29,6 +33,7 @@
   <li class="fixed-top" style="display: list-item;">
     <a href="javascript:void(0);">
       <%= image_tag 'top.png' %>
+      <p><%= t('view.footer.top') %></p>
     </a>
   </li>
 </ul>

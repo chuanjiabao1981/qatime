@@ -154,9 +154,13 @@ LiveStudio::Engine.routes.draw do
         end
       end
       resources :customized_groups, only: [:index, :new, :create] do
+        collection do
+          get :sells_list
+        end
         member do
           get :update_class_date
           patch :update_lessons
+          get :send_qr_code
         end
       end
     end

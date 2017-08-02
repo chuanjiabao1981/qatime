@@ -331,6 +331,8 @@ cn:
         offline_lesson_title: 线下授课
       offline_lesson_field:
         class_address_text: 上课地点
+      index:
+        name: 专属课名称
     student:
       students:
         schedules:

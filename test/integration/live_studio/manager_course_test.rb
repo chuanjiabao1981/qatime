@@ -22,6 +22,7 @@ module LiveStudio
       click_on "课程代销"
       assert page.has_link?('直播课')
       assert page.has_link?('视频课')
+      assert page.has_link?('专属课')
       assert page.has_content?('服务扣费')
 
       assert page.has_content?('销售分成')
@@ -39,6 +40,11 @@ module LiveStudio
 
       click_on '视频课'
       assert page.has_content?('视频课名称')
+      assert page.has_link?('预览')
+      assert page.has_link?('生成二维码')
+
+      click_on '专属课'
+      assert page.has_content?('专属课名称')
       assert page.has_link?('预览')
       assert page.has_link?('生成二维码')
     end

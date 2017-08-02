@@ -6,6 +6,8 @@ module LiveStudio
              init: 0, # 未开始
              ready: 1, # 待上课
              teaching: 2, # 上课中
+             finished: 5, # 已上课
+             billing: 6, # 结账中
              completed: 7 # 已结束
          }
 
@@ -13,6 +15,8 @@ module LiveStudio
       state :init, initial: true
       state :ready
       state :teaching
+      state :finished
+      state :billing
       state :completed
 
       event :ready do
@@ -31,7 +35,7 @@ module LiveStudio
           increment_course_counter(:closed_events_count) if live_end_at.nil?
           self.live_end_at = Time.now
         end
-        transitions from: [:teaching], to: :completed
+        transitions from: [:finished, :billing], to: :completed
       end
     end
 

@@ -15,7 +15,7 @@
     <i><%= t('currency.cn') %></i>
   </div>
   <div class="col-md-6 col-sm-6">
-    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
+    <%#= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
           class: "btn-add" if @cash_account.balance > 0 %>
   </div>
 </div>

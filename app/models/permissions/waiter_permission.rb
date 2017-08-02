@@ -109,7 +109,7 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'live_studio/station/customized_groups', [:index] do |workstation|
+      allow 'live_studio/station/customized_groups', [:index, :sells_list] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 

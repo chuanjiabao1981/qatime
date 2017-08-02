@@ -89,6 +89,7 @@ module LiveStudio
     has_many :events, -> { order('id asc') }
     has_many :lessons, dependent: :destroy, class_name: 'LiveStudio::Event', foreign_key: :group_id
     has_many :announcements, as: :announcementable
+    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     belongs_to :province
     belongs_to :city
@@ -97,6 +98,7 @@ module LiveStudio
     require 'carrierwave/orm/activerecord'
     mount_uploader :publicize, ::GroupPublicizeUploader
 
+    scope :sell_and_platform_percentage_greater_than, ->(platform_percentage) { where('live_studio_groups.sell_and_platform_percentage > ?', platform_percentage) }
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
     scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
 
@@ -180,6 +182,36 @@ module LiveStudio
     # 是否可退款
     def can_refund?
       for_sell?
+    end
+
+    def service_price
+      base_price.to_i
+    end
+
+    # 计算经销分成
+    def sell_percentage_for(seller)
+      [(sell_and_platform_percentage - seller.platform_percentage), 0].max
+    end
+
+    # 经销商推广辅导班 优惠码购买 生成二维码链接
+    # course_id coupon_id 2个条件唯一
+    def generate_qrcode_by_coupon(coupon_code)
+      coupon = ::Payment::Coupon.find_by(code: coupon_code)
+      return if coupon.blank?
+
+      course_buy_url = "#{$host_name}/wap/live_studio/#{self.model_name.route_key}/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
+      qr_code = self.qr_codes.by_coupon(coupon.id).try(:first)
+      return qr_code.code_url if qr_code.present?
+
+      relative_path = ::QrCode.generate_tmp(course_buy_url)
+      tmp_path = Rails.root.join(relative_path)
+      qr_code = self.qr_codes.new(coupon_id: coupon.id)
+      File.open(tmp_path) do |file|
+        qr_code.code = file
+      end
+      qr_code.save
+      File.delete(tmp_path)
+      qr_code.code_url
     end
 
     private

@@ -36,12 +36,14 @@ module LiveService
         courses = LiveStudio::Course.for_sell.order(options[:sort_by])
         interactive_courses = LiveStudio::InteractiveCourse.for_sell.order(options[:sort_by])
         video_courses = LiveStudio::VideoCourse.for_sell.order(options[:sort_by])
+        customized_groups = LiveStudio::CustomizedGroup.for_sell.order(options[:sort_by])
         if options[:city_id].present?
           courses = courses.where(city_id: options[:city_id])
           interactive_courses = interactive_courses.where(city_id: options[:city_id])
           video_courses = video_courses.where(city_id: options[:city_id])
+          customized_groups = customized_groups.where(city_id: options[:city_id])
         end
-        courses.limit(options[:limit]).to_a + interactive_courses.limit(options[:limit]).to_a + video_courses.limit(options[:limit]).to_a
+        courses.limit(options[:limit]).to_a + interactive_courses.limit(options[:limit]).to_a + video_courses.limit(options[:limit]).to_a + customized_groups.limit(options[:limit]).to_a
       end
     end
   end

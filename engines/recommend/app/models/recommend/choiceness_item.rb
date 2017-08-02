@@ -2,7 +2,7 @@ module Recommend
   class ChoicenessItem < Item
     self.recomend_for = LiveStudio::Course
 
-    enumerize :target_type, in: { course: 'LiveStudio::Course', interactive_course: 'LiveStudio::InteractiveCourse', video_course: 'LiveStudio::VideoCourse' }
+    enumerize :target_type, in: { course: 'LiveStudio::Course', interactive_course: 'LiveStudio::InteractiveCourse', video_course: 'LiveStudio::VideoCourse', group: 'LiveStudio::Group' }
 
     validates_presence_of :target_id, :target_type, :target, :title
     validates :index, presence: true, numericality: { only_integer: true }

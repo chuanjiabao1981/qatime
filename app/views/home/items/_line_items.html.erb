@@ -25,19 +25,24 @@
       <div class="category">
         <div class="category-nav">
           <div class="row">
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-3 col-sm-3">
               <%= link_to live_studio.courses_path, class: 'color-orange' do %>
                 <p><%= t('view.new_index.line_items.category.course') %></p>
               <% end %>
             </div>
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-3 col-sm-3">
               <%= link_to live_studio.interactive_courses_path, class: 'color-green' do %>
                 <p><%= t('view.new_index.line_items.category.interactive_course') %></p>
               <% end %>
             </div>
-            <div class="col-md-4 col-sm-4">
+            <div class="col-md-3 col-sm-3">
               <%= link_to live_studio.video_courses_path, class: 'color-blue' do %>
                 <p><%= t('view.new_index.line_items.category.video_course') %></p>
+              <% end %>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <%= link_to live_studio.customized_groups_path, class: 'color-pink' do %>
+                <p><%= t('view.new_index.line_items.category.customized_group') %></p>
               <% end %>
             </div>
             <!-- 专题推荐 -->

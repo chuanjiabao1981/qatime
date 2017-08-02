@@ -40,6 +40,8 @@ module LiveStudio
 
     scope :waiting_close, -> { where(status: statuses.values_at(:teaching, :paused)) }
     scope :unstart, -> { where('status < ?', statuses[:teaching]) } # 未开始的课程
+    scope :today, -> { where(class_date: Date.today) }
+    scope :readied, -> { where("status >= ?", statuses[:ready])} # 已就绪
 
     # 开始时间
     def start_time
@@ -76,6 +78,16 @@ module LiveStudio
 
     def had_closed?
       %w(closed finished billing completed).include?(status)
+    end
+
+    # 尚未直播
+    def status_wating?
+      %w[missed init ready].include?(status)
+    end
+
+    # 正在直播
+    def status_living?
+      %w[teaching paused].include?(status)
     end
 
     # 是否可以直播

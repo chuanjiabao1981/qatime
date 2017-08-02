@@ -169,6 +169,41 @@ schedule_completed_group1:
   end_at: <%= 1.days.ago.to_date %>
   published_at: <%= 2.days.ago.to_date %>
 
+free_group1:
+  name: 免费专属课1
+  subject: 语文
+  grade: 高二
+  description: 描述
+  status: 1
+  sell_type: 2
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 1
+  start_at: <%= 1.days.since.to_date %>
+  end_at: <%= 1.days.since.to_date %>
+  published_at: <%= Date.today.to_date %>
+
+today_group1:
+  name: 今日专属课1
+  subject: 语文
+  grade: 高一
+  description: 描述
+  status: 2
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher_with_chat_account
+  workstation: workstation1
+  price: 100
+  events_count: 1
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= Date.today.to_date %>
+  end_at: <%= Date.today.to_date %>
+  published_at: <%= Date.today.to_date %>
+
 group_for_search_1:
   name: 搜索过滤
   subject: 英语

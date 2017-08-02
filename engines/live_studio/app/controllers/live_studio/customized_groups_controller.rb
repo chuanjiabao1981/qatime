@@ -20,6 +20,11 @@ module LiveStudio
       redirect_to live_studio.customized_group_path(@customized_group)
     end
 
+    def preview
+      @customized_group = build_preview_group
+      @teachers = @customized_group.teachers
+    end
+
     private
 
     def search_params
@@ -37,6 +42,44 @@ module LiveStudio
       # 删除不支持的区间查询方式, 影响i18n显示
       origion_params.delete(:range) unless %w(1_months 2_months 3_months 6_months 1_years).include?(origion_params[:range])
       origion_params
+    end
+
+    def group_params
+      params[:customized_group][:scheduled_lessons_attributes] = params[:customized_group][:scheduled_lessons_attributes].map(&:second) if params[:customized_group] && params[:customized_group][:scheduled_lessons_attributes]
+      params[:customized_group][:offline_lessons_attributes] = params[:customized_group][:offline_lessons_attributes].map(&:second) if params[:customized_group] && params[:customized_group][:offline_lessons_attributes]
+      params.require(:customized_group).permit(
+          :name, :grade, :subject, :objective, :suit_crowd, :description, :token, :teacher_id, :sell_type, :teacher_percentage, :price,
+          scheduled_lessons_attributes: [:id, :class_date, :start_at_hour, :start_at_min, :duration, :name, :_destroy],
+          offline_lessons_attributes: [:id, :class_date, :start_at_hour, :start_at_min, :duration, :name, :class_address, :_destroy]
+      )
+    end
+
+    def preview_group_params
+      preview = group_params
+      if preview['scheduled_lessons_attributes'].respond_to?(:each)
+        preview['scheduled_lessons_attributes'].each { |lesson| lesson.delete('id') }
+      end
+      if preview['offline_lessons_attributes'].respond_to?(:each)
+        preview['offline_lessons_attributes'].each { |lesson| lesson.delete('id') }
+      end
+      preview
+    end
+
+    def build_preview_group
+      return CustomizedGroup.find(params[:id]) if params[:id].present?
+      course = @workstation.live_studio_customized_groups.new(preview_group_params.merge(author: current_user))
+      course.valid?
+      class_dates = []
+
+      if params[:customized_group][:scheduled_lessons_attributes].blank? && params[:customized_group][:offline_lessons_attributes].blank?
+        course.events_count = 0
+      else
+        course.events_count = params[:customized_group][:scheduled_lessons_attributes].try(:count).to_i + params[:customized_group][:offline_lessons_attributes].try(:count).to_i
+        class_dates += params[:customized_group][:scheduled_lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?) if params[:customized_group][:scheduled_lessons_attributes]
+        class_dates += params[:customized_group][:offline_lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?) if params[:customized_group][:offline_lessons_attributes]
+      end
+      course.start_at, course.end_at = class_dates.min, class_dates.max
+      course
     end
 
     def set_customized_group

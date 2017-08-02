@@ -212,3 +212,27 @@ schedule_completed_group1_lesson2:
   duration: 60
   type: 'LiveStudio::OfflineLesson'
   status: 7
+
+free_group1_lesson1:
+  name: 第一节课
+  group: free_group1
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+today_group1_lesson1:
+  name: 第一节课
+  group: today_group1
+  class_date: <%= Date.today.to_date %>
+  start_at: <%= "#{Date.today.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{Date.today.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 1

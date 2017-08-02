@@ -153,7 +153,7 @@ module V1
           get 'today' do
             home_data = DataService::HomeData.new
             lessons = home_data.today_lives
-            present lessons, with: ::Entities::LiveStudio::TodayLesson
+            present lessons, with: ::Entities::LiveStudio::TodayFullLesson
           end
         end
       end

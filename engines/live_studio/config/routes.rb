@@ -107,6 +107,7 @@ LiveStudio::Engine.routes.draw do
     member do
       get :for_free
       get :play
+      get :live_info
     end
     resources :orders, only: [:new, :create] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true

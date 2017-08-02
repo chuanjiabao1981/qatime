@@ -118,6 +118,10 @@ module LiveStudio
     def left_replay_times
     end
 
+    def self.beat_step
+      APP_CONFIG[:live_beat_step] || 10
+    end
+
     def waiting_billing?
       finished? || billing?
     end

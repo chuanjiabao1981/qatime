@@ -14,7 +14,7 @@ module BusinessService
 
       def execute
         return unless _check_lesson
-        billing = Payment::LiveCourseBilling.create(target: @target, from_user: @target.teacher, created_at: @created_at)
+        billing = Payment::Billings::LessonBilling.create(target: @target, from_user: @target.teacher, created_at: @created_at)
         @target.ticket_items.billingable.map {|item| execute_item(billing, item) }
       rescue StandardError => e
         _billing_fail!(e)
@@ -79,7 +79,7 @@ module BusinessService
       end
 
       def _item_billing(parent, ticket)
-        @target.class.billing_klass.constantize.create!(target: @target, from_user: _target_teacher, parent: parent, ticket: ticket)
+        Payment::Billings::TicketItemBilling.create!(target: @target, from_user: _target_teacher, parent: parent, ticket: ticket)
       end
     end
   end

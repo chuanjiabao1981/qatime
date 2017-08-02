@@ -5,14 +5,22 @@ module BusinessService
       @target = target
     end
 
-    # 专属课结算
-    def billing
-      @target.events.billingable.map {|event| billing_lesson(event) }
+    # 专属课时结算
+    def billing_lesson
+      BusinessService::Billing::EventLesson.new(@target).execute!
     end
 
-    # 专属课时结算
-    def billing_lesson(lesson)
-      BusinessService::Billing::EventLesson.new(lesson).execute!
+    # 结算课程
+    def self.billing_lessons
+      LiveStudio::Event.should_complete.each do |event|
+        next unless event.can_billing?
+        BusinessService::CustomizedGroupBillingDirector.new(event).billing_lesson
+      end
+    end
+
+    # 专属课结算
+    def self.billing_group(group)
+      group.events.billingable.map {|event| BusinessService::CustomizedGroupBillingDirector.new(event).billing_lesson }
     end
   end
 end

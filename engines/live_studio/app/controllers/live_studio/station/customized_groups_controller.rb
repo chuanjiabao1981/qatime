@@ -4,13 +4,19 @@ module LiveStudio
   class Station::CustomizedGroupsController < Station::ApplicationController
     layout 'v1/manager_home'
 
-    before_action :set_customized_group, only: [:update_class_date, :update_lessons]
+    before_action :set_customized_group, only: [:update_class_date, :update_lessons, :send_qr_code]
 
     def index
       @customized_groups = @workstation.live_studio_customized_groups
       @customized_groups = @customized_groups.uncompleted if params[:hide_completed].present?
       @query = @customized_groups.ransack(params[:q])
       @customized_groups = @query.result.order(id: :desc).paginate(page: params[:page])
+    end
+
+    # 代销列表
+    def sells_list
+      @query = LiveStudio::CustomizedGroup.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
+      @customized_groups = @query.result.includes(:teacher, :workstation, :events).order(id: :desc).paginate(page: params[:page])
     end
 
     def new
@@ -41,6 +47,16 @@ module LiveStudio
       else
         render :update_class_date
       end
+    end
+
+    # 发送二维码
+    def send_qr_code
+      code = @workstation.coupon.try(:code)
+      return render text: I18n.t('view.live_studio/courses.no_coupon_code') if code.blank?
+
+      qr_code_url = @customized_group.generate_qrcode_by_coupon(code)
+      image = URI(qr_code_url).read
+      send_data image, type: "#{image.content_type};charset=utf-8;header=present", filename: "#{@customized_group.name.to_s}.png", disposition: 'attachment'
     end
 
     private

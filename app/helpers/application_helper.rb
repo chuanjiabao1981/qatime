@@ -440,7 +440,7 @@ module ApplicationHelper
       customized_courses_page = (params[:controller] == 'station/workstations' && action_name == 'customized_courses')
       r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || customized_groups_page || lessons_state_page || customized_courses_page
     when :seller_courses
-      r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
+      r = %w[live_studio/station/courses live_studio/station/video_courses live_studio/station/customized_groups].include?(params[:controller]) && %w[index sells_list].include?(action_name)
     when :webpage
       r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items recommend/station/replay_items].include?(params[:controller])
     when :sellers

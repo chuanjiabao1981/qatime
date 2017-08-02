@@ -4,7 +4,8 @@ module LiveStudio
   class CustomizedGroupsController < ApplicationController
     layout 'v1/application'
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_customized_group, only: [:show, :for_free]
+    before_action :set_customized_group, only: [:show, :for_free, :play]
+    before_action :play_authorize, only: [:play]
 
     def index
       @q = LiveService::GroupDirector.search(search_params)
@@ -25,7 +26,32 @@ module LiveStudio
       @teachers = @customized_group.teachers
     end
 
+    def play
+      load_play_data
+      @current_lesson = @customized_group.current_event
+      @teacher = @customized_group.teacher
+      render layout: 'v1/live'
+    end
+
+    def live_info
+      render json: LiveService::GroupRealtimeService.new(params[:id]).live_detail(current_user.try(:id))
+    end
+
     private
+
+    # 直播授权
+    def play_authorize
+      redirect_to @customized_group, alert: i18n_failed('have_not_bought', @customized_group) unless @customized_group.play_authorize(current_user, nil)
+    end
+
+    def load_play_data
+      @chat_team = @customized_group.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@customized_group, @customized_group.teacher.chat_account)
+      @chat_account = current_user.try(:chat_account)
+      if @chat_account.nil?
+        @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+      end
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
+    end
 
     def search_params
       return @search_params if @search_params.present?

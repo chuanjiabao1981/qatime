@@ -1,0 +1,49 @@
+<%= content_for :javascript do %>
+  <script>
+    $(function() {
+      function LiveObserver() {
+        // 回调数组
+        callbacks = [];
+        this.step = 10;
+        // 注册回调
+        this.addCallback = function(cb) {
+          callbacks.unshift(cb);
+        };
+        // 监听直播状态
+        this.fetchInfo = function() {
+          $.getJSON("<%= live_studio.live_info_customized_group_path(@customized_group) %>", function(data) {
+            $.each(callbacks, function(index, cb) {
+              cb(data);
+            });
+          });
+        };
+        // 开始监听
+        this.start = function() {
+          this.fetchInfo();
+          setInterval(this.fetchInfo, this.step * 1000);
+        };
+
+        this.setStep = function(step) {
+          this.step = step;
+        };
+      }
+
+      window.observer = new LiveObserver();
+      observer.start();
+    });
+  </script>
+<% end -%>
+
+<div class="live-player">
+  <%= render 'player_and_chat' %>
+</div>
+
+<div class="live-content">
+  <div class="container">
+    <div class="row">
+      <%= render 'play_group_info' %>
+      <%= render 'play_teacher_info' %>
+      <%= render 'play_lesson_plan' %>
+    </div>
+  </div>
+</div>

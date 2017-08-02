@@ -45,8 +45,7 @@ end
 
 # 每天凌晨2点结算已完成的课程
 every 1.day, :at => '2:00 am', :roles => [:web] do
-  runner "LiveService::LessonDirector.billing_lessons"
-  runner "LiveService::InteractiveLessonDirector.billing_lessons"
+  runner "LiveService:BillingDirector.billing_lessons"
 end
 
 # 每天凌晨3点清理全部完成的辅导班

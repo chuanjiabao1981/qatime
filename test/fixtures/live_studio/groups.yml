@@ -279,3 +279,23 @@ group_for_search_4:
   start_at: <%= 1.days.since.to_date %>
   end_at: <%= 3.days.since.to_date %>
   published_at: <%= 1.days.ago.to_date %>
+
+billing_group_1:
+  name: 结账
+  subject: 英语
+  grade: 高三
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 500
+  events_count: 5
+  base_price: 2
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 5.days.since.to_date %>
+  end_at: <%= 5.days.since.to_date %>
+  published_at: <%= 10.days.ago.to_date %>

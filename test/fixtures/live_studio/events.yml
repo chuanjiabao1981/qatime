@@ -236,3 +236,39 @@ today_group1_lesson1:
   duration: 60
   type: 'LiveStudio::ScheduledLesson'
   status: 1
+
+billing_scheduled_lesson_one:
+  name: 第一节线上课
+  group: billing_group_1
+  class_date: <%= 5.days.ago.to_date %>
+  start_at: <%= "#{5.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::ScheduledLesson'
+  status: 5
+
+billing_scheduled_lesson_two:
+  name: 第二节线上课
+  group: billing_group_1
+  class_date: <%= 4.days.ago.to_date %>
+  start_at: <%= "#{4.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::ScheduledLesson'
+  status: 1
+
+billing_offline_lesson_one:
+  name: 第一节线下课
+  group: billing_group_1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::OfflineLesson'
+  status: 5

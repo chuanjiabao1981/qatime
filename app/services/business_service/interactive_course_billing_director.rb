@@ -47,6 +47,16 @@ module BusinessService
       end
     end
 
+    # 结算课程
+    # finish状态下并且上课日期在前天(包括)以前的课程complete
+    def self.billing_lessons
+      LiveStudio::InteractiveLesson.should_complete.each do |lesson|
+        next unless lesson.interactive_course
+        lesson.finished? && BusinessService::InteractiveCourseBillingDirector.new(lesson).billing_lesson
+        lesson.billing? && lesson.complete!
+      end
+    end
+
     private
 
     # 给每一个购买记录生成一个单独的账单

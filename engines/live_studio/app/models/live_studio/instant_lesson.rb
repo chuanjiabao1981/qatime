@@ -13,5 +13,9 @@ module LiveStudio
 
     def update_group
     end
+
+    def can_billing?
+      false
+    end
   end
 end

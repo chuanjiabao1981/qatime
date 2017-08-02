@@ -45,3 +45,17 @@ replay_channel:
   remote_id: course_for_replay
   status: 1
   use_for: 0
+
+board_channel_for_published_group2:
+  name: board_channel_for_published_group2
+  channelable: published_group2 (LiveStudio::Group)
+  remote_id: board_channel
+  status: 1
+  use_for: 0
+
+camera_channel_for_published_group2:
+  name: camera_channel_for_published_group2
+  channelable: published_group2 (LiveStudio::Group)
+  remote_id: camera_channel
+  status: 1
+  use_for: 1

@@ -272,6 +272,7 @@ module Permissions
       ## 视频课 end
 
       allow 'live_studio/teacher/customized_groups', [:index]
+      allow 'live_studio/customized_groups', [:preview]
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表

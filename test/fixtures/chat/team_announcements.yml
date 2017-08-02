@@ -1,0 +1,4 @@
+team_announcements1:
+  team: published_group2_team1
+  announcement: '测试公告'
+  edit_at: <%= Time.now %>

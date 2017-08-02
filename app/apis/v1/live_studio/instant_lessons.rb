@@ -28,7 +28,7 @@ module V1
               post '' do
                 @lesson = @group.instant_lessons.create(teacher: current_user) if current_user.teacher?
                 raise ActiveRecord::RecordInvalid, @lesson if @lesson.errors.any?
-                present lesson, with: Entities::LiveStudio::InstantLesson
+                present @lesson, with: Entities::LiveStudio::InstantLesson
               end
             end
           end

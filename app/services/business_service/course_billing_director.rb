@@ -47,6 +47,14 @@ module BusinessService
       end
     end
 
+    def self.billing_lessons
+      LiveStudio::Lesson.should_complete.each do |lesson|
+        next unless lesson.course
+        lesson.finished? && BusinessService::CourseBillingDirector.new(lesson).billing_lesson
+        lesson.billing? && lesson.complete!
+      end
+    end
+
     private
 
     # 给每一个购买记录生成一个单独的账单

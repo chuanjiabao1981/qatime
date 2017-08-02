@@ -197,3 +197,22 @@ schedule_completed_items2:
   target: schedule_completed_group1_lesson2 (LiveStudio::Event)
   user: student_one_with_course
   status: 0
+
+billing_group_1_item1:
+  ticket: ticket_1_for_billing_group_1
+  target: billing_scheduled_lesson_one (LiveStudio::Event)
+  user: student_one_with_course
+  status: 0
+
+billing_group_1_item3:
+  ticket: ticket_1_for_billing_group_1
+  target: billing_offline_lesson_one (LiveStudio::Event)
+  user: student_one_with_course
+  status: 0
+
+billing_group_1_item4:
+  ticket: ticket_2_for_billing_group_1
+  target: billing_offline_lesson_one (LiveStudio::Event)
+  user: student_with_order2
+  status: 0
+  

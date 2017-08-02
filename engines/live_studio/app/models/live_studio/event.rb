@@ -8,6 +8,7 @@ module LiveStudio
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, :channels, to: :group
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
+    has_many :ticket_items, as: :target
 
     attr_accessor :_update
 
@@ -115,6 +116,15 @@ module LiveStudio
 
     # 剩余回放时间
     def left_replay_times
+    end
+
+    def waiting_billing?
+      finished? || billing?
+    end
+
+    # 结账时长，都按1小时结账
+    def duration_hours
+      1
     end
 
     private

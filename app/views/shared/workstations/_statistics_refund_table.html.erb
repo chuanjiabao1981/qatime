@@ -16,10 +16,10 @@
       <td><%= number_to_currency(refund.amount.to_f, locale: :cn) %></td>
       <td><%= number_to_currency(refund.order.try(:amount).to_f, locale: :cn) %></td>
       <td>
-        <%= link_to refund.product.try(:name), live_studio.course_path(refund.product || 0) %>
+        <%= link_to refund.product.try(:name), live_studio.send("#{refund.product.model_name.singular_route_key}_path", refund.product) if refund.product %>
       </td>
-      <td><%= localize(refund.pay_at, format: :long) %></td>
-      <td><%= localize(refund.order.pay_at, format: :long) if refund.order %></td>
+      <td><%= localize(refund.pay_at, format: :long) if refund.pay_at %></td>
+      <td><%= localize(refund.order.pay_at, format: :long) if refund.order.try(:pay_at) %></td>
       <td><%= refund.user.try(:name) %></td>
       <td><%= refund.source_text %></td>
     </tr>

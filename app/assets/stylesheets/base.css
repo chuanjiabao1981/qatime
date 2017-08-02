@@ -8997,6 +8997,14 @@ ul {
   background-color: #c1c1c1;
   border-bottom: 1px solid #FFFFFF;
 }
+.fixed-bar li > a > p {
+  display: none;
+  font-size: 12px;
+  padding: 5px;
+  line-height: 15px !important;
+  color: #fff;
+  margin-bottom: 0px;
+}
 .fixed-bar li:hover {
   background-color: #ff5842;
 }
@@ -9053,7 +9061,7 @@ ul {
 .phonenumber p {
   margin-bottom: 0px;
   box-shadow: 0 0 10px #CCCCCC;
-  font-size: 22px;
+  font-size: 20px;
 }
 .iteminfo-more a i {
   position: relative;

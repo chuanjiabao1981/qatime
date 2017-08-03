@@ -2,3 +2,9 @@ team_announcements1:
   team: published_group2_team1
   announcement: '测试公告'
   edit_at: <%= Time.now %>
+
+team_announcements2:
+  team: teaching_group_for_student_view1_team1
+  announcement: '测试公告a'
+  edit_at: <%= Time.now %>
+  

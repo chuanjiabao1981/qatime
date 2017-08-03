@@ -1,12 +1,14 @@
 <li>
   <div class="row">
     <div class="col-md-3 discipline-pic">
-      <%= image_tag(customized_group.publicize_url(:list), class: 'handle_error_list') -%>
+      <%= link_to image_tag(customized_group.publicize_url(:list), class: 'handle_error_list'), live_studio.customized_group_path(customized_group), target: '_blank' %>
     </div>
     <div class="col-md-7 discipline-info">
       <div class="row info-title">
         <div class="col-md-12">
-          <strong><%= customized_group.name %></strong>
+          <%= link_to live_studio.customized_group_path(customized_group), target: '_blank' do %>
+            <strong><%= customized_group.name %></strong>
+          <% end -%>
         </div>
       </div>
       <div class="row info-state">
@@ -33,8 +35,7 @@
     </div>
     <div class="col-md-2 course-state">
       <span class="col-md-12 col-sm-4 col-xs-4"><%= customized_group.status.text %></span>
-      <%= link_to t("common.preview"), live_studio.preview_customized_groups_path(id: customized_group.id), data: {method: :post}, target: '_blank', class: 'col-md-12 col-sm-4 col-xs-4' %>
-      <%= link_to t("common.announcement"), live_studio.customized_group_announcements_path(customized_group), class: 'col-md-12 col-sm-4 col-xs-4' if customized_group.teaching? %>
+      <%= link_to t("common.announcement"), live_studio.customized_group_announcements_path(customized_group), class: 'col-md-12 col-sm-4 col-xs-4' if %w[published teaching].include?(customized_group.status) %>
     </div>
   </div>
 </li>

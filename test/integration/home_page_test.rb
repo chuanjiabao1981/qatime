@@ -58,6 +58,11 @@ class HomePageTest < ActionDispatch::IntegrationTest
     click_on '搜索相关老师'
     assert page.has_link?('teacher_one')
     assert page.has_content?('高中数学')
+
+    fill_in :search_key, with: '专属课'
+    find(:css, '.fa-search').click
+    click_on '搜索相关课程'
+    assert page.has_link?('今日专属课1')
   end
 
   test 'home page switch_city' do

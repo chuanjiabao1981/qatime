@@ -1,0 +1,154 @@
+<div class="phone-details-msg">
+  <div class="details-msg-nav">
+    <a href="javascript:void(0);" class="active"><%= t('wap.live_studio/customized_groups.show.course_intro') %></a>
+    <a href="javascript:void(0);" class=""><%= t('wap.live_studio/courses.show.course_teacher') %></a>
+    <a href="javascript:void(0);" class=""><%= t('wap.live_studio/customized_groups.show.course_lessons') %></a>
+  </div>
+
+  <div>
+    <!-- 课程介绍 -->
+    <div class="details-msg-con">
+      <h4><%= t('wap.live_studio/courses.show.basic_title') %></h4>
+      <ul>
+        <li>
+          <%= image_tag('wap/title.png') %>
+          <span><%= @customized_group.grade %></span>
+        </li>
+        <li>
+          <%= image_tag('wap/title.png') %>
+          <span><%= @customized_group.subject %></span>
+        </li>
+        <li>
+          <%= image_tag('wap/title.png') %>
+          <span><%= t('wap.live_studio/courses.show.course_lessons_count', count: @customized_group.events_count) %></span>
+        </li>
+        <li>
+          <%= image_tag('wap/title.png') %>
+          <span><%= @customized_group.start_at.try(:to_date).to_s %></span>
+          <span class="to"><%= t('wap.live_studio/courses.show.to') %></span>
+          <span><%= @customized_group.end_at.try(:to_date).to_s %></span>
+        </li>
+      </ul>
+
+      <div class="details-introduction">
+        <h4><%= t('view.live_studio/courses.show.objective') %></h4>
+        <p><%= @customized_group.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      </div>
+      <div class="details-introduction">
+        <h4><%= t('view.live_studio/courses.show.suit_crowd') %></h4>
+        <p><%= @customized_group.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      </div>
+      <div class="details-introduction">
+        <h4><%= t('wap.live_studio/customized_groups.show.course_desc') %></h4>
+        <%= raw(@customized_group.description) %>
+      </div>
+
+      <div class="details-introduction">
+        <h4><%= t('view.live_studio/courses.show.study') %></h4>
+        <ul class="learning-list">
+          <li>
+            <h5><%= t('view.live_studio/courses.show.before_study') %></h5>
+            <ul>
+              <li><%= t('view.live_studio/courses.show.before_study1') %></li>
+              <li><%= t('view.live_studio/courses.show.before_study2') %></li>
+              <li><%= t('view.live_studio/courses.show.before_study3') %></li>
+              <li><%= t('view.live_studio/courses.show.before_study4') %></li>
+              <li><%= t('view.live_studio/courses.show.before_study5') %></li>
+            </ul>
+          </li>
+          <li>
+            <h5><%= t('view.live_studio/courses.show.study_in') %></h5>
+            <ul>
+              <li><%= t('view.live_studio/courses.show.study_in1') %></li>
+              <li><%= t('view.live_studio/courses.show.study_in2') %></li>
+              <li><%= t('view.live_studio/courses.show.study_in3') %></li>
+              <li><%= t('view.live_studio/courses.show.study_in4') %></li>
+              <li><%= t('view.live_studio/courses.show.study_in5') %></li>
+              <li><%= t('view.live_studio/courses.show.study_in6') %></li>
+            </ul>
+          </li>
+          <li>
+            <h5><%= t('view.live_studio/courses.show.after_study') %></h5>
+            <ul>
+              <li><%= t('view.live_studio/courses.show.after_study1') %></li>
+              <li><%= t('view.live_studio/courses.show.after_study2') %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 教师资料 -->
+    <div class="details-msg-con details-msg-tec">
+      <div class="details-introduction">
+        <%= link_to 'javascript:void(0);' do %>
+          <%= image_tag @customized_group.teacher.avatar, class: 'handle_error_avatar' %>
+        <% end %>
+        <span>
+          <em><%= @customized_group.teacher.name %></em>
+          <%= image_tag "#{@customized_group.teacher.gender || 'male'}_big.png" %>
+        </span>
+      </div>
+      <div class="details-introduction">
+        <h4><%= t('wap.live_studio/courses.show.teaching_school') %></h4>
+        <p><%= truncate_u(@customized_group.teacher.school.try(:name), length: 10) %></p>
+      </div>
+      <div class="details-introduction">
+        <h4><%= t('wap.live_studio/courses.show.teaching_years') %></h4>
+        <div class="class-label">
+          <span><%= @customized_group.teacher.teaching_years_text %></span>
+        </div>
+      </div>
+      <div class="details-introduction">
+        <h4><%= t('wap.live_studio/courses.show.teacher_intro') %></h4>
+        <p><%= truncate_u @customized_group.teacher.desc, length: 145 %></p>
+      </div>
+    </div>
+
+    <!-- 课程安排 -->
+    <div class="details-msg-con details-msg-arrange">
+      <div class="online-live">
+        <p><%= t('view.live_studio/customized_groups.show.scheduled_lesson') %></p>
+        <ul>
+          <% @customized_group.scheduled_lessons.order(:start_at).each_with_index do |lesson, i| %>
+            <li class="<%= lesson.had_closed? ? 'msg-arrange-state' : '' %>">
+              <div class="arrange-title">
+                <%= image_tag("wap/#{lesson.had_closed? ? 'title-1' : 'title'}.png") %>
+                <span><%= lesson.name %></span>
+              </div>
+              <div class="arrange-time">
+                <span><%= lesson.class_date %> <%= lesson.live_time %></span>
+              </div>
+              <div class="arrange-status">
+                <span><%= lesson.status_text %></span>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="offline-live">
+        <p><%= t('view.live_studio/customized_groups.show.offline_lesson') %></p>
+        <ul>
+          <% @customized_group.offline_lessons.order(:start_at).each_with_index do |lesson, i| %>
+            <li class="<%= lesson.had_closed? ? 'msg-arrange-state' : '' %>">
+              <div class="arrange-title">
+                <%= image_tag("wap/#{lesson.had_closed? ? 'title-1' : 'title'}.png") %>
+                <span><%= lesson.name %></span>
+              </div>
+              <div class="arrange-place">
+                <span><%= LiveStudio::OfflineLesson.human_attribute_name(:class_address) %>:</span>
+                <span><%= lesson.class_address %></span>
+              </div>
+              <div class="arrange-time">
+                <span><%= lesson.class_date %> <%= lesson.live_time %></span>
+              </div>
+              <div class="arrange-status">
+                <span><%= lesson.status_text %></span>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="phone-login phone-details">
+  <div class="phone-login-title">
+    <div class="phone-return">
+      <%= link_to 'javascript:history.back(-1);' do %>
+        <%= image_tag('wap/phone-return-1.png') %>
+      <% end %>
+    </div>
+    <div class="phone-headline">
+      <h3><%= t('wap.live_studio/customized_groups.show.course_name') %></h3>
+    </div>
+  </div>
+
+  <div class="phone-details-con">
+    <div class="phone-class-details">
+      <%= image_tag @customized_group.publicize_url(:info) %>
+      <span class="phone-state <%= @customized_group.completed? ? 'phone-end' : 'phone-course' unless @customized_group.published? %>">
+        <%= @customized_group.status_text %>
+          [<%= @customized_group.published? ? t('wap.live_studio/courses.show.distance_days', day: @customized_group.distance_days) : "#{t('wap.live_studio/courses.show.load', start: @customized_group.closed_events_count, end: @customized_group.events_count)}" %>]
+      </span>
+    </div>
+
+    <div class="phone-class-title">
+      <h3><%= truncate_u(@customized_group.name, length: 18) %></h3>
+      <span class="class-details-left"><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
+      <span class="class-details-right"><%= t('wap.live_studio/courses.show.course_buy_user_count', number: @customized_group.buy_user_count) %></span>
+    </div>
+  </div>
+
+  <%= render partial: 'details' %>
+
+  <div class="phone-details-btn">
+    <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @customized_group.for_sell? %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(".details-msg-nav a").click(function() {
+      var index = $(".details-msg-nav a").index($(this));
+      $(this).addClass("active").siblings().removeClass("active");
+      $(".details-msg-con").eq(index).show().siblings().hide();
+    })
+  </script>
+<% end %>

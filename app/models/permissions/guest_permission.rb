@@ -23,6 +23,7 @@ module Permissions
 
       allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/live_studio/video_courses', [:show]
+      allow 'wap/live_studio/customized_groups', [:show]
       allow 'wap/softwares', [:index]
       allow 'wap/users', [:new, :create]
       allow 'wap/sessions', [:new, :create]

@@ -1,0 +1,11 @@
+<% if current_user.blank? %>
+  <%= link_to t('wap.live_studio/courses.show.enroll_now'), main_app.new_wap_live_studio_customized_group_order_path(@customized_group, params.permit(:come_from,:coupon_code)), class: 'details-btn-signup' %>
+<% else %>
+  <% if @customized_group.bought_by?(current_user) %>
+    <!-- 已经购买 -->
+    <%= link_to t('wap.live_studio/courses.show.start_learning'), '#', class: 'details-btn-start', data: {toggle: 'modal', target: '#acceptModal'} %>
+  <% else %>
+    <!-- 试听和购买按钮 -->
+    <%= link_to t('wap.live_studio/courses.show.enroll_now'), main_app.new_wap_live_studio_customized_group_order_path(@customized_group, params.permit(:come_from,:coupon_code)), class: 'details-btn-signup' %>
+  <% end %>
+<% end %>

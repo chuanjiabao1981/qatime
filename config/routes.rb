@@ -478,6 +478,9 @@ Qatime::Application.routes.draw do
         resources :orders, only: [:new, :create]
       end
 
+      resources :customized_groups, only: [:show] do
+        resources :orders, only: [:new, :create]
+      end
     end
     resources :softwares, only: [:index]
 

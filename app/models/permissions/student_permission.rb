@@ -156,6 +156,7 @@ module Permissions
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/student/interactive_courses', [:index, :show]
+      allow 'live_studio/interactive_courses', [:interactive]
       allow 'live_studio/student/video_courses', [:index]
       allow 'live_studio/courses', [:index, :show, :for_free]
       allow 'live_studio/lessons', [:show, :play, :videos]

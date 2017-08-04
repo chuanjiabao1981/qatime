@@ -43,13 +43,31 @@ module Chat
       team_id = params[:id]
       acc_id = params[:acc_id]
       token = params[:token]
-      Chat::Team.cache_member_visit(team_id,acc_id)
+      Chat::Team.cache_member_visit(team_id, acc_id)
       @members = Chat::Team.online_members(team_id, token)
       if token == Chat::Team.token(team_id)
         render text: 'nothing'
       else
         redirect_to action: :members
       end
+    end
+
+    def status
+      @team = Chat::Team.find_by!(team_id: params[:id])
+      @course = @team.discussable
+      @realtime_service =
+        case @course
+        when LiveStudio::Course
+          LiveService::RealtimeService.new(@course.id)
+        when LiveStudio::InteractiveCourse
+          LiveService::InteractiveRealtimeService.new(@course.id)
+        end
+      render json: @realtime_service.live_detail(current_user.id)
+    end
+
+    def list
+      @team = Chat::Team.find_by!(team_id: params[:id])
+      render json: @team.members_json
     end
   end
 end

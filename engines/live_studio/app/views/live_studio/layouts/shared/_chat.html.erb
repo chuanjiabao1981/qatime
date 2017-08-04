@@ -1,8 +1,8 @@
 <div class="live-message">
-  <div class="message-title">
-    <%= link_to t("view.play.talk"), "javascript:void(0);", class: "active" %>
-    <%= link_to t("view.play.announcement"), "javascript:void(0);" %>
-    <%= link_to t("view.play.members"), "javascript:void(0);" %>
+  <div class="message-title" id="chat-tab">
+    <%= link_to t("view.play.talk"), "javascript:void(0);", class: "active show-messages" %>
+    <%= link_to t("view.play.announcement"), "javascript:void(0);", class: "show-announcements" %>
+    <%= link_to t("view.play.members"), "javascript:void(0);", class: "show-members" %>
   </div>
   <div class="message-content">
     <div class="message-con active" id="chat">
@@ -39,7 +39,6 @@
   </div>
 </div>
 
-
 <%= content_for :mask do %>
   <div id="histories" class="message-logging">
     <div class="logging-title">
@@ -72,7 +71,4 @@
       <img class="bigimg" src="" >
     </div>
   </div>
-<% end %>
-
-<%= content_for :javascript do %>
 <% end %>

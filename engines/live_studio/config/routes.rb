@@ -66,6 +66,7 @@ LiveStudio::Engine.routes.draw do
       patch :update_lessons
       get :play # 观看直播
       get :live_info
+      get :interactive # 互动
     end
 
     resources :orders, only: [:new, :create]
@@ -123,7 +124,11 @@ LiveStudio::Engine.routes.draw do
           patch :cancel
         end
       end
-      resources :interactive_courses, only: [:index]
+      resources :interactive_courses, only: [:index] do
+        member do
+          get :play
+        end
+      end
       resources :video_courses, only: [:index, :edit, :update] do
         collection do
           get :my_publish

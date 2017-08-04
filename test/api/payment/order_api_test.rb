@@ -37,6 +37,7 @@ class Qatime::OrderApiTest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
     assert_equal 4, res['data'].size
+    assert res['data'][0].key?('product_customized_group')
 
     get "/api/v1/payment/orders", {cate: "unpaid"}, {'Remember-Token' => remember_token}
     assert_response :success

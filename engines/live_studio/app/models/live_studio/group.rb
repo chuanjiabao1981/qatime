@@ -62,7 +62,7 @@ module LiveStudio
     default_value_for :status, Group.statuses[:published]
     before_create do
       self.published_at = Time.now
-      self.start_at = events.map(&:class_date).try(:min)
+      self.start_at = (scheduled_lessons + offline_lessons).map(&:class_date).try(:min)
     end
     after_commit :ready_lessons, on: :create
 
@@ -116,10 +116,13 @@ module LiveStudio
 
     def ready_lessons
       tmp_class_date = events.map(&:class_date).compact.min
+      tmp_class_date ||= (scheduled_lessons + offline_lessons).map(&:class_date).try(:min)
       return if tmp_class_date.blank?
       return if tmp_class_date > Date.today
       teaching! if published?
-      events.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+
+      scheduled_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+      offline_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     def distance_days

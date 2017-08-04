@@ -43,6 +43,8 @@ module LiveStudio
     scope :unstart, -> { where('status < ?', statuses[:teaching]) } # 未开始的课程
     scope :today, -> { where(class_date: Date.today) }
     scope :readied, -> { where("status >= ?", statuses[:ready])} # 已就绪
+    scope :scheduled_and_offline_lessons, -> { where(type: ['LiveStudio::ScheduledLesson', 'LiveStudio::OfflineLesson']) }
+    scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
 
     # 开始时间
     def start_time

@@ -5,5 +5,6 @@ class LessonPauseWorker
   def perform
     LiveService::LessonDirector.pause_lessons
     LiveService::InteractiveLessonDirector.pause_lessons
+    LiveService::EventDirector.pause_lessons
   end
 end

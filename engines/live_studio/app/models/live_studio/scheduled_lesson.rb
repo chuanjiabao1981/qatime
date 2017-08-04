@@ -60,7 +60,7 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      had_closed? && merged?
+      had_closed? #&& merged?
     end
 
     private

@@ -35,12 +35,14 @@ end
 every 1.day, :at => '1:00 am', :roles => [:web] do
   runner "LiveService::LessonDirector.ready_today_lessons"
   runner "LiveService::InteractiveLessonDirector.ready_today_lessons"
+  runner "LiveService::EventDirector.ready_today_lessons"
 end
 
 # 每天凌晨1点30分清理未完成的课程
 every 1.day, :at => '1:30 am', :roles => [:web] do
   runner "LiveService::LessonDirector.clean_lessons"
   runner "LiveService::InteractiveLessonDirector.clean_lessons"
+  runner "LiveService::EventDirector.clean_lessons"
 end
 
 # 每天凌晨2点结算已完成的课程
@@ -52,6 +54,7 @@ end
 every 1.day, :at => '3:00 am', :roles => [:web] do
   runner "LiveService::CourseDirector.clean_courses"
   runner "LiveService::InteractiveCourseDirector.clean_courses"
+  runner "LiveService::GroupDirector.clean_courses"
 end
 
 # 五分钟执行一次,判断是否有teaching状态的课程已离线

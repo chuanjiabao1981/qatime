@@ -6,5 +6,8 @@ module LiveService
       chain = LiveStudio::InteractiveCourse.for_sell.includes(:interactive_lessons, :teachers)
       chain.ransack(search_params[:q])
     end
+
+    def self.clean_courses
+    end
   end
 end

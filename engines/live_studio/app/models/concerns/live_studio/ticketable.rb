@@ -54,7 +54,7 @@ module LiveStudio
 
     # 试听检查
     def taste_check(student)
-      taste_count < unclosed_lessons_count && !tasted?(student)
+      tastable? && !tasted?(student)
     end
 
     # 购买参数

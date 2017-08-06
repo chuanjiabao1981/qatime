@@ -17,7 +17,7 @@ module LiveStudio
     end
 
     def async_merge_video
-      VideoMergeJob.perform_later(id)
+      VideoMergeJob.set(wait: 1.minutes).perform_later(id)
     end
 
     def video_get
@@ -54,7 +54,7 @@ module LiveStudio
 
     # 异步合并视频片段
     def async_merge_replays
-      ReplaysMergeJob.perform_later(id)
+      ReplaysMergeJob.set(wait: 1.minutes).perform_later(id)
     end
 
     # 合并视频片段

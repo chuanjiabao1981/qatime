@@ -49,7 +49,7 @@ module DataService
       options[:limit] ||= 4
       free_video_courses = LiveStudio::VideoCourse.for_sell.with_sell_type(:free).order(published_at: :desc).limit(options[:limit])
       free_courses = LiveStudio::Course.for_sell.with_sell_type(:free).order(published_at: :desc).limit(options[:limit])
-      (free_video_courses.to_a + free_courses.to_a).sort_by{ |x| x.published_at || Time.new(2000) }.reverse.to(options[:limit])
+      (free_video_courses.to_a + free_courses.to_a).sort_by{ |x| x.published_at || Time.new(2000) }.reverse[0, options[:limit].to_i]
     end
 
     # 问答动态

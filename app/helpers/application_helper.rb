@@ -528,4 +528,17 @@ module ApplicationHelper
       render 'live_studio/courses/show/replay_button', { lesson: lesson, my_replay_times: my_replay_times}
     end
   end
+
+  # 一对一回放按钮
+  def interactive_replay_button_of(lesson, preview = false)
+    return lesson.status_text if current_user.blank?
+    return lesson.status_text(current_user.try(:role)) unless lesson.replayable
+    return lesson.status_text(current_user.try(:role)) unless allow?("live_studio/interactive_lessons", :replay, lesson)
+
+    if preview
+      link_to LiveStudio::Lesson.human_attribute_name(:replay), 'javascript:void(0);', class: 'active'
+    else
+      link_to LiveStudio::Lesson.human_attribute_name(:replay), live_studio.replay_interactive_lesson_path(lesson), class: 'active', target: '_blank'
+    end
+  end
 end

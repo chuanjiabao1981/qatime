@@ -314,17 +314,16 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      had_closed? &&merged?
+      had_closed? && merged?
     end
 
     # 是否可观看回放
     def replayable_for?(user)
-      return false if user.nil?
+      return false if user.blank?
       return true if user.admin?
-      return false unless course.buy_tickets.where(student_id: user.id).available.exists?
-      return false unless course.play_authorize(user, nil)
-      play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
-                         user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
+      return false unless interactive_course.buy_tickets.where(student_id: user.id).available.exists?
+      return false unless interactive_course.play_authorize(user, nil)
+      true
     end
 
     # 是否显示剩余次数

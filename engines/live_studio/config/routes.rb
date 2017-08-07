@@ -70,6 +70,12 @@ LiveStudio::Engine.routes.draw do
 
     resources :orders, only: [:new, :create]
     resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :interactive_lessons, only: [], shallow: true do
+      member do
+        get :replay
+      end
+    end
   end
 
   # 视频课

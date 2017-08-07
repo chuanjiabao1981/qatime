@@ -1,7 +1,7 @@
 class Wap::ApplicationController < ApplicationController
   layout 'wap'
 
-  # before_action :openid_required!
+  before_action :openid_required!
 
   def authorize
     if current_permission.allow?(params[:controller], params[:action], current_resource)

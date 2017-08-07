@@ -70,7 +70,7 @@ body {
   width: 83.3%;
   border-top: 0px;
   float: left;
-  }
+}
 .phone-login-con .form-group .form-control {
   height: 4.2rem;
   width: 100%;
@@ -287,10 +287,10 @@ body {
 }
 .phone-list-geade {
   width: 100%;
-    height: 100%;
-    padding-left: 0rem;
-    margin-bottom: 0rem;
-    list-style: none;
+  height: 100%;
+  padding-left: 0rem;
+  margin-bottom: 0rem;
+  list-style: none;
 }
 .phone-list-geade li {
   float: left;
@@ -303,8 +303,8 @@ body {
   text-align: center;
   line-height: 2.5rem;
   -webkit-border-radius: 27.5% / 2.5rem;
-    -moz-border-radius: 27.5% / 2.5rem;
-    border-radius: 27.5% / 2.5rem;
+  -moz-border-radius: 27.5% / 2.5rem;
+  border-radius: 27.5% / 2.5rem;
 }
 .modal-editor {
   position: absolute;
@@ -472,7 +472,18 @@ body {
 .details-msg-con:first-child {
   display: block;
 }
-.details-msg-con > ul {
+.details-msg-con > .offline-live {
+  padding-top: 2rem;
+}
+.details-msg-con > .online-live {
+  padding-top: 1rem;
+}
+.details-msg-con > .online-live > p,.details-msg-con > .offline-live > p {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 0px;
+}
+.details-msg-con > ul,.details-msg-con > .online-live > ul,.details-msg-con > .offline-live > ul {
   width: 100%;
   padding-left: 0rem;
   list-style: none;
@@ -487,10 +498,12 @@ body {
   float: left;
   line-height: 2.6rem;
 }
-.details-msg-con > ul li img {
+.details-msg-con > ul li img,.details-msg-con > .online-live > ul li img,.details-msg-con > .offline-live > ul li img {
   width: 1.3rem;
   height: 1.3rem;
   margin-right: 0.5rem;
+  position: relative;
+  top: -0.2rem;
 }
 .details-msg-con > ul li:last-child,.details-msg-con > ul li:nth-child(3) {
   width: 100%;
@@ -575,7 +588,7 @@ a:link,a:visited,a:hover,a:active{
 }
 a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   color: #FFFFFF;
-} 
+}
 .phone-details-btn .details-btn-add {
   margin-right: 4%;
 }
@@ -654,18 +667,22 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
 .details-msg-arrange {
   padding-top: 0rem;
 }
+.details-msg-arrange > .online-live ul li,.details-msg-arrange > .offline-live ul li {
+  padding: 0.5rem 0rem;
+}
 .details-msg-arrange ul li {
-  height: 4.7rem;
+  min-height: 4.7rem;
   width: 100%;
   border-bottom: 0.1rem solid #CCCCCC;
   padding-top: 0.35rem;
   font-size: 1.4rem;
 }
 .details-msg-arrange ul li div {
-  height: 2rem;
+  min-height: 2rem;
   line-height: 2rem;
 }
-.details-msg-arrange ul li div:nth-child(2) {
+.details-msg-arrange ul li div:nth-child(2),.details-msg-arrange ul li .arrange-status
+,.details-msg-arrange ul li .arrange-time,.details-msg-arrange ul li .arrange-place{
   padding-left: 2.1rem;
 }
 .details-msg-arrange ul li div:nth-child(2) span:first-child {
@@ -752,7 +769,7 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   padding-bottom: 2.5rem;
 }
 .preferential .phone-login-con .form-group {
-    overflow: inherit;
+  overflow: inherit;
 }
 .preferential .phone-login-con .input-group {
   width: 80%;
@@ -825,9 +842,9 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   height: 100%;
   background-color: #ff5842;
   font-size: 1.4rem;
-    color: #FFFFFF;
-    border-radius: 0.4rem;
-    border: 0.1rem solid #ff5842;
+  color: #FFFFFF;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #ff5842;
 }
 
 
@@ -932,7 +949,7 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
 
 /*下载*/
 .down-content {
-    position: relative;
+  position: relative;
   width: 100%;
   overflow: hidden;
 }
@@ -1028,7 +1045,7 @@ a.down-app:link {
   font-size: 1.4rem;
   color: #999;
   overflow: hidden;
-} 
+}
 .phone-curriculum > .curriculum-info > .course-price {
   color: #ff5842;
   float: left;
@@ -1044,7 +1061,8 @@ a.down-app:link {
 .details-msg-arrange ul li .arrange-title span {
   float: none !important;
 }
-.details-msg-arrange ul li .arrange-time span {
+.details-msg-arrange ul li .arrange-time span,.details-msg-arrange ul li .arrange-status span,.details-msg-arrange ul li .arrange-place span {
+  font-size: 1.2rem;
   color: #999;
 }
 .details-msg-arrange ul li .arrange-title {
@@ -1132,8 +1150,8 @@ a.down-app:link {
   position: absolute;
   color: #FFFFFF;
   display: -webkit-flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 .prompt-error > span {
   background-color: rgba(0,0,0,0.7);

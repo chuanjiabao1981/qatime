@@ -15,7 +15,7 @@
       <%= image_tag @customized_group.publicize_url(:info) %>
       <span class="phone-state <%= @customized_group.completed? ? 'phone-end' : 'phone-course' unless @customized_group.published? %>">
         <%= @customized_group.status_text %>
-          [<%= @customized_group.published? ? t('wap.live_studio/courses.show.distance_days', day: @customized_group.distance_days) : "#{t('wap.live_studio/courses.show.load', start: @customized_group.closed_events_count, end: @customized_group.events_count)}" %>]
+          [<%= @customized_group.published? ? t('wap.live_studio/courses.show.distance_days', day: @customized_group.distance_days.to_i) : "#{t('wap.live_studio/courses.show.load', start: @customized_group.closed_events_count, end: @customized_group.events_count)}" %>]
       </span>
     </div>
 
@@ -32,6 +32,8 @@
     <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @customized_group.for_sell? %>
   </div>
 </div>
+
+<%= render partial: 'wap/live_studio/courses/alert_download' %>
 
 <% content_for :javascript do %>
   <script type="text/javascript">

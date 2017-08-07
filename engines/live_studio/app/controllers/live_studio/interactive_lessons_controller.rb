@@ -8,7 +8,7 @@ module LiveStudio
     def replay
       @lesson = @interactive_lesson
       @course = @interactive_lesson.course
-      @video = @interactive_lesson.replays.where(video_for: 0).last
+      @video = @interactive_lesson.replays.where(video_for: 0).first
       @lessons = @course.interactive_lessons.merged.order(:class_date, :live_start_at, :live_end_at)
       PlayRecord.init_play(current_user, @interactive_lesson.course, @interactive_lesson)
     end

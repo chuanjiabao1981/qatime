@@ -63,7 +63,7 @@
       <li>
         <div class="row">
           <div class="col-md-2 col-sm-2">
-            <span><%= Teacher.human_attribute_name(:city) %></span>
+            <span><%= Student.human_attribute_name(:city) %></span>
           </div>
           <div class="col-md-10 col-sm-10">
             <span class="<%= 'not-set' if @teacher.city.try(:name_with_province).blank? %>"><%= @teacher.city.try(:name_with_province).presence || t('view.common.not_set') %></span>

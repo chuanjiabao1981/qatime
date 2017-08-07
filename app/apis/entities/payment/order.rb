@@ -33,6 +33,9 @@ module Entities
       expose :product_video_course, using: Entities::LiveStudio::VideoCourse, if: { type: :product } do |order|
         order.product if order.product_type == 'LiveStudio::VideoCourse'
       end
+      expose :product_customized_group, using: Entities::LiveStudio::Group, if: { type: :product } do |order|
+        order.product if order.product_type == 'LiveStudio::Group'
+      end
       expose :coupon_code do |c|
         c.coupon.try(:code)
       end

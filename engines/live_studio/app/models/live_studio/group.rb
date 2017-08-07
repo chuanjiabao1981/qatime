@@ -62,26 +62,26 @@ module LiveStudio
     default_value_for :status, Group.statuses[:published]
     before_create do
       self.published_at = Time.now
-      self.start_at = events.map(&:class_date).try(:min)
+      self.start_at = (scheduled_lessons + offline_lessons).map(&:class_date).try(:min)
     end
     after_commit :ready_lessons, on: :create
 
-    validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
-    validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?
-    validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
+    validates :name, presence: true, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: true, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: true, if: :grade_changed?
+    validates :subject, presence: true, if: :subject_changed?
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     validate :check_billing_percentage
 
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price }
+    validates :price, presence: true
 
     validates :teacher, presence: true
-    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
-    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
+    validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
@@ -116,10 +116,13 @@ module LiveStudio
 
     def ready_lessons
       tmp_class_date = events.map(&:class_date).compact.min
+      tmp_class_date ||= (scheduled_lessons + offline_lessons).map(&:class_date).try(:min)
       return if tmp_class_date.blank?
       return if tmp_class_date > Date.today
       teaching! if published?
-      events.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+
+      scheduled_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+      offline_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     def distance_days

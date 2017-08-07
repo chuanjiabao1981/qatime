@@ -81,10 +81,10 @@ module LiveStudio
       end
     end
 
-    validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
-    validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?
-    validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
+    validates :name, presence: true, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: true, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: true, if: :grade_changed?
+    validates :subject, presence: true, if: :subject_changed?
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
@@ -99,8 +99,8 @@ module LiveStudio
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
-    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
-    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
+    validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
@@ -115,7 +115,7 @@ module LiveStudio
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :video_lessons
-    validates :video_lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
+    validates :video_lessons, presence: true
 
     has_many :students, through: :buy_tickets
 

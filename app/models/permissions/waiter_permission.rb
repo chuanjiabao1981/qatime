@@ -47,6 +47,7 @@ module Permissions
       allow :notifications, [:index] do |resource_user|
         resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
       end
+      allow 'chat/teams', [:finish, :members, :member_visit, :status]
       allow 'welcome', [:download]
 
       allow 'recommend/positions', [:index, :show]
@@ -105,7 +106,7 @@ module Permissions
       allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
-      allow 'live_studio/station/interactive_courses', [:index] do |workstation|
+      allow 'live_studio/station/interactive_courses', [:index, :play] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 

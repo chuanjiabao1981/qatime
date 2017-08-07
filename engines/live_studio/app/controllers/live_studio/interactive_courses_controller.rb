@@ -18,6 +18,12 @@ module LiveStudio
       render layout: 'v1/application'
     end
 
+    def interactive
+      @interactive_course = LiveStudio::InteractiveCourse.find(params[:id])
+      @course = @interactive_course
+      render layout: 'v1/live'
+    end
+
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
       render layout: 'v1/manager_home'

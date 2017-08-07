@@ -12,6 +12,10 @@ module Chat
       team_announcements.where.not(announcement: nil).last.try(:announcement)
     end
 
+    def members_json
+      @members_json ||= serialize_members
+    end
+
     class << self
       # redis cache methods
       # 群组在线成员列表
@@ -53,6 +57,17 @@ module Chat
     # 解散云信群组
     def remote_destroy
       Chat::IM.team_remove(team_id, owner) if team_id
+    end
+
+    def serialize_members
+      join_records.includes(:account).map do |record|
+        {
+          account: record.account.try(:accid),
+          role: record.role,
+          nickname: record.account.try(:name),
+          avatar: record.account.try(:icon)
+        }
+      end
     end
   end
 end

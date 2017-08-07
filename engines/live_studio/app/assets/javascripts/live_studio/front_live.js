@@ -24,7 +24,13 @@
 //= require editable/rails
 //= require bootstrap-select.min
 //= require defaults-zh_CN
+//= require jquery.qqFace.js
+//= require live_studio/nep.min
+//= require live_studio/Web_SDK_Base_v2.4.0
+//= require live_studio/Web_SDK_NIM_v2.4.0
+//= require live_studio/chat
 //= require util
 //= require jedate
 //= require jquery.jedate
+//= require weixin-audio
 //= require v1/home

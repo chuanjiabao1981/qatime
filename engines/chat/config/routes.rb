@@ -8,5 +8,7 @@ Chat::Engine.routes.draw do
   resources :teams, only: [] do
     get :members, on: :member
     get :member_visit, on: :member
+    get :status, on: :member
+    get :list, on: :member
   end
 end

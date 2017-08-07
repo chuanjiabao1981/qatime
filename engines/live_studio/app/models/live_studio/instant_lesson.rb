@@ -5,6 +5,10 @@ module LiveStudio
 
     belongs_to :group, counter_cache: false
 
+    # 初始状态 直接开课
+    default_value_for :status, statuses[:ready]
+    default_value_for :class_date, Date.today
+
     private
 
     def event_time_changed?

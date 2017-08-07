@@ -133,6 +133,11 @@ module LiveStudio
       1
     end
 
+    # 是否可以回放
+    def replayable
+      false
+    end
+
     private
 
     def session_by_token(token)

@@ -32,6 +32,8 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
         LiveStudio::Course.find(params[:course_id])
       elsif params[:video_course_id].present?
         LiveStudio::VideoCourse.find(params[:video_course_id])
+      elsif params[:customized_group_id].present?
+      LiveStudio::CustomizedGroup.find(params[:customized_group_id])
       end
   end
 

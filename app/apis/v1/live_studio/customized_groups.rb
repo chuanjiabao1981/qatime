@@ -109,6 +109,27 @@ module V1
           get ':id/realtime' do
             LiveService::GroupRealtimeService.new(@group.id).live_detail(current_user.try(:id))
           end
+
+          desc '专属课发布公告' do
+            headers 'Remember-Token' => {
+                        description: 'RememberToken',
+                        required: true
+                    }
+          end
+          params do
+            requires :content, type: String, desc: "公告内容"
+          end
+          post ':id/announcements' do
+            unless @group.chat_team
+              ::LiveService::ChatTeamManager.new(nil).instance_team(@group)
+              @group.reload
+            end
+            @announcement = @group.announcements.new(content: params[:content], lastest: true, creator: @group.teacher)
+            if @announcement.save
+              @group.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
+            end
+            "ok"
+          end
         end
       end
     end

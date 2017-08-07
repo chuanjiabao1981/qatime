@@ -45,7 +45,7 @@ module LiveService
       def teacher_schedule_items(range)
         course_lessons = @user.live_studio_lessons.includes(:course).where(class_date: range)
         interactive_course_lessons = @user.live_studio_interactive_lessons.includes(:interactive_course).where(class_date: range)
-        events = @user.live_studio_events.includes(:group).where(class_date: range)
+        events = @user.live_studio_events.scheduled_and_offline_lessons.includes(:group).where(class_date: range)
         course_lessons.to_a + interactive_course_lessons.to_a + events.to_a
       end
     end

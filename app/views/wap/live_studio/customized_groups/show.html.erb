@@ -17,6 +17,7 @@
         <%= @customized_group.status_text %>
           [<%= @customized_group.published? ? t('wap.live_studio/courses.show.distance_days', day: @customized_group.distance_days.to_i) : "#{t('wap.live_studio/courses.show.load', start: @customized_group.closed_events_count, end: @customized_group.events_count)}" %>]
       </span>
+      <%= render partial: 'wap/live_studio/courses/alert_msg' %>
     </div>
 
     <div class="phone-class-title">

@@ -4,6 +4,7 @@ module Qatime
     # 顺序执行
     def self.sequence_exec(key, t)
       t ||= Time.now.to_i
+      t = t.to_i
       return if safe_cache(key, t) > t
       yield if block_given?
     end

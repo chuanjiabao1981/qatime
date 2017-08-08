@@ -3,6 +3,7 @@ module LiveStudio
   class InteractiveLesson < ActiveRecord::Base
     has_soft_delete
     extend Enumerize
+    include Recordable # 直播录制
     prepend PlayRecordWithJob
 
     attr_accessor :replay_times
@@ -10,7 +11,7 @@ module LiveStudio
     BEAT_STEP = 10 # 心跳频率/秒
     LESSON_NUM = {1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十'}
 
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :interactive_course
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, to: :interactive_course
 
     before_validation :reset_status, if: :class_date_changed?, on: :update
 
@@ -68,8 +69,7 @@ module LiveStudio
 
     has_many :play_records, -> { where(product_type: 'LiveStudio::InteractiveCourse') }, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
-    has_many :channel_videos
-    has_many :replays
+    has_many :replays, as: :target
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
@@ -120,7 +120,7 @@ module LiveStudio
         transitions from: :teaching, to: :paused
       end
 
-      event :close do
+      event :close, after_commit: :close_hook do
         before do
           # 第一次结束直播增加结束数量
           increment_course_counter(:closed_lessons_count) if live_end_at.nil?
@@ -129,7 +129,7 @@ module LiveStudio
         transitions from: [:teaching, :paused], to: :closed
       end
 
-      event :finish, after_commit: :instance_play_records do
+      event :finish, after_commit: :finish_hook do
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
@@ -261,6 +261,19 @@ module LiveStudio
       %w(finished billing completed).include?(status)
     end
 
+    # 课程完成回调
+    def finish_hook
+      # 记录播放记录
+      instance_play_records
+      # 获取回放视频
+      async_fetch_replays
+    end
+
+    # 结束直播回调
+    def close_hook
+      async_fetch_replays
+    end
+
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
     def instance_play_records(immediately = false)
@@ -362,7 +375,7 @@ module LiveStudio
     end
 
     def camera_replay_name
-      "#{Rails.env}_lesson_#{id}_camera_replay"
+      "#{Rails.env}_interactive_lesson_#{id}_camera_replay"
     end
 
     def board_replay_name

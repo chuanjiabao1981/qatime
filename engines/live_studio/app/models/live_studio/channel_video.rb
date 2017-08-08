@@ -5,8 +5,8 @@ module LiveStudio
     enum video_for: { board: 0, camera: 1 }
 
     belongs_to :channel
-    belongs_to :recordable, polymorphic: true
     belongs_to :lesson
+    belongs_to :target, polymorphic: true
 
     # 合并回调
     def merge_callback(params = {})
@@ -28,7 +28,7 @@ module LiveStudio
         {
           vids: [vid],
           presetId: NeteaseSettings.tpl_id,
-          userDefInfo: "#{recordable_type}/#{recordable_id}"
+          userDefInfo: "#{target_type}/#{target_id}"
         },
         AppSecret: NeteaseSettings.app_secret,
         AppKey: NeteaseSettings.app_key

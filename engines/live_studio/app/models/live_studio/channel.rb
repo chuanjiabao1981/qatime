@@ -29,6 +29,7 @@ module LiveStudio
                               begin_time: v['beginTime'],
                               end_time: v['endTime'],
                               lesson_id: recordable.id,
+                              target: recordable,
                               video_for: use_for)
       end
       true

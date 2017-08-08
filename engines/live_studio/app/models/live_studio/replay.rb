@@ -1,6 +1,7 @@
 module LiveStudio
   class Replay < ActiveRecord::Base
     belongs_to :lesson
+    belongs_to :target, polymorphic: true
     belongs_to :channel
     serialize :vids, Array
     serialize :pending_vids, Array
@@ -51,7 +52,7 @@ module LiveStudio
         shd_mp4_size: result[:shdMp4Size],
         create_time: result[:createTime]
       )
-      lesson.merged! unless lesson.merged?
+      target.merged! unless target.merged?
       merged! unless merged?
     end
 

@@ -3,7 +3,7 @@ module LiveStudio
     extend ActiveSupport::Concern
 
     included do
-      has_many :channel_videos, as: :recordable
+      has_many :channel_videos, as: :target
     end
 
     def record_filename

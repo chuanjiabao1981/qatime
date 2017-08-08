@@ -27,7 +27,7 @@ module V1
             optional :t, type: Integer, desc: '时间戳秒数'
           end
           post ':id/live_start' do
-            Qatime::Util.sequence_exec("#{@event.model_name.cache_key}/@event.id/live", params[:t]) do
+            Qatime::Util.sequence_exec("#{@event.model_name.cache_key}/#{@event.id}/live", params[:t]) do
               @live_session = LiveService::EventDirector.new(@event).live_start(params[:board], params[:camera])
             end
             {

@@ -105,7 +105,7 @@ module V1
           end
           post ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/@lesson.id/live", params[:t]) do
+            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/#{@lesson.id}/live", params[:t]) do
               @lesson.close!
               LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0, @lesson)
             end

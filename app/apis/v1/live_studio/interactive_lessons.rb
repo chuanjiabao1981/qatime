@@ -51,7 +51,7 @@ module V1
             end
             post 'live_end' do
               @interactive_lesson.room_id = nil
-              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/@interactive_lesson.id/live", params[:t]) do
+              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
                 @interactive_lesson.close!
                 LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, 0, @interactive_lesson)
               end

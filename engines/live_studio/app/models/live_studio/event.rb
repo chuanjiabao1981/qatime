@@ -9,8 +9,19 @@ module LiveStudio
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :ticket_items, as: :target
+    has_many :channel_videos, as: :target
+    has_many :replays, as: :target
 
     attr_accessor :_update
+
+    enum replay_status: {
+             unsync: 0, # 未同步
+             synced: 1, # 已同步
+             merging: 2, # 正在合并
+             merged: 3, # 已合并
+             sync_error: 98, # 同步失败
+             merge_error: 99 # 合并失败
+         }
 
     enum status: {
       missed: -1, # 已错过

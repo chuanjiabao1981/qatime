@@ -117,6 +117,12 @@ LiveStudio::Engine.routes.draw do
     end
     resources :orders, only: [:new, :create] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :scheduled_lessons, only: [], shallow: true do
+      member do
+        get :replay
+      end
+    end
   end
 
   namespace :station do

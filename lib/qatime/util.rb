@@ -11,8 +11,8 @@ module Qatime
 
     # 安全缓存，用于缓存时间戳
     def self.safe_cache(key, value)
-      last = Redis.current.get(key)
-      Redis.current.setex(key, 5.minutes, value) if last.to_i < value
+      last = Redis.current.get(key).to_i
+      Redis.current.setex(key, 5.minutes, value) if last < value
       last || value
     end
   end

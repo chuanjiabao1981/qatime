@@ -216,3 +216,8 @@ billing_group_1_item4:
   user: student_with_order2
   status: 0
   
+billing_group_1_item4:
+  ticket: ticket_for_interactive_course_replay1_1
+  target: interactive_lesson_replay1 (LiveStudio::InteractiveLesson)
+  user: student_with_order2
+  status: 0

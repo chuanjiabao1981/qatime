@@ -40,7 +40,7 @@ module V1
           end
           post ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/@lesson.id/live", params[:t]) do
+            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/#{@lesson.id}/live", params[:t]) do
               if @lesson.ready? || @lesson.paused? || @lesson.closed?
                 LiveService::LessonDirector.new(@lesson).lesson_start(params[:board], params[:camera])
               end

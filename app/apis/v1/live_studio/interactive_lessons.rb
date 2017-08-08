@@ -27,7 +27,7 @@ module V1
               optional :t, type: Integer, desc: '时间戳秒数'
             end
             post 'live_start' do
-              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/@interactive_lesson.id/live", params[:t]) do
+              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
                 if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
                   LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id])
                 end

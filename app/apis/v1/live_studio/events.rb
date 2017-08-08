@@ -84,7 +84,7 @@ module V1
             optional :t, type: Integer, desc: '时间戳秒数'
           end
           post ':id/live_end' do
-            Qatime::Util.sequence_exec("#{@event.model_name.cache_key}/@event.id/live", params[:t]) do
+            Qatime::Util.sequence_exec("#{@event.model_name.cache_key}/#{@event.id}/live", params[:t]) do
               @event.close! if @event.teaching? || @event.pause
               LiveService::EventDirector.live_status_change(@event.group, 0, 0, @event)
             end

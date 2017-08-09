@@ -508,22 +508,15 @@ function appendMsg(msg, messageClass, fromType) {
 
 // 通知类型
 function CustomMsgText(msg) {
+  var content_obj = JSON.parse(msg.content);
   var text = '未知';
-  switch (msg.content){
-    case 'Scheduled/start':
-      text = '直播开始';
-      break;
-    case 'Scheduled/close':
-      text = '直播结束';
-      break;
-    case 'Instant/start':
-      text = '老师开启了互动答疑';
-      break;
-    case 'Instant/close':
-      text ='老师关闭了互动答疑';
-      break;
-    default:
-      text ='未知';
+
+  if(content_obj.type == 'LiveStudio::ScheduledLesson') {
+    text = content_obj.event == 'start' ? '直播开始' : '直播结束';
+  }
+
+  if(content_obj.type == 'LiveStudio::InstantLesson'){
+    text = content_obj.event == 'start' ? '老师开启了互动答疑' : '老师关闭了互动答疑';
   }
   return text;
 }

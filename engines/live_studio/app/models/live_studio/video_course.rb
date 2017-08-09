@@ -194,6 +194,10 @@ module LiveStudio
       false
     end
 
+    def tastable?
+      taste_count > 0
+    end
+
     # 发货
     def deliver(order)
       check_ticket!(order)

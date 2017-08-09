@@ -1,0 +1,71 @@
+<div class="live-player">
+  <div class="live-head">
+    <div class="container live-big">
+      <div class="row">
+        <div class="video-area">
+          <div class="area-left area-member">
+            <div class="item" id="teacher-area">
+              <span class="tip">
+                <i></i>
+                <i></i>
+                <i></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="area-right bypass-live">
+            <div class="area-right-live">
+              <div class="item live-left-box" id="student-area">
+                <span class="tip">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </span>
+              </div>
+            </div>
+            <%= render 'live_studio/layouts/shared/chat' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+<%= javascript_include_tag "live_studio/interactive" %>
+<script>
+$(function() {
+  // 聊天账户
+  var user = {
+    account: "<%= @chat_account.try(:accid) %>",
+    // account: "d5e42f9a6e32d463f91b16a14adbde83",
+    token: "<%= @chat_account.try(:token) %>",
+    // token: '365383b66fac5b18209be02582d9a198',
+    role: "<%= current_user.role %>"
+  };
+
+  // 云信聊天
+  var channelName = "<%= @chat_team.team_id %>";
+  // var channelName = "65272603";
+  var bridge;
+
+
+  var chatUI;
+  var chatNim = new ChatQatime({
+    account: user.account,
+    token: user.token,
+    teamID: channelName,
+    members: <%= raw @members.to_json %>,
+    done: function () {
+      chatUI = new ChatQatimeUI(chatNim, {});
+      // 音视频
+      bridge = new NetcallBridge({ user: user, channelName: channelName, chatNim: chatNim });
+      bridge.setTeachers(<%= raw @teacher_accounts %>);
+      bridge.connect(function() {
+        bridge.init();
+      });
+    }
+  });
+});
+</script>
+<% end %>

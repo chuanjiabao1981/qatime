@@ -39,6 +39,7 @@ module Permissions
 
       allow :courses,[:show]
       allow :lessons,[:show]
+      allow 'chat/teams', [:finish, :members, :member_visit, :status]
       allow 'welcome', [:download]
 
       ## begin live studio permission
@@ -135,7 +136,7 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'live_studio/station/interactive_courses', [:index] do |workstation|
+      allow 'live_studio/station/interactive_courses', [:index, :play] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 

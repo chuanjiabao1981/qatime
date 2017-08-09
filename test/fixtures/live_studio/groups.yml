@@ -299,3 +299,22 @@ billing_group_1:
   start_at: <%= 5.days.since.to_date %>
   end_at: <%= 5.days.since.to_date %>
   published_at: <%= 10.days.ago.to_date %>
+
+replay_group1:
+  name: 回放的专属课1
+  subject: 数学
+  grade: 初三
+  description: 描述
+  status: 1
+  type: "LiveStudio::CustomizedGroup"
+  teacher: teacher1
+  workstation: workstation_zhuji
+  price: 100
+  events_count: 3
+  teacher_percentage: 70
+  publish_percentage: 5
+  platform_percentage: 8
+  sell_and_platform_percentage: 25
+  start_at: <%= 3.days.ago.to_date %>
+  end_at: <%= 3.days.ago.to_date %>
+  published_at: <%= 3.days.ago.to_date %>

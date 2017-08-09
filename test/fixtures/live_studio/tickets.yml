@@ -576,3 +576,14 @@ ticket_for_interactive_course_replay1_1:
   sell_percentage: 10
   platform_percentage: 15
   payment_order_id: xxxx
+
+ticket_for_replay_group1_1:
+  student: student_with_order2
+  product: replay_group1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 10
+  platform_percentage: 15
+  payment_order_id: xxxx

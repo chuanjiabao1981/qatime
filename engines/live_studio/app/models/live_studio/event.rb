@@ -151,6 +151,14 @@ module LiveStudio
 
     private
 
+    def camera_replay_name
+      "#{Rails.env}_#{model_name.singular_route_key}_#{id}_camera_replay"
+    end
+
+    def board_replay_name
+      "#{Rails.env}_#{model_name.singular_route_key}_#{id}_board_replay"
+    end
+
     def session_by_token(token)
       token ||= ::Encryption.md5("#{id}#{Time.now}").downcase
       live_sessions.find_or_create_by(token: token)

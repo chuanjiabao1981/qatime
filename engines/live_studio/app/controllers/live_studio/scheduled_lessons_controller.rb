@@ -6,7 +6,7 @@ module LiveStudio
     before_action :set_lesson, only: [:replay]
 
     def replay
-      @course = @lesson.group
+      @course = @customized_group = @lesson.group
       @video = @lesson.replays.where(video_for: 0).first
       @lessons = @course.scheduled_lessons.merged.order(:start_at)
       PlayRecord.init_play(current_user, @course, @lesson)

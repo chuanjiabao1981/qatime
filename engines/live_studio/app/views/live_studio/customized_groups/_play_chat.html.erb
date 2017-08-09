@@ -188,7 +188,7 @@
           $("#messages-group div:first").empty();
           if(obj.msgs.length > 0) $("#messages-group div:first").attr("end-time", obj.msgs[0].time);
           obj.msgs.forEach(function(msg){
-            if(msg.type != "notification"){
+            if(msg.type != "notification" && msg.type != "custom"){
               var messageNode = $("<div class='new-information'></div>");
               var messageTitle = $("<div class='information-title'></div>");
               messageTitle.append("<img src='" + $("#member-icons").find("img.icon-" + msg.from).attr("src") + "' />");

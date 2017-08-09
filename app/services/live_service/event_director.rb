@@ -11,6 +11,8 @@ module LiveService
       @group.teaching! if @group.published?
       LiveStudio::Event.transaction do
         @group.scheduled_lessons.waiting_close.where("id <> ?", @event.id).map(&:close!)
+        # 记录上课开始时间
+        @event.live_start_at = Time.now if @event.live_start_at.nil?
         @event.teach! if @event.can_live?
       end
       @event.record! # 设置录制

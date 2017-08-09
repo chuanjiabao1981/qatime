@@ -21,11 +21,11 @@ module V1
               if params[:beginTime].blank? # 视频合并结果
                 replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
                 code = 200 if replay && replay.merge_callback(params)
-              elsif params['video_name'] =~ /^lessons\d+camera/ # 摄像头录制不处理
+              elsif params['video_name'].include?('camera') # 摄像头录制不处理
                 code = 200
               else # 白板录制视频
                 channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
-                lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
+                lesson_id = params['video_name'].split('_').find{|x| x.include?('board')}.scan(/\d+/).first
                 lesson = case channel.channelable_type
                          when 'LiveStudio::Course'
                            channel.channelable.lessons.find(lesson_id)

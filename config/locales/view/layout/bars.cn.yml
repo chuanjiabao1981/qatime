@@ -5,7 +5,8 @@ cn:
       teacher_register: 教师注册
       student_register: 学生注册
       sign_out: 退出
-      sing_in: 登录
+      sign_in: 登录
+      sign_up: 注册
       user_setting: 用户设置
       home_page: 首页
       curriculums: 公共课程

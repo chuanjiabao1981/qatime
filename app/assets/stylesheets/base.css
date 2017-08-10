@@ -9504,6 +9504,9 @@ ul {
   float: right;
   line-height: 20px;
 }
+.replays > .replays-title > a:hover {
+  color: #ff5842;
+}
 .replays > .replays-title > a i {
   margin-left: 5px;
 }

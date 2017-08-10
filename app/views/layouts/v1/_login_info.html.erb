@@ -30,11 +30,9 @@
     </div>
   <% else %>
     <div class="nav-right-enter">
-      <%= link_to t("view.common_bars.sing_in"), main_app.signin_path %>
-      <span>|</span>
-      <%= link_to t("view.common_bars.teacher_register"), main_app.new_teacher_path %>
-      <span>|</span>
-      <%= link_to t("view.common_bars.student_register"), main_app.new_student_path %>
+      <%= link_to main_app.signin_path do %>
+        <%= t("view.common_bars.sign_in") %><span>|</span><%= t("view.common_bars.sign_up") %>
+      <% end %>
     </div>
   <% end %>
 </div>

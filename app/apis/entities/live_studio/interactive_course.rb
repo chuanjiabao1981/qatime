@@ -42,13 +42,13 @@ module Entities
       end
       expose :icons do
         expose :refund_any_time do |course|
-          true
+          course.refund_any_time?
         end
         expose :coupon_free do |course|
-          true
+          course.coupon_free?
         end
         expose :cheap_moment do |course|
-          false
+          course.cheap_moment?
         end
       end
       expose :off_shelve do |course|

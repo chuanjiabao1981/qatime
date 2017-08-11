@@ -1,4 +1,5 @@
 replays_1:
+  target: replay_lessons_1 (LiveStudio::Lesson)
   lesson: replay_lessons_1
   name: replays_1
   uid: 11111
@@ -6,6 +7,7 @@ replays_1:
   orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
   video_for: 0
 replays_2:
+  target: replay_lessons_2 (LiveStudio::Lesson)
   lesson: replay_lessons_2
   name: replays_2
   uid: 11111
@@ -13,6 +15,7 @@ replays_2:
   orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
   video_for: 0
 replays_3:
+  target: replay_lessons_3 (LiveStudio::Lesson)
   lesson: replay_lessons_3
   name: replays_2
   uid: 11111
@@ -20,6 +23,7 @@ replays_3:
   orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
   video_for: 0
 replays_4:
+  target: replay_lessons_4 (LiveStudio::Lesson)
   lesson: replay_lessons_4
   name: replays_2
   uid: 11111
@@ -27,11 +31,13 @@ replays_4:
   orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
   video_for: 0
 replays_5:
+  target: replay_lessons_5 (LiveStudio::Lesson)
   lesson: replay_lessons_5
   name: replays_6
   status: 0
   video_for: 0
 replays_6:
+  target: replay_lessons_6 (LiveStudio::Lesson)
   lesson: replay_lessons_6
   name: replays_6
   status: 0

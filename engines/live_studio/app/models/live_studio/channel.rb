@@ -86,7 +86,7 @@ module LiveStudio
 
     def channel_name
       return name if Rails.env.production?
-      "#{Rails.env} - #{name}"
+      "#{Rails.env} - #{name.to(6)}"
     end
   end
 end

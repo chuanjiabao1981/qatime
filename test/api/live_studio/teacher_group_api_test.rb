@@ -10,7 +10,7 @@ class Qatime::TeacherGroupAPITest < ActionDispatch::IntegrationTest
   test "teacher groups list" do
     get "/api/v1/live_studio/teachers/#{@teacher.id}/customized_groups?status=published,teaching", {}, 'Remember-Token' => @remember_token
     assert_request_success?
-    assert_equal 11, @res['data'].count, "我的专属课数量不正确"
+    assert_equal 12, @res['data'].count, "我的专属课数量不正确"
   end
 
   # 专属课 发布公告

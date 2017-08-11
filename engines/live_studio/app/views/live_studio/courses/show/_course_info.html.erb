@@ -93,7 +93,11 @@
       <span><%= t('view.live_studio/courses.show.arrange') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/show/lesson_plan' %>
+    <% if @course.is_a? LiveStudio::InteractiveCourse %>
+      <%= render partial: 'live_studio/interactive_courses/show/lesson_plan' %>
+    <% else %>
+      <%= render partial: 'live_studio/courses/show/lesson_plan' %>
+    <% end %>
   </div>
 
   <a name="study"></a>

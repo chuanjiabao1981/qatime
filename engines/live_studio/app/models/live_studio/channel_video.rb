@@ -6,6 +6,7 @@ module LiveStudio
 
     belongs_to :channel
     belongs_to :lesson
+    belongs_to :target, polymorphic: true
 
     private
 
@@ -36,7 +37,7 @@ module LiveStudio
     # 视频合并
     after_commit :merge_to, on: :create
     def merge_to
-      replay = lesson.instance_replays
+      replay = target.instance_replays
       replay.with_lock do
         replay.vids.push(vid)
         replay.pending_vids.push(vid.to_s)

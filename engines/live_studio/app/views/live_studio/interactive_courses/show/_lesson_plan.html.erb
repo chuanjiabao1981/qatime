@@ -1,0 +1,27 @@
+<% @course.order_lessons.each_with_index do |lesson, i| %>
+  <div class="row playlist <%= lesson.had_closed? ? 'end' : '' %>">
+    <div class="col-md-1">
+      <span><%= beautify_index(i) %></span>
+    </div>
+
+    <div class="col-md-3">
+      <span>
+        <%= lesson.class_date %>
+        <%= lesson.start_time %>-<%= lesson.end_time %>
+      </span>
+    </div>
+
+    <div class="col-md-5 coursehead">
+      <span><%= truncate_u lesson.name, length: 30 %></span>
+      <span class="coursehead-tec">
+        <em><%= LiveStudio::InteractiveLesson.human_attribute_name(:teacher) %>：</em><em><%= lesson.teacher.try(:name) %></em>
+      </span>
+    </div>
+
+    <div class="col-md-3">
+      <i>
+        <%= interactive_replay_button_of(lesson) %>
+      </i>
+    </div>
+  </div>
+<% end %>

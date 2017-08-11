@@ -9,8 +9,19 @@ module LiveStudio
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :ticket_items, as: :target
+    has_many :channel_videos, as: :target
+    has_many :replays, as: :target
 
     attr_accessor :_update
+
+    enum replay_status: {
+             unsync: 0, # 未同步
+             synced: 1, # 已同步
+             merging: 2, # 正在合并
+             merged: 3, # 已合并
+             sync_error: 98, # 同步失败
+             merge_error: 99 # 合并失败
+         }
 
     enum status: {
       missed: -1, # 已错过
@@ -138,7 +149,25 @@ module LiveStudio
       false
     end
 
+    # 视频回放开始时间
+    def replays_start_at
+      (live_start_at.to_i - 6.minutes) * 1000
+    end
+
+    # 视频回放结束时间
+    def replays_end_at
+      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 6.minutes) * 1000
+    end
+
     private
+
+    def camera_replay_name
+      "#{Rails.env}_#{model_name.singular_route_key}_#{id}_camera_replay"
+    end
+
+    def board_replay_name
+      "#{Rails.env}_#{model_name.singular_route_key}_#{id}_board_replay"
+    end
 
     def session_by_token(token)
       token ||= ::Encryption.md5("#{id}#{Time.now}").downcase

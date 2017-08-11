@@ -6864,7 +6864,7 @@ ul {
   border-bottom: 1px solid rgb(247,247,247);
 }
 .playback-con .active {
-  color: #be0b0b;
+  color: #ff5842;
 }
 .vjs-control-definition {
   height: 45px !important;
@@ -9520,7 +9520,7 @@ ul {
 }
 .replays > .replays-con > .row > .playback-info > h5 {
   margin: 0px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .replays > .replays-con > .row > .playback-info > h5 a
 ,.replays > .replays-con > .row > .playback-info > p {
@@ -10169,8 +10169,8 @@ ul {
 }
 .end i a {
   border: 1px solid #ccc;
-  display: block;
-  height: 22px;
+  display: inline-block;
+  padding: 0 10px;
   border-radius: 10px;
   color: #ccc;
 }
@@ -10573,11 +10573,18 @@ ul {
 .playback-con > li {
   overflow: hidden;
 }
-.playback-con > li:hover .list-msg {
+.playback-list > li > a > .row > .col-md-10,.playback-list > li > a > .row > .col-md-2 {
+  padding: 10px 15px;
+}
+.playback-con > li:hover .list-msg,.playback-con > li > a > .row > .list-msg.active
+,.playback-list > li:hover > a > .row > .col-md-10
+,.playback-list > li:hover > a > .row > .col-md-2 {
   color: #ff5842;
 }
-.playback-con > li > a > .row > .list-msg.active {
-  color: #ff5842;
+@media only screen and (max-width: 992px) {
+  .playback-list > li > a > .row > .col-md-10,.playback-list > li > a > .row > .col-md-2 {
+    padding: 5px 15px;
+  }
 }
 
 
@@ -11218,6 +11225,9 @@ ul {
 .discipline-nav > a:link {
   color: #34495e;
 }
+.discipline-nav > a:hover {
+  color: #ff5842;
+}
 .discipline-nav > a.active {
   color: #ff5842;
 }
@@ -11266,9 +11276,9 @@ ul {
 .discipline-info > .info-title  strong {
   font-weight: 500;
 }
-/*.info-state span:first-child,.info-user span:first-child {
-	margin-right: 10px;
-}*/
+.discipline-info > .info-title a:hover > strong{
+  color: #ff5842;
+}
 .info-state > .col-md-4:last-child {
   padding: 0px;
 }
@@ -14493,10 +14503,11 @@ ul {
   position: relative;
   width: 94px;
   display: inline-block;
-  margin-right: 13px;
+  margin-right: 11px;
 }
 .personal-nav > li > .nav-all > a {
   padding-left: 30px;
+  margin-right: 0px;
 }
 .personal-nav > li > .nav-all > ul {
   width: 110px;

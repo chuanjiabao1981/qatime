@@ -283,3 +283,16 @@ billing_offline_lesson_one:
   duration: 90
   type: 'LiveStudio::OfflineLesson'
   status: 5
+
+replay_group1_scheduled_lesson1:
+  name: 第1节线上课
+  group: replay_group1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 4
+  replay_status: 3

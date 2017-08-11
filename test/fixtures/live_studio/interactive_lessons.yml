@@ -314,3 +314,15 @@ interactive_lesson_teacher_4:
   duration: 45
   class_date: <%= 2.days.since.to_date %>
   status: 0
+
+interactive_lesson_replay1:
+  name: 一对一互动课程-回放
+  teacher: teacher1
+  interactive_course: interactive_course_replay1
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= 3.days.since.to_date %>
+  status: 5
+  replay_status: 3

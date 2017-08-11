@@ -60,12 +60,30 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      had_closed? #&& merged?
+      had_closed? && merged?
     end
 
-    private
+    # 是否可观看回放
+    def replayable_for?(user)
+      return false if user.blank?
+      return true if user.admin?
+      return false unless group.buy_tickets.where(student_id: user.id).available.exists?
+      return false unless group.play_authorize(user, nil)
+      true
+    end
 
+    # 课程完成回调
+    def finish_hook
+      # 记录播放记录
+      # instance_play_records
+      # 获取回放视频
+      async_fetch_replays
+    end
+
+    # 结束直播回调
     def close_hook
+      async_fetch_replays
     end
+
   end
 end

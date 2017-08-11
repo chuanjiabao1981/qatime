@@ -10,16 +10,16 @@
           <span><%= t('view.live_studio/courses.show.purchase_number', count: @customized_group.buy_user_count ) %></span>
         </div>
         <div class="course-line">
-          <span class="active">
-            <%= image_tag 'course-active.png' %>
+          <span class="<%= 'active' if @customized_group.refund_any_time? %>">
+            <%= image_tag "course-#{@customized_group.refund_any_time? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.refund') %></i>
           </span>
-          <span class="active">
-            <%= image_tag 'course-active.png' %>
+          <span class="<%= 'active' if @customized_group.coupon_free? %>">
+            <%= image_tag "course-#{@customized_group.coupon_free? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.coupon_free') %></i>
           </span>
-          <span>
-            <%= image_tag '/imgs/course-default.png' %>
+          <span class="<%= 'active' if @customized_group.cheap_moment? %>">
+            <%= image_tag "course-#{@customized_group.cheap_moment? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.cheap') %></i>
           </span>
         </div>

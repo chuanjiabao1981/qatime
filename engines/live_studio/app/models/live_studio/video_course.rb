@@ -371,6 +371,21 @@ module LiveStudio
       init? || rejected?
     end
 
+    # 报名立减
+    def coupon_free?
+      sell_type.charge?
+    end
+
+    # 限时打折
+    def cheap_moment?
+      false
+    end
+
+    # 免费试听
+    def free_taste?
+      taste_count.to_i > 0 && sell_type.charge?
+    end
+
     private
 
     def check_ticket!(order_or_user)

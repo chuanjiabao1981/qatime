@@ -10,16 +10,16 @@
           <span><%= t('view.live_studio/courses.show.purchase_number2', count: @course.buy_user_count ) %></span>
         </div>
         <div class="course-line">
-          <span class="<%= 'active' if @course.taste_count.to_i > 0 %>">
-            <%= image_tag "/imgs/course-#{@course.taste_count.to_i > 0 ? 'active' : 'default'}.png" %>
+          <span class="<%= 'active' if @course.free_taste? %>">
+            <%= image_tag "course-#{@course.free_taste? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.free_taste') %></i>
           </span>
-          <span class="active">
-            <%= image_tag '/imgs/course-active.png' %>
+          <span class="<%= 'active' if @course.coupon_free? %>">
+            <%= image_tag "course-#{@course.coupon_free? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.coupon_free') %></i>
           </span>
-          <span>
-            <%= image_tag '/imgs/course-default.png' %>
+          <span class="<%= 'active' if @course.cheap_moment? %>">
+            <%= image_tag "course-#{@course.cheap_moment? ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.cheap') %></i>
           </span>
         </div>

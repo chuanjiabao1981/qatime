@@ -318,6 +318,22 @@ module LiveStudio
       interactive_lessons.select { |l| l.teacher_id == teacher.id }.count
     end
 
+    # 随时可退
+    def refund_any_time?
+      true
+    end
+
+    # 报名立减
+    def coupon_free?
+      true
+    end
+
+    # 限时打折
+    def cheap_moment?
+      false
+    end
+
+    # 插班优惠?
     def join_cheap?
       false
     end

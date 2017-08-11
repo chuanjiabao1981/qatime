@@ -59,13 +59,13 @@ module Entities
       expose :total_duration
       expose :icons do
         expose :free_taste do |course|
-          course.taste_count.to_i > 0
+          course.free_taste?
         end
         expose :coupon_free do |course|
-          true
+          course.coupon_free?
         end
         expose :cheap_moment do |course|
-          false
+          course.cheap_moment?
         end
       end
     end

@@ -154,28 +154,28 @@ module LiveStudio
     end
 
     # 随时可退
-    def refund_any_time
-      true
+    def refund_any_time?
+      sell_type.charge?
     end
 
     # 报名立减
-    def coupon_free
-      true
-    end
-
-    # 免费试听
-    def free_taste
-      taste_count.to_i > 0
-    end
-
-    # 插班优惠
-    def join_cheap
-      closed_events_count > 0
+    def coupon_free?
+      sell_type.charge?
     end
 
     # 限时打折
-    def cheap_moment
+    def cheap_moment?
       false
+    end
+
+    # 插班优惠?
+    def join_cheap?
+      teaching? && closed_events_count > 0 && sell_type.charge?
+    end
+
+    # 免费试听
+    def free_taste?
+      taste_count.to_i > 0 && sell_type.charge?
     end
 
     def self.beat_step

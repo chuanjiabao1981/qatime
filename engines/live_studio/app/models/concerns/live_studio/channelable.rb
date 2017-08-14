@@ -6,7 +6,7 @@ module LiveStudio
       has_many :channels, as: :channelable
       has_many :push_streams, through: :channels
       has_many :pull_streams, through: :channels
-      after_create :async_init_channels
+      after_commit :async_init_channels, on: :create
     end
 
     def async_init_channels

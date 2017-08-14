@@ -226,6 +226,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
+      api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"
 
       # 游客绑定账号
       api_allow :POST, "/api/v1/user/guests/[\\w-]+/bind"

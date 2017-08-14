@@ -77,6 +77,20 @@ module V1
                 live_token: live_token
               }
             end
+
+            desc '一对一回放视频信息接口' do
+              headers 'Remember-Token' => {
+                          description: 'RememberToken',
+                          required: true
+                      }
+            end
+            params do
+              requires :id, type: Integer, desc: '课程ID'
+            end
+            get 'replay' do
+              ::LiveStudio::PlayRecord.init_play(current_user, @interactive_lesson.interactive_course, @interactive_lesson)
+              present @interactive_lesson, with: Entities::LiveStudio::InteractiveLessonReplay, current_user: current_user
+            end
           end
         end
       end

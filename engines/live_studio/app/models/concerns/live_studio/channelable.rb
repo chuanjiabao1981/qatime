@@ -10,7 +10,7 @@ module LiveStudio
     end
 
     def async_init_channels
-      ChannelCreateJob.perform_later(id, model_name.to_s)
+      ChannelCreateJob.perform_later(self)
     end
 
     def init_channels

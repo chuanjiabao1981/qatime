@@ -16,6 +16,8 @@ module V1
             optional :nId
           end
           post 'callback' do
+            Rails.logger.info "callback start......................."
+            Rails.logger.info params
             begin
               code = 500
               if params[:beginTime].blank? # 视频合并结果

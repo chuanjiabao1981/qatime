@@ -25,7 +25,6 @@ module LiveService
         @lesson.current_live_session
       end
     ensure
-      @lesson.record! # 设置录制
       LiveService::InteractiveLessonDirector.live_status_change(@course, board, camera, @lesson) if @lesson.teaching?
       LiveService::InteractiveRealtimeService.update_lesson_live(@lesson)
     end

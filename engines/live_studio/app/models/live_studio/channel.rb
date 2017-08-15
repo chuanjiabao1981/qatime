@@ -36,6 +36,7 @@ module LiveStudio
     end
 
     def record_for(recordable)
+      return if recordable.is_a?(InteractiveLesson)
       VCloud::Service.app_channel_set_always_record(
         cid: remote_id,
         needRecord: 1,

@@ -24,10 +24,11 @@ module V1
             params do
               requires :id, type: Integer, desc: '课程ID'
               requires :room_id, type: String, desc: '房间ID'
+              requires :channel_id, type: String, desc: 'channel_id'
             end
             post 'live_start' do
               if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
-                LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id])
+                LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id], params[:channel_id])
               end
               {
                 status: @interactive_lesson.status,

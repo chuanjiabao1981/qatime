@@ -12,7 +12,7 @@
       <span><%= replay_item.course.try(:grade) %><%= replay_item.course.try(:subject) %></span>
       <i>|</i>
       <span>
-        <em><%= t('common.teacher') %>：</em><em><%= replay_item.target.try(:teacher).try(:name) %></em>
+        <em><%= t('common.teacher') %>：</em><em><%= replay_item.target.try(:teacher).try(:name).presence || replay_item.course.try(:teacher).try(:name) %></em>
       </span>
       <i>|</i>
       <span>

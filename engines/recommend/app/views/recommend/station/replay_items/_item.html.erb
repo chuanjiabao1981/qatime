@@ -1,8 +1,7 @@
-
 <tr>
   <td><%= show_index(item_counter, @items.limit_value) %></td>
   <td><%= item.target.try(:name) %></td>
-  <td><%= "#{item.course.try(:grade)}#{item.course.try(:subject)}、#{item.target.teacher.try(:name)}、#{Util.duration_in_words(item.video.try(:duration).to_i)}" %></td>
+  <td><%= "#{item.course.try(:grade)}#{item.course.try(:subject)}、#{item.target.teacher.try(:name).presence || item.course.try(:teacher).try(:name)}、#{Util.duration_in_words(item.video.try(:duration).to_i)}" %></td>
   <td><%= item.replay_times %></td>
   <td><%= l(item.updated_at) if item.updated_at %></td>
   <td><%= check_box_tag nil, '1', item.top?, onclick: 'return false;' %></td>

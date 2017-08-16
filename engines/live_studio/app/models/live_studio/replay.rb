@@ -11,6 +11,15 @@ module LiveStudio
       merged: 1
     }
 
+    # 音视频回放
+    def self.create_from(channel_video)
+      replay = find_or_initialize_by(target: channel_video.target, vid: channel_video.vid)
+      replay.assign_attributes(name: channel_video.name, orig_url: channel_video.orig_url, video_for: 0)
+      replay.save
+      replay.merged! unless replay.merged?
+      replay.target.merged! unless replay.target.merged?
+    end
+
     def merge_video
       return single_merge unless vids.count > 1 # 单个视频不需要合并
       async_merge_replays

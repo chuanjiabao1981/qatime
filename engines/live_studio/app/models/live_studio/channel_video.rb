@@ -7,10 +7,23 @@ module LiveStudio
     belongs_to :channel
     belongs_to :lesson
 
+    # 合并回调
+    def merge_callback(params = {})
+      return unless params['channelid'] == channelid
+      with_lock do
+        self.vid = params['vid']
+        self.name = params['filename']
+        self.orig_url = params['url']
+        save!
+      end
+      Replay.create_from(self)
+    end
+
     private
 
     after_create :video_get
     def video_get
+      return if vid.blank?
       res = VCloud::Service.app_vod_video_get(vid: vid)
       result = JSON.parse(res.body).symbolize_keys[:ret].symbolize_keys
       update(
@@ -36,7 +49,8 @@ module LiveStudio
     # 视频合并
     after_commit :merge_to, on: :create
     def merge_to
-      replay = lesson.instance_replays
+      return if vid.blank?
+      replay = target.instance_replays
       replay.with_lock do
         replay.vids.push(vid)
         replay.pending_vids.push(vid.to_s)

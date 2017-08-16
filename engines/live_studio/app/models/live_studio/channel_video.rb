@@ -11,6 +11,7 @@ module LiveStudio
     # 合并回调
     def merge_callback(params = {})
       return unless params['channelid'] == channelid
+      return unless params['type'].downcase == 'flv'
       with_lock do
         self.vid = params['vid']
         self.name = params['filename']

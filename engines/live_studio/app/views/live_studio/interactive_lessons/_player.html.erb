@@ -2,8 +2,8 @@
   <div class="video-area" id="player-and-chat">
     <div class="area-left">
       <div class="area-left-con">
-        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" type="video/mp4" data-setup="{}">
-          <source src="<%= @video.try(:orig_url) %>" type="video/mp4">
+        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
+          <source src="<%= @video.try(:orig_url) %>" type="video/x-flv">
         </video>
       </div>
     </div>

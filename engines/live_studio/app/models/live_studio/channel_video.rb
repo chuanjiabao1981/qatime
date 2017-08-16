@@ -19,6 +19,18 @@ module LiveStudio
       Replay.create_from(self)
     end
 
+    # 合并回调
+    def merge_callback(params = {})
+      return unless params['channelid'] == channelid
+      with_lock do
+        self.vid = params['vid']
+        self.name = params['filename']
+        self.orig_url = params['url']
+        save!
+      end
+      Replay.create_from(self)
+    end
+
     private
 
     after_create :video_get

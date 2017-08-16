@@ -34,6 +34,7 @@ module LiveStudio
         AppKey: NeteaseSettings.app_key
       )
     end
+
     private
 
     after_create :video_get
@@ -65,6 +66,7 @@ module LiveStudio
     after_commit :merge_to, on: :create
     def merge_to
       return if vid.blank?
+      return if target.is_a?(InteractiveLesson)
       replay = target.instance_replays
       replay.with_lock do
         replay.vids.push(vid)

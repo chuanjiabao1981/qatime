@@ -8,7 +8,7 @@ module Entities
         item.course.try(:subject)
       end
       expose :teacher_name do |item|
-        item.target.try(:teacher).try(:name)
+        item.target.try(:teacher).try(:name).presence || item.course.try(:teacher).try(:name)
       end
       expose :video_duration do |item|
         item.video.try(:duration).to_i

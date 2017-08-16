@@ -139,6 +139,8 @@ module Recommend
       assert page.has_content?('仅显示推荐内容')
 
       click_on '新增'
+      select '专属课', from: :replay_item_course_type
+      select '直播课', from: :replay_item_course_type
       select '回放测试辅导班', from: :replay_item_course_id
       sleep(3)
       select '第1节', from: :replay_item_target_id

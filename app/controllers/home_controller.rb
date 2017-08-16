@@ -62,7 +62,7 @@ class HomeController < ApplicationController
   def replay
     @replay_item = Recommend::ReplayItem.default.items.find(params[:id])
     @lesson = @replay_item.target
-    @teacher = @replay_item.target.try(:teacher)
+    @teacher = @replay_item.target.try(:teacher) || @replay_item.course.try(:teacher)
     @replay_item.increment_replay_times
     render layout: 'v1/live'
   end

@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="video-area" id="player-and-chat">
+    <div class="area-left">
+      <div class="area-left-con">
+        <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
+          <source src="<%= @video.try(:orig_url) %>" type="video/x-flv">
+        </video>
+      </div>
+    </div>
+
+    <div class="area-right">
+      <div class="playback-title"><%= t("view.replay.directory") %></div>
+      <ul class="playback-con playback-list">
+        <% @lessons.each_with_index do |lesson, index| %>
+          <li>
+            <% if allow?("live_studio/interactive_lessons", :replay, lesson) %>
+              <% link = lesson.id == @interactive_lesson.id ? 'javascript:void(0);' : live_studio.replay_interactive_lesson_path(lesson) %>
+              <%= link_to link do %>
+                <div class="row">
+                  <div class="col-md-2 <%= 'active' if lesson.id == @interactive_lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
+                  <div class="col-md-10 <%= 'active' if lesson.id == @interactive_lesson.id %>"><span><%= lesson.name %></span></div>
+                </div>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id="no-flash-area" style="display: none;">
+    <p align="center">
+      <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %>
+      <%= link_to t("activerecord.view.flash_can_not_call_msg.click_here_msg"), "https://get.adobe.com/cn/flashplayer/"  %>
+      <%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
+    </p>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+  <script>
+    $(function() {
+      var myPlayer = neplayer('my-video', {
+        "autoplay": true,
+        loadingSpinner: false,
+        controlBar: {
+          'currentTimeDisplay':true,
+          'timeDivider':true,
+          'durationDisplay':true,
+          'remainingTimeDisplay':false
+        }
+      },function  () {
+        // 错误背景图
+        var errorImage = $('<div class="vjs-error-image"></div>');
+        $("#my-video .vjs-control-bar").before(errorImage);
+        var loadingImage = $('<div class="vjs-loading-image"></div>');
+        $("#my-video .vjs-control-bar").before(loadingImage);
+        // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
+        // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
+      });
+
+      //判断flash是否安装
+      if(!flashChecker().f) {
+        $("#player-and-chat").hide();
+        $("#no-flash-area").show(); //提示div
+      }
+    });
+  </script>
+<% end %>

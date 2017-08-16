@@ -62,7 +62,7 @@ module LiveStudio
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
       self.remote_id = result[:ret]["cid"]
-      set_always_record
+      set_always_record unless channelable.is_a?(InteractiveCourse)
       save!
     end
 

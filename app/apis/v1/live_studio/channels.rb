@@ -16,8 +16,6 @@ module V1
             optional :nId
           end
           post 'callback' do
-            Rails.logger.info "callback start......................."
-            Rails.logger.info params
             begin
               code = 500
               if params[:beginTime].blank? # 视频合并结果
@@ -49,6 +47,32 @@ module V1
               code: code
             }
           end
+
+          desc '音视频回调接口'
+          params do
+            optional :eventType
+            optional :fileinfo
+          end
+          post 'im_callback' do
+            status 200
+            Rails.logger.info "im_callback start......................."
+            Rails.logger.info params
+            begin
+              code = 500
+              if params[:eventType].to_s == '6'
+                res = JSON.parse(params[:fileinfo])[0]
+                channel_video = ::LiveStudio::ChannelVideo.find_by(channelid: res['channelid'])
+                code = 200 if channel_video && channel_video.merge_callback(res)
+              end
+            rescue StandardError => e
+              Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
+              Rails.logger.info params
+            end
+            {
+                code: code
+            }
+          end
+
         end
       end
     end

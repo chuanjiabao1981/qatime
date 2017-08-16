@@ -21,7 +21,8 @@ module LiveService
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
         @lesson.room_id = room_id
-        @lesson.description = [@lesson.description, channel_id.to_s].join('__')
+        # 录制音视频channelid
+        @lesson.channel_videos.find_or_create_by(channelid: channel_id.to_s)
         @lesson.teach!
         @lesson.current_live_session
       end

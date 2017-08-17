@@ -10,6 +10,7 @@ class LiveStudioCourseNotification < ::Notification
            course_name: notificationable.name,
            day: notificationable.class_date,
            announcement: notificationable.announcement,
+           content: notificationable.announcement,
            teacher_name: notificationable.try(:teacher).try(:name)
           )
   end

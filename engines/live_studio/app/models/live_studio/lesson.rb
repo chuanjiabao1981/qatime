@@ -67,7 +67,6 @@ module LiveStudio
 
     has_many :play_records, -> { where(product_type: 'LiveStudio::Course') } # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
-    has_many :channel_videos
     has_many :replays
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录

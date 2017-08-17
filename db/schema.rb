@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705022357) do
+ActiveRecord::Schema.define(version: 20170817092815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -540,7 +540,12 @@ ActiveRecord::Schema.define(version: 20170705022357) do
     t.string   "end_time"
     t.string   "orig_video_key"
     t.string   "uid"
+    t.string   "channelid"
+    t.integer  "recordable_id"
+    t.string   "recordable_type"
   end
+
+  add_index "live_studio_channel_videos", ["channelid"], name: "index_live_studio_channel_videos_on_channelid", using: :btree
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -630,6 +635,88 @@ ActiveRecord::Schema.define(version: 20170705022357) do
   add_index "live_studio_courses", ["published_at"], name: "index_live_studio_courses_on_published_at", using: :btree
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
+
+  create_table "live_studio_events", force: :cascade do |t|
+    t.string   "name",           limit: 100
+    t.string   "type"
+    t.integer  "group_id"
+    t.integer  "teacher_id"
+    t.string   "description"
+    t.integer  "status",         limit: 2,   default: 0
+    t.date     "class_date"
+    t.datetime "start_at"
+    t.string   "start_at_hour"
+    t.string   "start_at_min"
+    t.datetime "end_at"
+    t.integer  "duration"
+    t.string   "class_address"
+    t.integer  "live_count",                 default: 0
+    t.datetime "live_start_at"
+    t.datetime "live_end_at"
+    t.integer  "real_time",                  default: 0
+    t.integer  "pos",                        default: 0
+    t.datetime "heartbeat_time"
+    t.integer  "replay_status",              default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "live_studio_events", ["group_id"], name: "index_live_studio_events_on_group_id", using: :btree
+  add_index "live_studio_events", ["teacher_id"], name: "index_live_studio_events_on_teacher_id", using: :btree
+
+  create_table "live_studio_groups", force: :cascade do |t|
+    t.string   "name",                         limit: 100,                                       null: false
+    t.string   "subject"
+    t.string   "grade"
+    t.string   "publicize"
+    t.text     "description"
+    t.string   "objective"
+    t.string   "suit_crowd"
+    t.string   "announcement"
+    t.integer  "status",                                                           default: 0
+    t.string   "type",                         limit: 150
+    t.integer  "teacher_id"
+    t.integer  "workstation_id"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "author_id"
+    t.decimal  "price",                                    precision: 8, scale: 2, default: 0.0
+    t.integer  "taste_count",                                                      default: 0
+    t.decimal  "left_price",                               precision: 8, scale: 2, default: 0.0
+    t.decimal  "base_price",                               precision: 6, scale: 2, default: 0.0
+    t.integer  "sell_type",                    limit: 2,                           default: 1
+    t.integer  "events_count",                                                     default: 0
+    t.integer  "scheduled_lessons_count",                                          default: 0
+    t.integer  "offline_lessons_count",                                            default: 0
+    t.integer  "instant_lessons_count",                                            default: 0
+    t.integer  "teacher_percentage",                                               default: 0
+    t.integer  "publish_percentage",                                               default: 0
+    t.integer  "platform_percentage",                                              default: 0
+    t.integer  "sell_and_platform_percentage",                                     default: 0
+    t.integer  "buy_tickets_count",                                                default: 0
+    t.integer  "view_tickets_count",                                               default: 0
+    t.integer  "adjust_tickets_count",                                             default: 0
+    t.integer  "tickets_count",                                                    default: 0
+    t.integer  "closed_events_count",                                              default: 0
+    t.integer  "started_events_count",                                             default: 0
+    t.string   "token"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "published_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                                                     null: false
+    t.datetime "updated_at",                                                                     null: false
+  end
+
+  add_index "live_studio_groups", ["author_id"], name: "index_live_studio_groups_on_author_id", using: :btree
+  add_index "live_studio_groups", ["city_id"], name: "index_live_studio_groups_on_city_id", using: :btree
+  add_index "live_studio_groups", ["province_id"], name: "index_live_studio_groups_on_province_id", using: :btree
+  add_index "live_studio_groups", ["published_at"], name: "index_live_studio_groups_on_published_at", using: :btree
+  add_index "live_studio_groups", ["start_at"], name: "index_live_studio_groups_on_start_at", using: :btree
+  add_index "live_studio_groups", ["teacher_id"], name: "index_live_studio_groups_on_teacher_id", using: :btree
+  add_index "live_studio_groups", ["token"], name: "index_live_studio_groups_on_token", using: :btree
+  add_index "live_studio_groups", ["workstation_id"], name: "index_live_studio_groups_on_workstation_id", using: :btree
 
   create_table "live_studio_interactive_courses", force: :cascade do |t|
     t.string   "name",                         limit: 100,                                        null: false
@@ -1332,6 +1419,8 @@ ActiveRecord::Schema.define(version: 20170705022357) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "token"
+    t.integer  "position",    default: 0
+    t.integer  "show_type",   default: 0
   end
 
   create_table "qa_file_quoters", force: :cascade do |t|
@@ -1746,6 +1835,7 @@ ActiveRecord::Schema.define(version: 20170705022357) do
     t.string   "grade_range"
     t.string   "login_mobile"
     t.boolean  "is_guest",                                  default: false
+    t.integer  "all_courses_count",                         default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

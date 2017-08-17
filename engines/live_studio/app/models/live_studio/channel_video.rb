@@ -5,6 +5,7 @@ module LiveStudio
     enum video_for: { board: 0, camera: 1 }
 
     belongs_to :channel
+    belongs_to :recordable, polymorphic: true
     belongs_to :lesson
 
     # 合并回调
@@ -32,6 +33,19 @@ module LiveStudio
       Replay.create_from(self)
     end
 
+    # 视频格式转换
+    # flv转mp4
+    def transcode
+      VCloud::Service.app_vod_transcode_resetmulti(
+        {
+          vids: [vid],
+          presetId: NeteaseSettings.tpl_id,
+          userDefInfo: "#{recordable_type}/#{recordable_id}"
+        },
+        AppSecret: NeteaseSettings.app_secret,
+        AppKey: NeteaseSettings.app_key
+      )
+    end
     private
 
     after_create :video_get

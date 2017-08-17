@@ -1,0 +1,52 @@
+<div class="course-item">
+  <div class="nav-item">
+    <span><%= t('view.live_studio/courses.show.introduce') %></span>
+  </div>
+  <h2 class="remedial-classname"><%= @course.name %></h2>
+  <div class="course-lessons">
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
+      <ul>
+        <li>
+          <span>
+            <i><%= LiveStudio::Course.human_attribute_name(:subject) %></i>
+            <i><%= @course.subject %></i>
+          </span>
+          <span>
+            <i><%= LiveStudio::Course.human_attribute_name(:grade) %></i>
+            <i><%= @course.grade %></i>
+          </span>
+          <span>
+            <i><%= t("view.course_show.lessons_count") %></i>
+            <i><%= t("view.course_show.lessons_count_of", lessons_count: @course.lessons_count) %></i>
+          </span>
+        </li>
+        <li>
+          <span>
+            <i><%= t("activerecord.view.date") %></i>
+            <i><%= t("view.course_show.date_range", start_at: @course.start_at.to_date.to_s, end_at: @course.end_at.to_date.to_s) if @course.start_at && @course.end_at %></i>
+          </span>
+        </li>
+        <li>
+          <span>
+            <i><%= LiveStudio::Course.human_attribute_name(:status) %></i>
+            <i><%= @course.status.text %><%= t('view.course_show.lesson_progress_value', closed_count: @course.closed_lessons_count, lessons_count: @course.lessons_count) %></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= LiveStudio::Course.human_attribute_name(:objective) %></h3>
+      <p><%= @course.objective %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= LiveStudio::Course.human_attribute_name(:suit_crowd) %></h3>
+      <p><%= @course.suit_crowd %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= LiveStudio::Course.human_attribute_name(:course_description) %></h3>
+      <p><%= raw(@course.description) %></p>
+    </div>
+  </div>
+</div>

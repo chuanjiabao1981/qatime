@@ -22,11 +22,21 @@ module Entities
       expose :suit_crowd
       expose :description
       expose :icons do
-        expose :refund_any_time
-        expose :coupon_free
-        expose :cheap_moment
-        expose :join_cheap
-        expose :free_taste
+        expose :refund_any_time do |group|
+          group.refund_any_time?
+        end
+        expose :coupon_free do |group|
+          group.coupon_free?
+        end
+        expose :cheap_moment do |group|
+          group.cheap_moment?
+        end
+        expose :join_cheap do |group|
+          group.join_cheap?
+        end
+        expose :free_taste do |group|
+          group.free_taste?
+        end
       end
       with_options(format_with: :local_timestamp) do
         expose :start_at

@@ -71,6 +71,12 @@ LiveStudio::Engine.routes.draw do
 
     resources :orders, only: [:new, :create]
     resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :interactive_lessons, only: [], shallow: true do
+      member do
+        get :replay
+      end
+    end
   end
 
   # 视频课
@@ -112,6 +118,12 @@ LiveStudio::Engine.routes.draw do
     end
     resources :orders, only: [:new, :create] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :scheduled_lessons, only: [], shallow: true do
+      member do
+        get :replay
+      end
+    end
   end
 
   namespace :station do

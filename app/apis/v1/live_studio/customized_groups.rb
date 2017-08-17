@@ -94,7 +94,9 @@ module V1
             requires :id, type: Integer
           end
           get ':id/play' do
-            present @group, with: Entities::LiveStudio::GroupPlayDetail
+            ticket = @group.tickets.available.find_by(student: current_user) if current_user
+            present @group, root: :customized_group, with: Entities::LiveStudio::GroupPlayDetail
+            present ticket, root: :ticket, with: Entities::LiveStudio::CustomizedGroupTicket if ticket
           end
 
           desc '实时直播状态' do

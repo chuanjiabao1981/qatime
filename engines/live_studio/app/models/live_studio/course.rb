@@ -214,9 +214,29 @@ module LiveStudio
       completed?
     end
 
+    # 随时可退
+    def refund_any_time?
+      sell_type.charge?
+    end
+
+    # 报名立减
+    def coupon_free?
+      sell_type.charge?
+    end
+
+    # 限时打折
+    def cheap_moment?
+      false
+    end
+
     # 插班优惠?
     def join_cheap?
-      teaching? && closed_lessons_count > 0
+      teaching? && closed_lessons_count > 0 && sell_type.charge?
+    end
+
+    # 免费试听
+    def free_taste?
+      taste_count.to_i > 0 && sell_type.charge?
     end
 
     # 试听数量 超过剩余课程数 溢出限制

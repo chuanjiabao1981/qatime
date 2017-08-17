@@ -7,7 +7,9 @@
         <div class="col-md-3"><span><%= lesson.class_date %> <%= lesson.live_time %></span></div>
         <div class="col-md-5 coursehead"><span><%= truncate_u lesson.name, length: 30 %></span></div>
         <div class="col-md-3">
-          <i><%= lesson.status_text(current_user.try(:role)) %></i>
+          <i>
+            <%= customized_group_replay_button_of(lesson, true) %>
+          </i>
         </div>
       </div>
     <% end %>

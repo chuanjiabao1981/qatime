@@ -12,7 +12,7 @@ module LiveService
       teacher_account ||= find_or_instance_account(discussable.teacher)
       @team = find_or_create_chat_team(discussable, teacher_account)
       Tools.with_lock("#{discussable.model_name}-#{discussable.id}-team-create", 30) do
-        @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{discussable.name} 讨论组")
+        @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [].to_s, msg: "#{discussable.name} 讨论组")
         @team.save
       end unless @team.team_id
       @team

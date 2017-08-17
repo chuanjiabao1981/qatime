@@ -24,10 +24,13 @@ module V1
             params do
               requires :id, type: Integer, desc: '课程ID'
               requires :room_id, type: String, desc: '房间ID'
+              optional :t, type: Integer, desc: '时间戳秒数'
             end
             post 'live_start' do
-              if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
-                LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id])
+              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
+                if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
+                  LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id])
+                end
               end
               {
                 status: @interactive_lesson.status,
@@ -44,11 +47,14 @@ module V1
             end
             params do
               requires :id, type: Integer, desc: '课程ID'
+              optional :t, type: Integer, desc: '时间戳秒数'
             end
             post 'live_end' do
               @interactive_lesson.room_id = nil
-              @interactive_lesson.close!
-              LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, 0, @interactive_lesson)
+              Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
+                @interactive_lesson.close!
+                LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, 0, @interactive_lesson)
+              end
               {
                 result: 'ok',
                 status: @interactive_lesson.status

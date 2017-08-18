@@ -18,7 +18,8 @@ module LiveStudio
         self.orig_url = params['url']
         save!
       end
-      Replay.create_from(self)
+      # 设置转码任务
+      async_transcode
     end
 
     # 视频格式转换
@@ -27,12 +28,21 @@ module LiveStudio
       VCloud::Service.app_vod_transcode_resetmulti(
         {
           vids: [vid],
-          presetId: NeteaseSettings.tpl_id,
-          userDefInfo: "#{target_type}/#{target_id}"
+          presetId: NeteaseSettings.tpl_id
         },
-        AppSecret: NeteaseSettings.app_secret,
-        AppKey: NeteaseSettings.app_key
+        AppSecret: app_secret,
+        AppKey: app_key
       )
+    end
+
+    # 异步转码
+    def async_transcode
+      ChannelVideoJob.perform_later(id, 'transcode')
+    end
+
+    def transcode_callback
+      video_get
+      Replay.create_from(self)
     end
 
     private
@@ -40,7 +50,7 @@ module LiveStudio
     after_create :video_get
     def video_get
       return if vid.blank?
-      res = VCloud::Service.app_vod_video_get(vid: vid)
+      res = VCloud::Service.app_vod_video_get({ vid: vid }, AppKey: app_key, AppSecret: app_secret)
       result = JSON.parse(res.body).symbolize_keys[:ret].symbolize_keys
       update(
         duration: result[:duration],
@@ -60,6 +70,13 @@ module LiveStudio
         shd_mp4_size: result[:shdMp4Size],
         create_time: result[:createTime]
       )
+    end
+
+    before_create :set_app_info
+    def set_app_info
+      app = target.is_a?(LiveStudio::InteractiveLesson) ? NeteaseSettings : VCloud
+      self.app_key = app.app_key
+      self.app_secret = app.app_secret
     end
 
     # 视频合并

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817092815) do
+ActiveRecord::Schema.define(version: 20170818071402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -514,8 +514,8 @@ ActiveRecord::Schema.define(version: 20170817092815) do
     t.integer  "vid"
     t.string   "name"
     t.string   "key"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "duration"
     t.string   "type_id"
     t.string   "snapshot_url"
@@ -534,7 +534,7 @@ ActiveRecord::Schema.define(version: 20170817092815) do
     t.string   "create_time"
     t.integer  "lesson_id"
     t.string   "nid"
-    t.integer  "video_for",            default: 0
+    t.integer  "video_for",                        default: 0
     t.string   "url"
     t.string   "begin_time"
     t.string   "end_time"
@@ -543,9 +543,14 @@ ActiveRecord::Schema.define(version: 20170817092815) do
     t.string   "channelid"
     t.integer  "recordable_id"
     t.string   "recordable_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.string   "app_key",              limit: 128
+    t.string   "app_secret",           limit: 128
   end
 
   add_index "live_studio_channel_videos", ["channelid"], name: "index_live_studio_channel_videos_on_channelid", using: :btree
+  add_index "live_studio_channel_videos", ["target_type", "target_id"], name: "index_live_studio_channel_videos_on_target_type_and_target_id", using: :btree
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -893,7 +898,11 @@ ActiveRecord::Schema.define(version: 20170817092815) do
     t.string   "shd_mp4_size"
     t.string   "create_time"
     t.string   "pending_vids"
+    t.integer  "target_id"
+    t.string   "target_type"
   end
+
+  add_index "live_studio_replays", ["target_type", "target_id"], name: "index_live_studio_replays_on_target_type_and_target_id", using: :btree
 
   create_table "live_studio_sell_channels", force: :cascade do |t|
     t.integer  "owner_id"

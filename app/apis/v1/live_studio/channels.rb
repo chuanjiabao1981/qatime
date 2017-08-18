@@ -73,6 +73,16 @@ module V1
             }
           end
 
+          desc '转码回调接口'
+          params do
+            optional :type
+          end
+          post 'transcode_callback' do
+            Rails.logger.info "transcode_callback start......................."
+            Rails.logger.info params
+            channel_video = ::LiveStudio::ChannelVideo.find_by(vid: params[:vid])
+            channel_video.transcode_callback
+          end
         end
       end
     end

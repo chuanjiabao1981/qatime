@@ -17,12 +17,7 @@
           </div>
         </div>
 
-        <div class="area-right">
-          <div class="area-right-con">
-            <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
-            </video>
-
-          </div>
+        <div class="area-right chat-view">
           <%= render 'play_chat' %>
         </div>
       </div>
@@ -102,40 +97,6 @@
       boardPlayer.onPlayState(3,function(){
         console.log('board ended');
         boardPlayer.reset();
-        state = 'init';
-        // set_timer();
-      });
-
-      // 摄像头
-      cameraPlayer = neplayer("small-video", {
-        bigPlayButton: false,
-        loadingSpinner: false,
-        controlBar: false
-      }, function() {
-        // 错误背景图
-        var errorImage = $('<div class="vjs-error-image"></div>');
-        $("#small-video .vjs-caption-settings").before(errorImage);
-        var loadingImage = $('<div class="vjs-loading-image"></div>');
-        $("#small-video .vjs-caption-settings").before(loadingImage);
-      });
-      // cameraPlayer.play();
-      cameraPlayer.onError(function(err){
-        console.log(err.errCode);
-        console.log(err.errMsg);
-        cameraPlayer.reset();
-        state = 'init';
-        // set_timer();
-      });
-
-      cameraPlayer.onPlayState(1,function(){
-        console.log('camera play');
-      });
-      cameraPlayer.onPlayState(2,function(){
-        console.log('camera pause');
-      });
-      cameraPlayer.onPlayState(3,function(){
-        console.log('camera ended');
-        cameraPlayer.reset();
         state = 'init';
         // set_timer();
       });

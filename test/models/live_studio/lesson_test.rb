@@ -136,5 +136,15 @@ module LiveStudio
       assert lesson.reload.merged?, "视频合并失败"
       assert lesson.reload.merged?, "合并完成后课程状态不正确"
     end
+
+    test 'replay authorization' do
+      bought_student = users(:student_for_replays)
+      taste_student = users(:student_one_with_course)
+      guest = users(:student1)
+      lesson = live_studio_lessons(:replay_lessons_1)
+      assert lesson.replayable_for?(bought_student)
+      assert_not lesson.replayable_for?(taste_student)
+      assert_not lesson.replayable_for?(guest)
+    end
   end
 end

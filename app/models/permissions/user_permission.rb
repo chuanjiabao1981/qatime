@@ -41,7 +41,7 @@ module Permissions
       end
 
       allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources, :live_status, :live_info]
-      allow 'live_studio/interactive_courses', [:index, :show]
+      allow 'live_studio/interactive_courses', [:index, :show, :play, :live_info]
       allow 'live_studio/video_courses', [:index, :show, :taste, :deliver]
 
       allow 'qawechat/users', [:remove_wechat]

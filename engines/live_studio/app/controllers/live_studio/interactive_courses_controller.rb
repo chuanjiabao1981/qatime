@@ -73,8 +73,10 @@ module LiveStudio
 
     def play
       load_play_data
-      @current_lesson = @interactive_course.current_lesson
+      @course = @interactive_course
       @teachers = @interactive_course.teachers
+      @current_lesson = @interactive_course.current_lesson
+      @current_teacher = @current_lesson.teacher || @teachers.first
       render layout: 'v1/live'
     end
 

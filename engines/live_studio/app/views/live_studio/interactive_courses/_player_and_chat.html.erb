@@ -11,13 +11,18 @@
     <div class="row">
       <div class="video-area">
         <div class="area-left">
-          <div class="area-left-con">
-            <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+          <div class="area-left-con player-live">
+            <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
             </video>
           </div>
         </div>
-            
-        <div class="area-right chat-view">
+
+        <div class="area-right">
+          <div class="area-right-con">
+            <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
+            </video>
+
+          </div>
           <%= render 'play_chat' %>
         </div>
       </div>
@@ -26,127 +31,180 @@
 </div>
 
 <%= content_for :javascript do %>
-<script>
-$(function() {
-  var boardPlayer;
-  var timer = -1;
-  var state = 'init';
-  var boardStream = '<%= @interactive_course.board_pull_stream('http') %>';
+  <script>
+    $(function() {
+      var boardPlayer, cameraPlayer;
+      var timer = -1;
+      var state = 'init';
+      var cameraStream = '<%= @course.camera_pull_stream('http') %>';
+      var boardStream = '<%= @course.board_pull_stream('http') %>';
 
-  // 白板播放器
-  boardPlayer = neplayer("my-video", {
-    bigPlayButton: false,
-    controlBar: {
-      progressControl: false,
-      remainingTimeDisplay: false
-    }
-  }, function() {
-    var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
-    barrageButton.html('<%= image_tag "barrage.png" %>');
-    var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
-    refreshButton.html('<%= image_tag "refresh.png" %>');
-    $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
-    $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
-
-    // 弹幕
-    var barrage = new Barrage("my-video");
-    $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
-      if(barrage.active) {
-        barrage.turnOff();
-        $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage-ban.png" %>');
-      } else {
-        barrage.turnOn();
-        $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
-      }
-    });
-    if(window.live_chat) live_chat.setBarrage(barrage);
-
-
-    // 重置
-    $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
-      boardPlayer.reset();
-      state = 'init';
-    });
-
-  });
-
-  boardPlayer.onError(function(err){
-    console.log(err.errCode);
-    console.log(err.errMsg);
-    boardPlayer.reset();
-    state = 'init';
-    // set_timer();
-  });
-
-  boardPlayer.onPlayState(1,function(){
-    console.log('board play');
-  });
-  boardPlayer.onPlayState(2,function(){
-    console.log('board pause');
-  });
-  boardPlayer.onPlayState(3,function(){
-    console.log('board ended');
-    boardPlayer.reset();
-    state = 'init';
-    // set_timer();
-  });
-
-  function player_status(){
-    $.get("/live_studio/interactive_courses/<%= @interactive_course.id %>/live_status", {}, function (data, status) {
-      if (status == 'success') {
-        console.log('player_status');
-        console.log(data);
-        if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
-          boardPlayer.setDataSource({
-            type: "video/x-flv",
-            src: boardStream
-          });
-          boardPlayer.play();
+      // 白板播放器
+      boardPlayer = neplayer("my-video", {
+        bigPlayButton: false,
+        loadingSpinner: false,
+        controlBar: {
+          progressControl: false,
+          remainingTimeDisplay: false
         }
-        if( data['board'] == 1){
-          state = 'live';
-          clearInterval(timer);
-          timer = -1;
-        }
-      }
-    });
-  }
+      }, function() {
+        var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+        barrageButton.html('<%= image_tag "barrage.png" %>');
+        var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+        refreshButton.html('<%= image_tag "refresh.png" %>');
+        $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
+        $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
 
-  // 直播状态切换
-  function statusChange(player, stream, status, timestamp) {
-    if(1 != status) return;
-    // 如果查询到的视频正在直播, 播放器不是暂停也不是直播中, 则强制开始直播
-    if (player.getPlayState() != 1) {
-      player.setDataSource({
-        type: "video/x-flv",
-        src: stream
+        // 弹幕
+        var barrage = new Barrage("my-video");
+        $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
+          if(barrage.active) {
+            barrage.turnOff();
+            $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage-ban.png" %>');
+          } else {
+            barrage.turnOn();
+            $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
+          }
+        });
+        if(window.live_chat) live_chat.setBarrage(barrage);
+
+
+        // 重置
+        $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
+          boardPlayer.reset();
+          if(cameraPlayer) cameraPlayer.reset();
+          state = 'init';
+          // set_timer();
+        });
+
+        // 错误背景图
+        var errorImage = $('<div class="vjs-error-image"></div>');
+        $("#my-video .vjs-control-bar").before(errorImage);
+        var loadingImage = $('<div class="vjs-loading-image"></div>');
+        $("#my-video .vjs-control-bar").before(loadingImage);
+
       });
-      player.play();
-    }
-  }
 
-  // 直播状态
-  function playStatus(liveInfo, timestamp) {
-    statusChange(boardPlayer, boardStream, liveInfo.board, timestamp);
-  }
+      boardPlayer.onError(function(err){
+        console.log(err.errCode);
+        console.log(err.errMsg);
+        boardPlayer.reset();
+        state = 'init';
+        // set_timer();
+      });
 
-  // 判断flash是否安装
-  if(flashChecker().f) {
-    // 重设同步间隔
-    observer.setStep(<%= LiveStudio::Lesson.beat_step.to_i * 3 %>);
-    // 添加监听事件
-    observer.addCallback(function(data) {
-      playStatus(data.live_info, data.timestamp);
+      boardPlayer.onPlayState(1,function(){
+        console.log('board play');
+      });
+      boardPlayer.onPlayState(2,function(){
+        console.log('board pause');
+      });
+      boardPlayer.onPlayState(3,function(){
+        console.log('board ended');
+        boardPlayer.reset();
+        state = 'init';
+        // set_timer();
+      });
+
+      // 摄像头
+      cameraPlayer = neplayer("small-video", {
+        bigPlayButton: false,
+        loadingSpinner: false,
+        controlBar: false
+      }, function() {
+        // 错误背景图
+        var errorImage = $('<div class="vjs-error-image"></div>');
+        $("#small-video .vjs-caption-settings").before(errorImage);
+        var loadingImage = $('<div class="vjs-loading-image"></div>');
+        $("#small-video .vjs-caption-settings").before(loadingImage);
+      });
+      // cameraPlayer.play();
+      cameraPlayer.onError(function(err){
+        console.log(err.errCode);
+        console.log(err.errMsg);
+        cameraPlayer.reset();
+        state = 'init';
+        // set_timer();
+      });
+
+      cameraPlayer.onPlayState(1,function(){
+        console.log('camera play');
+      });
+      cameraPlayer.onPlayState(2,function(){
+        console.log('camera pause');
+      });
+      cameraPlayer.onPlayState(3,function(){
+        console.log('camera ended');
+        cameraPlayer.reset();
+        state = 'init';
+        // set_timer();
+      });
+
+      // 没用到
+      function player_status(){
+        $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status) {
+          if (status == 'success') {
+            console.log('player_status');
+            console.log(data);
+            if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
+              boardPlayer.setDataSource({
+                type: "video/x-flv",
+                src: boardStream
+              });
+              boardPlayer.play();
+            }
+            if (data['camera'] == 1 && cameraPlayer.getPlayState() != 1) {
+              cameraPlayer.setDataSource({
+                type: "video/x-flv",
+                src: cameraStream
+              });
+              cameraPlayer.play();
+            }
+            if( data['board'] == 1 && data['camera'] == 1){
+              state = 'live';
+              clearInterval(timer);
+              timer = -1;
+            }
+          }
+        });
+      }
+
+      // 直播状态切换
+      function statusChange(player, stream, status, timestamp) {
+        if(1 != status) return;
+        // 如果查询到的视频正在直播, 播放器不是暂停也不是直播中, 则强制开始直播
+        if (player.getPlayState() != 1) {
+          player.setDataSource({
+            type: "video/x-flv",
+            src: stream
+          });
+          player.play();
+        }
+      }
+
+      // 直播状态
+      function playStatus(liveInfo, timestamp) {
+        statusChange(boardPlayer, boardStream, liveInfo.board, timestamp);
+        statusChange(cameraPlayer, cameraStream, liveInfo.camera, timestamp);
+      }
+
+      // 判断flash是否安装
+      if(flashChecker().f) {
+        // 重设同步间隔
+        observer.setStep(<%= LiveStudio::InteractiveLesson.beat_step.to_i * 3 %>);
+        // 添加监听事件
+        observer.addCallback(function(data) {
+          playStatus(data.live_info, data.timestamp);
+        });
+
+        observer.addCallback(function(data) {
+          $('#live-name').text(data.live_info.name);
+          $('#team-online-count').text(data.online_users.length);
+        });
+      } else{
+        $("#player-and-chat").hide();
+        $("#no-flash-area").show(); //提示div
+      }
     });
-
-    observer.addCallback(function(data) {
-      $('#live-name').text(data.live_info.name);
-      $('#team-online-count').text(data.online_users.length);
-    });
-  } else{
-    $("#player-and-chat").hide();
-    $("#no-flash-area").show() //提示div
-  }
-});
-</script>
+  </script>
 <% end %>

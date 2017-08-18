@@ -39,8 +39,10 @@ module V1
           end
           post ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            if @lesson.ready? || @lesson.paused? || @lesson.closed?
-              LiveService::LessonDirector.new(@lesson).lesson_start(params[:board], params[:camera])
+            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/#{@lesson.id}/live", params[:t]) do
+              if @lesson.ready? || @lesson.paused? || @lesson.closed?
+                LiveService::LessonDirector.new(@lesson).lesson_start(params[:board], params[:camera])
+              end
             end
             {
               status: @lesson.status,
@@ -101,8 +103,10 @@ module V1
           end
           post ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            @lesson.close!
-            LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0, @lesson)
+            Qatime::Util.sequence_exec("#{@lesson.model_name.cache_key}/#{@lesson.id}/live", params[:t]) do
+              @lesson.close!
+              LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0, @lesson)
+            end
             {
               result: 'ok',
               status: @lesson.status

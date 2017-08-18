@@ -15,7 +15,8 @@ module LiveStudio
     # 音视频回放
     def self.create_from(channel_video)
       replay = find_or_initialize_by(target: channel_video.target, vid: channel_video.vid)
-      replay.assign_attributes(name: channel_video.name, orig_url: channel_video.orig_url, video_for: 0)
+      attrs = channel_video.attributes.slice(:orig_url, :sd_mp4_url, :hd_mp4_url, :shd_mp4_url)
+      replay.assign_attributes(attrs.merge(name: channel_video.name, video_for: 0))
       replay.save
       replay.merged! unless replay.merged?
       replay.target.merged! unless replay.target.merged?

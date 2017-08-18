@@ -27,7 +27,8 @@ module LiveStudio
     def transcode
       VCloud::Service.app_vod_transcode_resetmulti(
         {
-          vids: [vid]
+          vids: [vid],
+          presetId: NeteaseSettings.tpl_id
         },
         AppSecret: app_secret,
         AppKey: app_key

@@ -29,8 +29,8 @@ module LiveStudio
         {
           vids: [vid]
         },
-        AppSecret: NeteaseSettings.app_secret,
-        AppKey: NeteaseSettings.app_key
+        AppSecret: app_secret,
+        AppKey: app_key
       )
     end
 
@@ -49,7 +49,7 @@ module LiveStudio
     after_create :video_get
     def video_get
       return if vid.blank?
-      res = VCloud::Service.app_vod_video_get(vid: vid)
+      res = VCloud::Service.app_vod_video_get({ vid: vid }, AppKey: app_key, AppSecret: app_secret)
       result = JSON.parse(res.body).symbolize_keys[:ret].symbolize_keys
       update(
         duration: result[:duration],

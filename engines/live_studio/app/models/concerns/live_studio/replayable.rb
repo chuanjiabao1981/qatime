@@ -1,5 +1,5 @@
 module LiveStudio
-  module Recordable
+  module Replayable
     extend ActiveSupport::Concern
 
     included do

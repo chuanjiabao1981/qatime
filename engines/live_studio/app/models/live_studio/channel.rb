@@ -86,8 +86,8 @@ module LiveStudio
     end
 
     def channel_name
-      return name if Rails.env.production?
-      "#{Rails.env} - #{name.to(6)}"
+      return name.truncate(63) if Rails.env.production?
+      "#{Rails.env}-#{name}".truncate(63)
     end
   end
 end

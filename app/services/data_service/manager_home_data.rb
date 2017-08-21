@@ -47,8 +47,8 @@ module DataService
 
     # 正在上课
     def teaching_lessons
-      lessons = @workstation.live_studio_lessons.includes(:course).today.teaching
-      interactive_lessons = @workstation.live_studio_interactive_lessons.includes(:interactive_course).today.teaching
+      lessons = @workstation.live_studio_lessons.includes(:course).teaching
+      interactive_lessons = @workstation.live_studio_interactive_lessons.includes(:interactive_course).teaching
       all_lessons = lessons.to_a + interactive_lessons.to_a
       all_lessons.sort_by { |x| x.start_at }
     end

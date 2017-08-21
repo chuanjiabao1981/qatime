@@ -145,8 +145,9 @@
 
       // 直播状态
       function playStatus(liveInfo, timestamp) {
-        statusChange(boardPlayer, boardStream, liveInfo.board, timestamp);
-        statusChange(cameraPlayer, cameraStream, liveInfo.camera, timestamp);
+        var status = liveInfo.status === 'teaching' ? 1 : 0;
+        statusChange(boardPlayer, boardStream, status, timestamp);
+        // statusChange(cameraPlayer, cameraStream, liveInfo.camera, timestamp);
       }
 
       // 判断flash是否安装

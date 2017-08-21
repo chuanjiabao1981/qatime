@@ -48,15 +48,21 @@ $(function() {
       remainingTimeDisplay: false
     }
   }, function() {
+    console.log('callback >>>>>', 1);
     var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+    console.log('callback >>>>>', 2);
     barrageButton.html('<%= image_tag "barrage.png" %>');
     var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+    console.log('callback >>>>>', 3);
     refreshButton.html('<%= image_tag "refresh.png" %>');
+    console.log('callback >>>>>', 4);
     $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
     $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
+    console.log('callback >>>>>', 5);
 
     // 弹幕
     var barrage = new Barrage("my-video");
+    console.log('callback >>>>>', 6);
     $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
       if(barrage.active) {
         barrage.turnOff();
@@ -66,6 +72,7 @@ $(function() {
         $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
       }
     });
+    console.log('callback >>>>>', 7);
     console.log('player init callback');
     console.log(window.live_chat);
     if(window.live_chat) {

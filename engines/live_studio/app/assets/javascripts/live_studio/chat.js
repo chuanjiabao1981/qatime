@@ -312,6 +312,8 @@ window.currentTeam = {
       currentTeam.id = this.teamId;
       currentTeam.owner = owner;
       currentTeam.account = account;
+      console.log('------>>>>>>>>');
+      console.log(currentTeam);
     };
     this.setBarrage = function(barrage) {
       console.log('------>>>>>>>>');

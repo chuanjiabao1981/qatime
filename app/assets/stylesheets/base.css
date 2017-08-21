@@ -6857,7 +6857,7 @@ ul {
 }
 .playback-con li {
   min-height: 50px;
-  padding: 4px 10px 0px 10px;
+  padding: 5px 10px 0px 10px;
   border-bottom: 1px solid rgb(247,247,247);
 }
 .playback-con .active {
@@ -10586,12 +10586,22 @@ ul {
 .playback-con > li > a {
   display: block;
 }
-.playback-con > li > a > .row > .col-md-10 span{
-  display: inline-block;
+.playback-con > li > a > .row > .col-md-10 span,.playback-con > li > .row > .col-md-10 span{
+  display: block;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.playback-con > li > .row > .col-md-10 span {
+  padding-bottom: 5px;
+}
+.playback-con > li .playback-con-time > a {
+  color: #ccc;
+  padding-bottom: 5px;
+}
+.playback-con > li .playback-con-time > a:hover,.playback-con > li .playback-con-time > a.active {
+  color: #ff5842;
 }
 .playback-con > li > a > .row {
   color: #999;
@@ -17244,9 +17254,15 @@ abbr {
 .file-list > li .file-header {
   font-size: 16px;
   color: #333;
+  line-height: 23px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.file-list > li .file-header > img {
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 .file-list > li .operation-box {
   text-align: right;

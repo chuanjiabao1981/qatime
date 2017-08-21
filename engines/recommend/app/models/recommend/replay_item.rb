@@ -20,7 +20,7 @@ module Recommend
     end
 
     def video
-      target.replays.where(video_for: 0).first rescue nil
+      target.replays.board.first rescue nil
     end
 
     def increment_replay_times

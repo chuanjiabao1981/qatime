@@ -8,7 +8,7 @@
               <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="">
                 <% if @replay_item.target.is_a?(LiveStudio::InteractiveLesson) %>
                   <source src="<%= @replay_item.video.try(:shd_mp4_url) %>" type="video/mp4">
-                <% elsif @replay_item.video.try(:orig_url).include?('flv') %>
+                <% elsif @replay_item.video.try(:orig_url).try(:include?, 'flv') %>
                   <source src="<%= @replay_item.video.try(:orig_url) %>" type="video/x-flv">
                 <% else %>
                   <source src="<%= @replay_item.video.try(:orig_url) %>" type="video/mp4">
@@ -55,6 +55,7 @@
 </div>
 
 <% content_for :javascript do %>
+  <%= javascript_include_tag "live_studio/live_1" %>
   <script type="text/javascript">
     $(function() {
       var myPlayer = neplayer('my-video', {

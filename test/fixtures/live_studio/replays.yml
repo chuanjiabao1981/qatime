@@ -37,3 +37,16 @@ replays_6:
   status: 0
   video_for: 0
 
+interactive_lesson_replay1_1:
+  target: interactive_lesson_replay1 (LiveStudio::InteractiveLesson)
+  name: interactive_lesson_replay1_1
+  status: 1
+  video_for: 0
+  vid: 1233211
+
+interactive_lesson_replay1_2:
+  target: interactive_lesson_replay1 (LiveStudio::InteractiveLesson)
+  name: interactive_lesson_replay1_2
+  status: 1
+  video_for: 0
+  vid: 1233212

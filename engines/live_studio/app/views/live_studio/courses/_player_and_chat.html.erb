@@ -66,6 +66,8 @@ $(function() {
         $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
       }
     });
+    console.log('player init callback');
+    console.log(window.live_chat);
     if(window.live_chat) {
       live_chat.setBarrage(barrage);
     } else {

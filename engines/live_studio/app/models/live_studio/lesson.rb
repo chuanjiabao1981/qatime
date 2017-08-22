@@ -322,9 +322,7 @@ module LiveStudio
     def replayable_for?(user)
       return false if user.blank?
       return true if user.admin?
-      return true if course.buy_tickets.where(student_id: user.id).available.exists?
-      return true if course.play_authorize(user, nil)
-      false
+      course.buy_tickets.where(student_id: user.id).available.exists?
     end
 
     # 是否显示剩余次数

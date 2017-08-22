@@ -598,7 +598,7 @@ module LiveStudio
     # 辅导班创建通知指定教师
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
+      ::LiveStudioCourseNotification.find_or_create_by(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     before_validation :check_sell_type

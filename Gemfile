@@ -158,7 +158,7 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'select2-rails', '~> 3.5.9.3'
 
 gem 'rest-client'
-gem 'carrierwave-aliyun','0.3.4'
+gem 'carrierwave-aliyun', '0.3.4'
 gem 'unicorn'
 
 gem 'sidekiq'
@@ -170,7 +170,7 @@ gem 'fancybox2-rails', '~> 0.2.8'
 
 gem 'x-editable-rails'
 
-gem 'whenever',:require => false
+gem 'whenever', require: false
 
 gem 'course_library', path: 'engines/course_library'
 gem 'qawechat', path: 'engines/qawechat'
@@ -178,3 +178,4 @@ gem 'live_studio', path: 'engines/live_studio'
 gem 'payment', path: 'engines/payment'
 gem 'chat', path: 'engines/chat'
 gem 'recommend', path: 'engines/recommend'
+gem 'resource', path: 'engines/resource'

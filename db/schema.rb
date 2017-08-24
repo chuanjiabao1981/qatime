@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724064442) do
+ActiveRecord::Schema.define(version: 20170824030001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -514,8 +514,8 @@ ActiveRecord::Schema.define(version: 20170724064442) do
     t.integer  "vid"
     t.string   "name"
     t.string   "key"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "duration"
     t.string   "type_id"
     t.string   "snapshot_url"
@@ -534,13 +534,23 @@ ActiveRecord::Schema.define(version: 20170724064442) do
     t.string   "create_time"
     t.integer  "lesson_id"
     t.string   "nid"
-    t.integer  "video_for",            default: 0
+    t.integer  "video_for",                        default: 0
     t.string   "url"
     t.string   "begin_time"
     t.string   "end_time"
     t.string   "orig_video_key"
     t.string   "uid"
+    t.string   "channelid"
+    t.integer  "recordable_id"
+    t.string   "recordable_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.string   "app_key",              limit: 128
+    t.string   "app_secret",           limit: 128
   end
+
+  add_index "live_studio_channel_videos", ["channelid"], name: "index_live_studio_channel_videos_on_channelid", using: :btree
+  add_index "live_studio_channel_videos", ["target_type", "target_id"], name: "index_live_studio_channel_videos_on_target_type_and_target_id", using: :btree
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -888,7 +898,11 @@ ActiveRecord::Schema.define(version: 20170724064442) do
     t.string   "shd_mp4_size"
     t.string   "create_time"
     t.string   "pending_vids"
+    t.integer  "target_id"
+    t.string   "target_type"
   end
+
+  add_index "live_studio_replays", ["target_type", "target_id"], name: "index_live_studio_replays_on_target_type_and_target_id", using: :btree
 
   create_table "live_studio_sell_channels", force: :cascade do |t|
     t.integer  "owner_id"
@@ -1576,6 +1590,34 @@ ActiveRecord::Schema.define(version: 20170724064442) do
     t.integer  "comments_count",                     default: 0
   end
 
+  create_table "resource_files", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "directory_id"
+    t.integer  "user_id"
+    t.integer  "quotes_count"
+    t.integer  "attach_id"
+    t.string   "attach_type"
+    t.decimal  "file_size",    precision: 16, scale: 2, default: 0.0
+    t.string   "ext_name"
+    t.string   "type"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  add_index "resource_files", ["attach_type", "attach_id"], name: "index_resource_files_on_attach_type_and_attach_id", using: :btree
+  add_index "resource_files", ["directory_id"], name: "index_resource_files_on_directory_id", using: :btree
+  add_index "resource_files", ["user_id"], name: "index_resource_files_on_user_id", using: :btree
+
+  create_table "resource_quotes", force: :cascade do |t|
+    t.integer  "file_id"
+    t.integer  "quoter_id"
+    t.string   "quoter_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "resource_quotes", ["file_id"], name: "index_resource_quotes_on_file_id", using: :btree
+
   create_table "review_records", force: :cascade do |t|
     t.integer  "lesson_id"
     t.integer  "manager_id"
@@ -1897,4 +1939,5 @@ ActiveRecord::Schema.define(version: 20170724064442) do
 
   add_foreign_key "invitations", "users"
   add_foreign_key "payment_transactions", "users"
+  add_foreign_key "resource_files", "users"
 end

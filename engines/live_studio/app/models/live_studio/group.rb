@@ -10,6 +10,7 @@ module LiveStudio
     include Ticketable
     include Qatime::Discussable
     include Qatime::Stripable
+    include Resource::Quotable
     strip_field :name, :description
 
     enum status: {

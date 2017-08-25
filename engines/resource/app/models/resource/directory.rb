@@ -1,5 +1,5 @@
 module Resource
-  class Directory < File
+  class Directory < Resource::File
     has_many :files
   end
 end

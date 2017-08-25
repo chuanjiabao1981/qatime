@@ -21,6 +21,16 @@ module LiveStudio
       render layout: 'manager_page'
     end
 
+    # 观看直播
+    def live
+      @interactive_course = @workstation.live_studio_interactive_courses.find(params[:id])
+      @chat_account = current_user.chat_account
+      @chat_team = @interactive_course.chat_team
+      @members = @chat_team.members_json
+      play_check
+      render layout: 'manager_page'
+    end
+
     private
 
     def play_check

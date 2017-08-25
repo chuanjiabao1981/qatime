@@ -109,7 +109,7 @@ module LiveStudio
     has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
     has_many :taste_tickets, as: :product # 试听证
     has_many :video_lessons, -> { order('id asc') }
-    has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
+    has_many :live_studio_video_course_notifications, as: :notificationable, dependent: :destroy
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }

@@ -9,7 +9,7 @@ module Entities
         lesson.replayable_for?(options[:current_user])
       end
       expose :replay, using: Entities::LiveStudio::ChannelVideo do |lesson|
-        lesson.replays.board.merged.last
+        lesson.replays.board.merged.order(:id)
       end
     end
   end

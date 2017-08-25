@@ -67,7 +67,6 @@ module LiveStudio
 
     has_many :play_records, -> { where(product_type: 'LiveStudio::Course') } # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
-    has_many :channel_videos, as: :target
     has_many :replays, as: :target
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
@@ -322,9 +321,7 @@ module LiveStudio
     def replayable_for?(user)
       return false if user.blank?
       return true if user.admin?
-      return true if course.buy_tickets.where(student_id: user.id).available.exists?
-      return true if course.play_authorize(user, nil)
-      false
+      course.buy_tickets.where(student_id: user.id).available.exists?
     end
 
     # 是否显示剩余次数

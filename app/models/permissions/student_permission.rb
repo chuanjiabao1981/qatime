@@ -318,7 +318,8 @@ module Permissions
       api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
       ## end 苹果内购
     end
-private
+
+    private
 
     def topicable_permission(topicable,user)
       return false if topicable.nil?

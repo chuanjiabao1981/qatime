@@ -14,7 +14,11 @@ module Entities
         item.video.try(:duration).to_i
       end
       expose :video_url do |item|
-        item.video.try(:orig_url)
+        if item.target.is_a?(::LiveStudio::InteractiveLesson)
+          item.video.try(:shd_mp4_url)
+        else
+          item.video.try(:orig_url)
+        end
       end
     end
   end

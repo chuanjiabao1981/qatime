@@ -1,0 +1,33 @@
+<div class="course-item">
+  <div class="nav-item">
+    <span><%= t('view.play.teacher_info')%></span>
+  </div>
+
+  <div class="course-lessons">
+    <div class="lessons-detail tec-live">
+      <%= link_to profile_teacher_path(@current_teacher.id) do %>
+        <%= image_tag @current_teacher.avatar_url, class: "handle_error_avatar" %>
+      <% end %>
+      <p>
+        <%= link_to profile_teacher_path(@current_teacher.id) do %>
+          <span><%= @current_teacher.name %></span>
+          <%= image_tag "#{@current_teacher.gender || 'male'}_big.png" %>
+        <% end %>
+      </p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teaching_years_text') %></h3>
+      <p><%= @current_teacher.teaching_years_text %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teacher_school_name') %></h3>
+      <p><%= @current_teacher.school.try(:name) %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teacher_summary')%></h3>
+      <p>
+        <%= raw @current_teacher.desc -%>
+      </p>
+    </div>
+  </div>
+</div>

@@ -485,8 +485,14 @@ module LiveStudio
       lessons.where(live_end_at: nil)
     end
 
+    # 可试听的lesson = 未上课时 - 付费课时
+    # 付费课时 = 总课时 - 试听课时
+    # 最后几节付费课时不可试听!
     def taste_items
-      order_lessons.where(live_end_at: nil).limit(taste_count)
+      charge_count = lessons_count - taste_count
+      unstart_lessons = order_lessons.where(live_end_at: nil)
+      can_taste_lesson_count = [unstart_lessons.count - charge_count, 0].max
+      unstart_lessons.limit(can_taste_lesson_count)
     end
 
     def check_ticket!(order_or_user)
@@ -598,7 +604,7 @@ module LiveStudio
     # 辅导班创建通知指定教师
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
+      ::LiveStudioCourseNotification.find_or_create_by(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     before_validation :check_sell_type

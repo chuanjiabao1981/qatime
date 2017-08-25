@@ -226,6 +226,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
+      api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"
 
       # 游客绑定账号
       api_allow :POST, "/api/v1/user/guests/[\\w-]+/bind"
@@ -317,7 +318,8 @@ module Permissions
       api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
       ## end 苹果内购
     end
-private
+
+    private
 
     def topicable_permission(topicable,user)
       return false if topicable.nil?

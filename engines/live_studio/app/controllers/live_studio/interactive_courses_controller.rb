@@ -6,6 +6,7 @@ module LiveStudio
 
     before_action :find_workstation, except: [:index, :show]
     before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play]
+    before_action :play_authorize, only: [:play]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
@@ -73,8 +74,10 @@ module LiveStudio
 
     def play
       load_play_data
-      @current_lesson = @interactive_course.current_lesson
+      @course = @interactive_course
       @teachers = @interactive_course.teachers
+      @current_lesson = @interactive_course.current_lesson
+      @current_teacher = @current_lesson.teacher || @teachers.first
       render layout: 'v1/live'
     end
 
@@ -141,12 +144,17 @@ module LiveStudio
     end
 
     def load_play_data
-      @chat_team = @interactive_course.chat_team
+      @chat_team = @interactive_course.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@interactive_course, @interactive_course.teacher.chat_account)
       @chat_account = current_user.try(:chat_account)
       if @chat_account.nil?
         @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
       end
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
+    end
+
+    # 直播授权
+    def play_authorize
+      redirect_to @interactive_course, alert: i18n_failed('have_not_bought', @interactive_course) unless @interactive_course.play_authorize(current_user, nil)
     end
 
   end

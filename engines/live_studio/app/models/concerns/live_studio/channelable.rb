@@ -6,7 +6,7 @@ module LiveStudio
       has_many :channels, as: :channelable
       has_many :push_streams, through: :channels
       has_many :pull_streams, through: :channels
-      after_create :async_init_channels
+      after_commit :async_init_channels, on: :create
     end
 
     def async_init_channels
@@ -45,11 +45,11 @@ module LiveStudio
     private
 
     def init_board_channels
-      channels.create(name: "#{name} - 直播室 - #{model_name} #{id} - 白板", channelable: self, use_for: :board)
+      channels.create(name: "直播室-白板-#{model_name}#{id}-#{name}", channelable: self, use_for: :board)
     end
 
     def init_camera_channels
-      channels.create(name: "#{name} - 直播室 - #{model_name} #{id} - 摄像头", channelable: self, use_for: :camera)
+      channels.create(name: "直播室-摄像头-#{model_name}#{id}-#{name}", channelable: self, use_for: :camera)
     end
   end
 end

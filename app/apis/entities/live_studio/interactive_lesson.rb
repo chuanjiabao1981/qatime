@@ -7,6 +7,7 @@ module Entities
       expose :start_time
       expose :end_time
       expose :status
+      expose :replayable
       expose :teacher, using: Entities::Teacher, if: { type: :full }
     end
   end

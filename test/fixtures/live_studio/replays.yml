@@ -44,3 +44,17 @@ replay_group1_scheduled_lesson1_replays1:
   status: 1
   orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
   video_for: 0
+
+interactive_lesson_replay1_1:
+  target: interactive_lesson_replay1 (LiveStudio::InteractiveLesson)
+  name: interactive_lesson_replay1_1
+  status: 1
+  video_for: 0
+  vid: 1233211
+
+interactive_lesson_replay1_2:
+  target: interactive_lesson_replay1 (LiveStudio::InteractiveLesson)
+  name: interactive_lesson_replay1_2
+  status: 1
+  video_for: 0
+  vid: 1233212

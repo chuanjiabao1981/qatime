@@ -7,11 +7,11 @@ module LiveStudio
 
     def replay
       @lesson = @interactive_lesson
-      @course = @interactive_lesson.course
-      @video = @interactive_lesson.replays.where(video_for: 0).first
-      # @video = Lesson.find(478).replays.where(video_for: 0).first
-      @lessons = @course.interactive_lessons.merged.order(:class_date, :live_start_at, :live_end_at)
-      PlayRecord.init_play(current_user, @interactive_lesson.course, @interactive_lesson)
+      @course = @interactive_lesson.interactive_course
+      @replays = @interactive_lesson.replays.board.merged.order(:id)
+      @current_replay = @replays.find_by(vid: params[:vid]).presence || @replays.first
+      @lessons = @course.interactive_lessons.merged.includes(:replays).order(:class_date, :live_start_at, :live_end_at)
+      PlayRecord.init_play(current_user, @course, @lesson)
     end
 
     private

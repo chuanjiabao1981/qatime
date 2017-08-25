@@ -44,8 +44,44 @@ module V1
               Rails.logger.info params
             end
             {
-              code: code
+                code: code
             }
+          end
+
+          desc '音视频回调接口'
+          params do
+            optional :eventType
+            optional :fileinfo
+          end
+          post 'im_callback' do
+            status 200
+            Rails.logger.info "im_callback start......................."
+            Rails.logger.info params
+            begin
+              code = 500
+              if params[:eventType].to_s == '6'
+                res = JSON.parse(params[:fileinfo])[0]
+                channel_video = ::LiveStudio::ChannelVideo.find_by(channelid: res['channelid'])
+                code = 200 if channel_video && channel_video.merge_callback(res)
+              end
+            rescue StandardError => e
+              Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
+              Rails.logger.info params
+            end
+            {
+                code: code
+            }
+          end
+
+          desc '转码回调接口'
+          params do
+            optional :type
+          end
+          post 'transcode_callback' do
+            Rails.logger.info "transcode_callback start......................."
+            Rails.logger.info params
+            channel_video = ::LiveStudio::ChannelVideo.find_by(vid: params[:vid])
+            channel_video.transcode_callback
           end
         end
       end

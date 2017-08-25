@@ -69,7 +69,6 @@ module LiveStudio
 
     has_many :play_records, -> { where(product_type: 'LiveStudio::InteractiveCourse') }, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
-    has_many :channel_videos, as: :target
     has_many :replays, as: :target
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
@@ -267,12 +266,12 @@ module LiveStudio
       # 记录播放记录
       instance_play_records
       # 获取回放视频
-      async_fetch_replays
+      # async_fetch_replays
     end
 
     # 结束直播回调
     def close_hook
-      async_fetch_replays
+      # async_fetch_replays
     end
 
     # 记录播放记录

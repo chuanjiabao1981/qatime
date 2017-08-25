@@ -25,11 +25,12 @@ module V1
               requires :id, type: Integer, desc: '课程ID'
               requires :room_id, type: String, desc: '房间ID'
               optional :t, type: Integer, desc: '时间戳秒数'
+              requires :channel_id, type: String, desc: 'channel_id'
             end
             post 'live_start' do
               Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
                 if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
-                  LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id])
+                  LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id], params[:channel_id])
                 end
               end
               {
@@ -82,6 +83,20 @@ module V1
                 result: 'ok',
                 live_token: live_token
               }
+            end
+
+            desc '一对一回放视频信息接口' do
+              headers 'Remember-Token' => {
+                          description: 'RememberToken',
+                          required: true
+                      }
+            end
+            params do
+              requires :id, type: Integer, desc: '课程ID'
+            end
+            get 'replay' do
+              ::LiveStudio::PlayRecord.init_play(current_user, @interactive_lesson.interactive_course, @interactive_lesson)
+              present @interactive_lesson, with: Entities::LiveStudio::InteractiveLessonReplay, current_user: current_user
             end
           end
         end

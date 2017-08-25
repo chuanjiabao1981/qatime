@@ -2,6 +2,7 @@
 class CreateResourceQuotes < ActiveRecord::Migration
   def change
     create_table :resource_quotes do |t|
+      t.string :name
       t.references :file, index: true
       t.references :quoter, polymorphic: true
 

@@ -90,6 +90,7 @@ module LiveStudio
     has_many :lessons, dependent: :destroy, class_name: 'LiveStudio::Event', foreign_key: :group_id
     has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
+    has_many :live_studio_group_notifications, as: :notificationable, dependent: :destroy
 
     belongs_to :province
     belongs_to :city
@@ -273,6 +274,12 @@ module LiveStudio
       self.price = 0
       self.taste_count = 0
       self.teacher_percentage = 0
+    end
+
+    # 专属课创建通知指定教师
+    after_commit :notice_teacher_for_assign, on: :create
+    def notice_teacher_for_assign
+      ::LiveStudioGroupNotification.find_or_create_by(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     after_create do

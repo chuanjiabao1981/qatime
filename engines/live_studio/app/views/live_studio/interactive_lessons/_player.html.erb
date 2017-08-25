@@ -3,7 +3,7 @@
     <div class="area-left">
       <div class="area-left-con">
         <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'live_cover_default.png' %>" preload="auto" width="" height="" data-setup="{}">
-          <source src="<%= @video.try(:orig_url) %>" type="video/x-flv">
+          <source src="<%= @current_replay.try(:shd_mp4_url) %>" type="video/mp4">
         </video>
       </div>
     </div>
@@ -14,13 +14,19 @@
         <% @lessons.each_with_index do |lesson, index| %>
           <li>
             <% if allow?("live_studio/interactive_lessons", :replay, lesson) %>
-              <% link = lesson.id == @interactive_lesson.id ? 'javascript:void(0);' : live_studio.replay_interactive_lesson_path(lesson) %>
-              <%= link_to link do %>
-                <div class="row">
-                  <div class="col-md-2 <%= 'active' if lesson.id == @interactive_lesson.id %>"><span><%= format('%02d', index + 1) %></span></div>
-                  <div class="col-md-10 <%= 'active' if lesson.id == @interactive_lesson.id %>"><span><%= lesson.name %></span></div>
-                </div>
-              <% end %>
+              <div class="row">
+                <div class="col-md-2"><span><%= format('%02d', index + 1) %></span></div>
+                <div class="col-md-10"><span><%= lesson.name %></span></div>
+                <% lesson.replays.order(:id).each_with_index do |replay, index| %>
+                  <div class="col-md-10 col-md-offset-2 playback-con-time">
+                    <% if replay.id == @current_replay.try(:id) %>
+                      <%= link_to t("view.replay.replay_part_of", index: index+1), 'javascript:void(0);', class: 'active' %>
+                    <% else %>
+                      <%= link_to t("view.replay.replay_part_of", index: index+1), live_studio.replay_interactive_lesson_path(lesson, vid: replay.vid) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             <% end %>
           </li>
         <% end %>

@@ -236,6 +236,13 @@ replay_ticket2:
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
+replay_ticket3:
+  student: student_one_with_course
+  product: course_for_replay (LiveStudio::Course)
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::TasteTicket
+
 ticket_one_of_billing_course_one:
   student: student_with_order2
   product: billing_course_one (LiveStudio::Course)
@@ -247,7 +254,7 @@ ticket_one_of_billing_course_one:
   platform_percentage: 10
 
 ticket_three_of_billing_course_one:
-  student: student_with_order3
+  student: student_one_with_course
   product: billing_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
@@ -256,7 +263,7 @@ ticket_three_of_billing_course_one:
   platform_percentage: 10
 
 ticket_four_of_billing_course_one:
-  student: student_with_order3
+  student: student_one_with_course
   product: billing_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
@@ -265,7 +272,7 @@ ticket_four_of_billing_course_one:
   platform_percentage: 10
 
 ticket_of_billing_fail_course_one:
-  student: student_with_order3
+  student: student_one_with_course
   product: billing_fail_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50

@@ -121,6 +121,7 @@ $(function() {
   window.live_chat = new LiveChat("<%= Chat::IM.app_key %>");
   live_chat.config(accid, token, chat_team_id, owner_id);
   live_chat.init(function() {
+    if(window.barrage) live_chat.setBarrage(window.barrage);
     refreshTeamMembersUI(chat_team_id, chatInitCallback);
   });
 
@@ -128,7 +129,6 @@ $(function() {
   $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" }, function() {
     $("#message-area").focus();
   });
-
 
   // 历史消息
   $('#history-btn').click(function(event) {

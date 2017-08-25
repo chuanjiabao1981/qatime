@@ -8,8 +8,9 @@ class LiveStudioCourseNotification < ::Notification
   def notice_content
     I18n.t("view.notification.#{notificationable.model_name.i18n_key}.#{action_name}",
            course_name: notificationable.name,
-           day: notificationable.class_date,
+           day: notificationable.try(:class_date),
            announcement: notificationable.announcement,
+           content: notificationable.try(:announcements).try(:lastest).try(:first).try(:content),
            teacher_name: notificationable.try(:teacher).try(:name)
           )
   end

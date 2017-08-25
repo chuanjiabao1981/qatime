@@ -25,6 +25,8 @@ module LiveStudio
       assert page.has_link?("观看回放"), "详情页课程没有回放链接"
       lesson = @course.interactive_lessons.first
       visit live_studio.replay_interactive_lesson_path(lesson)
+      assert page.has_link? '第1段回放'
+      assert page.has_link? '第2段回放'
       assert page.has_content? lesson.name
       assert page.has_content? '基本属性'
       assert page.has_content? '执教年龄'

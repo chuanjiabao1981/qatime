@@ -6,7 +6,9 @@ module LiveService
 
     def notice(action_name)
       receivers_of(action_name).each do |receiver|
-        ::LiveStudioCourseNotification.create(receiver: receiver, notificationable: @course, action_name: action_name)
+        ::LiveStudioCourseNotification.create(receiver: receiver, notificationable: @course, action_name: action_name) if @course.is_a?(::LiveStudio::Course)
+        ::LiveStudioInteractiveCourseNotification.create(receiver: receiver, notificationable: @course, action_name: action_name) if @course.is_a?(::LiveStudio::InteractiveCourse)
+        ::LiveStudioGroupNotification.create(receiver: receiver, notificationable: @course, action_name: action_name) if @course.is_a?(::LiveStudio::Group)
       end
     end
 

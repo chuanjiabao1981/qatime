@@ -319,6 +319,10 @@ window.currentTeam = {
       currentTeam.account = account;
     };
     this.setBarrage = function(barrage) {
+      console.log('------>>>>>>>>');
+      console.log(currentTeam);
+      console.log(barrage);
+
       currentTeam.barrage = barrage;
     };
     this.init = function(fn) {

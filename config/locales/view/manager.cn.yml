@@ -11,6 +11,7 @@ cn:
           course_name: 所属可课程
           start_at: 开始于
           play: 进入听课
+          live_play: 进入观看
         action_records:
           title: 实时动态
           more: 全部动态

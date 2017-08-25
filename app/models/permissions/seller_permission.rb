@@ -173,8 +173,8 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'live_studio/interactive_courses', [:index, :show, :preview]
-      allow 'live_studio/customized_groups', [:index, :show, :preview, :play]
+      allow 'live_studio/interactive_courses', [:index, :show, :preview, :play, :live_info]
+      allow 'live_studio/customized_groups', [:index, :show, :preview, :play, :live_info]
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true

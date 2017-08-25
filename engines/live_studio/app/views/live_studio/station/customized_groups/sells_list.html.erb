@@ -1,0 +1,33 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab_sell' %>
+
+    <div class="filter">
+      <%= render partial: 'live_studio/station/video_courses/filter', locals: { url: live_studio.sells_list_station_workstation_customized_groups_path(@workstation) } %>
+    </div>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <th><%= t('common.index_no') %></th>
+          <th><%= t('view.live_studio/customized_group.index.name') %></th>
+          <th><%= t('view.live_studio/course.index.teacher') %></th>
+          <th><%= t('view.live_studio/course.index.price') %></th>
+          <th><%= t('view.live_studio/course.index.base_price') %></th>
+          <th><%= t('view.live_studio/course.index.sell_percentage') %></th>
+          <th><%= t('view.live_studio/course.index.platform_percentage') %></th>
+          <th><%= t('view.live_studio/course.index.sell_workstation') %></th>
+          <th><%= t('view.live_studio/course.index.published_at') %></th>
+          <th><%= t('common.operate') %></th>
+        </tr>
+
+        <%= render partial: 'customized_group_sell', collection: @customized_groups %>
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @customized_groups.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @customized_groups, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

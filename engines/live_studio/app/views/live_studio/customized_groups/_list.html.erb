@@ -1,0 +1,38 @@
+<div class="line-item">
+  <div class="container">
+    <% if @customized_groups.present? %>
+      <ul class="item-handpick">
+        <% @customized_groups.each do |customized_group| %>
+          <li class="col-md-3 col-xs-6">
+            <%= link_to live_studio.customized_group_path(customized_group) do %>
+              <%= image_tag(customized_group.publicize_url(:list), class: 'handle_error_list') %>
+            <% end %>
+            <div class="handpick-info">
+              <p>
+                <%= link_to live_studio.customized_group_path(customized_group) do %>
+                  <strong><%= truncate_u customized_group.name, length: 12 %></strong>
+                <% end %>
+              </p>
+              <p>
+                <span><%= customized_group.grade %><%= customized_group.subject %></span>
+                <% if customized_group.sell_type.free? %>
+                  <span class="class-price"><%= t('common.free_of_charge') %></span>
+                <% else %>
+                  <span class="class-price"><%= number_to_currency(customized_group.current_price) %></span>
+                <% end %>
+              </p>
+            </div>
+            <div class="classify-info">
+              <p>
+                <span><%= t('common.teacher') %>：<i><%= truncate_u customized_group.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text2', count: customized_group.buy_user_count) %></i></span>
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= render partial: 'shared/blank_search' if @customized_groups.blank? %>
+    <center><div class="pagination-fix"><%= will_paginate @customized_groups, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+  </div>
+</div>

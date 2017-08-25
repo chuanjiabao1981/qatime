@@ -36,6 +36,7 @@ module V1
             requires :id, type: Integer, desc: '课程ID'
             requires :board, type: Integer, values: [0, 1, 2], desc: '是否开始直播白板. 1: 是, 0: 否, 2: 已关闭'
             requires :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否, 2: 已关闭'
+            optional :t, type: Integer, desc: '时间戳秒数'
           end
           post ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
@@ -100,6 +101,7 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '课程ID'
+            optional :t, type: Integer, desc: '时间戳秒数'
           end
           post ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
@@ -157,7 +159,7 @@ module V1
           get 'today' do
             home_data = DataService::HomeData.new
             lessons = home_data.today_lives
-            present lessons, with: ::Entities::LiveStudio::TodayLesson
+            present lessons, with: ::Entities::LiveStudio::TodayFullLesson
           end
         end
       end

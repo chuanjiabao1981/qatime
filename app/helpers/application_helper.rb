@@ -359,6 +359,8 @@ module ApplicationHelper
       r = controller_name == 'interactive_courses'
     when :video_courses
       r = controller_name == 'video_courses'
+    when :customized_groups
+      r = controller_name == 'customized_groups'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes
@@ -393,6 +395,8 @@ module ApplicationHelper
       r = controller_name == 'interactive_courses'
     when :my_video_courses
       r = controller_name == 'video_courses'
+    when :my_customized_groups
+      r = controller_name == 'customized_groups'
     when :schedule
       r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students
@@ -430,12 +434,13 @@ module ApplicationHelper
       course_page = (params[:controller] == 'live_studio/courses' && %w[new update_class_date].include?(action_name))
       interactive_courses_page = (params[:controller] == 'live_studio/station/interactive_courses' && action_name == 'index')
       interactive_course_page = (params[:controller] == 'live_studio/interactive_courses' && %w[new update_class_date].include?(action_name))
+      customized_groups_page = (params[:controller] == 'live_studio/station/customized_groups' && %w[index new update_class_date].include?(action_name))
       video_courses_page = (params[:controller] == 'live_studio/station/video_courses' && %w[audits list edit].include?(action_name))
       lessons_state_page = (params[:controller] == 'station/lessons' && action_name == 'state')
       customized_courses_page = (params[:controller] == 'station/workstations' && action_name == 'customized_courses')
-      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || lessons_state_page || customized_courses_page
+      r = my_courses_page || course_page || interactive_courses_page || interactive_course_page || video_courses_page || customized_groups_page || lessons_state_page || customized_courses_page
     when :seller_courses
-      r = %w[live_studio/station/courses live_studio/station/video_courses].include?(params[:controller]) && action_name == 'index'
+      r = %w[live_studio/station/courses live_studio/station/video_courses live_studio/station/customized_groups].include?(params[:controller]) && %w[index sells_list].include?(action_name)
     when :webpage
       r = %w[recommend/station/banner_items recommend/station/choiceness_items recommend/station/teacher_items recommend/station/topic_items recommend/station/replay_items].include?(params[:controller])
     when :sellers
@@ -534,6 +539,19 @@ module ApplicationHelper
       link_to LiveStudio::Lesson.human_attribute_name(:replay), 'javascript:void(0);', class: 'active'
     else
       link_to LiveStudio::Lesson.human_attribute_name(:replay), live_studio.replay_interactive_lesson_path(lesson), class: 'active', target: '_blank'
+    end
+  end
+
+  # 专属课回放按钮
+  def customized_group_replay_button_of(lesson, preview = false)
+    return lesson.status_text if current_user.blank?
+    return lesson.status_text(current_user.try(:role)) unless lesson.replayable
+    return lesson.status_text(current_user.try(:role)) unless allow?("live_studio/scheduled_lessons", :replay, lesson)
+
+    if preview
+      link_to LiveStudio::Lesson.human_attribute_name(:replay), 'javascript:void(0);', class: 'active'
+    else
+      link_to LiveStudio::Lesson.human_attribute_name(:replay), live_studio.replay_scheduled_lesson_path(lesson), class: 'active', target: '_blank'
     end
   end
 end

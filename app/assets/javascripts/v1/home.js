@@ -89,6 +89,14 @@ $(function(){
     $(this).find(".classify-details").hide();
   });
 
+  $(".fixed-bar li").hover(function  () {
+    $(this).find('a > img').hide();
+    $(this).find('a > p').show();
+  },function  () {
+    $(this).find('a > img').show();
+    $(this).find('a > p').hide();
+  });
+
   $(".fixed-weixin").hover(function() {
     $(this).find(".weixin-code").fadeIn(100);
   }, function() {

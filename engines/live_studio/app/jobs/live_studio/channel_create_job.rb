@@ -2,8 +2,9 @@ module LiveStudio
   class ChannelCreateJob < ActiveJob::Base
     queue_as :live_studio
 
-    def perform(channelable_id, channelable_type = 'LiveStudio::Course')
-      channelable_type.constantize.find(channelable_id).init_channels
+    # 支持GlobalID 对象传递
+    def perform(channelable)
+      channelable.init_channels
     end
   end
 end

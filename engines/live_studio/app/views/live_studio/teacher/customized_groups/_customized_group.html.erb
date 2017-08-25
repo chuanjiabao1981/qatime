@@ -1,0 +1,41 @@
+<li>
+  <div class="row">
+    <div class="col-md-3 discipline-pic">
+      <%= link_to image_tag(customized_group.publicize_url(:list), class: 'handle_error_list'), live_studio.customized_group_path(customized_group), target: '_blank' %>
+    </div>
+    <div class="col-md-7 discipline-info">
+      <div class="row info-title">
+        <div class="col-md-12">
+          <%= link_to live_studio.customized_group_path(customized_group), target: '_blank' do %>
+            <strong><%= customized_group.name %></strong>
+          <% end -%>
+        </div>
+      </div>
+      <div class="row info-state">
+        <div class="col-md-7">
+          <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+          <span><%= customized_group.grade %></span>
+        </div>
+        <div class="col-md-5">
+          <span><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
+          <span><%= customized_group.closed_events_count %>/<%= customized_group.events_count %></span>
+        </div>
+      </div>
+      <div class="row info-user">
+        <div class="col-md-7">
+          <span><%= LiveStudio::Course.human_attribute_name(:price) %></span>
+          <span><%= number_to_currency(customized_group.price, precision: 2) %></span>
+          <i>(<%= number_to_percentage(customized_group.teacher_percentage, precision: 0) %><%= LiveStudio::Course.human_attribute_name(:percentage) %>)</i>
+        </div>
+        <div class="col-md-5">
+          <span><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
+          <span><%= customized_group.buy_tickets_count %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 course-state">
+      <span class="col-md-12 col-sm-4 col-xs-4"><%= customized_group.status.text %></span>
+      <%= link_to t("common.announcement"), live_studio.customized_group_announcements_path(customized_group), class: 'col-md-12 col-sm-4 col-xs-4' if %w[published teaching].include?(customized_group.status) %>
+    </div>
+  </div>
+</li>

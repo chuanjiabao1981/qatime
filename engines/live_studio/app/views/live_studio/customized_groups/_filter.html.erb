@@ -1,0 +1,125 @@
+<%= search_form_for @q, id: 'search-form' do |f| %>
+  <%= hidden_field_tag :range, @search_params[:range] %>
+  <%= f.search_field :status, type: 'hidden' %>
+  <%= f.search_field :grade_eq, type: 'hidden' %>
+  <%= f.search_field :subject_eq, type: 'hidden' %>
+
+  <ul class="personal-nav">
+    <li>
+      <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %>：</span>
+      <span class="col-md-11">
+        <%= link_to t("view.course_filter.all"), live_studio.customized_groups_path(@search_params.deep_merge(q: { grade_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:grade_eq].blank? }" %>
+        <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
+          <%= link_to grade, live_studio.customized_groups_path(@search_params.deep_merge(q: { grade_eq: grade })), class: "#{'active' if @search_params[:q] && @search_params[:q][:grade_eq] == grade }" %>
+        <% end %>
+      </span>
+    </li>
+
+    <li>
+      <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %>：</span>
+      <span class="col-md-11">
+        <%= link_to t("view.course_filter.all"), live_studio.customized_groups_path(@search_params.deep_merge(q: { subject_eq: nil })), class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:subject_eq].blank? }" %>
+        <% APP_CONSTANT['subjects'].each do |subject| %>
+          <%= link_to subject, live_studio.customized_groups_path(@search_params.deep_merge(q: { subject_eq: subject })), class: "#{'active' if @search_params[:q] && @search_params[:q][:subject_eq] == subject }" %>
+        <% end %>
+      </span>
+    </li>
+
+    <li class="filter-condition">
+      <span class="nav-all <%= 'active' if @search_params[:range].present? %>">
+        <%= link_to live_studio.customized_groups_path(@search_params.merge(range: nil)) do %>
+          <em><%= t("view.course_filter.range/#{@search_params[:range] || 'all'}") %></em>
+          <i class="fa fa-angle-down"></i>
+        <% end %>
+        <ul>
+          <% if @search_params[:range].present? %>
+            <li><%= link_to t("view.course_filter.range/all"), live_studio.customized_groups_path(@search_params.merge(range: nil)) %></li>
+          <% end %>
+          <% %w(1_months 2_months 3_months 6_months 1_years).delete_if {|v| v == @search_params[:range].to_s }.each do |range_name| -%>
+            <li><%= link_to t("view.course_filter.range/#{range_name}"), live_studio.customized_groups_path(@search_params.merge(range: range_name)) %></li>
+          <% end %>
+        </ul>
+      </span>
+      <span>|</span>
+
+      <span class="nav-hot">
+        <%= f.sort_link :published_at, LiveStudio::Course.human_attribute_name(:latest) %>
+        <%= f.sort_link :price, LiveStudio::Course.human_attribute_name(:price) %>
+        <%= f.sort_link :buy_tickets_count, LiveStudio::Course.human_attribute_name(:users_count) %>
+      </span>
+      <span>|</span>
+
+      <span class="nav-time">
+        <%= link_to "javascript:void(0);" do -%>
+          <i><%= LiveStudio::Course.human_attribute_name(:live_start_date) %></i>
+        <% end %>
+        <i class="nav-datetime">
+          <%= f.search_field :start_at_gteq, value: f.object.start_at_gteq.try(:to_date) %>
+          <%= f.label :start_at_gteq, class: "glyphicon glyphicon-calendar" do %>
+          <% end -%>
+        </i>
+        <i class="nav-date-to">-</i>
+        <i class="nav-datetime">
+          <%= f.search_field :start_at_lt, value: f.object.start_at_lt.try(:to_date) %>
+          <%= f.label :start_at_lt, class: "glyphicon glyphicon-calendar" do %>
+          <% end -%>
+        </i>
+      </span>
+
+      <span class="nav-order">
+        <% LiveStudio::CustomizedGroup.sell_type.options.each do |item| %>
+          <% sell_type_id = LiveStudio::CustomizedGroup.sell_type.find_value(item.last).try(:value) %>
+          <%= link_to live_studio.customized_groups_path(@search_params.deep_merge(q: { sell_type_eq: sell_type_id })), class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == sell_type_id.to_s }" do %>
+            <i></i><%= item.first %>
+          <% end %>
+        <% end %>
+      </span>
+      <span class="nav-status">
+        <% LiveStudio::CustomizedGroup.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
+          <%= link_to live_studio.customized_groups_path(@search_params.deep_merge(q: { status: item.last })), class: "#{'active' if @search_params[:q] && @search_params[:q][:status] == item.last }" do %>
+            <i></i><%= item.first %>
+          <% end %>
+        <% end -%>
+      </span>
+    </li>
+  </ul>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      var start = {
+        skinCell: "jedatered",
+        format: 'YYYY-MM-DD',
+        isinitVal: false,
+        festival: false,
+        ishmsVal: false,
+        minDate: '2000-01-01',
+        maxDate: '<%= @search_params[:q] &&  @search_params[:q][:start_at_lt].present? ? @search_params[:q][:start_at_lt].to_date : '2099-06-16' %>', //最大日期
+        choosefun: function(elem, datas) {
+          $(this).val(datas);
+          $("#search-form").submit();
+        }
+      };
+      var end = {
+        skinCell: "jedatered",
+        format: 'YYYY-MM-DD',
+        festival: false,
+        minDate: '<%= @search_params[:q] &&  @search_params[:q][:start_at_gteq].present? ? @search_params[:q][:start_at_gteq].to_date : '2000-01-01' %>', //
+        maxDate: '2099-06-16', //最大日期
+        choosefun: function(elem, datas) {
+          $(this).val(datas);
+          $("#search-form").submit();
+        }
+      };
+      $('#q_start_at_gteq').jeDate(start);
+      $('#q_start_at_lt').jeDate(end);
+
+      $(".nav-all").hover(function() {
+        $(this).find("ul").show();
+      }, function() {
+        $(this).find("ul").hide();
+      });
+    });
+  </script>
+<% end %>

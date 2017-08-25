@@ -1,0 +1,33 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'live_studio/station/tab' %>
+
+    <div class="create-header">
+      <% if @workstation %>
+        <%= link_to live_studio.station_workstation_customized_groups_path(@workstation), class: 'back' do %>
+          <i class="fa fa-angle-left"></i>
+          <%= t('common.back') %>
+        <% end %>
+      <% end %>
+      <h3><%= t('view.live_studio/course.new.title') %></h3>
+      <a href="javascript:void(0);" class="course-hint">
+        <%= image_tag 'hint.png' %> <%= t('view.live_studio/course.new.label') %>
+        <div class="course-description">
+          <%= image_tag @customized_group.publicize_url(:info) %>
+          <h5><%= t('view.live_studio/customized_group.new.label0') %></h5>
+          <p><%= t('view.live_studio/customized_group.new.label1') %></p>
+          <p><%= t('view.live_studio/customized_group.new.label2') %></p>
+          <p><%= t('view.live_studio/customized_group.new.label3') %></p>
+        </div>
+      </a>
+    </div>
+
+    <div class="new-curriculum">
+      <div class="editor-con">
+        <div class="editor-msg">
+          <%= render 'form', url: live_studio.customized_groups_path(workstation_id: @workstation) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

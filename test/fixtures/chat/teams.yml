@@ -1,0 +1,11 @@
+published_group2_team1:
+  team_id: "79925658"
+  name: "发布的专属课2 讨论组"
+  owner: "07b7c43a854ed44d36c2941f1fc5ad00"
+  discussable: published_group2 (LiveStudio::Group)
+
+teaching_group_for_student_view1_team1:
+  team_id: "79925659"
+  name: "我的专属课teaching 讨论组"
+  owner: "07b7c43a854ed44d36c2941f1fc5ad09"
+  discussable: teaching_group_for_student_view1 (LiveStudio::Group)

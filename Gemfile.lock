@@ -59,6 +59,15 @@ PATH
     recommend (0.0.1)
       rails (~> 4.2.5.1)
 
+PATH
+  remote: engines/resource
+  specs:
+    resource (0.0.1)
+      carrierwave
+      carrierwave-aliyun
+      mini_magick
+      rails (~> 4.2.5.1)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -521,6 +530,7 @@ DEPENDENCIES
   ransack!
   recommend!
   redis
+  resource!
   responders (~> 2.0)
   rest-client
   roo

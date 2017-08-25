@@ -28,23 +28,24 @@ module Payment
       assert page.has_content?('家庭作业批改')
     end
 
-    test 'teacher withdraw operator test' do
-      visit payment.cash_user_path(@teacher)
-      withdraw_count = Payment::Withdraw.count
-      click_link '提现'
-      fill_in 'withdraw_amount', with: 1000
-      fill_in 'payment_password', with: '111111'
-      choose 'withdraw_pay_type_bank'
-      # fill_in 'bank_account', with: 'test'
-      # fill_in 'bank_name', with: 'test'
-      assert_difference "@teacher.cash_account.reload.balance.to_f", -1000, "提现未扣款" do
-        click_on '提现申请'
-        sleep(2)
-      end
-      assert page.has_content?('交易信息')
-      assert Payment::Withdraw.count == withdraw_count+1
-      click_link '提现记录'
-      assert page.has_content?(Payment::Withdraw.last.transaction_no)
-    end
+    # 提现功能已屏蔽
+    # test 'teacher withdraw operator test' do
+    #   visit payment.cash_user_path(@teacher)
+    #   withdraw_count = Payment::Withdraw.count
+    #   click_link '提现'
+    #   fill_in 'withdraw_amount', with: 1000
+    #   fill_in 'payment_password', with: '111111'
+    #   choose 'withdraw_pay_type_bank'
+    #   # fill_in 'bank_account', with: 'test'
+    #   # fill_in 'bank_name', with: 'test'
+    #   assert_difference "@teacher.cash_account.reload.balance.to_f", -1000, "提现未扣款" do
+    #     click_on '提现申请'
+    #     sleep(2)
+    #   end
+    #   assert page.has_content?('交易信息')
+    #   assert Payment::Withdraw.count == withdraw_count+1
+    #   click_link '提现记录'
+    #   assert page.has_content?(Payment::Withdraw.last.transaction_no)
+    # end
   end
 end

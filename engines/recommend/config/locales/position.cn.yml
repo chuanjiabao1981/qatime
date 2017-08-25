@@ -112,6 +112,7 @@ cn:
         course: 直播课
         interactive_course: 一对一
         video_course: 视频课
+        group: 专属课
     recommend/replay_item:
       target_type:
         course: 直播课

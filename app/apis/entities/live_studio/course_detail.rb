@@ -32,19 +32,19 @@ module Entities
       expose :lessons, using: Entities::LiveStudio::CourseLesson
       expose :icons do
         expose :refund_any_time do |course|
-          true
+          course.refund_any_time?
         end
         expose :coupon_free do |course|
-          true
+          course.coupon_free?
         end
         expose :cheap_moment do |course|
-          false
+          course.cheap_moment?
         end
         expose :join_cheap do |course|
           course.join_cheap?
         end
         expose :free_taste do |course|
-          course.taste_count.to_i > 0
+          course.free_taste?
         end
       end
       expose :off_shelve do |course|

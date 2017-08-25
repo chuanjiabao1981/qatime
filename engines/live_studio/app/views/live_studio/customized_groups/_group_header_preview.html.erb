@@ -1,0 +1,41 @@
+<div class="course-header">
+  <div class="container">
+    <div class="row course-class">
+      <div class="col-md-5 col-xs-12 pic">
+        <%= image_tag @customized_group.publicize_url(:info), class: 'handle_error_list' %>
+      </div>
+      <div class="col-md-7 col-xs-12 course-introduce">
+        <div class="course-title">
+          <h1><%= truncate_u @customized_group.name, length: 24 %></h1>
+          <span><%= t('view.live_studio/courses.show.purchase_number', count: @customized_group.buy_user_count ) %></span>
+        </div>
+        <div class="course-line">
+          <span class="<%= 'active' if @customized_group.refund_any_time? %>">
+            <%= image_tag "course-#{@customized_group.refund_any_time? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.refund') %></i>
+          </span>
+          <span class="<%= 'active' if @customized_group.coupon_free? %>">
+            <%= image_tag "course-#{@customized_group.coupon_free? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.coupon_free') %></i>
+          </span>
+          <span class="<%= 'active' if @customized_group.cheap_moment? %>">
+            <%= image_tag "course-#{@customized_group.cheap_moment? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.cheap') %></i>
+          </span>
+        </div>
+
+        <div class="course-price">
+          <% if @customized_group.sell_type.free? %>
+            <span class="price-left"><%= t('common.free_of_charge') %></span>
+          <% else %>
+            <span class="price-left"><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
+          <% end %>
+
+          <span class="price-right">
+            <%= link_to t('activerecord.view.enroll_now'), "javascript:void(0);", class: 'btn-addclass' %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,7 @@ module Permissions
 
       allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/live_studio/video_courses', [:show]
+      allow 'wap/live_studio/customized_groups', [:show]
       allow 'wap/softwares', [:index]
       allow 'wap/users', [:new, :create]
       allow 'wap/sessions', [:new, :create]
@@ -53,11 +54,17 @@ module Permissions
       api_allow :GET, "/api/v1/user/check"
       api_allow :POST, "/api/v1/user/wechat_regsiter"
 
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/customized_groups' # 列表
+      api_allow :GET, '/api/v1/live_studio/customized_groups/[\\w-]+/detail' # 详情
+      ## 专属课 end
+
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
       allow 'live_studio/interactive_courses', [:index, :show]
       allow 'live_studio/video_courses', [:index, :show]
+      allow 'live_studio/customized_groups', [:index, :show]
 
       ## end api permission
     end

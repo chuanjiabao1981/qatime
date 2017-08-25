@@ -1,12 +1,14 @@
 <li>
   <div class="row">
     <div class="col-md-3 discipline-pic">
-      <%= image_tag(interactive_course.publicize_url(:list)) -%>
+      <%= link_to image_tag(interactive_course.publicize_url(:list), class: 'handle_error_list'), live_studio.interactive_course_path(interactive_course), target: '_blank' %>
     </div>
     <div class="col-md-6 discipline-info">
       <div class="row info-title">
         <div class="col-md-12">
-          <strong><%= interactive_course.name %></strong>
+          <%= link_to live_studio.interactive_course_path(interactive_course), target: '_blank' do %>
+            <strong><%= interactive_course.name %></strong>
+          <% end -%>
         </div>
       </div>
       <div class="row info-state">
@@ -29,8 +31,7 @@
     </div>
     <div class="col-md-3 course-state">
       <span class="col-md-12 col-sm-4 col-xs-4"><%= interactive_course.status.text %></span>
-      <%= link_to t("common.preview"), live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank', class: 'col-md-12 col-sm-4 col-xs-4' %>
-      <%= link_to t("common.announcement"), live_studio.interactive_course_announcements_path(interactive_course), class: 'col-md-12 col-sm-4 col-xs-4' if interactive_course.teaching? %>
+      <%= link_to t("common.announcement"), live_studio.interactive_course_announcements_path(interactive_course), class: 'col-md-12 col-sm-4 col-xs-4' if %w[published teaching].include?(interactive_course.status) %>
     </div>
   </div>
 </li>

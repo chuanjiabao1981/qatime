@@ -5,7 +5,7 @@ module Recommend
 
     attr_accessor :course_id, :course_required, :course_type
 
-    enumerize :course_type, in: { course: 'LiveStudio::Course', interactive_course: 'LiveStudio::InteractiveCourse' }#, group: 'LiveStudio::Group' }
+    enumerize :course_type, in: { course: 'LiveStudio::Course', interactive_course: 'LiveStudio::InteractiveCourse', group: 'LiveStudio::Group' }
 
     validates :course_id, :course_type, presence: true, if: :course_required
     validates_presence_of :target_id, :target_type, :target
@@ -16,7 +16,7 @@ module Recommend
     end
 
     def course
-      target.try(:course) #|| target.try(:group)
+      target.try(:course) || target.try(:group)
     end
 
     def video

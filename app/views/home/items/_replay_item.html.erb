@@ -5,9 +5,9 @@
     <% end %>
   </div>
   <div class="col-md-8 col-sm-8 playback-info">
-    <h5>
+    <p class="replays-head">
       <%= link_to replay_item.target.try(:name), main_app.replay_home_path(replay_item), target: '_blank' %>
-    </h5>
+    </p>
     <p>
       <span><%= replay_item.course.try(:grade) %><%= replay_item.course.try(:subject) %></span>
       <i>|</i>

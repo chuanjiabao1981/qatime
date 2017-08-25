@@ -45,7 +45,8 @@ module LiveService
       def teacher_schedule_items(range)
         course_lessons = @user.live_studio_lessons.includes(:course).where(class_date: range)
         interactive_course_lessons = @user.live_studio_interactive_lessons.includes(:interactive_course).where(class_date: range)
-        course_lessons.to_a + interactive_course_lessons.to_a
+        events = @user.live_studio_events.scheduled_and_offline_lessons.includes(:group).where(class_date: range)
+        course_lessons.to_a + interactive_course_lessons.to_a + events.to_a
       end
     end
 
@@ -56,7 +57,8 @@ module LiveService
       def student_schedule_items(range)
         lessons_items = lessons_ticket_items.where('live_studio_lessons.class_date' => range)
         interactive_lessons_items = interactive_lessons_ticket_items.where('live_studio_interactive_lessons.class_date' => range)
-        lessons_items.to_a + interactive_lessons_items.to_a
+        events_items = events_ticket_items.where('live_studio_events.class_date' => range)
+        lessons_items.to_a + interactive_lessons_items.to_a + events_items.to_a
       end
 
       def lessons_ticket_items
@@ -67,6 +69,11 @@ module LiveService
       def interactive_lessons_ticket_items
         @user.live_studio_ticket_items.available.where(target_type: 'LiveStudio::InteractiveLesson').includes(:ticket, target: :interactive_course)
              .joins('left join live_studio_interactive_lessons on live_studio_interactive_lessons.id = live_studio_ticket_items.target_id')
+      end
+
+      def events_ticket_items
+        @user.live_studio_ticket_items.available.where(target_type: 'LiveStudio::Event').includes(:ticket, target: :group)
+            .joins('left join live_studio_events on live_studio_events.id = live_studio_ticket_items.target_id')
       end
     end
   end

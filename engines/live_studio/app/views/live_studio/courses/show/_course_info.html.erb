@@ -5,6 +5,9 @@
       <a href="#introduce" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
       <a href="#arrange"><%= t('view.live_studio/courses.show.arrange') %></a>
       <a href="#study"><%= t('view.live_studio/courses.show.study') %></a>
+      <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
+        <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
+      <% end if allow?('live_studio/announcements', :create, @course) && %w[published teaching].include?(@course.status) %>
     </div>
 
     <div class="course-lessons">
@@ -106,3 +109,7 @@
     <%= render partial: 'live_studio/courses/show/study' %>
   </div>
 </div>
+
+<% content_for :mask do %>
+  <%= render 'live_studio/announcements/modal_form', resource: @course %>
+<% end %>

@@ -331,7 +331,7 @@ module V1
             end
           end
 
-          desc '直播课,一对一,视频课排行'
+          desc '直播课,一对一,视频课,专属课排行'
           params do
             requires :name, type: String, desc: 'all_published_rank: 最新发布', values: %w[all_published_rank]
             optional :city_id, type: Integer, desc: '城市ID'

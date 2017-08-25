@@ -5,7 +5,8 @@ cn:
       teacher_register: 教师注册
       student_register: 学生注册
       sign_out: 退出
-      sing_in: 登录
+      sign_in: 登录
+      sign_up: 注册
       user_setting: 用户设置
       home_page: 首页
       curriculums: 公共课程
@@ -68,6 +69,7 @@ cn:
       my_interactive_courses: 我的一对一
       my_video_course: 我的视频课
       my_video_courses: 我的视频课
+      my_customized_groups: 我的专属课
       my_homework: 作业和问题
       my_teachers: 我的老师
       my_notice: 消息中心
@@ -79,6 +81,7 @@ cn:
       my_courses: 我的直播课
       my_interactive_courses: 我的一对一
       my_video_courses: 我的视频课
+      my_customized_groups: 我的专属课
       curriculums: 我的公共课
       homeworks: 作业管理
       lessons_state: 课程状态
@@ -134,6 +137,8 @@ cn:
       contact_us: 联系我们
       help_center: 帮助中心
       software_down: 程序下载
+      weixin_text: 微信公众
+      top: 返回顶部
       copyright: Copyright © 2015-2017 QaTime.
       record: 京ICP备12031445号-3
       address: 联系地址

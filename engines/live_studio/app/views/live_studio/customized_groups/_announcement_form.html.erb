@@ -1,0 +1,36 @@
+<%= simple_form_for [@customized_group, @customized_group.announcements.new] do |f| %>
+  <div class="modal-body">
+    <div class="row">
+      <%= f.input_field :content, as: :text, maxlength: 100, placeholder: t("placeholders.live_sutdio/announcement.content", count: 100) %>
+      <span class="help-block has-error" id="announcement_content_error"></span>
+    </div>
+    <div class="date-btn">
+      <center>
+        <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t("common.cancel") %></a>
+        <a href="javascript:void(0);" id="btn-announcement-create"><%= t("common.publish") %></a>
+      </center>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :javascript do %>
+  <script>
+    $(function() {
+      $("#btn-announcement-create").click(function() {
+        if($("#announcement_content").val() === "") {
+          $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.blank") %>');
+        } else if($("#announcement_content").val().length > 100) {
+          $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_long") %>');
+        } else if($("#announcement_content").val().length < 7) {
+          $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_short") %>');
+        } else {
+          $("form").submit();
+        }
+      });
+
+      $('#announcement-form').on('hidden.bs.modal', function (e) {
+        $("#announcement_content_error").text("");
+      });
+    });
+  </script>
+<% end %>

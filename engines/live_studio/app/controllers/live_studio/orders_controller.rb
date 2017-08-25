@@ -75,8 +75,10 @@ module LiveStudio
           Course.find_by(id: params[:course_id])
         elsif params[:interactive_course_id].present?
           InteractiveCourse.find(params[:interactive_course_id])
-        else
+        elsif params[:video_course_id].present?
           VideoCourse.find(params[:video_course_id])
+        else
+          CustomizedGroup.find(params[:customized_group_id])
         end
     end
 
@@ -108,6 +110,7 @@ module LiveStudio
       return false unless @product.sell_type.free?
       redirect_to live_studio.deliver_video_course_path(@product) if @product.is_a?(LiveStudio::VideoCourse)
       redirect_to live_studio.for_free_course_path(@product) if @product.is_a?(LiveStudio::Course)
+      redirect_to live_studio.for_free_customized_group_path(@product) if @product.is_a?(LiveStudio::CustomizedGroup)
     end
   end
 end

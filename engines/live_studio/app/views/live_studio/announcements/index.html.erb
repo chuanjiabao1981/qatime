@@ -17,7 +17,14 @@
       <div class="schedule-title">
         <p>
           <span><%= @course.grade %><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
-          <span><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %><i><%= @course.finished_lessons_count %>/<%= @course.lessons_count %></i></span>
+          <span>
+            <%= LiveStudio::Course.human_attribute_name(:lessons_progress) %>
+            <% if @course.is_a?(LiveStudio::CustomizedGroup) %>
+              <i><%= @course.closed_events_count %>/<%= @course.events_count %></i>
+            <% else %>
+              <i><%= @course.finished_lessons_count %>/<%= @course.lessons_count %></i>
+            <% end %>
+          </span>
         </p>
       </div>
 

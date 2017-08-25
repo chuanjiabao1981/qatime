@@ -13,3 +13,16 @@ chat_account_student_tally:
   token: 7845406777c4299b9249175dc700b38c
   name: student_tally
 
+chat_account_with_teacher1:
+  user: teacher1
+  accid: ed03014ecec41b0379a580b666709315
+  token: b9b8e76e1d57d1933994f58f7b2176e5
+  name: teacher1
+
+
+chat_account_student_view_customized_group:
+  user: student_view_customized_group
+  accid: 748380625c78c72d908d3842c4e30d2b
+  token: 7845406777c4299b9249175dc700b38c
+  name: student_view_customized_group
+

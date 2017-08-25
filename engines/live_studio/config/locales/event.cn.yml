@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      live_studio/scheduled_lesson: 线上直播
+      live_studio/offline_lesson: 线下课程
+    attributes:
+      live_studio/offline_lesson:
+        class_address: 上课地点

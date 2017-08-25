@@ -440,7 +440,10 @@ Qatime::Application.routes.draw do
   mount Payment::Engine, at: '/payment'
   # 聊天
   mount Chat::Engine, at: '/chat'
-  mount Recommend::Engine, at: 'recommend'
+  # 推荐位
+  mount Recommend::Engine, at: '/recommend'
+  # 资源中心
+  mount Resource::Engine, at: '/resource'
   # API
   mount Qatime::API => '/'
 
@@ -478,6 +481,9 @@ Qatime::Application.routes.draw do
         resources :orders, only: [:new, :create]
       end
 
+      resources :customized_groups, only: [:show] do
+        resources :orders, only: [:new, :create]
+      end
     end
     resources :softwares, only: [:index]
 

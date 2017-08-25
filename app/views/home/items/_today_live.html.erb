@@ -1,6 +1,10 @@
 <li class="<%= today_live_status(today_live) %>">
   <i class="status-origin"></i>
-  <%= link_to today_live.name, live_studio.course_path(today_live.course) %>
+  <% if today_live.is_a?(LiveStudio::ScheduledLesson) %>
+    <%= link_to today_live.name, live_studio.customized_group_path(today_live.group) %>
+  <% else %>
+    <%= link_to today_live.name, live_studio.course_path(today_live.course) %>
+  <% end %>
   <em>
     <span><%= today_live_status_text(today_live) %></span>
     <span><%= today_live.live_time %></span>

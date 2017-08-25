@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :teacher %>
+  </div>
+  <div class="col-md-10">
+    <%= f.association :teacher, collection: Teacher.pluck(:name, :id), label: false, prompt: :translate, input_html: {class: 'select2'} %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :sell_type, required: true %>
+  </div>
+  <div class="col-md-10 charge-state">
+    <%= f.input_field :sell_type, collection: LiveStudio::CustomizedGroup.sell_type.options, as: :radio_buttons, boolean_style: :inline %>
+  </div>
+</div>
+
+<div class="row live-charge">
+  <div class="col-md-2">
+    <%= f.label :teacher_percentage, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :teacher_percentage, label: false, wrapper_html: {class: 'divided'} do %>
+      <%= f.input_field :teacher_percentage %>
+      <i>%</i>
+    <% end %>
+  </div>
+</div>
+
+<div class="row live-charge">
+  <div class="col-md-2">
+    <%= f.label :price, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :price, label: false, wrapper_html: {class: 'divided'} do %>
+      <%= f.input_field :price %>
+      <i><%= t('view.live_studio/course.hint.price') %></i>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(function(){
+    $(".select2").select2({width: 'resolve', dropdownAutoWidth: 'true'});
+
+    // 免费
+    $("#customized_group_sell_type_free").click(function() {
+      $("#customized_group_price").attr('disabled', true);
+      $("#customized_group_teacher_percentage").attr('disabled', true);
+      $('.live-charge').addClass('hide');
+    });
+
+    // 收费
+    $("#customized_group_sell_type_charge").click(function() {
+      $("#customized_group_price").attr('disabled', false);
+      $("#customized_group_teacher_percentage").attr('disabled', false);
+      $('.live-charge').removeClass('hide');
+    });
+
+    <% if @customized_group.sell_type.free? %>
+      $("#customized_group_price").attr('disabled', true);
+      $("#customized_group_teacher_percentage").attr('disabled', true);
+      $('.live-charge').addClass('hide');
+    <% end %>
+  });
+</script>
+<% end %>

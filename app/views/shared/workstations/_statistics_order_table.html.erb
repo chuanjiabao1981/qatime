@@ -14,12 +14,12 @@
     <tr>
       <td><%= show_index(index, @statistics.limit_value) %></td>
       <td>
-        <%= link_to order.product.try(:name), live_studio.course_path(order.product || 0) %>
+        <%= link_to order.product.try(:name), live_studio.send("#{order.product.model_name.singular_route_key}_path", order.product) if order.product %>
       </td>
       <td><%= number_to_currency(order.amount.to_f, locale: :cn) %></td>
       <td><%= number_to_currency(order.product.try(:price).to_f, locale: :cn) %></td>
       <td><%= number_to_currency(order.cheap_price, locale: :cn) %></td>
-      <td><%= localize(order.pay_at, format: :long) %></td>
+      <td><%= localize(order.pay_at, format: :long) if order.pay_at %></td>
       <td><%= order.user.try(:name) %></td>
       <td><%= order.source_text %></td>
     </tr>

@@ -32,6 +32,16 @@ module V1
     mount V1::LiveStudio::Students::VideoCourses
     mount V1::LiveStudio::Students::Schedule
     mount V1::LiveStudio::Teachers::VideoCourses
+
+    # 专属课 start
+    mount V1::LiveStudio::CustomizedGroups
+    mount V1::LiveStudio::Students::CustomizedGroups
+    mount V1::LiveStudio::Teachers::CustomizedGroups
+    mount V1::LiveStudio::Events
+    mount V1::LiveStudio::InstantLessons
+    mount V1::LiveStudio::ScheduledLessons
+    # 专属课 end
+
     mount V1::LiveStudio::Teachers::Schedule
 
     mount V1::Payment::Orders
@@ -43,6 +53,11 @@ module V1
     mount V1::Recommend::Positions
     mount V1::Payment::Coupons
     mount V1::Payment::ItunesProducts
+
+    # 资源中心 start
+    mount V1::Resource::Teachers::Files
+    mount V1::Resource::Files
+    # 资源中心 end
 
     # 首页搜索
     mount V1::Home::Search

@@ -250,8 +250,8 @@ module Permissions
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
 
       allow 'live_studio/announcements', [:index, :create, :update] do |course|
-        if course.is_a? LiveStudio::Course
-          course && course.teacher_id = user.id
+        if course.is_a?(LiveStudio::Course) || course.is_a?(LiveStudio::CustomizedGroup)
+          course && course.teacher_id == user.id
         else
           course && course.teachers.include?(user)
         end
@@ -270,6 +270,18 @@ module Permissions
       end
       allow 'live_studio/video_courses', [:preview]
       ## 视频课 end
+
+      allow 'live_studio/teacher/customized_groups', [:index]
+      allow 'live_studio/customized_groups', [:preview]
+
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课
+      api_allow :POST, '/api/v1/live_studio/events/\d+/heart_beat' # 直播心跳
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_switch' # 状态切换
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_end' # 直播结束
+
+      ## 专属课 end
 
       ## begin payment permission
 
@@ -370,6 +382,25 @@ module Permissions
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
       ## end 通知设置
+
+      # 资源中心 start
+      api_allow :GET, "/api/v1/resource/teachers/[\\w-]+/files" do |teacher| # 我的文件
+        teacher && teacher.id == user.id
+      end
+
+      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 我的文件
+        file && file.user_id = user.id
+      end
+
+      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 文件详情
+        file && user.files.include?(file)
+      end
+
+      api_allow :DELETE, "/api/v1/resource/files/[\\w-]+" do |file| # 文件删除
+        file && user.files.include?(file)
+      end
+
+      # 资源中心 end
     end
 
     private

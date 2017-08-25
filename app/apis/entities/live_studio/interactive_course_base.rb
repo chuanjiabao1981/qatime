@@ -34,14 +34,14 @@ module Entities
       end
       # 图片
       expose :icons do
-        expose :refund_any_time do |_course|
-          true
+        expose :refund_any_time do |course|
+          course.refund_any_time?
         end
-        expose :coupon_free do |_course|
-          true
+        expose :coupon_free do |course|
+          course.coupon_free?
         end
-        expose :cheap_moment do |_course|
-          false
+        expose :cheap_moment do |course|
+          course.cheap_moment?
         end
       end
       expose :off_shelve?, as: :off_shelve

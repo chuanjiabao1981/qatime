@@ -12,6 +12,7 @@ cn:
       default_message: "Please review the problems below:"
     labels:
       replay_item:
+        course_type: 课程类型
         course_id: 选择课程
         target_id: 选择课时
         top: 设为推荐

@@ -10,5 +10,5 @@
 
 <% if params[:third].present? %>
   $('.<%= params[:third] %>').empty();
-  $('.<%= params[:third] %>').append($("<option></option>").attr("value", '').text("<%= t('view.recommend/replay_item.prompt.lesson_id') %>"));
+  $('.<%= params[:third] %>').append($("<option></option>").attr("value", '').text("<%= t('view.recommend/replay_item.prompt.target_id') %>"));
 <% end %>

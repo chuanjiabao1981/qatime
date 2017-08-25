@@ -29,12 +29,14 @@ module LiveStudio
                               begin_time: v['beginTime'],
                               end_time: v['endTime'],
                               lesson_id: recordable.id,
+                              target: recordable,
                               video_for: use_for)
       end
       true
     end
 
     def record_for(recordable)
+      return if recordable.is_a?(InteractiveLesson)
       VCloud::Service.app_channel_set_always_record(
         cid: remote_id,
         needRecord: 1,
@@ -60,7 +62,7 @@ module LiveStudio
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
       self.remote_id = result[:ret]["cid"]
-      set_always_record
+      set_always_record unless channelable.is_a?(InteractiveCourse)
       save!
     end
 
@@ -84,8 +86,8 @@ module LiveStudio
     end
 
     def channel_name
-      return name if Rails.env.production?
-      "#{Rails.env} - #{name}"
+      return name.truncate(63) if Rails.env.production?
+      "#{Rails.env}-#{name}".truncate(63)
     end
   end
 end

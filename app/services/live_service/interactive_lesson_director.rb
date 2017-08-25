@@ -10,7 +10,7 @@ module LiveService
     # 3. 开始上课时间为空的初始化开始上课时间
     # 4. 开始本节课
     # 5. 初始化心跳
-    def lesson_start(board, camera, room_id = nil)
+    def lesson_start(board, camera, room_id = nil, channel_id = nil)
       @course = @lesson.interactive_course
       @course.teaching! if @course.published?
       LiveStudio::InteractiveLesson.transaction do
@@ -21,6 +21,8 @@ module LiveService
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
         @lesson.room_id = room_id
+        # 录制音视频channelid
+        @lesson.channel_videos.find_or_create_by(channelid: channel_id.to_s)
         @lesson.teach!
         @lesson.current_live_session
       end

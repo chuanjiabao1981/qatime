@@ -24,6 +24,8 @@
         <% if course.is_a?(LiveStudio::Course) %>
           <%= link_to t('view.managers.home.teaching_lessons.play'), live_studio.play_course_path(course), target: '_blank' %>
         <% else %>
+          <%= link_to t('view.managers.home.teaching_lessons.live_play'),
+                      live_studio.play_interactive_course_path(course) %>
           <%= link_to t('view.managers.home.teaching_lessons.play'),
                       live_studio.play_station_workstation_interactive_course_path(@workstation, course) %>
         <% end %>

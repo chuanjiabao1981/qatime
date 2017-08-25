@@ -485,3 +485,101 @@ video_course_ticket_for_taste1:
   used_count: 1
   lesson_price: 0
   type: LiveStudio::TasteTicket
+
+ticket_for_student_view_customized_group1:
+  student: student_view_customized_group
+  product: published_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+
+ticket_for_student_view_customized_group2:
+  student: student_view_customized_group
+  product: teaching_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_for_student_view_customized_group3:
+  student: student_view_customized_group
+  product: completed_group_for_student_view1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_for_schedule_published_group1:
+  student: student_one_with_course
+  product: schedule_published_group1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation1 (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_for_schedule_completed_group1:
+  student: student_one_with_course
+  product: schedule_completed_group1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation1 (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_for_schedule_completed_group1:
+  student: student_one_with_course
+  product: published_group2 (LiveStudio::Group)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation1 (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_1_for_billing_group_1:
+  student: student_one_with_course
+  product: billing_group_1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation1 (Workstation)
+  sell_percentage: 15
+  platform_percentage: 10
+  payment_order_id: xxxx
+
+ticket_2_for_billing_group_1:
+  student: student_one_with_course
+  product: billing_group_1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  seller: workstation_one (Workstation)
+  sell_percentage: 10
+  platform_percentage: 15
+  payment_order_id: xxxx
+
+ticket_for_interactive_course_replay1_1:
+  student: student_with_order2
+  product: interactive_course_replay1 (LiveStudio::InteractiveCourse)
+  status: 1
+  lesson_price: 100
+  type: LiveStudio::BuyTicket
+  seller: workstation_zhuji (Workstation)
+  sell_percentage: 10
+  platform_percentage: 15
+  payment_order_id: xxxx

@@ -174,3 +174,26 @@ interactive_course_teacher1:
   start_at: <%= Time.now.at_beginning_of_day + 9.hour %>
   end_at: <%= Time.now.at_beginning_of_day + 10.days + 9.hour %>
   left_price: 400
+
+interactive_course_replay1:
+  name: 回放一对一
+  workstation: workstation_zhuji
+  author: manager_zhuji
+  status: 3
+  description: 互动2互动2互动2互动2互动2互动2
+  subject: 生物
+  grade: 高二
+  objective: 互动2互动2互动2互动2互动2互动2
+  suit_crowd: 互动2互动2互动2互动2互动2互动2
+  price: 100
+  base_price: 3
+  teacher_percentage: 70
+  class_date: <%= 3.days.ago.to_date %>
+  province_id: 1
+  city_id: 2
+  publish_percentage: 5
+  platform_percentage: 0
+  buy_tickets_count: 1
+  sell_and_platform_percentage: 15
+  start_at: <%= 3.days.ago.to_date + 9.hour %>
+  end_at: <%= 3.days.ago.to_date + 9.hour %>

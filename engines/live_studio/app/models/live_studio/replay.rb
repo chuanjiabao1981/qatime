@@ -1,6 +1,7 @@
 module LiveStudio
   class Replay < ActiveRecord::Base
     belongs_to :lesson
+    belongs_to :target, polymorphic: true
     belongs_to :channel
     serialize :vids, Array
     serialize :pending_vids, Array
@@ -10,6 +11,16 @@ module LiveStudio
       merging: 0,
       merged: 1
     }
+
+    # 音视频回放
+    def self.create_from(channel_video)
+      replay = find_or_initialize_by(target: channel_video.target, vid: channel_video.vid)
+      attrs = channel_video.attributes.symbolize_keys.slice(:orig_url, :sd_mp4_url, :hd_mp4_url, :shd_mp4_url)
+      replay.assign_attributes(attrs.merge(name: channel_video.name, video_for: 0))
+      replay.save
+      replay.merged! unless replay.merged?
+      replay.target.merged! unless replay.target.merged?
+    end
 
     def merge_video
       return single_merge unless vids.count > 1 # 单个视频不需要合并
@@ -42,7 +53,7 @@ module LiveStudio
         shd_mp4_size: result[:shdMp4Size],
         create_time: result[:createTime]
       )
-      lesson.merged! unless lesson.merged?
+      target.merged! unless target.merged?
       merged! unless merged?
     end
 

@@ -14,34 +14,38 @@ module Recommend
 
     def new
       @item = @position.items.build(type: @position.klass_name)
-      @lesson_options = []
+      @course_options = @lesson_options = []
     end
 
     def edit
-      @item.course_id = @item.try(:target).try(:course_id)
-      @lesson_options = @item.course.lessons.merged.pluck(:name, :id) rescue []
+      load_options
     end
 
     def create
-      @item = @position.items.build(item_params.merge(platforms: params[:platforms], target_type: 'LiveStudio::Lesson', type: @position.klass_name))
+      @item = @position.items.build(item_params.merge(platforms: params[:platforms], type: @position.klass_name))
+      @item.target_type = 'LiveStudio::Lesson' if @item.course_type == 'course'
+      @item.target_type = 'LiveStudio::InteractiveLesson' if @item.course_type == 'interactive_course'
+      # @item.target_type = 'LiveStudio::ScheduledLesson' if @item.course_type == 'group'
       @item.course_required = true
       if @item.save
         flash_msg(:success)
         redirect_to recommend.position_replay_items_path(@position)
       else
-        @lesson_options = @item.course.lessons.merged.pluck(:name, :id) rescue []
+        load_options
         render :new
       end
     end
 
     def update
       @item.course_required = true
+      @item.target_type = 'LiveStudio::Lesson' if item_params[:course_type] == 'course'
+      @item.target_type = 'LiveStudio::InteractiveLesson' if item_params[:course_type] == 'interactive_course'
+      # @item.target_type = 'LiveStudio::ScheduledLesson' if item_params[:course_type] == 'group'
       if @item.update(item_params.merge(platforms: params[:platforms]))
         flash_msg(:success)
         redirect_to position_replay_items_path(@item.position)
       else
-        @item.course_id = @item.try(:target).try(:course_id)
-        @lesson_options = @item.course.lessons.merged.pluck(:name, :id) rescue []
+        load_options
         render :edit
       end
     end
@@ -53,6 +57,32 @@ module Recommend
     end
 
     private
+
+    def load_options
+      @course = @item.course
+      @course_options = @lesson_options = []
+      return if @course.blank?
+
+      @item.course_id = @course.id
+
+      if @course.is_a?(LiveStudio::Course)
+        @item.course_type = 'course'
+        @course_options = LiveStudio::Course.pluck(:name, :id)
+        @lesson_options = @course.lessons.merged.pluck(:name, :id)
+      end
+
+      if @course.is_a?(LiveStudio::InteractiveCourse)
+        @item.course_type = 'interactive_course'
+        @course_options = LiveStudio::InteractiveCourse.pluck(:name, :id)
+        @lesson_options = @course.interactive_lessons.merged.pluck(:name, :id)
+      end
+
+      # if @course.is_a?(LiveStudio::CustomizedGroup)
+      #   @item.course_type = 'group'
+      #   @course_options = LiveStudio::CustomizedGroup.pluck(:name, :id)
+      #   @lesson_options = @course.scheduled_lessons.merged.pluck(:name, :id)
+      # end
+    end
 
     def set_position
       @position = Position.find(params[:position_id])
@@ -68,7 +98,7 @@ module Recommend
     end
 
     def item_params
-      params.require(:replay_item).permit(:course_id, :target_id, :target_type, :city_id, :top)
+      params.require(:replay_item).permit(:course_id, :course_type, :target_id, :target_type, :city_id, :top)
     end
   end
 end

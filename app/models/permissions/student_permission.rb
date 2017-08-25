@@ -165,6 +165,10 @@ module Permissions
         lesson.replayable && lesson.replayable_for?(user)
       end
 
+      allow 'live_studio/interactive_lessons', [:replay] do |lesson|
+        lesson.replayable && lesson.replayable_for?(user)
+      end
+
       allow 'live_studio/video_lessons', [:play] do |lesson|
         lesson.tastable || lesson.play_for?(user)
       end
@@ -214,6 +218,8 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
+      api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
+      api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"
 
       # 游客绑定账号
       api_allow :POST, "/api/v1/user/guests/[\\w-]+/bind"

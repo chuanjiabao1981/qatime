@@ -24,7 +24,7 @@
     <div class="col-md-3">
       <i>
         <% if interactive %>
-          <%= lesson.status_text(current_user.try(:role)) %>
+          <%= interactive_replay_button_of(lesson, true) %>
         <% else %>
           <%= replay_button_of(lesson, true) %>
         <% end %>

@@ -66,6 +66,22 @@ module VCloud
       request_service("/app/channel/setAlwaysRecord", params, options)
     end
 
+    # 视频转码
+    APP_VOD_TRANSCODE_RESETMULTI_REQUIRED_PARAMS = %w(vids presetId).freeze
+    def self.app_vod_transcode_resetmulti(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_VOD_TRANSCODE_RESETMULTI_REQUIRED_PARAMS)
+      request_service("/app/vod/transcode/resetmulti", params, options)
+    end
+
+    # 视频转码回调地址设置
+    APP_VOD_TRANSCODE_SETCALLBACK_REQUIRED_PARAMS = %w(callbackUrl).freeze
+    def self.app_vod_transcode_setcallback(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_VOD_TRANSCODE_SETCALLBACK_REQUIRED_PARAMS)
+      request_service("/app/vod/transcode/setcallback", params, options)
+    end
+
     # 检查必须参数
     def self.required_params!(params, names)
       return unless VCloud.debug_mode?
@@ -87,7 +103,8 @@ module VCloud
     def self.request_headers(options = {})
       nonce = SecureRandom.hex(32)
       cur_time = Time.now.utc.to_i.to_s
-      check_sum = Digest::SHA1.hexdigest(VCloud.app_secret + nonce + cur_time)
+      app_secret = options.delete(:AppSecret) || VCloud.app_secret
+      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
       {
         AppKey: VCloud.app_key,
         Nonce: nonce,

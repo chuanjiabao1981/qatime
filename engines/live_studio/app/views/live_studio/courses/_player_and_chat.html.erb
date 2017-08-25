@@ -66,7 +66,11 @@ $(function() {
         $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
       }
     });
-    if(window.live_chat) live_chat.setBarrage(barrage);
+    if(window.live_chat) {
+      live_chat.setBarrage(barrage);
+    } else {
+      window.barrage = barrage;
+    }
 
 
     // 重置

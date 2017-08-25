@@ -59,6 +59,7 @@ module V1
                   optional :per_page, type: Integer, desc: '每页记录数'
                   optional :cate, type: String, desc: '分类 today: 今日; taste: 试听', values: %w(today taste)
                   optional :status, type: String, desc: '辅导班状态 published: 待开课; teaching: 已开课; completed: 已结束', values: %w(published teaching completed)
+                  optional :with_taste, type: Boolean, desc: '是否包含试听课程'
                 end
                 get '' do
                   courses =

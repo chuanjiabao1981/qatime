@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824030001) do
+ActiveRecord::Schema.define(version: 20170825075346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1590,6 +1590,15 @@ ActiveRecord::Schema.define(version: 20170824030001) do
     t.integer  "comments_count",                     default: 0
   end
 
+  create_table "resource_attaches", force: :cascade do |t|
+    t.string   "file"
+    t.string   "content_type"
+    t.string   "ext_name"
+    t.integer  "file_size"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "resource_files", force: :cascade do |t|
     t.string   "name"
     t.integer  "directory_id"
@@ -1617,6 +1626,25 @@ ActiveRecord::Schema.define(version: 20170824030001) do
   end
 
   add_index "resource_quotes", ["file_id"], name: "index_resource_quotes_on_file_id", using: :btree
+
+  create_table "resource_video_infos", force: :cascade do |t|
+    t.integer  "duration"
+    t.string   "capture"
+    t.string   "url"
+    t.string   "sd_mp4_url"
+    t.string   "hd_mp4_url"
+    t.string   "shd_mp4_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "resource_videos", force: :cascade do |t|
+    t.string   "file"
+    t.integer  "duration"
+    t.string   "capture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "review_records", force: :cascade do |t|
     t.integer  "lesson_id"

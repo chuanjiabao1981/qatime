@@ -17143,17 +17143,17 @@ abbr {
 .courseware-info ul > li > span,.courseware-info ul > li > i,.courseware-info ul > li > a {
   font-size: 14px;
 }
-.courseware-info ul > li > i {
+.courseware-info ul > li > i,.addfile-list > li > i {
   display: inline-block;
   color: #999;
 }
-.courseware-info ul > li > i.progress {
+.courseware-info ul > li > i.progress,.addfile-list > li > i.progress{
   height: 12px;
   width: 150px;
   border-radius: 0px;
   margin: 0px 10px 0px 10px;
 }
-.courseware-info ul > li > i.progress .progress-bar {
+.courseware-info ul > li > i.progress .progress-bar,.addfile-list > li > i.progress .progress-bar{
   background-color: #ccc;
 }
 .courseware-info ul > li > a {
@@ -17370,6 +17370,9 @@ abbr {
   border-bottom: 1px solid #F2F2F2;
   color: #999;
 }
+.addfile-title > span {
+  line-height: 30px;
+}
 .addfile-title > input[type='file'] {
   display: none;
 }
@@ -17396,4 +17399,47 @@ abbr {
   clear: both;
   visibility: hidden;
   display: block;
+}
+.addfile-list {
+  padding: 30px 30px 0px 30px;
+  margin-bottom: 0px;
+}
+.addfile-list > li {
+  padding-bottom: 30px;
+  color: #666;
+}
+.addfile-list > li > a {
+  color: #666;
+}
+.addfile-list > li > a:hover {
+  color: #ff5842;
+}
+.addfile-list > li .upload-status {
+  display: block;
+  color: #ff5842;
+  font-size: 12px;
+}
+.submit-box {
+  padding-bottom: 30px;
+  text-align: center;
+  font-size: 0px;
+}
+.submit-box > a {
+  width: 120px;
+  height: 38px;
+  color: #ff5842;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 36px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #ff5842;
+  margin-right: 20px;
+}
+.submit-box > a:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+.submit-box > a:last-child {
+  margin-right: 0px;
 }

@@ -1,4 +1,4 @@
 module Resource
-  class DocumentFile < File
+  class DocumentFile < Resource::File
   end
 end

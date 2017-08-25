@@ -1,5 +1,6 @@
 class Teacher < User
   include Registable
+  include Resource::Quotable # 资源引用
 
   serialize :grade_range, Array
   default_scope {where(role: 'teacher')}

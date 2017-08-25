@@ -4,6 +4,8 @@ module LiveStudio
     belongs_to :creator, polymorphic: true
     belongs_to :announcementable, polymorphic: true
 
+    scope :lastest, -> { where(lastest: true) }
+
     after_create :publish_to_team
     def publish_to_team
       team = announcementable.try(:chat_team)

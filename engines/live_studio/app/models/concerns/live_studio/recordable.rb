@@ -2,6 +2,10 @@ module LiveStudio
   module Recordable
     extend ActiveSupport::Concern
 
+    included do
+      has_many :channel_videos, as: :target
+    end
+
     def record_filename
       "#{model_name.route_key}#{id}"
     end
@@ -26,8 +30,8 @@ module LiveStudio
     def instance_replays
       return replays.last unless replays.blank?
       replays.create!(video_for: ChannelVideo.video_fors['board'],
-                     name: board_replay_name,
-                     channel: board_channel)
+                      name: board_replay_name,
+                      channel: board_channel)
     end
 
     # 查询或者创建录制视频

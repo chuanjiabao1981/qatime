@@ -1,4 +1,5 @@
 module Resource
-  class VideoFile < File
+  class VideoFile < Resource::File
+    has_one :video_info
   end
 end

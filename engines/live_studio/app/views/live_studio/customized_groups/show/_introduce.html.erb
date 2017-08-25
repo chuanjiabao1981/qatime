@@ -1,0 +1,86 @@
+<div class="tab-pane fade in active" id="introduce">
+  <div class="course-lessons">
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
+      <ul>
+        <li>
+          <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @customized_group.subject %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @customized_group.grade %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @customized_group.events_count) %></i></span>
+        </li>
+
+        <li>
+          <span>
+            <i><%= t('view.live_studio/courses.show.date') %></i>
+            <i><%= t('view.live_studio/courses.show.date_text', start_at: @customized_group.start_at.try(:to_date).try(:to_s), end_at: @customized_group.end_at.try(:to_date).try(:to_s)) %></i>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <i><%= t('view.live_studio/courses.show.status') %></i>
+            <i>
+              <%= @customized_group.status_text %>
+              <% if @customized_group.published? %>
+                <% if @customized_group.distance_days > 0 %>
+                  (<%= t('view.course_show.distance_text1') % @customized_group.distance_days %>)
+                <% end %>
+              <% else %>
+                (<%= t('view.live_studio/courses.show.status_text', one: @customized_group.closed_events_count, two: @customized_group.events_count) %>)
+              <% end %>
+            </i>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.objective') %></h3>
+      <p><%= @customized_group.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
+      <p><%= @customized_group.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.desc') %></h3>
+      <%= raw(@customized_group.description) %>
+    </div>
+
+    <div class="lessons-detail lessonsg-process">
+      <h3><%= t('view.live_studio/courses.show.study_flow') %></h3>
+      <div class="process-study">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <%= image_tag "process-1.png" %>
+            <div class="study-info">
+              <div class="info-step"><h4><%= t('view.live_studio/courses.show.buy_tip') %></h4><p><%= t('view.live_studio/courses.show.buy_tip_value') %></p></div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <%= image_tag "process-2.png" %>
+            <div class="study-info">
+              <div class="info-step"><h4><%= t('view.live_studio/courses.show.time_tip') %></h4><p><%= t('view.live_studio/courses.show.time_tip_value2') %></p></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <%= image_tag "process-3.png" %>
+            <div class="study-info">
+              <div class="info-step"><h4><%= t('view.live_studio/courses.show.online_tip') %></h4><p><%= t('view.live_studio/courses.show.online_tip_value2') %></p></div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <%= image_tag "process-4.png" %>
+            <div class="study-info">
+              <div class="info-step"><h4><%= t('view.live_studio/courses.show.close_tip') %></h4><p><%= t('view.live_studio/courses.show.close_tip_value3') %></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,87 +4,37 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <a name="introduce"></a>
         <div class="course-item">
           <div class="nav-item">
-            <a href="#introduce" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
-            <a href="#arrange"><%= t('view.live_studio/courses.show.arrange') %></a>
-            <a href="#study"><%= t('view.live_studio/courses.show.study') %></a>
-            <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
-              <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
-            <% end if allow?('live_studio/announcements', :create, @customized_group) && %w[published teaching].include?(@customized_group.status) %>
+            <div class="aside-left">
+              <a href="#introduce" data-toggle="tab" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
+              <a href="#arrange" data-toggle="tab"><%= t('view.live_studio/courses.show.arrange') %></a>
+              <a href="#homework" class="" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>
+              <a href="#ask" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>
+              <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(33)</i></a>
+              <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
+            </div>
+            <div class="aside-right">
+              <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
+                <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
+              <% end if allow?('live_studio/announcements', :create, @customized_group) && %w[published teaching].include?(@customized_group.status) %>
+            </div>
           </div>
 
-          <div class="course-lessons">
-            <div class="lessons-detail">
-              <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
-              <ul>
-                <li>
-                  <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @customized_group.subject %></i></span>
-                  <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @customized_group.grade %></i></span>
-                  <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @customized_group.events_count) %></i></span>
-                </li>
-
-                <li>
-                  <span>
-                    <i><%= t('view.live_studio/courses.show.date') %></i>
-                    <i><%= t('view.live_studio/courses.show.date_text', start_at: @customized_group.start_at.try(:to_date).try(:to_s), end_at: @customized_group.end_at.try(:to_date).try(:to_s)) %></i>
-                  </span>
-                </li>
-
-                <li>
-                  <span>
-                    <i><%= t('view.live_studio/courses.show.status') %></i>
-                    <i>
-                      <%= @customized_group.status_text %>
-                      <% if @customized_group.published? %>
-                        <% if @customized_group.distance_days > 0 %>
-                          (<%= t('view.course_show.distance_text1') % @customized_group.distance_days %>)
-                        <% end %>
-                      <% else %>
-                        (<%= t('view.live_studio/courses.show.status_text', one: @customized_group.closed_events_count, two: @customized_group.events_count) %>)
-                      <% end %>
-                    </i>
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="lessons-detail">
-              <h3><%= t('view.live_studio/courses.show.objective') %></h3>
-              <p><%= @customized_group.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
-            </div>
-
-            <div class="lessons-detail">
-              <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
-              <p><%= @customized_group.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
-            </div>
-
-            <div class="lessons-detail">
-              <h3><%= t('view.live_studio/courses.show.desc') %></h3>
-              <%= raw(@customized_group.description) %>
-            </div>
-
-            <%= render partial: 'live_studio/courses/show/study_process' %>
+          <div class="tab-content">
+            <!--课程介绍-->
+            <%= render 'live_studio/customized_groups/show/introduce' %>
+            <!--上课安排-->
+            <%= render 'live_studio/customized_groups/show/lessons' %>
+            <!--作业-->
+            <div class="tab-pane fade" id="homework"></div>
+            <!--提问-->
+            <div class="tab-pane fade" id="ask"></div>
+            <!--课件-->
+            <div class="tab-pane fade" id="courseware"></div>
+            <!--学习须知-->
+            <%= render 'live_studio/customized_groups/show/study' %>
           </div>
-        </div>
-
-        <a name="arrange"></a>
-        <div class="course-item course-item-arrangement">
-          <div class="nav-item">
-            <span><%= t('view.live_studio/courses.show.arrange') %></span>
-          </div>
-
-          <%= render partial: 'lesson_plan' %>
-        </div>
-
-        <a name="study"></a>
-        <div class="course-item">
-          <div class="nav-item">
-            <span><%= t('view.live_studio/courses.show.study') %></span>
-          </div>
-
-          <%= render partial: 'live_studio/courses/show/study' %>
         </div>
       </div>
 
@@ -95,4 +45,14 @@
 
 <% content_for :mask do %>
   <%= render 'live_studio/announcements/modal_form', resource: @customized_group %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(".aside-left > a").click(function() {
+        $(this).addClass("active").siblings().removeClass("active");
+      });
+    });
+  </script>
 <% end %>

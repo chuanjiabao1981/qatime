@@ -1,4 +1,4 @@
 module Resource
-  class PictureFile < File
+  class PictureFile < Resource::File
   end
 end

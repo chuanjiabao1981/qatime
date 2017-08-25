@@ -13,6 +13,7 @@ module LiveStudio
     end
 
     def show
+      @recourse_files = []
     end
 
     # 免费上课

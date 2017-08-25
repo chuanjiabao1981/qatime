@@ -1,0 +1,113 @@
+<div class="tab-pane fade" id="courseware">
+  <div class="courseware-box">
+    <div class="add-courseware">
+      <a href="javascript:void(0);">新增课件</a>
+    </div>
+    <div class="courseware-msg">
+      <div class="courseware-info">
+        <div class="file-head">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 choose-left">
+              <span>选择新增课件来源</span>
+            </div>
+            <div class="col-md-6 col-sm-6 choose-right">
+              <input type="file" id="lefile">
+              <a onclick="$('input[id=lefile]').click();">
+                <i></i>
+                <span>上传本地文件</span>
+              </a>
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#fileModal">
+                <i></i>
+                <span>选择我的文件</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <span>高考应该怎样合理有效的复习？暑假应该如何规划？</span>
+            <i>(123M)</i>
+            <a href="">删除</a>
+          </li>
+          <li>
+            <span>高考应该怎样合理有效的复习？暑假应该如何规划？</span>
+            <i>(123M)</i>
+            <i class="progress">
+              <i class="progress-bar" role="progressbar" aria-valuenow="60"  aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+              </i>
+            </i>
+            <i>40%</i>
+            <a href="">取消</a>
+          </li>
+        </ul>
+      </div>
+      <div class="file-send">
+        <a href="">提交</a>
+      </div>
+    </div>
+
+    <ul class="courseware-list">
+      <li>
+        <div class="row">
+          <div class="col-md-12 file-name">
+            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-size">
+            <span>113kb</span>
+            <span>2017-06-12 01:33:42</span>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-handle">
+            <a href="">下载</a>
+            <a href="">删除</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-12 file-name">
+            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-size">
+            <span>113kb</span>
+            <span>2017-06-12 01:33:42</span>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-handle">
+            <a href="">下载</a>
+            <a href="">删除</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-12 file-name">
+            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-size">
+            <span>113kb</span>
+            <span>2017-06-12 01:33:42</span>
+          </div>
+          <div class="col-md-6 .col-sm-6 file-handle">
+            <a href="">下载</a>
+            <a href="">删除</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(".add-courseware > a").click(function() {
+        $(this).toggleClass("active");
+        if($(this).hasClass('active')) {
+          $(this).html("取消");
+        } else {
+          $(this).html("新增课件");
+        }
+        $(this).parents(".courseware-box").find(".courseware-msg").toggle();
+      })
+    });
+  </script>
+<% end %>

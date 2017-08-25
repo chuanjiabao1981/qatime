@@ -7,7 +7,11 @@ module LiveService
     # 我的直播
     def courses(options = {})
       return courses_of_cate(options[:cate]) if options[:cate].present?
-      courses = @student.live_studio_bought_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+      if options[:with_taste]
+        courses = @student.live_studio_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+      else
+        courses = @student.live_studio_bought_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+      end
       courses = courses.where(status: LiveStudio::Course.statuses[options[:status]]) if options[:status]
       courses
     end

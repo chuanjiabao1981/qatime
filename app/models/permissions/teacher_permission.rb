@@ -388,10 +388,6 @@ module Permissions
         teacher && teacher.id == user.id
       end
 
-      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 我的文件
-        file && file.user_id = user.id
-      end
-
       api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 文件详情
         file && user.files.include?(file)
       end
@@ -400,6 +396,7 @@ module Permissions
         file && user.files.include?(file)
       end
 
+      api_allow :POST, "/api/v1/resource/files" # 文件上传
       # 资源中心 end
     end
 

@@ -49,6 +49,10 @@ module V1
           end
 
           desc '文件上传' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
           end
           params do
             requires :file, type: ::File

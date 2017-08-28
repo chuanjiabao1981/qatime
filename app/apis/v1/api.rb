@@ -57,6 +57,7 @@ module V1
     # 资源中心 start
     mount V1::Resource::Teachers::Files
     mount V1::Resource::Files
+    mount V1::LiveStudio::Files
     # 资源中心 end
 
     # 首页搜索

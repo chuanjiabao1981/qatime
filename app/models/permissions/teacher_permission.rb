@@ -382,6 +382,25 @@ module Permissions
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
       ## end 通知设置
+
+      # 资源中心 start
+      api_allow :GET, "/api/v1/resource/teachers/[\\w-]+/files" do |teacher| # 我的文件
+        teacher && teacher.id == user.id
+      end
+
+      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 我的文件
+        file && file.user_id = user.id
+      end
+
+      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 文件详情
+        file && user.files.include?(file)
+      end
+
+      api_allow :DELETE, "/api/v1/resource/files/[\\w-]+" do |file| # 文件删除
+        file && user.files.include?(file)
+      end
+
+      # 资源中心 end
     end
 
     private

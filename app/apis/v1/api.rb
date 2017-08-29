@@ -54,6 +54,12 @@ module V1
     mount V1::Payment::Coupons
     mount V1::Payment::ItunesProducts
 
+    # 资源中心 start
+    mount V1::Resource::Teachers::Files
+    mount V1::Resource::Files
+    mount V1::LiveStudio::Files
+    # 资源中心 end
+
     # 首页搜索
     mount V1::Home::Search
 

@@ -18,6 +18,7 @@ module LiveStudio
         self.orig_url = params['url']
         save!
       end
+
       # 设置转码任务
       async_transcode
     end

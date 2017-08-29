@@ -26,7 +26,6 @@ module LiveStudio
       assert page.has_link? '已结束'
       click_on '招生中'
       assert page.has_content? '发布的专属课1'
-      assert page.has_link? '预览'
 
       click_on '已结束'
       assert page.has_content? '结束的专属课1'

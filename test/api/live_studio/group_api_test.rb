@@ -13,10 +13,10 @@ class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
     assert_equal 10, @res['data'].count, "专属课搜索结果不正确"
     get "/api/v1/live_studio/customized_groups/search", { page: 1, per_page: 10, q: { subject_eq: '英语' } }
     assert_request_success?
-    assert_equal 3, @res['data'].count, "科目过滤不生效 #{@res['data'].map {|g| g['subject']}}"
+    assert_equal 4, @res['data'].count, "科目过滤不生效 #{@res['data'].map {|g| g['subject']}}"
     get "/api/v1/live_studio/customized_groups/search", { page: 1, per_page: 10, q: { subject_eq: '英语', grade_eq: '高三' } }
     assert_request_success?
-    assert_equal 1, @res['data'].count, "年级过滤不生效"
+    assert_equal 2, @res['data'].count, "年级过滤不生效"
   end
 
   # 专属课搜索接口
@@ -45,9 +45,10 @@ class Qatime::GroupAPITest < ActionDispatch::IntegrationTest
     group = live_studio_groups(:published_group2)
     get "/api/v1/live_studio/customized_groups/#{group.id}/play", {}, 'Remember-Token' => @student_remember_token
     assert_request_success?
-    assert_not_nil @res['data']['chat_team'], "聊天群组信息没有正确返回"
-    assert_not_nil @res['data']['board_pull_stream'], "白板拉流地址没有返回"
-    assert_not_nil @res['data']['camera_pull_stream'], "摄像头拉流地址没有返回"
+    assert_not_nil @res['data']['customized_group']['chat_team'], "聊天群组信息没有正确返回"
+    assert_not_nil @res['data']['customized_group']['board_pull_stream'], "白板拉流地址没有返回"
+    assert_not_nil @res['data']['customized_group']['camera_pull_stream'], "摄像头拉流地址没有返回"
+    assert_not_nil @res['data']['ticket'], "ticket没有返回"
   end
 
   # 实时直播状态

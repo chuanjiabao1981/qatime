@@ -11,7 +11,7 @@ module LiveStudio
 
     # 课程结束 目前支持线下课
     def close
-      @event.complete!
+      @event.close!
     end
 
     # 直播状态

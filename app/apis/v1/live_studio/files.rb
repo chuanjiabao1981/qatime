@@ -19,7 +19,7 @@ module V1
           end
 
           resource :files do
-            desc '文件列表' do
+            desc '课件列表' do
               headers 'Remember-Token' => {
                 description: 'RememberToken',
                 required: true
@@ -34,6 +34,26 @@ module V1
               files = files.where(type: file_type(params[:cate])) if params[:cate].present?
               files = files.paginate(page: params[:page], per_page: params[:per_page])
               present files, with: Entities::Resource::File
+            end
+
+            desc '增加课件' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :event_id, type: Integer, desc: '专属课ID'
+              requires :file_id, type: Integer, values: '文件ID'
+            end
+            get do
+              file = current_user.files.find(params[:file_id])
+              if @event.files.include?(file)
+                @event.files << file
+                { result: 'ok' }
+              else
+                { result: 'fail' }
+              end
             end
           end
         end

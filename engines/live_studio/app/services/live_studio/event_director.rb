@@ -53,7 +53,7 @@ module LiveStudio
     private
 
     def schedule(t, action)
-      LiveStudio::EventScheduleJob.set(wait_until: t).perform_later(event.id, action)
+      LiveStudio::EventScheduleJob.set(wait_until: t).perform_later(@event.id, action)
     end
 
     def teacher_account

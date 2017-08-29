@@ -16,7 +16,7 @@ module V1
           route_param :id do
             helpers do
               def auth_params
-                @file ||= ::File.find(params[:id])
+                @file ||= ::Resource::File.find(params[:id])
               end
             end
 

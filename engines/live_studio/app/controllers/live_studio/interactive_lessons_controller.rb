@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class InteractiveLessonsController < ApplicationController
-    layout 'v1/live'
+    layout 'v1/live_video'
     before_action :set_lesson, only: [:replay]
 
     def replay

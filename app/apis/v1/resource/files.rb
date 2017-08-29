@@ -16,7 +16,7 @@ module V1
           route_param :id do
             helpers do
               def auth_params
-                @file ||= ::File.find(params[:id])
+                @file ||= ::Resource::File.find(params[:id])
               end
             end
 
@@ -56,6 +56,7 @@ module V1
           post do
             attach = ::Resource::Attach.create!(file: params[:file])
             file = current_user.files.create(
+              name: params[:file][:filename],
               user: current_user,
               attach: attach,
               ext_name: attach.ext_name,

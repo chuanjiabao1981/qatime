@@ -3,6 +3,9 @@ module Entities
     class File < Grape::Entity
       expose :id
       expose :name
+      expose :type
+      expose :file_size
+      expose :ext_name
     end
   end
 end

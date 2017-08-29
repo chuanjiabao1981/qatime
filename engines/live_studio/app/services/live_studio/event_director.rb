@@ -27,17 +27,17 @@ module LiveStudio
     end
 
     def async_notify_team(action)
-      LiveStudio::EventScheduleJob.perform_later(event.id, :notify_team, action)
+      LiveStudio::EventScheduleJob.perform_later(event.id, 'notify_team', action)
     end
 
     # 开始任务
     def start_schedule
-      schedule(@event.start_at, :start)
+      schedule(@event.start_at, 'start')
     end
 
     # 结束任务
     def close_schedule
-      schedule(@event.end_at, :close)
+      schedule(@event.end_at, 'close')
     end
 
     def self.dispatch_today_events

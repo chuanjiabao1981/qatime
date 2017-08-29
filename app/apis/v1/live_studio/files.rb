@@ -44,7 +44,7 @@ module V1
             end
             params do
               requires :event_id, type: Integer, desc: '专属课ID'
-              requires :file_id, type: Integer, values: '文件ID'
+              requires :file_id, type: Integer, desc: '文件ID'
             end
             get do
               file = current_user.files.find(params[:file_id])

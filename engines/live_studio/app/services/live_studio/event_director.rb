@@ -6,12 +6,12 @@ module LiveStudio
 
     # 课程开始 目前支持线下课
     def start
-      @vent.teach!
+      @event.teach!
     end
 
     # 课程结束 目前支持线下课
     def close
-      @vent.complete!
+      @event.complete!
     end
 
     # 直播状态

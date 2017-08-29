@@ -296,6 +296,11 @@ module Permissions
       end
       ## end payment permission
 
+      # 资源中心 start
+      allow 'resource/files', [:create, :create_quotes]
+
+      # 资源中心 end
+
       ## begin api permission
       api_allow :DELETE, "/api/v1/sessions"
 

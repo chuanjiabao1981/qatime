@@ -16,7 +16,7 @@ module LiveStudio
 
     # 直播状态
     def notify_team(action)
-      msg = { type: @event.model_name.to_s, event: action }
+      msg = { type: @event.model_name.to_s, event: action }.to_json
       Netease::IM::Service.send_msg(
         from: teacher_account.accid, # 教师accid
         ope: 1, # 群消息
@@ -27,7 +27,7 @@ module LiveStudio
     end
 
     def async_notify_team(action)
-      LiveStudio::EventScheduleJob.perform_later(event.id, 'notify_team', action)
+      LiveStudio::EventScheduleJob.perform_later(@event.id, 'notify_team', action)
     end
 
     # 开始任务

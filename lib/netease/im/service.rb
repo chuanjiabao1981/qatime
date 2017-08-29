@@ -19,7 +19,7 @@ module Netease
         Typhoeus.post(
           "#{GATEWAY_URL}#{uri}",
           headers: request_headers(options),
-          body: body.to_json
+          body: body
         )
       end
 
@@ -34,7 +34,7 @@ module Netease
           Nonce: nonce,
           CurTime: cur_time,
           CheckSum: check_sum,
-          'Content-Type' => "application/json;charset=utf-8"
+          'Content-Type' => "application/x-www-form-urlencoded;charset=utf-8"
         }.merge(options)
       end
 

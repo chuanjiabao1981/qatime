@@ -60,6 +60,7 @@ module V1
           post do
             attach = ::Resource::Attach.create!(file: params[:file])
             file = current_user.files.create(
+              name: params[:file][:filename],
               user: current_user,
               attach: attach,
               ext_name: attach.ext_name,

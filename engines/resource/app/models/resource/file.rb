@@ -5,5 +5,9 @@ module Resource
     belongs_to :attach, polymorphic: true
 
     has_many :quotes, dependent: :destroy
+
+    def file_url
+      attach.try(:file_url)
+    end
   end
 end

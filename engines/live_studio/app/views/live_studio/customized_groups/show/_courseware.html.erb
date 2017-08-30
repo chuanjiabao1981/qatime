@@ -1,191 +1,22 @@
 <div class="tab-pane fade" id="courseware">
   <div class="courseware-box">
-    <div class="add-courseware">
-      <a href="javascript:void(0);">新增课件</a>
-    </div>
-    <div class="courseware-msg">
-      <div class="courseware-info">
-        <div class="file-head">
-          <div class="row">
-            <div class="col-md-6 col-sm-6 choose-left">
-              <span>选择新增课件来源</span>
-            </div>
-            <div class="col-md-6 col-sm-6 choose-right">
-              <input type="file" id="lefile" class="upload_file">
-              <a onclick="$('input[id=lefile]').click();">
-                <i></i>
-                <span>上传本地文件</span>
-              </a>
-              <a href="javascript:void(0);" data-toggle="modal" data-target="#fileModal">
-                <i></i>
-                <span>选择我的文件</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <%= form_tag '/resource/files/create_quotes', id: 'uploaded_form' do %>
-          <%= hidden_field_tag :quote_type, @customized_group.type %>
-          <%= hidden_field_tag :quote_id, @customized_group.id %>
-          <ul id="load_files"></ul>
-        <% end %>
-      </div>
-      <span class="help-block has-error submit_files_error"></span>
-
-      <div class="file-send">
-        <%= link_to '提交', 'javascript:void(0);', class: 'submit_files' %>
-      </div>
-    </div>
-
     <ul class="courseware-list">
-      <li>
-        <div class="row">
-          <div class="col-md-12 file-name">
-            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
+      <% @recourse_files.each do |file| %>
+        <li>
+          <div class="row">
+            <div class="col-md-12 file-name">
+              <p><%= file.name %></p>
+            </div>
+            <div class="col-md-6 .col-sm-6 file-size">
+              <span><%= l(file.created_at) if file.created_at %></span>
+            </div>
+            <div class="col-md-6 .col-sm-6 file-handle">
+              <span><%= number_to_human_size(file.file_size.to_i, precision: 2) %></span>
+              <%= link_to '下载到电脑', file.attach.file_url %>
+            </div>
           </div>
-          <div class="col-md-6 .col-sm-6 file-size">
-            <span>113kb</span>
-            <span>2017-06-12 01:33:42</span>
-          </div>
-          <div class="col-md-6 .col-sm-6 file-handle">
-            <a href="">下载</a>
-            <a href="">删除</a>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="row">
-          <div class="col-md-12 file-name">
-            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
-          </div>
-          <div class="col-md-6 .col-sm-6 file-size">
-            <span>113kb</span>
-            <span>2017-06-12 01:33:42</span>
-          </div>
-          <div class="col-md-6 .col-sm-6 file-handle">
-            <a href="">下载</a>
-            <a href="">删除</a>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="row">
-          <div class="col-md-12 file-name">
-            <p>高考应该怎样合理有效的复习？暑假应该如何规划？</p>
-          </div>
-          <div class="col-md-6 .col-sm-6 file-size">
-            <span>113kb</span>
-            <span>2017-06-12 01:33:42</span>
-          </div>
-          <div class="col-md-6 .col-sm-6 file-handle">
-            <a href="">下载</a>
-            <a href="">删除</a>
-          </div>
-        </div>
-      </li>
+        </li>
+      <% end %>
     </ul>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    $(function(){
-      // 文件上传
-      $('#courseware').on('change', '.upload_file', function(e){
-        var file = e.target.files[0];
-        if(!file) return false;
-        if(!file.name.match(/.mp4$/i)) {
-          alert("<%= t('view.video_course_form.video_format_tips') %>");
-          return false;
-        }
-        var fileForm = '<form id="file_form" action="/resource/files" enctype="multipart/form-data" method="post"></form>';
-        var data = new FormData();
-        data.append("file[file]", file);
-        var load_files = $('#load_files');
-        var file_id = Math.round(Math.random() * 10000);
-
-        $(fileForm).ajaxSubmit({
-          dataType: 'json',
-          formData: data,
-          cache: false,
-          contentType: false,
-          processData: false,
-          type: 'POST',
-          beforeSubmit: function(){
-            initUploadProgress(file_id, file);
-          },
-          uploadProgress: function(event, position, total, percentComplete) {
-            var currentUploadingFile = $('#uploading_file_' + file_id);
-            var currentProgressBar = currentUploadingFile.find('i.progress-bar');
-            var currentProgressNumber = currentUploadingFile.find('i.progress_number');
-            var percentVal = percentComplete + '%';
-            currentProgressBar.css({width: percentVal});
-            currentProgressNumber.html(percentVal);
-          },
-          success: function(data) {
-            if(data.id){
-              var currentUploadingFile = $('#uploading_file_' + file_id);
-              currentUploadingFile.find('input.uploaded_file_id').removeClass('uploading').addClass('uploaded').val(data.id);
-            }
-          }
-        });
-      });
-
-      // 上传进度
-      function initUploadProgress(file_id, file){
-        var $li = $("<li " + "id='uploading_file_" + file_id + "'" + "></li>");
-        $li.append("<span>" + file.name + "</span>");
-        $li.append("<i>（" + bytesToSize(file.size) + "）</i>");
-        var $progress = $("<i class='progress'></i>");
-        var $progressBar = $('<i class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></i>');
-        $progress.append($progressBar);
-        $li.append($progress);
-        $li.append("<i class='progress_number'>0%</i>");
-        $li.append("<a href='javascript:void(0);' class='cancel_upload'>取消</a>");
-        $li.append("<input name='file_ids[]' type='hidden' class='uploaded_file_id uploading' />");
-        $('#load_files').append($li);
-      }
-
-      // 提交上传的文件
-      $('#courseware').on('click', '.submit_files', function(e){
-        var error_tip = $('span.submit_files_error');
-        if( $('ul#load_files').children().length == 0 ){
-          error_tip.html('请添加文件');
-          return false;
-        }
-        if( $('#load_files .uploaded_file_id').hasClass('uploading') ){
-          error_tip.html('请等待上传完毕后提交');
-          return false;
-        }
-        $('#uploaded_form').submit();
-      });
-
-      // 取消上传
-      $('#courseware').on('click', '.cancel_upload', function(e){
-        $(this).parents('li').remove();
-        $('.upload_file').val('');
-      });
-
-
-
-      $(".add-courseware > a").click(function() {
-        $(this).toggleClass("active");
-        if($(this).hasClass('active')) {
-          $(this).html("取消");
-        } else {
-          $(this).html("新增课件");
-        }
-        $(this).parents(".courseware-box").find(".courseware-msg").toggle();
-      })
-    });
-
-    // 文件大小
-    function bytesToSize(bytes) {
-      if (bytes === 0) return '0 B';
-      var k = 1000, // or 1024
-          sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-          i = Math.floor(Math.log(bytes) / Math.log(k));
-      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-    }
-  </script>
-<% end %>

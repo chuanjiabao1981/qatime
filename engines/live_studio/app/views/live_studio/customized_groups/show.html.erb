@@ -9,9 +9,9 @@
             <div class="aside-left">
               <a href="#introduce" data-toggle="tab" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
               <a href="#arrange" data-toggle="tab"><%= t('view.live_studio/courses.show.arrange') %></a>
-              <a href="#homework" class="" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>
-              <a href="#ask" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>
-              <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(33)</i></a>
+              <!--<a href="#homework" class="" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+              <!--<a href="#ask" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>-->
+              <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(<%= @recourse_files.count %>)</i></a>
               <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
             </div>
             <div class="aside-right">
@@ -31,7 +31,11 @@
             <!--提问-->
             <div class="tab-pane fade" id="ask"></div>
             <!--课件-->
-            <%= render 'live_studio/customized_groups/show/courseware' %>
+            <% if current_user && current_user.teacher? && @customized_group.teacher == current_user %>
+              <%= render 'live_studio/customized_groups/show/courseware_teacher' %>
+            <% else %>
+              <%= render 'live_studio/customized_groups/show/courseware' %>
+            <% end %>
             <!--学习须知-->
             <%= render 'live_studio/customized_groups/show/study' %>
           </div>

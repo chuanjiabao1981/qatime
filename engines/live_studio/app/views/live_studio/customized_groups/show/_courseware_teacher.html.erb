@@ -1,0 +1,264 @@
+<div class="tab-pane fade" id="courseware">
+  <div class="courseware-box">
+    <div class="add-courseware">
+      <a href="javascript:void(0);">新增课件</a>
+    </div>
+    <div class="courseware-msg">
+      <div class="courseware-info">
+        <div class="file-head">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 choose-left">
+              <span>选择新增课件来源</span>
+            </div>
+            <div class="col-md-8 col-sm-8 choose-right">
+              <div class="upload-hint">
+                <%= image_tag 'hint.png' %>上传说明
+                <div class="hint-info">
+                  <p>1.上传文件目前仅支持一下格式：视频（MP4）；图片（JPEG）;文档（Word、Excel、PPT、PDF）;其它（ZIP、RAR、MP3等）。</p>
+                  <p>2.禁止上传任何包含违法内容的文件。</p>
+                </div>
+              </div>
+              <input type="file" id="lefile" class="upload_file">
+              <a onclick="$('input[id=lefile]').click();">
+                <i></i>
+                <span>上传本地文件</span>
+              </a>
+              <a href="#" data-toggle="modal" data-target="#selectMyFiles">
+                <i></i>
+                <span>选择我的文件</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <%= form_tag '/resource/files/create_quotes', id: 'uploaded_form' do %>
+          <%= hidden_field_tag :back_url, live_studio.customized_group_url(@customized_group) %>
+          <%= hidden_field_tag "quote[quoter_type]", @customized_group.model_name.to_s %>
+          <%= hidden_field_tag "quote[quoter_id]", @customized_group.id %>
+          <%= hidden_field_tag "quote[name]", "customized_groups show page uploaded" %>
+          <ul id="load_files"></ul>
+        <% end %>
+      </div>
+      <span class="help-block has-error submit_files_error"></span>
+
+      <div class="file-send">
+        <%= link_to '提交', 'javascript:void(0);', class: 'submit_files' %>
+      </div>
+    </div>
+
+    <ul class="courseware-list">
+      <% @recourse_files.each do |file| %>
+        <li>
+          <div class="row">
+            <div class="col-md-12 file-name">
+              <p><%= file.name %></p>
+            </div>
+            <div class="col-md-6 col-sm-6 file-size">
+              <span><%= number_to_human_size(file.file_size.to_i, precision: 2) %></span>
+              <span><%= l(file.created_at) if file.created_at %></span>
+            </div>
+            <div class="col-md-6 col-sm-6 file-handle">
+              <%= link_to '下载', file.attach.file_url %>
+              <%= link_to '删除', 'javascript:void(0);', class: 'delete_quote', data: { fileid: file.id, quoterid: @customized_group.id, quotertype: @customized_group.model_name.to_s } %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<%= content_for :mask do %>
+  <div class="modal fade" id="selectMyFiles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-file">
+      <div class="modal-content">
+        <div class="popup-title">
+          <span><i>我的文件</i></span>
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <% @customized_group.teacher.files.order(created_at: :desc).each do |file| %>
+              <li>
+                <div class="row">
+                  <div class="col-md-10 col-sm-10 col-xs-10 filename">
+                    <p><%= file.name %><span>(<%= number_to_human_size(file.file_size.to_i, precision: 2) %>)</span></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 checkboxed">
+                    <%= check_box_tag :my_file_checkbox, '1', false, class: 'my_file_checkbox', id: "my_file_checkbox_#{file.id}", data: { fileid: file.id, filename: file.name, filesize: number_to_human_size(file.file_size.to_i, precision: 2) } %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+          <div class="date-btn">
+            <center>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+              <a href="javascript:void(0);" class="selected_my_files">确定</a>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      // 文件上传
+      $('#courseware').on('change', '.upload_file', function(e){
+        var file = e.target.files[0];
+        if(!file) return false;
+        if(!file.name.match(/.(mp4|jpg|jpeg|png|pdf|doc|docx|xls|xlsx|ppt)$/i)) {
+          $('.upload_file').val('');
+          alert("不支持的文件格式,请重新上传!");
+          return false;
+        }
+        var fileForm = '<form id="file_form" action="/resource/files" enctype="multipart/form-data" method="post"></form>';
+        var data = new FormData();
+        data.append("file[file]", file);
+        var load_files = $('#load_files');
+        var file_id = Math.round(Math.random() * 10000);
+
+        $(fileForm).ajaxSubmit({
+          dataType: 'json',
+          formData: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          beforeSubmit: function(){
+            initUploadProgress(file_id, file);
+          },
+          uploadProgress: function(event, position, total, percentComplete) {
+            var currentUploadingFile = $('#uploading_file_' + file_id);
+            var currentProgressBar = currentUploadingFile.find('i.progress-bar');
+            var currentProgressNumber = currentUploadingFile.find('i.progress_number');
+            var percentVal = percentComplete + '%';
+            currentProgressBar.css({width: percentVal});
+            currentProgressNumber.html(percentVal);
+          },
+          success: function(data) {
+            if(data.id){
+              var currentUploadingFile = $('#uploading_file_' + file_id);
+              currentUploadingFile.find('input.uploaded_file_id').removeClass('uploading').addClass('uploaded').val(data.id);
+            }
+          }
+        });
+      });
+
+      // 上传进度
+      function initUploadProgress(file_id, file){
+        var $li = $("<li " + "id='uploading_file_" + file_id + "'" + "></li>");
+        $li.append("<span>" + file.name + "</span>");
+        $li.append("<i>（" + bytesToSize(file.size) + "）</i>");
+        var $progress = $("<i class='progress'></i>");
+        var $progressBar = $('<i class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></i>');
+        $progress.append($progressBar);
+        $li.append($progress);
+        $li.append("<i class='progress_number'>0%</i>");
+        $li.append("<a href='javascript:void(0);' class='cancel_upload'>取消</a>");
+        $li.append("<input name='file_ids[]' type='hidden' class='uploaded_file_id uploading' />");
+        $('#load_files').append($li);
+      }
+
+      // 提交上传的文件
+      $('#courseware').on('click', '.submit_files', function(e){
+        var error_tip = $('span.submit_files_error');
+        if( $('ul#load_files').children().length == 0 ){
+          error_tip.html('请添加文件');
+          return false;
+        }
+        if( $('#load_files .uploaded_file_id').hasClass('uploading') ){
+          error_tip.html('请等待上传完毕后提交');
+          return false;
+        }
+        $('#uploaded_form').submit();
+      });
+
+      // 取消上传
+      $('#courseware').on('click', '.cancel_upload', function(e){
+        $(this).parents('li').remove();
+        $('.upload_file').val('');
+      });
+
+      // 上传说明
+      var hoverset;
+      $(".upload-hint").hover(function() {
+        $(".upload-hint .hint-info").show();
+        if(hoverset) {
+          clearTimeout(hoverset);
+        }
+      }, function() {
+        hoverset = setTimeout(function() {
+          $(".upload-hint .hint-info").hide();
+        }, 200)
+      });
+
+      // 选择我的文件-进度条
+      function buildSelectedProgress(file_id, file_name, file_size){
+        var $li = $("<li " + "id='selected_file_" + file_id + "'" + "></li>");
+        $li.append("<span>" + file_name + "</span>");
+        $li.append("<i>（" + file_size + "）</i>");
+        $li.append("<a href='javascript:void(0);' class='delete_file'>删除</a>");
+        $li.append("<input name='file_ids[]' type='hidden' class='selected_file_id' value='" + file_id + "' />");
+        $('#load_files').append($li);
+      }
+
+      // 选择我的文件
+      $(document).on('click', '.selected_my_files', function(e){
+        $('.my_file_checkbox:checked').each(function(i, ele){
+          var $ele = $(ele);
+          var file_id = $ele.data('fileid'),
+              file_name = $ele.data('filename'),
+              file_size = $ele.data('filesize');
+          if( $('#selected_file_' + file_id).length === 0 ){
+            buildSelectedProgress(file_id, file_name, file_size);
+          }
+        });
+        $('#selectMyFiles').modal('hide');
+      });
+
+      // 删除选择文件
+      $('#courseware').on('click', '.delete_file', function(e){
+        $(this).parents('li').remove();
+      });
+
+      // 删除文件引用
+      $('#courseware').on('click', '.delete_quote', function(e){
+        var currentNode = $(this);
+        var file_id = currentNode.data('fileid'),
+            quoter_id = currentNode.data('quoterid'),
+            quoter_type = currentNode.data('quotertype');
+        $.ajax({
+          url: '/resource/files/' + file_id + '/delete_quote',
+          type: 'POST',
+          dataType: 'json',
+          data: {quoter_id: quoter_id,quoter_type: quoter_type}
+        });
+        currentNode.parents('li').remove();
+      });
+
+
+      $(".add-courseware > a").click(function() {
+        $(this).toggleClass("active");
+        if($(this).hasClass('active')) {
+          $(this).html("取消");
+        } else {
+          $(this).html("新增课件");
+        }
+        $(this).parents(".courseware-box").find(".courseware-msg").toggle();
+      });
+    });
+
+    // 文件大小
+    function bytesToSize(bytes) {
+      if (bytes === 0) return '0 B';
+      var k = 1024,
+          sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+          i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+  </script>
+<% end %>

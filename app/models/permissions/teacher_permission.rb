@@ -297,7 +297,7 @@ module Permissions
       ## end payment permission
 
       # 资源中心 start
-      allow 'resource/files', [:create, :create_quotes]
+      allow 'resource/files', [:create, :create_quotes, :delete_quote]
 
       # 资源中心 end
 

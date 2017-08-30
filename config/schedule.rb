@@ -66,3 +66,8 @@ end
 every 1.day, :at => '00:30 am', :roles => [:web] do
   runner "BusinessService::TaskBillingDirector.handle_tasks"
 end
+
+# 每天设置线下课进度任务
+every 1.day, at: '00::10', roles: [:web] do
+  runner "LiveStudio::EventDirector.dispatch_today_events"
+end

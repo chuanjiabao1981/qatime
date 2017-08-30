@@ -30,7 +30,7 @@ module V1
                 optional :cate, type: String, values: %w(video picture document other)
               end
               get do
-                files = @event.files
+                files = @group.files
                 files = files.where(type: file_type(params[:cate])) if params[:cate].present?
                 files = files.paginate(page: params[:page], per_page: params[:per_page])
                 present files, with: Entities::Resource::File
@@ -49,11 +49,27 @@ module V1
               post do
                 file = current_user.files.find(params[:file_id])
                 if @group.files.include?(file)
+                  { result: 'fail' }
+                else
                   @group.files << file
                   { result: 'ok' }
-                else
-                  { result: 'fail' }
                 end
+              end
+
+              desc '删除课件' do
+                headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                }
+              end
+              params do
+                requires :group_id, type: Integer, desc: '专属课ID'
+                requires :id, type: Integer, desc: '文件ID'
+              end
+              delete '/:id' do
+                file = current_user.files.find(params[:id])
+                @group.files.delete(file)
+                { result: 'ok' }
               end
             end
           end

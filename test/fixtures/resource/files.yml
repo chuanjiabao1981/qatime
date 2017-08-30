@@ -1,0 +1,76 @@
+video_file_one:
+  name: 视频资源文件1.mp4
+  user: teacher1
+  quotes_count: 1
+  attach: 
+  file_size: 1024
+  ext_name: mp4
+  type: Resource::VideoFile
+video_file_two:
+  name: 视频资源文件2.mp4
+  user: teacher1
+  quotes_count: 1
+  attach: 
+  file_size: 2048
+  ext_name: mp4
+  type: Resource::VideoFile
+video_file_three:
+  name: 视频资源文件3.mp4
+  user: teacher1
+  quotes_count: 4
+  attach: 
+  file_size: 1024
+  ext_name: mp4
+  type: Resource::VideoFile
+video_file_four:
+  name: 视频资源文件4.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: 
+  file_size: 1024
+  ext_name: mp4
+  type: Resource::VideoFile
+video_file_five:
+  name: 视频资源文件5.mp4
+  user: teacher1
+  quotes_count: 3
+  attach: 
+  file_size: <%= 1024 * 6 %>
+  ext_name: mp4
+  type: Resource::VideoFile
+
+picture_file_one:
+  name: 视频资源文件1.png
+  user: teacher1
+  quotes_count: 3
+  attach: 
+  file_size: <%= 1024 * 2 %>
+  ext_name: png
+  type: Resource::PictureFile
+
+picture_file_two:
+  name: 视频资源文件2.png
+  user: teacher1
+  quotes_count: 2
+  attach: 
+  file_size: <%= 1024 * 2 %>
+  ext_name: png
+  type: Resource::PictureFile
+
+document_file_one:
+  name: 视频资源文件2.pdf
+  user: teacher1
+  quotes_count: 2
+  attach: 
+  file_size: <%= 1024 * 2 %>
+  ext_name: pdf
+  type: Resource::DocumentFile
+
+other_file_one:
+  name: 视频资源文件2.zip
+  user: teacher1
+  quotes_count: 2
+  attach: 
+  file_size: <%= 1024 * 2 %>
+  ext_name: zip
+  type: Resource::DocumentFile

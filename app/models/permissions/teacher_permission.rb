@@ -289,6 +289,11 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      # 删除课件
+      api_allow :DELETE, '/api/v1/live_studio/groups/\d+/files/\d+' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
       ## 专属课 end
 
       ## begin payment permission
@@ -396,10 +401,6 @@ module Permissions
         teacher && teacher.id == user.id
       end
 
-      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 我的文件
-        file && file.user_id = user.id
-      end
-
       api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 文件详情
         file && user.files.include?(file)
       end
@@ -408,6 +409,7 @@ module Permissions
         file && user.files.include?(file)
       end
 
+      api_allow :POST, "/api/v1/resource/files" # 文件上传
       # 资源中心 end
     end
 

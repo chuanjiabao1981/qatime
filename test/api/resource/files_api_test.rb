@@ -31,4 +31,13 @@ class Qatime::FilesAPITest < ActionDispatch::IntegrationTest
     assert_equal 'Resource::PictureFile', @res['data']['type'], '资源文件类型不正确'
     assert_equal 105_413, @res['data']['file_size'].to_i, '资源文件大小不正确'
   end
+
+  # 删除文件
+  test "remove a file api" do
+    @file = resource_files(:picture_file_one)
+    assert_difference "@teacher.reload.files.count", -1, "文件删除失败" do
+      delete "/api/v1/resource/files/#{@file.id}", {}, 'Remember-Token' => @teacher_token
+      assert_request_success?
+    end
+  end
 end

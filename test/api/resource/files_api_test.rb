@@ -40,4 +40,13 @@ class Qatime::FilesAPITest < ActionDispatch::IntegrationTest
       assert_request_success?
     end
   end
+
+  # 文件详情
+  test 'file deatil api' do
+    @file = resource_files(:other_file_one)
+    get "/api/v1/resource/files/#{@file.id}", {}, 'Remember-Token' => @teacher_token
+    assert_request_success?
+    assert_equal 2048, @res['data']['file_size'].to_i, "文件详情获取失败"
+    assert_equal "http://qatime-testing.oss-cn-beijing.aliyuncs.com/upload/resource/attach/file/#{@file.attach.id}/filename.jpg", @res['data']['file_url'], "文件详情获取失败"
+  end
 end

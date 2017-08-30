@@ -70,7 +70,7 @@ other_file_one:
   name: 视频资源文件2.zip
   user: teacher1
   quotes_count: 2
-  attach: 
+  attach: one (Resource::Attach)
   file_size: <%= 1024 * 2 %>
   ext_name: zip
   type: Resource::DocumentFile

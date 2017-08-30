@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  file: filename.jpg
+  ext_name: jpg
+  content_type: 'image/jpeg'
+  ext_name: 3000
+
+two:
+  file: MyString

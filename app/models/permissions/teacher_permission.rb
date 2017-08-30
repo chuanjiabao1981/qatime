@@ -281,11 +281,16 @@ module Permissions
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_switch' # 状态切换
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_end' # 直播结束
 
-      api_allow :GET, "/api/v1/live_studio/groups/\d+/files" do |group| # 专属课文件列表
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件列表
         group && user.live_studio_customized_groups.include?(group)
       end
 
-      api_allow :POST, "/api/v1/live_studio/groups/\d+/files" do |group| # 专属课文件引用
+      api_allow :POST, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件引用
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 删除课件
+      api_allow :DELETE, '/api/v1/live_studio/groups/\d+/files/\d+' do |group|
         group && user.live_studio_customized_groups.include?(group)
       end
 

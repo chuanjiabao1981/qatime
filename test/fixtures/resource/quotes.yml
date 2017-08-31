@@ -1,0 +1,51 @@
+group_for_update_class_date_file_1:
+  file: video_file_one
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_2:
+  file: video_file_two
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_3:
+  file: video_file_three
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_4:
+  file: video_file_four
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_5:
+  file: video_file_five
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_6:
+  file: picture_file_two
+  quoter: group_for_update_class_date (LiveStudio::Group)
+group_for_update_class_date_file_7:
+  file: other_file_one
+  quoter: group_for_update_class_date (LiveStudio::Group)
+teacher1_file_1:
+  file: video_file_one
+  quoter: teacher1 (User)
+teacher1_file_2:
+  file: video_file_two
+  quoter: teacher1 (User)
+teacher1_file_3:
+  file: video_file_three
+  quoter: teacher1 (User)
+teacher1_file_4:
+  file: video_file_four
+  quoter: teacher1 (User)
+teacher1_file_5:
+  file: video_file_five
+  quoter: teacher1 (User)
+teacher1_file_6:
+  file: picture_file_one
+  quoter: teacher1 (User)
+teacher1_file_7:
+  file: picture_file_two
+  quoter: teacher1 (User)
+teacher1_file_8:
+  file: document_file_one
+  quoter: teacher1 (User)
+teacher1_file_9:
+  file: other_file_one
+  quoter: teacher1 (User)
+published_group1_file_1:
+  file: video_file_one
+  quoter: published_group1 (LiveStudio::Group)

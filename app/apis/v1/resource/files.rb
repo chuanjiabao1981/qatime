@@ -16,7 +16,7 @@ module V1
           route_param :id do
             helpers do
               def auth_params
-                @file ||= ::Resource::File.find(params[:id])
+                @resource ||= ::Resource::File.find(params[:id])
               end
             end
 
@@ -30,7 +30,7 @@ module V1
               requires :id, type: Integer
             end
             get do
-              present @file, with: Entities::Resource::File
+              present @resource, with: Entities::Resource::File
             end
 
             desc '文件删除' do
@@ -43,7 +43,7 @@ module V1
               requires :id, type: Integer
             end
             delete do
-              current_user.files.delete(@file)
+              current_user.files.delete(@resource)
               { result: 'ok' }
             end
           end

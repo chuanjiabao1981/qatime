@@ -11,13 +11,13 @@ module Resource
       file_ext = ext_name || file.filename.split('.').last.downcase
       case file_ext
       when 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'
-        Resource::DocumentFile
+        'Resource::DocumentFile'
       when 'mp4'
-        Resource::VideoFile
+        'Resource::VideoFile'
       when 'png', 'jpg'
-        Resource::PictureFile
+        'Resource::PictureFile'
       else
-        Resource::OtherFile
+        'Resource::OtherFile'
       end
     rescue
       nil

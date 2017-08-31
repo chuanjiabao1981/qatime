@@ -4,7 +4,7 @@
       <span><%= t('view.common_bars.welcome') %></span>
       <em>
         <i><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></i>
-        <%= link_to_unless_current "【#{t('view.common_bars.switch_city')}】", switch_city_home_index_path, class: 'switch-city' %>
+        <%= link_to_unless_current "【#{t('view.common_bars.switch_city')}】", main_app.switch_city_home_index_path, class: 'switch-city' %>
       </em>
     </div>
 

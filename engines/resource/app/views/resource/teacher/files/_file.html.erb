@@ -1,0 +1,22 @@
+<li>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="file-header">
+        <%= image_tag "file_icons/#{file.icon_name}.png" %>
+        <span><%= file.name %></span>
+      </p>
+    </div>
+    <div class="col-md-12">
+      <p><%= number_to_human_size(file.file_size.to_i, precision: 2) %></p>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <p><%= l(file.created_at) if file.created_at %></p>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 operation-box">
+      <%= link_to t('common.download'), file.file_url %>
+      <% if allow? 'resource/teacher/files', :destroy, @teacher %>
+        <%= link_to t('common.delete'), teacher_file_path(@teacher, file, cate: params[:cate]), data: { method: :delete, confirm: t('common.confirm_delete') } %>
+      <% end %>
+    </div>
+  </div>
+</li>

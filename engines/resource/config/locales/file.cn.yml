@@ -1,0 +1,8 @@
+cn:
+  view:
+    resource/file:
+      new:
+        uploaded_title: 已选择文件
+        upload_file: 上传文件
+        submit: 提交并添加
+        uploading_error: 请等待上传完毕

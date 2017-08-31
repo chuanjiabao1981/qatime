@@ -1,0 +1,12 @@
+cn:
+  resource:
+    menu:
+      teacher:
+        my_files: 我的文件
+        new_file: 添加新文件
+        files:
+          all: 全部
+          video: 视频
+          picture: 图片
+          document: 文档
+          other: 其他

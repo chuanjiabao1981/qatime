@@ -311,6 +311,10 @@ module Permissions
 
       # 资源中心 start
       allow 'resource/files', [:create, :create_quotes, :delete_quote]
+      allow 'resource/teacher/files', [:index, :new]
+      allow 'resource/teacher/files', [:create, :destroy] do |teacher|
+        teacher && teacher.id == user.id
+      end
 
       # 资源中心 end
 

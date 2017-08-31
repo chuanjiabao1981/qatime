@@ -1,31 +1,31 @@
 <div class="tab-pane fade" id="courseware">
   <div class="courseware-box">
     <div class="add-courseware">
-      <a href="javascript:void(0);">新增课件</a>
+      <%= link_to t('view.live_studio/customized_groups.show.courseware.new_file'), 'javascript:void(0);' %>
     </div>
     <div class="courseware-msg">
       <div class="courseware-info">
         <div class="file-head">
           <div class="row">
             <div class="col-md-4 col-sm-4 choose-left">
-              <span>选择新增课件来源</span>
+              <span><%= t('view.live_studio/customized_groups.show.courseware.new_file_title') %></span>
             </div>
             <div class="col-md-8 col-sm-8 choose-right">
               <div class="upload-hint">
-                <%= image_tag 'hint.png' %>上传说明
+                <%= image_tag 'hint.png' %><%= t('view.live_studio/customized_groups.show.courseware.upload_hint') %>
                 <div class="hint-info">
-                  <p>1.上传文件目前仅支持一下格式：视频（MP4）；图片（JPEG）;文档（Word、Excel、PPT、PDF）;其它（ZIP、RAR、MP3等）。</p>
-                  <p>2.禁止上传任何包含违法内容的文件。</p>
+                  <p><%= t('view.live_studio/customized_groups.show.courseware.upload_hint1') %></p>
+                  <p><%= t('view.live_studio/customized_groups.show.courseware.upload_hint2') %></p>
                 </div>
               </div>
               <input type="file" id="lefile" class="upload_file">
               <a onclick="$('input[id=lefile]').click();">
                 <i></i>
-                <span>上传本地文件</span>
+                <span><%= t('view.live_studio/customized_groups.show.courseware.upload_local') %></span>
               </a>
               <a href="#" data-toggle="modal" data-target="#selectMyFiles">
                 <i></i>
-                <span>选择我的文件</span>
+                <span><%= t('view.live_studio/customized_groups.show.courseware.upload_my_files') %></span>
               </a>
             </div>
           </div>
@@ -42,7 +42,7 @@
       <span class="help-block has-error submit_files_error"></span>
 
       <div class="file-send">
-        <%= link_to '提交', 'javascript:void(0);', class: 'submit_files' %>
+        <%= link_to t('common.submit'), 'javascript:void(0);', class: 'submit_files' %>
       </div>
     </div>
 
@@ -58,8 +58,8 @@
               <span><%= l(file.created_at) if file.created_at %></span>
             </div>
             <div class="col-md-6 col-sm-6 file-handle">
-              <%= link_to '下载', file.attach.file_url %>
-              <%= link_to '删除', 'javascript:void(0);', class: 'delete_quote', data: { fileid: file.id, quoterid: @customized_group.id, quotertype: @customized_group.model_name.to_s } %>
+              <%= link_to t('common.download'), file.attach.file_url %>
+              <%= link_to t('common.delete'), 'javascript:void(0);', class: 'delete_quote', data: { fileid: file.id, quoterid: @customized_group.id, quotertype: @customized_group.model_name.to_s } %>
             </div>
           </div>
         </li>
@@ -73,7 +73,7 @@
     <div class="modal-dialog modal-file">
       <div class="modal-content">
         <div class="popup-title">
-          <span><i>我的文件</i></span>
+          <span><i><%= t('view.live_studio/customized_groups.show.courseware.my_files_title') %></i></span>
           <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
         </div>
         <div class="modal-body">
@@ -93,8 +93,8 @@
           </ul>
           <div class="date-btn">
             <center>
-              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-              <a href="javascript:void(0);" class="selected_my_files">确定</a>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t('common.cancel') %></a>
+              <a href="javascript:void(0);" class="selected_my_files"><%= t('common.confirm2') %></a>
             </center>
           </div>
         </div>
@@ -112,7 +112,7 @@
         if(!file) return false;
         if(!file.name.match(/.(mp4|jpg|jpeg|png|pdf|doc|docx|xls|xlsx|ppt)$/i)) {
           $('.upload_file').val('');
-          alert("不支持的文件格式,请重新上传!");
+          alert("<%= t('view.live_studio/customized_groups.show.courseware.valid_file_ext') %>");
           return false;
         }
         var fileForm = '<form id="file_form" action="/resource/files" enctype="multipart/form-data" method="post"></form>';
@@ -158,7 +158,7 @@
         $progress.append($progressBar);
         $li.append($progress);
         $li.append("<i class='progress_number'>0%</i>");
-        $li.append("<a href='javascript:void(0);' class='cancel_upload'>取消</a>");
+        $li.append("<a href='javascript:void(0);' class='cancel_upload'><%= t('common.cancel') %></a>");
         $li.append("<input name='file_ids[]' type='hidden' class='uploaded_file_id uploading' />");
         $('#load_files').append($li);
       }
@@ -167,11 +167,11 @@
       $('#courseware').on('click', '.submit_files', function(e){
         var error_tip = $('span.submit_files_error');
         if( $('ul#load_files').children().length == 0 ){
-          error_tip.html('请添加文件');
+          error_tip.html('<%= t('view.live_studio/customized_groups.show.courseware.add_file_error') %>');
           return false;
         }
         if( $('#load_files .uploaded_file_id').hasClass('uploading') ){
-          error_tip.html('请等待上传完毕后提交');
+          error_tip.html('<%= t('view.live_studio/customized_groups.show.courseware.file_uploading_error') %>');
           return false;
         }
         $('#uploaded_form').submit();
@@ -201,7 +201,7 @@
         var $li = $("<li " + "id='selected_file_" + file_id + "'" + "></li>");
         $li.append("<span>" + file_name + "</span>");
         $li.append("<i>（" + file_size + "）</i>");
-        $li.append("<a href='javascript:void(0);' class='delete_file'>删除</a>");
+        $li.append("<a href='javascript:void(0);' class='delete_file'><%= t('common.delete') %></a>");
         $li.append("<input name='file_ids[]' type='hidden' class='selected_file_id' value='" + file_id + "' />");
         $('#load_files').append($li);
       }
@@ -244,9 +244,9 @@
       $(".add-courseware > a").click(function() {
         $(this).toggleClass("active");
         if($(this).hasClass('active')) {
-          $(this).html("取消");
+          $(this).html("<%= t('common.cancel') %>");
         } else {
-          $(this).html("新增课件");
+          $(this).html("<%= t('view.live_studio/customized_groups.show.courseware.new_file') %>");
         }
         $(this).parents(".courseware-box").find(".courseware-msg").toggle();
       });

@@ -90,12 +90,14 @@
     search_result: '搜索结果'
     tips: '提示'
     confirm: '确认'
+    confirm2: 确定
     teacher: '老师'
     student: '学生'
     off_shelve: 该课程已下架!
     play_video: 观看
     free_of_charge: 免费
     none: 无
+    download: 下载
   tips:
     replay_used_up: '失败：回放次数已经耗尽'
   reply:

@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6 .col-sm-6 file-handle">
               <span><%= number_to_human_size(file.file_size.to_i, precision: 2) %></span>
-              <%= link_to '下载到电脑', file.attach.file_url %>
+              <%= link_to t('view.live_studio/customized_groups.show.courseware.download'), file.attach.file_url %>
             </div>
           </div>
         </li>

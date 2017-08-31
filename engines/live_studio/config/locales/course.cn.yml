@@ -120,3 +120,18 @@ cn:
         homework: 作业
         ask: 提问
         files: 课件
+        courseware:
+          new_file: 新增课件
+          new_file_title: 选择新增课件来源
+          upload_hint: 上传说明
+          upload_hint1: 1.上传文件目前仅支持一下格式：视频（MP4）；图片（JPG JPEG PNG）;文档（Word、Excel、PPT、PDF）;其它（ZIP、RAR、MP3等）。
+          upload_hint2: 2.禁止上传任何包含违法内容的文件。
+          upload_local: 上传本地文件
+          upload_my_files: 选择我的文件
+          my_files_title: 我的文件
+          valid_file_ext: 不支持的文件格式,请重新上传!
+          add_file_error: 请添加文件
+          file_uploading_error: 请等待上传完毕后提交
+          download: 下载到电脑
+
+

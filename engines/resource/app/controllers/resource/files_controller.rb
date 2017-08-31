@@ -8,7 +8,7 @@ module Resource
 
     def create
       attach = Attach.create(file_params)
-      file = attach.resource_type.create(
+      file = attach.resource_type.constantize.create(
           name: file_params[:file].original_filename,
           user: current_user,
           attach: attach,

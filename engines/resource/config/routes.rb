@@ -7,4 +7,10 @@ Resource::Engine.routes.draw do
       post :delete_quote
     end
   end
+
+  scope module: :teacher do
+    resources :teachers, only: [] do
+      resources :files
+    end
+  end
 end

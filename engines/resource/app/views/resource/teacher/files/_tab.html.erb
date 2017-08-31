@@ -1,0 +1,17 @@
+<div class="discipline-nav">
+  <%= link_to t("resource.menu.teacher.files.all"),
+              resource.teacher_files_path(@teacher),
+              class: "#{ 'active' if params[:cate].blank? }" %>
+  <%= link_to t("resource.menu.teacher.files.video"),
+              resource.teacher_files_path(@teacher, cate: 'video'),
+              class: "#{ 'active' if params[:cate] == 'video' }" %>
+  <%= link_to t("resource.menu.teacher.files.picture"),
+              resource.teacher_files_path(@teacher, cate: 'picture'),
+              class: "#{ 'active' if params[:cate] == 'picture' }" %>
+  <%= link_to t("resource.menu.teacher.files.document"),
+              resource.teacher_files_path(@teacher, cate: 'document'),
+              class: "#{ 'active' if params[:cate] == 'document' }" %>
+  <%= link_to t("resource.menu.teacher.files.other"),
+              resource.teacher_files_path(@teacher, cate: 'other'),
+              class: "#{ 'active' if params[:cate] == 'other' }" %>
+</div>

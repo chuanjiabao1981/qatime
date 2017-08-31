@@ -1,0 +1,18 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('resource.menu.teacher.my_files') %></h3>
+    <%= link_to t('resource.menu.teacher.new_file'), '#' %>
+  </div>
+
+  <div class="contains-discipline">
+    <%= render 'tab' %>
+    <div class="tab-content">
+      <ul class="file-list">
+        <%= render partial: 'file', collection: @files %>
+      </ul>
+
+      <%= render 'shared/blank' if @files.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @files, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

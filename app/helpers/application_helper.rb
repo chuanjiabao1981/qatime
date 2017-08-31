@@ -415,6 +415,8 @@ module ApplicationHelper
       r = controller_name == 'teachers' && action_name == 'homeworks'
     when :my_homework
       r = controller_name == 'teachers' && %w[solutions customized_tutorial_topics homeworks questions topics].include?(action_name)
+    when :files
+      r = controller_name == 'files' && action_name == 'index'
     else
       r = false
     end

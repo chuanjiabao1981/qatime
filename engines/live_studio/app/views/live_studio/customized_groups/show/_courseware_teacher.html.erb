@@ -58,7 +58,7 @@
               <span><%= l(file.created_at) if file.created_at %></span>
             </div>
             <div class="col-md-6 col-sm-6 file-handle">
-              <%= link_to t('common.download'), file.attach.file_url %>
+              <%= link_to t('common.download'), file.file_url %>
               <%= link_to t('common.delete'), 'javascript:void(0);', class: 'delete_quote', data: { fileid: file.id, quoterid: @customized_group.id, quotertype: @customized_group.model_name.to_s } %>
             </div>
           </div>
@@ -143,6 +143,9 @@
             if(data.id){
               var currentUploadingFile = $('#uploading_file_' + file_id);
               currentUploadingFile.find('input.uploaded_file_id').removeClass('uploading').addClass('uploaded').val(data.id);
+              currentUploadingFile.find('i.progress').remove();
+              currentUploadingFile.find('i.progress_number').remove();
+              currentUploadingFile.find('a.cancel_upload').replaceWith("<a href='javascript:void(0);' class='delete_file'><%= t('common.delete') %></a>");
             }
           }
         });

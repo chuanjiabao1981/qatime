@@ -14,7 +14,9 @@
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6 operation-box">
       <%= link_to t('common.download'), file.file_url %>
-      <%= link_to t('common.delete'), teacher_file_path(@teacher, file, cate: params[:cate]), data: { method: :delete, confirm: t('common.confirm_delete') } %>
+      <% if allow? 'resource/teacher/files', :destroy, @teacher %>
+        <%= link_to t('common.delete'), teacher_file_path(@teacher, file, cate: params[:cate]), data: { method: :delete, confirm: t('common.confirm_delete') } %>
+      <% end %>
     </div>
   </div>
 </li>

@@ -1,7 +1,7 @@
 <div class="contains">
   <div class="contains-title">
     <h3><%= t('resource.menu.teacher.my_files') %></h3>
-    <%= link_to t('resource.menu.teacher.new_file'), '#' %>
+    <%= link_to t('resource.menu.teacher.new_file'), new_teacher_file_path(@teacher) if allow? 'resource/teacher/files', :new %>
   </div>
 
   <div class="contains-discipline">

@@ -4606,6 +4606,11 @@ ul {
   margin-bottom: 30px;
   outline: none;
 }
+.login-send.active {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
+}
 .login-other span {
   display: inline-block;
   margin: 0 8px;
@@ -4942,6 +4947,11 @@ ul {
 .tea-register-left .active {
   color: #ff5842;
   border: 2px solid #ff5842;
+}
+.tea-register-left .finished {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
 }
 .tea-register-right {
   margin-top: 100px;
@@ -9190,11 +9200,17 @@ ul {
   line-height: 72px;
 }
 .header .pull-right .nav-login > li.user-enter > a {
+  padding: 7px 10px;
+  border: 1px solid #ff5842;
+  border-radius: 9px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
   font-size: 14px;
-  color: #6d6d6d;
+  color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a:hover {
-  color: #ff5842;
+  color: #FFFFFF;
+  background-color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a > span {
   padding: 0 5px;
@@ -17476,4 +17492,16 @@ abbr {
 }
 .submit-box > a:last-child {
   margin-right: 0px;
+}
+
+
+/*提示状态*/
+.alert-info {
+  text-align: center;
+}
+.alert-notice {
+  text-align: center;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
 }

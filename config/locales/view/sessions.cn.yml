@@ -9,4 +9,5 @@ cn:
       forget_password: 忘记密码
       remember_account: 记住账号
       sign_now: 立即登录
+      sign_loading: '登录中...'
       other_login_type: 其他登录方式

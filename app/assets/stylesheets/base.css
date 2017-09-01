@@ -4606,6 +4606,11 @@ ul {
   margin-bottom: 30px;
   outline: none;
 }
+.login-send.active {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
+}
 .login-other span {
   display: inline-block;
   margin: 0 8px;
@@ -4942,6 +4947,11 @@ ul {
 .tea-register-left .active {
   color: #ff5842;
   border: 2px solid #ff5842;
+}
+.tea-register-left .finished {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
 }
 .tea-register-right {
   margin-top: 100px;
@@ -9190,11 +9200,17 @@ ul {
   line-height: 72px;
 }
 .header .pull-right .nav-login > li.user-enter > a {
+  padding: 7px 10px;
+  border: 1px solid #ff5842;
+  border-radius: 9px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
   font-size: 14px;
-  color: #6d6d6d;
+  color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a:hover {
-  color: #ff5842;
+  color: #FFFFFF;
+  background-color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a > span {
   padding: 0 5px;
@@ -9649,12 +9665,6 @@ ul {
 .category > .category-answer > p > a:hover {
   color: #ff5842;
 }
-
-
-
-
-
-
 .live-today h3 {
   width: 130px;
   font-size: 16px;
@@ -11760,6 +11770,9 @@ ul {
 .recorded-title > a {
   color: #999999;
   text-decoration: underline !important;
+}
+.recorded-title > a:hover {
+  color: #ff5842;
 }
 .recorded-nav {
   text-align: center;
@@ -17114,12 +17127,49 @@ abbr {
 .courseware-msg .file-head .choose-right {
   text-align: right;
 }
+.upload-hint {
+  display: inline-block;
+  font-size: 14px;
+  color: #ff5842;
+  margin-right: 20px;
+  position: relative;
+  cursor:  default;
+}
+.upload-hint > img {
+  position: relative;
+  top: -2px;
+  margin-right: 5px;
+}
+.upload-hint > .hint-info {
+  display: none;
+  position: absolute;
+  right: 0px;
+  width: 250px;
+  padding: 10px;
+  font-size: 12px;
+  color: #666;
+  top: 30px;
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ccc;
+  z-index: 10;
+}
+.upload-hint > .hint-info > p:last-child {
+  margin-bottom: 0px;
+}
 .courseware-msg .file-head .choose-right a > i,.addfile-title > a > i {
   display: inline-block;
   width: 18px;
   height: 14px;
   position: relative;
   top: 2px;
+}
+.addfile-title > .upload-hint {
+  float: right;
+  margin-top: 6px;
+}
+.addfile-title > .upload-hint > .hint-info {
+  top: 37px;
 }
 .courseware-msg .file-head .choose-right a:hover {
   background-color: #FF5842;
@@ -17442,4 +17492,16 @@ abbr {
 }
 .submit-box > a:last-child {
   margin-right: 0px;
+}
+
+
+/*提示状态*/
+.alert-info {
+  text-align: center;
+}
+.alert-notice {
+  text-align: center;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
 }

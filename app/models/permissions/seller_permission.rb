@@ -116,8 +116,10 @@ module Permissions
       end
 
       allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/teacher/customized_groups', [:index]
       allow 'live_studio/teacher/course_invitations', [:index]
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/student/customized_groups', [:index]
 
       # 辅导班管理
       allow 'live_studio/station/courses', [:my_courses, :index, :send_qr_code] do |workstation|
@@ -135,6 +137,10 @@ module Permissions
       end
 
       allow 'live_studio/station/interactive_courses', [:index, :play] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'live_studio/station/customized_groups', [:index, :sells_list, :send_qr_code] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 
@@ -168,6 +174,7 @@ module Permissions
       end
 
       allow 'live_studio/interactive_courses', [:index, :show, :preview, :play, :live_info]
+      allow 'live_studio/customized_groups', [:index, :show, :preview, :play, :live_info]
       allow 'live_studio/video_courses', [:index, :show, :preview]
       allow 'live_studio/video_lessons', [:play] do |lesson|
         true
@@ -176,6 +183,10 @@ module Permissions
       allow 'payment/station/sale_tasks', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+
+      # 资源中心 start
+      allow 'resource/teacher/files', [:index]
+      # 资源中心 end
     end
   end
 end

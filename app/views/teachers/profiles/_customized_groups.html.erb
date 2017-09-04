@@ -1,0 +1,26 @@
+<ul class="classify-msg" id="customized_groups">
+  <% courses.each do |course| %>
+    <li class="col-md-4 col-sm-4 col-xs-6">
+      <%= link_to live_studio.customized_group_path(course), target: '_blank', class: "#{'course-link' if course.completed?}" do %>
+        <%= image_tag course.publicize_url(:info), class: 'handle_error_list' %>
+      <% end %>
+      <div class="handpick-info">
+        <p>
+          <%= link_to live_studio.customized_group_path(course), target: '_blank' do %>
+            <strong><%= truncate_u(course.name, length: 12) %></strong>
+          <% end %>
+        </p>
+        <p>
+          <span><%= course.grade %><%= course.subject %></span>
+          <% if course.off_shelve? %>
+            <span class="status-shelves"><%= t('view.course_info_show.shelves') %></span>
+          <% elsif course.sell_type.free? %>
+            <span class="class-price"><%= t('common.free_of_charge') %></span>
+          <% else %>
+            <span class="class-price"><%= number_to_currency(course.current_price) %></span>
+          <% end %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+</ul>

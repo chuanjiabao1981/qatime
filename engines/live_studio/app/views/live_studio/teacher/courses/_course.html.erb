@@ -1,12 +1,14 @@
 <li>
   <div class="row">
     <div class="col-md-3 discipline-pic">
-      <%= image_tag(course.publicize_url(:list)) -%>
+      <%= link_to image_tag(course.publicize_url(:list), class: 'handle_error_list'), live_studio.course_path(course), target: '_blank' %>
     </div>
     <div class="col-md-7 discipline-info">
       <div class="row info-title">
         <div class="col-md-12">
-          <strong><%= course.name %></strong>
+          <%= link_to live_studio.course_path(course), target: '_blank' do %>
+            <strong><%= course.name %></strong>
+          <% end -%>
         </div>
       </div>
       <div class="row info-state">
@@ -33,7 +35,6 @@
     </div>
     <div class="col-md-2 course-state">
       <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
-      <%= link_to t("common.preview"), live_studio.preview_courses_path(id: course.id), data: {method: :post}, target: '_blank', class: 'col-md-12 col-sm-4 col-xs-4' %>
-      <%= link_to t("common.announcement"), live_studio.course_announcements_path(course), class: 'col-md-12 col-sm-4 col-xs-4' if course.teaching? %>
+      <%= link_to t("common.announcement"), live_studio.course_announcements_path(course), class: 'col-md-12 col-sm-4 col-xs-4' if %w[published teaching].include?(course.status) %>
     </div>
   </div>

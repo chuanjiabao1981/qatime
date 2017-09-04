@@ -105,6 +105,7 @@ cn:
         course: 直播课
         interactive_course: 一对一
         video_course: 视频课
+        customized_group: 专属课
         grade_subject: 年级科目
         teacher: 授课老师
         lesson_count: 课时数目

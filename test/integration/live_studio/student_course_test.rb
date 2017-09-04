@@ -8,7 +8,7 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
 
-      @student = ::Student.find(users(:student_one_with_course).id)
+      @student = users(:student_one_with_course)
       new_log_in_as(@student)
     end
 

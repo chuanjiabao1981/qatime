@@ -3027,14 +3027,45 @@ ul {
 .area-left-con .vjs-barrage-control img {
   width:14px;
 }
-/*.area-left-con .vjs-refresh-control img,.area-left-con .vjs-barrage-control img {
-	position: relative;
-	top: -1px;
-}*/
 
-
-
-
+/*聊天中创建链接信息*/
+.folders,.folders > .folders-title,.folders > .folders-info {
+  display: block;
+}
+.folders > .folders-title {
+  width: 22px;
+  height: 40px;
+  text-align: center;
+  background-color: #ff5842;
+  color: #fff;
+}
+.folders > .folders-issue {
+  background-color: #069dd5;
+}
+.folders > .folders-courseware {
+  background-color: #eda719;
+}
+.folders > .folders-info {
+  width: 232px;
+  height: 40px;
+  background-color: #F2F2F2;
+  color: #666;
+  padding-left: 5px;
+  overflow: hidden;
+}
+.folders > .folders-title,.folders > .folders-info {
+  float: left;
+}
+.folders {
+  zoom: 1;
+}
+.folders:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0px;
+  visibility: hidden;
+}
 /*城市切换*/
 .city-content {
   width: 100%;
@@ -4575,6 +4606,11 @@ ul {
   margin-bottom: 30px;
   outline: none;
 }
+.login-send.active {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
+}
 .login-other span {
   display: inline-block;
   margin: 0 8px;
@@ -4911,6 +4947,11 @@ ul {
 .tea-register-left .active {
   color: #ff5842;
   border: 2px solid #ff5842;
+}
+.tea-register-left .finished {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #ccc;
 }
 .tea-register-right {
   margin-top: 100px;
@@ -9159,11 +9200,17 @@ ul {
   line-height: 72px;
 }
 .header .pull-right .nav-login > li.user-enter > a {
+  padding: 7px 10px;
+  border: 1px solid #ff5842;
+  border-radius: 9px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
   font-size: 14px;
-  color: #6d6d6d;
+  color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a:hover {
-  color: #ff5842;
+  color: #FFFFFF;
+  background-color: #ff5842;
 }
 .header .pull-right .nav-login > li.user-enter > a > span {
   padding: 0 5px;
@@ -9618,12 +9665,6 @@ ul {
 .category > .category-answer > p > a:hover {
   color: #ff5842;
 }
-
-
-
-
-
-
 .live-today h3 {
   width: 130px;
   font-size: 16px;
@@ -11729,6 +11770,9 @@ ul {
 .recorded-title > a {
   color: #999999;
   text-decoration: underline !important;
+}
+.recorded-title > a:hover {
+  color: #ff5842;
 }
 .recorded-nav {
   text-align: center;
@@ -16788,6 +16832,9 @@ abbr {
 .course-item .ask-list .reply-status > span.no-reply {
   color: #ff5842;
 }
+.course-item .ask-list .reply-status > span.approved {
+  color: #03cbfd;
+}
 .course-item .ask-list .problem-name {
   font-size: 12px;
   color: #999;
@@ -16827,6 +16874,8 @@ abbr {
   text-align: right;
 }
 .course-item .ask-list li > .ask-info > .edit-box .btn-ask
+,.course-item .ask-list li > .ask-info > .edit-box .btn-correct
+,.course-item .ask-list li > .ask-info > .edit-box .btn-addcorrect
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-edit
 ,.edit-box > .problems-edit .form-submit > input[type='submit']
 ,.courseware-box > .add-courseware > a
@@ -16848,6 +16897,8 @@ abbr {
   background-color: #FAFAFA;
 }
 .course-item .ask-list li > .ask-info > .edit-box .btn-ask:hover
+,.course-item .ask-list li > .ask-info > .edit-box .btn-correct:hover
+,.course-item .ask-list li > .ask-info > .edit-box .btn-addcorrect:hover
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-edit:hover
 ,.edit-box > .problems-edit .form-submit > input[type='submit']:hover
 ,.courseware-box > .add-courseware > a:hover
@@ -16888,7 +16939,7 @@ abbr {
 .edit-box > .problems-edit .form-file .has-error {
   clear: both;
 }
-.edit-box > .problems-edit .form-file > .file-img {
+.edit-box > .problems-edit .form-file .file-img {
   position: relative;
   width: 100px;
   height: 100px;
@@ -16896,6 +16947,21 @@ abbr {
   background-color: #fff;
   float: left;
   margin-right: 10px;
+  margin-bottom: 20px;
+}
+.edit-box  .form-file .file-img > .upload-progress {
+  color: #999;
+  font-size: 12px;
+}
+.edit-box  .form-file .file-img > .upload-progress.error > span {
+  color: #ff5842;
+}
+.edit-box  .form-file .file-img > .upload-progress > a {
+  float: right;
+  color: #999;
+}
+.edit-box  .form-file .file-img > .upload-progress > a:hover {
+  color: #ff5842;
 }
 .edit-box > .problems-edit .form-file > .file-num {
   width: 110px;
@@ -16918,10 +16984,10 @@ abbr {
   position: absolute;
   bottom: 0px;
 }
-.edit-box > .problems-edit .form-file > .file-img input[type='file'] {
+.edit-box > .problems-edit .form-file input[type='file'] {
   display: none;
 }
-.edit-box > .problems-edit .form-file > .file-img > a {
+.edit-box > .problems-edit .form-file  .file-img > a {
   cursor: pointer;
   position: absolute;
   top: 0px;
@@ -16930,13 +16996,14 @@ abbr {
   height: 100%;
   display: block;
 }
-.edit-box > .problems-edit .form-file > .file-img > img {
+.edit-box > .problems-edit .form-file  .file-img > img {
   width: 100%;
   height: 100%;
 }
 .edit-box > .problems-edit .form-submit {
   margin-top: 20px;
   text-align: right;
+  position: relative;
 }
 .edit-box > .problems-edit .form-submit > span {
   position: relative;
@@ -17060,12 +17127,49 @@ abbr {
 .courseware-msg .file-head .choose-right {
   text-align: right;
 }
-.courseware-msg .file-head .choose-right a > i {
+.upload-hint {
+  display: inline-block;
+  font-size: 14px;
+  color: #ff5842;
+  margin-right: 20px;
+  position: relative;
+  cursor:  default;
+}
+.upload-hint > img {
+  position: relative;
+  top: -2px;
+  margin-right: 5px;
+}
+.upload-hint > .hint-info {
+  display: none;
+  position: absolute;
+  right: 0px;
+  width: 250px;
+  padding: 10px;
+  font-size: 12px;
+  color: #666;
+  top: 30px;
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ccc;
+  z-index: 10;
+}
+.upload-hint > .hint-info > p:last-child {
+  margin-bottom: 0px;
+}
+.courseware-msg .file-head .choose-right a > i,.addfile-title > a > i {
   display: inline-block;
   width: 18px;
   height: 14px;
   position: relative;
   top: 2px;
+}
+.addfile-title > .upload-hint {
+  float: right;
+  margin-top: 6px;
+}
+.addfile-title > .upload-hint > .hint-info {
+  top: 37px;
 }
 .courseware-msg .file-head .choose-right a:hover {
   background-color: #FF5842;
@@ -17089,17 +17193,17 @@ abbr {
 .courseware-info ul > li > span,.courseware-info ul > li > i,.courseware-info ul > li > a {
   font-size: 14px;
 }
-.courseware-info ul > li > i {
+.courseware-info ul > li > i,.addfile-list > li > i {
   display: inline-block;
   color: #999;
 }
-.courseware-info ul > li > i.progress {
+.courseware-info ul > li > i.progress,.addfile-list > li > i.progress{
   height: 12px;
   width: 150px;
   border-radius: 0px;
   margin: 0px 10px 0px 10px;
 }
-.courseware-info ul > li > i.progress .progress-bar {
+.courseware-info ul > li > i.progress .progress-bar,.addfile-list > li > i.progress .progress-bar{
   background-color: #ccc;
 }
 .courseware-info ul > li > a {
@@ -17212,12 +17316,14 @@ abbr {
   margin-bottom: 0px;
   font-size: 0px;
   color: #999;
+  margin-top: 5px;
 }
 .revert-list > li .issue-title {
   font-size: 16px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-top: 0px;
 }
 .revert-list > li .issue-title > a {
   color: #333;
@@ -17228,7 +17334,12 @@ abbr {
 .revert-list > li p > span {
   font-size: 14px;
 }
-
+.revert-list > li p.submitter > span {
+  margin-right: 5px;
+}
+.revert-list > li p.submitter > span:last-child {
+  margin-right: 0px;
+}
 
 /*老师我的文件*/
 .contains-title input[type='file'] {
@@ -17276,4 +17387,121 @@ abbr {
 }
 .file-list > li .operation-box > a:last-child {
   margin-right: 0px;
+}
+
+
+/*老师作业*/
+.delete {
+  display: block;
+  margin-bottom: 20px;
+  color: #999;
+}
+.delete:hover {
+  color: #ff5842;
+}
+.edit-box > .problems-edit .form-submit > a {
+  position: absolute;
+  color: #ff5842;
+  left: 50%;
+  top: 50%;
+  margin-top: -10px;
+  margin-left: -35px;
+}
+.ordinal-number {
+  display: block;
+  margin-bottom: 0px;
+}
+
+/*我的文件*/
+.addfile-title {
+  min-height: 32px;
+  padding: 10px 0px;
+  margin: 20px 30px 0px 30px;
+  border-bottom: 1px solid #F2F2F2;
+  color: #999;
+}
+.addfile-title > span {
+  line-height: 30px;
+}
+.addfile-title > input[type='file'] {
+  display: none;
+}
+.addfile-title > a {
+  cursor: pointer;
+  display: inline-block;
+  width: 130px;
+  height: 32px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ff5842;
+  color: #FF5842;
+  font-size: 14px;
+  border-radius: 4px;
+  float: right;
+}
+.addfile-title > a:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+.addfile-title:after {
+  content: "";
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  display: block;
+}
+.addfile-list {
+  padding: 30px 30px 0px 30px;
+  margin-bottom: 0px;
+}
+.addfile-list > li {
+  padding-bottom: 30px;
+  color: #666;
+}
+.addfile-list > li > a {
+  color: #666;
+}
+.addfile-list > li > a:hover {
+  color: #ff5842;
+}
+.addfile-list > li .upload-status {
+  display: block;
+  color: #ff5842;
+  font-size: 12px;
+}
+.submit-box {
+  padding-bottom: 30px;
+  text-align: center;
+  font-size: 0px;
+}
+.submit-box > a {
+  width: 120px;
+  height: 38px;
+  color: #ff5842;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 36px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #ff5842;
+  margin-right: 20px;
+}
+.submit-box > a:hover {
+  background-color: #ff5842;
+  color: #fff;
+}
+.submit-box > a:last-child {
+  margin-right: 0px;
+}
+
+
+/*提示状态*/
+.alert-info {
+  text-align: center;
+}
+.alert-notice {
+  text-align: center;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
 }

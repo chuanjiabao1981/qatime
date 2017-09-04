@@ -10,7 +10,7 @@ class Qatime::TeacherInteractiveCoursesAPITest < ActionDispatch::IntegrationTest
   test 'teacher interactive courses list' do
     get "/api/v1/live_studio/teachers/#{@teacher.id}/interactive_courses", {}, 'Remember-Token' => @remember_token
     assert_request_success?
-    assert_equal 2, @res['data'].count, '我的辅导数量不正确'
+    assert_equal 3, @res['data'].count, '我的辅导数量不正确'
     get "/api/v1/live_studio/teachers/#{@teacher.id}/interactive_courses", { status: :published }, 'Remember-Token' => @remember_token
     assert_response :success
     res = JSON.parse(response.body)

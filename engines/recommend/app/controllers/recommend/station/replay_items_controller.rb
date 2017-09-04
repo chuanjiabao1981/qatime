@@ -20,7 +20,7 @@ module Recommend
       @item = @position.items.build(item_params.merge(platforms: params[:platforms], city_id: @workstation.city_id, type: @position.klass_name))
       @item.target_type = 'LiveStudio::Lesson' if @item.course_type == 'course'
       @item.target_type = 'LiveStudio::InteractiveLesson' if @item.course_type == 'interactive_course'
-      # @item.target_type = 'LiveStudio::ScheduledLesson' if @item.course_type == 'group'
+      @item.target_type = 'LiveStudio::ScheduledLesson' if @item.course_type == 'group'
       @item.course_required = true
 
       if @item.save
@@ -40,7 +40,7 @@ module Recommend
       @item.course_required = true
       @item.target_type = 'LiveStudio::Lesson' if item_params[:course_type] == 'course'
       @item.target_type = 'LiveStudio::InteractiveLesson' if item_params[:course_type] == 'interactive_course'
-      # @item.target_type = 'LiveStudio::ScheduledLesson' if item_params[:course_type] == 'group'
+      @item.target_type = 'LiveStudio::ScheduledLesson' if item_params[:course_type] == 'group'
       if @item.update(item_params.merge(platforms: params[:platforms]))
         flash_msg(:success)
         redirect_to recommend.station_workstation_replay_items_path(@workstation, position_id: @position)
@@ -76,11 +76,11 @@ module Recommend
         @lesson_options = @course.interactive_lessons.merged.pluck(:name, :id)
       end
 
-      # if @course.is_a?(LiveStudio::CustomizedGroup)
-      #   @item.course_type = 'group'
-      #   @course_options = LiveStudio::CustomizedGroup.pluck(:name, :id)
-      #   @lesson_options = @course.scheduled_lessons.merged.pluck(:name, :id)
-      # end
+      if @course.is_a?(LiveStudio::CustomizedGroup)
+        @item.course_type = 'group'
+        @course_options = LiveStudio::CustomizedGroup.pluck(:name, :id)
+        @lesson_options = @course.scheduled_lessons.merged.pluck(:name, :id)
+      end
     end
 
     def set_position

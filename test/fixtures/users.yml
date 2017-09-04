@@ -673,3 +673,16 @@ student_for_tastes:
   type: Student
   school: school2
   city: yangquan
+
+student_view_customized_group:
+  login_mobile: 15100000014
+  name: student_view_customized_group
+  role: student
+  email: 15100000014@qatime.cn
+  parent_phone: 15100000013
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  city: yangquan

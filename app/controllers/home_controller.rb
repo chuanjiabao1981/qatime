@@ -14,9 +14,9 @@ class HomeController < ApplicationController
     home_data = DataService::HomeData.new(@location_city.try(:id))
     @recommend_banners = home_data.banners.order(:index)
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
-    @today_lives = home_data.today_lives.limit(12)
+    @today_lives = home_data.today_lives[0,12]
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
-    @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 3)
+    @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 4)
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses(limit: 4)

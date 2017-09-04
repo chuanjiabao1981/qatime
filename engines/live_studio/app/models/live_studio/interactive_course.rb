@@ -79,14 +79,15 @@ module LiveStudio
     has_many :students, through: :buy_tickets
 
     has_many :announcements, as: :announcementable
+    has_many :live_studio_interactive_course_notifications, as: :notificationable, dependent: :destroy
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }
     validates :grade, :subject, :workstation_id, presence: true
     validates :price, presence: true, numericality: { greater_than: :price_min, less_than_or_equal_to: 999_999 }
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
-    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
-    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
+    validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
@@ -318,6 +319,22 @@ module LiveStudio
       interactive_lessons.select { |l| l.teacher_id == teacher.id }.count
     end
 
+    # 随时可退
+    def refund_any_time?
+      true
+    end
+
+    # 报名立减
+    def coupon_free?
+      true
+    end
+
+    # 限时打折
+    def cheap_moment?
+      false
+    end
+
+    # 插班优惠?
     def join_cheap?
       false
     end
@@ -377,7 +394,7 @@ module LiveStudio
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
       teachers.each do |t|
-        ::LiveStudioInteractiveCourseNotification.create(from: workstation, receiver: t, notificationable: self, action_name: :assign)
+        ::LiveStudioInteractiveCourseNotification.find_or_create_by(from: workstation, receiver: t, notificationable: self, action_name: :assign)
       end
     end
 

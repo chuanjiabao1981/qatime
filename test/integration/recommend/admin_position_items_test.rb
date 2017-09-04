@@ -93,7 +93,7 @@ module Recommend
       assert page.has_content?('仅显示推荐内容')
 
       click_on '新增回放'
-      select '一对一', from: :replay_item_course_type
+      select '专属课', from: :replay_item_course_type
       select '直播课', from: :replay_item_course_type
       select '回放测试辅导班', from: :replay_item_course_id
       sleep(3)

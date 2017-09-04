@@ -1,0 +1,62 @@
+<%= render partial: 'group_header' %>
+
+<div class="course-con">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="course-item">
+          <div class="nav-item">
+            <div class="aside-left">
+              <a href="#introduce" data-toggle="tab" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
+              <a href="#arrange" data-toggle="tab"><%= t('view.live_studio/courses.show.arrange') %></a>
+              <!--<a href="#homework" class="" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+              <!--<a href="#ask" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>-->
+              <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(<%= @recourse_files.count %>)</i></a>
+              <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
+            </div>
+            <div class="aside-right">
+              <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
+                <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
+              <% end if allow?('live_studio/announcements', :create, @customized_group) && %w[published teaching].include?(@customized_group.status) %>
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <!--课程介绍-->
+            <%= render 'live_studio/customized_groups/show/introduce' %>
+            <!--上课安排-->
+            <%= render 'live_studio/customized_groups/show/lessons' %>
+            <!--作业-->
+            <div class="tab-pane fade" id="homework"></div>
+            <!--提问-->
+            <div class="tab-pane fade" id="ask"></div>
+            <!--课件-->
+            <% if current_user && current_user.teacher? && @customized_group.teacher == current_user %>
+              <%= render 'live_studio/customized_groups/show/courseware_teacher' %>
+            <% else %>
+              <%= render 'live_studio/customized_groups/show/courseware' %>
+            <% end %>
+            <!--学习须知-->
+            <%= render 'live_studio/customized_groups/show/study' %>
+          </div>
+        </div>
+      </div>
+
+      <%= render partial: 'teacher_info' %>
+    </div>
+  </div>
+</div>
+
+<% content_for :mask do %>
+  <%= render 'live_studio/announcements/modal_form', resource: @customized_group %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(".aside-left > a").click(function() {
+        $(this).addClass("active").siblings().removeClass("active");
+      });
+    });
+  </script>
+<% end %>

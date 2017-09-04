@@ -250,8 +250,8 @@ module Permissions
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
 
       allow 'live_studio/announcements', [:index, :create, :update] do |course|
-        if course.is_a? LiveStudio::Course
-          course && course.teacher_id = user.id
+        if course.is_a?(LiveStudio::Course) || course.is_a?(LiveStudio::CustomizedGroup)
+          course && course.teacher_id == user.id
         else
           course && course.teachers.include?(user)
         end
@@ -271,6 +271,31 @@ module Permissions
       allow 'live_studio/video_courses', [:preview]
       ## 视频课 end
 
+      allow 'live_studio/teacher/customized_groups', [:index]
+      allow 'live_studio/customized_groups', [:preview]
+
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课
+      api_allow :POST, '/api/v1/live_studio/events/\d+/heart_beat' # 直播心跳
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_switch' # 状态切换
+      api_allow :POST, '/api/v1/live_studio/events/\d+/live_end' # 直播结束
+
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件列表
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :POST, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件引用
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 删除课件
+      api_allow :DELETE, '/api/v1/live_studio/groups/\d+/files/\d+' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      ## 专属课 end
+
       ## begin payment permission
 
       allow 'payment/change_records', [:index] do |resource|
@@ -283,6 +308,15 @@ module Permissions
         resource.id == user.id
       end
       ## end payment permission
+
+      # 资源中心 start
+      allow 'resource/files', [:create, :create_quotes, :delete_quote]
+      allow 'resource/teacher/files', [:index, :new]
+      allow 'resource/teacher/files', [:create, :destroy] do |teacher|
+        teacher && teacher.id == user.id
+      end
+
+      # 资源中心 end
 
       ## begin api permission
       api_allow :DELETE, "/api/v1/sessions"
@@ -370,6 +404,22 @@ module Permissions
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
       ## end 通知设置
+
+      # 资源中心 start
+      api_allow :GET, "/api/v1/resource/teachers/[\\w-]+/files" do |teacher| # 我的文件
+        teacher && teacher.id == user.id
+      end
+
+      api_allow :GET, "/api/v1/resource/files/[\\w-]+" do |file| # 文件详情
+        file && user.files.include?(file)
+      end
+
+      api_allow :DELETE, "/api/v1/resource/files/[\\w-]+" do |file| # 文件删除
+        file && user.files.include?(file)
+      end
+
+      api_allow :POST, "/api/v1/resource/files" # 文件上传
+      # 资源中心 end
     end
 
     private

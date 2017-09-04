@@ -33,8 +33,8 @@ cn:
       live_studio/course:
         assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
         start: "【%{course_name}】将于今日(%{day})开始上课。"
-        notice_create: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
-        notice_update: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
+        notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
       live_studio/lesson:
         start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
@@ -50,12 +50,37 @@ cn:
         confirm: "【%{course_name}】审核通过, 请耐心等待工作站为您创建课程"
         reject: "【%{course_name}】审核被拒, 您可以重新编辑后再次提交审核"
         publish: "【%{course_name}】发布成功, 您可以到个人中心进行查看和预览"
+      live_studio/group:
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
+        start: "【%{course_name}】将于今日(%{day})开始上课。"
+        notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
+      live_studio/customized_group:
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
+        start: "【%{course_name}】将于今日(%{day})开始上课。"
+        notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
+      live_studio/event:
+        start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
+        start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
+        miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
+        miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
+      live_studio/scheduled_lesson:
+        start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
+        start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
+        miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
+        miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
+      live_studio/offline_lesson:
+        start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
+        start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
+        miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
+        miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
 
       payment/order:
         refund_success: "您的订单%{transaction_no}已成功退款，可进入我的钱包查询。"
         refund_fail: "您的订单%{transaction_no}退款审核失败，如有疑问请拨打客服电话400-838-8010。"
       cash_notification:
-        recharge_success: "充值成功[交易编号%{transaction_no}], 账户新增余额%{amount}; 获取最新余额请查看我的钱包" 
+        recharge_success: "充值成功[交易编号%{transaction_no}], 账户新增余额%{amount}; 获取最新余额请查看我的钱包"
         withdraw_success: "您的提现申请[交易编号%{transaction_no}]已被通过, 预计1-7个工作日内到账"
         withdraw_refuse: "您的提现申请[交易编号%{transaction_no}]未被通过, 具体原因请拨打客服电话 400-838-8010 查询"
         withdraw_allow: "您的提现申请[交易编号%{transaction_no}]已被通过, 预计1-7个工作日内到账"

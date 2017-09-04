@@ -222,5 +222,49 @@ cn:
   simple_form:
     error_notification:
       default_message: "请检查以下问题"
-
+  # model validates 校验提示定义在这
+  activerecord:
+    errors:
+      models:
+        live_studio/course:
+          attributes: &course_message_attributes
+            name:
+              blank: 请输入课程名称
+            description:
+              blank: 请输入课程介绍
+            grade:
+              blank: 请选择年级
+            subject:
+              blank: 请选择科目
+            price:
+              greater_than_or_equal_to: "%{attribute}必须大于或等于 %{count}"
+              blank: 请输入价格
+            taste_count:
+              greater_than_or_equal_to: "%{attribute}必须大于或等于 %{count}"
+              less_than: 必须小于课程总数
+            objective:
+              blank: 请输入课程目标
+            suit_crowd:
+              blank: 请输入适合人群
+            teacher:
+              blank: 请选择老师
+            publicize:
+              blank: 请添加图片
+            lessons:
+              blank: 请添加至少一节课程
+        live_studio/interactive_course:
+          attributes:
+            <<: *course_message_attributes
+            interactive_lessons:
+              blank: 请添加至少一节课程
+        live_studio/video_course:
+          attributes:
+            <<: *course_message_attributes
+            video_lessons:
+              blank: 请添加至少一节课程
+        live_studio/customized_group:
+          attributes:
+            <<: *course_message_attributes
+            events:
+              blank: 请添加至少一节课程
 

@@ -24,6 +24,7 @@ module V1
             params do
               requires :id, type: Integer, desc: '课程ID'
               requires :room_id, type: String, desc: '房间ID'
+              optional :t, type: Integer, desc: '时间戳秒数'
               requires :channel_id, type: String, desc: 'channel_id'
             end
             post 'live_start' do
@@ -47,6 +48,7 @@ module V1
             end
             params do
               requires :id, type: Integer, desc: '课程ID'
+              optional :t, type: Integer, desc: '时间戳秒数'
             end
             post 'live_end' do
               @interactive_lesson.room_id = nil

@@ -87,10 +87,10 @@ module LiveStudio
     end
     after_commit :ready_lessons, on: :create
 
-    validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
-    validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?
-    validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
+    validates :name, presence: true, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: true, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: true, if: :grade_changed?
+    validates :subject, presence: true, if: :subject_changed?
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
@@ -98,16 +98,16 @@ module LiveStudio
     validate :check_billing_percentage
 
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price }
+    validates :price, presence: true
 
-    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
+    validates :taste_count, numericality: { greater_than_or_equal_to: 0 }
+    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size } }
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
-    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
-    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
+    validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
 
@@ -124,7 +124,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
-    validates :lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
+    validates :lessons, presence: true
 
     has_many :students, through: :buy_tickets
 
@@ -214,9 +214,29 @@ module LiveStudio
       completed?
     end
 
+    # 随时可退
+    def refund_any_time?
+      sell_type.charge?
+    end
+
+    # 报名立减
+    def coupon_free?
+      sell_type.charge?
+    end
+
+    # 限时打折
+    def cheap_moment?
+      false
+    end
+
     # 插班优惠?
     def join_cheap?
-      teaching? && closed_lessons_count > 0
+      teaching? && closed_lessons_count > 0 && sell_type.charge?
+    end
+
+    # 免费试听
+    def free_taste?
+      taste_count.to_i > 0 && sell_type.charge?
     end
 
     # 试听数量 超过剩余课程数 溢出限制
@@ -584,7 +604,7 @@ module LiveStudio
     # 辅导班创建通知指定教师
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
+      ::LiveStudioCourseNotification.find_or_create_by(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     before_validation :check_sell_type

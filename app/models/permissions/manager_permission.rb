@@ -165,6 +165,8 @@ module Permissions
         manager == user && permission
       end
       allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/teacher/customized_groups', [:index]
+      allow 'live_studio/student/customized_groups', [:index]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
@@ -193,6 +195,12 @@ module Permissions
       end
       allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview, :play, :live_info]
       allow 'live_studio/interactive_courses', [:update_class_date, :update_lessons] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'live_studio/customized_groups', [:index, :show, :preview, :play]
+      allow 'live_studio/station/customized_groups', [:new, :create]
+      allow 'live_studio/station/customized_groups', [:index, :update_class_date, :update_lessons, :sells_list, :send_qr_code] do |workstation|
         workstation && workstation.manager_id == user.id
       end
 
@@ -252,6 +260,11 @@ module Permissions
       allow 'payment/station/sale_tasks', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+
+
+      # 资源中心 start
+      allow 'resource/teacher/files', [:index]
+      # 资源中心 end
     end
   end
 end

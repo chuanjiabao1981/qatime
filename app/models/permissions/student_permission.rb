@@ -158,6 +158,8 @@ module Permissions
       allow 'live_studio/student/interactive_courses', [:index, :show]
       allow 'live_studio/interactive_courses', [:interactive]
       allow 'live_studio/student/video_courses', [:index]
+      allow 'live_studio/student/customized_groups', [:index]
+      allow 'live_studio/customized_groups', [:index, :show, :for_free]
       allow 'live_studio/courses', [:index, :show, :for_free]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
@@ -166,6 +168,10 @@ module Permissions
       end
 
       allow 'live_studio/interactive_lessons', [:replay] do |lesson|
+        lesson.replayable && lesson.replayable_for?(user)
+      end
+
+      allow 'live_studio/scheduled_lessons', [:replay] do |lesson|
         lesson.replayable && lesson.replayable_for?(user)
       end
 
@@ -197,6 +203,7 @@ module Permissions
       allow 'wap/live_studio/orders', [:new, :create]
       allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/live_studio/video_courses', [:show]
+      allow 'wap/live_studio/customized_groups', [:show]
       allow 'wap/softwares', [:index]
       allow 'wap/payment/orders', [:show, :pay]
 
@@ -262,6 +269,12 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"
       ## 视频课
 
+
+      ## 专属课 start
+      api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups' # 我的专属课列表
+      api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups/tasting' # 我的专属课试听列表
+      ## 专属课 end
+
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
@@ -305,7 +318,8 @@ module Permissions
       api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
       ## end 苹果内购
     end
-private
+
+    private
 
     def topicable_permission(topicable,user)
       return false if topicable.nil?

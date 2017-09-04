@@ -18,7 +18,7 @@ class Ajax::DataController < ApplicationController
     @course_type = params[:course_type]
     @courses = LiveStudio::Course.all if @course_type == 'course'
     @courses = LiveStudio::InteractiveCourse.all if @course_type == 'interactive_course'
-    # @courses = LiveStudio::CustomizedGroup.all if @course_type == 'group'
+    @courses = LiveStudio::CustomizedGroup.all if @course_type == 'group'
 
     respond_to do |format|
       format.js
@@ -30,7 +30,7 @@ class Ajax::DataController < ApplicationController
     if params[:course_id].present?
       @lessons = LiveStudio::Course.find(params[:course_id]).lessons.merged if @course_type == 'course'
       @lessons = LiveStudio::InteractiveCourse.find(params[:course_id]).interactive_lessons.merged if @course_type == 'interactive_course'
-      # @lessons = LiveStudio::CustomizedGroup.find(params[:course_id]).scheduled_lessons.merged if @course_type == 'group'
+      @lessons = LiveStudio::CustomizedGroup.find(params[:course_id]).scheduled_lessons.merged if @course_type == 'group'
     end
 
     respond_to do |format|
@@ -72,6 +72,8 @@ class Ajax::DataController < ApplicationController
         @courses = teacher_data.profile_interactive_courses
       when 'video_courses'
         @courses = teacher_data.profile_video_courses
+      when 'customized_groups'
+        @courses = teacher_data.profile_customized_groups
       else
         @courses = []
     end

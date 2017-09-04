@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  user_id: 
+  quotes_count: 1
+  attach_id: 
+  attach_type: Attach
+  file_size: 
+  ext_name: MyString
+  type: 
+
+two:
+  name: MyString
+  user_id: 
+  quotes_count: 1
+  attach_id: 
+  attach_type: Attach
+  file_size: 
+  ext_name: MyString
+  type: 

@@ -168,10 +168,12 @@ class TeachersController < ApplicationController
     @courses = teacher_data.profile_courses.limit(6)
     @interactive_courses = teacher_data.profile_interactive_courses.limit(6)
     @video_courses = teacher_data.profile_video_courses.limit(6)
+    @customized_groups = teacher_data.profile_customized_groups.limit(6)
 
     @course_has_more = teacher_data.more_profile_course?
     @interactive_course_has_more = teacher_data.more_profile_interactive_course?
     @video_course_has_more = teacher_data.more_profile_video_course?
+    @customized_group_has_more = teacher_data.more_profile_customized_group?
     render layout: 'v1/application'
   end
 

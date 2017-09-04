@@ -96,12 +96,12 @@ module LiveStudio
       Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
 
       lesson = live_studio_lessons(:replay_lessons_7)
-      assert_difference "lesson.reload.replays.merging.count", 1, "视频合并失败" do
+      assert_difference "lesson.reload.replays.merged.count", 1, "视频合并失败" do
         lesson.fetch_replays
         sleep(2)
         lesson.reload.replays.last.merge_video
       end
-      assert lesson.reload.replays.first.merging?, "提交合并任务后状态不正确"
+      assert lesson.reload.replays.first.merged?, "提交合并任务后状态不正确"
     end
 
     test 'need not mrege replays' do

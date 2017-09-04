@@ -1,0 +1,12 @@
+<li>
+  <div class="row">
+    <div class="col-md-9 msg-info">
+      <i class="<%= 'unread' unless notification.read %>"></i>
+      <%= link_to notification.notice_content, notification_path(notification, rt: live_studio.customized_group_path(notification.notificationable.group_id)) %>
+    </div>
+
+    <div class="col-md-3 msg-item">
+      <span><%= l(notification.created_at) if notification.created_at %></span>
+    </div>
+  </div>
+</li>

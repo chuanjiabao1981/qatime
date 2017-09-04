@@ -1,0 +1,298 @@
+scheduled_lesson_one:
+  name: 第一节线上课
+  group: group_one
+  class_date: <%= Date.tomorrow %>
+  start_at: <%= "#{Date.tomorrow.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{Date.tomorrow.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+
+offline_lesson_one:
+  name: 第一节线下课
+  group: group_one
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+
+invalid_offline_lesson_one:
+  name: 第一节线下课
+  group: group_one
+  class_date: <%= 2.days.since.to_date %>
+  start_at_hour: 18
+  start_at_min: 00
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+
+scheduled_lesson_for_update_class_date1:
+  name: 第一节线上课
+  group: group_for_update_class_date
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+scheduled_lesson_for_update_class_date2:
+  name: 第二节线上课
+  group: group_for_update_class_date
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+offline_lesson_for_update_class_date1:
+  name: 第一节线下课
+  group: group_for_update_class_date
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= "#{3.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 0
+
+published_group1_scheduled_lesson1:
+  name: 第一节线上课
+  group: published_group1
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group1_scheduled_lesson2:
+  name: 第二节线上课
+  group: published_group1
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group1_offline_lesson1:
+  name: 第一节线下课
+  group: published_group1
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= "#{3.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 0
+  class_address: '教学大厦1层403'
+
+published_group2_scheduled_lesson1:
+  name: 第一节线上课
+  group: published_group2
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group2_scheduled_lesson2:
+  name: 第二节线上课
+  group: published_group2
+  class_date: <%= 2.days.since.to_date %>
+  start_at: <%= "#{2.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+published_group2_offline_lesson1:
+  name: 第一节线下课
+  group: published_group2
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= "#{3.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 0
+  class_address: '教学大厦2层403'
+
+teaching_group_for_student_view1_scheduled_lesson1:
+  name: 第1节线上课
+  group: teaching_group_for_student_view1
+  class_date: <%= Date.today.to_date %>
+  start_at: <%= "#{Date.today.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{Date.today.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 2
+
+completed_group1_scheduled_lesson1:
+  name: 第一节线上课
+  group: completed_group1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 7
+
+completed_group1_scheduled_lesson2:
+  name: 第二节线上课
+  group: completed_group1
+  class_date: <%= 2.days.ago.to_date %>
+  start_at: <%= "#{2.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 7
+
+completed_group1_offline_lesson1:
+  name: 第一节线下课
+  group: completed_group1
+  class_date: <%= 1.days.ago.to_date %>
+  start_at: <%= "#{1.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 7
+  class_address: '教学大厦1层404'
+
+schedule_published_group1_lesson1:
+  name: 第一节线上课
+  group: schedule_published_group1
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+schedule_completed_group1_lesson1:
+  name: 第一节线上课
+  group: schedule_completed_group1
+  class_date: <%= 2.days.ago.to_date %>
+  start_at: <%= "#{2.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{2.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 7
+
+schedule_completed_group1_lesson2:
+  name: 第二节线下课
+  group: schedule_completed_group1
+  class_date: <%= 1.days.ago.to_date %>
+  start_at: <%= "#{1.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::OfflineLesson'
+  status: 7
+
+free_group1_lesson1:
+  name: 第一节课
+  group: free_group1
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= "#{1.days.since.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{1.days.since.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 0
+
+today_group1_lesson1:
+  name: 第一节课
+  group: today_group1
+  class_date: <%= Date.today.to_date %>
+  start_at: <%= "#{Date.today.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{Date.today.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 1
+
+billing_scheduled_lesson_one:
+  name: 第一节线上课
+  group: billing_group_1
+  class_date: <%= 5.days.ago.to_date %>
+  start_at: <%= "#{5.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::ScheduledLesson'
+  status: 5
+
+billing_scheduled_lesson_two:
+  name: 第二节线上课
+  group: billing_group_1
+  class_date: <%= 4.days.ago.to_date %>
+  start_at: <%= "#{4.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::ScheduledLesson'
+  status: 1
+
+billing_offline_lesson_one:
+  name: 第一节线下课
+  group: billing_group_1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{5.days.ago.to_date} 19:30:00".to_time %>
+  duration: 90
+  type: 'LiveStudio::OfflineLesson'
+  status: 5
+
+replay_group1_scheduled_lesson1:
+  name: 第1节线上课
+  group: replay_group1
+  class_date: <%= 3.days.ago.to_date %>
+  start_at: <%= "#{3.days.ago.to_date.to_s} 18:00:00".to_time %>
+  start_at_hour: 18
+  start_at_min: 00
+  end_at: <%= "#{3.days.ago.to_date.to_s} 19:00:00".to_time %>
+  duration: 60
+  type: 'LiveStudio::ScheduledLesson'
+  status: 4
+  replay_status: 3

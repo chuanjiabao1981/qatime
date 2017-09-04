@@ -16,7 +16,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
 
   test "student registration" do
     visit root_path
-
+    visit new_session_path
     click_on "学生注册"
 
     fill_in :student_login_mobile, with: '13800001111'
@@ -49,7 +49,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
 
   test "teacher registration" do
     visit root_path
-
+    visit new_session_path
     click_on "教师注册"
 
     fill_in :teacher_login_mobile, with: '13811112222'

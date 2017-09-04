@@ -32,6 +32,23 @@ cn:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
+      customized_group:
+        grade: 年级
+        subject: 科目
+        name: 课程名称
+        description: 详细说明
+        taste_count: 试听数量
+        tag_list: 课程标签
+        objective: 课程目标
+        suit_crowd: 适合人群
+        teacher_id: 教师设置
+        teacher: 选择老师
+        sell_type: 类型
+        price: 设置价格
+        teacher_percentage: 教师分成
+      event:
+        class_address: 上课地点
+        start_time: 上课时间
     placeholders:
       course_invitation:
         user_mobile: 填写想要邀请的老师的手机号
@@ -53,6 +70,19 @@ cn:
         teacher_percentage: 请输入教师获得分成比例（正整数）
       video_lesson:
         name: 输入课时名称（最多20字）
+      customized_group:
+        name: 请输课程标题名称（最多20字）
+        objective: 请输入课程能够达成的目标（最多300字）
+        suit_crowd: 输入适合学习的人群（最多300字）
+        teacher_percentage: 请输入教师获得分成比例（正整数）
+        price: 请输入课程售价（正整数）
+      event:
+        class_address: 请输入具体地点或教室
+    prompts:
+      customized_group:
+        grade: 请选择年级
+        subject: 请选择科目
+        teacher: 选择老师
     buttons:
       course_invitation:
         submit: 立即发送

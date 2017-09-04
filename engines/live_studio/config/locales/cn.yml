@@ -402,6 +402,9 @@ cn:
       live_studio/course_invitation: 开班邀请
       live_studio/video_lesson: 视频课程
       live_studio/announcement: 公告
+      live_studio/customized_group: 专属课
+      live_studio/offline_lesson: 线下授课
+      live_studio/scheduled_lesson: 线上直播
     attributes:
       payment/order:
         payment_password: 支付密码
@@ -483,6 +486,46 @@ cn:
         suit_crowd: 适合人群
         watchers_count: 观看人数
         sell_type: 类型
+      live_studio/customized_group:
+        sell_percentage: 经销分成
+        current_status: 当前状态
+        index_no: 序号
+        name: 名称
+        course_name: 专属课名称
+        teacher: 老师
+        course_teacher: 授课老师
+        short_description: 摘要
+        description: 说明
+        publicize: 封面
+        workstation: 工作站
+        sell_workstation: 发行工作站
+        base_price: 服务扣费
+        base_price_clt: "%{price}元/时"
+        qr_code: 二维码
+        price: 价格
+        left_price: 价格
+        status: 状态
+        type_name: 类型
+        teacher_percentage: 教师分成百分比
+        grade: 年级
+        grade_type: 年级类型
+        subject: 科目
+        subject_type: 科目类型
+        teacher_name: 老师
+        events_count: 课时数
+        buy_tickets_count: 购买人数
+        published_at: 发布时间
+        students_count: 学生人数
+        percentage: 分成
+        tag_list: 课程标签
+        users_count: 人气
+        latest: 最新
+        objective: 课程目标
+        suit_crowd: 适合人群
+        watchers_count: 观看人数
+        sell_type: 类型
+        start_at: 开课日期
+        end_at: 结课日期
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度
@@ -546,6 +589,10 @@ cn:
         left_time: 剩余有效期
         status: 当前状态
         operation: 操作
+      live_studio/event:
+        class_date: 上课日期
+        start_time: 上课时间
+        duration: 上课时长
     status:
       live_studio/lesson:
         init: 初始化
@@ -590,6 +637,7 @@ cn:
       buy_now: 立即购买
       enroll_now: 立即报名
       enroll_now2: 立即学习
+      enroll_completed: 已结束
       buy_new_course: 购买新辅导
       buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。

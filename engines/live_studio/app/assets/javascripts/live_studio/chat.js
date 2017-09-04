@@ -110,6 +110,7 @@ window.currentTeam = {
     pushMsg(msg);
     switch (msg.type) {
       case 'custom':
+        onCustomMsg(msg, fromType);
         break;
       case 'notification':
         // 处理群通知消息
@@ -281,6 +282,10 @@ window.currentTeam = {
 
   function onNormalMsg(msg, fromType) {
     appendMsg(msg, null, fromType);
+  }
+
+  function onCustomMsg(msg, fromType) {
+    appendMsg(msg, 'Custom', fromType);
   }
 
   function onImageMsg(msg) {
@@ -459,6 +464,15 @@ function appendMsg(msg, messageClass, fromType) {
   if(!messageClass) messageClass = '';
   // 处理自定义消息
   var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
+  // 显示直播开始通知
+  if(messageClass == 'Custom'){
+    messageItem.addClass('new-information');
+    messageItem.append("<div class='announcement'><h6>" + CustomMsgText(msg) + "</h6></div>");
+    $("#messages").append(messageItem);
+    $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+    return;
+  }
+
   // 消息标题 老师 发送时间
   var messageTitle = $("<div class='information-title'></div>");
   messageTitle.append("<img src='' class='information-title-img'>");
@@ -494,6 +508,21 @@ function appendMsg(msg, messageClass, fromType) {
       $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
     });
   }
+}
+
+// 通知类型
+function CustomMsgText(msg) {
+  var content_obj = JSON.parse(msg.content);
+  var text = '未知';
+
+  if(content_obj.type == 'LiveStudio::ScheduledLesson') {
+    text = content_obj.event == 'start' ? '直播开始' : '直播结束';
+  }
+
+  if(content_obj.type == 'LiveStudio::InstantLesson'){
+    text = content_obj.event == 'start' ? '老师开启了互动答疑' : '老师关闭了互动答疑';
+  }
+  return text;
 }
 
 $(function() {
@@ -546,6 +575,7 @@ $(function() {
       text: msg,
       done: sendMsgDone
     });
+
     console.log('正在发送p2p text消息, id=' + msg.idClient);
     $("#message-area").val("");
     live_chat.pushMsg(msg);

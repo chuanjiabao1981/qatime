@@ -1,0 +1,195 @@
+<%
+   lesson = f.object
+   index = f.index.to_i
+   object_id = f.object.object_id
+%>
+<div class="row lesson_field <%= f.object._destroy ? 'hidden' : '' %>" record-id="<%= lesson.id %>" >
+  <div class="col-md-1">
+    <span><%= index < 9 ? "0#{index+1}" : (index+1) %></span>
+    <%= f.input :id, as: :hidden %>
+  </div>
+
+  <div class="col-md-10">
+    <p>
+      <span><%= t('view.live_studio/course.lesson_field.name_text') %>：</span>
+      <span id="name_<%= object_id %>"><%= lesson.name %></span>
+    </p>
+    <p>
+      <span><%= t('view.live_studio/course.lesson_field.class_date_text') %>：</span>
+      <span id="class_date_<%= object_id %>"><%= lesson.class_date %></span>
+      <span id="start_at_<%= object_id %>">
+        <%= lesson.start_at %>-<%= lesson.end_at %>
+      </span>
+    </p>
+  </div>
+
+  <div class="col-md-1 arrangement-set">
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>"><%= t('activerecord.view.edit') %></a>
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
+  </div>
+
+  <div class="modal fade" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog add-newclass">
+      <div class="modal-content">
+        <div class="popup-title">
+          <span><%= t('view.live_studio/course.lesson_field.edit_modal.title') %></span>
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.label :class_date, t('view.live_studio/course.lesson_field.edit_modal.label.class_date') %>
+              <%= f.text_field :class_date, as: :string, class: 'class_date form-control', placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.class_date'), onclick: 'testShow(this)' %>
+              <span class="has-error class_date-error-<%= object_id %>"></span>
+            </div>
+            <div class="col-md-4 starttime">
+              <%= f.label :start_time %>
+              <%= f.select :start_at_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,[t('view.live_studio/course.lesson_field.edit_modal.placeholder.hour'),nil]),{}, class: 'start_at_hour form-control' %>
+              <%= f.select :start_at_min, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.minute'), nil]),{}, class: 'start_at_min form-control' %>
+              <span class="has-error start_at-error-<%= object_id %>"></span>
+            </div>
+            <div class="col-md-4 duration">
+              <%= f.label :duration, t('view.live_studio/course.lesson_field.edit_modal.label.duration') %>
+              <%= f.select :duration, LiveStudio::Event.duration.options.insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.duration'), nil]),{}, class: 'duration form-control' %>
+              <span class="has-error duration-error-<%= object_id %>"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 classname">
+              <%= f.label :name, t('view.live_studio/course.lesson_field.edit_modal.label.name') %>
+              <%= f.text_field :name, placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.name'), maxlength: 20, class: 'lesson_name form-control'%>
+              <br>
+              <span class="has-error name-error-<%= object_id %>"></span>
+            </div>
+          </div>
+
+          <div class="date-btn">
+            <center>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t('view.cancel_btn') %></a>
+              <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>"><%= t('view.save_btn') %></a>
+              <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
+            </center>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="delete_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="editor-delete">
+        <div class="editor-delete-title" style="text-align: left;">
+          <span><%= t('view.live_studio/course.lesson_field.delete_modal.title') %></span>
+        </div>
+        <div class="editor-delete-con">
+          <p><%= t('view.live_studio/course.lesson_field.delete_modal.content') %></p>
+        </div>
+        <div class="editor-delete-btn">
+          <center>
+            <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t('view.cancel_btn') %></a>
+            <%= link_to t('view.confirm_save'), 'javascript:void(0)', class: 'remove-lesson', onclick: 'remove_lesson(this);',
+                        rel: Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value,
+                        'data-dismiss' => 'modal', 'aria-label' => 'Close'
+            %>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden destroy' %>
+
+<script type="text/javascript">
+  $(function () {
+    var o_id = '<%= object_id %>';
+    var new_page = <%= f.object.new_record? %>;
+    if(new_page && $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:name)).at_css('input').attributes['id'].value %>').val().trim() == ''){
+      $('#edit_button_'+o_id).click();
+    }
+
+    $('#edit_'+o_id).on('hide.bs.modal', function() {
+      if($('#modal_click_btn_'+o_id).val() == 'save'){
+        if(change_save()){
+        }else{
+          $('#modal_click_btn_'+o_id).val('cancel');
+          return false;
+        }
+      }else{
+        if(new_page){
+          $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value %>').attr('checked', true);
+          $(this).parents("div.lesson_field").hide();
+        }
+      }
+    });
+
+    $('.save-'+o_id).click(function(){
+      $('#modal_click_btn_'+o_id).val('save');
+      $('#edit_'+o_id).modal('hide');
+    });
+
+    function change_save(){
+      var class_date_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:class_date)).at_css('input').attributes['id'].value %>';
+      var start_at_hour_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_at_hour)).at_css('input').attributes['id'].value %>';
+      var start_at_min_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_at_min)).at_css('input').attributes['id'].value %>';
+      var duration_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:duration)).at_css('select').attributes['id'].value %>';
+      var name_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:name)).at_css('input').attributes['id'].value %>';
+      var hour = $(start_at_hour_id).val();
+      var minutes = $(start_at_min_id).val();
+      var duration = $(duration_id).val();
+      var start_at = hour + ':' + minutes;
+      var end_time = _get_time(hour, minutes, duration);
+      var class_date = $(class_date_id).val();
+      var name = $(name_id).val();
+      var flag = set_errors(o_id, name, class_date, hour, minutes, start_at, duration, end_time);
+      if(flag){
+        $('#class_date_'+o_id).html(class_date);
+        $('#start_at_'+o_id).html(start_at + '-' + end_time);
+        $('#name_'+o_id).html(name);
+      }
+      return flag;
+    }
+
+    function set_errors(id, name, class_date, hour, minutes, start_at, duration, end_time){
+      var return_flag = true;
+      if(name.trim() == ''){
+        return_flag = false;
+        $('.name-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.name') %>');
+      }else{
+        $('.name-error-'+id).html('');
+      }
+      if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
+        return_flag = false;
+        $('.class_date-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.class_date') %>');
+      }else{
+        $('.class_date-error-'+id).html('');
+      }
+      if(hour.trim() == '' || minutes.trim() == ''){
+        return_flag = false;
+        $('.start_at-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.start_at') %>');
+      }else{
+        $('.start_at-error-'+id).html('');
+      }
+
+      var nowTime = new Date();
+      var startAt = new Date(class_date + " " + start_at);
+      if(startAt < nowTime){
+        return_flag = false;
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_before') %>');
+      } else if(end_time < start_at){
+        return_flag = false;
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_after') %>');
+      }else if(duration.trim() == '' || duration == null){
+        return_flag = false;
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration') %>');
+      }else{
+        $('.duration-error-' + id).html('');
+      }
+      return return_flag;
+    }
+  });
+
+</script>

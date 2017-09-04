@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818071402) do
+ActiveRecord::Schema.define(version: 20170825075346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1590,6 +1590,62 @@ ActiveRecord::Schema.define(version: 20170818071402) do
     t.integer  "comments_count",                     default: 0
   end
 
+  create_table "resource_attaches", force: :cascade do |t|
+    t.string   "file"
+    t.string   "content_type"
+    t.string   "ext_name"
+    t.integer  "file_size"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "resource_files", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "directory_id"
+    t.integer  "user_id"
+    t.integer  "quotes_count"
+    t.integer  "attach_id"
+    t.string   "attach_type"
+    t.decimal  "file_size",    precision: 16, scale: 2, default: 0.0
+    t.string   "ext_name"
+    t.string   "type"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  add_index "resource_files", ["attach_type", "attach_id"], name: "index_resource_files_on_attach_type_and_attach_id", using: :btree
+  add_index "resource_files", ["directory_id"], name: "index_resource_files_on_directory_id", using: :btree
+  add_index "resource_files", ["user_id"], name: "index_resource_files_on_user_id", using: :btree
+
+  create_table "resource_quotes", force: :cascade do |t|
+    t.integer  "file_id"
+    t.integer  "quoter_id"
+    t.string   "quoter_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "resource_quotes", ["file_id"], name: "index_resource_quotes_on_file_id", using: :btree
+
+  create_table "resource_video_infos", force: :cascade do |t|
+    t.integer  "duration"
+    t.string   "capture"
+    t.string   "url"
+    t.string   "sd_mp4_url"
+    t.string   "hd_mp4_url"
+    t.string   "shd_mp4_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "resource_videos", force: :cascade do |t|
+    t.string   "file"
+    t.integer  "duration"
+    t.string   "capture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "review_records", force: :cascade do |t|
     t.integer  "lesson_id"
     t.integer  "manager_id"
@@ -1911,4 +1967,5 @@ ActiveRecord::Schema.define(version: 20170818071402) do
 
   add_foreign_key "invitations", "users"
   add_foreign_key "payment_transactions", "users"
+  add_foreign_key "resource_files", "users"
 end

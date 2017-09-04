@@ -15,7 +15,7 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
     teacher = users(:physics_teacher1)
     log_in_as(teacher)
     visit info_teacher_path(teacher)
-    click_on '下载'
+    visit welcome_download_path
 
     assert page.has_content?('教师问答社区'), '软件不能显示'
     new_logout_as(teacher)

@@ -52,6 +52,12 @@
         <span><%= t("view.teacher_bars.my_video_courses") %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:my_customized_groups) %>">
+      <%= link_to live_studio.teacher_customized_groups_path(@owner) do %>
+        <i class="icon-exclusive"></i>
+        <span><%= t("view.teacher_bars.my_customized_groups") %></span>
+      <% end %>
+    </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
       <%= link_to main_app.curriculums_teacher_path(@owner) do %>
         <i class="icon-setup"></i>
@@ -88,6 +94,11 @@
         <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
-
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:files) %>">
+      <%= link_to resource.teacher_files_path(@owner) do %>
+        <i class="icon-file"></i>
+        <span><%= t("view.teacher_bars.files") %></span>
+      <% end %>
+    </li>
   </ul>
 </div>

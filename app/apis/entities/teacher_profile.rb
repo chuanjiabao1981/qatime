@@ -29,6 +29,9 @@ module Entities
     expose :video_courses,using: Entities::LiveStudio::PublicVideoCourse do |teacher|
       DataService::TeacherData.new(teacher).profile_video_courses
     end
+    expose :customized_groups,using: Entities::LiveStudio::PublicCustomizedGroup do |teacher|
+      DataService::TeacherData.new(teacher).profile_customized_groups
+    end
     expose :icons do
       expose :course_can_refund do |teacher|
         true

@@ -9,5 +9,22 @@ module Resource
     def file_url
       attach.try(:file_url)
     end
+
+    def icon_name
+      case ext_name
+      when 'mp4'
+        'video'
+      when 'jpg', 'png'
+        'pic'
+      when 'pdf'
+        'pdf'
+      when 'xls', 'xlsx'
+        'excel'
+      when 'doc', 'docx', 'ppt'
+        'word'
+      else
+        'unknown'
+      end
+    end
   end
 end

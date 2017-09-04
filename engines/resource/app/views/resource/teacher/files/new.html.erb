@@ -1,0 +1,162 @@
+<div class="contains">
+  <div class="recorded-title">
+    <%= link_to t('resource.menu.teacher.my_files'), teacher_files_path(@teacher) %>
+    <span class="fa fa-angle-right"></span>
+    <span><%= t('resource.menu.teacher.new_file') %></span>
+  </div>
+
+  <div class="contains-discipline">
+    <div class="addfile-title">
+      <span><%= t('view.resource/file.new.uploaded_title') %><i id="uploaded_files_count">(0)</i></span>
+      <input type="file" id="lefile" class="upload_file">
+      <a onclick="$('input[id=lefile]').click();">
+        <i></i>
+        <span><%= t('view.resource/file.new.upload_file') %></span>
+      </a>
+      <div class="upload-hint">
+        <%= image_tag 'hint.png' %><%= t('view.live_studio/customized_groups.show.courseware.upload_hint') %>
+        <div class="hint-info">
+          <p><%= t('view.live_studio/customized_groups.show.courseware.upload_hint1') %></p>
+          <p><%= t('view.live_studio/customized_groups.show.courseware.upload_hint2') %></p>
+        </div>
+      </div>
+      <span class="help-block has-error submit_files_error"></span>
+    </div>
+
+    <%= form_tag "/resource/teachers/#{@teacher.id}/files", id: 'uploaded_form' do %>
+      <%= hidden_field_tag "quote[name]", "teacher files new page uploaded" %>
+
+      <ul class="addfile-list" id="load_files"></ul>
+    <% end %>
+
+    <div class="submit-box">
+      <%= link_to t('common.cancel'), teacher_files_path(@teacher) %>
+      <%= link_to t('view.resource/file.new.submit'), 'javascript:void(0);', class: 'submit_files' %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      // 文件上传
+      $(document).on('change', '.upload_file', function(e){
+        var file = e.target.files[0];
+        if(!file) return false;
+        if(!file.name.match(/.(mp4|jpg|jpeg|png|pdf|doc|docx|xls|xlsx|ppt)$/i)) {
+          $('.upload_file').val('');
+          alert("<%= t('view.live_studio/customized_groups.show.courseware.valid_file_ext') %>");
+          return false;
+        }
+        var fileForm = '<form id="file_form" action="/resource/files" enctype="multipart/form-data" method="post"></form>';
+        var data = new FormData();
+        data.append("file[file]", file);
+        var load_files = $('#load_files');
+        var file_id = Math.round(Math.random() * 10000);
+
+        $(fileForm).ajaxSubmit({
+          dataType: 'json',
+          formData: data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          beforeSubmit: function(){
+            initUploadProgress(file_id, file);
+          },
+          uploadProgress: function(event, position, total, percentComplete) {
+            var currentUploadingFile = $('#uploading_file_' + file_id);
+            var currentProgressBar = currentUploadingFile.find('i.progress-bar');
+            var currentProgressNumber = currentUploadingFile.find('i.progress_number');
+            var percentVal = percentComplete + '%';
+            currentProgressBar.css({width: percentVal});
+            currentProgressNumber.html(percentVal);
+          },
+          success: function(data) {
+            if(data.id){
+              var currentUploadingFile = $('#uploading_file_' + file_id);
+              currentUploadingFile.find('input.uploaded_file_id').removeClass('uploading').addClass('uploaded').val(data.id);
+              currentUploadingFile.find('i.progress').remove();
+              currentUploadingFile.find('i.progress_number').remove();
+              currentUploadingFile.find('a.cancel_upload').replaceWith("<a href='javascript:void(0);' class='delete_upload'><%= t('common.delete') %></a>");
+              refreshFilesCount();
+            }
+          }
+        });
+      });
+
+      // 上传进度
+      function initUploadProgress(file_id, file){
+        var $li = $("<li " + "id='uploading_file_" + file_id + "'" + "></li>");
+        $li.append("<span>" + file.name + "</span>");
+        $li.append("<i>（" + bytesToSize(file.size) + "）</i>");
+        var $progress = $("<i class='progress'></i>");
+        var $progressBar = $('<i class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></i>');
+        $progress.append($progressBar);
+        $li.append($progress);
+        $li.append("<i class='progress_number'>0%</i>");
+        $li.append("<a href='javascript:void(0);' class='cancel_upload'><%= t('common.cancel') %></a>");
+        $li.append("<input name='file_ids[]' type='hidden' class='uploaded_file_id uploading' />");
+        $li.append("<span class='upload-status'></span>");
+        $('#load_files').append($li);
+      }
+
+      // 提交上传的文件
+      $(document).on('click', '.submit_files', function(e){
+        var error_tip = $('span.submit_files_error');
+        if( $('ul#load_files').children().length == 0 ){
+          error_tip.html('<%= t('view.live_studio/customized_groups.show.courseware.add_file_error') %>');
+          return false;
+        }
+        if( $('#load_files .uploaded_file_id').hasClass('uploading') ){
+          error_tip.html('');
+          $('#load_files input.uploading').each(function(i,ele){
+            var $ele = $(ele);
+            $ele.siblings('.upload-status').html("<%= t('view.resource/file.new.uploading_error') %>")
+          });
+          return false;
+        }
+        $('#uploaded_form').submit();
+      });
+
+      // 取消上传
+      $(document).on('click', '.cancel_upload', function(e){
+        $(this).parents('li').remove();
+        $('.upload_file').val('');
+        refreshFilesCount();
+      });
+
+      $(document).on('click', '.delete_upload', function(e){
+        $(this).parents('li').remove();
+        refreshFilesCount();
+      });
+
+      // 上传说明
+      var hoverset;
+      $(".upload-hint").hover(function() {
+        $(".upload-hint .hint-info").show();
+        if(hoverset) {
+          clearTimeout(hoverset);
+        }
+      }, function() {
+        hoverset = setTimeout(function() {
+          $(".upload-hint .hint-info").hide();
+        }, 200)
+      });
+    });
+
+    // 刷新数目
+    function refreshFilesCount() {
+      $('#uploaded_files_count').html("(" + $('#load_files').children().length + ")");
+    }
+
+    // 文件大小
+    function bytesToSize(bytes) {
+      if (bytes === 0) return '0 B';
+      var k = 1024,
+          sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+          i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+  </script>
+<% end %>

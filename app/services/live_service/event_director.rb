@@ -17,7 +17,7 @@ module LiveService
       end
       @event.record! # 设置录制
       LiveService::EventDirector.live_status_change(@group, board, camera, @event) # 更新直播状态
-      ::LiveStudio::EventDirector.new(event).async_notify_team('start') # 发送群组消息
+      ::LiveStudio::EventDirector.new(@event).async_notify_team('start') # 发送群组消息
       @event.heartbeats(Time.now.to_i, ::LiveStudio::Group.beat_step)
     end
 
@@ -34,7 +34,7 @@ module LiveService
       @event.real_time = @event.live_sessions.sum(:duration) # 实际直播时间单位分钟
       @group.save!
       @event.finish!
-      ::LiveStudio::EventDirector.new(event).async_notify_team('close') # 发送群组消息
+      ::LiveStudio::EventDirector.new(@event).async_notify_team('close') # 发送群组消息
     end
 
     # 直播状态更新
@@ -92,9 +92,9 @@ module LiveService
     # 暂停课程
     # teaching状态下10分钟没有收到心跳的课程
     def self.pause_lessons
-      LiveStudio::ScheduledLesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |lesson|
-        lesson.close!
-        LiveService::GroupRealtimeService.update_lesson_live(lesson)
+      LiveStudio::ScheduledLesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |event|
+        event.close!
+        LiveService::GroupRealtimeService.update_lesson_live(event)
         ::LiveStudio::EventDirector.new(event).async_notify_team('close') # 发送群组消息
       end
     end

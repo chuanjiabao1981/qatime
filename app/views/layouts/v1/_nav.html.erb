@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to home_path, class: 'navbar-brand' do %>
+      <%= link_to main_app.home_path, class: 'navbar-brand' do %>
         <%= image_tag 'homepage-logo.png' %>
       <% end %>
     </div>
@@ -30,7 +30,7 @@
                 <li><%= link_to t("view.common_bars.customized_courses"), main_app.send("customized_courses_#{current_user.role}_path", current_user) %></li>
               <% end %>
               <% unless signed_in? %>
-                <li><%= link_to t("view.common_bars.customized_courses"), signin_path %></li>
+                <li><%= link_to t("view.common_bars.customized_courses"), main_app.signin_path %></li>
               <% end %>
               <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
               <li>

@@ -317,6 +317,12 @@ module Permissions
       api_allow :POST, "/api/v1/payment/itunes_products/[\\w-]+/recharges" # 充值下单
       api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
       ## end 苹果内购
+
+      # 资源中心
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件列表
+        group && user.live_studio_bought_customized_groups.include?(group)
+      end
+      # end 资源中心
     end
 
     private

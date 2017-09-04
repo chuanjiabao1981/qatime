@@ -1,4 +1,3 @@
-
 <div class="login-content">
   <div class="container">
     <div class="row">
@@ -44,7 +43,7 @@
                 <%= link_to t(".forget_password"), new_password_path %>
               </span>
             </div>
-            <%= button_tag t('.sign_now'),class: 'login-send' %>
+            <%= submit_tag t('.sign_now'), class: 'login-send', data: { disable_with: t('.sign_loading')} %>
             <div class="login-other">
               <%= image_tag 'login_line.png' %>
               <span><%= t('.other_login_type') %></span>
@@ -64,5 +63,14 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $('form').submit(function(){
+        $('.login-send').addClass('active');
+      });
+    });
+  </script>
+<% end %>
 
 

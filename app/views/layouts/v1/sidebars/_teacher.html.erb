@@ -94,6 +94,11 @@
         <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
-
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:files) %>">
+      <%= link_to resource.teacher_files_path(@owner) do %>
+        <i class="icon-file"></i>
+        <span><%= t("view.teacher_bars.files") %></span>
+      <% end %>
+    </li>
   </ul>
 </div>

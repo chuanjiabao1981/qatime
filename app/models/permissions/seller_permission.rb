@@ -183,6 +183,10 @@ module Permissions
       allow 'payment/station/sale_tasks', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+
+      # 资源中心 start
+      allow 'resource/teacher/files', [:index]
+      # 资源中心 end
     end
   end
 end

@@ -39,8 +39,8 @@ module LiveService
 
     # 直播状态更新
     def self.live_status_change(group, board, camera, event = nil)
-      LiveService::GroupRealtimeService.new(group.id).update_live(@event, board, camera)
-      LiveService::GroupRealtimeService.update_lesson_live(@event)
+      LiveService::GroupRealtimeService.new(group.id).update_live(event, board, camera)
+      LiveService::GroupRealtimeService.update_lesson_live(event)
     end
 
     # 准备上课
@@ -92,10 +92,10 @@ module LiveService
     # 暂停课程
     # teaching状态下10分钟没有收到心跳的课程
     def self.pause_lessons
-      LiveStudio::ScheduledLesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |lesson|
-        lesson.close!
-        LiveService::GroupRealtimeService.update_lesson_live(lesson)
-        ::LiveStudio::EventDirector.new(@event).async_notify_team('close') # 发送群组消息
+      LiveStudio::ScheduledLesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |event|
+        event.close!
+        LiveService::GroupRealtimeService.update_lesson_live(event)
+        ::LiveStudio::EventDirector.new(event).async_notify_team('close') # 发送群组消息
       end
     end
   end

@@ -27,7 +27,7 @@ module V1
               end
               get :schedule_data do
                 search_data = LiveService::SearchSchedule.new(@teacher)
-                arr = search_data.search(params)
+                arr = search_data.search_old(params)
 
                 present arr, with: Entities::LiveStudio::TeacherSearchSchedule
               end

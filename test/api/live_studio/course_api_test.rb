@@ -85,7 +85,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 1, res['data'].size
+    assert_equal 4, res['data'].size
   end
 
   test "get student courses return error list of teacher" do
@@ -346,7 +346,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert_equal 5, data.first['lessons'].count, '返回课程数量不对'
+    assert_equal 2, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_week.to_date && return_date <= Time.now.end_of_week.to_date, '返回数据日期不正确'
   end

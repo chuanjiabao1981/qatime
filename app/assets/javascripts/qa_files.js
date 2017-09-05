@@ -35,7 +35,9 @@ $(function(){
   // 添加记录
   $(".asyn_append_fields").on("click", ".append_fields", function(e) {
     var node = $(e.target);
-    $(node.attr('append-to')).append(node.data('fields'));
+    var regexp = new RegExp(node.data('prefix') + "_\\d+", 'g');
+    $(node.attr('append-to')).append(node.data('fields').replace(regexp, node.data('id')));
+    node.data('id', parseInt(node.data('id')) + 1); 
     e.preventDefault();
   });
 

@@ -950,10 +950,10 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.integer  "parent_id"
     t.integer  "user_id"
     t.integer  "status"
-    t.integer  "tasks_count"
+    t.integer  "tasks_count",   default: 0
     t.string   "type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "live_studio_tasks", ["parent_id"], name: "index_live_studio_tasks_on_parent_id", using: :btree

@@ -7,7 +7,7 @@ class CreateLiveStudioTasks < ActiveRecord::Migration
       t.references :parent, index: true
       t.references :user, index: true
       t.integer :status
-      t.integer :tasks_count
+      t.integer :tasks_count, default: 0
       t.string :type
 
       t.timestamps null: false

@@ -4,13 +4,14 @@
       <%= f.input_field :title %>
       <%= f.error :title %>
     </div>
-    <%= f.fields_for :lessons do |item| %>
+
+    <%= f.fields_for :task_items do |item| %>
       <%= render 'task_item_fields', f: item %>
     <% end %>
   </div>
 
   <div class="form-submit">
-    <%= raw link_to_append_fields("添加下一题", f, :task_items, 'live_studio/homeworks/', "append-to" => "#homework-fields") %>
+    <%= raw link_to_append_items("添加下一题", f, :task_items, 'live_studio/homeworks/', "append-to" => "#homework-fields", index: @homework.task_items.count + 1) %>
     <%= f.submit %>
   </div>
 <% end %>

@@ -9,10 +9,13 @@ module LiveStudio
 
     def new
       @homework = @taskable.homeworks.new
+      @homework.task_items.build
     end
 
     def create
       @homework = @taskable.homeworks.new(homework_params)
+      @homework.user = current_user
+
       if @homework.save
         render :create
       else
@@ -27,7 +30,7 @@ module LiveStudio
     end
 
     def homework_params
-      params.require(:homework).permit(:title)
+      params.require(:homework).permit(:title, task_items_attributes: [:body])
     end
   end
 end

@@ -9,5 +9,7 @@ module LiveStudio
     has_many :task_items, foreign_key: 'task_id'
 
     validates :homework, presence: true
+
+    accepts_nested_attributes_for :task_items
   end
 end

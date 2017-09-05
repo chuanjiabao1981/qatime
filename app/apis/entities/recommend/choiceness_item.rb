@@ -8,7 +8,7 @@ module Entities
       expose :target, as: :live_studio_course, if: lambda { |object, options| object.target.is_a?(::LiveStudio::Course) }, using: ::Entities::LiveStudio::Course
       expose :target, as: :live_studio_interactive_course, if: lambda { |object, options| object.target.is_a?(::LiveStudio::InteractiveCourse) }, using: ::Entities::LiveStudio::InteractiveCourse
       expose :target, as: :live_studio_video_course, if: lambda { |object, options| object.target.is_a?(::LiveStudio::VideoCourse) }, using: ::Entities::LiveStudio::VideoCourse
-      expose :target, as: :live_studio_customized_group, if: lambda { |object, options| object.target.is_a?(::LiveStudio::CustomizedGroup) }, using: ::Entities::LiveStudio::Group
+      # expose :target, as: :live_studio_customized_group, if: lambda { |object, options| object.target.is_a?(::LiveStudio::CustomizedGroup) }, using: ::Entities::LiveStudio::Group
       expose :reason
       expose :logo_url do |item|
         item.target.try(:publicize_url, :info)

@@ -55,6 +55,13 @@ module DataService
       (free_video_courses.to_a + free_courses.to_a + free_customized_groups.to_a).sort_by{ |x| x.published_at || Time.new(2000) }.reverse[0, options[:limit].to_i]
     end
 
+    def free_courses_old(options = {})
+      options[:limit] ||= 4
+      free_video_courses = LiveStudio::VideoCourse.for_sell.with_sell_type(:free).order(published_at: :desc).limit(options[:limit])
+      free_courses = LiveStudio::Course.for_sell.with_sell_type(:free).order(published_at: :desc).limit(options[:limit])
+      (free_video_courses.to_a + free_courses.to_a).sort_by{ |x| x.published_at || Time.new(2000) }.reverse[0, options[:limit].to_i]
+    end
+
     # 问答动态
     def questions
       ::Question.includes({learning_plan: :teachers}, :vip_class, :student).order(created_at: :desc)
@@ -65,6 +72,21 @@ module DataService
         city = City.find_by(name: city_name)
         return position.items.by_city(nil) unless city.present?
         position.items.by_city(city.id)
+      end
+
+      def position_query_old(position, city_name)
+        city = City.find_by(name: city_name)
+
+        if position == Recommend::ChoicenessItem.default
+          return position.items.where.not(target_type: 'LiveStudio::Group').by_city(nil) unless city.present?
+          position.items.where.not(target_type: 'LiveStudio::Group').by_city(city.id)
+        elsif position == Recommend::ReplayItem.default
+          return position.items.where.not(target_type: 'LiveStudio::ScheduledLesson').by_city(nil) unless city.present?
+          position.items.where.not(target_type: 'LiveStudio::ScheduledLesson').by_city(city.id)
+        else
+          return position.items.by_city(nil) unless city.present?
+          position.items.by_city(city.id)
+        end
       end
     end
 

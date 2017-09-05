@@ -157,7 +157,7 @@ module V1
         resource :lessons do
           desc '今日直播'
           get 'today' do
-            lessons = LiveStudio::Lesson.includes(:course).today.readied.sort_by{ |x| x.start_time }
+            lessons = ::LiveStudio::Lesson.includes(:course).today.readied.sort_by{ |x| x.start_time }
             present lessons, with: ::Entities::LiveStudio::TodayFullLesson
           end
         end

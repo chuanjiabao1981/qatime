@@ -1,0 +1,16 @@
+<%= simple_form_for [@taskable, @homework], remote: true do |f| %>
+  <div id="homework-fields">
+    <div class="form-group">
+      <%= f.input_field :title %>
+      <%= f.error :title %>
+    </div>
+    <%= f.fields_for :lessons do |item| %>
+      <%= render 'task_item_fields', f: item %>
+    <% end %>
+  </div>
+
+  <div class="form-submit">
+    <%= raw link_to_append_fields("添加下一题", f, :task_items, 'live_studio/homeworks/', "append-to" => "#homework-fields") %>
+    <%= f.submit %>
+  </div>
+<% end %>

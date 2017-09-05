@@ -1,0 +1,18 @@
+<li>
+  <div class="row">
+    <div class="col-md-10 col-sm-10 col-xs-8 problem-title">
+      <p><%= student_homework.title %></p>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-4 reply-status">
+      <span class="reply"><%= student_homework.status_text %></span>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 problem-name">
+      <span><%= student_homework.user.try(:name) %></span>
+      <span><%= student_homework.created_at %></span>
+    </div>
+  </div>
+  <div class="ask-info">
+    <%= student_homework.task_items %>
+    <%= student_homework.correction.task_items %>
+  </div>
+</li>

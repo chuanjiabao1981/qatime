@@ -9,7 +9,11 @@
             <div class="aside-left">
               <a href="#introduce" data-toggle="tab" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
               <a href="#arrange" data-toggle="tab"><%= t('view.live_studio/courses.show.arrange') %></a>
-              <!--<a href="#homework" class="" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+              <!--<a href="#homework" class="" ><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+
+              <%= link_to live_studio.customized_group_homeworks_path(@customized_group, anchor: 'homework'), class: 'homework-link', remote: true, data: { toggle: 'tab' } do %>
+                <%= LiveStudio::Homework.model_name.human %> <i>(9)</i>
+              <% end %>
               <!--<a href="#ask" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>-->
               <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(<%= @recourse_files.count %>)</i></a>
               <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
@@ -21,7 +25,7 @@
             </div>
           </div>
 
-          <div class="tab-content">
+          <div class="tab-content asyn_append_fields">
             <!--课程介绍-->
             <%= render 'live_studio/customized_groups/show/introduce' %>
             <!--上课安排-->

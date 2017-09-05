@@ -6,6 +6,8 @@ class CreateLiveStudioTasks < ActiveRecord::Migration
       t.references :taskable, polymorphic: true, index: true
       t.references :parent, index: true
       t.references :user, index: true
+      t.integer :status
+      t.integer :tasks_count
       t.string :type
 
       t.timestamps null: false

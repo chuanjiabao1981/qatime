@@ -1,0 +1,28 @@
+<div class="ask-tab edit-box">
+  <div class="row">
+    <div class="col-md-6 left">
+      <a href="#student-homeworkl" data-toggle="tab" class="active">学生提交的作业</a>
+      <span>|</span>
+      <a href="#my-homework" data-toggle="tab">我布置的作业</a>
+    </div>
+    <div class="col-md-6 right">
+      <%= link_to '创建新作业', live_studio.new_customized_group_homework_path(@taskable), remote: true %>
+    </div>
+  </div>
+  <div class="problems-edit" id="homework-form">
+    
+  </div>
+</div>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="student-homeworkl"> 
+    <ul class="ask-list">
+      <%= render @student_homeworks %>
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="my-homework">
+    <ul class="ask-list" id="homewok-list">
+      <%= render @homeworks %>
+    </ul>
+  </div> 
+</div>

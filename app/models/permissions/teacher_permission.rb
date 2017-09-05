@@ -257,7 +257,6 @@ module Permissions
         end
       end
 
-      ## end live studio permission
       ## 一对一 start
       allow 'live_studio/teacher/interactive_courses', [:index, :index]
       allow 'live_studio/interactive_courses', [:preview]
@@ -273,6 +272,10 @@ module Permissions
 
       allow 'live_studio/teacher/customized_groups', [:index]
       allow 'live_studio/customized_groups', [:preview]
+
+      allow 'live_studio/homeworks', [:index, :new, :create] do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
@@ -295,6 +298,9 @@ module Permissions
       end
 
       ## 专属课 end
+
+
+      ## end live studio permission
 
       ## begin payment permission
 

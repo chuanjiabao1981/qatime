@@ -949,6 +949,8 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.string   "taskable_type"
     t.integer  "parent_id"
     t.integer  "user_id"
+    t.integer  "status"
+    t.integer  "tasks_count"
     t.string   "type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

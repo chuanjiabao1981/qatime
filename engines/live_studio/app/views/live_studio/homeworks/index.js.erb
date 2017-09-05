@@ -1,0 +1,9 @@
+<% if current_user.nil? %>
+  $("#homework").html("<%= j render('guest') %>");
+<% elsif current_user.student? %>
+  $("#homework").html("<%= j render('student') %>");
+<% elsif current_user.teacher? %>
+  $("#homework").html("<%= j render('teacher') %>");
+<% else %>
+  $("#homework").html("<%= j render('other') %>");
+<% end %>

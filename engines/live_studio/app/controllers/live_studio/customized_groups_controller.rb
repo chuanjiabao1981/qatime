@@ -98,12 +98,15 @@ module LiveStudio
       course.valid?
       class_dates = []
 
-      if params[:customized_group][:scheduled_lessons_attributes].blank? && params[:customized_group][:offline_lessons_attributes].blank?
+      schedule_lesson_params = params[:customized_group][:scheduled_lessons_attributes].reject {|x| x['_destroy'] == '1'} rescue []
+      offline_lesson_params = params[:customized_group][:offline_lessons_attributes].reject {|x| x['_destroy'] == '1'} rescue []
+
+      if schedule_lesson_params.blank? && offline_lesson_params.blank?
         course.events_count = 0
       else
-        course.events_count = params[:customized_group][:scheduled_lessons_attributes].try(:count).to_i + params[:customized_group][:offline_lessons_attributes].try(:count).to_i
-        class_dates += params[:customized_group][:scheduled_lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?) if params[:customized_group][:scheduled_lessons_attributes]
-        class_dates += params[:customized_group][:offline_lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?) if params[:customized_group][:offline_lessons_attributes]
+        course.events_count = schedule_lesson_params.try(:count).to_i + offline_lesson_params.try(:count).to_i
+        class_dates += schedule_lesson_params.map {|a| a[:class_date]}.reject(&:blank?) if schedule_lesson_params
+        class_dates += offline_lesson_params.map {|a| a[:class_date]}.reject(&:blank?) if offline_lesson_params
       end
       course.start_at, course.end_at = class_dates.min, class_dates.max
       course

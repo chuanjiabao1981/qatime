@@ -13,9 +13,9 @@ module Entities
       expose :product, if: lambda { |object, options| object.is_a?(::LiveStudio::VideoCourse) } do |instance, options|
         ::Entities::LiveStudio::VideoCourse.represent instance
       end
-      expose :product, if: lambda { |object, options| object.is_a?(::LiveStudio::CustomizedGroup) } do |instance, options|
-        ::Entities::LiveStudio::Group.represent instance
-      end
+      # expose :product, if: lambda { |object, options| object.is_a?(::LiveStudio::CustomizedGroup) } do |instance, options|
+      #   ::Entities::LiveStudio::Group.represent instance
+      # end
       expose :total_entries do |course|
         options[:total_entries]
       end

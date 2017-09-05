@@ -338,7 +338,7 @@ module V1
             optional :count, type: Integer, desc: '记录数'
           end
           get '/rank_all/:name' do
-            courses = ::LiveService::RankManager.rank_of(params[:name], {city_id: params[:city_id], limit: params[:count]})
+            courses = ::LiveService::RankManager.rank_of('all_published_rank_old', {city_id: params[:city_id], limit: params[:count]})
             present courses, with: ::Entities::LiveStudio::RankAllCourse, root: params[:name]
           end
         end
@@ -428,7 +428,7 @@ module V1
         end
         get 'free_courses' do
           home_data = DataService::HomeData.new
-          free_courses = home_data.free_courses(limit: params[:count].presence)
+          free_courses = home_data.free_courses_old(limit: params[:count].presence)
           present free_courses, with: Entities::LiveStudio::FreeCourse
         end
       end

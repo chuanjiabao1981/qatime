@@ -39,7 +39,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 4, res['data'].count, "推荐返回错误"
+    assert_equal 3, res['data'].count, "推荐返回错误"
     assert_includes res['data'].map {|item| item['type']}, "Recommend::ChoicenessItem", "没有正确返回辅导班推荐类型"
     assert res['data'].find {|item| item['live_studio_course']}.size > 0, "没有正确返回推荐辅导班信息"
     assert_includes res['data'].map {|item| item['tag_one']}, 'star_teacher'
@@ -49,8 +49,8 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     interactive_course_item = res['data'].find {|item| item['live_studio_interactive_course']}
     assert interactive_course_item['live_studio_interactive_course'].size > 0
 
-    customized_group_item = res['data'].find {|item| item['live_studio_customized_group']}
-    assert customized_group_item['live_studio_customized_group'].size > 0
+    # customized_group_item = res['data'].find {|item| item['live_studio_customized_group']}
+    # assert customized_group_item['live_studio_customized_group'].size > 0
   end
 
   # 测试专题内容

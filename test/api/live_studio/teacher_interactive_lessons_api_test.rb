@@ -10,7 +10,7 @@ class Qatime::TeacherInteractiveLessonsAPITest < ActionDispatch::IntegrationTest
   test 'teacher live lesson' do
     interactive_lesson = live_studio_interactive_lessons(:interactive_course_three_2_lesson_2)
     # 开始上课
-    post "/api/v1/live_studio/interactive_lessons/#{interactive_lesson.id}/live_start", { room_id: Time.now.to_i.to_s }, 'Remember-Token' => @remember_token
+    post "/api/v1/live_studio/interactive_lessons/#{interactive_lesson.id}/live_start", { room_id: Time.now.to_i.to_s, channel_id: '123456' }, 'Remember-Token' => @remember_token
     assert_request_success?
     assert interactive_lesson.reload.teaching?, "开始上课失败"
     live_token = @res['data']['live_token']

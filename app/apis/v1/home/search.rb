@@ -15,10 +15,10 @@ module V1
           get do
             search_data = DataService::SearchManager.new(params[:search_cate])
             if params[:search_cate] == 'teacher'
-              teachers = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
+              teachers = search_data.search_old(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
               present teachers, with: Entities::SearchTeacher, total_entries: teachers.total_entries
             else
-              courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
+              courses = search_data.search_old(params[:search_key]).paginate(page: params[:page], per_page: params[:per_page])
               present courses, with: Entities::LiveStudio::HomeSearchCourse, total_entries: courses.total_entries
             end
           end
@@ -46,7 +46,9 @@ module V1
             optional :per_page, type: Integer, desc: '每页记录数'
           end
           get do
-            items = DataService::SearchManager.replays_ransack(params).result.paginate(page: params[:page], per_page: params[:per_page])
+            params[:s] ||= 'updated_at desc'
+            items = ::Recommend::ReplayItem.default.items.where.not(target_type: 'LiveStudio::ScheduledLesson').ransack(params).result.paginate(page: params[:page], per_page: params[:per_page])
+
             present items, with: Entities::Recommend::ReplayItemSearch
           end
 

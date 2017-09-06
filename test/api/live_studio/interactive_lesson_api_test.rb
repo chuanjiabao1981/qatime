@@ -1,5 +1,5 @@
 require 'test_helper'
-class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
+class Qatime::InteractiveLessonAPITest < ActionDispatch::IntegrationTest
   def setup
     @student = users(:student_with_order2)
     @student_remember_token = api_login(@student, :app)

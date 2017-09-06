@@ -28,7 +28,7 @@ module V1
           end
           get ':kee/items' do
             position = ::Recommend::Position.find_by!(kee: params[:kee])
-            items = DataService::HomeData.position_query(position, params[:city_name]).paginate(page: params[:page], per_page: params[:per_page])
+            items = DataService::HomeData.position_query_old(position, params[:city_name]).paginate(page: params[:page], per_page: params[:per_page])
             present items, with: "::Entities::#{position.klass_name}".constantize
           end
 
@@ -43,7 +43,7 @@ module V1
             kees = params[:kees].to_s.split('-')
             positions = ::Recommend::Position.where(kee: kees).includes(:items)
             positions.each do |position|
-              present DataService::HomeData.position_query(position, params[:city_name]),
+              present DataService::HomeData.position_query_old(position, params[:city_name]),
                       with: "::Entities::#{position.klass_name}".constantize, root: position.kee
             end
           end

@@ -91,6 +91,7 @@ module LiveStudio
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
+    validates :interactive_lessons, presence: true
     validate :interactive_lessons_uniq
 
     scope :uncompleted, -> { where('live_studio_interactive_courses.status < ?', statuses[:completed]) }

@@ -7,7 +7,7 @@ module BusinessService
       # 一对一结账
       LiveService::InteractiveLessonDirector.billing_lessons
       # 专属课结账
-      LiveService::CustomizedGroupBillingDirector.billing_lessons
+      BusinessService::CustomizedGroupBillingDirector.billing_lessons
     end
   end
 end

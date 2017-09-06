@@ -163,6 +163,10 @@ module Permissions
       allow 'live_studio/courses', [:index, :show, :for_free]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
+      # 作业问答 start
+      allow 'live_studio/homeworks', [:index]
+      # 作业问答 end
+
       allow 'live_studio/lessons', [:replay] do |lesson|
         lesson.replayable && lesson.replayable_for?(user)
       end

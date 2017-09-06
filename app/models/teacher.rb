@@ -136,6 +136,22 @@ class Teacher < User
     save
   end
 
+  # 是否授课
+  def teach?(product)
+    case product
+    when LiveStudio::CustomizedGroup
+      live_studio_customized_groups.include?(product)
+    when LiveStudio::Course
+      live_studio_courses.include?(product)
+    when LiveStudio::InteractiveCourse
+      live_studio_interactive_courses.include?(product)
+    when LiveStudio::VideoCourse
+      live_studio_video_courses.include?(product)
+    else
+      false
+    end
+  end
+
   private
 
   # 老师的地区信息从学校获取

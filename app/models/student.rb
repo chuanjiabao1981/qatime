@@ -124,4 +124,20 @@ class Student < User
     @student_columns_required = true
     self
   end
+
+  # 是否购买
+  def bought?(product)
+    case product
+    when LiveStudio::CustomizedGroup
+      live_studio_bought_customized_groups.include?(product)
+    when LiveStudio::Course
+      live_studio_bought_courses.include?(product)
+    when LiveStudio::InteractiveCourse
+      live_studio_bought_interactive_courses.include?(product)
+    when LiveStudio::VideoCourse
+      live_studio_bought_video_courses.include?(product)
+    else
+      false
+    end
+  end
 end

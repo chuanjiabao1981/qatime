@@ -1,0 +1,11 @@
+<% if current_user.bought?(@taskable) %>
+  <% if @homeworks.blank? %>
+    <%= render 'shared/blank' %>
+  <% else %>
+    <ul class="ask-list">
+      <%= render partial: 'student_homework', collection: @homeworks %>
+    </ul>
+  <% end %>
+<% else %>
+  <%= render 'live_studio/shared/guest' %>
+<% end %>

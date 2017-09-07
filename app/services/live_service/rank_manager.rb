@@ -5,6 +5,11 @@ module LiveService
         send(rank_name, options)
       end
 
+      # 混合排名
+      def mix_rank_of(rank_name, options = {})
+        send("mix_#{rank_name}", options)
+      end
+
       private
 
       # 所有课程 最新发布
@@ -20,6 +25,18 @@ module LiveService
         all_base_filter_old(options).sort_by{|x| x.published_at || Time.new(2000) }.reverse.to(options[:limit] - 1)
       end
 
+      # 混合发布时间排序
+      def mix_published_rank(options)
+        limit = options.delete(:limit) || 4
+        klass_list = options.delete(:klass_list)
+        klass_list ||= %w(LiveStudio::Course LiveStudio::InteractiveCourse LiveStudio::VideoCourse LiveStudio::CustomizedGroup)
+        courses = []
+        klass_list.each do |klass|
+          courses += base_filter(options, klass).reorder('published_at desc').limit(limit)
+        end
+        courses.sort_by(&:published_at).reverse.first(limit)
+      end
+
       # 发布时间排行
       def published_rank(options)
         base_filter(options).reorder('published_at desc')
@@ -30,8 +47,8 @@ module LiveService
         base_filter(options).where('status = ?', ::LiveStudio::Course.statuses[:published]).reorder('start_at')
       end
 
-      def base_filter(options)
-        filter = LiveStudio::Course.for_sell
+      def base_filter(options, klass = 'LiveStudio::Course')
+        filter = klass.constantize.for_sell
         filter = filter.where(city_id: options[:city_id]) if options[:city_id].present?
         filter
       end

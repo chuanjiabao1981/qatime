@@ -13,6 +13,7 @@ module LiveStudio
     def create
       @correction = @student_homework.build_correction(correction_params)
       @correction.user = current_user
+      @correction.taskable = @student_homework.taskable
       if @correction.save && @student_homework.resolved!
         render
       else

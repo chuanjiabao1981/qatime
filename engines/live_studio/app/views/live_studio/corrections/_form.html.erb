@@ -1,4 +1,4 @@
-<%= simple_form_for @student_homework, remote: true do |f| %>
+<%= simple_form_for [@student_homework, @correction], remote: true do |f| %>
   <div id="homework-fields">
     <%= f.fields_for :task_items do |item| %>
       <%= render 'task_item_fields', f: item %>

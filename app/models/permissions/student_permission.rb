@@ -165,6 +165,9 @@ module Permissions
 
       # 作业问答 start
       allow 'live_studio/homeworks', [:index]
+      allow 'live_studio/student_homeworks', [:edit, :update] do |student_homework|
+        student_homework && student_homework.user_id = user.id
+      end
       # 作业问答 end
 
       allow 'live_studio/lessons', [:replay] do |lesson|

@@ -1,4 +1,4 @@
-<li>
+<li id="student_homework-<%= student_homework.id %>">
   <div class="row">
     <div class="col-md-10 col-sm-10 col-xs-8 problem-title">
       <p><%= student_homework.title %></p>
@@ -7,12 +7,51 @@
       <span class="reply"><%= student_homework.status_text %></span>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 problem-name">
-      <span><%= student_homework.user.try(:name) %></span>
+      <% unless student_homework.user == current_user -%>
+        <span><%= student_homework.user.try(:name) %></span>
+      <% end -%>
       <span><%= student_homework.created_at %></span>
     </div>
   </div>
   <div class="ask-info">
-    <%= student_homework.task_items %>
-    <%= student_homework.correction.task_items %>
+    <%= render student_homework.homework.task_items %>
+    <!-- 未提交 -->
+    <% if student_homework.pending? -%>
+      <div class="edit-box" id="student_homework-<%= student_homework.id %>-form">
+        <p>
+          <%= link_to "做作业", live_studio.edit_student_homework_path(student_homework), remote: true -%>
+        </p>
+        <div class="problems-edit"></div>
+      </div>
+    <!-- 待批改 -->
+    <% elsif student_homework.submitted? %>
+      <%= render 'student_homework_items', student_homework: student_homework -%>
+      <% if student_homework.homework.user = current_user %>
+        <div class="edit-box">
+          <p>
+            <%= link_to "添加批改", live_studio.new_student_homework_correction_path(student_homework), remote: true -%>
+          </p>
+          <div class="problems-edit correction-form">
+          </div>
+        </div>
+      <% end %>
+    <!-- 已批该 -->
+    <% elsif student_homework.resolved? %>
+      <%= render 'student_homework_items', student_homework: student_homework -%>
+
+      <div class="edit-box">
+        <% if student_homework.homework.user = current_user %>
+          <p>
+            <%= link_to "重新批改", live_studio.edit_student_homework_correction_path(student_homework, student_homework.correction), remote: true -%>
+          </p>
+          <div class="problems-edit correction-form">
+          </div>
+        <% end %>
+      </div>
+
+      <div class="edit-box">
+        <%= render 'correction_items', correction: student_homework.correction -%>
+      </div>
+    <% end %>
   </div>
 </li>

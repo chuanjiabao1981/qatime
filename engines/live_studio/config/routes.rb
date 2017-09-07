@@ -128,6 +128,10 @@ LiveStudio::Engine.routes.draw do
     resources :homeworks, only: [:index, :new, :create]
   end
 
+  resources :student_homeworks, only: [:edit, :update] do
+    resources :corrections, only: [:new, :edit, :create, :update]
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do

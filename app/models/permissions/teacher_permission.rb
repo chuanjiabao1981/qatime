@@ -277,6 +277,15 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      # 作业批改
+      allow 'live_studio/corrections', [:new, :create] do |student_homework|
+        student_homework && student_homework.homework.user == user
+      end
+      # 重新批改
+      allow 'live_studio/corrections', [:edit, :update] do |correction|
+        correction && correction.user == user
+      end
+
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课

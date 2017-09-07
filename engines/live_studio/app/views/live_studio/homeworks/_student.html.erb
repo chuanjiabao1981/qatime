@@ -1,9 +1,9 @@
 <% if current_user.bought?(@taskable) %>
-  <% if @homeworks.blank? %>
+  <% if @student_homeworks.blank? %>
     <%= render 'shared/blank' %>
   <% else %>
     <ul class="ask-list">
-      <%= render partial: 'student_homework', collection: @homeworks %>
+      <%= render @student_homeworks %>
     </ul>
   <% end %>
 <% else %>

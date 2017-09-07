@@ -5,6 +5,11 @@ module LiveStudio
     def index
       @homeworks = @taskable.homeworks
       @student_homeworks = @taskable.student_homeworks
+      if current_user.student?
+        @student_homeworks = @student_homeworks.where(user_id: current_user.id)
+      else
+        @student_homeworks = @student_homeworks.published
+      end
     end
 
     def new

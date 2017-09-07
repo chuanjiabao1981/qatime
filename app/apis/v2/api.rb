@@ -8,6 +8,9 @@ module V2
     mount V2::Home::Search
     mount V2::LiveStudio::Courses
     mount V2::LiveStudio::Lessons
+    mount V2::LiveStudio::Students::Schedule
+    mount V2::LiveStudio::Teachers::Schedule
+    # mount V2::Recommend::Positions
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v2", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v2.0" }

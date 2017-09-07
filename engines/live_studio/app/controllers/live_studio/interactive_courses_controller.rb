@@ -132,12 +132,13 @@ module LiveStudio
       return InteractiveCourse.find(params[:id]) if params[:id].present?
       course = InteractiveCourse.new(preview_courses_params.merge(author: current_user))
       course.valid?
-      if params[:interactive_course][:interactive_lessons_attributes].blank?
+      lesson_params = params[:interactive_course][:interactive_lessons_attributes].reject {|x| x['_destroy'] == '1'} rescue []
+      if lesson_params.blank?
         course.interactive_lessons_count = 0
         class_dates = []
       else
-        course.interactive_lessons_count = params[:interactive_course][:interactive_lessons_attributes].try(:count) || 0
-        class_dates = params[:interactive_course][:interactive_lessons_attributes].map { |a| a[:class_date] if a[:_destroy] == '0' }.reject(&:blank?)
+        course.interactive_lessons_count = lesson_params.try(:count) || 0
+        class_dates = lesson_params.map { |a| a[:class_date] if a[:_destroy] == '0' }.reject(&:blank?)
       end
       course.class_date, course.start_at, course.end_at = class_dates.min, class_dates.min, class_dates.max
       course

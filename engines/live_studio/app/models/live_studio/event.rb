@@ -5,7 +5,9 @@ module LiveStudio
     include AASM
     extend Enumerize
 
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, :channels, to: :group
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation,
+             :board_channel, :channels, :grade, :subject, :publicize, to: :group
+    delegate :id, :name, to: :group, prefix: :course
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :ticket_items, as: :target

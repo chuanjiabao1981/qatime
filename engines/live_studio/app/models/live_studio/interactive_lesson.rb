@@ -11,7 +11,9 @@ module LiveStudio
     BEAT_STEP = 10 # 心跳频率/秒
     LESSON_NUM = {1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十'}
 
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :board_channel, :channels, to: :interactive_course
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation,
+             :board_channel, :channels, :grade, :subject, :publicize, to: :interactive_course
+    delegate :id, :name, to: :interactive_course, prefix: :course
 
     before_validation :reset_status, if: :class_date_changed?, on: :update
 
@@ -163,10 +165,6 @@ module LiveStudio
     def status_text(role = nil, outer = true)
       role == 'teacher' || role = 'student'
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
-    end
-
-    def course_id
-      interactive_course_id
     end
 
     # 尚未直播

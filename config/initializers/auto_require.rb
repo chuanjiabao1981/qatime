@@ -1,4 +1,5 @@
 Dir["#{Rails.root}/lib/*.rb"].each {|p| require p}
+Dir["#{Rails.root}/lib/qatime/*.rb"].each {|p| require p}
 
 # 自动加载目录
 %W(app/apis).each do |d|

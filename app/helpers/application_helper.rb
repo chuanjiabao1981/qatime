@@ -1,5 +1,6 @@
 module ApplicationHelper
   include SessionsHelper
+  include Qatime::WillPaginate::Helper
 
   # 显示序号
   def show_index(index, per = 30)

@@ -455,7 +455,7 @@ module Permissions
       api_allow :POST, "/api/v1/resource/files" # 文件上传
       # 资源中心 end
 
-      api_allow :GET '/api/v2/live_studio/teachers/\d+/schedule_data'
+      api_allow :GET, '/api/v2/live_studio/teachers/\d+/schedule_data'
     end
 
     private

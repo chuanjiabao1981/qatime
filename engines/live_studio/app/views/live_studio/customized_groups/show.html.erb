@@ -77,6 +77,10 @@
       $(document).on("click", ".ask-list > li > .row >.problem-title", function() {
         $(this).parents("li").toggleClass("active").siblings().removeClass('active');
       });
+
+      $(".homework-link").click(function() {
+        $("#homework").html("<%= j render('live_studio/shared/loading') %>");
+      });
     });
   </script>
 <% end %>

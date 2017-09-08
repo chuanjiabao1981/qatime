@@ -9976,20 +9976,23 @@ div.live-big {
 .info-notfound{
   padding: 200px 0px;
 }
-.guest-tips {
+.guest-tips,.loading-tips {
   padding: 20px 0px 0px 0px;
 }
-.info-notfound p,.guest-tips p {
+.info-notfound p,.guest-tips p,.loading-tips p {
   margin-top: 10px;
   text-align: center;
   font-size: 20px;
   color: #ccd0df;
 }
-.info-hint .guest-tips > img,.guest-tips p > i {
+.info-hint .guest-tips > img,.guest-tips p > i,.loading-tips p > i {
   vertical-align: middle;
 }
-.guest-tips p > img {
+.guest-tips p > img,.loading-tips p > img {
   margin-right: 10px;
+}
+.loading-tips p > img {
+  width: 30px;
 }
 @media only screen  and (max-width: 990px) {
 .info-notfound {
@@ -16863,7 +16866,10 @@ abbr {
   padding: 10px; 
   background-color: #fafafa;
 }
-.course-item .ask-list li.active > .ask-info {
+.course-item .ask-list li > .edit-box {
+  display: none;
+}
+.course-item .ask-list li.active > .ask-info,.course-item .ask-list li.active > .edit-box {
   display: block;
 }
 .course-item .ask-list li.active .problem-title > p {

@@ -1,1 +1,2 @@
 $("#student_homework-<%= @student_homework.id %>-form .problems-edit").html("<%= j render('form') %>").show();
+$('#student_homework-<%= @student_homework.id %>-form a.cancel').show().siblings().hide(); // 按钮切换

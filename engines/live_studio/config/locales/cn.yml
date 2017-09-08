@@ -405,6 +405,9 @@ cn:
       live_studio/customized_group: 专属课
       live_studio/offline_lesson: 线下授课
       live_studio/scheduled_lesson: 线上直播
+      live_studio/homework: 作业
+      live_studio/student_homework: 学生作业
+      live_studio/correction: 批改
     attributes:
       payment/order:
         payment_password: 支付密码
@@ -593,6 +596,12 @@ cn:
         class_date: 上课日期
         start_time: 上课时间
         duration: 上课时长
+      live_studio/homework:
+        title: 标题
+      live_studio/student_homework:
+        title: 标题
+      live_studio/correction:
+        title: 标题
     status:
       live_studio/lesson:
         init: 初始化

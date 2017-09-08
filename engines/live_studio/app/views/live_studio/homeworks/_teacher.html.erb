@@ -2,12 +2,19 @@
   <div class="ask-tab edit-box">
     <div class="row">
       <div class="col-md-6 left">
-        <a href="#student-homework" data-toggle="tab" class="active">学生提交的作业</a>
+        <%= link_to t('view.live_studio/customized_group.show.student_homeworks'),
+                    "#student-homework", class: 'active', data: { toggle: 'tab' } %>
         <span>|</span>
-        <a href="#my-homework" data-toggle="tab">我布置的作业</a>
+        <%= link_to t('view.live_studio/customized_group.show.homeworks'),
+                    "#my-homework", class: 'active', data: { toggle: 'tab' } %>
       </div>
       <div class="col-md-6 right">
-        <%= link_to '创建新作业', live_studio.new_customized_group_homework_path(@taskable), remote: true %>
+        <%= link_to t('actions.live_studio/homeworks.new'),
+                    live_studio.new_customized_group_homework_path(@taskable), remote: true,
+                    data: { form: '#homework-form' } %>
+        <%= link_to t('actions.live_studio/homeworks.cancel'),
+                    "javascript:void(0);", class: "active cancel", style: 'display:none;',
+                    data: { form: '#homework-form' } -%>
       </div>
     </div>
     <div class="problems-edit" id="homework-form">

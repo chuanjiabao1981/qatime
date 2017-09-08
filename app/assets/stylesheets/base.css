@@ -10039,7 +10039,7 @@ div.live-big {
 .course-title span {
   display: inline-block;
   margin-left: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
   line-height: 16px;
   border-left: 1px solid #9aabb8;
   color: #9aabb8;
@@ -16835,13 +16835,13 @@ abbr {
 .course-item .ask-list .reply-status {
   text-align: right;
 } 
-.course-item .ask-list .reply-status > span {
+.course-item .ask-list .reply-status > span,.course-item .ask-list .reply-status > span.submitted {
   color: #20ad65;
 }
-.course-item .ask-list .reply-status > span.no-reply {
+.course-item .ask-list .reply-status > span.no-reply,.course-item .ask-list .reply-status > span.pending {
   color: #ff5842;
 }
-.course-item .ask-list .reply-status > span.approved {
+.course-item .ask-list .reply-status > span.approved,.course-item .ask-list .reply-status > span.resolved {
   color: #03cbfd;
 }
 .course-item .ask-list .problem-name {

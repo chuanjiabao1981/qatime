@@ -598,6 +598,7 @@ cn:
         duration: 上课时长
       live_studio/homework:
         title: 标题
+        submited_count: 人已提交
       live_studio/student_homework:
         title: 标题
       live_studio/correction:

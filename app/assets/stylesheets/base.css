@@ -16885,11 +16885,12 @@ abbr {
 .course-item .ask-list li > .ask-info > .image-box p > a > img,.edit-box > .reply-box .reply-list > .image-box p > a > img {
   max-width: 100%;
 }
-.course-item .ask-list li > .ask-info > .edit-box > p {
+.course-item .ask-list li > .ask-info > .edit-box > p,.course-item .ask-list li > .edit-box > p {
   text-align: right;
 }
 .course-item .ask-list li > .ask-info > .edit-box .btn-ask
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-correct
+,.course-item .ask-list li > .edit-box .btn-correct
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-addcorrect
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-edit
 ,.edit-box > .problems-edit .form-submit > input[type='submit']
@@ -16913,6 +16914,7 @@ abbr {
 }
 .course-item .ask-list li > .ask-info > .edit-box .btn-ask:hover
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-correct:hover
+,.course-item .ask-list li > .edit-box .btn-correct:hover
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-addcorrect:hover
 ,.course-item .ask-list li > .ask-info > .edit-box .btn-edit:hover
 ,.edit-box > .problems-edit .form-submit > input[type='submit']:hover

@@ -54,19 +54,15 @@ module V1
               required: true
             }
           end
-          format :json
           params do
-            requires :id
-            requires :task_items_attributes, type: Array[JSON] do
-              requires :parent_id, type: Integer, desc: '问题ID'
-              requires :body, type: String, desc: '答案'
-            end
+            requires :id, type: Integer, desc: '学生作业ID'
+            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
+                                             desc: '[{"parent_id": 1, "body": "不会"}, {"parent_id": 2, "body": "不会"}, {"parent_id": 3, "body": "不会" }]'
           end
 
           patch ':id/update' do
             student_homework_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
-            raise ActiveRecord::RecordInvalid, homework unless @student_homework.update(student_homework_params)
-            @student_homework.submitted!
+            raise ActiveRecord::RecordInvalid, @student_homework unless @student_homework.update(student_homework_params)
             present @student_homework, with: Entities::LiveStudio::StudentHomework
           end
         end

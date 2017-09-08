@@ -38,9 +38,13 @@ module V1
               end
               params do
                 requires :group_id, type: Integer, desc: '专属课ID'
+                requires :title, type: String, desc: '作业标题'
+                requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
+                                                 desc: '[{"body": "第一题"}, {"body": "第二题"}, {"body": "第三题" }]'
               end
               post do
-                homework = @taskable.homeworks.new(homework_params)
+                homework_params = ActionController::Parameters.new(params).permit(:title, task_items_attributes: [:body])
+                homework = @group.homeworks.new(homework_params)
                 homework.user = current_user
                 raise ActiveRecord::RecordInvalid, homework unless homework.save
                 present homework, with: Entities::LiveStudio::Homework

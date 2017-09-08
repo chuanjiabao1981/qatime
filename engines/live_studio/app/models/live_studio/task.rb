@@ -1,6 +1,8 @@
 module LiveStudio
   # 专属课任务
   class Task < ActiveRecord::Base
+    default_scope { order("id desc") }
+
     belongs_to :taskable, polymorphic: true
     belongs_to :user
 

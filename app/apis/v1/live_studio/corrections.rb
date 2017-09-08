@@ -23,7 +23,8 @@ module V1
               end
               params do
                 requires :student_homework_id, type: Integer, desc: '学生提交的作业ID'
-                requires :task_items_attributes, type: Array[Hash], coerce_with: JSON
+                requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
+                         desc: '[{"parent_id": 45, "body": "45修改"}, {"parent_id": 46, "body": "46修改"}, {"parent_id": 47, "body": "47修改" }]'
               end
               post '' do
                 correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
@@ -50,8 +51,8 @@ module V1
             }
           end
           params do
-            optional :id, type: Integer, desc: '旧的批改ID'
-            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON
+            requires :id, type: Integer, desc: '旧的批改ID'
+            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON, desc: '[{"id": 45, "body": "45修改"}, {"id": 46, "body": "46修改"}, {"id": 47, "body": "47修改" }]'
           end
           patch ':id' do
             correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:id, :body])

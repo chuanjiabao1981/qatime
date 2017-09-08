@@ -10,7 +10,7 @@ module LiveStudio
     end
 
     def update
-      if @student_homework.update(student_homework_params) && @student_homework.submitted!
+      if @student_homework.update(student_homework_params)
         render :update
       else
         render :edit

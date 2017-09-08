@@ -8,12 +8,25 @@ module LiveStudio
 
     scope :published, -> { where(status: statuses.values_at(:submitted, :resolved)) }
 
-    belongs_to :homework, foreign_key: 'parent_id', counter_cache: :tasks_count
+    belongs_to :homework, foreign_key: 'parent_id'
     has_one :correction, foreign_key: 'parent_id'
     has_many :task_items, foreign_key: 'task_id'
 
     validates :homework, presence: true
 
     accepts_nested_attributes_for :task_items
+
+    # 提交作业
+    def publish!
+      LiveStudio::Homework.increment_counter(:tasks_count, parent_id) if pending? && submitted!
+    end
+
+    private :submitted!
+
+    # 提交作业
+    after_save :submit_homework
+    def submit_homework
+      publish! if pending? && task_items.present?
+    end
   end
 end

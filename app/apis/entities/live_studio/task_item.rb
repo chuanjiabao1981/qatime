@@ -6,6 +6,8 @@ module Entities
       expose :id
       expose :body
       expose :parent_id
+
+      default_scope { order("id asc") }
     end
   end
 end

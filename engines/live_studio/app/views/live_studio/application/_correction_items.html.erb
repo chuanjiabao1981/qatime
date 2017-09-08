@@ -1,7 +1,7 @@
-<div class="reply-box" style="display: block;">
+<div class="reply-box">
   <div class="row">
     <div class="col-md-12 problem-title">
-      <p>我的批改：</p>
+      <p><%= t("view.live_studio/corrections.show.#{ correction.user == current_user ? 'my' : 'teacher' }") %>: </p>
     </div>
   </div>
   <div class="reply-list">

@@ -21,6 +21,11 @@ module LiveStudio
       LiveStudio::Homework.increment_counter(:tasks_count, parent_id) if pending? && submitted!
     end
 
+    def status_text(role = 'student')
+      return status.text if role == 'student'
+      I18n.t("enumerize.live_studio/student_homework.teacher.status.#{status}")
+    end
+
     private :submitted!
 
     # 提交作业

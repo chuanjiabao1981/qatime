@@ -333,6 +333,22 @@ cn:
         class_address_text: 上课地点
       index:
         name: 专属课名称
+      show:
+        homeworks: 我布置的作业
+        teacher_homeworks: 老师布置的作业
+        student_homeworks: 学生提交的作业
+    live_studio/homeworks:
+      show:
+        guest: 报名后才能查看
+        loading: 正在加载
+    live_studio/corrections:
+      show:
+        my: 我的批改
+        teacher: 老师的批改
+    live_studio/student_homeworks:
+      show:
+        my: 我的答案
+        student: 提交的答案
     student:
       students:
         schedules:

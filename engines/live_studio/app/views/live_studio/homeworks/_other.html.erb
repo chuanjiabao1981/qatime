@@ -1,9 +1,11 @@
 <div class="ask-tab edit-box">
   <div class="row">
     <div class="col-md-6 left">
-      <a href="#student-homeworkl" data-toggle="tab" class="" aria-expanded="true">学生提交的作业</a>
+      <%= link_to t('view.live_studio/customized_group.show.student_homeworks'),
+                  "#student-homework", class: 'active', data: { toggle: 'tab' } %>
       <span>|</span>
-      <a href="#my-homework" data-toggle="tab" class="active" aria-expanded="true">老师布置的作业</a>
+      <%= link_to t('view.live_studio/customized_group.show.teacher_homeworks'),
+                  "#my-homework", class: 'active', data: { toggle: 'tab' } %>
     </div>
   </div>
 </div>

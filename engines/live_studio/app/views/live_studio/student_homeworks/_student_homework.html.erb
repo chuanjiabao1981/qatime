@@ -15,58 +15,60 @@
   </div>
   <div class="ask-info">
     <%= render student_homework.homework.task_items %>
-    <!-- 未提交 -->
-    <% if student_homework.pending? -%>
-      <div class="edit-box" id="student_homework-<%= student_homework.id %>-form">
+  </div>
+
+  <!-- 未提交 -->
+  <% if student_homework.pending? -%>
+    <div class="edit-box" id="student_homework-<%= student_homework.id %>-form">
+      <p>
+        <%= link_to t('actions.live_studio/student_homeworks.edit'),
+                    live_studio.edit_student_homework_path(student_homework),
+                    remote: true, class: 'btn-correct' -%>
+        <%= link_to t('actions.live_studio/student_homeworks.cancel'),
+                    "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                    data: { form: "#student_homework-#{student_homework.id}-form .problems-edit" } -%>
+      </p>
+      <div class="problems-edit"></div>
+    </div>
+  <!-- 待批改 -->
+  <% elsif student_homework.submitted? %>
+    <div class="edit-box">
+      <%= render 'student_homework_items', student_homework: student_homework -%>
+    </div>
+    <% if student_homework.homework.user == current_user %>
+      <div class="edit-box">
         <p>
-          <%= link_to t('actions.live_studio/student_homeworks.edit'),
-                      live_studio.edit_student_homework_path(student_homework),
-                      remote: true, class: 'btn-addcorrect' -%>
-          <%= link_to t('actions.live_studio/student_homeworks.cancel'),
-                      "javascript:void(0);", class: "btn-addcorrect active cancel", style: 'display:none;',
-                      data: { form: "#student_homework-#{student_homework.id}-form .problems-edit" } -%>
+          <%= link_to t('actions.live_studio/corrections.new'),
+                      live_studio.new_student_homework_correction_path(student_homework),
+                      remote: true, class: 'btn-correct' -%>
+          <%= link_to t('actions.live_studio/corrections.cancel'),
+                      "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                      data: { form: "#student_homework-#{student_homework.id} .correction-form" } -%>
         </p>
-        <div class="problems-edit"></div>
-      </div>
-    <!-- 待批改 -->
-    <% elsif student_homework.submitted? %>
-      <%= render 'student_homework_items', student_homework: student_homework -%>
-      <% if student_homework.homework.user == current_user %>
-        <div class="edit-box">
-          <p>
-            <%= link_to t('actions.live_studio/corrections.new'),
-                        live_studio.new_student_homework_correction_path(student_homework),
-                        remote: true, class: 'btn-addcorrect' -%>
-            <%= link_to t('actions.live_studio/corrections.cancel'),
-                        "javascript:void(0);", class: "btn-addcorrect active cancel", style: 'display:none;',
-                        data: { form: "#student_homework-#{student_homework.id} .correction-form" } -%>
-          </p>
-          <div class="problems-edit correction-form">
-          </div>
+        <div class="problems-edit correction-form">
         </div>
-      <% end %>
-    <!-- 已批该 -->
-    <% elsif student_homework.resolved? %>
-      <%= render 'student_homework_items', student_homework: student_homework -%>
-
-      <div class="edit-box">
-        <% if student_homework.homework.user == current_user %>
-          <p>
-            <%= link_to t('actions.live_studio/corrections.edit'),
-                        live_studio.edit_student_homework_correction_path(student_homework, student_homework.correction),
-                        remote: true, class: 'btn-addcorrect' -%>
-            <%= link_to t('actions.live_studio/corrections.cancel'),
-                        "javascript:void(0);", class: "btn-addcorrect active cancel", style: 'display:none;',
-                        data: { form: "#student_homework-#{student_homework.id} .correction-form" } -%>
-          </p>
-          <div class="problems-edit correction-form">
-          </div>
-        <% end %>
-      </div>
-
-      <div class="edit-box">
-        <%= render 'correction_items', correction: student_homework.correction -%>
       </div>
     <% end %>
-  </div>
+  <!-- 已批该 -->
+  <% elsif student_homework.resolved? %>
+    <div class="edit-box">
+      <%= render 'student_homework_items', student_homework: student_homework -%>
+    </div>
+
+    <div class="edit-box">
+      <% if student_homework.homework.user == current_user %>
+        <p>
+          <%= link_to t('actions.live_studio/corrections.edit'),
+                      live_studio.edit_student_homework_correction_path(student_homework, student_homework.correction),
+                      remote: true, class: 'btn-correct' -%>
+          <%= link_to t('actions.live_studio/corrections.cancel'),
+                      "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                      data: { form: "#student_homework-#{student_homework.id} .correction-form" } -%>
+        </p>
+        <div class="problems-edit correction-form">
+        </div>
+      <% end %>
+      <%= render 'correction_items', correction: student_homework.correction -%>
+    </div>
+  <% end %>
 </li>

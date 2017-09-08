@@ -1,12 +1,10 @@
-<div class="edit-box">
-  <div class="reply-box revert">
-    <div class="row">
-      <div class="col-md-12 problem-title">
-        <p><%= t("view.live_studio/student_homeworks.show.#{ student_homework.user == current_user ? 'my' : 'student' }") %>: </p>
-      </div>
-    </div>
-    <div class="reply-list">
-      <%= render student_homework.task_items %>
+<div class="reply-box revert">
+  <div class="row">
+    <div class="col-md-12 problem-title">
+      <p><%= t("view.live_studio/student_homeworks.show.#{ student_homework.user == current_user ? 'my' : 'student' }") %>: </p>
     </div>
   </div>
-</div
+  <div class="reply-list">
+    <%= render student_homework.task_items %>
+  </div>
+</div>

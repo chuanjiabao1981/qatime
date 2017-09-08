@@ -1,6 +1,6 @@
 <div class="ask-tab edit-box">
   <div class="row">
-    <div class="col-md-6 left">
+    <div class="col-md-6 left" id="homework-tab">
       <%= link_to t('view.live_studio/customized_group.show.student_homeworks'),
                   "#student-homework", class: 'active', data: { toggle: 'tab' } %>
       <span>|</span>
@@ -15,10 +15,22 @@
     <ul class="ask-list">
       <%= render @student_homeworks %>
     </ul>
+
+    <center>
+      <div class="pagination-fix">
+        <%= remote_will_paginate @student_homeworks, class: 'paging', param_name: 'student_page' %>
+      </div>
+    </center>
   </div>
   <div class="tab-pane fade active in" id="my-homework">
     <ul class="ask-list">
       <%= render @homeworks %>
     </ul>
+
+    <center>
+      <div class="pagination-fix">
+        <%= remote_will_paginate @homeworks, class: 'paging', param_name: 'homework_page' %>
+      </div>
+    </center>
   </div> 
 </div>

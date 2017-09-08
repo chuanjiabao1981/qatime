@@ -11,6 +11,7 @@ module LiveStudio
     include Qatime::Discussable
     include Qatime::Stripable
     include Resource::Quotable
+    include Taskable
     strip_field :name, :description
 
     enum status: {

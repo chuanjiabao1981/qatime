@@ -23,13 +23,11 @@ module V1
               end
               params do
                 requires :group_id, type: Integer, desc: '专属课ID'
-                optional :cate, type: String, values: %w(video picture document other)
               end
               get do
-                files = @group.files
-                files = files.where(type: file_type(params[:cate])) if params[:cate].present?
-                files = files.paginate(page: params[:page], per_page: params[:per_page])
-                present files, with: Entities::Resource::File
+                homeworks = @group.homeworks
+                homeworks = homeworks.paginate(page: params[:page], per_page: params[:per_page])
+                present homeworks, with: Entities::LiveStudio::Homework
               end
 
               desc '添加作业' do
@@ -40,21 +38,13 @@ module V1
               end
               params do
                 requires :group_id, type: Integer, desc: '专属课ID'
-                requires :file_id, type: Integer, desc: '文件ID'
               end
               post do
-                file = current_user.files.find(params[:file_id])
-                if @group.files.include?(file)
-                  { result: 'fail' }
-                else
-                  @group.files << file
-                  { result: 'ok' }
-                end
+                homework = @taskable.homeworks.new(homework_params)
+                homework.user = current_user
+                raise ActiveRecord::RecordInvalid, homework unless homework.save
+                present homework, with: Entities::LiveStudio::Homework
               end
-            end
-
-            resource :student_homeworks do
-
             end
           end
         end

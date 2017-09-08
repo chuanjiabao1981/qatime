@@ -59,6 +59,9 @@ module V1
     mount V1::Resource::Files
     mount V1::LiveStudio::Files
     # 资源中心 end
+    mount V1::LiveStudio::Homeworks
+    mount V1::LiveStudio::StudentHomeworks
+    mount V1::LiveStudio::Corrections
 
     # 首页搜索
     mount V1::Home::Search

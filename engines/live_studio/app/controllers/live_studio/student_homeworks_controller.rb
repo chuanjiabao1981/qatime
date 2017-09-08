@@ -24,7 +24,7 @@ module LiveStudio
     end
 
     def student_homework_params
-      params.require(:student_homework).permit(task_items_attributes: [:body])
+      params.require(:student_homework).permit(task_items_attributes: [:parent_id, :body])
     end
   end
 end

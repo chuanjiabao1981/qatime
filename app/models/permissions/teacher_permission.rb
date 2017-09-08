@@ -286,6 +286,25 @@ module Permissions
         correction && correction.user == user
       end
 
+      # 学生提交的作业
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/student_homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 我布置的作业
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 作业批改
+      api_allow :POST, '/api/v1/live_studio/student_homeworks/\d+/corrections' do |student_homework|
+        student_homework && student_homework.homework && student_homework.homework.user == user
+      end
+      # 作业重新批改
+      api_allow :PATCH, '/api/v1/live_studio/corrections/\d+' do |correction|
+        correction && correction.user == user
+      end
+
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课

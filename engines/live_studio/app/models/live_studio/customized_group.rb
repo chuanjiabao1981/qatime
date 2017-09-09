@@ -70,7 +70,7 @@ module LiveStudio
     private
 
     def buy_items
-      events.where(live_end_at: nil)
+      events.where(live_end_at: nil, type: ['LiveStudio::OfflineLesson', 'LiveStudio::ScheduledLesson'])
     end
 
     # 学生授权播放

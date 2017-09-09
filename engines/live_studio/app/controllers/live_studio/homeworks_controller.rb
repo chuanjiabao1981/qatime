@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class HomeworksController < ApplicationController
     def index
-      @homeworks = @taskable.homeworks.paginate(page: params[:homework_page], per_page: 2).includes(:user, :task_items)
+      @homeworks = @taskable.homeworks.paginate(page: params[:homework_page], per_page: 10).includes(:user, :task_items)
       @student_homeworks = @taskable.student_homeworks.includes(:user, :task_items, homework: [:user, :task_items], correction: [:user, :task_items])
       @student_homeworks =
         if current_user.student?
@@ -11,7 +11,7 @@ module LiveStudio
         else
           @student_homeworks.published
         end
-      @student_homeworks = @student_homeworks.paginate(page: params[:student_page], per_page: 2)
+      @student_homeworks = @student_homeworks.paginate(page: params[:student_page], per_page: 10)
     end
 
     def new

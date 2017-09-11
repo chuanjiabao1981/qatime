@@ -13,3 +13,11 @@ student_homework_one:
   type: LiveStudio::StudentHomework
   parent: homework_one
   teacher: teacher1
+student_homework_two:
+  title: 第一个作业
+  taskable: schedule_published_group1 (LiveStudio::CustomizedGroup)
+  user: student1 
+  type: LiveStudio::StudentHomework
+  parent: homework_one
+  teacher: teacher1
+  status: 1

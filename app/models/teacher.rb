@@ -5,6 +5,9 @@ class Teacher < User
   serialize :grade_range, Array
   default_scope {where(role: 'teacher')}
 
+  has_many :live_studio_homeworks, foreign_key: 'user_id', class_name: LiveStudio::Homework
+  has_many :live_studio_student_homeworks, foreign_key: 'teacher_id', class_name: LiveStudio::StudentHomework
+
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 

@@ -9,6 +9,7 @@ module LiveStudio
     scope :published, -> { where(status: statuses.values_at(:submitted, :resolved)) }
 
     belongs_to :homework, foreign_key: 'parent_id'
+    belongs_to :teacher
     has_one :correction, foreign_key: 'parent_id'
     has_many :task_items, foreign_key: 'task_id'
 
@@ -23,6 +24,10 @@ module LiveStudio
 
     def status_text(role = 'student')
       return status.text if role == 'student'
+      I18n.t("enumerize.live_studio/student_homework.teacher.status.#{status}")
+    end
+
+    def self.teacher_status_text(status)
       I18n.t("enumerize.live_studio/student_homework.teacher.status.#{status}")
     end
 

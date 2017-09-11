@@ -3,6 +3,8 @@ class Student < User
 
   default_scope {where(role: 'student')}
 
+  has_many :live_studio_student_homeworks, foreign_key: 'user_id', class_name: LiveStudio::StudentHomework
+
   has_many :deposits
   has_many :recharge_records
 

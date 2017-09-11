@@ -229,6 +229,14 @@ module Permissions
         teacher && teacher == user && permission
       end
 
+      allow 'live_studio/teacher/homeworks', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
+      allow 'live_studio/teacher/student_homeworks', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
       allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 

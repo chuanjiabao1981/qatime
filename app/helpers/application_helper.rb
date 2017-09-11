@@ -371,6 +371,8 @@ module ApplicationHelper
       r = controller_name == 'video_courses'
     when :customized_groups
       r = controller_name == 'customized_groups'
+    when :student_homeworks
+      r = controller_name == 'student_homeworks'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes
@@ -417,6 +419,8 @@ module ApplicationHelper
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses
       r = controller_name == 'teachers' && action_name == 'customized_courses'
+    when :my_student_homeworks
+      r = params[:controller] == 'live_studio/teacher/homeworks' || params[:controller] == 'live_studio/teacher/student_homeworks'
     when :lessons_state
       r = controller_name == 'teachers' && action_name == 'lessons_state'
     when :curriculums

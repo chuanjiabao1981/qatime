@@ -371,8 +371,8 @@ module ApplicationHelper
       r = controller_name == 'video_courses'
     when :customized_groups
       r = controller_name == 'customized_groups'
-    when :my_student_homeworks
-      r = params[:controller] == 'live_studio/student/homeworks' || params[:controller] == 'live_studio/student/student_homeworks'
+    when :student_homeworks
+      r = controller_name == 'student_homeworks'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes

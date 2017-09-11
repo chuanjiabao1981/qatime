@@ -14,6 +14,8 @@ module LiveStudio
              :board_channel, :grade, :subject, :publicize, to: :course
     delegate :channels, to: :course
     delegate :name, to: :course, prefix: true
+    delegate :teacher, to: :course
+    delegate :id, :name, to: :teacher, prefix: true
 
     enum replay_status: {
       unsync: 0, # 未同步

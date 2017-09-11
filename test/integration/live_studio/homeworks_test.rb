@@ -50,7 +50,6 @@ module LiveStudio
         click_on "新增作业"
         sleep(1)
       end
-      binding.pry
       click_on "我布置的作业"
       assert page.has_content?("布置新作业"), "新作业未显示"
     end

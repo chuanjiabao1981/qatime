@@ -23,7 +23,7 @@ module V1
                 end
                 params do
                   requires :teacher_id, type: Integer, desc: '教师ID'
-                  requires :status, type: String, desc: '作业状态', values: "submitted: 待批改, resolved: 已批改"
+                  requires :status, type: String, desc: '作业状态 submitted: 待批改, resolved: 已批改', values: %w(submitted resolved)
                   optional :page, type: Integer
                   optional :per_page, type: Integer
                 end

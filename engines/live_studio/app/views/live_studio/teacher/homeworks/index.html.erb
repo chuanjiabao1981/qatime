@@ -1,0 +1,46 @@
+<div class="contains">
+  <div class="recorded-title">
+    <%= link_to t("view.teacher_bars.my_student_homeworks"), live_studio.teacher_student_homeworks_path(@teacher) %>
+    <span class="fa fa-angle-right"></span>
+    <span><%= t("view.teacher_bars.my_homeworks") %></span>
+  </div>
+
+
+  <div class="contains-discipline">
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="not-approved">
+        <ul class="revert-list">
+          <% @homeworks.each do |homework| -%>
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="issue-title">
+                    <%= link_to homework.title, live_studio.customized_group_path(homework.taskable) -%>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p class="submitter">
+                    <span><%= homework.user_name %></span>
+                    <span><%= localize(homework.created_at) %></span>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p>
+                    <span><%= LiveStudio::Homework.human_attribute_name(:taskable) %>: </span>
+                    <span><%= homework.taskable.name %></span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          <% end -%>
+        </ul>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @homeworks %>
+          </div>
+        </center>
+        <%= render 'shared/blank' if @homeworks.blank? %>
+      </div>
+    </div>
+  </div>
+</div>

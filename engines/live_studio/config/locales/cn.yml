@@ -599,6 +599,8 @@ cn:
       live_studio/homework:
         title: 标题
         submited_count: 人已提交
+      live_studio/task:
+        taskable: 相关课程
       live_studio/student_homework:
         title: 标题
       live_studio/correction:

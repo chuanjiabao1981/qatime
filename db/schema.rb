@@ -949,6 +949,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.string   "taskable_type"
     t.integer  "parent_id"
     t.integer  "user_id"
+    t.integer  "teacher_id"
     t.integer  "status"
     t.integer  "tasks_count",   default: 0
     t.string   "type"
@@ -958,6 +959,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
 
   add_index "live_studio_tasks", ["parent_id"], name: "index_live_studio_tasks_on_parent_id", using: :btree
   add_index "live_studio_tasks", ["taskable_type", "taskable_id"], name: "index_live_studio_tasks_on_taskable_type_and_taskable_id", using: :btree
+  add_index "live_studio_tasks", ["teacher_id"], name: "index_live_studio_tasks_on_teacher_id", using: :btree
   add_index "live_studio_tasks", ["user_id"], name: "index_live_studio_tasks_on_user_id", using: :btree
 
   create_table "live_studio_ticket_items", force: :cascade do |t|

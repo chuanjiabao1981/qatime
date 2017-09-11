@@ -267,6 +267,8 @@ LiveStudio::Engine.routes.draw do
       resources :interactive_courses, only: [:index]
       resources :video_courses
       resources :customized_groups, only: [:index]
+      resources :homeworks, only: [:index]
+      resources :student_homeworks, only: [:index]
     end
   end
 
@@ -303,6 +305,7 @@ LiveStudio::Engine.routes.draw do
       resources :interactive_courses, only: [:index, :show]
       resources :video_courses, only: [:index]
       resources :customized_groups, only: [:index]
+      resources :student_homeworks, only: [:index]
     end
   end
 

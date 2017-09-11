@@ -218,6 +218,11 @@ module Permissions
       allow 'wap/softwares', [:index]
       allow 'wap/payment/orders', [:show, :pay]
 
+      # 我的的作业
+      api_allow :POST, '/api/v1/live_studio/students/\d+/student_homeworks' do |student|
+        student && student == user
+      end
+
       # payment permission
 
       ## begin api permission

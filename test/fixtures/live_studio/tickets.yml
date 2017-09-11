@@ -529,6 +529,16 @@ ticket_for_schedule_published_group1:
   platform_percentage: 10
   payment_order_id: xxxx
 
+taste_ticket_for_schedule_published_group1:
+  student: teacher_one
+  product: schedule_published_group1 (LiveStudio::Group)
+  status: 1
+  lesson_price: 0
+  type: LiveStudio::TasteTicket
+  sell_percentage: 45
+  platform_percentage: 10
+  payment_order_id: xxxx
+
 ticket_for_schedule_completed_group1:
   student: student_one_with_course
   product: schedule_completed_group1 (LiveStudio::Group)

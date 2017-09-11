@@ -1,0 +1,33 @@
+
+homework_one_item1:
+  body: 第1题
+  task: homework_one
+
+homework_one_item2:
+  body: 第2题
+  task: homework_one
+
+homework_one_item3:
+  body: 第3题
+  task: homework_one
+
+homework_one_item4:
+  body: 第4题
+  task: homework_one
+
+
+student_homework_two_item1:
+  body: 做错了
+  task: student_homework_two
+
+student_homework_two_item2:
+  body: 做对了
+  task: student_homework_two
+
+student_homework_two_item3:
+  body: 第3题
+  task: student_homework_two
+
+student_homework_two_item4:
+  body: 做对了
+  task: student_homework_two

@@ -10,6 +10,8 @@ module LiveStudio
 
     delegate :id, :name, to: :user, prefix: true
 
+    validates :taskable, :user, presence: true
+
     before_validation :copy_parent
     def copy_parent
       return unless parent

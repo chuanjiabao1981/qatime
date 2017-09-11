@@ -312,6 +312,14 @@ module Permissions
       api_allow :PATCH, '/api/v1/live_studio/corrections/\d+' do |correction|
         correction && correction.user == user
       end
+      # 学生提交的作业
+      api_allow :POST, '/api/v1/live_studio/teachers/\d+/student_homeworks' do |teacher|
+        teacher && teacher == user
+      end
+      # 我布置的作业
+      api_allow :POST, '/api/v1/live_studio/teachers/\d+/homeworks' do |teacher|
+        teacher && teacher == user
+      end
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表

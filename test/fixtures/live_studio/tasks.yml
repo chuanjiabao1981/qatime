@@ -3,21 +3,54 @@
 homework_one:
   title: 第一个作业
   body: 第一个作业
-  taskable: schedule_published_group1 (LiveStudio::CustomizedGroup)
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: teacher_with_chat_account
+  type: LiveStudio::Homework
+homework_two:
+  title: 第2个作业
+  body: 第2个作业
+  taskable: schedule_published_group1 (LiveStudio::Group)
   user: teacher_with_chat_account 
   type: LiveStudio::Homework
+homework_three:
+  title: 第3个作业
+  body: 第3个作业
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: teacher_with_chat_account 
+  type: LiveStudio::Homework
+
 student_homework_one:
   title: 第一个作业
-  taskable: schedule_published_group1 (LiveStudio::CustomizedGroup)
+  taskable: schedule_published_group1 (LiveStudio::Group)
   user: student_one_with_course 
   type: LiveStudio::StudentHomework
   parent: homework_one
   teacher: teacher1
+  status: 0
+pending_student_homework:
+  title: 第2个作业
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student_one_with_course
+  type: LiveStudio::StudentHomework
+  parent: homework_two
+  teacher: teacher1
+  status: 0
+
 student_homework_two:
   title: 第一个作业
-  taskable: schedule_published_group1 (LiveStudio::CustomizedGroup)
+  taskable: schedule_published_group1 (LiveStudio::Group)
   user: student1 
   type: LiveStudio::StudentHomework
   parent: homework_one
+  teacher: teacher1
+  status: 1
+
+submitted_student_homework:
+  title: 第3个作业
+  body: 第3个作业
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student_one_with_course 
+  type: LiveStudio::StudentHomework
+  parent: homework_three
   teacher: teacher1
   status: 1

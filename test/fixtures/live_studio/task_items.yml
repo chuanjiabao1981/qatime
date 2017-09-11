@@ -31,3 +31,33 @@ student_homework_two_item3:
 student_homework_two_item4:
   body: 做对了
   task: student_homework_two
+
+homework_two_item1:
+  body: 第1题
+  task: homework_two
+
+homework_two_item2:
+  body: 第2题
+  task: homework_two
+
+homework_two_item3:
+  body: 第3题
+  task: homework_two
+
+homework_two_item4:
+  body: 第4题
+  task: homework_two
+
+submitted_student_homework_item1:
+  body: 我不会
+  task: submitted_student_homework
+submitted_student_homework_item2:
+  body: 我不会
+  task: submitted_student_homework
+submitted_student_homework_item3:
+  body: 我不会
+  task: submitted_student_homework
+submitted_student_homework_item4:
+  body: 我不会
+  task: submitted_student_homework
+

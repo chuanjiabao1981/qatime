@@ -12,6 +12,8 @@ module Entities
       end
       expose :published_at
       expose :model_name
+      expose :teacher_id
+      expose :teacher_name
     end
   end
 end

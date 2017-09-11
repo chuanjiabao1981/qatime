@@ -13,8 +13,7 @@ module Entities
       expose :course_id
       expose :course_name
       expose :model_name
-      expose :teacher_id
-      expose :teacher_name
+      expose :live_time
     end
   end
 end

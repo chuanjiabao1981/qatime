@@ -29,7 +29,7 @@ module V1
                 end
 
                 get '' do
-                  status = params[:status] = 'submitted'
+                  status = params[:status] || 'submitted'
                   student_homeworks = @teacher.live_studio_student_homeworks.where(status: status)
                   student_homeworks = student_homeworks.paginate(page: params[:page], per_page: params[:per_page])
                   present student_homeworks, with: Entities::LiveStudio::StudentHomework

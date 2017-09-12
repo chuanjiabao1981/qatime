@@ -52,7 +52,7 @@ module V1
               requires :id, type: Integer, desc: '课程ID'
               requires :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否'
             end
-            post ':id/live_switch' do
+            post 'live_switch' do
               LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, params[:camera], @interactive_lesson)
               'ok'
             end

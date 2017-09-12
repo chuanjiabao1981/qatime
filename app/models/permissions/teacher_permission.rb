@@ -402,6 +402,9 @@ module Permissions
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_start' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
+      api_allow :POST, 'live_studio/interactive_lessons/\d+/live_switch' do |interactive_lesson|
+        interactive_lesson && interactive_lesson.teacher_id == user.id
+      end
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_end' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end

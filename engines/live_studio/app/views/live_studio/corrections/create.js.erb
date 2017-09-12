@@ -1,0 +1,2 @@
+$("#student_homework-<%= @correction.parent_id %>").replaceWith("<%= j render(@correction.student_homework) %>").show();
+$("#student_homework-<%= @correction.parent_id %>").addClass("active");

@@ -75,3 +75,12 @@ cn:
       sell_type:
         charge: 收费课程
         free: 免费课程
+    live_studio/student_homework:
+      status:
+        pending: 未交
+        submitted: 已交
+        resolved: 已批
+      teacher:
+        status:
+          submitted: 待批改
+          resolved: 已批改

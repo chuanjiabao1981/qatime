@@ -1,0 +1,51 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.teacher_bars.my_student_homeworks") %></h3>
+    <%= link_to t("view.teacher_bars.my_homeworks"), live_studio.teacher_homeworks_path(@teacher) %>
+  </div>
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+        <%= link_to LiveStudio::StudentHomework.teacher_status_text('submitted'),
+                    live_studio.teacher_student_homeworks_path(@teacher, status: 'submitted'),
+                    class: "#{'active' unless params[:status] == 'resolved' }" %>
+        <%= link_to LiveStudio::StudentHomework.teacher_status_text('resolved'),
+                    live_studio.teacher_student_homeworks_path(@teacher, status: 'resolved'),
+                    class: "#{'active' if params[:status] == 'resolved' }" %>
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="not-approved">
+        <ul class="revert-list">
+          <% @student_homeworks.each do |student_homework| -%>
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="issue-title">
+                    <%= link_to student_homework.title, live_studio.customized_group_path(student_homework.taskable) -%>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p class="submitter">
+                    <span><%= student_homework.user_name %></span>
+                    <span><%= localize(student_homework.created_at) %></span>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p>
+                    <span><%= LiveStudio::StudentHomework.human_attribute_name(:taskable) %>: </span>
+                    <span><%= student_homework.taskable.name %></span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          <% end -%>
+        </ul>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @student_homeworks %>
+          </div>
+        </center>
+        <%= render 'shared/blank' if @student_homeworks.blank? %>
+      </div>
+    </div>
+  </div>
+</div>

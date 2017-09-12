@@ -229,6 +229,14 @@ module Permissions
         teacher && teacher == user && permission
       end
 
+      allow 'live_studio/teacher/homeworks', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
+      allow 'live_studio/teacher/student_homeworks', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
       allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 
@@ -257,7 +265,6 @@ module Permissions
         end
       end
 
-      ## end live studio permission
       ## 一对一 start
       allow 'live_studio/teacher/interactive_courses', [:index, :index]
       allow 'live_studio/interactive_courses', [:preview]
@@ -273,6 +280,46 @@ module Permissions
 
       allow 'live_studio/teacher/customized_groups', [:index]
       allow 'live_studio/customized_groups', [:preview]
+
+      allow 'live_studio/homeworks', [:index, :new, :create] do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 作业批改
+      allow 'live_studio/corrections', [:new, :create] do |student_homework|
+        student_homework && student_homework.homework.user == user
+      end
+      # 重新批改
+      allow 'live_studio/corrections', [:edit, :update] do |correction|
+        correction && correction.user == user
+      end
+
+      # 学生提交的作业
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/student_homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 我布置的作业
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 作业批改
+      api_allow :POST, '/api/v1/live_studio/student_homeworks/\d+/corrections' do |student_homework|
+        student_homework && student_homework.homework && student_homework.homework.user == user
+      end
+      # 作业重新批改
+      api_allow :PATCH, '/api/v1/live_studio/corrections/\d+' do |correction|
+        correction && correction.user == user
+      end
+      # 学生提交的作业
+      api_allow :POST, '/api/v1/live_studio/teachers/\d+/student_homeworks' do |teacher|
+        teacher && teacher == user
+      end
+      # 我布置的作业
+      api_allow :POST, '/api/v1/live_studio/teachers/\d+/homeworks' do |teacher|
+        teacher && teacher == user
+      end
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
@@ -295,6 +342,9 @@ module Permissions
       end
 
       ## 专属课 end
+
+
+      ## end live studio permission
 
       ## begin payment permission
 

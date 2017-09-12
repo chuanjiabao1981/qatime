@@ -163,6 +163,17 @@ module Permissions
       allow 'live_studio/courses', [:index, :show, :for_free]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
+      # 作业问答 start
+      allow 'live_studio/homeworks', [:index]
+      allow 'live_studio/student_homeworks', [:edit, :update] do |student_homework|
+        student_homework && student_homework.user_id = user.id
+      end
+
+      allow 'live_studio/student/student_homeworks', [:index] do |student|
+        student && student == user
+      end
+      # 作业问答 end
+
       allow 'live_studio/lessons', [:replay] do |lesson|
         lesson.replayable && lesson.replayable_for?(user)
       end
@@ -207,6 +218,18 @@ module Permissions
       allow 'wap/softwares', [:index]
       allow 'wap/payment/orders', [:show, :pay]
 
+      # 我的作业
+      api_allow :POST, '/api/v1/live_studio/students/\d+/student_homeworks' do |student|
+        student && student == user
+      end
+      # 专属课下我的作业
+      api_allow :POST, '/api/v1/live_studio/groups/\d+/student_homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+' do |student_homework|
+        student_homework && student_homework.user == user
+      end
       # payment permission
 
       ## begin api permission

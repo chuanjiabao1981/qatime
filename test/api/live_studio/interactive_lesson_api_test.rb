@@ -1,5 +1,5 @@
 require 'test_helper'
-class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
+class Qatime::InteractiveLessonAPITest < ActionDispatch::IntegrationTest
   def setup
     @student = users(:student_with_order2)
     @student_remember_token = api_login(@student, :app)
@@ -10,6 +10,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     get "/api/v1/live_studio/interactive_lessons/#{@lesson.id}/replay", {}, 'Remember-Token' => @student_remember_token
     assert_response :success
     res = JSON.parse(response.body)
+
 
     assert_equal 1, res['status']
     assert res['data'].key?('replayable')

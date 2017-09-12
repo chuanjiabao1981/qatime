@@ -15,6 +15,7 @@
 
       <%= raw link_to_add_fields(image_tag('/imgs/addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :interactive_lessons, 'live_studio/interactive_courses/') %>
     </div>
+    <%= f.error :interactive_lessons %>
   </div>
 
   <div class="editor-item">

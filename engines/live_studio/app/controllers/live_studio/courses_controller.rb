@@ -239,12 +239,13 @@ module LiveStudio
       return Course.find(params[:id]) if params[:id].present?
       course = Course.new(preview_courses_params.merge(author: current_user))
       course.valid?
-      if params[:course][:lessons_attributes].blank?
+      lesson_params = params[:course][:lessons_attributes].reject {|x| x['_destroy'] == '1'} rescue []
+      if lesson_params.blank?
         course.lessons_count = 0
         class_dates = []
       else
-        course.lessons_count = params[:course][:lessons_attributes].try(:count) || 0
-        class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
+        course.lessons_count = lesson_params.try(:count) || 0
+        class_dates = lesson_params.map {|a| a[:class_date]}.reject(&:blank?)
       end
       course.start_at, course.end_at = class_dates.min, class_dates.max
       course

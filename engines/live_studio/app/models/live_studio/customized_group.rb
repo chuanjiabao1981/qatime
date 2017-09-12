@@ -1,7 +1,7 @@
 module LiveStudio
   class CustomizedGroup < Group
-    has_many :scheduled_lessons, class_name: 'ScheduledLesson', foreign_key: :group_id, dependent: :destroy
-    has_many :offline_lessons, class_name: 'OfflineLesson', foreign_key: :group_id, dependent: :destroy
+    has_many :scheduled_lessons, -> { order('start_at asc, id asc') }, class_name: 'ScheduledLesson', foreign_key: :group_id, dependent: :destroy
+    has_many :offline_lessons, -> { order('start_at asc, id asc') }, class_name: 'OfflineLesson', foreign_key: :group_id, dependent: :destroy
     has_many :instant_lessons, class_name: 'InstantLesson', foreign_key: :group_id, dependent: :destroy
 
     accepts_nested_attributes_for :scheduled_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }

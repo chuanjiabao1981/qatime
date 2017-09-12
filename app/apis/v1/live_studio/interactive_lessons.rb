@@ -24,13 +24,15 @@ module V1
             params do
               requires :id, type: Integer, desc: '课程ID'
               requires :room_id, type: String, desc: '房间ID'
+              optional :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否'
               optional :t, type: Integer, desc: '时间戳秒数'
               requires :channel_id, type: String, desc: 'channel_id'
             end
             post 'live_start' do
               Qatime::Util.sequence_exec("#{@interactive_lesson.model_name.cache_key}/#{@interactive_lesson.id}/live", params[:t]) do
                 if @interactive_lesson.ready? || @interactive_lesson.paused? || @interactive_lesson.closed?
-                  LiveService::InteractiveLessonDirector.new(@interactive_lesson).lesson_start(0, 0, params[:room_id], params[:channel_id])
+                  director = LiveService::InteractiveLessonDirector.new(@interactive_lesson)
+                  director.lesson_start(0, params[:camera].to_i, params[:room_id], params[:channel_id])
                 end
               end
               {
@@ -38,6 +40,21 @@ module V1
                 live_token: @interactive_lesson.current_live_session.token,
                 beat_step: ::LiveStudio::InteractiveLesson.beat_step
               }
+            end
+
+            desc '直播状态切换接口' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :id, type: Integer, desc: '课程ID'
+              requires :camera, type: Integer, values: [0, 1, 2], desc: '是否开始直播摄像头. 1: 是, 0: 否'
+            end
+            post ':id/live_switch' do
+              LiveService::InteractiveLessonDirector.live_status_change(@interactive_lesson.interactive_course, 0, params[:camera], @interactive_lesson)
+              'ok'
             end
 
             desc '结束上课' do

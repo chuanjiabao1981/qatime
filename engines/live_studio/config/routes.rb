@@ -126,6 +126,11 @@ LiveStudio::Engine.routes.draw do
     end
 
     resources :homeworks, only: [:index, :new, :create]
+    resources :questions, only: [:index, :new, :create]
+  end
+
+  resources :questions, only: [] do
+    resources :answers, only: [:new, :create, :edit, :update]
   end
 
   resources :student_homeworks, only: [:edit, :update] do

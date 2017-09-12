@@ -1,0 +1,36 @@
+<li>
+  <div class="row">
+    <div class="col-md-10 col-sm-10 col-xs-8 problem-title">
+      <p><%= link_to question.title, "javascript:void(0);" %></p>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-4 reply-status">
+      <span class="<%= question.status %>"><%= question.status_text %></span>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 problem-name">
+      <span><%= question.user_name %></span>
+      <span><%= localize(question.created_at) %></span>
+    </div>
+  </div>
+  <div class="ask-info">
+    <p>
+      <%= question.body %>
+    </p>
+  </div>
+
+  <div class="edit-box" id="question-<%= question.id %>-answer">
+    <% if question.answer %>
+      <%= render question.answer %>
+    <% elsif question.teacher_id == current_user.id %>
+      <p>
+        <%= link_to t('actions.live_studio/questions.new'),
+                    live_studio.new_question_answer_path(question),
+                    remote: true, class: 'btn-correct' -%>
+        <%= link_to t('actions.live_studio/questions.cancel'),
+                    "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                    data: { form: "#question-#{question.id}-answer form" } -%>
+      </p>
+
+      <div class="problems-edit" id="question-<%= question.id %>-answer-form"></div>
+    <% end %>
+  </div>
+</li>

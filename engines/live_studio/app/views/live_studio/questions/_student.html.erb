@@ -1,0 +1,46 @@
+<% if current_user.bought?(@taskable) %>
+  <div class="ask-tab edit-box">
+    <div class="row">
+      <div class="col-md-6 left">
+        <%= link_to '全部提问', "#all-ask", class: "active", data: { toggle: 'tab' } -%>
+        <span>|</span>
+        <%= link_to '我的提问', "#my-ask", data: { toggle: 'tab' } -%>
+      </div>
+      <div class="col-md-6 right">
+        <%= link_to '提问',
+                    live_studio.new_customized_group_question_path(@taskable),
+                    remote: true %>
+      </div>
+    </div>
+    <div class="problems-edit" id="question-form">
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="all-ask">
+      <ul class="ask-list">
+        <%= render @questions %>
+      </ul>
+      <center>
+        <div class="pagination-fix">
+          <%= remote_will_paginate @questions %>
+        </div>
+      </center>
+      <%= render 'shared/blank' if @questions.blank? %>
+    </div>
+
+    <div class="tab-pane fade" id="my-ask">
+      <ul class="ask-list">
+        <%= render @student_questions %>
+      </ul>
+      <center>
+        <div class="pagination-fix">
+          <%= remote_will_paginate @student_questions, param_name: 'student_question_page' %>
+        </div>
+      </center>
+      <%= render 'shared/blank' if @student_questions.blank? %>
+    </div>
+  </div>
+<% else %>
+  <%= render 'live_studio/shared/guest' %>
+<% end %>

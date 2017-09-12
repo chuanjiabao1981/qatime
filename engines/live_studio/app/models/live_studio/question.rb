@@ -1,6 +1,18 @@
 module LiveStudio
   # 提问
   class Question < Task
-    has_many :task_items, -> { where(parent_id: nil).includes(:task_items) }, foreign_key: 'task_id'
+    extend Enumerize
+    enum status: { pending: 0, resolved: 2 }
+    enumerize :status, in: { pending: 0, resolved: 2 }, default: :pending
+
+    has_one :answer, foreign_key: 'parent_id'
+    belongs_to :teacher
+
+    private
+
+    before_validation :set_teacher
+    def set_teacher
+      self.teacher ||= taskable.teacher
+    end
   end
 end

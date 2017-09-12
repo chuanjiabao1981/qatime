@@ -285,6 +285,15 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      # 提问
+      allow 'live_studio/questions', [:index]
+      allow 'live_studio/answers', [:new, :create] do |question|
+        question && question.teacher_id == user.id
+      end
+      allow 'live_studio/answers', [:edit, :update] do |answer|
+        answer && answer.user == user
+      end
+
       # 作业批改
       allow 'live_studio/corrections', [:new, :create] do |student_homework|
         student_homework && student_homework.homework.user == user

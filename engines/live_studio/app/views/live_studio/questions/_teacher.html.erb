@@ -1,0 +1,13 @@
+<% if current_user.teach?(@taskable) %>
+  <ul class="ask-list">
+    <%= render @questions %>
+  </ul>
+  <center>
+    <div class="pagination-fix">
+      <%= remote_will_paginate @questions %>
+    </div>
+  </center>
+  <%= render 'shared/blank' if @questions.blank? %>
+<% else %>
+  <%= render 'live_studio/shared/guest' %>
+<% end %>

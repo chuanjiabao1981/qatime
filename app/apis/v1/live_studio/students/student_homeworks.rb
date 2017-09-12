@@ -29,7 +29,7 @@ module V1
                 end
 
                 get '' do
-                  status = params[:status] || 'pending'
+                  status = ::LiveStudio::StudentHomework.statuses[params[:status] || 'pending']
                   student_homeworks = @student.live_studio_student_homeworks.where(status: status).paginate(page: params[:page], per_page: params[:per_page])
                   present student_homeworks, with: Entities::LiveStudio::StudentHomework
                 end

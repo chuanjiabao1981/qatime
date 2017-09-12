@@ -60,7 +60,7 @@ module V1
                                              desc: '[{"parent_id": 1, "body": "不会"}, {"parent_id": 2, "body": "不会"}, {"parent_id": 3, "body": "不会" }]'
           end
 
-          patch ':id/update' do
+          patch ':id' do
             student_homework_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
             raise ActiveRecord::RecordInvalid, @student_homework unless @student_homework.update(student_homework_params)
             present @student_homework, with: Entities::LiveStudio::StudentHomework

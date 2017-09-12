@@ -1,7 +1,7 @@
 <li id="student_homework-<%= student_homework.id %>">
   <div class="row">
     <div class="col-md-10 col-sm-10 col-xs-8 problem-title">
-      <p><%= student_homework.title %></p>
+      <p><%= link_to student_homework.title, 'javascript: void(0);' %></p>
     </div>
     <div class="col-md-2 col-sm-2 col-xs-4 reply-status">
       <span class="<%= student_homework.status %>"><%= student_homework.status_text(current_user.try(:role)) %></span>

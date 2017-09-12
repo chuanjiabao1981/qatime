@@ -222,11 +222,14 @@ module Permissions
       api_allow :POST, '/api/v1/live_studio/students/\d+/student_homeworks' do |student|
         student && student == user
       end
-      # 
+      # 专属课下我的作业
       api_allow :POST, '/api/v1/live_studio/groups/\d+/student_homeworks' do |group|
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+' do |student_homework|
+        student_homework && student_homework.user == user
+      end
       # payment permission
 
       ## begin api permission

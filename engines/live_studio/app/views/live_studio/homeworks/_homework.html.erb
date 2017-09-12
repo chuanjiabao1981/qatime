@@ -1,7 +1,7 @@
 <li>
   <div class="row">
     <div class="col-md-12 problem-title">
-      <p><%= homework.title %></p>
+      <p><%= link_to homework.title, 'javascript: void(0);' %></p>
     </div>
     <div class="col-md-12 .col-sm-12 col-xs-12 problem-name">
       <span><i><%= homework.tasks_count %></i> <%= LiveStudio::Homework.human_attribute_name(:submited_count) %></span>

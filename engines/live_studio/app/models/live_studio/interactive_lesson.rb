@@ -14,7 +14,7 @@ module LiveStudio
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation,
              :board_channel, :channels, :grade, :subject, :publicize, to: :interactive_course
     delegate :id, :name, to: :interactive_course, prefix: :course
-    delegate :id, :name, to: :teacher, prefix: true
+    delegate :id, :name, to: :teacher, prefix: true, allow_nil: true
 
     before_validation :reset_status, if: :class_date_changed?, on: :update
 

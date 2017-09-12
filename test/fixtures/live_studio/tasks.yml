@@ -25,7 +25,7 @@ student_homework_one:
   user: student_one_with_course 
   type: LiveStudio::StudentHomework
   parent: homework_one
-  teacher: teacher1
+  teacher: teacher_with_chat_account
   status: 0
 pending_student_homework:
   title: 第2个作业
@@ -33,7 +33,7 @@ pending_student_homework:
   user: student_one_with_course
   type: LiveStudio::StudentHomework
   parent: homework_two
-  teacher: teacher1
+  teacher: teacher_with_chat_account
   status: 0
 
 student_homework_two:
@@ -42,7 +42,7 @@ student_homework_two:
   user: student1 
   type: LiveStudio::StudentHomework
   parent: homework_one
-  teacher: teacher1
+  teacher: teacher_with_chat_account
   status: 1
 
 submitted_student_homework:
@@ -52,5 +52,5 @@ submitted_student_homework:
   user: student_one_with_course 
   type: LiveStudio::StudentHomework
   parent: homework_three
-  teacher: teacher1
+  teacher: teacher_with_chat_account
   status: 1

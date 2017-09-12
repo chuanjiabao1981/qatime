@@ -1,4 +1,5 @@
 module LiveStudio
+  # 任务拥有者
   module Taskable
     extend ActiveSupport::Concern
 

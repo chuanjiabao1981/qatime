@@ -124,6 +124,12 @@ LiveStudio::Engine.routes.draw do
         get :replay
       end
     end
+
+    resources :homeworks, only: [:index, :new, :create]
+  end
+
+  resources :student_homeworks, only: [:edit, :update] do
+    resources :corrections, only: [:new, :edit, :create, :update]
   end
 
   namespace :station do
@@ -261,6 +267,8 @@ LiveStudio::Engine.routes.draw do
       resources :interactive_courses, only: [:index]
       resources :video_courses
       resources :customized_groups, only: [:index]
+      resources :homeworks, only: [:index]
+      resources :student_homeworks, only: [:index]
     end
   end
 
@@ -297,6 +305,7 @@ LiveStudio::Engine.routes.draw do
       resources :interactive_courses, only: [:index, :show]
       resources :video_courses, only: [:index]
       resources :customized_groups, only: [:index]
+      resources :student_homeworks, only: [:index]
     end
   end
 

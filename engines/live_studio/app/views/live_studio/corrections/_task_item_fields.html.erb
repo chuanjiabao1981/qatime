@@ -1,0 +1,6 @@
+<p class="ordinal-number"><%= format('%02d', f.index + 1) %></p>
+<div class="form-group form-textarea">
+  <%= f.input_field :parent_id, as: :hidden %>
+  <%= f.input_field :body, as: :text %>
+  <%= f.error :body %>
+</div>

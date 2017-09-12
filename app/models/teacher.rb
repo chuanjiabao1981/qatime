@@ -5,6 +5,9 @@ class Teacher < User
   serialize :grade_range, Array
   default_scope {where(role: 'teacher')}
 
+  has_many :live_studio_homeworks, foreign_key: 'user_id', class_name: LiveStudio::Homework
+  has_many :live_studio_student_homeworks, foreign_key: 'teacher_id', class_name: LiveStudio::StudentHomework
+
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
@@ -134,6 +137,22 @@ class Teacher < User
   def collect_all_courses_count!
     collect_all_courses_count
     save
+  end
+
+  # 是否授课
+  def teach?(product)
+    case product
+    when LiveStudio::CustomizedGroup
+      live_studio_customized_groups.include?(product)
+    when LiveStudio::Course
+      live_studio_courses.include?(product)
+    when LiveStudio::InteractiveCourse
+      live_studio_interactive_courses.include?(product)
+    when LiveStudio::VideoCourse
+      live_studio_video_courses.include?(product)
+    else
+      false
+    end
   end
 
   private

@@ -56,6 +56,7 @@ module LiveStudio
     scope :readied, -> { where("status >= ?", statuses[:ready])} # 已就绪
     scope :scheduled_and_offline_lessons, -> { where(type: ['LiveStudio::ScheduledLesson', 'LiveStudio::OfflineLesson']) }
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
+    scope :should_complete, -> { where(status: [Lesson.statuses[:finished], Lesson.statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
 
     # 开始时间
     def start_time
@@ -157,6 +158,10 @@ module LiveStudio
     # 视频回放结束时间
     def replays_end_at
       live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 6.minutes) * 1000
+    end
+
+    def can_billing?
+      %w(finished billing).include?(status)
     end
 
     private

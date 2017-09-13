@@ -237,6 +237,10 @@ module Permissions
         teacher && teacher == user
       end
 
+      allow 'live_studio/teacher/questions', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
       allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 
@@ -283,6 +287,15 @@ module Permissions
 
       allow 'live_studio/homeworks', [:index, :new, :create] do |group|
         group && user.live_studio_customized_groups.include?(group)
+      end
+
+      # 提问
+      allow 'live_studio/questions', [:index]
+      allow 'live_studio/answers', [:new, :create] do |question|
+        question && question.teacher_id == user.id
+      end
+      allow 'live_studio/answers', [:edit, :update] do |answer|
+        answer && answer.user == user
       end
 
       # 作业批改

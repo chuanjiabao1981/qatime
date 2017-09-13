@@ -1,0 +1,13 @@
+var index = $("#question-tab .active").index();
+<% if current_user.nil? %>
+  $("#ask").html("<%= j render('guest') %>");
+<% elsif current_user.student? %>
+  $("#ask").html("<%= j render('student') %>");
+<% elsif current_user.teacher? %>
+  $("#ask").html("<%= j render('teacher') %>");
+<% else %>
+  $("#ask").html("<%= j render('other') %>");
+<% end %>
+if(index >=0) {
+  $("#question-tab :eq(" + index + ")").trigger('click');
+}

@@ -1,0 +1,9 @@
+<%= simple_form_for [@question, @answer], remote: true do |f| %>
+  <div class="form-group form-textarea">
+    <%= f.input_field :body, as: :text %>
+    <%= f.error :body %>
+  </div>
+  <div class="form-submit">
+    <%= f.submit %>
+  </div>
+<% end %>

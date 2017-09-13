@@ -351,6 +351,10 @@ cn:
       show:
         my: 我的答案
         student: 提交的答案
+    live_studio/answers:
+      show:
+        my: 我回复的答案
+        teacher: 老师回复的答案
     student:
       students:
         schedules:

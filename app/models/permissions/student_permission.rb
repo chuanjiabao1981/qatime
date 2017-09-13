@@ -165,11 +165,21 @@ module Permissions
 
       # 作业问答 start
       allow 'live_studio/homeworks', [:index]
+
       allow 'live_studio/student_homeworks', [:edit, :update] do |student_homework|
         student_homework && student_homework.user_id = user.id
       end
 
+      # 提问
+      allow 'live_studio/questions', [:index]
+      allow 'live_studio/questions', [:new, :create] do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
       allow 'live_studio/student/student_homeworks', [:index] do |student|
+        student && student == user
+      end
+      allow 'live_studio/student/questions', [:index] do |student|
         student && student == user
       end
       # 作业问答 end

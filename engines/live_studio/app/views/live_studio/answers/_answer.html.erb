@@ -1,0 +1,25 @@
+<% if answer.user_id == current_user.id %>
+  <p>
+    <%= link_to t('actions.live_studio/answers.edit'),
+                live_studio.edit_question_answer_path(answer.question, answer),
+                remote: true, class: 'btn-correct' -%>
+    <%= link_to t('actions.live_studio/questions.cancel'),
+                "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                data: { form: "#question-#{answer.parent_id}-answer form", detail: "#question-#{answer.parent_id}-answer-detail" } -%>
+  </p>
+  <div class="problems-edit" id="question-<%= answer.parent_id %>-answer-form"></div>
+<% end %>
+
+<div class="reply-box" id="question-<%= answer.parent_id %>-answer-detail">
+  <div class="row">
+    <div class="col-md-12 problem-title">
+      <p><%= t("view.live_studio/answers.show.#{ answer.user == current_user ? 'my' : 'teacher' }") %>: </p>
+    </div>
+    <div class="col-md-12 problem-name">
+      <span><%= localize(answer.created_at) %></span>
+    </div>
+  </div>
+  <div class="reply-list">
+    <p><%= answer.body %></p>
+  </div>
+</div>

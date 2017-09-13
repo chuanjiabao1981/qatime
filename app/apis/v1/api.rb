@@ -66,6 +66,11 @@ module V1
     mount V1::LiveStudio::Teachers::Homeworks
     mount V1::LiveStudio::Students::StudentHomeworks
 
+    mount V1::LiveStudio::Questions
+    mount V1::LiveStudio::Answers
+    mount V1::LiveStudio::Students::Questions
+    mount V1::LiveStudio::Teachers::Questions
+
     # 首页搜索
     mount V1::Home::Search
 

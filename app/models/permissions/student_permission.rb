@@ -240,6 +240,19 @@ module Permissions
       api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+' do |student_homework|
         student_homework && student_homework.user == user
       end
+
+      # 专属课提问列表
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 专属课学生提问
+      api_allow :POST, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 学生个人中心我的提问
+      api_allow :POST, '/api/v1/live_studio/students/\d+/questions' do |student|
+        student && student == user
+      end
       # payment permission
 
       ## begin api permission

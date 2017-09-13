@@ -334,6 +334,19 @@ module Permissions
         teacher && teacher == user
       end
 
+      # 专属课提问列表
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 老师回答问题
+      api_allow :POST, '/api/v1/live_studio/questions/\d+/answers' do |question|
+        question && question.teacher == user
+      end
+      # 老师修改回答
+      api_allow :POST, '/api/v1/live_studio/answers/\d+' do |answer|
+        answer && answer.user == user
+      end
+
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表
       api_allow :POST, '/api/v1/live_studio/events/\d+/live_start' # 开始直播上课

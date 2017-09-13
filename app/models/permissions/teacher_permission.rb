@@ -346,6 +346,10 @@ module Permissions
       api_allow :POST, '/api/v1/live_studio/answers/\d+' do |answer|
         answer && answer.user == user
       end
+      # 老师个人中心问题列表
+      api_allow :GET, '/api/v1/live_studio/teachers/\d+/questions' do |teacher|
+        teacher && teacher == user
+      end
 
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/teachers/\d+/customized_groups' # 我的专属课列表

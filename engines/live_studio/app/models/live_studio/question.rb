@@ -6,7 +6,7 @@ module LiveStudio
     enumerize :status, in: { pending: 0, resolved: 2 }, default: :pending
 
     has_one :answer, foreign_key: 'parent_id'
-    belongs_to :teacher
+    belongs_to :teacher, class_name: '::Teacher'
 
     private
 

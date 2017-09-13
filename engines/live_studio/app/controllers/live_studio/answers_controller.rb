@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class AnswersController < ApplicationController
     def new
-      @answer = @question.build_answer
+      @answer = @question.answer || @question.build_answer
     end
 
     def create
@@ -21,6 +21,11 @@ module LiveStudio
     end
 
     def update
+      if @answer.update(answer_params)
+        render :update
+      else
+        render :edit
+      end
     end
 
     private

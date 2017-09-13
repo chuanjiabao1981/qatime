@@ -73,6 +73,8 @@
         $(e.target).hide().siblings().show();
         // 移除表单
         $($(e.target).data('form')).empty();
+        // 显示详情
+        $($(e.target).data('detail')).show();
       });
 
       $(document).on("click", ".left a", function  (e) {
@@ -85,6 +87,10 @@
 
       $(".homework-link").click(function() {
         $("#homework").html("<%= j render('live_studio/shared/loading') %>");
+      });
+
+      $(".question-link").click(function() {
+        $("#ask").html("<%= j render('live_studio/shared/loading') %>");
       });
     });
   </script>

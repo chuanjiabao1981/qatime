@@ -179,6 +179,9 @@ module Permissions
       allow 'live_studio/student/student_homeworks', [:index] do |student|
         student && student == user
       end
+      allow 'live_studio/student/questions', [:index] do |student|
+        student && student == user
+      end
       # 作业问答 end
 
       allow 'live_studio/lessons', [:replay] do |lesson|

@@ -11,3 +11,10 @@ cn:
       new: 添加批改
       edit: 重新批改
       cancel: 取消
+    live_studio/questions:
+      new: 提问
+      cancel: 取消
+    live_studio/answers:
+      new: 添加回答
+      edit: 修改回答
+      cancel: 取消

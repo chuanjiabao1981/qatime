@@ -3,8 +3,8 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class QuestionsController < ApplicationController
     def index
-      @questions = @taskable.questions.includes(:user, :answer).paginate(page: params[:homework_page], per_page: 10)
-      @student_questions = @taskable.questions.includes(:user, :answer).where(user_id: current_user.id).paginate(page: params[:student_question_page], per_page: 10) if current_user.student?
+      @questions = @taskable.questions.includes(:user, :answer).paginate(page: params[:page], per_page: 2)
+      @student_questions = @taskable.questions.includes(:user, :answer).where(user_id: current_user.id).paginate(page: params[:student_question_page], per_page: 2) if current_user.student?
     end
 
     def new

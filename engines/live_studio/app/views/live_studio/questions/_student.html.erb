@@ -1,7 +1,7 @@
 <% if current_user.bought?(@taskable) %>
   <div class="ask-tab edit-box">
     <div class="row">
-      <div class="col-md-6 left">
+      <div class="col-md-6 left" id="question-tab">
         <%= link_to '全部提问', "#all-ask", class: "active", data: { toggle: 'tab' } -%>
         <span>|</span>
         <%= link_to '我的提问', "#my-ask", data: { toggle: 'tab' } -%>
@@ -18,24 +18,24 @@
 
   <div class="tab-content">
     <div class="tab-pane fade active in" id="all-ask">
-      <ul class="ask-list">
+      <ul class="ask-list question-list">
         <%= render @questions %>
       </ul>
       <center>
-        <div class="pagination-fix">
-          <%= remote_will_paginate @questions %>
+        <div class="pagination-fix question-link">
+          <%= remote_will_paginate @questions, class: 'paging' %>
         </div>
       </center>
       <%= render 'shared/blank' if @questions.blank? %>
     </div>
 
     <div class="tab-pane fade" id="my-ask">
-      <ul class="ask-list">
+      <ul class="ask-list question-list">
         <%= render @student_questions %>
       </ul>
       <center>
-        <div class="pagination-fix">
-          <%= remote_will_paginate @student_questions, param_name: 'student_question_page' %>
+        <div class="pagination-fix question-link">
+          <%= remote_will_paginate @student_questions, param_name: 'student_question_page', class: 'paging' %>
         </div>
       </center>
       <%= render 'shared/blank' if @student_questions.blank? %>

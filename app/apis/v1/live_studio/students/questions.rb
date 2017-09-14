@@ -30,7 +30,7 @@ module V1
                 end
                 get '' do
                   questions = @student.live_studio_questions
-                  questions = questions.where(status: LiveStudio::Question.statuses[params[:status]]) if params[:status].present?
+                  questions = questions.where(status: ::LiveStudio::Question.statuses[params[:status]]) if params[:status].present?
                   questions = questions.paginate(page: params[:page], per_page: params[:per_page])
                   present questions, with: Entities::LiveStudio::Question
                 end

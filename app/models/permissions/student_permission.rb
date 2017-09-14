@@ -323,6 +323,11 @@ module Permissions
         group && user.live_studio_bought_customized_groups.include?(group)
       end
       # end 资源中心
+
+      api_allow :GET, '/api/v2/live_studio/courses/free'
+      api_allow :GET, '/api/v2/live_studio/courses/latest'
+      api_allow :GET, '/api/v2/live_studio/lessons/today'
+      api_allow :GET, '/api/v2/live_studio/students/\d+/schedule_data'
     end
 
     private

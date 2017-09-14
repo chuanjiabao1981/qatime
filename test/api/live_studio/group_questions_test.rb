@@ -42,6 +42,5 @@ class Qatime::GroupQuestionsAPITest < ActionDispatch::IntegrationTest
       post "/api/v1/live_studio/groups/#{@group_other.id}/questions", { title: '我再提个问题行吗', body: '问完了' }, 'Remember-Token' => @student_token
     end
     assert_request_denied?
-    binding.pry
   end
 end

@@ -19,7 +19,7 @@ module LiveStudio
           end
         end
       end
-      assert_equal 6, group.reload.homeworks.last.task_items.count, "题目数量不正确"
+      assert_equal 6, group.reload.homeworks.first.task_items.count, "题目数量不正确"
     end
   end
 end

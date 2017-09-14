@@ -77,7 +77,7 @@ question_three:
   title: 奶牛为什么能产牛奶
   body: 奶牛吃的是草，草怎么能变成奶?
   taskable: schedule_published_group1 (LiveStudio::Group)
-  user: student_one_with_course 
+  user: student1 
   type: LiveStudio::Question
   teacher: teacher_with_chat_account
   status: 2

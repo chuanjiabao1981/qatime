@@ -25,12 +25,12 @@ class Qatime::UserQuestionsAPITest < ActionDispatch::IntegrationTest
   test "student view my questions" do
     get "/api/v1/live_studio/students/#{@student.id}/questions", {}, 'Remember-Token' => @student_token
     assert_request_success?
-    assert_equal 3, @res['data'].count, "返回提问数量不正确"
-    get "/api/v1/live_studio/teachers/#{@teacher.id}/questions", { status: 'pending' }, 'Remember-Token' => @teacher_token
+    assert_equal 2, @res['data'].count, "返回提问数量不正确"
+    get "/api/v1/live_studio/students/#{@student.id}/questions", { status: 'pending' }, 'Remember-Token' => @student_token
     assert_request_success?
     assert_equal 1, @res['data'].count, "待回答返回提问数量不正确"
-    get "/api/v1/live_studio/teachers/#{@teacher.id}/questions", { status: 'resolved' }, 'Remember-Token' => @teacher_token
+    get "/api/v1/live_studio/students/#{@student.id}/questions", { status: 'resolved' }, 'Remember-Token' => @student_token
     assert_request_success?
-    assert_equal 2, @res['data'].count, "已回答提问数量不正确"
+    assert_equal 1, @res['data'].count, "已回答提问数量不正确"
   end
 end

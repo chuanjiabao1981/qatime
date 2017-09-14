@@ -74,13 +74,22 @@ question_two:
   status: 2
 
 question_three:
-  title: 怎么观看直播
-  body: 如题
+  title: 奶牛为什么能产牛奶
+  body: 奶牛吃的是草，草怎么能变成奶?
   taskable: schedule_published_group1 (LiveStudio::Group)
-  user: student1
+  user: student_one_with_course 
   type: LiveStudio::Question
   teacher: teacher_with_chat_account
-  status: 0
+  status: 2
+
+question_four:
+  title: 怎么观看直播
+  body: 如题
+  taskable: published_group1 (LiveStudio::Group)
+  user: student1
+  type: LiveStudio::Question
+  teacher: teacher1
+  status: 2
 
 question_two_answer_one:
   body: 我也不知道
@@ -88,5 +97,12 @@ question_two_answer_one:
   user: teacher_with_chat_account 
   type: LiveStudio::Answer
   parent: question_two
+
+question_three_answer_one:
+  body: 我也不知道
+  taskable: published_group1 (LiveStudio::Group)
+  user: teacher1
+  type: LiveStudio::Answer
+  parent: question_three
 
 

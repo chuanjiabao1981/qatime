@@ -23,7 +23,8 @@ module LiveStudio
         visit get_home_url(@teacher)
         click_on '作业管理'
         assert page.has_content?('第一个作业'), '待批改作业未显示'
-        click_on '一批该'
+        click_on '已批改'
+
         assert page.has_no_content?('第一个作业'), '待批改作业错误显示'
       end
 

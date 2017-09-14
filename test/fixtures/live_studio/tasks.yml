@@ -54,3 +54,39 @@ submitted_student_homework:
   parent: homework_three
   teacher: teacher_with_chat_account
   status: 1
+
+question_one:
+  title: 地球为什么是圆的
+  body: 人站在圆的地球上不会掉下去吗?
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student_one_with_course 
+  type: LiveStudio::Question
+  teacher: teacher_with_chat_account
+  status: 0
+
+question_two:
+  title: 奶牛为什么能产牛奶
+  body: 奶牛吃的是草，草怎么能变成奶?
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student_one_with_course 
+  type: LiveStudio::Question
+  teacher: teacher_with_chat_account
+  status: 2
+
+question_three:
+  title: 怎么观看直播
+  body: 如题
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student1
+  type: LiveStudio::Question
+  teacher: teacher_with_chat_account
+  status: 0
+
+question_two_answer_one:
+  body: 我也不知道
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: teacher_with_chat_account 
+  type: LiveStudio::Answer
+  parent: question_two
+
+

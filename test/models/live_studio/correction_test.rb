@@ -1,9 +1,9 @@
 require 'test_helper'
 
 module LiveStudio
-  class StudentHomeworkTest < ActiveSupport::TestCase
-    # 学生提交家庭作业
-    test "submit student homework" do
+  class CorrectionTest < ActiveSupport::TestCase
+    # 老师批改作业
+    test "teacher add a correction" do
       student_homework = live_studio_tasks(:student_homework_two)
 
       items = student_homework.task_items.map do |item|

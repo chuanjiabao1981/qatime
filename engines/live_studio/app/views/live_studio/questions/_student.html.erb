@@ -2,14 +2,17 @@
   <div class="ask-tab edit-box">
     <div class="row">
       <div class="col-md-6 left" id="question-tab">
-        <%= link_to '全部提问', "#all-ask", class: "active", data: { toggle: 'tab' } -%>
+        <%= link_to t('view.live_studio/customized_group.show.all_questions'), "#all-ask", class: "active", data: { toggle: 'tab' } -%>
         <span>|</span>
-        <%= link_to '我的提问', "#my-ask", data: { toggle: 'tab' } -%>
+        <%= link_to t('view.live_studio/customized_group.show.my_questions'), "#my-ask", data: { toggle: 'tab' } -%>
       </div>
       <div class="col-md-6 right">
-        <%= link_to '提问',
+        <%= link_to t('actions.live_studio/questions.new'),
                     live_studio.new_customized_group_question_path(@taskable),
-                    remote: true %>
+                    remote: true, class: 'btn-correct' -%>
+        <%= link_to t('actions.live_studio/questions.cancel'),
+                    "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                    data: { form: "#question-form" } -%>
       </div>
     </div>
     <div class="problems-edit" id="question-form">

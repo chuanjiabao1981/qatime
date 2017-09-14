@@ -22,10 +22,10 @@
       <%= render question.answer %>
     <% elsif question.teacher_id == current_user.id %>
       <p>
-        <%= link_to t('actions.live_studio/questions.new'),
+        <%= link_to t('actions.live_studio/answers.new'),
                     live_studio.new_question_answer_path(question),
                     remote: true, class: 'btn-correct' -%>
-        <%= link_to t('actions.live_studio/questions.cancel'),
+        <%= link_to t('actions.live_studio/answers.cancel'),
                     "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
                     data: { form: "#question-#{question.id}-answer form" } -%>
       </p>

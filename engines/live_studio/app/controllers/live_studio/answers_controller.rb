@@ -37,7 +37,7 @@ module LiveStudio
     end
 
     def answer_params
-      params.require(:answer).permit(:title, :body)
+      params.require(:answer).permit(:body)
     end
   end
 end

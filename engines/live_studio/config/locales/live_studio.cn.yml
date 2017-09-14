@@ -339,6 +339,8 @@ cn:
         homeworks: 我布置的作业
         teacher_homeworks: 老师布置的作业
         student_homeworks: 学生提交的作业
+        all_questions: 全部提问
+        my_questions: 我的提问
     live_studio/homeworks:
       show:
         guest: 报名后才能查看

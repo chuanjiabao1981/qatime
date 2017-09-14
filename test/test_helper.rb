@@ -199,6 +199,13 @@ class ActiveSupport::TestCase
     assert_equal 1, @res['status'], "响应错误 #{@res}"
   end
 
+  def assert_request_denied?
+    assert_response :success
+    @res = JSON.parse(response.body)
+    assert_equal 0, @res['status'], "响应错误 #{@res}"
+    assert_equal 1003, @res['error']['code'], "权限控制失败"
+  end
+
   def stub_chat_account
     account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: SecureRandom.hex(16), token: SecureRandom.hex(16) } }.to_json)
     Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)

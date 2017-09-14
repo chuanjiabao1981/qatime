@@ -165,11 +165,21 @@ module Permissions
 
       # 作业问答 start
       allow 'live_studio/homeworks', [:index]
+
       allow 'live_studio/student_homeworks', [:edit, :update] do |student_homework|
         student_homework && student_homework.user_id = user.id
       end
 
+      # 提问
+      allow 'live_studio/questions', [:index]
+      allow 'live_studio/questions', [:new, :create] do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
       allow 'live_studio/student/student_homeworks', [:index] do |student|
+        student && student == user
+      end
+      allow 'live_studio/student/questions', [:index] do |student|
         student && student == user
       end
       # 作业问答 end
@@ -229,6 +239,19 @@ module Permissions
 
       api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+' do |student_homework|
         student_homework && student_homework.user == user
+      end
+
+      # 专属课提问列表
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 专属课学生提问
+      api_allow :POST, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 学生个人中心我的提问
+      api_allow :POST, '/api/v1/live_studio/students/\d+/questions' do |student|
+        student && student == user
       end
       # payment permission
 
@@ -346,6 +369,11 @@ module Permissions
         group && user.live_studio_bought_customized_groups.include?(group)
       end
       # end 资源中心
+
+      api_allow :GET, '/api/v2/live_studio/courses/free'
+      api_allow :GET, '/api/v2/live_studio/courses/latest'
+      api_allow :GET, '/api/v2/live_studio/lessons/today'
+      api_allow :GET, '/api/v2/live_studio/students/\d+/schedule_data'
     end
 
     private

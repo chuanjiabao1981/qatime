@@ -12,7 +12,8 @@ module LiveStudio
 
     belongs_to :video
 
-    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :course
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, :grade, :subject, :publicize, to: :video_course
+    delegate :id, :name, to: :video_course, prefix: :course
 
     enum status: {
              missed: -1, # 已错过

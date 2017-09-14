@@ -84,3 +84,7 @@ cn:
         status:
           submitted: 待批改
           resolved: 已批改
+    live_studio/question:
+      status:
+        pending: 待回复
+        resolved: 已回复

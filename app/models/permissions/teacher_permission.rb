@@ -237,6 +237,10 @@ module Permissions
         teacher && teacher == user
       end
 
+      allow 'live_studio/teacher/questions', [:index] do |teacher|
+        teacher && teacher == user
+      end
+
       allow 'live_studio/teacher/teachers', [:schedules, :schedule_data, :settings]
       allow 'settings', [:create, :update]
 
@@ -285,6 +289,15 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      # 提问
+      allow 'live_studio/questions', [:index]
+      allow 'live_studio/answers', [:new, :create] do |question|
+        question && question.teacher_id == user.id
+      end
+      allow 'live_studio/answers', [:edit, :update] do |answer|
+        answer && answer.user == user
+      end
+
       # 作业批改
       allow 'live_studio/corrections', [:new, :create] do |student_homework|
         student_homework && student_homework.homework.user == user
@@ -318,6 +331,23 @@ module Permissions
       end
       # 我布置的作业
       api_allow :POST, '/api/v1/live_studio/teachers/\d+/homeworks' do |teacher|
+        teacher && teacher == user
+      end
+
+      # 专属课提问列表
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+      # 老师回答问题
+      api_allow :POST, '/api/v1/live_studio/questions/\d+/answers' do |question|
+        question && question.teacher == user
+      end
+      # 老师修改回答
+      api_allow :POST, '/api/v1/live_studio/answers/\d+' do |answer|
+        answer && answer.user == user
+      end
+      # 老师个人中心问题列表
+      api_allow :GET, '/api/v1/live_studio/teachers/\d+/questions' do |teacher|
         teacher && teacher == user
       end
 
@@ -402,6 +432,9 @@ module Permissions
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_start' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
+      api_allow :POST, 'live_studio/interactive_lessons/\d+/live_switch' do |interactive_lesson|
+        interactive_lesson && interactive_lesson.teacher_id == user.id
+      end
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_end' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end
@@ -470,6 +503,8 @@ module Permissions
 
       api_allow :POST, "/api/v1/resource/files" # 文件上传
       # 资源中心 end
+
+      api_allow :GET, '/api/v2/live_studio/teachers/\d+/schedule_data'
     end
 
     private

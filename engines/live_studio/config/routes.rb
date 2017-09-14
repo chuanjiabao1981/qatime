@@ -126,6 +126,11 @@ LiveStudio::Engine.routes.draw do
     end
 
     resources :homeworks, only: [:index, :new, :create]
+    resources :questions, only: [:index, :new, :create]
+  end
+
+  resources :questions, only: [] do
+    resources :answers, only: [:new, :create, :edit, :update]
   end
 
   resources :student_homeworks, only: [:edit, :update] do
@@ -269,6 +274,7 @@ LiveStudio::Engine.routes.draw do
       resources :customized_groups, only: [:index]
       resources :homeworks, only: [:index]
       resources :student_homeworks, only: [:index]
+      resources :questions, only: [:index]
     end
   end
 
@@ -306,6 +312,7 @@ LiveStudio::Engine.routes.draw do
       resources :video_courses, only: [:index]
       resources :customized_groups, only: [:index]
       resources :student_homeworks, only: [:index]
+      resources :questions, only: [:index]
     end
   end
 

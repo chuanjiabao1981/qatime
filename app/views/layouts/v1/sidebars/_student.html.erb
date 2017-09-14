@@ -94,5 +94,11 @@
         <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:questions) %>">
+      <%= link_to live_studio.student_questions_path(@owner) do %>
+        <i class="icon-ask"></i>
+        <span><%= t('view.student_bars.questions') %></span>
+      <% end %>
+    </li>
   </ul>
 </div>

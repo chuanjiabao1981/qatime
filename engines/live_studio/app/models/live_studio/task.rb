@@ -8,7 +8,8 @@ module LiveStudio
 
     belongs_to :parent, class_name: 'LiveStudio::Task'
 
-    delegate :id, :name, to: :user, prefix: true
+    delegate :name, to: :user, prefix: true
+    delegate :id, :name, :model_name, to: :taskable, prefix: :course
 
     validates :taskable, :user, presence: true
 

@@ -100,6 +100,12 @@
         <span><%= t('students.customized_courses.title') %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:questions) %>">
+      <%= link_to live_studio.teacher_questions_path(@owner) do %>
+        <i class="icon-ask"></i>
+        <span><%= t("view.teacher_bars.questions") %></span>
+      <% end %>
+    </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:files) %>">
       <%= link_to resource.teacher_files_path(@owner) do %>
         <i class="icon-file"></i>

@@ -14,6 +14,11 @@
               <%= link_to live_studio.customized_group_homeworks_path(@customized_group, anchor: 'homework'), class: 'homework-link', remote: true, data: { toggle: 'tab' } do %>
                 <%= LiveStudio::Homework.model_name.human %> <i>(<%= @customized_group.homeworks.count %>)</i>
               <% end %>
+
+
+              <%= link_to live_studio.customized_group_questions_path(@customized_group, anchor: 'ask'), class: 'question-link', remote: true, data: { toggle: 'tab' } do %>
+                <%= LiveStudio::Question.model_name.human %> <i>(<%= @customized_group.questions.count %>)</i>
+              <% end %>
               <!--<a href="#ask" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>-->
               <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(<%= @recourse_files.count %>)</i></a>
               <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
@@ -68,6 +73,8 @@
         $(e.target).hide().siblings().show();
         // 移除表单
         $($(e.target).data('form')).empty();
+        // 显示详情
+        $($(e.target).data('detail')).show();
       });
 
       $(document).on("click", ".left a", function  (e) {
@@ -80,6 +87,10 @@
 
       $(".homework-link").click(function() {
         $("#homework").html("<%= j render('live_studio/shared/loading') %>");
+      });
+
+      $(".question-link").click(function() {
+        $("#ask").html("<%= j render('live_studio/shared/loading') %>");
       });
     });
   </script>

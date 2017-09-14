@@ -9,11 +9,13 @@ module Entities
       expose :status
       expose :user_id
       expose :user_name
+      expose :course_id
+      expose :course_name
+      expose :course_model_name
 
       with_options(format_with: :local_timestamp) do
         expose :created_at
       end
-      expose :task_items, using: Entities::LiveStudio::TaskItem, as: :items # 任务项
       expose :model_name
     end
   end

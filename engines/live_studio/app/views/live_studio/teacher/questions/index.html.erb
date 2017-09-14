@@ -1,0 +1,50 @@
+<div class="contains">
+  <div class="recorded-title">
+    <%= t("view.teacher_bars.questions") %>
+  </div>
+
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <% LiveStudio::Question.status.options.each do |text, status| %>
+        <%= link_to text,
+                    live_studio.teacher_questions_path(@teacher, status: status),
+                    class: "#{'active' if params[:status] == status }" %>
+      <% end %>
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="not-approved">
+        <ul class="revert-list">
+          <% @questions.each do |question| -%>
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="issue-title">
+                    <%= link_to question.title, live_studio.customized_group_path(question.taskable) -%>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p class="submitter">
+                    <span><%= question.user_name %></span>
+                    <span><%= localize(question.created_at) %></span>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p>
+                    <span><%= LiveStudio::Question.human_attribute_name(:taskable) %>: </span>
+                    <span><%= question.taskable.name %></span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          <% end -%>
+        </ul>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @questions %>
+          </div>
+        </center>
+        <%= render 'shared/blank' if @questions.blank? %>
+      </div>
+    </div>
+  </div>
+</div>

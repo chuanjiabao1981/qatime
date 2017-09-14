@@ -1,0 +1,13 @@
+<%= simple_form_for [@taskable, @question], remote: true do |f| %>
+  <div class="form-group">
+    <%= f.input_field :title %>
+    <%= f.error :title %>
+  </div>
+  <div class="form-group form-textarea">
+    <%= f.input_field :body, as: :text %>
+    <%= f.error :body %>
+  </div>
+  <div class="form-submit">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,5 +1,6 @@
 module LiveStudio
   class OfflineLesson < Event
+
     validates :name, :class_date, :start_at, :end_at, presence: true
 
     enum status: {
@@ -36,9 +37,10 @@ module LiveStudio
         before do
           increment_course_counter(:closed_events_count) if live_end_at.nil?
           self.live_end_at = Time.now
-          transitions from: [:teaching], to: :closed
         end
+        transitions from: [:teaching], to: :closed
       end
+
 
       event :complete do
         transitions from: [:finished, :billing], to: :completed

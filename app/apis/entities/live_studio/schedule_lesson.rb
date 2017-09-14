@@ -83,6 +83,8 @@ module Entities
           lesson.course.model_name
         end
       end
+      expose :course_id
+      expose :model_name
       # expose :product, if: lambda { |object, options| object.is_a?(::LiveStudio::Lesson) } do |instance, options|
       #   ::Entities::LiveStudio::Course.represent instance.course
       # end

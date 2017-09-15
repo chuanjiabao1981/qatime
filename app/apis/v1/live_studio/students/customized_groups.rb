@@ -34,7 +34,7 @@ module V1
                   tickets = @student.live_studio_buy_tickets.available.where(product_type: 'LiveStudio::Group').includes(product: :teacher)
                   tickets = params[:sell_type] == 'free' ? tickets.where('payment_order_id is null') : tickets.where('payment_order_id is not null')
                   status = ::LiveStudio::CustomizedGroup.statuses.values_at(*params[:status].to_s.split(/[\s,]+/))
-                  tickets = tickets.joins('left join live_studio_groups on live_studio_groups.id = live_studio_tickets.product_id').where('live_studio_groups.status in ?', status) unless status.blank?
+                  tickets = tickets.joins('left join live_studio_groups on live_studio_groups.id = live_studio_tickets.product_id').where('live_studio_groups.status' => status) unless status.blank?
                   tickets = tickets.paginate(page: params[:page], per_page: params[:per_page])
                   present tickets, with: Entities::LiveStudio::CustomizedGroupTicket, type: :full
                 end

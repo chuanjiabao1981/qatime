@@ -35,12 +35,10 @@ module LiveStudio
       customized_group = live_studio_groups(:teaching_group_for_student_view1)
       visit live_studio.customized_group_path(customized_group)
       click_on '开始学习'
-
-      assert page.has_content?(customized_group.current_event.name), '直播课程名称未显示'
-      assert page.has_content?(customized_group.name), '直播课程名称未显示'
       assert page.has_link?(customized_group.teacher.name), '老师未显示'
-      assert page.has_content? '线上直播'
-      assert page.has_content? '线下讲课'
+      assert page.has_content?('线上直播')
+      assert page.has_content?('线下讲课')
+      assert page.has_content?(customized_group.name), '直播课程名称未显示'
     end
   end
 end

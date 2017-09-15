@@ -3,10 +3,7 @@ module Resource
     belongs_to :file, counter_cache: true
     belongs_to :quoter, polymorphic: true
 
-    delegate :name, :type, :file_size, :ext_name, :file_url, to: :file
-
-    def file_id
-      file.try(:id)
-    end
+    delegate :type, :file_size, :ext_name, :file_url, to: :file
+    delegate :name, :id, to: :file, prefix: true
   end
 end

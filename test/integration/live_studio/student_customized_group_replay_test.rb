@@ -21,7 +21,8 @@ module LiveStudio
 
     test 'student visit replays' do
       visit live_studio.customized_group_path(@course)
-      
+      click_on('上课安排')
+
       assert page.has_link?("观看回放"), "详情页课程没有回放链接"
       lesson = @course.scheduled_lessons.first
       visit live_studio.replay_scheduled_lesson_path(lesson)

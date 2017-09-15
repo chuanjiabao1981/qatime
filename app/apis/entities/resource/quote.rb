@@ -1,6 +1,6 @@
 module Entities
   module Resource
-    class Quote < File
+    class Quote < Entities::Resource::File
       format_with(:local_timestamp, &:to_i)
 
       expose :file_id, as: :id

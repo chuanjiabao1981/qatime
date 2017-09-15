@@ -25,6 +25,7 @@ module LiveStudio
       assert page.has_link? '立即报名'
       assert page.has_no_link? '发布公告'
       assert page.has_link? customized_group.teacher_name
+      click_on '上课安排'
       assert page.has_content? '上课地点：教学大厦1层403'
     end
 

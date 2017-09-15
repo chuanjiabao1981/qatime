@@ -25,4 +25,7 @@ cn:
     init: 未开始
     ready: 待上课
     teaching: 上课中
+    closed: 已上课
     completed: 已结束
+    finished: 已结束
+    billing: 已结束

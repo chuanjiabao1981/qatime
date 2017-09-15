@@ -36,6 +36,8 @@ module LiveService
       return 0 unless @order.paid? || @order.shipped? || @order.completed?
       amount = unstart_lesson_ids.count * ticket.lesson_price
       [amount, @order.amount].min
+    rescue
+      0
     end
 
     def refund!

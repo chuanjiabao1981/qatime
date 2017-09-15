@@ -56,7 +56,7 @@ module LiveStudio
       click_on '我的提问'
       assert page.has_no_content?('怎么观看直播'), '其他人提问错误显示'
       click_on '全部提问'
-      assert page.has_content?('怎么观看直播'), '没显示有其他人提问'
+      assert page.has_content?('牛牛为什么能产牛奶'), '没显示有其他人提问'
     end
 
     # 学生提问

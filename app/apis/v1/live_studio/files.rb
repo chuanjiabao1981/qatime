@@ -31,7 +31,7 @@ module V1
               end
               get do
                 quotes = @group.quotes.joins(:file)
-                quotes = quotes.where('resource_files.type = Resource::DocumentFile', file_type(params[:cate])) if params[:cate].present?
+                quotes = quotes.where('resource_files.type = ?', file_type(params[:cate])) if params[:cate].present?
                 quotes = quotes.paginate(page: params[:page], per_page: params[:per_page])
                 present quotes, with: Entities::Resource::Quote
               end

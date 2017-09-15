@@ -78,6 +78,21 @@ cn:
         price: 请输入课程售价（正整数）
       event:
         class_address: 请输入具体地点或教室
+      question:
+        title: 在此输入文字
+        body: 在此输入文字
+      answer:
+        title: 在此输入文字
+        body: 在此输入文字
+      homework:
+        title: 在此输入文字
+        body: 在此输入文字
+      student_homework:
+        title: 在此输入文字
+        body: 在此输入文字
+      correction:
+        title: 在此输入文字
+        body: 在此输入文字
     prompts:
       customized_group:
         grade: 请选择年级

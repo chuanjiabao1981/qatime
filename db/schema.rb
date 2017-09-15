@@ -1650,6 +1650,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
   add_index "resource_files", ["user_id"], name: "index_resource_files_on_user_id", using: :btree
 
   create_table "resource_quotes", force: :cascade do |t|
+    t.string   "name"
     t.integer  "file_id"
     t.integer  "quoter_id"
     t.string   "quoter_type"

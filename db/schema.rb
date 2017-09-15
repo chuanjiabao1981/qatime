@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825075346) do
+ActiveRecord::Schema.define(version: 20170831083441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -930,6 +930,38 @@ ActiveRecord::Schema.define(version: 20170825075346) do
 
   add_index "live_studio_streams", ["channel_id"], name: "index_live_studio_streams_on_channel_id", using: :btree
 
+  create_table "live_studio_task_items", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "task_id"
+    t.integer  "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "live_studio_task_items", ["parent_id"], name: "index_live_studio_task_items_on_parent_id", using: :btree
+  add_index "live_studio_task_items", ["task_id"], name: "index_live_studio_task_items_on_task_id", using: :btree
+
+  create_table "live_studio_tasks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "taskable_id"
+    t.string   "taskable_type"
+    t.integer  "parent_id"
+    t.integer  "user_id"
+    t.integer  "teacher_id"
+    t.integer  "status"
+    t.integer  "tasks_count",   default: 0
+    t.string   "type"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "live_studio_tasks", ["parent_id"], name: "index_live_studio_tasks_on_parent_id", using: :btree
+  add_index "live_studio_tasks", ["taskable_type", "taskable_id"], name: "index_live_studio_tasks_on_taskable_type_and_taskable_id", using: :btree
+  add_index "live_studio_tasks", ["teacher_id"], name: "index_live_studio_tasks_on_teacher_id", using: :btree
+  add_index "live_studio_tasks", ["user_id"], name: "index_live_studio_tasks_on_user_id", using: :btree
+
   create_table "live_studio_ticket_items", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "lesson_id"
@@ -1618,6 +1650,7 @@ ActiveRecord::Schema.define(version: 20170825075346) do
   add_index "resource_files", ["user_id"], name: "index_resource_files_on_user_id", using: :btree
 
   create_table "resource_quotes", force: :cascade do |t|
+    t.string   "name"
     t.integer  "file_id"
     t.integer  "quoter_id"
     t.string   "quoter_type"

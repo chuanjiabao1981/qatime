@@ -1,0 +1,2 @@
+$("#question-<%= @question.id %>-answer-form").html("<%= j render('form') %>").show();
+$('#question-<%= @question.id %>-answer a.cancel').show().siblings().hide(); // 按钮切换

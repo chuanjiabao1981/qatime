@@ -30,10 +30,10 @@ module V1
                 optional :cate, type: String, values: %w(video picture document other)
               end
               get do
-                files = @group.files
-                files = files.where(type: file_type(params[:cate])) if params[:cate].present?
-                files = files.paginate(page: params[:page], per_page: params[:per_page])
-                present files, with: Entities::Resource::File
+                quotes = @group.quotes.joins(:file)
+                quotes = quotes.where('resource_files.type = ?', file_type(params[:cate])) if params[:cate].present?
+                quotes = quotes.paginate(page: params[:page], per_page: params[:per_page])
+                present quotes, with: Entities::Resource::Quote
               end
 
               desc '增加课件' do

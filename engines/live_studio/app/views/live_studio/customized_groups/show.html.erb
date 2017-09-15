@@ -9,7 +9,16 @@
             <div class="aside-left">
               <a href="#introduce" data-toggle="tab" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
               <a href="#arrange" data-toggle="tab"><%= t('view.live_studio/courses.show.arrange') %></a>
-              <!--<a href="#homework" class="" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+              <!--<a href="#homework" class="" ><%#= t('view.live_studio/customized_groups.show.homework') %><i>(9)</i></a>-->
+
+              <%= link_to live_studio.customized_group_homeworks_path(@customized_group, anchor: 'homework'), class: 'homework-link', remote: true, data: { toggle: 'tab' } do %>
+                <%= LiveStudio::Homework.model_name.human %> <i>(<%= @customized_group.homeworks.count %>)</i>
+              <% end %>
+
+
+              <%= link_to live_studio.customized_group_questions_path(@customized_group, anchor: 'ask'), class: 'question-link', remote: true, data: { toggle: 'tab' } do %>
+                <%= LiveStudio::Question.model_name.human %> <i>(<%= @customized_group.questions.count %>)</i>
+              <% end %>
               <!--<a href="#ask" data-toggle="tab"><%#= t('view.live_studio/customized_groups.show.ask') %><i>(1)</i></a>-->
               <a href="#courseware" data-toggle="tab"><%= t('view.live_studio/customized_groups.show.files') %><i>(<%= @recourse_files.count %>)</i></a>
               <a href="#study" data-toggle="tab"><%= t('view.live_studio/courses.show.study') %></a>
@@ -21,7 +30,7 @@
             </div>
           </div>
 
-          <div class="tab-content">
+          <div class="tab-content asyn_append_fields">
             <!--课程介绍-->
             <%= render 'live_studio/customized_groups/show/introduce' %>
             <!--上课安排-->
@@ -56,6 +65,32 @@
     $(function(){
       $(".aside-left > a").click(function() {
         $(this).addClass("active").siblings().removeClass("active");
+      });
+
+      // 取消
+      $(document).on("click", 'a.cancel', function(e) {
+        // 取消按钮隐藏, 创建按钮显示
+        $(e.target).hide().siblings().show();
+        // 移除表单
+        $($(e.target).data('form')).empty();
+        // 显示详情
+        $($(e.target).data('detail')).show();
+      });
+
+      $(document).on("click", ".left a", function  (e) {
+        $(e.target).addClass("active").siblings().removeClass("active");
+      });
+
+      $(document).on("click", ".ask-list > li > .row >.problem-title", function() {
+        $(this).parents("li").toggleClass("active").siblings().removeClass('active');
+      });
+
+      $(".homework-link").click(function() {
+        $("#homework").html("<%= j render('live_studio/shared/loading') %>");
+      });
+
+      $(".question-link").click(function() {
+        $("#ask").html("<%= j render('live_studio/shared/loading') %>");
       });
     });
   </script>

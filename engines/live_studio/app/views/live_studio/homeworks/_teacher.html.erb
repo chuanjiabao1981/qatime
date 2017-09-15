@@ -1,0 +1,51 @@
+<% if current_user.teach?(@taskable) %>
+  <div class="ask-tab edit-box">
+    <div class="row">
+      <div class="col-md-6 left" id="homework-tab">
+        <%= link_to t('view.live_studio/customized_group.show.student_homeworks'),
+                    "#student-homework", class: 'active', data: { toggle: 'tab' } %>
+        <span>|</span>
+        <%= link_to t('view.live_studio/customized_group.show.homeworks'),
+                    "#my-homework", data: { toggle: 'tab' } %>
+      </div>
+      <div class="col-md-6 right">
+        <%= link_to t('actions.live_studio/homeworks.new'),
+                    live_studio.new_customized_group_homework_path(@taskable), remote: true,
+                    data: { form: '#homework-form' } %>
+        <%= link_to t('actions.live_studio/homeworks.cancel'),
+                    "javascript:void(0);", class: "active cancel", style: 'display:none;',
+                    data: { form: '#homework-form' } -%>
+      </div>
+    </div>
+    <div class="problems-edit" id="homework-form">
+      
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="student-homework"> 
+      <ul class="ask-list">
+        <%= render @student_homeworks %>
+      </ul>
+
+      <center>
+        <div class="pagination-fix homework-link">
+          <%= remote_will_paginate @student_homeworks, class: 'paging', param_name: 'student_page' %>
+        </div>
+      </center>
+    </div>
+    <div class="tab-pane fade" id="my-homework">
+      <ul class="ask-list" id="homewok-list">
+        <%= render @homeworks %>
+      </ul>
+
+      <center>
+        <div class="pagination-fix homework-link">
+          <%= remote_will_paginate(@homeworks, class: 'paging', param_name: 'homework_page') %>
+        </div>
+      </center>
+    </div> 
+  </div>
+<% else %>
+  <%= render 'live_studio/shared/guest' %>
+<% end %>

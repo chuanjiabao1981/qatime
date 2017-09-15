@@ -64,6 +64,12 @@
         <span><%= t("view.student_bars.my_customized_groups") %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:student_homeworks) %>">
+      <%= link_to live_studio.student_student_homeworks_path(@owner) do %>
+        <i class="icon-homework"></i>
+        <span><%= t("view.student_bars.my_student_homeworks") %></span>
+      <% end %>
+    </li>
     <li class="<%= 'active' if student_sidebar_nav_is?(:tastes) %>">
       <%= link_to live_studio.tastes_student_path(@owner) do %>
         <i class="icon-audition"></i>
@@ -86,6 +92,12 @@
       <%= link_to main_app.customized_courses_student_path(@owner) do %>
         <i class="icon-course"></i>
         <span><%= t('students.customized_courses.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:questions) %>">
+      <%= link_to live_studio.student_questions_path(@owner) do %>
+        <i class="icon-ask"></i>
+        <span><%= t('view.student_bars.questions') %></span>
       <% end %>
     </li>
   </ul>

@@ -31,4 +31,21 @@ $(function(){
     node.find(".edit-modal").modal('show');
     e.preventDefault();
   });
+
+  // 添加记录
+  $(".asyn_append_fields").on("click", ".append_fields", function(e) {
+    var node = $(e.target);
+    var regexp = new RegExp(node.data('prefix') + "_\\d+", 'g');
+    $(node.attr('append-to')).append(node.data('fields').replace(regexp, node.data('id')));
+    node.data('id', parseInt(node.data('id')) + 1); 
+    e.preventDefault();
+  });
+
+  // 删除记录
+  $(".asyn_append_fields").on("click", ".remove_fields", function(e) {
+    var node = $(e.target);
+    node.parent().remove();
+    e.preventDefault();
+  });
+
 });

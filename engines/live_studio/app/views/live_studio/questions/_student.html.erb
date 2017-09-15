@@ -1,0 +1,49 @@
+<% if current_user.bought?(@taskable) %>
+  <div class="ask-tab edit-box">
+    <div class="row">
+      <div class="col-md-6 left" id="question-tab">
+        <%= link_to t('view.live_studio/customized_group.show.all_questions'), "#all-ask", class: "active", data: { toggle: 'tab' } -%>
+        <span>|</span>
+        <%= link_to t('view.live_studio/customized_group.show.my_questions'), "#my-ask", data: { toggle: 'tab' } -%>
+      </div>
+      <div class="col-md-6 right">
+        <%= link_to t('actions.live_studio/questions.new'),
+                    live_studio.new_customized_group_question_path(@taskable),
+                    remote: true, class: 'btn-correct' -%>
+        <%= link_to t('actions.live_studio/questions.cancel'),
+                    "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
+                    data: { form: "#question-form" } -%>
+      </div>
+    </div>
+    <div class="problems-edit" id="question-form">
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="all-ask">
+      <ul class="ask-list question-list">
+        <%= render @questions %>
+      </ul>
+      <center>
+        <div class="pagination-fix question-link">
+          <%= remote_will_paginate @questions, class: 'paging' %>
+        </div>
+      </center>
+      <%= render 'shared/blank' if @questions.blank? %>
+    </div>
+
+    <div class="tab-pane fade" id="my-ask">
+      <ul class="ask-list question-list">
+        <%= render @student_questions %>
+      </ul>
+      <center>
+        <div class="pagination-fix question-link">
+          <%= remote_will_paginate @student_questions, param_name: 'student_question_page', class: 'paging' %>
+        </div>
+      </center>
+      <%= render 'shared/blank' if @student_questions.blank? %>
+    </div>
+  </div>
+<% else %>
+  <%= render 'live_studio/shared/guest' %>
+<% end %>

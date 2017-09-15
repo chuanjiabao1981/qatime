@@ -1,5 +1,6 @@
 module ApplicationHelper
   include SessionsHelper
+  include Qatime::WillPaginate::Helper
 
   # 显示序号
   def show_index(index, per = 30)
@@ -154,11 +155,20 @@ module ApplicationHelper
 
   def link_to_append_fields(name, f, association, shared_dir, options = {})
     new_object = f.object.class.reflect_on_association(association).klass.new
-    id = new_object.object_id
+    id = options[:index] || new_object.object_id
     fields = f.fields_for(association, new_object, child_index: "new_#{association}_#{id}") do |builder|
       render(shared_dir + association.to_s.singularize + "_fields", f: builder)
     end
     link_to(name, '###', class: "append_fields #{options[:class]}", "append-to" => options['append-to'], data: { id: id, fields: fields.delete("\n") })
+  end
+
+  def link_to_append_items(name, f, association, shared_dir, options = {})
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    id = options[:index] || new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: "new_#{association}_#{id}") do |builder|
+      render(shared_dir + association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '###', class: "append_fields #{options[:class]}", "append-to" => options['append-to'], data: { id: id, prefix: "new_#{association}", fields: fields.delete("\n") })
   end
 
   def _get_super_model_name(o_class)
@@ -361,6 +371,8 @@ module ApplicationHelper
       r = controller_name == 'video_courses'
     when :customized_groups
       r = controller_name == 'customized_groups'
+    when :student_homeworks
+      r = controller_name == 'student_homeworks'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :tastes
@@ -375,6 +387,8 @@ module ApplicationHelper
       r = controller_name == 'notifications'
     when :customized_courses
       r = controller_name == 'students' && action_name == 'customized_courses'
+    when :questions
+      r = controller_name == 'questions'
     else
       r = false
     end
@@ -407,6 +421,8 @@ module ApplicationHelper
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses
       r = controller_name == 'teachers' && action_name == 'customized_courses'
+    when :my_student_homeworks
+      r = params[:controller] == 'live_studio/teacher/homeworks' || params[:controller] == 'live_studio/teacher/student_homeworks'
     when :lessons_state
       r = controller_name == 'teachers' && action_name == 'lessons_state'
     when :curriculums
@@ -417,6 +433,8 @@ module ApplicationHelper
       r = controller_name == 'teachers' && %w[solutions customized_tutorial_topics homeworks questions topics].include?(action_name)
     when :files
       r = controller_name == 'files' && action_name == 'index'
+    when :questions
+      r = controller_name == 'questions'
     else
       r = false
     end

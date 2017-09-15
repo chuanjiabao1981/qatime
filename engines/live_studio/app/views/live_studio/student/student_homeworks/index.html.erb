@@ -1,0 +1,49 @@
+<div class="contains">
+  <div class="recorded-title">
+    <%= t("view.student_bars.my_student_homeworks") %>
+  </div>
+
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <% LiveStudio::StudentHomework.status.options.each do |text, status| %>
+        <%= link_to text,
+                    live_studio.student_student_homeworks_path(@student, status: status),
+                    class: "#{'active' if params[:status] == status }" %>
+      <% end %>
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="not-approved">
+        <ul class="revert-list">
+          <% @student_homeworks.each do |student_homework| -%>
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="issue-title">
+                    <%= link_to student_homework.title, live_studio.customized_group_path(student_homework.taskable) -%>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p class="submitter">
+                    <span><%= localize(student_homework.created_at) %></span>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <p>
+                    <span><%= LiveStudio::StudentHomework.human_attribute_name(:taskable) %>: </span>
+                    <span><%= student_homework.taskable.name %></span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          <% end -%>
+        </ul>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @student_homeworks %>
+          </div>
+        </center>
+        <%= render 'shared/blank' if @student_homeworks.blank? %>
+      </div>
+    </div>
+  </div>
+</div>

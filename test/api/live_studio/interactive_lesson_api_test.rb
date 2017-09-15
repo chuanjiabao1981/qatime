@@ -11,6 +11,7 @@ class Qatime::InteractiveLessonAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
 
+
     assert_equal 1, res['status']
     assert res['data'].key?('replayable')
     assert res['data'].key?('user_playable')

@@ -8,7 +8,7 @@ module LiveStudio
     has_one :answer, foreign_key: 'parent_id'
     belongs_to :teacher, class_name: '::Teacher'
 
-    after_commit :asyn_send_task_message, on: :create
+    after_commit :asyn_send_team_message, on: :create
 
     private
 

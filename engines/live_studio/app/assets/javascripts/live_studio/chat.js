@@ -495,21 +495,23 @@ function customMessageItem(msg) {
 
 var TaskTypes = {
   "LiveStudio::Question": '问题',
-  "LiveStudio::Answer": '回答',
+  "LiveStudio::Answer": '问题',
   "LiveStudio::Homework": '作业',
-  "LiveStudio::Correction": '批改'
+  "LiveStudio::Correction": '批改',
+  "Resource::File": '课件'
 };
 
 // 任务消息
 function taskMessage(msg) {
   var message = JSON.parse(msg.content);
   var messageNode = messageItem(msg);
+  var messageClass = message.type.replace(/([A-Z])/g,"_$1").replace('_Live_Studio::_', '').replace('_Resource::_', '').toLowerCase();
   if(message.event === 'create') {
     messageNode.append(messageTitle(msg, messageNode));
     var messageBody = $("")
     messageBody = $("<div class='information-con'></div>");
     messageLink = $("<a href='/live_studio/customized_groups/" + message.taskable_id + "' class='folders' target='_blank'></a>");
-    messageLink.append('<span class="folders-title folders-issue">' + TaskTypes[message.type] + '</span>');
+    messageLink.append('<span class="folders-title folders-' + messageClass + '">' + TaskTypes[message.type] + '</span>');
     messageLink.append('<span class="folders-info">' + message.title + '</span>');
     messageBody.append(messageLink);
     messageNode.append(messageBody);

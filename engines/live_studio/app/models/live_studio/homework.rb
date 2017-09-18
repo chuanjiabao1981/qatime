@@ -16,6 +16,6 @@ module LiveStudio
       end
     end
 
-    after_commit :asyn_send_task_message, on: :create
+    after_commit :asyn_send_team_message, on: :create
   end
 end

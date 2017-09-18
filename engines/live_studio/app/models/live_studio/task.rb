@@ -21,13 +21,17 @@ module LiveStudio
       self.taskable ||= parent.taskable
     end
 
-    def asyn_send_task_message
+    def asyn_send_team_message
       LiveStudio::TaskMessageJob.perform_later(id, 'create')
     end
 
+    def message(action)
+      { type: model_name.to_s, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }
+    end
+
     # 发送群组消息
-    def send_task_message(action)
-      msg = { type: model_name.to_s, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }.to_json
+    def send_team_message(action)
+      msg = message(action).to_json
       Netease::IM::Service.send_msg(
         from: user.chat_account.accid, # 教师accid
         ope: 1, # 群消息

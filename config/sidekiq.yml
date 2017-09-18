@@ -15,4 +15,4 @@ testing:
   - chat
   - email
   - notification
-  - task_message
+  - team_custom_message

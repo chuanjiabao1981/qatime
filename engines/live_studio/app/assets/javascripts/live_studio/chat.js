@@ -460,14 +460,105 @@ function messageTag(msg, fromType) {
   return messageNode;
 }
 
+// 自定义消息
+function customMessageItem(msg) {
+  var messageItem;  
+  switch (message.type) {
+  case 'LiveStudio::ScheduledLesson':
+    messageItem = liveMessage(msg);
+    break;
+  case 'LiveStudio::InstantLesson':
+    messageItem = liveMessage(msg);
+    break;
+  case 'LiveStudio::Question':
+    messageItem = taskMessage(msg);
+    break;
+  case 'LiveStudio::Answer':
+    messageItem = taskMessage(msg);
+    break;
+  case 'LiveStudio::Homework':
+    messageItem = taskMessage(msg);
+    break;
+  case 'LiveStudio::Correction':
+    messageItem = taskMessage(msg);
+    break;
+  default:
+    messageItem = liveMessage(msg);
+    break;
+  }
+  return messageItem;
+}
+
+var TaskTypes = {
+  "LiveStudio::Question": '问题',
+  "LiveStudio::Answer": '回答',
+  "LiveStudio::Homework": '作业',
+  "LiveStudio::Correction": '批改'
+};
+
+// 任务消息
+function taskMessage(msg) {
+  var message = JSON.parse(msg.content);
+  var messageItem = messageItem();
+  if(message.event === 'create') {
+    messageItem.append(messageTitle(msg, messageItem));
+    var messageBody = $("")
+    messageBody = $("<div class='information-con'><a href='/live_studio/customized_groups/" + message.taskable_id + "' class='folders'><a></div>");
+    messageBody.append('<span class="folders-title folders-issue">' + TaskTypes[message.type] + '</span>');
+    messageBody.append('<span class="folders-info">' + message.title + '</span>');
+    messageItem.append(messageBody);
+  }
+  return messageItem;
+}
+
+var LiveMessages = {
+  "LiveStudio::ScheduledLesson": {
+    start: "直播开始",
+    close: "直播结束"
+  },
+  "LiveStudio::InstantLesson": {
+    start: "老师开启了互动答疑",
+    close: "老师关闭了互动答疑"
+  }
+};
+
+// 直播消息
+function liveMessage(msg) {
+  var message = JSON.parse(msg.content);
+  var messageItem = messageItem();
+  var text = "未知消息";
+  if(LiveMessages[message.type] && LiveMessages[message.type][message.event]) {
+    text = LiveMessages[message.type][message.event];
+  }
+  messageItem.append("<div class='announcement'><h6>" + text + "</h6></div>");
+}
+
+// 消息节点
+function messageItem(msg) {
+  return $("<div class='new-information' id='msg-" + msg.idClient + "'></div>");
+}
+
+// 消息头
+function messageTitle(msg, messageItem) {
+  var dom = $("<div class='information-title'></div>");
+  dom.append("<img src='' class='information-title-img'>");
+  if(msg.from == currentTeam.account){
+    dom.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
+    messageItem.addClass("new-information-stu");
+  } else if(msg.from == currentTeam.owner) {
+    dom.append("<span class='information-name'>" + msg.fromNick + "(老师)</span>");
+  } else {
+    dom.append("<span class='information-name'>" + msg.fromNick + "</span>");
+    messageItem.addClass("new-information-else");
+  }
+  dom.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
+}
+
 function appendMsg(msg, messageClass, fromType) {
   if(!messageClass) messageClass = '';
-  // 处理自定义消息
-  var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
   // 显示直播开始通知
   if(messageClass == 'Custom'){
-    messageItem.addClass('new-information');
-    messageItem.append("<div class='announcement'><h6>" + CustomMsgText(msg) + "</h6></div>");
+    var messageItem = customMessageItem();
     $("#messages").append(messageItem);
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
     return;
@@ -508,21 +599,6 @@ function appendMsg(msg, messageClass, fromType) {
       $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
     });
   }
-}
-
-// 通知类型
-function CustomMsgText(msg) {
-  var content_obj = JSON.parse(msg.content);
-  var text = '未知';
-
-  if(content_obj.type == 'LiveStudio::ScheduledLesson') {
-    text = content_obj.event == 'start' ? '直播开始' : '直播结束';
-  }
-
-  if(content_obj.type == 'LiveStudio::InstantLesson'){
-    text = content_obj.event == 'start' ? '老师开启了互动答疑' : '老师关闭了互动答疑';
-  }
-  return text;
 }
 
 $(function() {

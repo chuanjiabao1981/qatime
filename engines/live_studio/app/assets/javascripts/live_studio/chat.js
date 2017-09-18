@@ -563,7 +563,7 @@ function appendMsg(msg, messageClass, fromType) {
   if(!messageClass) messageClass = '';
   // 显示直播开始通知
   if(messageClass == 'Custom'){
-    var messageNode = customMessageItem();
+    var messageNode = customMessageItem(msg);
     $("#messages").append(messageNode);
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
     return;

@@ -8,6 +8,8 @@ module LiveStudio
 
     accepts_nested_attributes_for :task_items
 
+    after_commit :asyn_send_task_message, on: :create
+
     after_create :resolve_student_homework
     def resolve_student_homework
       student_homework.resolved! if student_homework.submitted?

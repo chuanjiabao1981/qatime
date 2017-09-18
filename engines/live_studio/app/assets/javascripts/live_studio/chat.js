@@ -483,6 +483,9 @@ function customMessageItem(msg) {
   case 'LiveStudio::Correction':
     messageNode = taskMessage(msg);
     break;
+  case 'Resource::File':
+    messageNode = taskMessage(msg);
+    break;
   default:
     messageNode = liveMessage(msg);
     break;

@@ -504,9 +504,11 @@ function taskMessage(msg) {
   if(message.event === 'create') {
     messageNode.append(messageTitle(msg, messageNode));
     var messageBody = $("")
-    messageBody = $("<div class='information-con'><a href='/live_studio/customized_groups/" + message.taskable_id + "' class='folders'><a></div>");
-    messageBody.append('<span class="folders-title folders-issue">' + TaskTypes[message.type] + '</span>');
-    messageBody.append('<span class="folders-info">' + message.title + '</span>');
+    messageBody = $("<div class='information-con'></div>");
+    messageLink = $("<a href='/live_studio/customized_groups/" + message.taskable_id + "' class='folders' target='_blank'></a>");
+    messageLink.append('<span class="folders-title folders-issue">' + TaskTypes[message.type] + '</span>');
+    messageLink.append('<span class="folders-info">' + message.title + '</span>');
+    messageBody.append(messageLink);
     messageNode.append(messageBody);
   }
   return messageNode;
@@ -554,6 +556,7 @@ function messageTitle(msg, messageNode) {
     messageNode.addClass("new-information-else");
   }
   dom.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
+  return dom;
 }
 
 function appendMsg(msg, messageClass, fromType) {

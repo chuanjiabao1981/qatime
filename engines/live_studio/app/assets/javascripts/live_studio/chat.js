@@ -465,6 +465,7 @@ function messageTag(msg, fromType) {
 
 // 自定义消息
 function customMessageItem(msg) {
+  var message = JSON.parse(msg.content);
   var messageNode;  
   switch (message.type) {
   case 'LiveStudio::ScheduledLesson':

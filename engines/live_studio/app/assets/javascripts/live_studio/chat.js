@@ -499,7 +499,7 @@ var TaskTypes = {
 // 任务消息
 function taskMessage(msg) {
   var message = JSON.parse(msg.content);
-  var messageNode = messageItem();
+  var messageNode = messageItem(msg);
   if(message.event === 'create') {
     messageNode.append(messageTitle(msg, messageNode));
     var messageBody = $("")
@@ -525,7 +525,7 @@ var LiveMessages = {
 // 直播消息
 function liveMessage(msg) {
   var message = JSON.parse(msg.content);
-  var messageNode = messageItem();
+  var messageNode = messageItem(msg);
   var text = "未知消息";
   if(LiveMessages[message.type] && LiveMessages[message.type][message.event]) {
     text = LiveMessages[message.type][message.event];
@@ -564,7 +564,7 @@ function appendMsg(msg, messageClass, fromType) {
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
     return;
   } else {
-    var messageNode = messageItem();
+    var messageNode = messageItem(msg);
   }
 
   // 消息标题 老师 发送时间

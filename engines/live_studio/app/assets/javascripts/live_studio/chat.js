@@ -462,31 +462,31 @@ function messageTag(msg, fromType) {
 
 // 自定义消息
 function customMessageItem(msg) {
-  var messageItem;  
+  var messageNode;  
   switch (message.type) {
   case 'LiveStudio::ScheduledLesson':
-    messageItem = liveMessage(msg);
+    messageNode = liveMessage(msg);
     break;
   case 'LiveStudio::InstantLesson':
-    messageItem = liveMessage(msg);
+    messageNode = liveMessage(msg);
     break;
   case 'LiveStudio::Question':
-    messageItem = taskMessage(msg);
+    messageNode = taskMessage(msg);
     break;
   case 'LiveStudio::Answer':
-    messageItem = taskMessage(msg);
+    messageNode = taskMessage(msg);
     break;
   case 'LiveStudio::Homework':
-    messageItem = taskMessage(msg);
+    messageNode = taskMessage(msg);
     break;
   case 'LiveStudio::Correction':
-    messageItem = taskMessage(msg);
+    messageNode = taskMessage(msg);
     break;
   default:
-    messageItem = liveMessage(msg);
+    messageNode = liveMessage(msg);
     break;
   }
-  return messageItem;
+  return messageNode;
 }
 
 var TaskTypes = {
@@ -499,16 +499,16 @@ var TaskTypes = {
 // 任务消息
 function taskMessage(msg) {
   var message = JSON.parse(msg.content);
-  var messageItem = messageItem();
+  var messageNode = messageItem();
   if(message.event === 'create') {
-    messageItem.append(messageTitle(msg, messageItem));
+    messageNode.append(messageTitle(msg, messageNode));
     var messageBody = $("")
     messageBody = $("<div class='information-con'><a href='/live_studio/customized_groups/" + message.taskable_id + "' class='folders'><a></div>");
     messageBody.append('<span class="folders-title folders-issue">' + TaskTypes[message.type] + '</span>');
     messageBody.append('<span class="folders-info">' + message.title + '</span>');
-    messageItem.append(messageBody);
+    messageNode.append(messageBody);
   }
-  return messageItem;
+  return messageNode;
 }
 
 var LiveMessages = {
@@ -525,12 +525,13 @@ var LiveMessages = {
 // 直播消息
 function liveMessage(msg) {
   var message = JSON.parse(msg.content);
-  var messageItem = messageItem();
+  var messageNode = messageItem();
   var text = "未知消息";
   if(LiveMessages[message.type] && LiveMessages[message.type][message.event]) {
     text = LiveMessages[message.type][message.event];
   }
-  messageItem.append("<div class='announcement'><h6>" + text + "</h6></div>");
+  messageNode.append("<div class='announcement'><h6>" + text + "</h6></div>");
+  return messageNode;
 }
 
 // 消息节点
@@ -539,17 +540,17 @@ function messageItem(msg) {
 }
 
 // 消息头
-function messageTitle(msg, messageItem) {
+function messageTitle(msg, messageNode) {
   var dom = $("<div class='information-title'></div>");
   dom.append("<img src='' class='information-title-img'>");
   if(msg.from == currentTeam.account){
     dom.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
-    messageItem.addClass("new-information-stu");
+    messageNode.addClass("new-information-stu");
   } else if(msg.from == currentTeam.owner) {
     dom.append("<span class='information-name'>" + msg.fromNick + "(老师)</span>");
   } else {
     dom.append("<span class='information-name'>" + msg.fromNick + "</span>");
-    messageItem.addClass("new-information-else");
+    messageNode.addClass("new-information-else");
   }
   dom.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
 }
@@ -558,12 +559,12 @@ function appendMsg(msg, messageClass, fromType) {
   if(!messageClass) messageClass = '';
   // 显示直播开始通知
   if(messageClass == 'Custom'){
-    var messageItem = customMessageItem();
-    $("#messages").append(messageItem);
+    var messageNode = customMessageItem();
+    $("#messages").append(messageNode);
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
     return;
   } else {
-    var messageItem = messageItem();
+    var messageNode = messageItem();
   }
 
   // 消息标题 老师 发送时间
@@ -572,20 +573,20 @@ function appendMsg(msg, messageClass, fromType) {
 
   if(msg.from == currentTeam.account){
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
-    messageItem.addClass("new-information-stu");
+    messageNode.addClass("new-information-stu");
   } else if(msg.from == currentTeam.owner) {
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "(老师)</span>");
   } else {
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
-    messageItem.addClass("new-information-else");
+    messageNode.addClass("new-information-else");
   }
   messageTitle.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
-  messageItem.append(messageTitle);
+  messageNode.append(messageTitle);
   // 消息内容标签
   var messageContent = messageTag(msg, fromType);
-  messageItem.append(messageContent);
+  messageNode.append(messageContent);
 
-  $("#messages").append(messageItem);
+  $("#messages").append(messageNode);
 
   // 显示弹幕
   if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline' && fromType != 'roaming') {

@@ -564,6 +564,8 @@ function appendMsg(msg, messageClass, fromType) {
     $("#messages").append(messageItem);
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
     return;
+  } else {
+    var messageItem = messageItem();
   }
 
   // 消息标题 老师 发送时间

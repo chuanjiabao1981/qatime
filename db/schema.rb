@@ -1661,14 +1661,15 @@ ActiveRecord::Schema.define(version: 20170831083441) do
   add_index "resource_quotes", ["file_id"], name: "index_resource_quotes_on_file_id", using: :btree
 
   create_table "resource_video_infos", force: :cascade do |t|
+    t.integer  "video_file_id"
     t.integer  "duration"
     t.string   "capture"
     t.string   "url"
     t.string   "sd_mp4_url"
     t.string   "hd_mp4_url"
     t.string   "shd_mp4_url"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "resource_videos", force: :cascade do |t|

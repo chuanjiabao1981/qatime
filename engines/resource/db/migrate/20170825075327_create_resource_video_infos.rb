@@ -1,6 +1,7 @@
 class CreateResourceVideoInfos < ActiveRecord::Migration
   def change
     create_table :resource_video_infos do |t|
+      t.references :video_file
       t.integer :duration
       t.string :capture
       t.string :url

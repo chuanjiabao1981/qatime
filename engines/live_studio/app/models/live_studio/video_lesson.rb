@@ -4,6 +4,9 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
     prepend PlayRecordWithJob
+    include Resource::Quotable
+
+    has_one :video_file, through: :quote, class_name: 'Resource::VideoFile', source: 'file'
 
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
@@ -175,6 +178,5 @@ module LiveStudio
     def set_real_time
       self.real_time = video.tmp_duration if video
     end
-
   end
 end

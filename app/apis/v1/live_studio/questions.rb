@@ -73,7 +73,7 @@ module V1
             requires :id, type: Integer, desc: '问题ID'
           end
           get ':id' do
-            present question, with: Entities::LiveStudio::Question
+            present @question, with: Entities::LiveStudio::Question
           end
         end
       end

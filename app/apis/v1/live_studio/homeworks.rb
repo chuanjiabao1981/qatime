@@ -70,9 +70,14 @@ module V1
             requires :id, type: Integer, desc: '作业ID'
           end
           get ':id' do
-            student_homeworks = @homework.student_homeworks.published.includes(:user, :task_items, correction: [:task_items])
             present @homework, root: :homework, with: Entities::LiveStudio::Homework
-            present student_homeworks, root: :student_homeworks, with: Entities::LiveStudio::StudentHomeworkList
+            if current_user.student?
+              student_homework = @homework.student_homeworks.find_by(user_id: current_user.id)
+              present student_homework, root: :student_homeworks, with: Entities::LiveStudio::StudentHomework
+            else
+              student_homeworks = @homework.student_homeworks.published.includes(:user, :task_items, correction: [:task_items])
+              present student_homeworks, root: :student_homeworks, with: Entities::LiveStudio::StudentHomeworkList
+            end
           end
         end
       end

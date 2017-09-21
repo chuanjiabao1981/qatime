@@ -245,6 +245,10 @@ module Permissions
         student_homework && student_homework.user == user
       end
 
+      api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
+        homework && homework.taskable && user.live_studio_bought_customized_groups.include?(homework.taskable)
+      end
+
       # 专属课提问列表
       api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
         group && user.live_studio_customized_groups.include?(group)

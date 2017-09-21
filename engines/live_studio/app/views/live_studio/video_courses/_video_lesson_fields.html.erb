@@ -1,17 +1,18 @@
 <%
   lesson = f.object
-  video = lesson.video || Video.new
+  lesson.build_quote if lesson.quote.blank?
   object_id = f.object.object_id
 %>
 
 <li record-id="<%= lesson.id %>" class="<%= 'saved' if lesson.name.present? %> <%= f.object._destroy ? 'hidden' : '' %>">
   <%= f.input_field :id, as: :hidden %>
+  <%= f.input_field :real_time, as: :hidden, class: "video_duration" %>
   <span class="lesson_sort_view"></span>
   <div class="addcourse-info">
-    <%= image_tag video.capture_url, class: "video_capture_view", size: '51x29' %>
+    <%= image_tag lesson.video_capture_url, class: "video_capture_view", size: '51x29' %>
     <div class="info-list">
       <p class="lesson_name_view"><%= lesson.name %></p>
-      <p class="info-list-time"><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %><i class="video_duration_view"><%= video.format_tmp_duration %></i></p>
+      <p class="info-list-time"><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %><i class="video_duration_view"><%= lesson.video_format_duration %></i></p>
     </div>
     <div class="addcourse-editor">
       <%= link_to t('activerecord.view.edit'), "javascript:void(0);",
@@ -48,7 +49,7 @@
                 <div class="col-md-10">
                   <div class="info-video">
                     <div class="addvideo">
-                      <%= image_tag(video.capture_url, class: "video_capture_edit", size: "160x90") %>
+                      <%= image_tag(lesson.video_capture_url, class: "video_capture_edit", size: "160x90") %>
                       <div class="upload-pic">
                         <input type="file" id="video_file_<%= object_id %>" class="video_file" token="<%= object_id %>" style="display: none;" >
                         <a class="upload-video" onclick="$(this).prev().click();">
@@ -67,7 +68,10 @@
                       <p><%= t("view.video_course_form.video_tips_2") %></p>
                     </div>
                   </div>
-                  <%= f.input_field :video_id, as: :hidden, class: 'video_id' -%>
+                  <%= f.fields_for :quote do |qf| %>
+                    <%= qf.input_field :id, as: :hidden %>
+                    <%= qf.input_field :file_id, as: :hidden, class: 'video_id' %>
+                  <% end %>
                   <span class="help-block has-error"></span>
                   <%= f.input_field :pos, as: :hidden, class: 'lesson_sort_edit' -%>
                 </div>

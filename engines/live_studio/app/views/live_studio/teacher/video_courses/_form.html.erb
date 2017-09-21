@@ -75,11 +75,9 @@ $(function() {
       alert("<%= t('view.video_course_form.video_format_tips') %>");
       return false;
     }
-    var videoForm = '<form id="video_form" action="/videos" enctype="multipart/form-data" method="post"></form>';
+    var videoForm = '<form id="video_form" action="<%= resource.files_path %>" enctype="multipart/form-data" method="post"></form>';
     var data = new FormData();
-    data.append("video[token]", $(e.target).attr('token'));
-    data.append("video[name]" , file, file.name);
-    data.append("capture", true);
+    data.append("file[file]" , file, file.name);
     currentNode.find(".video_id").val('');
     $(videoForm).ajaxSubmit({
       dataType: 'json',
@@ -106,8 +104,9 @@ $(function() {
         if(data.id) {
           currentNode.find(".video_id").val(data.id); // 设置视频ID
           currentNode.find(".upload-video span").text('<%= t("view.video_course_form.edit_video") %>'); // 设置上传视频提示
-          currentNode.find(".video_duration_edit").text(formatDuration(data.tmp_duration)); // 设置视频时长
-          currentNode.find(".video_capture_edit").attr('src', data.capture.url); // 设置视频截图
+          currentNode.find(".video_duration_edit").text(formatDuration(data.video_duration)); // 设置视频时长
+          currentNode.find(".video_capture_edit").attr('src', data.video_capture_url); // 设置视频截图
+          currentNode.find(".video_duration").val(data.video_duration); // 视频时长
         }
         uploadTips.html('<%= t('view.video_course_form.uploaded') %>').removeClass('has-error');
       }

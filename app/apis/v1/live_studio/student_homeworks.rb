@@ -59,10 +59,22 @@ module V1
             requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
                                              desc: '[{"parent_id": 1, "body": "不会"}, {"parent_id": 2, "body": "不会"}, {"parent_id": 3, "body": "不会" }]'
           end
-
           patch ':id' do
             student_homework_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
             raise ActiveRecord::RecordInvalid, @student_homework unless @student_homework.update(student_homework_params)
+            present @student_homework, with: Entities::LiveStudio::StudentHomework
+          end
+
+          desc '学生作业详情' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '学生作业ID'
+          end
+          get ':id' do
             present @student_homework, with: Entities::LiveStudio::StudentHomework
           end
         end

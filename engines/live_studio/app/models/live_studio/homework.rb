@@ -15,5 +15,7 @@ module LiveStudio
         student_homeworks.create(teacher: user, user: ticket.student, taskable: taskable, title: title, body: body)
       end
     end
+
+    after_commit :asyn_send_team_message, on: :create
   end
 end

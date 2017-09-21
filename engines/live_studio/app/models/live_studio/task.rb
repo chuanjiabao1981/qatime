@@ -20,5 +20,25 @@ module LiveStudio
       self.body ||= parent.body
       self.taskable ||= parent.taskable
     end
+
+    def asyn_send_team_message
+      LiveStudio::TaskMessageJob.perform_later(id, 'create')
+    end
+
+    def message(action)
+      { type: model_name.to_s, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }
+    end
+
+    # 发送群组消息
+    def send_team_message(action)
+      msg = message(action).to_json
+      Netease::IM::Service.send_msg(
+        from: user.chat_account.accid, # 教师accid
+        ope: 1, # 群消息
+        to: taskable.chat_team.team_id, # 发送群组ID
+        type: '100', # 自定义消息
+        body: msg
+      )
+    end
   end
 end

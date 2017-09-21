@@ -7,7 +7,7 @@ module LiveStudio
     def play
       @lesson = @video_lesson
       @course = @video_lesson.video_course
-      @video = @lesson.video
+      @video_file = @lesson.video_file
       @lessons = VideoLesson.where(video_course_id: @lesson.video_course_id)
 
       @course.tickets.by_student_id(current_user.id).available.each do |ticket|

@@ -68,7 +68,7 @@ module LiveStudio
           params[:video_course][:video_lessons_attributes] = params[:video_course][:video_lessons_attributes].map(&:second)
         end
         params.require(:video_course).permit(:name, :grade, :description,
-                                             video_lessons_attributes: [:id, :name, :video_id, :pos, :_destroy])
+                                             video_lessons_attributes: [:id, :name, :pos, :real_time, :_destroy, quote_attributes: [:id, :file_id]])
       end
 
       def video_course_cate_filter

@@ -8,6 +8,10 @@ module LiveStudio
 
     has_one :video_file, through: :quote, class_name: 'Resource::VideoFile', source: 'file'
 
+    delegate :video_format_duration, :video_capture_url, to: :video_file, allow_nil: true
+
+    accepts_nested_attributes_for :quote
+
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
 

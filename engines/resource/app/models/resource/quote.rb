@@ -4,6 +4,6 @@ module Resource
     belongs_to :quoter, polymorphic: true
 
     delegate :type, :file_size, :ext_name, :file_url, to: :file
-    delegate :name, :id, to: :file, prefix: true
+    delegate :name, to: :file, prefix: true
   end
 end

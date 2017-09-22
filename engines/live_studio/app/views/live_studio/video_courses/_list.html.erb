@@ -24,7 +24,7 @@
             </div>
             <div class="classify-info">
               <p>
-                <span><%= t('common.teacher') %>：<i><%= truncate_u course.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text', count: course.buy_user_count) %></i></span>
+                <span><%= t('common.teacher') %>：<i><%= truncate_u course.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text', count: course.users_count) %></i></span>
               </p>
             </div>
           </li>

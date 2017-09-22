@@ -103,7 +103,7 @@ module LiveStudio
 
     scope :sell_and_platform_percentage_greater_than, ->(platform_percentage) { where('live_studio_groups.sell_and_platform_percentage > ?', platform_percentage) }
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
-    scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
+    scope :for_sell, -> { where(status: statuses[:published]) }
 
     def for_sell?
       published? || teaching?

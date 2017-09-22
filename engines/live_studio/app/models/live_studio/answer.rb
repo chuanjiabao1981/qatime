@@ -9,5 +9,9 @@ module LiveStudio
     def resolve_question
       question.resolved! if question.pending?
     end
+
+    def message(action)
+      { type: model_name.to_s, id: parent_id, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }
+    end
   end
 end

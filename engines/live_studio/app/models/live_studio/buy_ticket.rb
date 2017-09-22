@@ -17,5 +17,12 @@ module LiveStudio
       self.platform_percentage = [product.sell_and_platform_percentage, seller.platform_percentage].min
       self.sell_percentage = product.sell_and_platform_percentage - platform_percentage
     end
+
+    after_create :ince_user_counter
+    # 增加购买人数
+    def ince_user_counter
+      product.model_name.increment_counter(:buy_tickets_count, product_id)
+      product.model_name.increment_counter(:users_count, product_id)
+    end
   end
 end

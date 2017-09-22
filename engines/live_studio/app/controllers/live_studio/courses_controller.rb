@@ -4,7 +4,7 @@ module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons, :for_free]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons, :for_free, :inc_users_count]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
     before_action :detect_device_format, only: [:show]
@@ -37,6 +37,12 @@ module LiveStudio
       else
         render :new, layout: 'v1/manager_home'
       end
+    end
+
+    def inc_users_count
+      @course.class.update_counters(@course.id, adjust_buy_count: params[:by].to_i)
+      @course.class.update_counters(@course.id, users_count: params[:by].to_i)
+      @course.reload
     end
 
     # 预览

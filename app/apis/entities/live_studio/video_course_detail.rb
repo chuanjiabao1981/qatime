@@ -5,9 +5,7 @@ module Entities
       expose :price do |course|
         course.price.to_f.round(2)
       end
-      expose :buy_tickets_count do |course|
-        course.buy_user_count
-      end
+      expose :users_count, as: :buy_tickets_count
       expose :status
       expose :description
       expose :tag_list

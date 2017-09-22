@@ -7,7 +7,17 @@
       <div class="col-md-7 col-xs-12 course-introduce">
         <div class="course-title">
           <h1><%= truncate_u @course.name, length: 24 %></h1>
-          <span><%= t('view.live_studio/courses.show.purchase_number', count: @course.buy_user_count ) %></span>
+          <span id="users_count"><%= t('view.live_studio/courses.show.purchase_number', count: @course.users_count ) %></span>
+
+          <% if allow?('live_studio/courses', 'inc_users_count', @course) -%>
+            <%= form_tag live_studio.inc_users_count_course_path, method: :post, remote: true do %>
+              <%= button_tag '增加', id: 'inc_users_count_link', type: 'button', class: "form-control add" %>
+              <span id='inc_users_count_field' style="display: none;" class="add-num">
+                <%= text_field_tag :by, 1, type: 'number', class: 'form-control' %>
+                <%= submit_tag '保存', class: 'form-control' %>
+              </span>
+            <% end -%>
+          <% end %>
         </div>
         <div class="course-line">
           <span class="<%= 'active' if @course.refund_any_time? %>">
@@ -55,3 +65,14 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $("#inc_users_count_link").click(function() {
+    $(this).hide();
+    $("#inc_users_count_field").show();
+  });
+});
+</script>
+<% end %>

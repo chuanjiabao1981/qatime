@@ -13,7 +13,7 @@ module V1
               optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
               optional :sell_type_eq, type: String, desc: '销售类型 charge: 收费; free: 免费', values: %w[charge free]
             end
-            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
+            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc users_count users_count.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
             search_params = ActionController::Parameters.new(params).permit(:sort_by, q: [:status_eq, :grade_eq, :subject_eq, :sell_type_eq])

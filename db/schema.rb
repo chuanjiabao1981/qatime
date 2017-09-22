@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831083441) do
+ActiveRecord::Schema.define(version: 20170922061760) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -628,6 +628,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.string   "suit_crowd"
     t.integer  "current_lesson_id"
     t.integer  "sell_type",                    limit: 2,                            default: 1
+    t.integer  "users_count",                                                       default: 0
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
@@ -712,6 +713,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                                                     null: false
     t.datetime "updated_at",                                                                     null: false
+    t.integer  "users_count",                                                      default: 0
   end
 
   add_index "live_studio_groups", ["author_id"], name: "index_live_studio_groups_on_author_id", using: :btree
@@ -765,6 +767,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.decimal  "left_price",                               precision: 10, scale: 2, default: 0.0
+    t.integer  "users_count",                                                       default: 0
   end
 
   add_index "live_studio_interactive_courses", ["author_id"], name: "index_live_studio_interactive_courses_on_author_id", using: :btree
@@ -1053,6 +1056,7 @@ ActiveRecord::Schema.define(version: 20170831083441) do
     t.datetime "completed_at"
     t.string   "duration"
     t.integer  "total_duration",                                                    default: 0
+    t.integer  "users_count",                                                       default: 0
   end
 
   add_index "live_studio_video_courses", ["author_id"], name: "index_live_studio_video_courses_on_author_id", using: :btree

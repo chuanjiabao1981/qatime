@@ -4,7 +4,7 @@ module LiveStudio
   class CustomizedGroupsController < ApplicationController
     layout 'v1/application'
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_customized_group, only: [:show, :for_free, :play]
+    before_action :set_customized_group, only: [:show, :for_free, :play, :inc_users_count]
     before_action :play_authorize, only: [:play]
 
     def index
@@ -36,6 +36,12 @@ module LiveStudio
 
     def live_info
       render json: LiveService::GroupRealtimeService.new(params[:id]).live_detail(current_user.try(:id))
+    end
+
+    def inc_users_count
+      @customized_group.class.update_counters(@customized_group.id, adjust_tickets_count: params[:by].to_i)
+      @customized_group.class.update_counters(@customized_group.id, users_count: params[:by].to_i)
+      @customized_group.reload
     end
 
     private

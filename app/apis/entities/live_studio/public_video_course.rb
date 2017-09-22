@@ -8,9 +8,7 @@ module Entities
       expose :price
       expose :current_price
       expose :subject
-      expose :buy_tickets_count do |course|
-        course.buy_user_count
-      end
+      expose :users_count, as: :buy_tickets_count
       expose :publicize do |course|
         course.publicize_url(:list)
       end

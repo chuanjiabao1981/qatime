@@ -20,9 +20,7 @@ module Entities
       expose :chat_team_owner do |course|
         nil
       end
-      expose :buy_tickets_count do |course|
-        course.buy_user_count
-      end
+      expose :users_count, as: :buy_tickets_count
       expose :status
       expose :description, if: { type: :full }
       expose :tag_list, if: { type: :full }

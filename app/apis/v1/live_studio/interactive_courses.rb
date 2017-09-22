@@ -12,7 +12,7 @@ module V1
               optional :grade_eq, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
               optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
             end
-            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
+            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc users_count users_count.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
             search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt])

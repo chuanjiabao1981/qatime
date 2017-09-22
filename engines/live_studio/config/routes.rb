@@ -43,6 +43,7 @@ LiveStudio::Engine.routes.draw do
       get :update_class_date
       get :for_free
       patch :update_lessons
+      post :inc_users_count
     end
 
     resources :lessons, only: [:show], shallow: true do
@@ -92,6 +93,7 @@ LiveStudio::Engine.routes.draw do
       get :play # 观看直播
       post :update_notice
       get :preview
+      post :inc_users_count
     end
 
     resources :orders, only: [:new, :create]
@@ -115,6 +117,7 @@ LiveStudio::Engine.routes.draw do
       get :for_free
       get :play
       get :live_info
+      post :inc_users_count
     end
     resources :orders, only: [:new, :create] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true

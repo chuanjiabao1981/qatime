@@ -10075,7 +10075,7 @@ div.live-big {
   box-shadow: none !important;
 }
 .course-title .add-num,.course-title form {
-  display: inline-block
+  display: inline-block;
 }
 .course-title .add-num {
   display: none;
@@ -10115,7 +10115,6 @@ div.live-big {
   color: #666;
 }
 .course-price {
-  overflow: hidden;
   width: 100%;
 }
 .course-price span {
@@ -17384,6 +17383,10 @@ abbr {
 }
 .modal-file .modal-body > ul > li {
   margin-bottom: 20px;
+}
+.modal-file .modal-body > ul > li label {
+  display: block;
+  font-weight: normal;
 }
 .modal-file .modal-body > ul .filename > p {
   text-overflow: ellipsis;

@@ -1,0 +1,41 @@
+<ul id="file-items">
+  <% @files.each do |f| -%>
+    <li data-file_id="<%= f.id %>" data-video_duration="<%= f.video_format_duration %>">
+      <label for="file-<%= f.id %>">
+        <div class="row">
+          <div class="col-md-10 col-sm-10 col-xs-10 filename">
+            <p><%= f.name %><span>(<%= number_to_human_size(f.file_size.to_f) %>)</span></p>
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 checkboxed">
+            <input type="radio" value="<%= f.id %>" name="file_id" id="file-<%= f.id %>">
+          </div>
+        </div>
+      </label>
+    </li>
+  <% end %>
+</ul>
+
+<div class="date-btn">
+  <center>
+    <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+    <a href="javascript:void(0);" id="file-select-done">确定</a>
+  </center>
+</div>
+
+<script>
+$(function() {
+  $("#file-select-done").click(function() {
+    var selectNode = $("#file-items input:checked").closest('li');
+    var currentNode = $("#outer_wrap > li.active");
+    // 清除错误提示
+    currentNode.find('.has-error').text('').hide();
+    // 显示进度条
+    currentNode.find(".video_id").val(selectNode.data('file_id')); // 设置视频ID
+    // 隐藏进度文字
+    currentNode.find('.progress-text').hide();
+    // 显示文件信息
+    currentNode.find('.file-info').show().find('.file-duration').text(selectNode.data('video_duration'));
+    $('#file-list').modal('hide');
+  });
+});
+</script>

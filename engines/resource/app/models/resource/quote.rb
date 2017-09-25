@@ -3,6 +3,8 @@ module Resource
     belongs_to :file, counter_cache: true
     belongs_to :quoter, polymorphic: true
 
+    # validates :quoter, :file, presence: true
+
     delegate :type, :file_size, :ext_name, :file_url, to: :file
     delegate :name, to: :file, prefix: true
 

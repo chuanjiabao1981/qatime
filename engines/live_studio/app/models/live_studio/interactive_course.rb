@@ -274,11 +274,6 @@ module LiveStudio
       base_price.to_i
     end
 
-    def reset_left_price
-      self.left_price = current_price
-      save
-    end
-
     def ready_lessons
       tmp_class_date = [class_date, interactive_lessons.map(&:class_date).min].min rescue class_date
       return if tmp_class_date.blank?

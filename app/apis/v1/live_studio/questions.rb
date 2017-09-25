@@ -55,6 +55,27 @@ module V1
             end
           end
         end
+
+        resource :questions do
+          helpers do
+            def auth_params
+              @question ||= ::LiveStudio::Question.find(params[:id])
+            end
+          end
+
+          desc '提问详情' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '问题ID'
+          end
+          get ':id' do
+            present @question, with: Entities::LiveStudio::Question
+          end
+        end
       end
     end
   end

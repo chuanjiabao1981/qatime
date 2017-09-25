@@ -71,6 +71,21 @@ module V1
                 @group.files.delete(file)
                 { result: 'ok' }
               end
+
+              desc '课件详情' do
+                headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                }
+              end
+              params do
+                requires :group_id, type: Integer, desc: '专属课ID'
+                requires :id, type: Integer, desc: '文件ID'
+              end
+              get '/:id' do
+                quote = @group.quotes.find_by!(file_id: params[:id])
+                present quote, with: Entities::Resource::Quote
+              end
             end
           end
         end

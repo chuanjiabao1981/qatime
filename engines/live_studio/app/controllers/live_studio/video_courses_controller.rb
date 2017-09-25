@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
-    before_action :set_video_course, only: [:show, :edit, :update, :destroy, :taste, :deliver]
+    before_action :set_video_course, only: [:show, :edit, :update, :destroy, :taste, :deliver, :inc_users_count]
     before_action :detect_device_format, only: [:show]
 
     def index
@@ -66,10 +66,10 @@ module LiveStudio
       end
     end
 
-    # DELETE /video_courses/1
-    def destroy
-      @video_course.destroy
-      redirect_to video_courses_url, notice: 'Video course was successfully destroyed.'
+    def inc_users_count
+      @video_course.class.update_counters(@video_course.id, adjust_buy_count: params[:by].to_i)
+      @video_course.class.update_counters(@video_course.id, users_count: params[:by].to_i)
+      @video_course.reload
     end
 
     def preview

@@ -12,9 +12,7 @@ module Entities
       expose :chat_team_owner do |course|
         course.try(:chat_team).try(:owner).to_s
       end
-      expose :buy_tickets_count do |course|
-        course.buy_user_count
-      end
+      expose :users_count, as: :buy_tickets_count
       expose :status
       expose :description
       expose :tag_list

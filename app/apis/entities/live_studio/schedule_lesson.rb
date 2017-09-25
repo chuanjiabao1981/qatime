@@ -58,9 +58,9 @@ module Entities
       end
       expose :buy_tickets_count do |lesson|
         if lesson.is_a? ::LiveStudio::InteractiveLesson
-          lesson.interactive_course.buy_user_count
+          lesson.interactive_course.users_count
         elsif lesson.is_a?(::LiveStudio::Event)
-          lesson.group.buy_user_count
+          lesson.group.users_count
         else
           lesson.course.buy_user_count
         end

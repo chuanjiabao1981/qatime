@@ -52,6 +52,34 @@ module V1
             end
           end
         end
+
+        resource :homeworks do
+          helpers do
+            def auth_params
+              @homework = ::LiveStudio::Homework.find(params[:id])
+            end
+          end
+
+          desc '作业详情' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '作业ID'
+          end
+          get ':id' do
+            present @homework, root: :homework, with: Entities::LiveStudio::Homework
+            if current_user.student?
+              student_homework = @homework.student_homeworks.find_by(user_id: current_user.id)
+              present student_homework, root: :student_homework, with: Entities::LiveStudio::StudentHomework
+            else
+              student_homeworks = @homework.student_homeworks.published.includes(:user, :task_items, correction: [:task_items])
+              present student_homeworks, root: :student_homeworks, with: Entities::LiveStudio::StudentHomeworkList
+            end
+          end
+        end
       end
     end
   end

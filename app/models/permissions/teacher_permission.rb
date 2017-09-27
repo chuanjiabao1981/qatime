@@ -339,6 +339,9 @@ module Permissions
         teacher && teacher == user
       end
 
+      # 上传附件
+      api_allow :POST, '/api/v1/live_studio/attachments'
+
       # 专属课提问列表
       api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
         group && user.live_studio_customized_groups.include?(group)
@@ -409,6 +412,8 @@ module Permissions
       allow 'resource/teacher/files', [:create, :destroy] do |teacher|
         teacher && teacher.id == user.id
       end
+
+      allow 'live_studio/attachments', [:create]
 
       # 资源中心 end
 

@@ -4,7 +4,7 @@
       <%= f.input_field :title %>
       <%= f.error :title %>
     </div>
-
+    
     <%= f.fields_for :task_items do |item| %>
       <%= render 'task_item_fields', f: item %>
     <% end %>

@@ -24,10 +24,10 @@ module V1
               params do
                 requires :student_homework_id, type: Integer, desc: '学生提交的作业ID'
                 requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
-                         desc: '[{"parent_id": 45, "body": "45修改"}, {"parent_id": 46, "body": "46修改"}, {"parent_id": 47, "body": "47修改" }]'
+                         desc: '[{"parent_id": 45, "body": "45修改", "quotes_attributes": [{"attachment_id": 10}]}, {"parent_id": 46, "body": "46修改"}, {"parent_id": 47, "body": "47修改" }]'
               end
               post '' do
-                correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
+                correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body, quotes_attributes: [:attachment_id]])
                 correction = @student_homework.build_correction(correction_params)
                 correction.user = current_user
                 raise ActiveRecord::RecordInvalid, correction unless correction.save

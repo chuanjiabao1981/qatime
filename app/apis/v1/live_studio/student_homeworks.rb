@@ -33,7 +33,7 @@ module V1
                   else
                     @group.student_homeworks.published
                   end
-                student_homeworks = student_homeworks.includes(:task_items, homework: [:user, :task_items], correction: [:user, :task_items])
+                student_homeworks = student_homeworks.includes(task_items: [:attachments], homework: [:user, task_items: [:attachments]], correction: [:user, task_items: [:attachments]])
                 student_homeworks = student_homeworks.paginate(page: params[:page], per_page: params[:per_page])
                 present student_homeworks, with: Entities::LiveStudio::StudentHomework
               end
@@ -57,10 +57,10 @@ module V1
           params do
             requires :id, type: Integer, desc: '学生作业ID'
             requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
-                                             desc: '[{"parent_id": 1, "body": "不会"}, {"parent_id": 2, "body": "不会"}, {"parent_id": 3, "body": "不会" }]'
+                                             desc: '[{"parent_id": 1, "body": "不会", quotes_attributes: [{"id": 1, "attachment_id": 10, "_destroy": 1 }}, {"parent_id": 2, "body": "不会"}, {"parent_id": 3, "body": "不会" }]'
           end
           patch ':id' do
-            student_homework_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
+            student_homework_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body, quotes_attributes: [:id, :attachment_id, :_destroy]])
             raise ActiveRecord::RecordInvalid, @student_homework unless @student_homework.update(student_homework_params)
             present @student_homework, with: Entities::LiveStudio::StudentHomework
           end

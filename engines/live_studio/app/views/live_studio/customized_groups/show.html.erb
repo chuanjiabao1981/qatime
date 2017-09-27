@@ -38,7 +38,7 @@
             <!--作业-->
             <div class="tab-pane fade asyn_append_files" id="homework"></div>
             <!--提问-->
-            <div class="tab-pane fade" id="ask"></div>
+            <div class="tab-pane fade asyn_append_files" id="ask"></div>
             <!--课件-->
             <% if current_user && current_user.teacher? && @customized_group.teacher == current_user %>
               <%= render 'live_studio/customized_groups/show/courseware_teacher' %>

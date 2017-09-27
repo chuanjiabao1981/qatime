@@ -7,7 +7,10 @@ module LiveStudio
 
     has_one :answer, foreign_key: 'parent_id'
     belongs_to :teacher, class_name: '::Teacher'
-    has_many :attachments, as: :attachable
+
+    has_many :quotes, as: :quoter
+    has_many :attachments, through: :quotes, class_name: 'LiveStudio::Attachment'
+    accepts_nested_attributes_for :quotes
 
     after_commit :asyn_send_team_message, on: :create
 

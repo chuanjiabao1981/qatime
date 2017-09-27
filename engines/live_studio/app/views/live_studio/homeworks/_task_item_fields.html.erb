@@ -1,5 +1,21 @@
-<div class="form-group form-textarea">
-  <%= f.input_field :body, as: :text %>
-  <%= f.error :body %>
+<div>
+  <div class="form-group form-textarea">
+    <%= f.input_field :body, as: :text %>
+    <%= f.error :body %>
+  </div>
+
+  <div class="form-file">
+    <%= f.fields_for :attachments do |attach_form| %>
+      <%= render 'live_studio/quotes/quotes_fields', f: attach_form if attach_form.object && attach_form.object.image? %>
+    <% end %>
+
+    <% f.object.quotes.build -%>
+
+    <div class="file-img">
+      <%= raw(link_to_append_files(image_tag('add-file.png'), f, :quotes, 'live_studio/quotes/', class: 'addclass', index: f.object.quotes.count + 1)) -%>
+      <%= file_field_tag "file", style: "display: none;", class: 'attachment_file' %>
+    </div>
+  </div>
+
   <%= link_to "删除", "###", class: 'remove_fields' -%>
 </div>

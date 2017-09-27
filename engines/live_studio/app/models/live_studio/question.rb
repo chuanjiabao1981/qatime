@@ -7,6 +7,7 @@ module LiveStudio
 
     has_one :answer, foreign_key: 'parent_id'
     belongs_to :teacher, class_name: '::Teacher'
+    has_many :attachments, as: :attachable
 
     after_commit :asyn_send_team_message, on: :create
 

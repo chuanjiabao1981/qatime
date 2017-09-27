@@ -2,6 +2,7 @@ module LiveStudio
   # 回答
   class Answer < Task
     belongs_to :question, foreign_key: 'parent_id'
+    has_many :attachments, as: :attachable
 
     after_commit :asyn_send_team_message, on: :create
 

@@ -410,6 +410,8 @@ module Permissions
         teacher && teacher.id == user.id
       end
 
+      allow 'live_studio/attachments', [:create]
+
       # 资源中心 end
 
       ## begin api permission

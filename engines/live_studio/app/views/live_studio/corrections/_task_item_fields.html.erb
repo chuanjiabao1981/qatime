@@ -1,6 +1,22 @@
-<p class="ordinal-number"><%= format('%02d', f.index + 1) %></p>
-<div class="form-group form-textarea">
+<div>
   <%= f.input_field :parent_id, as: :hidden %>
-  <%= f.input_field :body, as: :text %>
-  <%= f.error :body %>
+  <p class="ordinal-number"><%= format('%02d', f.index + 1) %></p>
+  <div class="form-group form-textarea">
+    <%= f.input_field :body, as: :text %>
+    <%= f.error :body %>
+  </div>
+
+  <div class="form-file">
+    <%= f.fields_for :attachments do |attach_form| %>
+      <%= render 'live_studio/quotes/quotes_fields', f: attach_form if attach_form.object && attach_form.object.image? %>
+    <% end %>
+
+    <% f.object.quotes.build -%>
+
+    <div class="file-img">
+      <%= raw(link_to_append_files(image_tag('add-file.png'), f, :quotes, 'live_studio/quotes/', class: 'addclass', index: f.object.quotes.count + 1)) -%>
+    </div>
+  </div>
+
+  <%= link_to "删除", "###", class: 'remove_fields' -%>
 </div>

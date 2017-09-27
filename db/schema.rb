@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170922061760) do
+ActiveRecord::Schema.define(version: 20170926092030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -509,6 +509,18 @@ ActiveRecord::Schema.define(version: 20170922061760) do
 
   add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree
 
+  create_table "live_studio_attachments", force: :cascade do |t|
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.string   "file"
+    t.string   "file_type"
+    t.integer  "pos"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "live_studio_attachments", ["attachable_id", "attachable_type"], name: "index_live_studio_attachments_on_attachable", using: :btree
+
   create_table "live_studio_channel_videos", force: :cascade do |t|
     t.integer  "channel_id"
     t.integer  "vid"
@@ -870,6 +882,17 @@ ActiveRecord::Schema.define(version: 20170922061760) do
   add_index "live_studio_play_records", ["product_id", "product_type"], name: "index_live_studio_play_records_on_product_id_and_product_type", using: :btree
   add_index "live_studio_play_records", ["ticket_id"], name: "index_live_studio_play_records_on_ticket_id", using: :btree
   add_index "live_studio_play_records", ["user_id"], name: "index_live_studio_play_records_on_user_id", using: :btree
+
+  create_table "live_studio_quotes", force: :cascade do |t|
+    t.integer  "attachment_id"
+    t.integer  "quoter_id"
+    t.string   "quoter_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "live_studio_quotes", ["attachment_id"], name: "index_live_studio_quotes_on_attachment_id", using: :btree
+  add_index "live_studio_quotes", ["quoter_type", "quoter_id"], name: "index_live_studio_quotes_on_quoter_type_and_quoter_id", using: :btree
 
   create_table "live_studio_replays", force: :cascade do |t|
     t.integer  "lesson_id"

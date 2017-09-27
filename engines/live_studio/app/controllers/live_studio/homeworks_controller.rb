@@ -37,7 +37,7 @@ module LiveStudio
     end
 
     def homework_params
-      params.require(:homework).permit(:title, task_items_attributes: [:body])
+      params.require(:homework).permit(:title, task_items_attributes: [:body, quotes_attributes: [:attachment_id, :_destroy]])
     end
   end
 end

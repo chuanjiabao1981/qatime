@@ -40,7 +40,7 @@ module V1
                 requires :group_id, type: Integer, desc: '专属课ID'
                 requires :title, type: String, desc: '作业标题'
                 requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
-                                                 desc: '[{"body": "第一题", quotes_attributes: [{"id": 1, "attachment_id": 10, "_destroy": 1 }, {"attachment_id": 11}] }, {"body": "第二题"}, {"body": "第三题" }]'
+                                                 desc: '[{"body": "第一题", "quotes_attributes": [{attachment_id": 10}, {"attachment_id": 11}] }, {"body": "第二题"}, {"body": "第三题" }]'
               end
               post do
                 homework_params = ActionController::Parameters.new(params).permit(:title, task_items_attributes: [:body, quotes_attributes: [:id, :attachment_id, :_destroy]])

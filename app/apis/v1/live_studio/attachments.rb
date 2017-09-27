@@ -18,7 +18,7 @@ module V1
           end
           post do
             attachment_params = ActionController::Parameters.new(params).permit(:file)
-            attachment = ::LiveStudio::Attachment.new(attachment_params)
+            attachment = ::LiveStudio::Attachment.create(attachment_params)
             present attachment, with: Entities::LiveStudio::Attachment
           end
         end

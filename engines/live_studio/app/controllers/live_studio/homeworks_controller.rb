@@ -3,8 +3,11 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class HomeworksController < ApplicationController
     def index
-      @homeworks = @taskable.homeworks.paginate(page: params[:homework_page], per_page: 10).includes(:user, :task_items)
-      @student_homeworks = @taskable.student_homeworks.includes(:user, :task_items, homework: [:user, :task_items], correction: [:user, :task_items])
+      @homeworks = @taskable.homeworks.paginate(page: params[:homework_page], per_page: 10).includes(:user, task_items: [:attachments])
+      @student_homeworks = @taskable.student_homeworks.includes(:user,
+                                                                task_items: [:attachments],
+                                                                homework: [:user, task_items: [:attachments]],
+                                                                correction: [:user, task_items: [:attachments]])
       @student_homeworks =
         if current_user.student?
           @student_homeworks.where(user_id: current_user.id)
@@ -37,7 +40,7 @@ module LiveStudio
     end
 
     def homework_params
-      params.require(:homework).permit(:title, task_items_attributes: [:body, quotes_attributes: [:attachment_id, :_destroy]])
+      params.require(:homework).permit(:title, task_items_attributes: [:body, quotes_attributes: [:id, :attachment_id, :_destroy]])
     end
   end
 end

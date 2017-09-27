@@ -52,10 +52,10 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '旧的批改ID'
-            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON, desc: '[{"id": 45, "body": "45修改"}, {"id": 46, "body": "46修改"}, {"id": 47, "body": "47修改" }]'
+            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON, desc: '[{"id": 45, "body": "45修改", "quotes_attributes": [{"attachment_id": 10}]}, {"id": 46, "body": "46修改"}, {"id": 47, "body": "47修改" }]'
           end
           patch ':id' do
-            correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:id, :body])
+            correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:id, :body, quotes_attributes: [:id, :attachment_id, :_destroy]])
             raise ActiveRecord::RecordInvalid, @correction unless @correction.update(correction_params)
             present @correction, with: Entities::LiveStudio::Correction
           end

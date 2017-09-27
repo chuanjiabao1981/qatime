@@ -42,11 +42,14 @@ module V1
               params do
                 requires :group_id, type: Integer, desc: '专属课ID'
                 requires :title, type: String, desc: '问题标题'
-                requires :body, type: String, desc: '问题内容'
+                optional :body, type: String, desc: '问题内容'
+                optional :quotes_attributes,
+                         type: Array[Hash],
+                         coerce_with: JSON,
+                         desc: '[{"attachment_id": 10}, {"attachment_id": 11}, {"attachment_id": 12}]'
               end
-
               post '' do
-                question_params = ActionController::Parameters.new(params).permit(:title, :body)
+                question_params = ActionController::Parameters.new(params).permit(:title, :body, quotes_attributes: [:attachment_id])
                 question = @group.questions.build(question_params)
                 question.user = current_user
                 raise ActiveRecord::RecordInvalid, question unless question.save

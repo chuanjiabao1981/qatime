@@ -36,6 +36,7 @@ module Permissions
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
+
       allow :questions,[:index,:student,:teachers,:new]
       allow :questions,[:create] do |learning_plan|
        learning_plan and learning_plan.student_id  == user.id
@@ -250,6 +251,9 @@ module Permissions
       api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
         homework && homework.taskable && user.live_studio_bought_customized_groups.include?(homework.taskable)
       end
+
+      # 上传附件
+      api_allow :POST, '/api/v1/live_studio/attachments'
 
       # 专属课提问列表
       api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|

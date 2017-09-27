@@ -17,8 +17,7 @@ module V1
             requires :file, type: ::File
           end
           post do
-            attachment_params = ActionController::Parameters.new(params).permit(:file)
-            attachment = ::LiveStudio::Attachment.create(attachment_params)
+            attachment = ::LiveStudio::Attachment.create(file: params[:file])
             present attachment, with: Entities::LiveStudio::Attachment
           end
         end

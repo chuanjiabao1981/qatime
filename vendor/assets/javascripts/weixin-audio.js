@@ -42,6 +42,9 @@
 					self.pause();
 					return;
 				}
+				if($(".weixinAudio .playing").size() > 0) {
+					$(".weixinAudio .playing").closest('.weixinAudio').weixinAudio().pause();
+				}
 				self.Audio.play();
 				self.$unlisten.hide();
 				clearInterval(self.timer);

@@ -17000,6 +17000,9 @@ abbr {
 .course-item .ask-list li > .ask-info > p {
   color: #666;
 }
+.course-item .ask-list .weixinAudio {
+  display: inline-block;
+}
 .course-item .ask-list li > .ask-info > .image-box p > a,.edit-box > .reply-box .reply-list > .image-box p > a {
   display: inline-block;
 }

@@ -31,16 +31,18 @@
       </p>
 
       <% answer.attachments.select(&:audio?).each do |attach| %>
-        <p class="weixinAudio">
-          <audio src="<%= attach.file_url %>" class="media"></audio>
-          <span class="db audio_area">
-            <span class="audio_wrp db" style="width: 90px;">
-              <span class="audio_play_area">
-                <i class="icon_audio_default"></i>
-                <i class="icon_audio_playing"></i>
+        <p>
+          <span class="weixinAudio">
+            <audio src="<%= attach.file_url %>" class="media"></audio>
+            <span class="db audio_area">
+              <span class="audio_wrp db">
+                <span class="audio_play_area">
+                  <i class="icon_audio_default"></i>
+                  <i class="icon_audio_playing"></i>
+                </span>
               </span>
+              <span class="audio_length tips_global"></span>
             </span>
-            <span class="audio_length tips_global">30"</span>
           </span>
         </p>
       <% end %>

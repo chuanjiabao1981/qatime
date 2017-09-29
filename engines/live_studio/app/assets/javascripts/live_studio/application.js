@@ -28,3 +28,5 @@
 //= require jedate
 //= require jquery.jedate
 //= require v1/home
+//= require weixin-audio
+//= require base

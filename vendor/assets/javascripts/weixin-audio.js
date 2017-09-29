@@ -98,21 +98,28 @@
 			//更新总时间
 			updateTotalTime: function() {
 				var self = this;
-				$(this.Audio).on("canplay", function() {
-					var audioTime = 0;
-         if($this.attr('audio-second')) {
-            audioTime = parseInt($this.attr('audio-second'));
-         } else {
-            audioTime = parseFloat(self.Audio.duration);
-         }
-					self.$audio_length.text(audioTime.toFixed(0) + '"');
+				var audioTime = 0;
+        if($this.attr('audio-second')) {
+          audioTime = parseInt($this.attr('audio-second'));
+          self.$audio_length.text(audioTime.toFixed(0) + '"');
 					percentage = audioTime.toFixed(0) * 4 + 30;
 					if(percentage > 240) percentage = 240;
 					var styles = {
 						"width": percentage
 					};
 					self.$audio_wrp.css(styles);
-				});
+        } else {
+          $(this.Audio).on("canplay", function() {
+          	audioTime = parseFloat(self.Audio.duration);
+						self.$audio_length.text(audioTime.toFixed(0) + '"');
+						percentage = audioTime.toFixed(0) * 4 + 30;
+						if(percentage > 240) percentage = 240;
+						var styles = {
+							"width": percentage
+						};
+						self.$audio_wrp.css(styles);
+					});
+        }
 			},
 			//改变音频源
 			changeSrc:function(src,callback){

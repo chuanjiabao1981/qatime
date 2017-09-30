@@ -171,6 +171,15 @@ module ApplicationHelper
     link_to(name, '###', class: "append_fields #{options[:class]}", "append-to" => options['append-to'], data: { id: id, prefix: "new_#{association}", fields: fields.delete("\n") })
   end
 
+  def link_to_append_files(name, f, association, shared_dir, options = {})
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    id = options[:index] || new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: "new_#{association}_#{id}") do |builder|
+      render(shared_dir + association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '###', class: "append_files #{options[:class]}", "append-to" => options['append-to'], data: { id: id, prefix: "new_#{association}", fields: fields.delete("\n") })
+  end
+
   def _get_super_model_name(o_class)
     return o_class.model_name if o_class.superclass.name == "ActiveRecord::Base"
     _get_super_model_name(o_class.superclass)

@@ -12,9 +12,34 @@
     </div>
   </div>
   <div class="ask-info">
-    <p>
-      <%= question.body %>
-    </p>
+    <div>
+      <p><%= question.body %></p>
+      <p class="image-box">
+        <% question.attachments.select(&:image?).each do |attach| %>
+          <span>
+            <%= link_to image_tag(attach.file_url), attach.file_url, class: 'fancybox-effects-a' %>
+          </span>
+        <% end %>
+      </p>
+
+      <% question.attachments.select(&:audio?).each do |attach| %>
+        <p>
+          <span class="weixinAudio">
+            <audio src="<%= attach.file_url %>" class="media"></audio>
+            <span class="db audio_area">
+              <span class="audio_wrp db">
+                <span class="audio_play_area">
+                  <i class="icon_audio_default"></i>
+                  <i class="icon_audio_playing"></i>
+                </span>
+              </span>
+              <span class="audio_length tips_global"></span>
+            </span>
+          </span>
+        </p>
+      <% end %>
+    </div>
+
   </div>
 
   <div class="edit-box" id="question-<%= question.id %>-answer">

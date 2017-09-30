@@ -23,10 +23,14 @@ module V1
               end
               params do
                 requires :question_id, type: Integer, desc: '专属课ID'
-                requires :body, type: String, desc: '回答内容'
+                optional :body, type: String, desc: '回答内容'
+                optional :quotes_attributes,
+                         type: Array[Hash],
+                         coerce_with: JSON,
+                         desc: '[{"attachment_id": 10}, {"attachment_id": 11}, {"attachment_id": 12}]'
               end
               post '' do
-                answer_params = ActionController::Parameters.new(params).permit(:body)
+                answer_params = ActionController::Parameters.new(params).permit(:body, quotes_attributes: [:attachment_id])
                 answer = @question.answer || @question.build_answer(answer_params)
                 answer.user ||= current_user
                 raise ActiveRecord::RecordInvalid, answer unless answer.save
@@ -51,11 +55,15 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '回答ID'
-            requires :body, type: String, desc: '回答内容'
+            optional :body, type: String, desc: '回答内容'
+            optional :quotes_attributes,
+                     type: Array[Hash],
+                     coerce_with: JSON,
+                     desc: '[{"attachment_id": 10}, {"attachment_id": 11}, {"attachment_id": 12}]'
           end
 
           patch ':id' do
-            answer_params = ActionController::Parameters.new(params).permit(:body)
+            answer_params = ActionController::Parameters.new(params).permit(:body, quotes_attributes: [:id, :attachment_id, :_destroy])
             raise ActiveRecord::RecordInvalid, @answer unless @answer.update(answer_params)
             present @answer, with: Entities::LiveStudio::Answer
           end

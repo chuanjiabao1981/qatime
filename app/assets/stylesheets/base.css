@@ -17000,11 +17000,21 @@ abbr {
 .course-item .ask-list li > .ask-info > p {
   color: #666;
 }
+.course-item .ask-list .weixinAudio {
+  display: inline-block;
+}
 .course-item .ask-list li > .ask-info > .image-box p > a,.edit-box > .reply-box .reply-list > .image-box p > a {
   display: inline-block;
 }
-.course-item .ask-list li > .ask-info > .image-box p > a > img,.edit-box > .reply-box .reply-list > .image-box p > a > img {
+.course-item .ask-list li > .ask-info  .image-box  a > img,.edit-box > .reply-box .reply-list  .image-box a > img {
   max-width: 100%;
+}
+.course-item .ask-list li > .ask-info  .image-box > span,.edit-box > .reply-box .reply-list  .image-box > span{
+  display: block;
+  margin-bottom: 10px;
+}
+.course-item .ask-list li > .ask-info  .image-box > span:last-child,.edit-box > .reply-box .reply-list  .image-box > span:last-child {
+  margin-bottom: 0px;
 }
 .course-item .ask-list li > .ask-info > .edit-box > p,.course-item .ask-list li > .edit-box > p {
   text-align: right;
@@ -17138,7 +17148,7 @@ abbr {
   height: 100%;
   display: block;
 }
-.edit-box > .problems-edit .form-file  .file-img > img {
+.edit-box > .problems-edit .form-file  .file-img > img,.edit-box > .problems-edit .form-file  .file-img > a > img {
   width: 100%;
   height: 100%;
 }

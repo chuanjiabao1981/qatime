@@ -6,7 +6,7 @@ module Entities
       expose :id
       expose :body
       expose :parent_id
-
+      expose :attachments, using: Entities::LiveStudio::Attachment # 附件
     end
   end
 end

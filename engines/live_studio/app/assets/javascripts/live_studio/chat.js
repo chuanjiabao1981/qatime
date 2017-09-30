@@ -420,7 +420,7 @@ function messageTag(msg, fromType) {
     // 通知消息
     case 'notification':
       console.log('notification messages', msg);
-      // messageNode.append($.replaceChatMsg(msg.text));
+      messageNode.append($.replaceChatMsg(msg.text));
       break;
     // 图片消息
     case 'image':

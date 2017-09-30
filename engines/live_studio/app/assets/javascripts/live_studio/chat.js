@@ -419,7 +419,8 @@ function messageTag(msg, fromType) {
   switch (msg.type) {
     // 通知消息
     case 'notification':
-      messageNode.append($.replaceChatMsg(msg.text));
+      console.log('notification messages', msg);
+      // messageNode.append($.replaceChatMsg(msg.text));
       break;
     // 图片消息
     case 'image':

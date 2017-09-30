@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    errors:
+      models:
+        resource/quote:
+          attributes:
+            file:
+              blank: 尚未上传文件

@@ -3,8 +3,8 @@ module Entities
     class VideoLessonPlay < Grape::Entity
       expose :id
       expose :name
-      expose :duration
-      expose :video, using: Entities::Video
+      expose :real_time
+      expose :quote, as: :video, using: Entities::Resource::VideoQuote
     end
   end
 end

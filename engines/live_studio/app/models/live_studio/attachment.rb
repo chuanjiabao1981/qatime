@@ -2,7 +2,7 @@ module LiveStudio
   class Attachment < ActiveRecord::Base
     has_many :quotes
 
-    mount_uploader :file, AttachmentFileUploader
+    mount_uploader :file, LiveStudio::AttachmentFileUploader
 
     extend Enumerize
 

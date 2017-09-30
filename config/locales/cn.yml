@@ -132,6 +132,11 @@ cn:
         blank: 请输入公告内容
         too_long: 公告内容太长
         too_short: 公告内容太短
+    resource/quote:
+      file:
+        blank: 尚未上传文件
+      file_id:
+        blank: 尚未上传文件
   placeholders:
     live_sutdio/announcement:
       content: 请输入公告内容（最多%{count}字）

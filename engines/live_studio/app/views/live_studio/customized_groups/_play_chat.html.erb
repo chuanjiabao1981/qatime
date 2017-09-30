@@ -207,6 +207,7 @@
               var messageContent = messageTag(msg, 'roaming');
               messageNode.append(messageContent);
               $("#messages-group div:first").append(messageNode);
+              $("#messages-group div:first .weixinAudio").weixinAudio();
             }
           });
 

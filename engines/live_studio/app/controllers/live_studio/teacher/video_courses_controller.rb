@@ -34,6 +34,7 @@ module LiveStudio
         @video_course.reset_total_duration
         redirect_to live_studio.teacher_video_courses_path(@teacher), notice: I18n.t("view.notice.create_success", model: @video_course.model_name.human)
       else
+        p @video_course.errors
         render :new
       end
     end
@@ -68,7 +69,7 @@ module LiveStudio
           params[:video_course][:video_lessons_attributes] = params[:video_course][:video_lessons_attributes].map(&:second)
         end
         params.require(:video_course).permit(:name, :grade, :description,
-                                             video_lessons_attributes: [:id, :name, :video_id, :pos, :_destroy])
+                                             video_lessons_attributes: [:id, :name, :pos, :real_time, :_destroy, quote_attributes: [:id, :file_id]])
       end
 
       def video_course_cate_filter

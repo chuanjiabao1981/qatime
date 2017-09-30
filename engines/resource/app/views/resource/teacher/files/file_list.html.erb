@@ -1,0 +1,21 @@
+<ul>
+  <%= @files.each do |f| %>
+    <li>
+      <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-10 filename">
+          <p><%= f.name %><span>(132M)</span></p>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2 checkboxed">
+          <input type="checkbox" value="">
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="date-btn">
+  <center>
+    <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+    <a href="javascript:void(0);">确定</a>
+  </center>
+</div>

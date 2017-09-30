@@ -452,6 +452,8 @@ function messageTag(msg, fromType) {
       audioNode.append(audioSpan);
       messageNode.append(audioNode);
       break;
+    case 'custom':
+      messageNode.append(customMessageItem(msg));
     default:
       messageNode.append($.replaceChatMsg(msg.text));
       break;

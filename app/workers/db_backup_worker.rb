@@ -17,7 +17,7 @@ class DbBackupWorker
           # SmsWorker.perform_async(SmsWorker::NOTIFY, to: "管理员", message:"成功备份" ,mobile: "15910676326")
           # do no thing
         else
-          SmsWorker.perform_async(SmsWorker::NOTIFY, to: "管理员", message:"备份失败！！！！" ,mobile: "15910676326")
+          SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, to: "管理员", error_message: "备份失败！！！！")
           raise StandardError,result
         end
       end

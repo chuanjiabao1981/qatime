@@ -26,7 +26,7 @@ module LiveStudio
     end
 
     def message(action)
-      { type: model_name.to_s, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }
+      { type: model_name.to_s, id: id, event: action, title: title, body: body, taskable_id: taskable_id, taskable_type: taskable_type }
     end
 
     # 发送群组消息

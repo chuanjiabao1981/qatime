@@ -450,8 +450,6 @@ function messageTag(msg, fromType) {
       audioSpan = audioSpan + '</span>';
       audioNode.append(audioSpan);
       messageNode.append(audioNode);
-      var audio = audioNode.weixinAudio();
-      audio.updateTotalTime();
       break;
     default:
       messageNode.append($.replaceChatMsg(msg.text));
@@ -597,6 +595,9 @@ function appendMsg(msg, messageClass, fromType) {
 
   $("#messages").append(messageNode);
 
+  var itemId = messageNode.attr('id');
+  $("#" + itemId + " .weixinAudio").weixinAudio();
+
   // 显示弹幕
   if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline' && fromType != 'roaming') {
     if(msg.type !== 'audio') currentTeam.barrage.show($.replaceChatMsg(msg.text));
@@ -683,20 +684,5 @@ $(function() {
     appendMsg(msg, ' new-information-stu', 'local');
     live_chat.pushMsg(msg);
   }
-
-  var currentAudio;
-  // 音频播放
-  $("#messages").on("click", ".weixinAudio", function() {
-    if(currentAudio) currentAudio.pause();
-    currentAudio = $(this).weixinAudio();
-    currentAudio.play();
-  });
-
-  // 历史消息音频播放
-  $("#histories").on("click", ".weixinAudio", function() {
-    if(currentAudio) currentAudio.pause();
-    currentAudio = $(this).weixinAudio();
-    currentAudio.play();
-  });
 
 });

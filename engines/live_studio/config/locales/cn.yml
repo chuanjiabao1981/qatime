@@ -266,7 +266,8 @@ cn:
       none_lessons_tips: 尚未添加任何课程！
       video_format_tips: 视频文件格式只支持mp4，请重新上传！
       edit_video: 点击修改视频
-      upload_video: 点击上传视频
+      upload_video: 上传本地视频
+      import_video: 导入我的视频
       video_tips: 说明
       video_tips_1: "1. 上传视频文件大小最多500M,视频长度60分钟以内最佳;"
       video_tips_2: "2. 目前仅支持MP4;"

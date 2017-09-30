@@ -46,10 +46,6 @@ module LiveStudio
       end
 
       event :finish, after_commit: :finish_hook do
-        after do
-          # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
-          increment_course_counter(:finished_lessons_count)
-        end
         transitions from: [:closed], to: :finished
       end
 

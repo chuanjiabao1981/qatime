@@ -6,6 +6,8 @@ LiveStudio::Engine.routes.draw do
   get ':course_id/realtime/announcements', to: 'realtime#announcements'
   get ':course_id/realtime/members', to: 'realtime#members'
 
+  resources :attachments, only: [:create]
+
   namespace :admin do
     resources :courses, only: [:index]
     resources :course_requests, only: [:index] do

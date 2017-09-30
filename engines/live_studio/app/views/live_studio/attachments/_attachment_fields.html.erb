@@ -1,0 +1,12 @@
+<div class="file-img">
+    <%= image_tag (f.object || LiveStudio::Attachment.new).file_url %>
+    <%= f.input_field :file, style: "display: none;", class: 'attachment_file' %>
+    <%= f.input_field :id, as: 'hidden', class: 'attachment_id' %>
+
+    <div class="upload-progress">
+      <span style="display: none;" class="progress">100%</span>
+      <span style="display: none;" class="fail">失败</span>
+      <a href="##" style="display: none;" class='reset'>重选</a>
+      <a href="##" style="display: none;" class='delete'>删除</a>
+    </div>
+</div>

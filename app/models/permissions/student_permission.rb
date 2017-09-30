@@ -36,6 +36,7 @@ module Permissions
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
+
       allow :questions,[:index,:student,:teachers,:new]
       allow :questions,[:create] do |learning_plan|
        learning_plan and learning_plan.student_id  == user.id
@@ -199,6 +200,8 @@ module Permissions
       allow 'live_studio/video_lessons', [:play] do |lesson|
         lesson.tastable || lesson.play_for?(user)
       end
+
+      allow 'live_studio/attachments', [:create]
       ## end live studio permission
 
       # payment permission
@@ -241,9 +244,24 @@ module Permissions
         student_homework && student_homework.user == user
       end
 
+      api_allow :GET, '/api/v1/live_studio/student_homeworks/\d+' do |student_homework|
+        student_homework && student_homework.user == user
+      end
+
+      api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
+        homework && homework.taskable && user.live_studio_bought_customized_groups.include?(homework.taskable)
+      end
+
+      # 上传附件
+      api_allow :POST, '/api/v1/live_studio/attachments'
+
       # 专属课提问列表
       api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
         group && user.live_studio_customized_groups.include?(group)
+      end
+      # 提问详情
+      api_allow :GET, '/api/v1/live_studio/questions/\d+' do |question|
+        question && question.taskable && user.live_studio_bought_customized_groups.include?(question.taskable)
       end
       # 专属课学生提问
       api_allow :POST, '/api/v1/live_studio/groups/\d+/questions' do |group|
@@ -366,6 +384,9 @@ module Permissions
 
       # 资源中心
       api_allow :GET, '/api/v1/live_studio/groups/\d+/files' do |group| # 专属课文件列表
+        group && user.live_studio_bought_customized_groups.include?(group)
+      end
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/files/\d+' do |group| # 课件详情
         group && user.live_studio_bought_customized_groups.include?(group)
       end
       # end 资源中心

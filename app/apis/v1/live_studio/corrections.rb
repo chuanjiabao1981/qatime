@@ -24,10 +24,10 @@ module V1
               params do
                 requires :student_homework_id, type: Integer, desc: '学生提交的作业ID'
                 requires :task_items_attributes, type: Array[Hash], coerce_with: JSON,
-                         desc: '[{"parent_id": 45, "body": "45修改"}, {"parent_id": 46, "body": "46修改"}, {"parent_id": 47, "body": "47修改" }]'
+                         desc: '[{"parent_id": 45, "body": "45修改", "quotes_attributes": [{"attachment_id": 10}]}, {"parent_id": 46, "body": "46修改"}, {"parent_id": 47, "body": "47修改" }]'
               end
               post '' do
-                correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body])
+                correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body, quotes_attributes: [:attachment_id]])
                 correction = @student_homework.build_correction(correction_params)
                 correction.user = current_user
                 raise ActiveRecord::RecordInvalid, correction unless correction.save
@@ -52,10 +52,10 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '旧的批改ID'
-            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON, desc: '[{"id": 45, "body": "45修改"}, {"id": 46, "body": "46修改"}, {"id": 47, "body": "47修改" }]'
+            requires :task_items_attributes, type: Array[Hash], coerce_with: JSON, desc: '[{"id": 45, "body": "45修改", "quotes_attributes": [{"attachment_id": 10}]}, {"id": 46, "body": "46修改"}, {"id": 47, "body": "47修改" }]'
           end
           patch ':id' do
-            correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:id, :body])
+            correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:id, :body, quotes_attributes: [:id, :attachment_id, :_destroy]])
             raise ActiveRecord::RecordInvalid, @correction unless @correction.update(correction_params)
             present @correction, with: Entities::LiveStudio::Correction
           end

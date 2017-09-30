@@ -42,6 +42,9 @@
 					self.pause();
 					return;
 				}
+				if($(".weixinAudio .playing").size() > 0) {
+					$(".weixinAudio .playing").closest('.weixinAudio').weixinAudio().pause();
+				}
 				self.Audio.play();
 				self.$unlisten.hide();
 				clearInterval(self.timer);
@@ -95,14 +98,28 @@
 			//更新总时间
 			updateTotalTime: function() {
 				var self = this;
-				audioTime = parseInt($this.attr('audio-second'));
-				self.$audio_length.text(audioTime + '"');
-				percentage = audioTime.toFixed(0) * 4 + 30;
-				if(percentage > 240) percentage = 240;
-				var styles = {
-					"width": percentage
-				};
-				self.$audio_wrp.css(styles);
+				var audioTime = 0;
+        if($this.attr('audio-second')) {
+          audioTime = parseInt($this.attr('audio-second'));
+          self.$audio_length.text(audioTime.toFixed(0) + '"');
+					percentage = audioTime.toFixed(0) * 4 + 30;
+					if(percentage > 240) percentage = 240;
+					var styles = {
+						"width": percentage
+					};
+					self.$audio_wrp.css(styles);
+        } else {
+          $(this.Audio).on("canplay", function() {
+          	audioTime = parseFloat(self.Audio.duration);
+						self.$audio_length.text(audioTime.toFixed(0) + '"');
+						percentage = audioTime.toFixed(0) * 4 + 30;
+						if(percentage > 240) percentage = 240;
+						var styles = {
+							"width": percentage
+						};
+						self.$audio_wrp.css(styles);
+					});
+        }
 			},
 			//改变音频源
 			changeSrc:function(src,callback){
@@ -113,12 +130,10 @@
 				callback();
 			},
 		};
-		// var obj = {};
-		
-		// $this.each(function(index,element){
-		// 	obj['weixinAudio'+index] = new Plugin($(this));
-		// }); //多个执行返回对象
-
-		return new Plugin($(this));
+		var obj;
+		$this.each(function(index, element){
+			obj = new Plugin($(element));
+		});
+		return obj;
 	}
-})(jQuery)
+})(jQuery);

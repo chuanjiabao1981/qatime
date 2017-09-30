@@ -7,13 +7,14 @@ module Resource
     before_action :find_file, only: [:delete_quote]
 
     def create
-      attach = Attach.create(file_params)
-      file = attach.resource_type.constantize.create(
-          name: file_params[:file].original_filename,
-          user: current_user,
-          attach: attach,
-          ext_name: attach.ext_name,
-          file_size: attach.file_size
+      attach = Attach.create!(file_params)
+      file = current_user.files.create(
+        name: file_params[:file].original_filename,
+        user: current_user,
+        attach: attach,
+        ext_name: attach.ext_name,
+        file_size: attach.file_size,
+        type: attach.resource_type
       )
       respond_with file, location: file_url(file)
     end

@@ -31,7 +31,10 @@ PATH
   specs:
     live_studio (0.0.1)
       acts_as_list
+      carrierwave
+      carrierwave-aliyun
       dirty_associations (~> 0.4.4)
+      mini_magick
       rails (~> 4.2.5)
       responders (~> 2.0)
       simple_form

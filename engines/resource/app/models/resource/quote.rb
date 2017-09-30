@@ -3,6 +3,8 @@ module Resource
     belongs_to :file, counter_cache: true
     belongs_to :quoter, polymorphic: true
 
+    # validates :quoter, :file, presence: true
+
     delegate :type, :file_size, :ext_name, :file_url, to: :file
     delegate :name, to: :file, prefix: true
 
@@ -14,7 +16,7 @@ module Resource
     end
 
     def message(action)
-      { type: 'Resource::File', event: action, title: file_name, body: file_name, taskable_id: quoter_id, taskable_type: quoter_type }
+      { type: 'Resource::File', id: file_id, event: action, title: file_name, body: file_name, taskable_id: quoter_id, taskable_type: quoter_type }
     end
 
     # 发送群组消息

@@ -317,6 +317,11 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      # 作业详情
+      api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
+        homework && homework.user == user
+      end
+
       # 作业批改
       api_allow :POST, '/api/v1/live_studio/student_homeworks/\d+/corrections' do |student_homework|
         student_homework && student_homework.homework && student_homework.homework.user == user
@@ -334,10 +339,19 @@ module Permissions
         teacher && teacher == user
       end
 
+      # 上传附件
+      api_allow :POST, '/api/v1/live_studio/attachments'
+
       # 专属课提问列表
       api_allow :GET, '/api/v1/live_studio/groups/\d+/questions' do |group|
         group && user.live_studio_customized_groups.include?(group)
       end
+
+      # 提问详情
+      api_allow :GET, '/api/v1/live_studio/questions/\d+' do |question|
+        question && question.taskable && user.live_studio_customized_groups.include?(question.taskable)
+      end
+
       # 老师回答问题
       api_allow :POST, '/api/v1/live_studio/questions/\d+/answers' do |question|
         question && question.teacher == user
@@ -370,9 +384,12 @@ module Permissions
       api_allow :DELETE, '/api/v1/live_studio/groups/\d+/files/\d+' do |group|
         group && user.live_studio_customized_groups.include?(group)
       end
+      # 课件详情
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/files/\d+' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
 
       ## 专属课 end
-
 
       ## end live studio permission
 
@@ -395,6 +412,8 @@ module Permissions
       allow 'resource/teacher/files', [:create, :destroy] do |teacher|
         teacher && teacher.id == user.id
       end
+
+      allow 'live_studio/attachments', [:create]
 
       # 资源中心 end
 

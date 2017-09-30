@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  attachment_id: 
+  quoter_id: 
+  quoter_type: Quoter
+
+two:
+  attachment_id: 
+  quoter_id: 
+  quoter_type: Quoter

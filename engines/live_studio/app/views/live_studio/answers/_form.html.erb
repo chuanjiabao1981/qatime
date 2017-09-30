@@ -3,6 +3,17 @@
     <%= f.input_field :body, as: :text %>
     <%= f.error :body %>
   </div>
+  <div class="form-file">
+    <%= f.fields_for :quotes do |quote_form| %>
+      <%= render 'live_studio/quotes/quote_fields', f: quote_form if quote_form.object && quote_form.object.attachment.try(:image?) %>
+    <% end %>
+
+    <% f.object.quotes.build -%>
+
+    <div class="file-img">
+      <%= raw(link_to_append_files(image_tag('add-file.png'), f, :quotes, 'live_studio/quotes/', class: 'addclass', index: f.object.quotes.count + 1)) -%>
+    </div>
+  </div>
   <div class="form-submit">
     <%= f.submit %>
   </div>

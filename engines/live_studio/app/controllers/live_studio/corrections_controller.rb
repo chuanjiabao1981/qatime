@@ -45,7 +45,7 @@ module LiveStudio
     end
 
     def correction_params
-      params.require(:correction).permit(task_items_attributes: [:id, :body, :parent_id])
+      params.require(:correction).permit(task_items_attributes: [:id, :body, :parent_id, quotes_attributes: [:id, :attachment_id, :_destroy]])
     end
   end
 end

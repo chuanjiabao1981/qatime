@@ -37,7 +37,7 @@ module LiveStudio
     end
 
     def answer_params
-      params.require(:answer).permit(:body)
+      params.require(:answer).permit(:body, quotes_attributes: [:id, :attachment_id, :_destroy])
     end
   end
 end

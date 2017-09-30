@@ -1,4 +1,12 @@
 Payment::Engine.routes.draw do
+  namespace :admin do
+    resources :orders, only: [:index, :destroy] do
+      member do
+        patch :pay_for_free
+      end
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [:show] do
       member do

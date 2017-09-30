@@ -45,7 +45,7 @@
           <%= link_to t('activerecord.view.delete'), "javascript:void(0);", class: "destroy-btn" %>
         </div>
         <div class="upload-box">
-          <input type="file" id="video_file_<%= object_id %>" class="video_file" token="<%= object_id %>" style="display: none;" >
+          <input type="file" id="video_file_<%= object_id %>" name="video_file_<%= object_id %>" class="video_file" token="<%= object_id %>" style="display: none;" >
           <%= link_to t("view.video_course_form.upload_video"), "##", onclick: '$(this).prev().click();' -%>
           <%= link_to t("view.video_course_form.import_video"), "##", class: 'import-file-link', data: { toggle: 'modal', target: '#file-list' } -%>
         </div>

@@ -36,10 +36,12 @@ module LiveStudio
       assert page.has_link? '试听本课时'
       assert page.has_link? '观看本课时'
 
+      page.execute_script "window.scrollBy(0, 600)"
       message2 = accept_prompt(with: '购买后才能观看') do
         click_on '观看本课时', match: :first
       end
 
+      page.execute_script "window.scrollBy(0, -600)"
       new_window = window_opened_by { click_on '进入试听' }
       within_window new_window do
         taste_lesson = course.taste_lesson

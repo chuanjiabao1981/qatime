@@ -1,0 +1,32 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div>
+      <h3>
+        <%= Payment::Order.model_name.human %>
+      </h3>
+    </div>
+  </div>
+  <div class="row qa_big_cell">
+    <div class="col-md-3"><%= Payment::Order.human_attribute_name(:transaction_no) %></div>
+    <div class="col-md-2"><%= Payment::Order.human_attribute_name(:user) %></div>
+    <div class="col-md-3"><%= Payment::Order.human_attribute_name(:product) %></div>
+    <div class="col-md-2"><%= Payment::Order.human_attribute_name(:amount) %></div>
+    <div class="col-md-1"><%= Payment::Order.human_attribute_name(:status) %></div>
+    <div class="col-md-1">操作</div>
+  </div>
+
+  <% @orders.each do |order| %>
+    <div class="row qa_big_cell">
+      <div class="col-md-3"><%= link_to order.transaction_no, payment.transaction_path(order.transaction_no) %></div>
+      <div class="col-md-2"><%= order.user.try(:name) %></div>
+      <div class="col-md-3"><%= order.product.try(:name) %></div>
+      <div class="col-md-2"><%= number_to_currency(order.amount, locale: :cn) %></div>
+      <div class="col-md-1"><%= order.status_text %></div>
+      <div class="col-md-1">
+        <%= link_to "免单", payment.pay_for_free_admin_order_path(order.transaction_no), method: 'patch', confirm: '确定免单' if order.unpaid? %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= will_paginate @orders %>
+</div>

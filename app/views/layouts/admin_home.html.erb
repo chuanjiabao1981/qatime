@@ -40,6 +40,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to payment.admin_orders_path do %>
+            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">订单管理</span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to main_app.audit_admins_withdraws_path do %>
             <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">提现审核</span>
           <% end %>

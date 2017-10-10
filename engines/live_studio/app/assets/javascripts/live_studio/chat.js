@@ -422,6 +422,7 @@ function messageTag(msg, fromType) {
   switch (msg.type) {
     // 通知消息
     case 'notification':
+      console.log('notification messages', msg);
       messageNode.append($.replaceChatMsg(msg.text));
       break;
     // 图片消息
@@ -454,6 +455,8 @@ function messageTag(msg, fromType) {
       audioNode.append(audioSpan);
       messageNode.append(audioNode);
       break;
+    case 'custom':
+      messageNode.append(customMessageItem(msg));
     default:
       messageNode.append($.replaceChatMsg(msg.text));
       break;

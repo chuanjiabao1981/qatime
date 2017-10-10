@@ -14,9 +14,11 @@
     replaceBR: (str) ->
       str = str.replace(/\n/g, "<br />")
     replaceTag: (str) ->
+      return '' unless str
       str = str.replace(/</g, "&lt;")
       str = str.replace(/>/g, "&gt;")
     replaceChatMsg: (str) ->
+      return '' unless str
       str = $.replaceTag(str)
       str = $.replaceFaceEm(str)
       str = $.replaceBR(str)

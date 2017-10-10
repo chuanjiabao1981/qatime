@@ -259,6 +259,15 @@ module Payment
       BusinessService::CourseOrderManager.new(self).billing
     end
 
+    def pay_for_free!
+      return unless unpaid?
+      self.discount_amount = total_amount
+      self.amount = 0
+      save!
+      pay! unless account?
+      BusinessService::CourseOrderManager.new(self).billing
+    end
+
     def use_coupon(coupon)
       coupon = Coupon.find_by(code: coupon) if coupon.is_a?(String)
       return if coupon.blank?

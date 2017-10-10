@@ -1,6 +1,6 @@
 module LiveStudio
   class BuyTicket < Ticket
-    belongs_to :product, polymorphic: true, counter_cache: true
+    belongs_to :product, polymorphic: true
     belongs_to :payment_order, class_name: 'Payment::Order'
     belongs_to :seller, polymorphic: true
 

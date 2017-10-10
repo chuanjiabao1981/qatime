@@ -121,6 +121,13 @@ $(function(){
   $('.asyn_append_files').on('change', '.attachment_file', function(e) {
     var file = e.target.files[0];
     if(!file) return false;
+
+    if(!file.name.match(/.[(jpg)(png)]$/i)) {
+      alert("图片格式不正确");
+      $(this).val('');
+      return false;
+    }
+
     var node = $(e.target).closest('.file-img');
     // 显示节点并取消删除
     node.show().find('.destroy').val('0');

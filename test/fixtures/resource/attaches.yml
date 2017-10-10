@@ -8,3 +8,29 @@ one:
 
 two:
   file: MyString
+
+video_for_init_video_lesson:
+  file: 111111.mp4
+  ext_name: mp4
+  content_type: 'image/jpeg'
+  ext_name: 3000
+video_for_init_video_lesson2:
+  file: 2222.mp4
+  ext_name: mp4
+  content_type: 'image/jpeg'
+  ext_name: 3000
+video_for_published_video_lesson1:
+  file: 3333.mp4
+  ext_name: mp4
+  content_type: 'image/jpeg'
+  ext_name: 3000
+video_for_published_video_lesson1_2:
+  file: 44444.mp4
+  ext_name: mp4
+  content_type: 'image/jpeg'
+  ext_name: 3000
+video_for_published_video_lesson2:
+  file: 555555.mp4
+  ext_name: mp4
+  content_type: 'image/jpeg'
+  ext_name: 3000

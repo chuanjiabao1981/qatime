@@ -49,3 +49,19 @@ teacher1_file_9:
 published_group1_file_1:
   file: video_file_one
   quoter: published_group1 (LiveStudio::Group)
+
+init_video_lesson:
+  quoter: init_video_lesson (LiveStudio::VideoLesson)
+  file: video_for_init_video_lesson
+init_video_lesson2:
+  quoter: init_video_lesson2 (LiveStudio::VideoLesson)
+  file: video_for_init_video_lesson2
+published_video_lesson1:
+  quoter: published_video_lesson1 (LiveStudio::VideoLesson)
+  file: video_for_published_video_lesson1
+published_video_lesson1_2:
+  quoter: published_video_lesson1_2 (LiveStudio::VideoLesson)
+  file: video_for_published_video_lesson1_2
+published_video_lesson2:
+  quoter: published_video_lesson2 (LiveStudio::VideoLesson)
+  file: video_for_published_video_lesson2

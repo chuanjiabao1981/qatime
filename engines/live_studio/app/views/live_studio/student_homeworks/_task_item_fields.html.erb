@@ -8,7 +8,7 @@
 
   <div class="form-file">
     <%= f.fields_for :quotes do |quote_form| %>
-      <%= render 'live_studio/quotes/quote_fields', f: quote_form if quote_form.object && quote_form.object.image? %>
+      <%= render 'live_studio/quotes/quote_fields', f: quote_form if quote_form.object && quote_form.object.attachment.try(:image?) %>
     <% end %>
 
     <% f.object.quotes.build -%>

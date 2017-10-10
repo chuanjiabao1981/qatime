@@ -74,3 +74,44 @@ other_file_one:
   file_size: <%= 1024 * 2 %>
   ext_name: zip
   type: Resource::DocumentFile
+
+video_for_init_video_lesson:
+  name: 111111.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: video_for_init_video_lesson (Resource::Attach)
+  file_size: <%= 1024 * 2 %>
+  ext_name: mp4
+  type: Resource::VideoFile
+video_for_init_video_lesson2:
+  name: 222222.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: video_for_init_video_lesson2 (Resource::Attach)
+  file_size: <%= 1024 * 2 %>
+  ext_name: mp4
+  type: Resource::VideoFile
+video_for_published_video_lesson1:
+  name: 33333333.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: video_for_published_video_lesson1 (Resource::Attach)
+  file_size: <%= 1024 * 2 %>
+  ext_name: mp4
+  type: Resource::VideoFile
+video_for_published_video_lesson1_2:
+  name: 4444444.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: video_for_published_video_lesson1_2 (Resource::Attach)
+  file_size: <%= 1024 * 2 %>
+  ext_name: mp4
+  type: Resource::VideoFile
+video_for_published_video_lesson2:
+  name: 5555555.mp4
+  user: teacher1
+  quotes_count: 2
+  attach: video_for_published_video_lesson2 (Resource::Attach)
+  file_size: <%= 1024 * 2 %>
+  ext_name: mp4
+  type: Resource::VideoFile

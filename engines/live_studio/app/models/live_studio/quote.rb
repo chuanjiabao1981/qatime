@@ -5,6 +5,8 @@ module LiveStudio
 
     delegate :file_url, to: :attachment, prefix: true, allow_nil: true
 
+    validates :attachment, presence: true
+
     attr_accessor :attachment_file
   end
 end

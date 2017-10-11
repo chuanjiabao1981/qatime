@@ -85,7 +85,7 @@ cn:
         title: 在此输入文字
         body: 在此输入文字
       homework:
-        title: 在此输入文字
+        title: 请输入作业标题（最多20字）
         body: 在此输入文字
       student_homework:
         title: 在此输入文字

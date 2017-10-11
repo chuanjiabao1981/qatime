@@ -79,13 +79,13 @@ cn:
       event:
         class_address: 请输入具体地点或教室
       question:
-        title: 在此输入文字
-        body: 在此输入文字
+        title: 请输入问题标题（最多20字）
+        body: 请输入问题内容（最多200字）
       answer:
         title: 在此输入文字
-        body: 在此输入文字
+        body: 请输入回答内容（最多200字）
       homework:
-        title: 在此输入文字
+        title: 请输入作业标题（最多20字）
         body: 在此输入文字
       student_homework:
         title: 在此输入文字

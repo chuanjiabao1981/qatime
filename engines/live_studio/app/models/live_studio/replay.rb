@@ -96,7 +96,7 @@ module LiveStudio
     def instance_resource
       return if download_orig_url.blank?
       attach = ::Resource::Attach.create!(remote_file_url: download_orig_url)
-      teacher.files.create(
+      target.teacher.files.create(
         name: "#{target.name}.mp4",
         user: current_user,
         attach: attach,

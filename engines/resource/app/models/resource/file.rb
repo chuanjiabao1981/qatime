@@ -3,6 +3,7 @@ module Resource
     belongs_to :directory
     belongs_to :user
     belongs_to :attach, polymorphic: true
+    belongs_to :origin, polymorphic: true
 
     has_many :quotes, dependent: :destroy
 

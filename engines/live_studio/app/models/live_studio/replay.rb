@@ -106,6 +106,7 @@ module LiveStudio
       )
     end
 
+    after_create :async_instance_resource
     def async_instance_resource
       ReplayResourceJob.set(wait: 1.days).perform_later(id)
     end

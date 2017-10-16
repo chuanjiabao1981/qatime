@@ -335,6 +335,10 @@ module LiveStudio
       false
     end
 
+    def teacher_id
+      teacher.try(:id)
+    end
+
     private
 
     def check_ticket!(order_or_user)

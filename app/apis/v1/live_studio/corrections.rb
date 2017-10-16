@@ -28,7 +28,7 @@ module V1
               end
               post '' do
                 correction_params = ActionController::Parameters.new(params).permit(task_items_attributes: [:parent_id, :body, quotes_attributes: [:attachment_id]])
-                correction = @student_homework.build_correction(correction_params)
+                correction = @student_homework.corrections.build(correction_params)
                 correction.user = current_user
                 raise ActiveRecord::RecordInvalid, correction unless correction.save
                 present correction, with: Entities::LiveStudio::Correction

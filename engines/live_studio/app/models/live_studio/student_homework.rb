@@ -11,6 +11,7 @@ module LiveStudio
     belongs_to :homework, foreign_key: 'parent_id'
     belongs_to :teacher
     has_one :correction, foreign_key: 'parent_id'
+    has_many :corrections, foreign_key: 'parent_id'
     has_many :task_items, foreign_key: 'task_id'
 
     validates :homework, presence: true

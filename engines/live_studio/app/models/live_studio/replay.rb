@@ -98,7 +98,7 @@ module LiveStudio
       attach = ::Resource::Attach.create!(remote_file_url: download_orig_url)
       target.teacher.files.create(
         name: "#{target.name}.mp4",
-        user: current_user,
+        user: target.teacher,
         attach: attach,
         ext_name: attach.ext_name,
         file_size: attach.file_size,

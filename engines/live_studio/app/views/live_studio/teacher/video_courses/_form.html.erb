@@ -27,7 +27,7 @@
           </ul>
         </div>
       </div>
-      <%= f.submit t("live_studio.actions.teacher.video_course.submit"), class: "btn-audit active" %>
+      <%= f.submit t("live_studio.actions.teacher.video_course.submit"), class: "btn-audit active", data: { disable_with: t('common.submitting') } %>
     </div>
   <% end %>
 </div>

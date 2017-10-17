@@ -72,6 +72,7 @@
 
 </script>
 <script type="text/javascript" charset="utf-8">
+
   $(function(){
     var boundx, boundy, jcrop_api;
     function selectCoords(coords){
@@ -145,6 +146,15 @@
         }
         filerdr.readAsDataURL(input.files[0]);
         filerdr.onloadend = function(e){
+          var h = $('#<%= user_type %>_avatar_preview').height();
+          var w = $('#<%= user_type %>_avatar_preview').width();
+          if(h < 386 && w < 386) {
+            if(h > w) {
+              $('#<%= user_type %>_avatar_preview').css('height', '386px');
+            } else {
+              $('#<%= user_type %>_avatar_preview').css('width', '386px');
+            }
+          }
           var preview_height = $('#<%= user_type %>_avatar_preview').height();
           var preview_width = $('#<%= user_type %>_avatar_preview').width();
           if(preview_height > preview_width) {

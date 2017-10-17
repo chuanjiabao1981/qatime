@@ -177,11 +177,20 @@
             min = preview_height;
           }
 
+          var size = Math.min(preview_height, preview_width);
+          var x = 0;
+          var y = 0;
+          if(preview_width > preview_height) {
+            x = (preview_width - size) / 2;
+          } else {
+            y = (preview_height - size) / 2;
+          }
+
           $('#<%= user_type %>_avatar_preview').Jcrop({
             bgFade: true,
             bgOpacity: .4,
             aspectRatio: 1,
-            setSelect: [0, 0, 240, 240],
+            setSelect: [x, y, size, size],
             onSelect: selectCoords,
             onChange: selectCoords,
             keySupport : false

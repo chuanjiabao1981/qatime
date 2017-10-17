@@ -10,5 +10,15 @@ module LiveStudio
     has_many :attachments, through: :quotes, class_name: 'LiveStudio::Attachment'
 
     accepts_nested_attributes_for :quotes
+
+    validates :body, presence: true, if: :text_item?
+    validates :body, length: { in: 2..400 }, allow_blank: true
+
+    private
+
+    # 文本项目, 无图片和语音
+    def text_item?
+      quotes.size.zero?
+    end
   end
 end

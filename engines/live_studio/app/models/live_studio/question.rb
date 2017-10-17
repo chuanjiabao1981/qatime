@@ -6,11 +6,17 @@ module LiveStudio
     enumerize :status, in: { pending: 0, resolved: 2 }, default: :pending
 
     has_one :answer, foreign_key: 'parent_id'
+    has_many :answers, foreign_key: 'parent_id'
     belongs_to :teacher, class_name: '::Teacher'
 
     has_many :quotes, as: :quoter
     has_many :attachments, through: :quotes, class_name: 'LiveStudio::Attachment'
     accepts_nested_attributes_for :quotes
+
+    validates :title, presence: true, length: { in: 2..20 }
+
+    validates :body, presence: true, if: :text_item?
+    validates :body, length: { in: 2..200 }, allow_blank: true
 
     after_commit :asyn_send_team_message, on: :create
 
@@ -19,6 +25,11 @@ module LiveStudio
     before_validation :set_teacher
     def set_teacher
       self.teacher ||= taskable.teacher
+    end
+
+    # 文本项目, 无图片和语音
+    def text_item?
+      quotes.size.zero?
     end
   end
 end

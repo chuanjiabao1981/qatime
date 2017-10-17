@@ -101,6 +101,7 @@ module LiveStudio
         user: target.teacher,
         attach: attach,
         ext_name: attach.ext_name,
+        origin: self,
         file_size: attach.file_size,
         type: attach.resource_type
       )

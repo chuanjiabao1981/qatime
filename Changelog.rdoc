@@ -652,3 +652,15 @@
         * [QT-1414](https://qatime.atlassian.net/browse/QT-1414)
         * [QT-1415](https://qatime.atlassian.net/browse/QT-1415)
         * [QT-1417](https://qatime.atlassian.net/browse/QT-1417)
+* 3.0.3
+    * feature
+        * [QT-1483](https://qatime.atlassian.net/browse/QT-1483)
+        * [QT-1470](https://qatime.atlassian.net/browse/QT-1470)
+        * [QT-961](https://qatime.atlassian.net/browse/QT-961)
+        * [QT-1332](https://qatime.atlassian.net/browse/QT-1332)
+        * [QT-1416](https://qatime.atlassian.net/browse/QT-1416)
+        * [QT-1481](https://qatime.atlassian.net/browse/QT-1481)
+        * [QT-1482](https://qatime.atlassian.net/browse/QT-1482)
+    * bugfix
+        * [QT-1484](https://qatime.atlassian.net/browse/QT-1484)
+

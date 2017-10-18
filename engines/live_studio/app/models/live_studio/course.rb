@@ -88,7 +88,7 @@ module LiveStudio
     after_commit :ready_lessons, on: :create
 
     validates :name, presence: true, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: true, length: { in: 5..300 }, if: :description_changed?
+    validates :description, presence: true, text_length: { in: 5..300 }, if: :description_changed?
     validates :grade, presence: true, if: :grade_changed?
     validates :subject, presence: true, if: :subject_changed?
 

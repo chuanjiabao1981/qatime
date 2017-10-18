@@ -21,7 +21,7 @@
   </div>
   <div class="reply-list">
     <div>
-      <p><%= answer.body %></p>
+      <p><%= raw answer.raw_body %></p>
       <p class="image-box">
         <% answer.attachments.select(&:image?).each do |attach| %>
           <span>

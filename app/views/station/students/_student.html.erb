@@ -4,5 +4,6 @@
   <td><%= student.login_mobile %></td>
   <td><%= student.parent_phone %></td>
   <td><%= student.grade %></td>
+  <td><%= localize(student.created_at,format: :short) %></td>
   <td><%= link_to t('view.station.students.index.show'), student_path(student), target: '_blank' %></td>
 </tr>

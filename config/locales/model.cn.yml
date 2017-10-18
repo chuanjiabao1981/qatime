@@ -31,6 +31,8 @@ cn:
         chapter: 小节所属章
         position: 位置
         group_catalogue: 课程章节
+      user:
+        created_at: 注册时间
       teacher:
         email: 电子邮件
         subject: 科目
@@ -48,6 +50,7 @@ cn:
         teaching_years: 执教年龄
         province: 省份
         city: 城市
+        created_at: 注册时间
       school:
         name: 名称
         city: 城市
@@ -82,6 +85,7 @@ cn:
         accept: 接受服务协议
         city: 地区
         school: 所在学校
+        created_at: 注册时间
       topic:
         title: 标题
         content: 内容

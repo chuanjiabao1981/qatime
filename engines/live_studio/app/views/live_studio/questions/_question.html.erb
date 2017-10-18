@@ -13,7 +13,7 @@
   </div>
   <div class="ask-info">
     <div>
-      <p><%= question.body %></p>
+      <p><%= raw question.raw_body %></p>
       <p class="image-box">
         <% question.attachments.select(&:image?).each do |attach| %>
           <span>

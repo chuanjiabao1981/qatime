@@ -48,6 +48,8 @@
   <script type="text/javascript">
     $(function(){
       $('.submit').click(function(){
+        if($(this).hasClass('submitting')) return false;
+        $(this).addClass("submitting");
         $('form').submit();
       });
 

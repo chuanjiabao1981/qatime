@@ -32,7 +32,7 @@ module Chat
         @accounts = @accounts - @online_accounts.to_a
         @accounts = @online_accounts.sort_by(&:name) + @accounts.sort_by(&:name)
         @accounts = @accounts.reject{|a| a == owner }.unshift(owner)
-        @accounts = @accounts.select{|account| account.user.present?}
+        @accounts = @accounts.select{|account| account.try(:user).present?}
       end
       render partial: 'live_studio/courses/members'
     end

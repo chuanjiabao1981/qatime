@@ -2,13 +2,14 @@
   <%= image_tag (f.object.try(:attachment) || LiveStudio::Attachment.new).file_url %>
   <%= f.input_field :attachment_file, as: 'file', style: "display: none;", class: 'attachment_file' unless f.object.attachment_id %>
   <%= f.input_field :attachment_id, as: 'hidden', class: 'attachment_id' %>
+  <%= f.error :attachment %>
 
   <div class="upload-progress">
-    <span style="display: none;" class="progress">100%</span>
+    <span style="<%= 'display: none;' unless f.object.attachment.present? %>" class="progress">100%</span>
     <span style="display: none;" class="fail">失败</span>
     <a href="##" style="display: none;" class='reset'>重选</a>
     <%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden destroy' %>
-    <a href="##" style="display: none;" class='delete'>删除</a>
+    <a href="##" style="<%= 'display: none;' unless f.object.attachment.present? %>" class='delete'>删除</a>
   </div>
 
 </div>

@@ -9,6 +9,8 @@ module LiveStudio
     # 作业创建以后派发给学生
     after_create :dispatch_homeworks
 
+    validates :title, presence: true, length: { in: 2..20 }
+
     # 作业派发
     def dispatch_homeworks
       taskable.buy_tickets.includes(:student).available.each do |ticket|

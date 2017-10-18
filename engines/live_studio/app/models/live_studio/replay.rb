@@ -93,6 +93,25 @@ module LiveStudio
       async_merge_replays unless pending_vids.blank? # 如果有未合并视频继续合并
     end
 
+    def instance_resource
+      return if download_orig_url.blank?
+      attach = ::Resource::Attach.create!(remote_file_url: download_orig_url)
+      target.teacher.files.create(
+        name: "#{target.name}.mp4",
+        user: target.teacher,
+        attach: attach,
+        ext_name: attach.ext_name,
+        origin: self,
+        file_size: attach.file_size,
+        type: attach.resource_type
+      )
+    end
+
+    after_create :async_instance_resource
+    def async_instance_resource
+      ReplayResourceJob.set(wait: 1.days).perform_later(id)
+    end
+
     private
 
     # 合并文件名称

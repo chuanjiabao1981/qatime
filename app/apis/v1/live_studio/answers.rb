@@ -31,7 +31,7 @@ module V1
               end
               post '' do
                 answer_params = ActionController::Parameters.new(params).permit(:body, quotes_attributes: [:attachment_id])
-                answer = @question.answer || @question.build_answer(answer_params)
+                answer = @question.answers.build(answer_params)
                 answer.user ||= current_user
                 raise ActiveRecord::RecordInvalid, answer unless answer.save
                 present answer, with: Entities::LiveStudio::Answer

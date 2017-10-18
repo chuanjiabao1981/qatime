@@ -13,6 +13,15 @@ $(function() {
     // 监听直播状态
     this.fetchInfo = function() {
       $.getJSON("<%= live_studio.live_info_course_path(@course) %>", function(data) {
+        if(data.code == 403) {
+          if(data.user_id) {
+            alert("未登录");
+          } else {
+            alert("无权限");
+          }
+          location.href = '/';
+          return false;
+        }
         $.each(callbacks, function(index, cb) {
           cb(data);
         });

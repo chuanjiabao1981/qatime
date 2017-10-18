@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926092030) do
+ActiveRecord::Schema.define(version: 20171016085953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1670,6 +1670,8 @@ ActiveRecord::Schema.define(version: 20170926092030) do
     t.string   "type"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.integer  "origin_id"
+    t.string   "origin_type"
   end
 
   add_index "resource_files", ["attach_type", "attach_id"], name: "index_resource_files_on_attach_type_and_attach_id", using: :btree

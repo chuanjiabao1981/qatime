@@ -59,7 +59,7 @@ cn:
         suit_crowd: 适合人群
         desc: 详细说明
         tag_none: 无
-        left_replay_times: '%{count}次'
+        left_replay_times: '%{count}天'
         before_study: 上课前
         before_study1: 1.做好课程预习，预先了解本课所讲内容，更好的吸收课程精华；
         before_study2: 2.准备好相关的学习工具（如：纸 、笔等）并在上课前调好电脑，使用手机请保证电量充足；

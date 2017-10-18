@@ -54,7 +54,11 @@ class ApplicationController < ActionController::Base
 
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
-
+    elsif request.xhr?
+      respond_to do |format|
+        format.json { render json: { code: 403, user_id: current_user.try(:id) }}
+        format.js { render '/shared/unlogin' }
+      end
     else
       flash[:warning] = "您没有权限进行这个操作!"
       logger.info("====================")

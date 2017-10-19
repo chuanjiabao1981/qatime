@@ -102,7 +102,8 @@ gem 'typhoeus'
 
 # 支付
 gem 'wx_pay'
-gem 'alipay', '~> 0.12.0'
+gem 'alipay', '~> 0.15.0'
+gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
 gem 'itunes-receipt'
 
 # 监控

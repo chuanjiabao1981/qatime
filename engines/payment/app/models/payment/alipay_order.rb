@@ -1,7 +1,17 @@
 module Payment
   class AlipayOrder < RemoteOrder
     def payment_url(_size = nil)
-      pay_url
+      AlipayOrder.client.page_execute_url(
+        method: 'alipay.trade.page.pay',
+        return_url: order.return_url,
+        notify_url: order.notify_url,
+        biz_content: {
+          out_trade_no: order_no,
+          product_code: 'FAST_INSTANT_TRADE_PAY',
+          total_amount: amount.to_f.to_s,
+          subject: order.subject
+        }.to_json
+      )
     end
 
     def proccess_notify(notify_params)
@@ -34,6 +44,10 @@ module Payment
                                                             },
                                                             sign_type: 'RSA',
                                                             key: $qatime_key)
+    end
+
+    def self.client
+      @client ||= Alipay::Client.new(url: ENV['ALIPAY_API'],  app_id: ENV['APP_ID'], app_private_key: ENV['APP_PRIVATE_KEY'], alipay_public_key: ENV['ALIPAY_PUBLIC_KEY'])
     end
 
     private

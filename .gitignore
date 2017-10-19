@@ -40,6 +40,7 @@ config/*.yml
 screenshots/*.png
 config/oneapm.yml
 config/newrelic.yml
+.env
 
 # 忽略私钥证书文件
 /config/qatime_rsa_private_key.pem

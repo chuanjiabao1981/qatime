@@ -112,14 +112,33 @@ module Payment
     end
 
     def remote_refund!
-      raise Payment::InvalidOperation, "不支持的提现方式" unless weixin?
+      # raise Payment::InvalidOperation, "不支持的提现方式" unless weixin?
       submit!
+      weixin? ? weixin_refund! : alipay_refund!
+    end
+
+    # 微信退款
+    def weixin_refund!
       remote = weixin_refunds.create!(
         amount: amount,
         status: :unpaid,
         order_no: transaction_no
       )
       remote.remote_refund
+    end
+
+    # 支付宝退款
+    def alipay_refund!
+      response = Alipay::Client.execute(
+        method: 'alipay.trade.refund',
+        biz_content: {
+          out_trade_no: transaction_no,
+          out_request_no: "#{transaction_no}-1",
+          refund_amount: amount
+        }.to_json
+      )
+      result_code = JSON.parse(response)["alipay_trade_refund_response"]["code"]
+      pay! if result_code == '10000'
     end
 
     def allow_by!(operator)

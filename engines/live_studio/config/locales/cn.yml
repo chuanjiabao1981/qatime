@@ -330,8 +330,8 @@ cn:
       teacher_desc: 自我介绍
       teacher_summary: 教师简介
     replay:
-      left_replay_times: '剩余（%{count}次）'
-      left_replay_times2: '剩余回放次数：%{count}'
+      left_replay_times: '剩余（%{count}天）'
+      left_replay_times2: '剩余回放天数：%{count}'
       directory: 回放目录
       replay_part_of: "第%{index}段回放"
     live_studio/station:

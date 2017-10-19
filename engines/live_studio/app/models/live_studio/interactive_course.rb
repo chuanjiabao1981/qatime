@@ -82,7 +82,7 @@ module LiveStudio
     has_many :live_studio_interactive_course_notifications, as: :notificationable, dependent: :destroy
 
     validates :name, presence: true, length: { in: 2..20 }
-    validates :description, presence: true, length: { in: 5..300 }
+    validates :description, presence: true, text_length: { in: 5..300 }, if: :description_changed?
     validates :grade, :subject, :workstation_id, presence: true
     validates :price, presence: true, numericality: { greater_than: :price_min, less_than_or_equal_to: 999_999 }
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }

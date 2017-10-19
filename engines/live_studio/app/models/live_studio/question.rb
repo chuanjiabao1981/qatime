@@ -19,6 +19,10 @@ module LiveStudio
     validates :body, length: { in: 2..200 }, allow_blank: true
 
     after_commit :asyn_send_team_message, on: :create
+   
+    def raw_body
+      body.to_s.gsub(/\r\n/, '<br />').gsub(/\n/, '<br />')
+    end
 
     private
 

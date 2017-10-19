@@ -5,6 +5,7 @@
   <td><%= teacher.nick_name %></td>
   <td><%= teacher.category %></td>
   <td><%= teacher.subject %></td>
+  <td><%= localize(teacher.created_at, format: :short) %></td>
   <td class="handling">
     <% if allow? :teachers, :pass %>
       <%= render partial: '/teachers/teacher_status', locals: {teacher: teacher}%>

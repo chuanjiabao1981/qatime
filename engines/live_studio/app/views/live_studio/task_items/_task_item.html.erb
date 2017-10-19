@@ -1,6 +1,6 @@
 <div>
   <span class="ordinal-number"><%= format('%02d', task_item_counter + 1) %></span> 
-  <p><%= task_item.body %></p>
+  <p><%= raw task_item.raw_body %></p>
   <p class="image-box">
     <% task_item.attachments.select(&:image?).each do |attach| %>
       <span>

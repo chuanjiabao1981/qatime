@@ -115,7 +115,7 @@ GEM
     acts_as_list (0.7.2)
       activerecord (>= 3.0)
     addressable (2.4.0)
-    alipay (0.12.0)
+    alipay (0.15.0)
     arel (6.0.4)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -206,6 +206,10 @@ GEM
       rails (>= 3.2.1)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     enumerable-lazy (0.0.1)
     enumerize (1.1.1)
       activesupport (>= 3.2)
@@ -485,7 +489,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   acts-as-taggable-on (~> 4.0)
-  alipay (~> 0.12.0)
+  alipay (~> 0.15.0)
   bcrypt
   better_errors (~> 2.1, >= 2.1.1)
   binding_of_caller (~> 0.7.2)
@@ -506,6 +510,7 @@ DEPENDENCIES
   course_library!
   database_cleaner
   default_value_for (~> 3.0, >= 3.0.2)
+  dotenv-rails (~> 2.2, >= 2.2.1)
   enumerize
   fakeweb
   fancybox2-rails (~> 0.2.8)

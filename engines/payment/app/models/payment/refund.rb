@@ -138,7 +138,7 @@ module Payment
         }.to_json
       )
       result_code = JSON.parse(response)["alipay_trade_refund_response"]["code"]
-      pay! if result_code == '10000'
+      pay_and_ship! if result_code == '10000'
     end
 
     def allow_by!(operator)

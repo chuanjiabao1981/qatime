@@ -20,6 +20,9 @@ module Entities
       expose :app_pay_params do |recharge|
         recharge.remote_order.try(:app_pay_params)
       end
+      expose :app_pay_str do |recharge|
+        recharge.remote_order.try(:app_pay_str)
+      end
     end
   end
 end

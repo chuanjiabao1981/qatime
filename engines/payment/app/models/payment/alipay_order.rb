@@ -75,7 +75,7 @@ module Payment
 
     def check_notify(notify_params)
       raise Payment::InvalidNotify, '无效通知' unless AlipayOrder.client.verify?(notify_params)
-      raise Payment::IncorrectAmount, '金额不正确' unless notify_params[:total_fee].to_f == amount.to_f
+      raise Payment::IncorrectAmount, '金额不正确' unless notify_params[:total_amount].to_f == amount.to_f
     end
   end
 end

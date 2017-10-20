@@ -35,7 +35,7 @@ module Payment
 
     def result
       # 支付宝结果回调
-      if params[:notify_type] == "trade_status_sync"
+      if params[:method] == "alipay.trade.page.pay.return"
         proccess_result
         if @transaction.is_a? Payment::Recharge
           redirect_to payment.cash_user_path(@transaction.user)

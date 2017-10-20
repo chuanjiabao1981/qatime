@@ -37,13 +37,16 @@ module Payment
     end
 
     def app_pay_str
-      Alipay::Mobile::Service.mobile_securitypay_pay_string({ out_trade_no: order_no,
-                                                              notify_url: order.notify_url,
-                                                              subject: order.subject,
-                                                              total_fee: amount
-                                                            },
-                                                            sign_type: 'RSA',
-                                                            key: $qatime_key)
+      AlipayOrder.client.sdk_execute(
+        method: 'alipay.trade.app.pay',
+        notify_url: order.notify_url,
+        biz_content: {
+          out_trade_no: order_no,
+          product_code: 'FAST_INSTANT_TRADE_PAY',
+          total_amount: amount.to_f.to_s,
+          subject: order.subject
+        }.to_json
+      )
     end
 
     def self.client
@@ -71,7 +74,7 @@ module Payment
     end
 
     def check_notify(notify_params)
-      raise Payment::InvalidNotify, '无效通知' unless Alipay::Notify.verify?(notify_params)
+      raise Payment::InvalidNotify, '无效通知' unless AlipayOrder.client.verify?(notify_params)
       raise Payment::IncorrectAmount, '金额不正确' unless notify_params[:total_fee].to_f == amount.to_f
     end
   end

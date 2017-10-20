@@ -129,7 +129,7 @@ module Payment
 
     # 支付宝退款
     def alipay_refund!
-      response = Alipay::Client.execute(
+      response = Payment::AlipayOrder.client.execute(
         method: 'alipay.trade.refund',
         biz_content: {
           out_trade_no: transaction_no,

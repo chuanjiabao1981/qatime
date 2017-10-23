@@ -11,17 +11,17 @@ module Entities
       expose :created_at
       expose :updated_at
       expose :pay_at
-      expose :prepay_id do |recharge|
-        recharge.remote_order.try(:prepay_id)
+      expose :prepay_id do |order|
+        order.remote_order.try(:prepay_id)
       end
-      expose :nonce_str do |recharge|
-        recharge.remote_order.try(:nonce_str)
+      expose :nonce_str do |order|
+        order.remote_order.try(:nonce_str)
       end
-      expose :app_pay_params do |recharge|
-        recharge.remote_order.try(:app_pay_params)
+      expose :app_pay_params do |order|
+        order.remote_order.try(:app_pay_params)
       end
-      expose :app_pay_str do |recharge|
-        recharge.remote_order.try(:app_pay_str)
+      expose :app_pay_str do |order|
+        order.remote_order.try(:app_pay_str)
       end
       expose :product_type
       expose :product, using: Entities::LiveStudio::Course, if: { type: :product } do |order|

@@ -72,7 +72,7 @@ module V1
               withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init, source: params[:app_type] }
               withdraw = @user.payment_withdraws.new(withdraw_params)
 
-              Payment::Withdraw.transaction do
+              ::Payment::Withdraw.transaction do
                 raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save!
                 if withdraw.weixin? # 微信提现使用openid
                   withdraw.create_withdraw_record!(account: wechat_user.openid, name: wechat_user.nickname)

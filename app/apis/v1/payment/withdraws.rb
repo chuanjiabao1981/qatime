@@ -71,11 +71,14 @@ module V1
               UserService::CashAccountManager.new(@user).check_token(:withdraw, params[:ticket_token])
               withdraw_params = { amount: params[:amount], pay_type: params[:pay_type], status: :init, source: params[:app_type] }
               withdraw = @user.payment_withdraws.new(withdraw_params)
-              raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save
-              if withdraw.weixin? # 微信提现使用openid
-                withdraw.create_withdraw_record(account: wechat_user.openid, name: wechat_user.nickname)
-              else
-                withdraw.create_withdraw_record(account: params[:account], name: params[:name])
+
+              Payment::Withdraw.transaction do
+                raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save!
+                if withdraw.weixin? # 微信提现使用openid
+                  withdraw.create_withdraw_record!(account: wechat_user.openid, name: wechat_user.nickname)
+                else
+                  withdraw.create_withdraw_record!(account: params[:account], name: params[:name])
+                end
               end
               present withdraw, with: Entities::Payment::Withdraw
             end

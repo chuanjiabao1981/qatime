@@ -47,6 +47,7 @@ module LiveStudio
       event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
+          self.for_sell = true
         end
         transitions from: :init, to: :published
       end
@@ -56,6 +57,9 @@ module LiveStudio
       end
 
       event :complete do
+        before do
+          self.for_sell = false
+        end
         transitions from: :teaching, to: :completed
       end
     end
@@ -105,10 +109,10 @@ module LiveStudio
 
     scope :sell_and_platform_percentage_greater_than, ->(platform_percentage) { where('live_studio_groups.sell_and_platform_percentage > ?', platform_percentage) }
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
-    scope :for_sell, -> { where(status: statuses[:published]) }
+    scope :for_sell, -> { where(for_sell: true) }
 
     def for_sell?
-      published? || teaching?
+      for_sell
     end
 
     def teacher_name

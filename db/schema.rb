@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025023430) do
+ActiveRecord::Schema.define(version: 20171025061905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -684,7 +684,7 @@ ActiveRecord::Schema.define(version: 20171025023430) do
   add_index "live_studio_events", ["teacher_id"], name: "index_live_studio_events_on_teacher_id", using: :btree
 
   create_table "live_studio_groups", force: :cascade do |t|
-    t.string   "name",                         limit: 100,                                       null: false
+    t.string   "name",                         limit: 100,                                         null: false
     t.string   "subject"
     t.string   "grade"
     t.string   "publicize"
@@ -723,10 +723,11 @@ ActiveRecord::Schema.define(version: 20171025023430) do
     t.datetime "end_at"
     t.datetime "published_at"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                                     null: false
-    t.datetime "updated_at",                                                                     null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "users_count",                                                      default: 0
     t.integer  "max_users",                                                        default: 10
+    t.boolean  "for_sell",                                                         default: false
   end
 
   add_index "live_studio_groups", ["author_id"], name: "index_live_studio_groups_on_author_id", using: :btree

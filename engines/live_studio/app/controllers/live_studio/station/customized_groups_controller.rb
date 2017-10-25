@@ -20,7 +20,7 @@ module LiveStudio
     end
 
     def new
-      @customized_group = @workstation.live_studio_customized_groups.new(price: nil, teacher_percentage: nil)
+      @customized_group = @workstation.live_studio_customized_groups.new(price: nil, teacher_percentage: nil, max_users: nil)
       @customized_group.generate_token
     end
 
@@ -69,7 +69,7 @@ module LiveStudio
       params[:customized_group][:scheduled_lessons_attributes] = params[:customized_group][:scheduled_lessons_attributes].map(&:second) if params[:customized_group] && params[:customized_group][:scheduled_lessons_attributes]
       params[:customized_group][:offline_lessons_attributes] = params[:customized_group][:offline_lessons_attributes].map(&:second) if params[:customized_group] && params[:customized_group][:offline_lessons_attributes]
       params.require(:customized_group).permit(
-        :name, :grade, :subject, :objective, :suit_crowd, :description, :token, :teacher_id, :sell_type, :teacher_percentage, :price,
+        :name, :grade, :subject, :objective, :suit_crowd, :description, :token, :max_users, :teacher_id, :sell_type, :teacher_percentage, :price,
         scheduled_lessons_attributes: [:id, :class_date, :start_at_hour, :start_at_min, :duration, :name, :_destroy],
         offline_lessons_attributes: [:id, :class_date, :start_at_hour, :start_at_min, :duration, :name, :class_address, :_destroy]
       )

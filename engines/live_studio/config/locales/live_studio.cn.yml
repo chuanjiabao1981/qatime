@@ -326,7 +326,7 @@ cn:
       new:
         label0: 专属课课说明
         label1: 1.允许多名学生购买，可以重复销售；
-        label2: 2.不支持试听课程和插班购买；
+        label2: 2.允许插班购买，限制报名人数最大10人；
         label3: 3.默认使用系统专属课课程海报。
         intro_two: 二、上课安排
         scheduled_lesson_title: 线上直播

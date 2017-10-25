@@ -85,6 +85,8 @@ module LiveStudio
     validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
     validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
+    validates :max_users, presence: true, inclusion: { in: 6..10 }
+
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
 

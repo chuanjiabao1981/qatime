@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016085953) do
+ActiveRecord::Schema.define(version: 20171025023430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -726,6 +726,7 @@ ActiveRecord::Schema.define(version: 20171016085953) do
     t.datetime "created_at",                                                                     null: false
     t.datetime "updated_at",                                                                     null: false
     t.integer  "users_count",                                                      default: 0
+    t.integer  "max_users",                                                        default: 10
   end
 
   add_index "live_studio_groups", ["author_id"], name: "index_live_studio_groups_on_author_id", using: :btree

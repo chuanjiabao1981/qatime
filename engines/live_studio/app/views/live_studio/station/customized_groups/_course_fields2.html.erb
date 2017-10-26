@@ -3,7 +3,7 @@
     <%= f.label :max_users %>
   </div>
   <div class="col-md-10">
-    <%= f.input :max_users, label: false, as: :select, collection: 6..10, prompt: :translate %>
+    <%= f.input :max_users, label: false, as: :select, collection: (6..10).map { |i| ["最多#{i}人", i] }, prompt: :translate %>
   </div>
 </div>
 

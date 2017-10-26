@@ -383,8 +383,8 @@ module LiveStudio
 
     # 调整报名人数(虚数)
     def adjust_users(count)
-      self.class.update_counters(@customized_group.id, adjust_tickets_count: count)
-      self.class.update_counters(@customized_group.id, users_count: count)
+      self.class.update_counters(id, adjust_tickets_count: count)
+      self.class.update_counters(id, users_count: count)
       reload
     end
 

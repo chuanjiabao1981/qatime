@@ -21,8 +21,7 @@ module LiveStudio
     after_create :ince_user_counter
     # 增加购买人数
     def ince_user_counter
-      product.class.increment_counter(:buy_tickets_count, product_id)
-      product.class.increment_counter(:users_count, product_id)
+      product.inc_buy_tickets_count
     end
   end
 end

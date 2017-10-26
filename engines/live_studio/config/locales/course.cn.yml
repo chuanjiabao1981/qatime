@@ -50,6 +50,7 @@ cn:
         login_notice: 请先登录
         taste_overflow: 该试听已失效,请直接购买
         teacher_notice: 请使用学生帐号操作
+        role_notice: 请使用学生帐号操作
         date: 日期
         date_text: "%{start_at}至%{end_at}"
         status: 状态
@@ -113,6 +114,7 @@ cn:
           play4: 4.学习结束后请尽量关闭视频，以免过多占用网络资源影响您浏览其他内容。
     live_studio/customized_groups:
       show:
+        purchase_number: "报名人数 %{count}/%{max}"
         announcement_link: 发布公告
         scheduled_lesson: 线上直播
         offline_lesson: 线下讲课

@@ -23,27 +23,30 @@ module LiveStudio
     }
 
     enumerize :status, in: {
-                         rejected: -1, # 被拒绝
-                         init: 0, # 初始化
-                         published: 1, # 招生中
-                         teaching: 2, # 已开课
-                         completed: 3 # 已结束
-                     }
+      rejected: -1, # 被拒绝
+      init: 0, # 初始化
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3, # 已结束
+      waiting: 11 # 待开课
+    }
 
     # enumerize排序优先级会影响到enum 必须放在后面加载
     enumerize :sell_type, in: { charge: 1, free: 2 }, scope: true
 
     aasm column: :status, enum: true do
       state :rejected
-      state :init
-      state :published, initial: true
+      state :init, initial: true
+      state :published
       state :teaching
       state :completed
+      state :waiting
 
       event :reject do
         transitions from: :init, to: :rejected
       end
 
+      # 开始招生
       event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
@@ -51,10 +54,12 @@ module LiveStudio
         transitions from: :init, to: :published
       end
 
+      # 开始上课
       event :teach do
-        transitions from: :published, to: :teaching
+        transitions from: [:published, :waiting], to: :teaching
       end
 
+      # 结束课程
       event :complete do
         transitions from: :teaching, to: :completed
       end
@@ -85,6 +90,8 @@ module LiveStudio
     validates :objective, presence: true, length: { in: 1..300 }, if: :objective_changed?
     validates :suit_crowd, presence: true, length: { in: 1..300 }, if: :suit_crowd_changed?
 
+    validates :max_users, presence: true, inclusion: { in: 6..10 }
+
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
 
@@ -103,10 +110,14 @@ module LiveStudio
 
     scope :sell_and_platform_percentage_greater_than, ->(platform_percentage) { where('live_studio_groups.sell_and_platform_percentage > ?', platform_percentage) }
     scope :uncompleted, -> { where('live_studio_groups.status < ?', statuses[:completed]) }
-    scope :for_sell, -> { where(status: statuses[:published]) }
+    scope :for_sell, -> { where(status: statuses.values_at(:published, :teaching)) }
 
     def for_sell?
       published? || teaching?
+    end
+
+    def sell_out?
+      users_count >= max_users
     end
 
     def teacher_name
@@ -146,7 +157,7 @@ module LiveStudio
 
     # 购买人数
     def buy_user_count
-      buy_tickets_count + adjust_tickets_count
+      users_count
     end
 
     # 已经购买
@@ -218,6 +229,25 @@ module LiveStudio
       qr_code.save
       File.delete(tmp_path)
       qr_code.code_url
+    end
+
+    # 调整报名人数(虚数)
+    def adjust_users(count)
+      self.class.update_counters(id, adjust_tickets_count: count)
+      self.class.update_counters(id, users_count: count)
+      reload
+    end
+
+    # 增加报名人数(真实数)
+    def inc_buy_tickets_count
+      self.class.increment_counter(:buy_tickets_count, id)
+      self.class.increment_counter(:users_count, id)
+      reload
+    end
+
+    # 修正报名人数
+    def fix_users_count
+      [users_count, max_users].min
     end
 
     private

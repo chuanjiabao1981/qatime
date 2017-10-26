@@ -250,6 +250,11 @@ module LiveStudio
       [users_count, max_users].min
     end
 
+    def reset_left_price
+      self.left_price = current_price
+      save
+    end
+
     private
 
     # 结账比例验证

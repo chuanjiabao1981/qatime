@@ -46,6 +46,7 @@ cn:
         sell_type: 类型
         price: 设置价格
         teacher_percentage: 教师分成
+        max_users: 人数限制
       event:
         class_address: 上课地点
         start_time: 上课时间
@@ -76,6 +77,7 @@ cn:
         suit_crowd: 输入适合学习的人群（最多300字）
         teacher_percentage: 请输入教师获得分成比例（正整数）
         price: 请输入课程售价（正整数）
+        max_users: 选择报名最大限制人数
       event:
         class_address: 请输入具体地点或教室
       question:
@@ -98,6 +100,7 @@ cn:
         grade: 请选择年级
         subject: 请选择科目
         teacher: 选择老师
+        max_users: 选择报名最大限制人数
     buttons:
       course_invitation:
         submit: 立即发送

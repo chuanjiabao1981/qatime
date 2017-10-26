@@ -38,10 +38,10 @@ module LiveStudio
     # 发货
     def deliver(order)
       grant(order)
-    end
-
-    def for_sell?
-      published? || teaching?
+      # 购买人数限制
+      return if users_count < max_users
+      self.for_sell = false
+      save!
     end
 
     # 未结束课程数量

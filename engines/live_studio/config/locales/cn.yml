@@ -532,6 +532,7 @@ cn:
         sell_type: 类型
         start_at: 开课日期
         end_at: 结课日期
+        max_users: 人数限制
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度

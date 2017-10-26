@@ -331,6 +331,7 @@ cn:
         intro_two: 二、上课安排
         scheduled_lesson_title: 线上直播
         offline_lesson_title: 线下授课
+        max_users: "最多%{count}人"
       offline_lesson_field:
         class_address_text: 上课地点
       index:

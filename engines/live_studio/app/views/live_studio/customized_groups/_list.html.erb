@@ -18,7 +18,7 @@
                 <% if customized_group.sell_type.free? %>
                   <span class="class-price"><%= t('common.free_of_charge') %></span>
                 <% else %>
-                  <span class="class-price"><%= number_to_currency(customized_group.current_price) %></span>
+                  <span class="class-price"><%= number_to_currency(customized_group.left_price) %></span>
                 <% end %>
               </p>
             </div>

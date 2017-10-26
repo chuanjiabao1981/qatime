@@ -226,6 +226,11 @@ module LiveStudio
       group.update(start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 
+    after_commit :update_group_price
+    def update_group_price
+      group.reset_left_price if group
+    end
+
     # 增加计数器
     def increment_course_counter(attribute)
       group.increment(attribute)

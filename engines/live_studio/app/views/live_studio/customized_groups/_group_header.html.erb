@@ -7,7 +7,11 @@
       <div class="col-md-7 col-xs-12 course-introduce">
         <div class="course-title">
           <h1><%= truncate_u @customized_group.name, length: 24 %></h1>
-          <span id="users_count"><%= t('view.live_studio/courses.show.purchase_number', count: @customized_group.buy_user_count ) %></span>
+          <span id="users_count">
+            <%= t('view.live_studio/customized_groups.show.purchase_number',
+                count: @customized_group.fix_users_count,
+                max: @customized_group.max_users) %>
+          </span>
           <% if allow?('live_studio/customized_group', 'inc_users_count', @customized_group) -%>
             <%= form_tag live_studio.inc_users_count_customized_group_path, method: :post, remote: true do %>
               <%= button_tag '增加', id: 'inc_users_count_link', type: 'button', class: "form-control add" %>
@@ -41,7 +45,15 @@
           <% end %>
 
           <span class="price-right">
-            <%= render partial: "buy_or_taste" if (current_user.blank? || current_user.student_or_teacher?) %>
+            <% if !@customized_group.for_sell? %>
+              <%= render 'btn_status' %>
+            <% elsif @customized_group.bought_by?(current_user) %>
+              <%= render 'btn_play' %>
+            <% elsif @customized_group.sell_out? %>
+              <%= render 'btn_sell_out' %>
+            <% else %>
+              <%= render 'btn_buy' %>
+            <% end %>
           </span>
         </div>
       </div>

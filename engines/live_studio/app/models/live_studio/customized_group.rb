@@ -39,7 +39,7 @@ module LiveStudio
     def deliver(order)
       grant(order)
       # 购买人数限制
-      return if buy_tickets_count < max_users
+      return if users_count < max_users
       self.for_sell = false
       save!
     end

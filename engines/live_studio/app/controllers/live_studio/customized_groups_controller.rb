@@ -38,9 +38,9 @@ module LiveStudio
       render json: LiveService::GroupRealtimeService.new(params[:id]).live_detail(current_user.try(:id))
     end
 
+    # 调整报名人数
     def inc_users_count
-      @customized_group.class.update_counters(@customized_group.id, adjust_tickets_count: params[:by].to_i)
-      @customized_group.class.update_counters(@customized_group.id, users_count: params[:by].to_i)
+      @customized_group.adjust_users(params[:by].to_i)
       @customized_group.reload
     end
 

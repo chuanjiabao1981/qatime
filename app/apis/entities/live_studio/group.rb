@@ -21,6 +21,8 @@ module Entities
       expose :objective
       expose :suit_crowd
       expose :description
+      expose :users_count
+      expose :max_users
       expose :icons do
         expose :refund_any_time do |group|
           group.refund_any_time?

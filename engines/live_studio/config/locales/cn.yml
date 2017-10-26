@@ -64,6 +64,7 @@ cn:
       buy_tickets_count_text: "学习人数%{count}"
       buy_user_count_text: "%{count}人学习"
       buy_user_count_text2: "%{count}人报名"
+      users_progress: "%{count}/%{max} 人报名"
       lessons_count: 课时
       lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
@@ -116,6 +117,7 @@ cn:
       start_learning2: 观看
       taste_end: 试听结束
       shelves: 已下架
+      sell_out: 已经报满
       buy_teaching_course_tips: '该直播课已开课，是否确认购买？'
     course_search_show:
       clear_range_btn: 清除范围

@@ -72,6 +72,7 @@ module LiveStudio
       click_on '保存'
 
       find('div[contenteditable]').set('test description')
+      select('最多9人', from: 'customized_group_max_users')
       select2('teacher_one', '#s2id_customized_group_teacher_id')
       fill_in :customized_group_price, with: '100'
       fill_in :customized_group_teacher_percentage, with: '60'

@@ -31,6 +31,7 @@ module LiveStudio
     def validate_order(order)
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '已经达到报名人数限制' if sell_out?
       order.errors[:product] << '课程只对学生销售' unless user.student?
       order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
     end

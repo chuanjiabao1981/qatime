@@ -17710,3 +17710,21 @@ abbr {
     right: 10px;
     top: 181px;
 }
+
+.homepage-banner .carousel-control {
+  width: 27px;
+  height: 86px;
+  background: none;
+  line-height: 86px;
+  font-size: 86px;
+  color: #fff;
+  top: 50%;
+  margin-top: -43px;
+  display: none;
+}
+.homepage-banner .carousel-control.left {
+  left: 30px;
+}
+.homepage-banner .carousel-control.right {
+  right: 30px;
+}

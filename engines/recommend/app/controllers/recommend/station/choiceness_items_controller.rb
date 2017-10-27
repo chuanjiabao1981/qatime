@@ -17,7 +17,7 @@ module Recommend
     def create
       @item = @position.items.build(item_params.merge(platforms: params[:platforms], city_id: @workstation.city_id, type: @position.klass_name))
 
-      if @item.save
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to recommend.station_workstation_choiceness_items_path(@workstation, position_id: @position)
       else
@@ -29,7 +29,8 @@ module Recommend
     end
 
     def update
-      if @item.update(item_params.merge(platforms: params[:platforms]))
+      @item.assign_attributes(item_params.merge(platforms: params[:platforms]))
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to recommend.station_workstation_choiceness_items_path(@workstation, position_id: @position)
       else

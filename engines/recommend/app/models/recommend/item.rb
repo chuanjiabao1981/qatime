@@ -36,6 +36,34 @@ module Recommend
     def self.i18n_options_reasons
       reasons.map{|k,_| [I18n.t("enums.recommend.reason.#{k}"), k]}
     end
+
+    # 排序占位
+    def placehold!
+      return if index.nil?
+      self.class.placehold!(position, city_id, index)
+    end
+
+    def save(options)
+      Recommend::Item.transaction do
+        placehold! if options.delete(:placehold)
+        saved = super(options)
+        raise ActiveRecord::Rollback, "保存失败不提交位置变动" unless saved
+        saved
+      end
+    end
+
+    # 占位
+    def self.placehold!(position, city_id, target = 1)
+      current_index = target.to_i
+      modify_items = []
+      position.items.by_city(city_id).where("index >= ?", current_index).order(:index).each do |item|
+        break if item.index > current_index
+        item.index += 1
+        current_index = item.index
+        modify_items << item
+      end
+      modify_items.reverse.map(&:save!)
+    end
   end
 
   require_relative './teacher_item'

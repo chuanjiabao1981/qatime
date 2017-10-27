@@ -20,7 +20,13 @@ module LiveStudio
 
     # 当前价格
     def current_price
-      price.to_f.round(2)
+      return 0 if events_count <= closed_events_count
+      return price.to_i if closed_events_count.zero?
+      (lesson_price * (events_count - closed_events_count)).round.to_i
+    end
+
+    def lesson_price
+      price.to_f / events_count
     end
 
     def order_params

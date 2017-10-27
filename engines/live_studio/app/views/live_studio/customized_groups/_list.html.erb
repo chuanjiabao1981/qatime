@@ -18,13 +18,13 @@
                 <% if customized_group.sell_type.free? %>
                   <span class="class-price"><%= t('common.free_of_charge') %></span>
                 <% else %>
-                  <span class="class-price"><%= number_to_currency(customized_group.current_price) %></span>
+                  <span class="class-price"><%= number_to_currency(customized_group.left_price) %></span>
                 <% end %>
               </p>
             </div>
             <div class="classify-info">
               <p>
-                <span><%= t('common.teacher') %>：<i><%= truncate_u customized_group.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.buy_user_count_text2', count: customized_group.users_count) %></i></span>
+                <span><%= t('common.teacher') %>：<i><%= truncate_u customized_group.teacher.try(:name), length: 6 %></i><em>|</em><i><%= t('view.course_show.users_progress', count: customized_group.fix_users_count, max: customized_group.max_users) %></i></span>
               </p>
             </div>
           </li>

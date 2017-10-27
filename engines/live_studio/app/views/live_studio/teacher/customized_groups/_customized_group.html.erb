@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-5">
           <span><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
-          <span><%= customized_group.buy_tickets_count %></span>
+          <span><%= customized_group.fix_users_count %>/<%= customized_group.max_users %></span>
         </div>
       </div>
     </div>

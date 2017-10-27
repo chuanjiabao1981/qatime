@@ -10339,6 +10339,16 @@ div.live-big {
   line-height: 24px;
   color: #666;
 }
+
+.instructions-line ol {
+  padding-left: 22px;
+  margin-bottom: 0px;
+}
+.instructions-line ol li {
+  line-height: 24px;
+  color: #666;
+}
+
 .instructions-line h3 {
   font-size: 16px;
   color: #34495e;
@@ -17709,4 +17719,22 @@ abbr {
     border-top: 8px solid #fff;
     right: 10px;
     top: 181px;
+}
+
+.homepage-banner .carousel-control {
+  width: 27px;
+  height: 86px;
+  background: none;
+  line-height: 86px;
+  font-size: 86px;
+  color: #fff;
+  top: 50%;
+  margin-top: -43px;
+  display: none;
+}
+.homepage-banner .carousel-control.left {
+  left: 30px;
+}
+.homepage-banner .carousel-control.right {
+  right: 30px;
 }

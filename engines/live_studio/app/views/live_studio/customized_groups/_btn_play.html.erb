@@ -1,0 +1,5 @@
+<% if @customized_group.published? %>
+  <%= link_to(t('view.course_info_show.start_learning'), "javascript:alert('#{t('view.live_studio/customized_groups.show.learn_alert')}');", class: 'btn-startclass') %>
+<% else %>
+  <%= link_to t('view.course_info_show.start_learning'), live_studio.play_customized_group_path(@customized_group), class: 'btn-startclass', target: '_blank' %>
+<% end %>

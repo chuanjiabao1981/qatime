@@ -68,6 +68,13 @@
         interval: 5000
       });
 
+      //轮播图左右切换按钮
+      $(".carousel").hover(function  () {
+        $(".carousel-control").show();
+      },function  () {
+        $(".carousel-control").hide();
+      });
+
       // 今日直播
       $(".live-today").hover(function() {
         var showHeight = $(".live-today  ul").height();

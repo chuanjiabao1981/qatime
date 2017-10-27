@@ -1,5 +1,5 @@
 <%= search_form_for @q, id: 'search-form' do |f| %>
-  <%= hidden_field_tag :tags, @search_params[:tags] %>
+  <%#= hidden_field_tag :tags, @search_params[:tags] %>
   <%= hidden_field_tag :range, @search_params[:range] %>
   <%= f.search_field :status, type: 'hidden' %>
   <%= f.search_field :grade_eq, type: 'hidden' %>

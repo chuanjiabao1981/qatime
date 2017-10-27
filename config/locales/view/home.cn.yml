@@ -7,6 +7,7 @@ cn:
       switch_country: 选择全国
       city_tips: 城市已精确到县级单位
       recent_selected: 最近选择
+      hot_cities: 热门城市
       pinyin_by: 按拼音首字母
       city_none_tips: 如果没有您要找的城市，则该城市暂未加盟
     new_index:

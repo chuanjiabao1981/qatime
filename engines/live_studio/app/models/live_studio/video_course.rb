@@ -381,6 +381,20 @@ module LiveStudio
       taste_count.to_i > 0 && sell_type.charge?
     end
 
+    # 调整报名人数(虚数)
+    def adjust_users(count)
+      self.class.update_counters(id, adjust_tickets_count: count)
+      self.class.update_counters(id, users_count: count)
+      reload
+    end
+
+    # 增加报名人数(真实数)
+    def inc_buy_tickets_count
+      self.class.increment_counter(:buy_tickets_count, id)
+      self.class.increment_counter(:users_count, id)
+      reload
+    end
+
     private
 
     def check_ticket!(order_or_user)

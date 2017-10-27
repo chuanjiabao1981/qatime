@@ -15,6 +15,13 @@
     <% end %>
   </ul>
 
+  <%= link_to "#myCarousel", data: {slide: 'prev'}, class: 'carousel-control left' do -%>
+    <i class="fa fa-angle-left"></i>
+  <% end -%>
+  <%= link_to "#myCarousel", data: {slide: 'next'}, class: 'carousel-control right' do -%>
+    <i class="fa fa-angle-right"></i>
+  <% end -%>
+
   <ul class="banner-dot carousel-indicators">
     <% @recommend_banners.each_with_index do |banner, index| %>
       <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>"><span></span></li>

@@ -57,8 +57,6 @@ module Recommend
       current_index = target.to_i
       modify_items = []
       position.items.by_city(city_id).where("index >= ?", current_index).order(:index).each do |item|
-        p "=====>>> #{current_index} : #{item.index}"
-
         break if item.index > current_index
         item.index += 1
         current_index = item.index

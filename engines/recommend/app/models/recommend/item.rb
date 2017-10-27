@@ -46,7 +46,9 @@ module Recommend
     def save(options)
       Recommend::Item.transaction do
         placehold! if options.delete(:placehold)
-        super(options)
+        saved = super(options)
+        raise ActiveRecord::Rollback, "保存失败不提交位置变动" unless saved
+        saved
       end
     end
 

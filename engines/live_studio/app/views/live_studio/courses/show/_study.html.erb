@@ -1,55 +1,36 @@
 <div class="study-instructions">
   <div class="instructions-line">
     <h3><%= t('view.live_studio/courses.show.before_study') %></h3>
-    <ul>
-      <li>
-        <%= t('view.live_studio/courses.show.before_study1') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.before_study2') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.before_study3') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.before_study4') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.before_study5') %>
-      </li>
-    </ul>
+    <ol>
+      <% t('view.live_studio/courses.show.before_study_description').split(/\n/).each do |str| %>
+        <li><%= str %></li>
+      <% end %>
+    </ol>
   </div>
 
   <div class="instructions-line">
     <h3><%= t('view.live_studio/courses.show.study_in') %></h3>
-    <ul>
-      <li>
-        <%= t('view.live_studio/courses.show.study_in1') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.study_in2') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.study_in3') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.study_in4') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.study_in5') %>
-      </li>
-    </ul>
+    <ol>
+      <% t('view.live_studio/courses.show.study_in_description').split(/\n/).each do |str| %>
+        <li><%= str %></li>
+      <% end %>
+    </ol>
   </div>
   <div class="instructions-line">
     <h3><%= t('view.live_studio/courses.show.after_study') %></h3>
-    <ul>
-      <li>
-        <%= t('view.live_studio/courses.show.after_study1') %>
-      </li>
-      <li>
-        <%= t('view.live_studio/courses.show.after_study2') %>
-      </li>
+    <ol>
+      <% t('view.live_studio/courses.show.after_study_description').split(/\n/).each do |str| %>
+        <li><%= str %></li>
+      <% end %>
+    </ol>
+  </div>
 
-    </ul>
+  <div class="instructions-line">
+    <h3><%= t('view.live_studio/courses.show.replay_study') %></h3>
+    <ol>
+      <% t('view.live_studio/courses.show.replay_description').split(/\n/).each do |str| %>
+        <li><%= str %></li>
+      <% end %>
+    </ol>
   </div>
 </div>

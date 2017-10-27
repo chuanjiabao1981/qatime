@@ -26,6 +26,14 @@
             <%= link_to t('view.common_bars.nationwide'), home_path(city_name: 'country') if @selected_cities.blank? %>
           </p>
         </div>
+        <div class="city-list">
+          <h3><%= t('view.common.hot_cities') %>：</h3>
+          <p>
+            <% City.where("workstation_id is not null").each do |city| %>
+              <%= link_to city.name, home_path(city_name: city.name) %>
+            <% end %>
+          </p>
+        </div>
 
         <div class="citieslist">
           <h2><%= t('view.common.pinyin_by') %>：</h2>

@@ -16,6 +16,8 @@ module Permissions
       allow :notifications, [:show] do |notification|
         notification
       end
+
+      allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code]
     end
   end
 end

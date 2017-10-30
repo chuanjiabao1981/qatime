@@ -34,6 +34,10 @@
   </div>
 </div>
 
+<% content_for :share_to do %>
+  <%= render 'shared/share_to_footer' %>
+<% end %>
+
 <% content_for :javascript do %>
   <script type="text/javascript">
     // 拖动

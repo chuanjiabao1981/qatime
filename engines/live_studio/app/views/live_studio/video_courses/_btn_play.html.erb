@@ -1,0 +1,5 @@
+<% if @course.published? %>
+  <%= link_to(t('view.course_info_show.start_learning2'), "javascript:alert('#{t('view.live_studio/courses.show.learn_alert')}');", class: 'btn-startclass') %>
+<% else %>
+  <%= link_to(t('view.course_info_show.start_learning2'), live_studio.play_video_lesson_path(@course.video_lessons.first), target: '_blank', class: 'btn-view') if @course.published? %>
+<% end %>

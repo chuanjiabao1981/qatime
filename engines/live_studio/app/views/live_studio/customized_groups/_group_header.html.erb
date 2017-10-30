@@ -37,23 +37,41 @@
           </span>
         </div>
 
-        <div class="course-price">
-          <% if @customized_group.sell_type.free? %>
-            <span class="price-left"><%= t('common.free_of_charge') %></span>
-          <% else %>
-            <span class="price-left"><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
-          <% end %>
 
+
+        <div class="course-sellingprice">
+          <% unless @customized_group.off_shelve? %>
+            <% if @customized_group.sell_type.free? %>
+              <span><%= t('common.free_of_charge') %></span>
+            <% else %>
+              <span><%= number_to_currency(@customized_group.current_price, locale: :cn) %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+
+        <div class="course-join">
           <span class="price-right">
+            <!-- 已经下架显示状态 -->
             <% if !@customized_group.for_sell? %>
               <%= render 'btn_status' %>
+            <!-- 已经购买显示观看按钮 -->
             <% elsif @customized_group.bought_by?(current_user) %>
               <%= render 'btn_play' %>
+            <!-- 报名人满 -->
             <% elsif @customized_group.sell_out? %>
               <%= render 'btn_sell_out' %>
+            <!-- 未购买显示购买按钮 -->
             <% else %>
               <%= render 'btn_buy' %>
             <% end %>
+          </span>
+
+          <span class="bdsharebuttonbox">
+            <!-- <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a> -->
+            <a href="javascript:void(0);" class="bds_weixin" title="分享到微信" >
+              <i class="wechat" ></i>
+            </a>
           </span>
         </div>
       </div>

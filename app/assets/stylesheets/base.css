@@ -4496,7 +4496,7 @@ ul {
 }
 .login-msg {
   position: absolute;
-  right: 0;
+  right: 15px;
 }
 }
 @media only screen and (max-width: 740px) {
@@ -4671,7 +4671,14 @@ ul {
   padding-top: 28px;
   color: #666666; 
 }
-
+@media only screen  and (max-width: 480px) {
+.login-msg {
+  right: auto;
+  left: 50%;
+  float: none;
+  margin-left: -175px;
+} 
+}
 
 
 
@@ -9451,14 +9458,18 @@ div.live-big {
 }
 @media only screen and (max-width: 420px) {
 .navbar-brand > img {
-  width: 120px;
+  width: 100px;
 }
 .header .navbar-header .navbar-brand {
-  padding: 24.5px 0px;
+  padding: 26.45px 0px;
 } 
 .header .navbar-header .navbar-brand {
-  margin-left: -60px;
+  margin-left: -50px;
 } 
+.header .user-nav {
+  position: absolute;
+  right: 10px;
+}
 }
 /*副导航*/ 
 .nav-aside,.category,.live-today {

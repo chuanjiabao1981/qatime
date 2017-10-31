@@ -8571,6 +8571,23 @@ div.live-big {
   left: 50%;
   margin-left: -30px;
 }
+.homepage-banner .carousel-control {
+  width: 27px;
+  height: 86px;
+  background: none;
+  line-height: 86px;
+  font-size: 86px;
+  color: #fff;
+  top: 50%;
+  margin-top: -43px;
+  display: none;
+}
+.homepage-banner .carousel-control.left {
+  left: 30px;
+}
+.homepage-banner .carousel-control.right {
+  right: 30px;
+}
 .navside-list {
   position: relative;
   padding-left: 0px;
@@ -9384,13 +9401,19 @@ div.live-big {
 .header .navbar-form {
   display: none !important;
 } 
+.navbar-brand > img {
+  width: 200px;
+}
+.header .navbar-header .navbar-brand {
+  padding: 17px 0px;
+}
 }
 @media only screen  and (max-width: 768px) {
 .header .navbar-header .navbar-brand {
     position: absolute;
     left: 50%;
     top: 0;
-    margin-left: -115px;
+    margin-left: -100px;
     height: 72px !important;  
 }
 .header .navbar-collapse {
@@ -9415,7 +9438,28 @@ div.live-big {
   color: #fff;
 }
 }
-
+@media only screen and (max-width: 500px) {
+.navbar-brand > img {
+  width: 150px;
+}
+.header .navbar-header .navbar-brand {
+  padding: 21.5px 0px;
+} 
+.header .navbar-header .navbar-brand {
+  margin-left: -75px;
+}
+}
+@media only screen and (max-width: 420px) {
+.navbar-brand > img {
+  width: 120px;
+}
+.header .navbar-header .navbar-brand {
+  padding: 24.5px 0px;
+} 
+.header .navbar-header .navbar-brand {
+  margin-left: -60px;
+} 
+}
 /*副导航*/ 
 .nav-aside,.category,.live-today {
   height: 390px;
@@ -10114,21 +10158,16 @@ div.live-big {
 .course-line > .active i{
   color: #666;
 }
-.course-price {
+.course-join {
   width: 100%;
 }
-.course-price span {
+.course-join span {
   display: inline-block;
 }
 .price-left {
   float: left;
   font-size: 30px;
   color: #ff5842;
-}
-.price-right {
-  float: right;
-  margin-right: 30px;
-  overflow: hidden;
 }
 .price-right a,.btn-shelves {
   display: inline-block;
@@ -10172,16 +10211,16 @@ div.live-big {
   padding-left: 0px !important;
   padding-right: 0px;
 } 
-.price-right {
-  margin-right: 10px;
 }
-}
-.course-price {
+.course-join {
   position: absolute;
   bottom: 0px;
 }
+.price-right a {
+  margin-right: 26px;
+}
 .price-right a:last-child {
-  margin-left: 26px;
+  margin-right: 0px;
 }
 .course-item {
   background-color: #FFFFFF;
@@ -10335,20 +10374,18 @@ div.live-big {
   padding-left: 0px;
   margin-bottom: 0px;
 }
-.instructions-line ul li {
-  line-height: 24px;
-  color: #666;
-}
-
 .instructions-line ol {
   padding-left: 22px;
   margin-bottom: 0px;
+
 }
-.instructions-line ol li {
+.instructions-line ul li,.instructions-line ol li {
   line-height: 24px;
   color: #666;
 }
-
+.instructions-line ol li .reminder,.instructions-line ol li .reminder {
+  color: red;
+}
 .instructions-line h3 {
   font-size: 16px;
   color: #34495e;
@@ -10467,6 +10504,9 @@ div.live-big {
 
 
 
+
+
+
 /*教师个人主页*/
 .user-img {
   margin-bottom: 40px;
@@ -10495,8 +10535,9 @@ div.live-big {
 }
 .user-message p {
   text-align: center;
+  padding: 0 15px;
   margin-bottom: 0px;
-  color: #000000;
+  color: #666;
   line-height: 21px;
 }
 .user-message p span i {
@@ -12257,12 +12298,6 @@ div.live-big {
 } 
 }
 
-
-
-
-
-
-
 /*视频课详情页*/
 .price-right > .btn-finish {
   border-color: #ccc;
@@ -13343,31 +13378,28 @@ div.live-big {
   color: #ccc;
 }
 .download > .spinner .spinner-new > p {
-  margin-bottom: 8px;
   line-height: 18px;
-  min-height: 72px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  color: #CCCCCC;
 }
 .download > .spinner .spinner-new > a {
-  display: inline-block;
+  display: block;
   width: 120px;
-  height: 38px;
-  color: #ff5842;
-  border: 1px solid #ff5842;
+  height: 30px;
+  color: #666;
+  border: 1px solid #CCCCCC;
   text-align: center;
-  line-height: 36px;
+  line-height: 28px;
   border-radius: 4px;
+  margin-bottom: 10px;
 }
 .download > .spinner .spinner-new > a:hover {
+  border-color: #ff5842;
   background-color: #ff5842;
   color: #ffffff;
 }
 @media only screen and (max-width: 1200px) {
-.download > .spinner .spinner-new > p {
-  margin-bottom: 0px;
-}
-.download > .spinner .spinner-new > a {
-  width: 100%; 
-} 
 .download-info > .container > img {
   left: 15px;
 }
@@ -13402,12 +13434,10 @@ div.live-big {
 }
 .download > .spinner .spinner-code > img {
   width: 100%;
+  float: none;
 }
-.download > .spinner .spinner-new > a {
-  width: 120px;
-} 
 }
-@media only screen  and (max-width: 768px) {
+@media only screen  and (max-width: 768px) {  
 .download > .spinner .spinner-head,.download > .spinner .spinner-code {
   padding-right: 15px;
 } 
@@ -17197,7 +17227,6 @@ abbr {
 }
 }
 
-
 /*专属课老师课件*/
 .courseware-box {
   margin-top: 30px;
@@ -17577,7 +17606,12 @@ abbr {
   display: block;
   margin-bottom: 0px;
 }
-
+@media only screen  and (max-width: 400px) {
+.edit-box > .problems-edit .form-submit > a {
+  left: 0px;
+  margin-left: 0px;
+} 
+}
 /*我的文件*/
 .addfile-title {
   min-height: 32px;
@@ -17693,16 +17727,16 @@ abbr {
   font-size: 12px;
   color: #666;
 }
-.share-item .bdsharebuttonbox a {
+.share-item .bdsharebuttonbox a,.user-message .bdsharebuttonbox a,.course-join .bdsharebuttonbox a {
   margin: 0 0 0 15px;
   width: 21px;
   height: 17px;
   line-height: 17px;
 }
-.share-item .bdsharebuttonbox a.bds_weixin {
+.share-item .bdsharebuttonbox a.bds_weixin,.user-message .bdsharebuttonbox a.bds_weixin,.course-join .bdsharebuttonbox a.bds_weixin {
   position: relative;
 }
-.share-item .bdsharebuttonbox a.bds_weixin .wechat {
+.share-item .bdsharebuttonbox a.bds_weixin .wechat,.user-message .bdsharebuttonbox a.bds_weixin .wechat,.course-join .bdsharebuttonbox a.bds_weixin .wechat{
   position: absolute;
   top: -200px;
   right: 0px;
@@ -17711,8 +17745,9 @@ abbr {
   background-color: #fff;
   z-index: 10;
   display: none;
+  border-radius: 10px;
 }
-.share-item .bdsharebuttonbox a.bds_weixin .wechat:after {
+.share-item .bdsharebuttonbox a.bds_weixin .wechat:after,.user-message .bdsharebuttonbox a.bds_weixin .wechat:after,.course-join .bdsharebuttonbox a.bds_weixin .wechat:after {
   content: "";
   position: absolute;
     border: 8px solid transparent;
@@ -17721,20 +17756,40 @@ abbr {
     top: 181px;
 }
 
-.homepage-banner .carousel-control {
-  width: 27px;
-  height: 86px;
-  background: none;
-  line-height: 86px;
-  font-size: 86px;
-  color: #fff;
-  top: 50%;
-  margin-top: -43px;
-  display: none;
+
+/*个人页分享*/
+.user-message .bdsharebuttonbox {
+  margin-top: 20px;
+  float: right;
 }
-.homepage-banner .carousel-control.left {
-  left: 30px;
+
+/*详情页分享*/
+
+.course-sellingprice {
+  margin-top: 20px;
 }
-.homepage-banner .carousel-control.right {
-  right: 30px;
+.course-sellingprice > span {
+  font-size: 30px;
+  color: #ff5842;
+}
+.course-join .bdsharebuttonbox {
+  float: right;
+  margin-top: 10px;
+  margin-right: 30px;
+}
+@media only screen and (max-width: 1200px) {
+.course-line {
+  margin-top: 10px;
+} 
+.course-sellingprice {
+  margin-top: 0px;
+}
+}
+@media only screen  and (max-width: 992px) {
+.course-join .bdsharebuttonbox {
+  margin-right: 10px;
+} 
+.course-line {
+  margin-top: 5px;
+}
 }

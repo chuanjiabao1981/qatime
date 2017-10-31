@@ -1,3 +1,4 @@
+require 'rqrcode'
 class HomeController < ApplicationController
   before_action :set_user
   layout 'v1/application'
@@ -65,6 +66,11 @@ class HomeController < ApplicationController
     @teacher = @replay_item.target.try(:teacher) || @replay_item.course.try(:teacher)
     @replay_item.increment_replay_times
     render layout: 'v1/live'
+  end
+
+  def qr_code
+    image = RQRCode::QRCode.new(params[:url]).as_png
+    send_data image.to_datastream
   end
 
   private

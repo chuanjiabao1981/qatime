@@ -23,7 +23,7 @@ module Recommend
       assert page.has_link?('首页管理')
       assert page.has_link?('Banner')
       assert page.has_link?('板块专题')
-      assert page.has_link?('精彩回放')
+      assert page.has_link?('往期直播回放')
       assert page.has_link?('精选内容')
       assert page.has_link?('教师推荐')
       assert page.has_link?('新增')
@@ -134,7 +134,7 @@ module Recommend
 
     test 'manager replay_items' do
       click_on '网页管理'
-      click_on '精彩回放'
+      click_on '往期直播回放'
       assert page.has_content?('课时名称')
       assert page.has_content?('仅显示推荐内容')
 

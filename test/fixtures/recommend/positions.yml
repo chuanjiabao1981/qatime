@@ -24,7 +24,7 @@ index_topic_recommend:
   kee: index_topic_item
   status: 1
 index_replay_recommend:
-  name: 精彩回放
+  name: 往期直播回放
   klass_name: Recommend::ReplayItem
   kee: index_replay_item
   status: 1

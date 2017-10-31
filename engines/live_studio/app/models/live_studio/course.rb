@@ -35,7 +35,8 @@ module LiveStudio
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
-      completed: 3 # 已结束
+      completed: 3, # 上课完成
+      closed: 99 # 已关闭
     }
 
     enumerize :status, in: {
@@ -43,7 +44,8 @@ module LiveStudio
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
-      completed: 3 # 已结束
+      completed: 3, # 上课完成
+      closed: 99 # 已关闭
     }
 
     # enumerize排序优先级会影响到enum 必须放在后面加载

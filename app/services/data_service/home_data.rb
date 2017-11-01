@@ -13,13 +13,13 @@ module DataService
     def today_lives
       lessons = LiveStudio::Lesson.includes(:course).today.readied
       scheduled_lessons = LiveStudio::ScheduledLesson.includes(:group).today.readied
-      (lessons.to_a + scheduled_lessons.to_a).sort_by { |x| x.start_time }
+      (lessons.to_a + scheduled_lessons.to_a).sort_by(&:start_time)
     end
 
     def recent_lessons(count = 7)
       lessons = LiveStudio::Lesson.includes(:course).recent(15).order('class_date, start_time').limit(count)
-      scheduled_lessons = LiveStudio::ScheduledLesson.recent(15).order('class_date, start_time').limit(count)
-      (lessons.to_a + scheduled_lessons.to_a).sort_by { |x| "#{x.class_date} : #{x.start_time}" }.first(count)
+      scheduled_lessons = LiveStudio::ScheduledLesson.recent(15).order('start_at').limit(count)
+      (lessons.to_a + scheduled_lessons.to_a).sort_by(&:start_at).first(count)
     end
 
     # 教师推荐

@@ -73,7 +73,7 @@
         <div class="liveing-info">
           <ul>
             <%#= render partial: 'home/items/today_live', collection: @today_lives %>
-            <%= render partial: 'home/items/recent_lessons', collection: @recent_lessons %>
+            <%= render partial: 'home/items/recent_lesson', collection: @recent_lessons %>
           </ul>
           <%= render 'shared/blank' if @today_lives.blank? %>
         </div>

@@ -65,6 +65,7 @@ module LiveStudio
     scope :week, -> (week){ where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', week.beginning_of_week.to_date, week.end_of_week.to_date) }
     scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
     scope :readied, -> { where("status >= ?", Lesson.statuses[:ready])} # 已就绪
+    scope :recent, ->(day) { where('class_date >= ? and class_date < ?', Date.today, day.days.since) }
 
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师

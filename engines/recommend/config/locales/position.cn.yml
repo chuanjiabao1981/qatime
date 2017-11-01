@@ -6,7 +6,7 @@ cn:
         teacher_item: 老师推荐管理
         live_studio_course_item: 辅导班推荐管理
         choiceness_item: 精选内容管理
-        replay_item: 精彩回放管理
+        replay_item: 往期直播回放管理
         topic_item: 板块专题管理
       city: 全国
       edit: 编辑
@@ -76,7 +76,7 @@ cn:
       prompt:
         course_id: 选择课程
         target_id: 选择回放课时
-        top: 在首页精彩回放列表显示
+        top: 在首页往期直播回放列表显示
     recommend/station:
       banner_items:
         tab:
@@ -85,7 +85,7 @@ cn:
           topic_item: 板块专题
           choiceness_item: 精选内容
           teacher_item: 教师推荐
-          replay_item: 精彩回放
+          replay_item: 往期直播回放
         index:
           add: 新增
 

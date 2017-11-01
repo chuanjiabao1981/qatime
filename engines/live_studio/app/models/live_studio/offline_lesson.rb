@@ -1,17 +1,16 @@
 module LiveStudio
   class OfflineLesson < Event
-
     validates :name, :class_date, :start_at, :end_at, presence: true
 
     enum status: {
-             init: 0, # 未开始
-             ready: 1, # 待上课
-             teaching: 2, # 上课中
-             closed: 4, # 直播结束 可以继续直播
-             finished: 5, # 已上课
-             billing: 6, # 结账中
-             completed: 7 # 已结束
-         }
+      init: 0, # 未开始
+      ready: 1, # 待上课
+      teaching: 2, # 上课中
+      closed: 4, # 直播结束 可以继续直播
+      finished: 5, # 已上课
+      billing: 6, # 结账中
+      completed: 7 # 已结束
+    }
 
     aasm column: :status, enum: true do
       state :init, initial: true
@@ -41,6 +40,9 @@ module LiveStudio
         transitions from: [:teaching], to: :closed
       end
 
+      event :finish do
+        transitions from: [:closed], to: :finished
+      end
 
       event :complete do
         transitions from: [:finished, :billing], to: :completed
@@ -59,6 +61,16 @@ module LiveStudio
     # 是否可以回放
     def replayable
       false
+    end
+
+    private
+
+    after_save :dispatch_event, if: :start_at_changed?
+    def dispatch_event
+      return unless class_date.today?
+      director = LiveStudio::EventDirector.new(self)
+      director.start_schedule
+      director.close_schedule
     end
   end
 end

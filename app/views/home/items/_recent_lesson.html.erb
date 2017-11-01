@@ -1,4 +1,4 @@
-<li class="<%= today_live_status(today_live) %>">
+<li class="<%= today_live_status(recent_lesson) %>">
   <i class="status-origin"></i>
   <% if recent_lesson.is_a?(LiveStudio::ScheduledLesson) %>
     <%= link_to recent_lesson.name, live_studio.customized_group_path(recent_lesson.group) %>
@@ -10,3 +10,4 @@
     <span><%= recent_lesson.start_at.strftime('%m-%d %H:%M') %></span>
   </em>
 </li>
+

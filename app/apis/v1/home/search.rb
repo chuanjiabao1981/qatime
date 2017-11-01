@@ -72,7 +72,7 @@ module V1
         end
         get 'recent_lessons' do
           home_data = DataService::HomeData.new
-          recent_lessons = home_data.recent_lessons(params[:per_page])
+          recent_lessons = home_data.recent_lessons(params[:per_page] || 50)
           present recent_lessons, with: ::Entities::LiveStudio::LessonSchedule
         end
       end

@@ -1,17 +1,23 @@
 module LiveStudio
   class EventDirector
-    def initialize(event)
+    def initialize(event, start_at = nil, end_at = nil)
       @event = event
+      @start_at = start_at
+      @end_at = end_at
     end
 
     # 课程开始 目前支持线下课
-    def start
-      @event.teach!
+    def start(t)
+      return if t && t != @event.start_at.to_i
+      @event.teach! if class_date.today?
     end
 
     # 课程结束 目前支持线下课
-    def close
+    def close(t)
+      return if t && t != @event.end_at.to_i
+      return unless teaching?
       @event.close!
+      @event.finish!
     end
 
     # 直播状态
@@ -53,7 +59,7 @@ module LiveStudio
     private
 
     def schedule(t, action)
-      LiveStudio::EventScheduleJob.set(wait_until: t).perform_later(@event.id, action)
+      LiveStudio::EventScheduleJob.set(wait_until: t).perform_later(@event.id, action, t.to_i)
     end
 
     def teacher_account

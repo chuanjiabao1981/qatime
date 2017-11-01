@@ -64,6 +64,17 @@ module V1
             end
           end
         end
+
+        desc '近期直播'
+        params do
+          optional :page, type: Integer, desc: '当前页面'
+          optional :per_page, type: Integer, desc: '每页记录数'
+        end
+        get 'recent_lessons' do
+          home_data = DataService::HomeData.new
+          recent_lessons = home_data.recent_lessons(params[:per_page])
+          present recent_lessons, with: ::Entities::LiveStudio::LessonSchedule
+        end
       end
     end
   end

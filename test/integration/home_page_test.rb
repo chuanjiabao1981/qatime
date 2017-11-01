@@ -107,7 +107,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_link?('专属课')
     assert page.has_content?('往期直播回放')
 
-    assert page.has_content? '今日直播'
+    assert page.has_content? '近期直播'
     assert find('.live-today').has_content? '正在直播'
     assert find('.live-today').has_content? '尚未直播'
   end

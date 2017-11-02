@@ -61,6 +61,7 @@ module LiveStudio
     scope :scheduled_and_offline_lessons, -> { where(type: ['LiveStudio::ScheduledLesson', 'LiveStudio::OfflineLesson']) }
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
     scope :should_complete, -> { where(status: [Lesson.statuses[:finished], Lesson.statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
+    scope :recent, ->(day) { where('class_date >= ? and class_date < ?', Date.today, day.days.since) }
 
     # 开始时间
     def start_time

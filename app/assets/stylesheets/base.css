@@ -9773,6 +9773,7 @@ div.live-big {
 }
 .live-today  ul > li:last-child {
   padding-bottom: 0px;
+  border-left: 0px;
 }
 .live-today  ul > li .status-origin {
   display: inline-block;

@@ -22,6 +22,8 @@ cn:
           video_course_title: 高考物理试卷讲解
         today_lives:
           title: 今日直播
+        recent_lessons:
+          title: 近期直播
         questions:
           title: 问答动态
           more: 更多

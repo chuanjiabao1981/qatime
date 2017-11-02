@@ -13,7 +13,7 @@ module LiveStudio
     end
 
     def show
-      @recourse_files = @customized_group.files.order(created_at: :desc)
+      @quotes = @customized_group.quotes.includes(:file).order(created_at: :desc)
     end
 
     # 免费上课

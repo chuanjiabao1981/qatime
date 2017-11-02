@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025061905) do
+ActiveRecord::Schema.define(version: 20171102081420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -983,6 +983,8 @@ ActiveRecord::Schema.define(version: 20171025061905) do
     t.string   "type"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.datetime "resolved_at"
+    t.datetime "published_at"
   end
 
   add_index "live_studio_tasks", ["parent_id"], name: "index_live_studio_tasks_on_parent_id", using: :btree

@@ -2,8 +2,22 @@ module LiveStudio
   # 提问
   class Question < Task
     extend Enumerize
+    include AASM
+
     enum status: { pending: 0, resolved: 2 }
     enumerize :status, in: { pending: 0, resolved: 2 }, default: :pending
+
+    aasm column: :status, enum: true do
+      state :pending, initial: true
+      state :resolved
+
+      event :resolve do
+        before do
+          self.resolved_at = Time.now
+        end
+        transitions from: :pending, to: :resolved
+      end
+    end
 
     has_one :answer, foreign_key: 'parent_id'
     has_many :answers, foreign_key: 'parent_id'

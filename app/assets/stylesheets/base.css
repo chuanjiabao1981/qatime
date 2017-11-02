@@ -17267,10 +17267,10 @@ abbr {
 }
 .courseware-box > .courseware-list .file-size {
   color: #999;
-  font-size: 12px;
+  font-size: 0px;
 }
-.courseware-box > .courseware-list .file-size span:first-child {
-  margin-right: 10px;
+.courseware-box > .courseware-list .file-size span{
+  font-size: 12px;
 }
 .courseware-box > .courseware-list .file-handle {
   text-align: right;
@@ -17541,11 +17541,14 @@ abbr {
 .revert-list > li p > span {
   font-size: 14px;
 }
-.revert-list > li p.submitter > span,.revert-list > li p > span:first-child {
-  margin-right: 5px;
-}
-.revert-list > li p.submitter > span:last-child {
-  margin-right: 0px;
+.revert-list > li .creation-time,.revert-list > li .recovery-time
+,.revert-list > li .submit-time,.revert-list > li .marking-time
+,.ask-list > li .recovery-time,.ask-list > li .creation-time
+,.ask-list > li .submit-time,.ask-list > li .marking-time
+,.courseware-list > li .upload-time {
+  padding-left: 10px;
+  border-left: 1px solid #999;
+  margin-left: 10px;
 }
 
 /*老师我的文件*/

@@ -607,6 +607,12 @@ cn:
         submited_count: 人已提交
       live_studio/task:
         taskable: 相关课程
+        created_at: 创建时间
+        published_at: 提交时间
+        resolved_at: 批改时间
+      live_studio/question:
+        created_at: 创建时间
+        resolved_at: 回复时间
       live_studio/student_homework:
         title: 标题
       live_studio/correction:

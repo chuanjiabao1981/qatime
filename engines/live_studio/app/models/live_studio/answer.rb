@@ -13,7 +13,7 @@ module LiveStudio
 
     after_create :resolve_question
     def resolve_question
-      question.resolved! if question.pending?
+      question.resolve! if question.pending?
     end
 
     def message(action)

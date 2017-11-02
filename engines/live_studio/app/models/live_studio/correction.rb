@@ -10,7 +10,7 @@ module LiveStudio
 
     after_create :resolve_student_homework
     def resolve_student_homework
-      student_homework.resolved! if student_homework.submitted?
+      student_homework.resolve! if student_homework.submitted?
     end
   end
 end

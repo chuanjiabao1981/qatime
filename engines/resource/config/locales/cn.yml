@@ -6,3 +6,10 @@ cn:
           attributes:
             file:
               blank: 尚未上传文件
+    models:
+      resource/quote: 文件引用
+    attributes:
+      resource/quote:
+        created_at: 上传时间
+      resource/file:
+        created_at: 创建时间

@@ -12,4 +12,4 @@ cn:
       resource/quote:
         created_at: 上传时间
       resource/file:
-        created_at: 创建时间
+        created_at: 上传时间

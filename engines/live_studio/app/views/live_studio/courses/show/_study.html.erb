@@ -29,7 +29,7 @@
     <h3><%= t('view.live_studio/courses.show.replay_study') %></h3>
     <ol>
       <% t('view.live_studio/courses.show.replay_description').split(/\n/).each do |str| %>
-        <li><%= str %></li>
+        <li><%= raw str %></li>
       <% end %>
     </ol>
   </div>

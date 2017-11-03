@@ -44,8 +44,14 @@
         <span class="nav-order">
           <% LiveStudio::VideoCourse.sell_type.options.each do |item| %>
             <% sell_type_id = LiveStudio::VideoCourse.sell_type.find_value(item.last).try(:value) %>
-              <%= link_to live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: sell_type_id })), class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == sell_type_id.to_s }" do %>
-              <i></i><%= item.first %>
+            <% if @search_params[:q] && @search_params[:q][:sell_type_eq] == sell_type_id.to_s %>
+              <%= link_to live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: nil })), class: "active" do %>
+                <i></i><%= item.first %>
+              <% end %>
+            <% else %>
+              <%= link_to live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: sell_type_id })) do %>
+                <i></i><%= item.first %>
+              <% end %>
             <% end %>
           <% end %>
         </span>

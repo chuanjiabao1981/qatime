@@ -10,7 +10,7 @@
       <p><%= number_to_human_size(file.file_size.to_i, precision: 2) %></p>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6">
-      <p><%= l(file.created_at) if file.created_at %></p>
+      <p><%= Resource::File.human_attribute_name(:created_at) %> <%= l(file.created_at) if file.created_at %></p>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6 operation-box">
       <%= link_to t('common.download'), file.file_url %>

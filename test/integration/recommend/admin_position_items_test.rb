@@ -87,8 +87,8 @@ module Recommend
 
     test 'admin manage replay_items' do
       click_on '首页管理'
-      assert page.has_link?('精彩回放管理')
-      click_on '精彩回放管理'
+      assert page.has_link?('往期直播回放管理')
+      click_on '往期直播回放管理'
       assert page.has_link?('新增回放')
       assert page.has_content?('仅显示推荐内容')
 

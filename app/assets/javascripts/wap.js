@@ -3,6 +3,7 @@
 //= require bootstrap
 //= require edit_common
 //= require qawechat/jweixin-1.0.0
+//= require browsers
 
 (function($) {
   $.extend({

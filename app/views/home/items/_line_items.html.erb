@@ -68,11 +68,12 @@
     <div class="col-md-3">
       <div class="live-today">
         <center>
-          <h3><strong><%= t('view.new_index.line_items.today_lives.title') %></strong></h3>
+          <h3><strong><%= t('view.new_index.line_items.recent_lessons.title') %></strong></h3>
         </center>
         <div class="liveing-info">
           <ul>
-            <%= render partial: 'home/items/today_live', collection: @today_lives %>
+            <%#= render partial: 'home/items/today_live', collection: @today_lives %>
+            <%= render partial: 'home/items/recent_lesson', collection: @recent_lessons %>
           </ul>
           <%= render 'shared/blank' if @today_lives.blank? %>
         </div>

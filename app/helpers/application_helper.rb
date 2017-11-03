@@ -553,6 +553,8 @@ module ApplicationHelper
 
     if preview
       render 'live_studio/courses/show/replay_button_preview', { lesson: lesson, my_replay_times: my_replay_times}
+    elsif current_user.student? && lesson.course.sell_type.free?
+      return lesson.status_text(current_user.try(:role)) 
     else
       render 'live_studio/courses/show/replay_button', { lesson: lesson, my_replay_times: my_replay_times}
     end

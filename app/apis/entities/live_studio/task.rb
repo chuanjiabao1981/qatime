@@ -15,6 +15,8 @@ module Entities
 
       with_options(format_with: :local_timestamp) do
         expose :created_at
+        expose :published_at
+        expose :resolved_at
       end
       expose :model_name
     end

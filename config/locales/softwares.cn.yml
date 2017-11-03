@@ -1,0 +1,7 @@
+"cn":
+  softwares:
+    download_software: "软件下载"
+    index:
+      download: 点击下载
+      android_download: Android客户端
+      ios_download: IOS客户端

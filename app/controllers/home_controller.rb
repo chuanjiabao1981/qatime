@@ -1,3 +1,4 @@
+require 'rqrcode'
 class HomeController < ApplicationController
   before_action :set_user
   layout 'v1/application'
@@ -14,7 +15,8 @@ class HomeController < ApplicationController
     home_data = DataService::HomeData.new(@location_city.try(:id))
     @recommend_banners = home_data.banners.order(:index)
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
-    @today_lives = home_data.today_lives[0,12]
+    # @today_lives = home_data.today_lives[0,12]
+    @recent_lessons = home_data.recent_lessons(7)
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
     @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 4)
     @recent_courses = home_data.recent_courses.limit(4)
@@ -65,6 +67,11 @@ class HomeController < ApplicationController
     @teacher = @replay_item.target.try(:teacher) || @replay_item.course.try(:teacher)
     @replay_item.increment_replay_times
     render layout: 'v1/live'
+  end
+
+  def qr_code
+    image = RQRCode::QRCode.new(params[:url]).as_png
+    send_data image.to_datastream
   end
 
   private

@@ -25,7 +25,14 @@
                 <div class="col-md-12">
                   <p class="submitter">
                     <span><%= question.user_name %></span>
-                    <span><%= localize(question.created_at) %></span>
+
+                    <% if question.resolved? %>
+                      <span class="submit-time"><%= LiveStudio::Question.human_attribute_name(:resolved_at) %>：</span>
+                      <span><%= localize(question.resolved_at) %></span>
+                    <% else %>
+                      <span class="submit-time"><%= LiveStudio::Question.human_attribute_name(:created_at) %>：</span>
+                      <span><%= localize(question.created_at) %></span>
+                    <% end %>
                   </p>
                 </div>
                 <div class="col-md-12">

@@ -21,6 +21,8 @@
                 <div class="col-md-12">
                   <p class="submitter">
                     <span><i><%= homework.tasks_count %></i> <%= LiveStudio::Homework.human_attribute_name(:submited_count) %></span>
+
+                    <span class='submit-time'><%= LiveStudio::Task.human_attribute_name(:created_at) %>：</span>
                     <span><%= localize(homework.created_at) %></span>
                   </p>
                 </div>

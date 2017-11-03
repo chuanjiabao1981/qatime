@@ -5,7 +5,7 @@ module LiveStudio
     layout 'v1/home'
 
     def index
-      @student_homeworks = @student.live_studio_student_homeworks.where(status_params).paginate(page: params[:page])
+      @student_homeworks = @student.live_studio_student_homeworks.includes(:homework, :taskable).where(status_params).paginate(page: params[:page])
     end
 
     private

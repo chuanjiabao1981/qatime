@@ -24,7 +24,16 @@
                 </div>
                 <div class="col-md-12">
                   <p class="submitter">
-                    <span><%= localize(student_homework.created_at) %></span>
+                    <% if student_homework.submitted? %>
+                      <span><%= LiveStudio::Task.human_attribute_name(:published_at) %>：</span>
+                      <span><%= localize(student_homework.published_at) %></span>
+                    <% elsif student_homework.resolved? %>
+                      <span><%= LiveStudio::Task.human_attribute_name(:resolved_at) %>：</span>
+                      <span><%= localize(student_homework.resolved_at) %></span>
+                    <% else %>
+                      <span><%= LiveStudio::Task.human_attribute_name(:created_at) %>：</span>
+                      <span><%= localize(student_homework.homework.created_at) %></span>
+                    <% end %>
                   </p>
                 </div>
                 <div class="col-md-12">

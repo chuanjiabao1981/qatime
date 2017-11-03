@@ -5,7 +5,7 @@ Qatime::Application.routes.draw do
   get 'qr_code' => 'home#qr_code'
   get 'welcome/courses'
   get 'app/:role', to: 'softwares#app', as: 'get_app'
-  get 'welcome/download', to: 'softwares#index', as: 'get_softwares'
+  get 'welcome/download', to: 'softwares#index'
 
   resources :softwares, only: [:index, :show] do
     get :download, on: :member

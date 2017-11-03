@@ -55,6 +55,29 @@ class Software < ActiveRecord::Base
     save
   end
 
+  before_validation :cal_version_value, if: :version_changed?
+  def cal_version_value
+    if version
+      value1, value2, value3 = version.split('.').reverse
+      self.version_value = value1.to_i + value2.to_i * 100 + value3.to_i * 100 * 100
+    else
+      self.version_value = 0
+    end
+    self
+  end
+
+  def self.teacher_apps
+    android_app = Software.where(platform: 2, role: 'teacher', status: 1).order('version_value').last
+    ios_app = Software.where(platform: 3, role: 'teacher', status: 1).order('version_value').last
+    [android_app, ios_app]
+  end
+
+  def self.student_apps
+    android_app = where(platform: 2, role: 'student', status: 1).order('version_value').last
+    ios_app = where(platform: 3, role: 'student', status: 1).order('version_value').last
+    [android_app, ios_app]
+  end
+
   private
 
   before_update :generate_download_links

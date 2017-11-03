@@ -1,0 +1,37 @@
+<div class="down-content">
+  <%= image_tag 'phone-live.jpg' %>
+  <div class="down-msg">
+    <center>
+      <%= link_to @android_app.try(:cdn_url), "下载", class: 'down-app', id: 'android-download', style: 'display: none;' %>
+      <%= link_to @ios_app.try(:cdn_url), "下载", class: 'down-app', id: 'ios-download', style: 'display: none;' %>
+    </center>
+  </div>
+</div>
+<div class="download-prompt" style="display: none;">
+  <%= image_tag 'phone-download.png' %>
+</div>
+
+<% content_for :javascript do %>
+<script>
+$(function() {
+  // 显示下载按钮
+  if(Browsers.versions.iPad || Browsers.versions.iPod || Browsers.versions.iPhone) {
+    $("#ios-download").show();
+  } else if(Browsers.versions.android) {
+    $("#android-download").show();
+  }
+
+  if(Browsers.versions.isWeiXin) {
+    $(".download-prompt").show(); // 微信提示浏览器中打开
+  } else if(Browsers.versions.iPad) {
+    window.location = "<%= @ios_app.try(:cdn_url) || '/home?1' %>";
+  } else if(Browsers.versions.android) {
+    window.location = "<%= @android_app.try(:cdn_url) || '/home?2' %>";
+  } else if(Browsers.versions.iPod || Browsers.versions.iPhone) {
+    window.location = "<%= @ios_app.try(:cdn_url) || '/home?3' %>";
+  } else if(Browsers.versions.isWindowsPhone) {
+    window.location = "<%= @android_app.try(:cdn_url) || '/home?4' %>";
+  }
+});
+</script>
+<% end %>

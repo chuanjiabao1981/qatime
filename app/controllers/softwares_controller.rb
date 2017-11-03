@@ -1,7 +1,7 @@
 class SoftwaresController < ApplicationController
   layout 'v1/application'
 
-  skip_filter :authorize, only: [:index, :download, :latest]
+  skip_filter :authorize, only: [:index, :download, :latest, :app]
 
   def index
     @categories = SoftwareCategory.available.includes(:softwares)

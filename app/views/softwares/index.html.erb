@@ -1,0 +1,70 @@
+<div class="wrap-box">
+  <div class="download-info">
+    <div class="container">
+      <%= image_tag 'win.png' %>
+      <div class="mobile-item">
+        <h3><%= t('welcome.download.qatime') %></h3>
+        <p><%= t('welcome.download.qatime_desc') %></p>
+        <a href="#download"><%= t('view.common_bars.download') %><span class="fa fa-angle-down"></span></a>
+      </div>
+    </div>
+  </div>
+  <a name="download"></a>
+  <div class="container">
+    <div class="download">
+      <ul class="spinner">
+        <% @categories.each do |cate| %>
+          <% next if cate.softwares.blank? %>
+          <li>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-2 col-sm-2 spinner-head">
+                    <%= image_tag cate.logo_url(:big), alt: cate.title %>
+                  </div>
+                  <div class="col-md-10 col-sm-10 spinner-msg">
+                    <h3><%= cate.title %><span></span></h3>
+                    <p><%= cate.sub_title %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-5 col-sm-2 col-md-offset-2 spinner-code">
+                    <div class="<%= 'qrcode' if cate.app? %>" data-role="<%= cate.role %>" data-url="<%= get_app_url(cate.role) %>"></div>
+                  </div>
+                  <div class="col-md-5 col-sm-10  spinner-new">
+                    <% if cate.app? %>
+                      <%= link_to t(".android_download"), cate.softwares.find(&:platform_android?).try(:cdn_url) if cate.softwares.find(&:platform_android?) %>
+                      <%= link_to t(".ios_download"), cate.softwares.find(&:platform_ios?).try(:cdn_url) if cate.softwares.find(&:platform_ios?) %>
+                    <% else %>
+                      <%= link_to t(".download"), cate.softwares.first.try(:cdn_url) %>
+                    <% end %>
+                    <p><%= raw(cate.download_description) %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script>
+$(function() {
+  $('.qrcode').each(function(i, node) {
+    $(node).qrcode({
+      width: 118,
+      height: 118,
+      text: $(node).data('url')
+    });
+  });  
+});
+</script>
+<% end %>
+
+
+

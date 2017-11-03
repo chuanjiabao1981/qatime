@@ -18,6 +18,7 @@ module Permissions
       end
 
       allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code]
+      allow :softwares, [:app]
     end
   end
 end

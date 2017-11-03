@@ -2,8 +2,8 @@
   <%= image_tag 'phone-live.jpg' %>
   <div class="down-msg">
     <center>
-      <%= link_to @android_app.try(:cdn_url), "下载", class: 'down-app', id: 'android-download', style: 'display: none;' %>
-      <%= link_to @ios_app.try(:cdn_url), "下载", class: 'down-app', id: 'ios-download', style: 'display: none;' %>
+      <%= link_to t("common.download"), @android_app.try(:cdn_url), class: 'down-app', id: 'android-download', style: 'display: none;' %>
+      <%= link_to t("common.download"), @ios_app.try(:cdn_url), class: 'down-app', id: 'ios-download', style: 'display: none;' %>
     </center>
   </div>
 </div>

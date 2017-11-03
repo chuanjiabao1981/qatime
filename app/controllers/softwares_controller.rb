@@ -1,5 +1,11 @@
 class SoftwaresController < ApplicationController
-  skip_filter :authorize, only: [:download, :latest]
+  layout 'v1/application'
+
+  skip_filter :authorize, only: [:index, :download, :latest, :app]
+
+  def index
+    @categories = SoftwareCategory.available.includes(:softwares)
+  end
 
   def download
     @software = Software.find(params[:id])
@@ -16,6 +22,25 @@ class SoftwaresController < ApplicationController
       }
       format.html {}
     end
+  end
 
+  def app
+    @android_app, @ios_app =
+      if params[:role] == 'teacher'
+        load_teacher_app
+      else
+        load_student_app
+      end
+    render layout: 'wap'
+  end
+
+  private
+
+  def load_teacher_app
+    @teacher_android_app, @teacher_ios_app = Software.teacher_apps
+  end
+
+  def load_student_app
+    @student_android_app, @student_ios_app = Software.student_apps
   end
 end

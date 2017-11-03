@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102081420) do
+ActiveRecord::Schema.define(version: 20171103062145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1755,6 +1755,7 @@ ActiveRecord::Schema.define(version: 20171102081420) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "position",             default: 0
+    t.integer  "status",               default: 0
   end
 
   add_index "software_categories", ["position"], name: "index_software_categories_on_position", using: :btree
@@ -1779,6 +1780,7 @@ ActiveRecord::Schema.define(version: 20171102081420) do
     t.integer  "software_category_id"
     t.string   "download_description"
     t.integer  "position",             default: 0
+    t.integer  "version_value",        default: 0
   end
 
   add_index "softwares", ["position"], name: "index_softwares_on_position", using: :btree

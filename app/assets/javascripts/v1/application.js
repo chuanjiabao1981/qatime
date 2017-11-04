@@ -96,18 +96,6 @@ $(function() {
   // 在窗口大小改变的时候调用垂直居中函数
   $(window).on('resize', centerModals);
 
-
-
-  window._bd_share_config = {
-    "common": {
-      "bdText": "自定义分享内容",
-      "bdMini": "1",
-      "bdMiniList": ["tsina"]
-    },
-    "share": {}
-  };
-  with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
-  
   //  生成二维码
   $('.wechat').qrcode({
     text: window.location.href, //二维码代表的字符串（本页面的URL）

@@ -9,7 +9,7 @@ module LiveStudio
     # 课程开始 目前支持线下课
     def start(t)
       return if t && t != @event.start_at.to_i
-      @event.teach! if class_date.today?
+      @event.teach! if @event.class_date.today?
     end
 
     # 课程结束 目前支持线下课

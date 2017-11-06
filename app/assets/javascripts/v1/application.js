@@ -46,6 +46,8 @@
 //= require weixin-audio
 //= require base
 //= require jquery.qrcode.min
+//= require jweixin-1.2.0
+
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

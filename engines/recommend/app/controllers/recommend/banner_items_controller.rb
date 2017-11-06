@@ -23,7 +23,7 @@ module Recommend
     def create
       @item = @position.items.build(item_params.merge(platforms: params[:platforms], type: @position.klass_name))
 
-      if @item.save
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to position_banner_items_path(@position)
       else
@@ -33,7 +33,8 @@ module Recommend
 
     # PATCH/PUT /admin/items/1
     def update
-      if @item.update(item_params.merge(platforms: params[:platforms]))
+      @item.assign_attributes(item_params.merge(platforms: params[:platforms]))
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to position_banner_items_path(@item.position)
       else

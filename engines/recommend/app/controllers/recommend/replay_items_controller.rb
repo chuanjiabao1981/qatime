@@ -27,7 +27,7 @@ module Recommend
       @item.target_type = 'LiveStudio::InteractiveLesson' if @item.course_type == 'interactive_course'
       @item.target_type = 'LiveStudio::ScheduledLesson' if @item.course_type == 'group'
       @item.course_required = true
-      if @item.save
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to recommend.position_replay_items_path(@position)
       else
@@ -41,7 +41,8 @@ module Recommend
       @item.target_type = 'LiveStudio::Lesson' if item_params[:course_type] == 'course'
       @item.target_type = 'LiveStudio::InteractiveLesson' if item_params[:course_type] == 'interactive_course'
       @item.target_type = 'LiveStudio::ScheduledLesson' if item_params[:course_type] == 'group'
-      if @item.update(item_params.merge(platforms: params[:platforms]))
+      @item.assign_attributes(item_params.merge(platforms: params[:platforms]))
+      if @item.save(placehold: true)
         flash_msg(:success)
         redirect_to position_replay_items_path(@item.position)
       else

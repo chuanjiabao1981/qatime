@@ -14,7 +14,7 @@ module Recommend
         @item.target = User.find(item_params[:target_id]) if @position.klass_name.include?('TeacherItem')
         @item.target = LiveStudio::Course.find(item_params[:target_id]) if @position.klass_name.include?('LiveStudioCourseItem')
       end
-      if @item.save
+      if @item.save(placehold: true)
         redirect_to @position, notice: '推荐创建成功.'
       else
         render :new

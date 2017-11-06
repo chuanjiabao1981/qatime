@@ -17740,25 +17740,26 @@ abbr {
 .share-item p:last-child {
   margin-bottom: 0px;
 }
-.share-item .bdsharebuttonbox {
+.share-item .share-box {
   float: right;
   margin-top: 27px;
 }
-.share-item .bdsharebuttonbox span {
+.share-item .share-box span {
   float: left;
   font-size: 12px;
   color: #666;
 }
-.share-item .bdsharebuttonbox a,.user-message .bdsharebuttonbox a,.course-join .bdsharebuttonbox a {
+.share-item .share-box a,.user-message .share-box a,.course-join .share-box a {
   margin: 0 0 0 15px;
   width: 21px;
   height: 17px;
   line-height: 17px;
+  display: inline-block;
 }
-.share-item .bdsharebuttonbox a.bds_weixin,.user-message .bdsharebuttonbox a.bds_weixin,.course-join .bdsharebuttonbox a.bds_weixin {
+.share-item .share-box a.bds_weixin,.user-message .share-box a.bds_weixin,.course-join .share-box a.bds_weixin {
   position: relative;
 }
-.share-item .bdsharebuttonbox a.bds_weixin .wechat,.user-message .bdsharebuttonbox a.bds_weixin .wechat,.course-join .bdsharebuttonbox a.bds_weixin .wechat{
+.share-item .share-box a.bds_weixin .wechat,.user-message .share-box a.bds_weixin .wechat,.course-join .share-box a.bds_weixin .wechat{
   position: absolute;
   top: -200px;
   right: 0px;
@@ -17769,7 +17770,7 @@ abbr {
   display: none;
   border-radius: 10px;
 }
-.share-item .bdsharebuttonbox a.bds_weixin .wechat:after,.user-message .bdsharebuttonbox a.bds_weixin .wechat:after,.course-join .bdsharebuttonbox a.bds_weixin .wechat:after {
+.share-item .share-box a.bds_weixin .wechat:after,.user-message .share-box a.bds_weixin .wechat:after,.course-join .share-box a.bds_weixin .wechat:after {
   content: "";
   position: absolute;
     border: 8px solid transparent;
@@ -17780,7 +17781,7 @@ abbr {
 
 
 /*个人页分享*/
-.user-message .bdsharebuttonbox {
+.user-message .share-box {
   margin-top: 20px;
   float: right;
 }
@@ -17794,7 +17795,7 @@ abbr {
   font-size: 30px;
   color: #ff5842;
 }
-.course-join .bdsharebuttonbox {
+.course-join .share-box {
   float: right;
   margin-top: 10px;
   margin-right: 30px;
@@ -17808,7 +17809,7 @@ abbr {
 }
 }
 @media only screen  and (max-width: 992px) {
-.course-join .bdsharebuttonbox {
+.course-join .share-box {
   margin-right: 10px;
 } 
 .course-line {

@@ -43,7 +43,7 @@ module Recommend
       self.class.placehold!(position, city_id, index)
     end
 
-    def save(options)
+    def save(options = nil)
       Recommend::Item.transaction do
         placehold! if options.delete(:placehold)
         saved = super(options)

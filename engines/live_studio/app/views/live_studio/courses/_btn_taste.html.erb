@@ -3,7 +3,7 @@
   <%= link_to t('view.course_info_show.join_taste'), main_app.signin_path(redirect_url: request.original_url), class: 'btn-addclass' %>
 <!-- 非学生账号显示试听按钮点击后提示 -->
 <% elsif !current_user.student? %>
-  <%= link_to t('activerecord.view.join_taste'), "javascript:alert('#{t('view.live_studio/courses.show.role_notice')}');", class: 'btn-addclass' %>
+  <%= link_to t('view.course_info_show.join_taste'), "javascript:alert('#{t('view.live_studio/courses.show.role_notice')}');", class: 'btn-addclass' %>
 <!-- 试听结束 -->
 <% elsif @course.tasted?(current_user) %>
   <%= link_to t('view.course_info_show.taste_end'), 'javascript:void(0);', class: 'btn-disabled' %>

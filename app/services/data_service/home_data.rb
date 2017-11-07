@@ -16,7 +16,7 @@ module DataService
       (lessons.to_a + scheduled_lessons.to_a).sort_by(&:start_time)
     end
 
-    def recent_lessons(count = 7)
+    def recent_lessons(count = 100)
       lessons = LiveStudio::Lesson.includes(:course).recent(15).order('class_date, start_time').limit(count)
       scheduled_lessons = LiveStudio::ScheduledLesson.recent(15).order('start_at').limit(count)
       (lessons.to_a + scheduled_lessons.to_a).sort_by(&:start_at).first(count)

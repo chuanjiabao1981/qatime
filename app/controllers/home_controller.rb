@@ -1,14 +1,10 @@
 require 'rqrcode'
 class HomeController < ApplicationController
   before_action :set_user
-  layout 'v1/application'
+  layout 'v2/application'
 
   def index
-    # if signed_in?
     redirect_to action: :new_index
-    # else
-    #   render layout: 'application_home'
-    # end
   end
 
   def new_index
@@ -22,8 +18,7 @@ class HomeController < ApplicationController
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses(limit: 4)
-    replay_limit = @topic_items.count > 0 ? 3 : 4
-    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(replay_limit)
+    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(5)
   end
 
   def switch_city

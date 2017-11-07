@@ -7,7 +7,7 @@ module LiveStudio
 
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation,
              :board_channel, :channels, :grade, :subject, :publicize, to: :group
-    delegate :id, :name, to: :group, prefix: :course
+    delegate :id, :name, :model_name, to: :group, prefix: :course
     delegate :teacher, to: :group
     delegate :id, :name, to: :teacher, prefix: true
 

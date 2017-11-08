@@ -39,20 +39,17 @@ class HomeController < ApplicationController
     params[:search_cate] = 'teacher'
     search_data = DataService::SearchManager.new(params[:search_cate])
     @teachers = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 8)
-    render layout: 'v2/application'
   end
 
   def search_courses
     params[:search_cate] = 'course'
     search_data = DataService::SearchManager.new(params[:search_cate])
     @courses = search_data.search(params[:search_key]).paginate(page: params[:page], per_page: 12)
-    render layout: 'v2/application'
   end
 
   def teachers
     @query = DataService::SearchManager.teachers_ransack(params[:q])
     @teachers = @query.result.paginate(page: params[:page], per_page: 8)
-    render layout: 'v2/application'
   end
 
   def replays

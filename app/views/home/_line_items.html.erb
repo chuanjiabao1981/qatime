@@ -48,7 +48,7 @@
             <%#= render partial: 'home/items/today_live', collection: @today_lives %>
             <%= render partial: 'recent_lesson', collection: @recent_lessons %>
           </ul>
-          <%= render 'shared/blank' if @today_lives.blank? %>
+          <%= render 'shared/blank' if @recent_lessons.blank? %>
         </div>
       </div>
     </div>

@@ -58,6 +58,30 @@ $(function(){
     }
   });
 
+  // 选择搜索类型
+  $("form.search-form").on('click', '.cate-item', function(e) {
+    $(this).closest('form').find('.search-cate').val($(this).data('k'));
+    $(this).closest('form').find(".choose-list em").html($(this).html());
+    $(this).addClass("active").siblings().removeClass("active");
+    $(this).closest('ul').hide();
+  });
+
+  // 空搜索验证
+  $("form.search-form").submit(function() {
+    var keyword = $(this).find('.keyword').val();
+    if( $.isBlank(keyword) ){
+      $(this).find('.keyword').val();
+      return false;
+    }
+  });
+
+  // 点击显示搜索类型选项
+  $("form.search-form").on('click', '.cate-items-btn', function  (e) {
+    e.stopPropagation();
+    $("form.search-form").find('ul.cate-items').toggle();
+  });
+
+
   $(document).on('click', '#del_pay_password_warning', function(event){
     $('.warning-notices').hide();
     Cookies.set('payment_passd_warning', 'close');

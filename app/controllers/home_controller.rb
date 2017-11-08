@@ -1,14 +1,10 @@
 require 'rqrcode'
 class HomeController < ApplicationController
   before_action :set_user
-  layout 'v1/application'
+  layout 'v2/application'
 
   def index
-    # if signed_in?
     redirect_to action: :new_index
-    # else
-    #   render layout: 'application_home'
-    # end
   end
 
   def new_index
@@ -16,14 +12,13 @@ class HomeController < ApplicationController
     @recommend_banners = home_data.banners.order(:index)
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
     # @today_lives = home_data.today_lives[0,12]
-    @recent_lessons = home_data.recent_lessons(7)
+    @recent_lessons = home_data.recent_lessons
     @choiceness = home_data.choiceness.order(:index).paginate(page: 1, per_page: 8)
     @topic_items = home_data.topic_items.order(:index).paginate(page: 1, per_page: 4)
     @recent_courses = home_data.recent_courses.limit(4)
     @newest_courses = home_data.newest_courses
     @free_courses = home_data.free_courses(limit: 4)
-    replay_limit = @topic_items.count > 0 ? 3 : 4
-    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(replay_limit)
+    @replay_items = home_data.replay_items.top.order(updated_at: :desc).limit(5)
   end
 
   def switch_city

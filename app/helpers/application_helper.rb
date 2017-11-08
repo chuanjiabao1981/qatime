@@ -2,6 +2,10 @@ module ApplicationHelper
   include SessionsHelper
   include Qatime::WillPaginate::Helper
 
+  def page_title(controller = nil, action = nil)
+    "答疑时间-K12在线教育平台"
+  end
+
   # 显示序号
   def show_index(index, per = 30)
     params[:page] ||= 1
@@ -359,6 +363,15 @@ module ApplicationHelper
       content_tag :span ,style: a[duration_type][:style] do
         a[duration_type][:content]
       end
+    end
+  end
+
+  def menu_item_is?(item)
+    case item.to_s
+    when 'courses' # 选课中心
+      %w(live_studio/courses live_studio/interactive_courses live_studio/video_courses).include?(params[:controller]) && action_name == 'index'
+    when 'teachers' # 全部老师
+      params[:controller] == 'home' && action_name == 'teachers'
     end
   end
 

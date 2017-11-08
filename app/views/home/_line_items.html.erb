@@ -23,33 +23,6 @@
     </div>
     <div class="col-md-6">
       <div class="category">
-        <div class="category-nav">
-          <div class="row">
-            <div class="col-md-3 col-sm-3">
-              <%= link_to live_studio.courses_path, class: 'color-orange' do %>
-                <p><%= t('view.new_index.line_items.category.course') %></p>
-              <% end %>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <%= link_to live_studio.interactive_courses_path, class: 'color-green' do %>
-                <p><%= t('view.new_index.line_items.category.interactive_course') %></p>
-              <% end %>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <%= link_to live_studio.video_courses_path, class: 'color-blue' do %>
-                <p><%= t('view.new_index.line_items.category.video_course') %></p>
-              <% end %>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <%= link_to live_studio.customized_groups_path, class: 'color-pink' do %>
-                <p><%= t('view.new_index.line_items.category.customized_group') %></p>
-              <% end %>
-            </div>
-            <!-- 专题推荐 -->
-            <%= render partial: 'home/items/topic_item', collection: @topic_items %>
-          </div>
-        </div>
-
         <div class="replays">
           <div class="replays-title">
             <h4><%= t('view.new_index.line_items.replay_items.title') %></h4>
@@ -58,7 +31,7 @@
             <% end %>
           </div>
           <div class="replays-con">
-            <%= render partial: 'home/items/replay_item', collection: @replay_items %>
+            <%= render partial: 'replay_item', collection: @replay_items %>
           </div>
           <%= render 'shared/blank' if @replay_items.blank? %>
         </div>
@@ -73,7 +46,7 @@
         <div class="liveing-info">
           <ul>
             <%#= render partial: 'home/items/today_live', collection: @today_lives %>
-            <%= render partial: 'home/items/recent_lesson', collection: @recent_lessons %>
+            <%= render partial: 'recent_lesson', collection: @recent_lessons %>
           </ul>
           <%= render 'shared/blank' if @today_lives.blank? %>
         </div>

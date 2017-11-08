@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class CustomizedGroupsController < ApplicationController
-    layout 'v1/application'
+    layout 'v2/application'
     before_action :find_workstation, except: [:index, :show]
     before_action :set_customized_group, only: [:show, :for_free, :play, :inc_users_count]
     before_action :play_authorize, only: [:play]

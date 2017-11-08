@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class OrdersController < ApplicationController
-    layout 'v1/application'
+    layout 'v2/application'
     skip_before_action :authorize, only: [:check_coupon]
 
     before_action :set_order, only: [:show, :edit, :update, :destroy]

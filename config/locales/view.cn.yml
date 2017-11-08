@@ -20,3 +20,16 @@ cn:
         advantage6:
           title: 伴随式服务
           description: 专业的客服团队全程学习跟踪、追踪学习成效，让家长放心省心。
+        course_introduce:
+          title: 大课堂、多形式沟通、花钱少
+          description: 详细介绍
+        video_course_introduce:
+          title: 自主学习、随时随地观看
+          description: 详细介绍
+        interactive_course_introduce:
+          title: 专人专师、丰富互动、学习跟踪
+          description: 详细介绍
+        customized_group_introduce:
+          title: 小班课、在线答疑、作业批改、课件下载
+          description: 详细介绍
+

@@ -54,19 +54,19 @@
     </div>
     
     <div class="user-nav pull-right">
-      <%= form_tag main_app.search_path, class: 'navbar-form pull-left hidden-xs', id: 'home_search', role: "search", method: :get do %>
+      <%= form_tag main_app.search_path, class: 'navbar-form pull-left hidden-xs search-form', id: 'home_search', role: "search", method: :get do %>
         <div class="search-input">
           <div class="form-group">
             <div class="choose-list pull-left">
               <em><%= params[:search_cate] == 'teacher' ? t('view.common_bars.search.teacher') : t('view.common_bars.search.course') %></em><i class="fa fa-angle-down"></i><span>|</span>
               <ul>
-                <li class="<%= 'active' if params[:search_cate].blank? || params[:search_cate] == 'course' %>" data-k="course"><%= t('view.common_bars.search.course') %></li>
-                <li class="<%= 'active' if params[:search_cate] == 'teacher' %>" data-k="teacher"><%= t('view.common_bars.search.teacher') %></li>
+                <li class="cate-item <%= 'active' if params[:search_cate].blank? || params[:search_cate] == 'course' %>" data-k="course"><%= t('view.common_bars.search.course') %></li>
+                <li class="cate-item <%= 'active' if params[:search_cate] == 'teacher' %>" data-k="teacher"><%= t('view.common_bars.search.teacher') %></li>
               </ul>
             </div>
 
             <%= hidden_field_tag :search_cate, params[:search_cate].presence || 'course' %>
-            <%= text_field_tag :search_key, params[:search_key], placeholder: t('view.common_bars.search.search_key_text') %>
+            <%= text_field_tag :search_key, params[:search_key], placeholder: t('view.common_bars.search.search_key_text'), class: 'keyword' %>
           </div>
           <button type="submit" class="fa fa-search"></button>
         </div>

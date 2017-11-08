@@ -11,12 +11,12 @@ module LiveStudio
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def show
       @course = LiveStudio::InteractiveCourse.find(params[:id])
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def interactive
@@ -53,7 +53,7 @@ module LiveStudio
       @course = build_preview_course
       @lessons = @course.new_record? ? @course.interactive_lessons : @course.order_lessons
       @teachers = @course.new_record? ? @course.interactive_lessons.map(&:teacher).uniq.compact : @course.teachers
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     # 调课

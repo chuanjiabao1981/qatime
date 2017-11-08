@@ -14,7 +14,7 @@ module LiveStudio
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
       preload_tickets(@courses)
       load_tags
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def new
@@ -102,7 +102,7 @@ module LiveStudio
     def show
       respond_to do |format|
         format.html do |html|
-          html.none { render layout: 'v1/application' }
+          html.none { render layout: 'v2/application' }
           html.tablet
           html.phone { render layout: 'application-mobile' }
         end

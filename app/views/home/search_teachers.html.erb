@@ -1,6 +1,26 @@
 <div class="personal">
   <div class="container">
     <div class="search-item">
+      <%= form_tag main_app.search_path, id: 'list_search', class: 'search-form', method: :get do %>
+        <div class="search-input">
+          <div class="search-input-group">
+            <div class="choose-list pull-left cate-items-btn">
+              <em><%= params[:search_cate] == 'teacher' ? t('view.common_bars.search.teacher') : t('view.common_bars.search.course') %></em><i class="fa fa-angle-down"></i><span>|</span>
+            </div>
+            <ul class="cate-items">
+              <li class="cate-item <%= 'active' if params[:search_cate].blank? || params[:search_cate] == 'course' %>" data-k="course"><%= t('view.common_bars.search.course') %></li>
+              <li class="cate-item <%= 'active' if params[:search_cate] == 'teacher' %>" data-k="teacher"><%= t('view.common_bars.search.teacher') %></li>
+            </ul>
+
+            <div>
+              <%= hidden_field_tag :search_cate, params[:search_cate].presence || 'course', id: 'list_search_cate', class: 'search-cate' %>
+              <%= text_field_tag :search_key, params[:search_key], id: 'list_search_key', class: 'keyword', placeholder: t('view.common_bars.search.search_key_text') %>
+            </div>
+            <button type="submit" class="fa fa-search"></button>
+          </div>
+        </div>
+      <% end %>
+
       <div class="col-md-6 col-sm-6 align-left">
         <p><%= t('view.search_teachers.combo_msg1') %><span><%= @teachers.total_entries %></span><%= t('view.search_teachers.combo_msg2') %>“<span><%= params[:search_key] %></span>”<%= t('view.search_teachers.combo_msg3') %></p>
       </div>

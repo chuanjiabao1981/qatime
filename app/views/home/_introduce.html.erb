@@ -14,7 +14,7 @@
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="nav-courses">
-          <%= link_to live_studio.courses_path, class: 'link-logo' do %>
+          <%= link_to live_studio.video_courses_path, class: 'link-logo' do %>
             <%= image_tag 'nav-video.png' %>
             <span><%= LiveStudio::VideoCourse.model_name.human %></span>
           <% end %>

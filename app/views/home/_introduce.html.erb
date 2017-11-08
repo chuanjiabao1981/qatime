@@ -4,39 +4,40 @@
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="nav-courses">
           <a href="" class="link-logo">
+          <%= link_to live_studio.courses_path, class: 'link-logo' do %>
             <%= image_tag 'nav-live.png' %>
             <span><%= LiveStudio::Course.model_name.human %></span>
-          </a>
+          <% end %>
           <p><%= t('view.home.index.course_introduce.title') %></p>
           <!-- <%= link_to t('view.home.index.course_introduce.description'), "##", class: 'link-info' %> -->
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="nav-courses">
-          <a href="" class="link-logo">
+          <%= link_to live_studio.courses_path, class: 'link-logo' do %>
             <%= image_tag 'nav-video.png' %>
             <span><%= LiveStudio::VideoCourse.model_name.human %></span>
-          </a>
-          <p><%= t('view.home.index.course_introduce.title') %></p>
+          <% end %>
+          <p><%= t('view.home.index.video_course_introduce.title') %></p>
           <!-- <%= link_to t('view.home.index.video_course_introduce.description'), "##", class: 'link-info' %> -->
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="nav-courses">
-          <a href="" class="link-logo">
+          <%= link_to live_studio.interactive_courses_path, class: 'link-logo' do %>
             <%= image_tag 'nav-member.png' %>
             <span><%= LiveStudio::InteractiveCourse.model_name.human %></span>
-          </a>
+          <% end %>
           <p><%= t('view.home.index.course_introduce.title') %></p>
           <!-- <%= link_to t('view.home.index.interactive_course_introduce.description'), "##", class: 'link-info' %> -->
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="nav-courses">
-          <a href="" class="link-logo">
+          <%= link_to live_studio.customized_groups_path, class: 'link-logo' do %>
             <%= image_tag 'nav-exclusive.png' %>
             <span><%= LiveStudio::CustomizedGroup.model_name.human %></span>
-          </a>
+          <% end %>
           <p><%= t('view.home.index.course_introduce.title') %></p>
           <!-- <%= link_to t('view.home.index.customized_group_introduce.description'), "##", class: 'link-info' %> -->
         </div>

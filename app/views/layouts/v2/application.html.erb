@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable"  content="yes"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <title><%= page_title(params[:controller], params[:action]) %></title>
+
+  <%= stylesheet_link_tag "v2/application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "v1/application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
+</head>
+
+<body>
+<%= render 'layouts/v2/header' %>
+<%= render 'shared/notice' %>
+<%= yield %>
+<%= render 'layouts/v1/front_footer' %>
+<%= yield :footer %>
+<%= yield :javascript %>
+</body>
+</html>

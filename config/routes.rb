@@ -2,6 +2,7 @@ Qatime::Application.routes.draw do
   root :to => "home#index"
 
   get 'home' => 'home#new_index'
+  get 'search', to: 'home#search'
   get 'qr_code' => 'home#qr_code'
   get 'welcome/courses'
   get 'app/:role', to: 'softwares#app', as: 'get_app'

@@ -1,0 +1,77 @@
+<header class="header">
+  <div class="container" >
+    <div class="navbar-header pull-left">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to image_tag('qatime-logo.png'), home_path, class: 'navbar-brand' %>
+      <span class="switch">
+        <i><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></i>
+        <%= link_to_unless_current "[#{t('view.common_bars.switch_city')}]", switch_city_home_index_path %>
+      </span>
+    </div>
+    <div class="collapse navbar-collapse pull-left" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="visible-xs">
+          <%= link_to search_path do %>
+            <i class="fa fa-search mrm"></i>
+            <%= t('common.search') %>
+          <% end %>
+        </li>
+        <li class="<%= 'active' if menu_item_is?('courses') %>">
+          <%= link_to t("view.common_bars.nav.course"), live_studio.root_path %>
+        </li>
+        <li class="<%= 'active' if menu_item_is?('teachers') %>">
+          <%= link_to t("view.common_bars.nav.teacher"), main_app.teachers_home_index_path %>
+        </li>
+
+        <li class="nav-hover">
+          <%= link_to 'javascript:void(0);' do %>
+            <%= t("view.common_bars.nav.more") %><i class="fa fa-angle-down"></i>
+          <% end %>
+          <div class="dropdown-list">
+            <ul>
+              <% if current_user && (current_user.student? || current_user.teacher? || current_user.manager?) %>
+                <li><%= link_to t("view.common_bars.customized_courses"), main_app.send("customized_courses_#{current_user.role}_path", current_user) %></li>
+              <% end %>
+              <% unless signed_in? %>
+                <li><%= link_to t("view.common_bars.customized_courses"), main_app.signin_path %></li>
+              <% end %>
+              <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
+              <li>
+                <%= link_to main_app.curriculums_path do %>
+                  <%= t("view.common_bars.curriculums") %>
+                <% end %>
+              </li>
+            </ul>
+            <div class="arrow"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="user-nav pull-right">
+      <%= form_tag main_app.search_path, class: 'navbar-form pull-left hidden-xs search-form', id: 'home_search', role: "search", method: :get do %>
+        <div class="search-input">
+          <div class="form-group">
+            <div class="choose-list pull-left">
+              <em><%= params[:search_cate] == 'teacher' ? t('view.common_bars.search.teacher') : t('view.common_bars.search.course') %></em><i class="fa fa-angle-down"></i><span>|</span>
+              <ul>
+                <li class="cate-item <%= 'active' if params[:search_cate].blank? || params[:search_cate] == 'course' %>" data-k="course"><%= t('view.common_bars.search.course') %></li>
+                <li class="cate-item <%= 'active' if params[:search_cate] == 'teacher' %>" data-k="teacher"><%= t('view.common_bars.search.teacher') %></li>
+              </ul>
+            </div>
+
+            <%= hidden_field_tag :search_cate, params[:search_cate].presence || 'course' %>
+            <%= text_field_tag :search_key, params[:search_key], placeholder: t('view.common_bars.search.search_key_text'), class: 'keyword' %>
+          </div>
+          <button type="submit" class="fa fa-search"></button>
+        </div>
+      <% end %>
+      <%= render 'layouts/v2/login' %>
+    </div>
+  </div>
+</header>

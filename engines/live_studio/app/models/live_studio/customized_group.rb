@@ -54,7 +54,7 @@ module LiveStudio
 
     # 补发作业
     def send_homeworks_to(user_id)
-      student = Student.find(user_id)
+      student = ::Student.find(user_id)
       homeworks.each do |homework|
         homework.dispatch_to(student)
       end

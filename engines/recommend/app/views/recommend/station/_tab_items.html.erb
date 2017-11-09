@@ -3,7 +3,7 @@
     <%= link_to 'Banner', recommend.station_workstation_banner_items_path(@workstation, position_id: Recommend::BannerItem.default.presence || 0), class: "#{'active' if 'recommend/station/banner_items' == params[:controller]}"  %>
   <% end %>
   <% if allow? 'recommend/station/topic_items', :index, @workstation %>
-    <%= link_to t('view.recommend/station.banner_items.tab_items.topic_item'), recommend.station_workstation_topic_items_path(@workstation, position_id: Recommend::TopicItem.default.presence || 0), class: "#{'active' if 'recommend/station/topic_items' == params[:controller]}"  %>
+    <%#= link_to t('view.recommend/station.banner_items.tab_items.topic_item'), recommend.station_workstation_topic_items_path(@workstation, position_id: Recommend::TopicItem.default.presence || 0), class: "#{'active' if 'recommend/station/topic_items' == params[:controller]}"  %>
   <% end %>
   <% if allow? 'recommend/station/replay_items', :index, @workstation %>
     <%= link_to t('view.recommend/station.banner_items.tab_items.replay_item'), recommend.station_workstation_replay_items_path(@workstation, position_id: Recommend::ReplayItem.default.presence || 0), class: "#{'active' if 'recommend/station/replay_items' == params[:controller]}"  %>

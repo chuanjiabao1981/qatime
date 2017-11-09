@@ -8770,7 +8770,7 @@ div.live-big {
 .line-plate .nav-courses p {
   color: #999;
   font-size: 14px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 .line-plate .nav-courses .link-logo {
   display: inline-block;
@@ -9250,7 +9250,7 @@ div.live-big {
 }
 @media only screen and (max-width: 460px) {
 .line-plate .nav-courses {
-  height: 173px;
+  height: 123px;
 } 
 }
 
@@ -9290,10 +9290,10 @@ div.live-big {
 }
 .header .switch > i {
   color: #c20c0c;
-  font-size: 14px;
+  font-size: 12px;
 }
 .header .switch > a {
-  font-size: 14px;
+  font-size: 12px;
   color: #6d6d6d;
 }
 .header .switch > a:hover {
@@ -9794,7 +9794,7 @@ div.live-big {
   margin-bottom: 0px;
 }
 .live-today .liveing-info {
-  height: 334px;
+  height: 333px;
   overflow: hidden;
 }
 .live-today .liveing-info > .info-notfound{
@@ -9803,7 +9803,7 @@ div.live-big {
 .live-today  ul > li {
   position: relative;
   border-left: 1px solid #ccc;
-  padding-bottom: 9px;
+  padding-bottom: 10.5px;
 }
 .live-today  ul > li:last-child {
   padding-bottom: 0px;

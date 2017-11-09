@@ -5,7 +5,7 @@ module LiveStudio
     include AASM
 
     enum status: { pending: 0, submitted: 1, resolved: 2, expired: 99 }
-    enumerize :status, in: { pending: 0, submitted: 1, resolved: 2 }, default: :pending
+    enumerize :status, in: { pending: 0, submitted: 1, resolved: 2, expired: 99 }, default: :pending
 
     aasm column: :status, enum: true do
       state :pending, initial: true

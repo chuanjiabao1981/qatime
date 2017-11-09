@@ -22,9 +22,7 @@ module LiveStudio
 
     # 给学生补发作业
     def dispatch_to(student)
-      sh = student_homeworks.build(teacher: user, user: student, taskable: taskable, title: title, body: body)
-      sh.expire
-      sh.save!
+      student_homeworks.create(teacher: user, user: student, taskable: taskable, title: title, body: body, status: 'expired')
     end
   end
 end

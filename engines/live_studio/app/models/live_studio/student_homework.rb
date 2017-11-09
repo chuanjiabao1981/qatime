@@ -26,6 +26,10 @@ module LiveStudio
         end
         transitions from: :submitted, to: :resolved
       end
+
+      event :expire do
+        transitions from: :pending, to: :expired
+      end
     end
 
     scope :published, -> { where(status: statuses.values_at(:submitted, :resolved)) }

@@ -19,5 +19,10 @@ module LiveStudio
     end
 
     after_commit :asyn_send_team_message, on: :create
+
+    # 给学生补发作业
+    def dispatch_to(student)
+      student_homeworks.create(teacher: user, user: student, taskable: taskable, title: title, body: body, status: 'expired')
+    end
   end
 end

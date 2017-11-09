@@ -49,6 +49,20 @@ module LiveStudio
       return if users_count < max_users
       self.for_sell = false
       save!
+      asyn_send_homeworks_to(order.user_id)
+    end
+
+    # 补发作业
+    def send_homeworks_to(user_id)
+      student = Student.find(user_id)
+      homeworks.each do |homework|
+        homework.dispatch_to(student)
+      end
+    end
+
+    # 异步补发作业
+    def asyn_send_homeworks_to(user_id)
+      LiveStudio::HomeworkSenderJob.perform_later(id, user_id)
     end
 
     # 未结束课程数量

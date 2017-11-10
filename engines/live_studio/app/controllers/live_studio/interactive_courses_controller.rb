@@ -5,7 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation, except: [:index, :show]
-    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play]
+    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play, :show]
     before_action :play_authorize, only: [:play]
 
     def index
@@ -15,7 +15,6 @@ module LiveStudio
     end
 
     def show
-      @course = LiveStudio::InteractiveCourse.find(params[:id])
       render layout: 'v2/application'
     end
 

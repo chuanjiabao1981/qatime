@@ -147,7 +147,10 @@ cn:
           上课途中如突遇屏幕卡顿，视频缓冲等情况，请检查网络状态后刷新页面。
           观看过程中请做好笔记，能够帮助学生快速掌握视频中的知识
           学习结束后请尽量关闭视频，以免过多占用网络资源影响您浏览其他内容。
-
+    live_studio/interactive_courses:
+      show:
+        study:
+          buy: 购买
     live_studio/customized_groups:
       show:
         purchase_number: "报名人数 %{count}/%{max}"

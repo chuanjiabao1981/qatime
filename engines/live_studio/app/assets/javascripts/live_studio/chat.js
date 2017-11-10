@@ -67,7 +67,7 @@ window.currentTeam = {
       if(member.account === currentTeam.account && member.mute) {
         currentTeam.mute = true;
         // 隐藏输入框并显示提示
-        $("#message-input").hide().closest('form').next().show();
+        $("#message-div").hide().closest('form').next().show();
         // 表情输入不可用
         $("#emotion-btn").hide().next().show();
 
@@ -269,12 +269,12 @@ window.currentTeam = {
     currentTeam.mute = mute;
     if(mute) {
       // 隐藏输入框并显示提示
-      $("#message-input").hide().closest('form').next().show();
+      $("#message-div").hide().closest('form').next().show();
       // 表情输入不可用
       $("#emotion-btn").hide().next().show();
     } else {
       // 显示输入框并隐藏提示
-      $("#message-input").show().closest('form').next().hide();
+      $("#message-div").show().closest('form').next().hide();
       // 表情输入可用
       $("#emotion-btn").show().next().hide();
     }
@@ -665,7 +665,7 @@ $(function() {
     if(!chatInited) return false;
     if(currentTeam.mute) {
       // 隐藏输入框并显示提示
-      $("#message-input").hide().closest('form').next().show();
+      $("#message-div").hide().closest('form').next().show();
       // 表情输入不可用
       $("#emotion-btn").hide().next().show();
       return false;

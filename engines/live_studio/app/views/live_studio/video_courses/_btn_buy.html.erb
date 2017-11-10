@@ -1,5 +1,5 @@
 <% if current_user.nil? || current_user.student? %>
-  <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: "btn-addclass" %>
+  <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@video_course), class: "btn-addclass action" %>
 <% else %>
-  <%= link_to t('activerecord.view.enroll_now2'), "javascript:alert('#{t('view.live_studio/courses.show.role_notice')}');", class: 'btn-addclass' %>
+  <%= link_to t('activerecord.view.enroll_now2'), "javascript:alert('#{t('view.live_studio/courses.show.role_notice')}');", class: 'btn-addclass action' %>
 <% end %>

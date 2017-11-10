@@ -19,11 +19,18 @@
 
       <div class="information-send">
         <%= form_tag '', id: 'message-form', remote: true do -%>
-        <div class="send-msg">
+        <div class="send-msg" id="message-input">
           <%= text_area_tag "message-area" %>
           <%= submit_tag t("view.play.send_msg") %>
         </div>
         <% end -%>
+
+        <div class="banned" id='mute-tips'>
+          <p>
+            <%= image_tag 'hint.png' %>
+            <span>你已被禁言</span>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -377,29 +384,6 @@ $(function() {
     $(document).unbind('mousemove');
   });
 });
-
-// 加载公告
-function refreshNotice() {
-  console.log(chatInited);
-  $.getJSON("/live_studio/<%= @course.id %>/realtime/announcements", function(data) {
-    $("#notice-panel").empty();
-    data.forEach(function(announcement) {
-      var item = $('<div class="new-information"></div>');
-      var itemTitle = $('<div class="information-title"></div>');
-      if(announcement.lastest) {
-        // itemTitle.append('<%= image_tag("livenotice.png") %>');
-        // itemTitle.append('<span class="information-time">' + announcement.create_time + '</span>');
-        // item.append(itemTitle);
-        item.append('<div class="information-con">' + announcement.content + '</div>');
-        $("#notice-panel").html(item);
-      }
-    });
-    if(data.length == 0){
-      $("#notice-panel").html('<div class="no-announcement"><p><%= t("view.play.announcement_none") %></p></div>')
-    }
-  });
-}
-// refreshNotice();
 
 function accept_img_click(obj){
   console.log('image click');

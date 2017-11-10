@@ -36,20 +36,18 @@
       </ul>
     </div>
 
-    <% if @course.is_a? LiveStudio::Course -%>
-      <div class="lessons-detail">
-        <h3><%= t('view.live_studio/courses.show.course_label') %></h3>
-        <div class="class-label">
-          <% @course.tag_list.each do |tag_name| %>
-            <span><%= tag_name %></span>
-          <% end %>
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.course_label') %></h3>
+      <div class="class-label">
+        <% @course.tag_list.each do |tag_name| %>
+          <span><%= tag_name %></span>
+        <% end %>
 
-          <% if @course.tag_list.blank? %>
-            <%= t('view.live_studio/courses.show.tag_none') %>
-          <% end %>
-        </div>
+        <% if @course.tag_list.blank? %>
+          <%= t('view.live_studio/courses.show.tag_none') %>
+        <% end %>
       </div>
-    <% end -%>
+    </div>
 
     <div class="lessons-detail">
       <h3><%= t('view.live_studio/courses.show.objective') %></h3>
@@ -65,13 +63,5 @@
       <h3><%= t('view.live_studio/courses.show.desc') %></h3>
       <%= raw(@course.description) %>
     </div>
-
-    <% if @course.is_a? LiveStudio::Course -%>
-      <%= render partial: 'live_studio/courses/show/study_process' %>
-    <% end -%>
-
-    <% if @course.is_a? LiveStudio::InteractiveCourse -%>
-      <%= render partial: 'live_studio/interactive_courses/show/study_process' %>
-    <% end -%>
   </div>
 </div>

@@ -1,0 +1,77 @@
+<div class="tab-pane fade in active" id="introduce">
+  <div class="course-lessons">
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
+      <ul>
+        <li>
+          <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @course.subject %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @course.grade %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @course.lessons_count) %></i></span>
+        </li>
+
+        <li>
+          <span>
+            <i><%= t('view.live_studio/courses.show.date') %></i>
+            <i>
+              <%= t('view.live_studio/courses.show.date_text', start_at: @course.start_at.try(:to_date).try(:to_s), end_at: @course.end_at.try(:to_date).try(:to_s)) %>
+            </i>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <i><%= t('view.live_studio/courses.show.status') %></i>
+            <i>
+              <%= @course.status_text %>
+              <% if @course.published? %>
+                <% if @course.distance_days > 0 %>
+                  (<%= t('view.course_show.distance_text1') % @course.distance_days %>)
+                <% end %>
+              <% else %>
+                (<%= t('view.live_studio/courses.show.status_text', one: @course.closed_lessons_count, two: @course.lessons_count) %>)
+              <% end %>
+            </i>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <% if @course.is_a? LiveStudio::Course -%>
+      <div class="lessons-detail">
+        <h3><%= t('view.live_studio/courses.show.course_label') %></h3>
+        <div class="class-label">
+          <% @course.tag_list.each do |tag_name| %>
+            <span><%= tag_name %></span>
+          <% end %>
+
+          <% if @course.tag_list.blank? %>
+            <%= t('view.live_studio/courses.show.tag_none') %>
+          <% end %>
+        </div>
+      </div>
+    <% end -%>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.objective') %></h3>
+      <p><%= @course.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
+      <p><%= @course.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+    </div>
+
+    <div class="lessons-detail">
+      <h3><%= t('view.live_studio/courses.show.desc') %></h3>
+      <%= raw(@course.description) %>
+    </div>
+
+    <% if @course.is_a? LiveStudio::Course -%>
+      <%= render partial: 'live_studio/courses/show/study_process' %>
+    <% end -%>
+
+    <% if @course.is_a? LiveStudio::InteractiveCourse -%>
+      <%= render partial: 'live_studio/interactive_courses/show/study_process' %>
+    <% end -%>
+  </div>
+</div>

@@ -66,11 +66,11 @@ window.currentTeam = {
     $.each(members, function(index, member) {
       if(member.account === currentTeam.account && member.mute) {
         currentTeam.mute = true;
-        // 隐藏输入框并显示提示
-        $("#message-div").hide().closest('form').next().show();
+        console.log('----------->>>>>>>');
         // 表情输入不可用
         $("#emotion-btn").hide().next().show();
-
+        // 隐藏输入框并显示提示
+        $("#message-div").hide().closest('form').next().show();
       }
     });
     refreshTeamMembersUI(teamId);

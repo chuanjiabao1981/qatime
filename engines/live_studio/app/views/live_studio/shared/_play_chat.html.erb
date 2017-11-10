@@ -19,7 +19,7 @@
 
       <div class="information-send">
         <%= form_tag '', id: 'message-form', remote: true do -%>
-        <div class="send-msg" id="message-input">
+        <div class="send-msg" id="message-div">
           <%= text_area_tag "message-area" %>
           <%= submit_tag t("view.play.send_msg") %>
         </div>

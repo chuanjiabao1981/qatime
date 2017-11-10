@@ -50,7 +50,7 @@ module LiveStudio
       @course = build_preview_course
       @lessons = @course.new_record? ? @course.lessons : @course.order_lessons
       @teachers = @course.teachers
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     # 调课

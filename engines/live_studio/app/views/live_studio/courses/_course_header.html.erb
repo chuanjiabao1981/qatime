@@ -67,7 +67,7 @@
               <%= render 'btn_play' %>
             <!-- 未购买显示试听和购买按钮 -->
             <% else %>
-              <%= render 'btn_taste' if @course.taste_count > 0 %>
+              <%= render 'btn_taste' if @course.taste_count.to_i > 0 %>
               <%= render 'btn_buy' %>
             <% end %>
           </span>

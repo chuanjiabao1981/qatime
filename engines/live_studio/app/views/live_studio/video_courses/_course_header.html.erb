@@ -1,0 +1,84 @@
+<div class="course-header">
+  <div class="container">
+    <div class="row course-class">
+      <div class="col-md-5 col-xs-12 pic">
+        <%= image_tag @course.publicize_url(:info), class: 'handle_error_list' %>
+      </div>
+      <div class="col-md-7 col-xs-12 course-introduce">
+        <div class="course-title">
+          <h1><%= truncate_u @course.name, length: 24 %></h1>
+          <span id="users_count"><%= t('view.live_studio/courses.show.purchase_number2', count: @course.users_count ) %></span>
+          <% if allow?('live_studio/video_courses', 'inc_users_count', @course) -%>
+            <%= form_tag live_studio.inc_users_count_video_course_path, method: :post, remote: true do %>
+              <%= button_tag '增加', id: 'inc_users_count_link', type: 'button', class: "form-control add" %>
+              <span id='inc_users_count_field' style="display: none;" class="add-num">
+                <%= text_field_tag :by, 1, type: 'number', class: 'form-control' %>
+                <%= submit_tag '保存', class: 'form-control' %>
+              </span>
+            <% end -%>
+          <% end %>
+        </div>
+        <div class="course-line">
+          <span class="<%= 'active' if @course.free_taste? %>">
+            <%= image_tag "course-#{@course.free_taste? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.free_taste') %></i>
+          </span>
+          <span class="<%= 'active' if @course.coupon_free? %>">
+            <%= image_tag "course-#{@course.coupon_free? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.coupon_free') %></i>
+          </span>
+          <span class="<%= 'active' if @course.cheap_moment? %>">
+            <%= image_tag "course-#{@course.cheap_moment? ? 'active' : 'default'}.png" %>
+            <i><%= t('view.live_studio/courses.show.cheap') %></i>
+          </span>
+        </div>
+
+
+        <div class="course-sellingprice">
+          <% unless @course.off_shelve? %>
+            <% if @course.sell_type.free? %>
+              <span><%= t('common.free_of_charge') %></span>
+            <% else %>
+              <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+            <% end %>
+          <% end %>
+        </div>
+
+
+        <div class="course-join">
+          <span class="price-right">
+            <!-- 已经下架显示状态 -->
+            <% if !@course.for_sell? %>
+              <%= render 'btn_status' %>
+            <!-- 已经购买显示观看按钮 -->
+            <% elsif @course.bought_by?(current_user) %>
+              <%= render 'btn_play' %>
+            <!-- 未购买显示试听和购买按钮 -->
+            <% else %>
+              <%= render 'btn_taste' if @course.taste_count > 0 %>
+              <%= render 'btn_buy' %>
+            <% end %>
+          </span>
+
+          <span class="share-box">
+            <!-- <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a> -->
+            <a href="javascript:void(0);" class="bds_weixin" title="分享到微信" >
+              <i class="wechat" ></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $("#inc_users_count_link").click(function() {
+    $(this).hide();
+    $("#inc_users_count_field").show();
+  });
+});
+</script>
+<% end %>

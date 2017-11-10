@@ -1,0 +1,38 @@
+<div class="tab-pane fade in" id="study">
+  <div class="study-instructions">
+    <div class="instructions-line">
+      <h3><%= t('view.live_studio/courses.show.before_study') %></h3>
+      <ol>
+        <% t('view.live_studio/courses.show.before_study_description').split(/\n/).each do |str| %>
+          <li><%= str %></li>
+        <% end %>
+      </ol>
+    </div>
+
+    <div class="instructions-line">
+      <h3><%= t('view.live_studio/courses.show.study_in') %></h3>
+      <ol>
+        <% t('view.live_studio/courses.show.study_in_description').split(/\n/).each do |str| %>
+          <li><%= str %></li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="instructions-line">
+      <h3><%= t('view.live_studio/courses.show.after_study') %></h3>
+      <ol>
+        <% t('view.live_studio/courses.show.after_study_description').split(/\n/).each do |str| %>
+          <li><%= str %></li>
+        <% end %>
+      </ol>
+    </div>
+
+    <div class="instructions-line">
+      <h3><%= t('view.live_studio/courses.show.replay_study') %></h3>
+      <ol>
+        <% t('view.live_studio/courses.show.replay_description').split(/\n/).each do |str| %>
+          <li><%= raw str %></li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="nav-item">
+  <div class="aside-left tabs">
+    <%= link_to t('view.live_studio/courses.show.introduce'), "#introduce", data: { toggle: 'tab' }, class: 'active' %>
+    <%= link_to t('view.live_studio/courses.show.arrange'), "#arrange", data: { toggle: 'tab' } %>
+    <%= link_to t('view.live_studio/courses.show.study'), "#study", data: { toggle: 'tab' } %>
+  </div>
+  <div class="aside-right">
+    <% if allow?('live_studio/announcements', :create, @course) && %w[published teaching].include?(@course.status) %>
+      <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
+          <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

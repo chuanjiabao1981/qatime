@@ -1,5 +1,5 @@
 <% if @course.published? %>
-  <%= link_to(t('view.course_info_show.start_learning'), "javascript:alert('#{t('view.live_studio/courses.show.learn_alert')}');", class: 'btn-startclass') %>
+  <%= link_to(t('view.course_info_show.start_learning'), "javascript:alert('#{t('view.live_studio/courses.show.learn_alert')}');", class: 'btn-startclass action') %>
 <% else %>
-  <%= link_to t('view.course_info_show.start_learning'), live_studio.play_interactive_course_path(@course), class: 'btn-startclass', target: '_blank' %>
+  <%= link_to t('view.course_info_show.start_learning'), live_studio.play_interactive_course_path(@course), class: 'btn-startclass action', target: '_blank' %>
 <% end %>

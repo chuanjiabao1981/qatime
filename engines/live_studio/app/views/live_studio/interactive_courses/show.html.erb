@@ -1,12 +1,23 @@
-
-<%= render partial: 'live_studio/interactive_courses/show/course_header' %>
+<%= render 'course_header' %>
 
 <div class="course-con">
   <div class="container">
     <div class="row">
-      <%= render partial: 'live_studio/courses/show/course_info' %>
+      <div class="col-md-9">
+        <div class="course-item">
+          <%= render 'course_tab' %>
+          <div class="tab-content asyn_append_fields">
+            <!-- 课程介绍 -->
+            <%= render 'course_info' %>
+            <!-- 课程安排 -->
+            <%= render partial: 'course_plan', locals: { lessons: @interactive_course.order_lessons } %>
+            <!-- 学习须知 -->
+            <%= render 'course_tips' %>
+          </div>
+        </div>
+      </div>
 
-      <%= render partial: 'live_studio/courses/show/teacher_info' %>
+      <%= render partial: "live_studio/shared/teacher_info", locals: { teachers: @interactive_course.teachers } %>
     </div>
   </div>
 </div>
@@ -14,12 +25,15 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function(){
-      $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
-        <% if current_user.present?%>
+      $("#taste-course-<%= @interactive_course.id %>").bind('ajax:success', function() {
+        <% if current_user.present? %>
           window.location.reload();
         <% else %>
           window.location.href = "/signin";
         <% end %>
+      });
+      $(".tabs").on('click', 'a', function() {
+        $(this).addClass("active").siblings().removeClass("active");
       });
     })
   </script>

@@ -66,7 +66,11 @@ window.currentTeam = {
     $.each(members, function(index, member) {
       if(member.account === currentTeam.account && member.mute) {
         currentTeam.mute = true;
-        $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
+        // 隐藏输入框并显示提示
+        $("#message-input").hide().closest('form').next().show();
+        // 表情输入不可用
+        $("#emotion-btn").hide().next().show();
+
       }
     });
     refreshTeamMembersUI(teamId);
@@ -264,9 +268,15 @@ window.currentTeam = {
   function muteMessage(mute) {
     currentTeam.mute = mute;
     if(mute) {
-      $("#message-area").empty().attr("placeholder", "您被禁言了").attr("disabled", true);
+      // 隐藏输入框并显示提示
+      $("#message-input").hide().closest('form').next().show();
+      // 表情输入不可用
+      $("#emotion-btn").hide().next().show();
     } else {
-      $("#message-area").attr("placeholder", "输入聊天消息").removeAttr("disabled");
+      // 显示输入框并隐藏提示
+      $("#message-input").show().closest('form').next().hide();
+      // 表情输入可用
+      $("#emotion-btn").show().next().hide();
     }
   }
 
@@ -277,7 +287,7 @@ window.currentTeam = {
         $("#messages").append("<div class='notice-div'>" + member.nick + tip + "</div>");
       }
     });
-
+    // 自己被禁言
     if(obj.account === currentTeam.account) muteMessage(obj.mute);
   }
 
@@ -654,7 +664,10 @@ $(function() {
   $("#message-form").submit(function() {
     if(!chatInited) return false;
     if(currentTeam.mute) {
-      $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
+      // 隐藏输入框并显示提示
+      $("#message-input").hide().closest('form').next().show();
+      // 表情输入不可用
+      $("#emotion-btn").hide().next().show();
       return false;
     }
     if($("#message-form :submit").hasClass('pendding')) return false;

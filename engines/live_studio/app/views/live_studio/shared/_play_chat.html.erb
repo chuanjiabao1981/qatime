@@ -11,6 +11,7 @@
 
       <div class="information-face">
         <%= image_tag 'face-2.png', id: "emotion-btn" %>
+        <%= image_tag 'face-disabled.png', id: "emotion-disabled", style: 'display: none;' %>
         <%= image_tag 'face-1.png', id: "clear-btn" %>
         <%= link_to t("view.play.chat_history"), "javascript: void(0);", id: "history-btn",
                     "data-toggle" => "modal", "data-target" => "#history-modal", style: "float: right;" %>

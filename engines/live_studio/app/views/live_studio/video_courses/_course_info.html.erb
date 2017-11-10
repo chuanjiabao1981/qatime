@@ -4,29 +4,29 @@
       <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
       <ul>
         <li>
-          <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @course.subject %></i></span>
-          <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @course.grade %></i></span>
-          <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @course.video_lessons_count) %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @video_course.subject %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @video_course.grade %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @video_course.video_lessons_count) %></i></span>
         </li>
         <li>
-          <span><i><%= t('view.live_studio/courses.show.full_duration') %></i><i><%= format_duration(@course.total_duration) %></i></span>
+          <span><i><%= t('view.live_studio/courses.show.full_duration') %></i><i><%= format_duration(@video_course.total_duration) %></i></span>
         </li>
       </ul>
     </div>
 
     <div class="lessons-detail">
       <h3><%= t('view.live_studio/courses.show.objective') %></h3>
-      <p><%= @course.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      <p><%= @video_course.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
     </div>
 
     <div class="lessons-detail">
       <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
-      <p><%= @course.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      <p><%= @video_course.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
     </div>
 
     <div class="lessons-detail">
       <h3><%= t('view.live_studio/courses.show.desc') %></h3>
-      <%= raw(@course.description) %>
+      <%= raw(@video_course.description) %>
     </div>
   </div>
 </div>

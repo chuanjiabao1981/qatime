@@ -1,23 +1,25 @@
-<%= render 'course_header' %>
+<div class="preview">
+  <%= render 'course_header' %>
 
-<div class="course-con">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="course-item">
-          <%= render 'course_tab' %>
-          <div class="tab-content asyn_append_fields">
-            <!-- 课程介绍 -->
-            <%= render 'course_info' %>
-            <!-- 课程安排 -->
-            <%= render partial: 'course_plan', locals: { lessons: @course.lessons } %>
-            <!-- 学习须知 -->
-            <%= render 'course_tips' %>
+  <div class="course-con">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="course-item">
+            <%= render 'course_tab' %>
+            <div class="tab-content asyn_append_fields">
+              <!-- 课程介绍 -->
+              <%= render 'course_info' %>
+              <!-- 课程安排 -->
+              <%= render partial: 'course_plan', locals: { lessons: @course.lessons } %>
+              <!-- 学习须知 -->
+              <%= render 'course_tips' %>
+            </div>
           </div>
         </div>
-      </div>
 
-      <%= render partial: "live_studio/shared/teacher_info", locals: { teachers: [ @course.teacher ] } %>
+        <%= render partial: "live_studio/shared/teacher_info", locals: { teachers: [ @course.teacher ] } %>
+      </div>
     </div>
   </div>
 </div>
@@ -28,11 +30,15 @@
       $(".tabs").on('click', 'a', function() {
         $(this).addClass("active").siblings().removeClass("active");
       });
+      $('.preview').on('click', '.action', function(e) {
+        e.preventDefault();
+        return false;
+      });
     })
   </script>
 <% end %>
 
-<%= content_for :mask do %>
+<%= content_for :footer do %>
   <div class="prompt-preview">
     <span><%= t("view.tips.course_preview") %></span>
   </div>

@@ -49,9 +49,9 @@ module LiveStudio
 
     # 预览
     def preview
-      @course = build_preview_course
-      @lessons = @course.new_record? ? @course.interactive_lessons : @course.order_lessons
-      @teachers = @course.new_record? ? @course.interactive_lessons.map(&:teacher).uniq.compact : @course.teachers
+      @interactive_course = build_preview_course
+      @lessons = @interactive_course.new_record? ? @interactive_course.interactive_lessons : @interactive_course.order_lessons
+      @teachers = @interactive_course.new_record? ? @interactive_course.interactive_lessons.map(&:teacher).uniq.compact : @interactive_course.teachers
       render layout: 'v2/application'
     end
 

@@ -4,7 +4,7 @@
       <h2><%= t('view.course_info_show.teacher_label')%></h2>
     </div>
     <ul class="synopsis-list">
-      <% teachers.each do |teacher| %>
+      <% teachers.compact.each do |teacher| %>
         <li>
           <div class="synopsis-head">
             <p class="head-pic">

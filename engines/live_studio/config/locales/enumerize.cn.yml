@@ -80,10 +80,12 @@ cn:
         pending: 未交
         submitted: 已交
         resolved: 已批
+        expired: 已过期
       teacher:
         status:
           submitted: 待批改
           resolved: 已批改
+          expired: 已过期
     live_studio/question:
       status:
         pending: 待回复

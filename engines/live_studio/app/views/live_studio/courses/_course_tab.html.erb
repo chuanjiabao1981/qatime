@@ -12,3 +12,8 @@
     <% end %>
   </div>
 </div>
+
+
+<% content_for :footer do %>
+  <%= render 'live_studio/announcements/modal_form', resource: @course %>
+<% end %>

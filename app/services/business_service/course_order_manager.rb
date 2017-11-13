@@ -15,6 +15,7 @@ module BusinessService
         @order.settle!
         yield if block_given?
       end
+      @order.shipped?
     end
 
     private

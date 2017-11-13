@@ -38,7 +38,7 @@
           <%= f.sort_link :price,
                           LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
           <%= f.sort_link :users_count,
-                          LiveStudio::Course.human_attribute_name(:users_count) %>
+                          LiveStudio::Course.human_attribute_name(:users_count), default_order: :desc %>
         </span>
         <span>|</span>
         <span class="nav-order">

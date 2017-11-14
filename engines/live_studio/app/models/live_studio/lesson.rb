@@ -430,8 +430,16 @@ module LiveStudio
     end
 
     def reset_status
-      self.status = 'ready' if class_date == Date.today && status == 'missed'
-      self.status = 'init' if class_date > Date.today && status == 'missed'
+      # 调课到今天, 已错过和初始化设置为待上课
+      if class_date == Date.today && init? || missed?
+        self.status = 'ready'
+      # 调课到以后, 已错过和待上课设置为未开始
+      elsif class_date > Date.today && (missed? || ready?)
+        self.status = 'init'
+      # 调课到以前, 待上课和未开始设置为未已错过
+      elsif class_date < Date.today && (ready? || init?)
+        self.status = 'missed'
+      end
     end
 
     def data_confirm

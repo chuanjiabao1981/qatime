@@ -436,7 +436,7 @@ function messageTag(msg, fromType) {
     case 'image':
       var messageGroup = 'chat-team-' + currentTeam.id;
       if(fromType === 'roaming') messageGroup = 'chat-team-histories' + currentTeam.id;
-      var imageNode = $('<img class="accept-img fancybox-buttons" data-fancybox-group="' + messageGroup + '" src="' + msg.file.url + '" />');
+      var imageNode = $('<a class="fancybox-buttons" data-fancybox-group="' + messageGroup + '" href="' + msg.file.url + '"><img class="accept-img" src="' + msg.file.url + '" /></a>');
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });

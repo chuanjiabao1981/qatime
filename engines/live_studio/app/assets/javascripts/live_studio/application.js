@@ -32,6 +32,7 @@
 //= require base
 
 $('.fancybox-buttons').fancybox({
+  type        : 'image',
   openEffect  : 'none',
   closeEffect : 'none',
   prevEffect : 'none',

@@ -5,6 +5,8 @@ module LiveStudio
 
     validates :name, :class_date, :start_at, :end_at, presence: true
 
+    before_validation :reset_status, if: :class_date_changed?, on: :update
+
     aasm column: :status, enum: true do
       state :init, initial: true
       state :missed

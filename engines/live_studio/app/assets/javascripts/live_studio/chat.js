@@ -434,7 +434,9 @@ function messageTag(msg, fromType) {
       break;
     // 图片消息
     case 'image':
-      var imageNode = $('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">');
+      var messageGroup = 'chat-team-' + currentTeam.id;
+      if(fromType === 'roaming') messageGroup = 'chat-team-histories' + currentTeam.id;
+      var imageNode = $('<a class="fancybox-buttons" data-fancybox-group="' + messageGroup + '" href="' + msg.file.url + '"><img class="accept-img" src="' + msg.file.url + '" /></a>');
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });

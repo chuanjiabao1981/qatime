@@ -167,7 +167,7 @@ gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
 
-gem 'fancybox2-rails', '~> 0.2.8'
+gem 'fancybox2-rails', github: 'cwheart/fancybox2-rails'
 
 gem 'x-editable-rails'
 

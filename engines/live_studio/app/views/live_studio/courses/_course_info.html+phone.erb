@@ -1,0 +1,76 @@
+<div class="details-msg-con">
+  <h4><%= t('wap.live_studio/courses.show.basic_title') %></h4>
+  <ul>
+    <li>
+      <%= image_tag('wap/title.png') %>
+      <span><%= @course.grade %></span>
+    </li>
+    <li>
+      <%= image_tag('wap/title.png') %>
+      <span><%= @course.subject %></span>
+    </li>
+    <li>
+      <%= image_tag('wap/title.png') %>
+      <span><%= t('wap.live_studio/courses.show.course_lessons_count', count: @course.lessons_count) %></span>
+    </li>
+    <li>
+      <%= image_tag('wap/title.png') %>
+      <span><%= @course.live_start_date.try(:to_s) %></span>
+      <span class="to"><%= t('wap.live_studio/courses.show.to') %></span>
+      <span><%= @course.live_end_date.try(:to_s) %></span>
+    </li>
+  </ul>
+  <div class="details-introduction">
+    <h4><%= t('wap.live_studio/courses.show.course_tag') %></h4>
+    <div class="class-label">
+      <% @course.tag_list.each do |tag_name| %>
+        <span><%= tag_name %></span>
+      <% end %>
+
+      <% if @course.tag_list.blank? %>
+        <%= t('wap.live_studio/courses.show.tag_none') %>
+      <% end %>
+    </div>
+  </div>
+  <div class="details-introduction">
+    <h4><%= LiveStudio::Course.human_attribute_name(:objective) %></h4>
+    <p><%= @course.objective.presence || t('wap.live_studio/courses.show.tag_none') %></p>
+  </div>
+  <div class="details-introduction">
+    <h4><%= LiveStudio::Course.human_attribute_name(:suit_crowd) %></h4>
+    <p><%= @course.suit_crowd.presence || t('wap.live_studio/courses.show.tag_none') %></p>
+  </div>
+  <div class="details-introduction">
+    <h3><%= t('wap.live_studio/courses.show.course_desc') %></h3>
+    <p><%= raw(@course.description) %></p>
+  </div>
+  <div class="details-introduction">
+    <h4><%= t('view.live_studio/courses.show.study') %></h4>
+    <ul class="learning-list">
+      <li>
+        <h5><%= t('view.live_studio/courses.show.before_study') %></h5>
+        <ol>
+          <% t('view.live_studio/courses.show.before_study_description').split(/\n/).each do |str| %>
+            <li><%= str %></li>
+          <% end %>
+        </ol>
+      </li>
+      <li>
+        <h5><%= t('view.live_studio/courses.show.study_in') %></h5>
+        <ol>
+          <% t('view.live_studio/courses.show.study_in_description').split(/\n/).each do |str| %>
+            <li><%= str %></li>
+          <% end %>
+        </ol>
+      </li>
+      <li>
+        <h5><%= t('view.live_studio/courses.show.after_study') %></h5>
+        <ol>
+          <% t('view.live_studio/courses.show.after_study_description').split(/\n/).each do |str| %>
+            <li><%= str %></li>
+          <% end %>
+        </ol>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -25,12 +25,16 @@
       </div>
     </div>
   </div>
-
-  <div class="phone-details-btn">
-    <a data-toggle="modal" data-target="#acceptModal" href="#" class="details-btn-add">加入试听</a>
-    <!--<a href="javascript:void(0);" class="details-btn-add details-btn-enter">进入试听</a>-->
-    <!--<a href="#" class="details-btn-add details-btn-end">试听结束</a>-->
-    <a href="javascript:void(0);" class="details-btn-signup">立即报名</a>
-    <!--<a href="javascript:void(0);" class="details-btn-start">开始学习</a>-->
-  </div>
+  <% if @course.for_sell? %>
+    <div class="phone-details-btn">
+      <!-- 已经购买显示观看按钮 -->
+      <% if @course.bought_by?(current_user) %>
+        <%= render 'btn_play' %>
+      <!-- 未购买显示试听和购买按钮 -->
+      <% else %>
+        <%= render 'btn_taste' if @course.taste_count.to_i > 0 %>
+        <%= render 'btn_buy' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

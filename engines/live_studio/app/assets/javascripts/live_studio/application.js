@@ -30,3 +30,18 @@
 //= require v1/home
 //= require weixin-audio
 //= require base
+
+$('.fancybox-buttons').fancybox({
+  openEffect  : 'none',
+  closeEffect : 'none',
+  prevEffect : 'none',
+  nextEffect : 'none',
+  live: true,
+  btnPlay: false,
+  closeBtn  : true,
+  arrows: false,
+  helpers : {
+    buttons : {
+    }
+  }
+});

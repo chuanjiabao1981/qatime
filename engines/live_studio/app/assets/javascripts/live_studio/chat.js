@@ -437,7 +437,7 @@ function messageTag(msg, fromType) {
       break;
     // 图片消息
     case 'image':
-      var imageNode = $('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">');
+      var imageNode = $('<img class="accept-img fancybox-buttons" data-fancybox-group="chat-team-' + currentTeam.id + '" src="' + msg.file.url + '" />');
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });

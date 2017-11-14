@@ -8,7 +8,7 @@ module Entities
       expose :real_time
       expose :pos
       expose :tastable
-      expose :video, using: Entities::Video
+      expose :quote, as: :video, using: Entities::Resource::VideoQuote
     end
   end
 end

@@ -1769,7 +1769,7 @@ figcaption p {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 1px solid rgb(255,153,102);
+  border: 1px solid #c20c0c;
     top: 0px;
     left: 0px;
 }
@@ -1779,7 +1779,7 @@ figcaption p {
   margin: 0 5px;
 }
 .banner-dot .active > span {
-  background-color: rgb(255,153,102);
+  background-color: #c20c0c;
 }
 .panel-bottom {
   margin-bottom: 15px !important;
@@ -2954,6 +2954,26 @@ ul {
   background-color: rgb(41,41,41);
   margin-bottom: 15px;
 }
+.information-send {
+  position: relative;
+}
+.banned {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 42px;
+  width: 335px;
+  background-color: #ccc;
+}
+.banned p {
+  margin-bottom: 0px;
+  text-align: center;
+  line-height: 40px;
+  color: #FF0000;
+}
+.banned p > img,.banned p > span {
+  vertical-align: middle;
+}
 .send-msg {
   overflow: hidden;
 }
@@ -3767,7 +3787,7 @@ ul {
   font-size: 16px;
   color: #000000;
 }
-.create-time,.create-name {
+.create-time {
   color: #666666;
   padding-top: 3px;
 }
@@ -4448,11 +4468,9 @@ ul {
 .login-left {
   float: left;
   margin-top: 22px;
-  margin-left: -15px;
 }
 .login-right {
   float: right;
-  margin-right: -5px;
   margin-top: 34px;
   font-size: 16px;
   height: 22px;
@@ -4995,26 +5013,30 @@ ul {
 }
 @media only screen and (max-width: 990px) {
 .login-wechat .col-md-6:first-child {
-  padding-right: 15px;
+  padding: 0px;
 } 
 .login-wechat .col-md-6:last-child {
-  padding-left: 0px;
-  padding-right: 40px;
+  padding: 0px;
 }
 .tea-register {
   padding-right: 0px;
-  width: 336px;
+  width: 300px;
   float: none;
   margin: 70px auto 0;
   border-right: 0px;
-}
-.register-title-right {
-  margin-right: 36px;
 }
 .tea-register-right {
   width: 250px;
   margin: 0 auto;
   padding-bottom: 20px;
+}
+}
+@media only screen and (max-width: 480px) {
+.login-left > a > img {
+  width: 150px !important;
+} 
+.login-left {
+  margin-top: 30px !important;
 }
 }
 
@@ -5931,6 +5953,9 @@ ul {
   font-size: 18px;
   margin-top: 1px;
 }
+.accept-down span:hover {
+  cursor: pointer;
+}
 .accept-down a img {
   margin-left: 5px;
 }
@@ -5945,10 +5970,24 @@ ul {
 }
 .innerdiv {
   position:absolute;
+  cursor: move;
+}
+.rotate {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.3);
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.rotate > img {
+  padding-top: 6px;
+}
+.rotate > img:hover {
   cursor: pointer;
 }
-
-
 /*视频手机下载页面*/ 
 
 .down-content {
@@ -8533,13 +8572,19 @@ div.live-big {
   line-height: 40px;
 }
 .nav-dropdown ul li:hover {
-  background-color: rgb(255,157,144);
+  background-color: #c4483c;
+}
+.nav-dropdown ul li.active {
+  background-color: #c20c0c;
+}
+.nav-dropdown ul li.active a {
+  color: #fff;
 }
 .nav-dropdown ul li a {
   font-size: 16px;
-  color: #9aabb8;
+  color: #333;
   display: block;
-  padding-left: 40px
+  padding-left: 40px;
 }
 .nav-dropdown ul li:hover a {
   color: #FFFFFF;
@@ -8723,6 +8768,45 @@ div.live-big {
 }
 .line-item {
   margin-top: 30px;
+}
+.line-plate {
+  margin-top: 10px;
+}
+.line-plate ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.line-plate .nav-courses {
+  text-align: center;
+  display: block;
+  padding: 20px 0px;
+  margin: 10px 0px;
+}
+.line-plate .nav-courses:hover {
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 10px;
+  animation: bounce  0.7s ease both;
+}
+.line-plate .nav-courses p {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.line-plate .nav-courses .link-logo {
+  display: inline-block;
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+.line-plate .nav-courses .link-logo > img,.line-plate .nav-courses .link-logo > span {
+  vertical-align: middle;
+}
+.line-plate .nav-courses .link-info {
+  color: #ffafa7;
+  font-size: 14px;
+}
+.line-plate .nav-courses .link-logo:hover,.line-plate .nav-courses .link-info:hover {
+  color: #c20c0c;
 }
 .line-item h2 {
   width: 250px;
@@ -8921,7 +9005,7 @@ div.live-big {
 }
 .layer-handpick p strong,.handpick-info p:first-child a strong{
   font-size: 16px;
-  font-weight: 500;
+  font-weight: normal;
 }
 .layer-handpick a {
   display: inline-block;
@@ -8937,7 +9021,7 @@ div.live-big {
   color: #34495e;
 }
 .handpick-info p:first-child a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .handpick-info p:first-child {
   line-height: 22px;
@@ -8958,12 +9042,13 @@ div.live-big {
   line-height: 24px;
 }
 .iteminfo-more a:hover,.itemlive-more a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   border: 0px;
   color: #FFFFFF;
 }
 .item-handpick .col-md-3:hover {
   box-shadow: 0 0 10px #CCCCCC;
+  border-radius: 10px;
 }
 .item-recommend li a p {
   text-align: center;
@@ -8981,7 +9066,7 @@ div.live-big {
   color: #a9b8c2;
 }
 .item-recommend li a p span strong {
-  font-weight: 500;
+  font-weight: normal;
 }
 .item-recommend li a p span:first-child {
   font-size: 16px;
@@ -8990,6 +9075,7 @@ div.live-big {
 }
 .item-recommend li:hover {
   background-color: #FFFFFF;
+  border-radius: 10px;
   box-shadow: 0 0 10px #CCCCCC;
 }
 .item-recommend li a p:last-child span:last-child {
@@ -9049,7 +9135,7 @@ div.live-big {
   text-align: center;
 }
 .handpick-info p:last-child a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .slogan {
   font-family: "宋体";
@@ -9080,7 +9166,7 @@ div.live-big {
   width: 40px;
   height: 40px;
   line-height: 37px;
-  background-color: #FF5842;
+  background-color: #c20c0c;
   border-bottom: 1px solid #FFFFFF;
 }
 .fixed-bar li > a > p {
@@ -9113,6 +9199,7 @@ div.live-big {
   background-color: #FFFFFF;
   display: none;
   box-shadow: 0 0 10px #CCCCCC;
+  border-radius: 10px;
 }
 .weixin-code p {
   margin-bottom: 0px;
@@ -9143,10 +9230,11 @@ div.live-big {
   width: 150px;
   top: 0px;
   background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #CCCCCC;
 }
 .phonenumber p {
   margin-bottom: 0px;
-  box-shadow: 0 0 10px #CCCCCC;
   font-size: 20px;
 }
 .iteminfo-more a i {
@@ -9180,13 +9268,31 @@ div.live-big {
   position: relative;
   top: -0.8px;
 }
+@media only screen  and (max-width: 640px) {
+  .homepage-banner .carousel-control {
+    width: 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    margin-top: -20px;
+  }
+}
+@media only screen and (max-width: 460px) {
+  .line-plate .nav-courses {
+    height: 173px;
+  } 
+}
 
 /*导航*/
 .header {
   min-height: 72px;
   background-color: #fff;
-  border-bottom: 2px solid #ff5842;
+  border-bottom: 2px solid #c20c0c;
   position: relative;
+}
+.header > .container {
+  width: 100% !important;
+  padding: 0 30px;
 }
 .header .pull-left {
   float: left;
@@ -9196,12 +9302,31 @@ div.live-big {
   padding: 15px 0px;
 }
 .header .navbar-header .navbar-toggle {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   margin: 20px 0px 20px 10px;
   outline: none;
+  float: left;
 }
 .header .navbar-header .navbar-toggle > span {
   background-color: #fff;
+}
+.header .switch {
+  float: left;
+  display: inline-block;
+  line-height: 72px;
+  font-size: 0px;
+  padding: 0 25px;
+}
+.header .switch > i {
+  color: #c20c0c;
+  font-size: 12px;
+}
+.header .switch > a {
+  font-size: 12px;
+  color: #6d6d6d;
+}
+.header .switch > a:hover {
+  color: #c20c0c;
 }
 .header .navbar-nav {
   margin-bottom: 0px;
@@ -9219,10 +9344,10 @@ div.live-big {
 }
 .header .navbar-nav>li:hover >a{
   background-color: #fff;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .header .navbar-nav>li.active a{
-  color: #ff5842;
+  color: #c20c0c;
 }
 .header .pull-right {
   float: right;
@@ -9236,17 +9361,16 @@ div.live-big {
   line-height: 72px;
 }
 .header .pull-right .nav-login > li.user-enter > a {
-  padding: 7px 10px;
-  border: 1px solid #ff5842;
-  border-radius: 9px;
-  -moz-border-radius: 9px; 
-    -webkit-border-radius: 9px;
   font-size: 14px;
-  color: #ff5842;
+  color: #c20c0c;
+  padding: 7px 10px;
+  border: 1px solid #c20c0c;
+  border-radius: 9px;
+  -webkit-border-radius: 9px;
 }
 .header .pull-right .nav-login > li.user-enter > a:hover {
-  color: #FFFFFF;
-  background-color: #ff5842;
+  color: #fff;
+  background-color: #c20c0c;
 }
 .header .pull-right .nav-login > li.user-enter > a > span { 
   padding: 0 5px;
@@ -9277,15 +9401,15 @@ div.live-big {
   font-size: 16px;
 }
 .header .navbar-nav > li.nav-hover > .dropdown-list > ul > li:hover {
-  background-color: rgba(255,88,66,0.4);
+  background-color: #c4483c;
 }
 .header .navbar-nav > li.nav-hover > .dropdown-list > ul > li > a {
   text-align: center;
   display: block;
-  color: #9aabb8;
+  color: #333;
 }
 .header .navbar-nav > li.nav-hover > .dropdown-list > ul > li.active {
-  background-color: #ff5842;
+  background-color: #c20c0c;
 }
 .header .navbar-nav > li.nav-hover > .dropdown-list > ul > li:hover a,.header .navbar-nav > li.nav-hover > .dropdown-list > ul > li.active a {
   color: #fff;
@@ -9302,7 +9426,7 @@ div.live-big {
 }
 .header .navbar-form {
   padding: 0px;
-  margin: 21px 0 21px 45px;
+  margin: 21px 97px 21px 0px;
 }
 .header .navbar-form > .search-input {
   height: 30px;
@@ -9310,7 +9434,7 @@ div.live-big {
   padding: 2px 5px;
 }
 .header .navbar-form > .search-input .choose-list {
-  font-size: 14px;
+  font-size: 12px;
   color: #333;
   line-height: 24px;
   margin-bottom: 0px;
@@ -9321,7 +9445,7 @@ div.live-big {
   position: absolute;
   left: -6px;
   top: 26px;
-  width: 60px;
+  width: 55px;
   padding-left: 0px;
   margin-bottom: 0px;
   background-color: #fff;
@@ -9331,16 +9455,17 @@ div.live-big {
 .header .navbar-form > .search-input .choose-list > ul li {
   text-align: center;
   height: 30px;
+  font-size: 12px;
   line-height: 30px;
-  color: #9aabb8;
+  color: #333;
   cursor: pointer;
 }
 .header .navbar-form > .search-input .choose-list > ul li:hover {
-  background-color: rgba(255,88,66,0.4);
+  background-color: #c4483c;
   color: #fff;
 }
 .header .navbar-form > .search-input .choose-list > ul li.active {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .header .navbar-form > .search-input .choose-list > i {
@@ -9364,8 +9489,19 @@ div.live-big {
   padding: 0px;
   border: 0px;
   outline: none;
-  color: #e7eaec;
+  color: #333;
   margin: 5px 0px;
+}
+@media only screen and (max-width: 1400px) {
+.header .navbar-form {
+  margin: 21px 21px 21px 0px;
+} 
+.header .navbar-form > .search-input input[type="text"] {
+  width: 180px;
+}
+.header .navbar-nav>li>a {
+  padding: 0 10px;
+}
 }
 @media only screen and (max-width: 1200px) {
 .header > div,.site-nav > div {
@@ -9379,35 +9515,34 @@ div.live-big {
 .header .navbar-form > .search-input input[type="text"] {
   width: 150px;
 }
-.header .navbar-form {
-  margin-left: 100px;
-}
 .header .navbar-nav>li>a {
   padding: 0 10px;
 }
+.header .switch {
+  padding-right: 10px;
+}
 }
 @media only screen  and (max-width: 1100px) {
-.header .navbar-form {
-  margin-left: 40px;
-} 
-}
-@media only screen and (max-width: 992px) {
 .header .navbar-form > .search-input input[type="text"] {
-  width: 110px;
-} 
-.header .navbar-form {
-  margin-left: 20px;
-}
-}
-@media only screen  and (max-width: 930px) {
-.header .navbar-form {
-  margin-left: 0px;
+  width: 70px;
 } 
 }
-@media only screen and (max-width: 900px) {
+@media only screen  and (max-width: 1030px) {
 .header .navbar-form {
   display: none !important;
 } 
+}
+
+@media only screen and (max-width: 900px) {
+.header > .container {
+  padding: 0 15px;
+}
+.header .switch {
+  padding-right: 0px;
+} 
+.header .navbar-nav > li > a {
+  padding: 0 5px;
+}
 .navbar-brand > img {
   width: 200px;
 }
@@ -9441,8 +9576,11 @@ div.live-big {
   line-height: 40px;
 }
 .header .navbar-nav > li:hover > a{
-  background-color: rgba(255,88,66,0.4);
+  background-color: #c20c0c;
   color: #fff;
+}
+.header .switch {
+  padding-left: 10px;
 }
 }
 @media only screen and (max-width: 500px) {
@@ -9465,12 +9603,14 @@ div.live-big {
 } 
 .header .navbar-header .navbar-brand {
   margin-left: -50px;
-} 
+}
 .header .user-nav {
   position: absolute;
   right: 10px;
+  float: none;
+} 
 }
-}
+
 /*副导航*/ 
 .nav-aside,.category,.live-today {
   height: 390px;
@@ -9478,20 +9618,21 @@ div.live-big {
 .nav-aside > ul {
   padding-left: 0px;
   margin-bottom: 0px;
-  border: 1px solid #e7eaec;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 .nav-aside > ul > li {
   padding: 20px 10px 0px 10px;
-  border-bottom: 1px solid #e7eaec;
+  border-bottom: 1px solid #ccc;
 }
 .nav-aside > ul > li:last-child {
   border-bottom: 0px;
 }
 .nav-aside > ul > li h4 {
-  margin: 0px 0px 15px 0px;
-  font-size: 16px;
+  margin: 0px 0px 11px 0px;
+  font-size: 18px;
   text-align: center;
-  color: #333;
+  color: #000;
 }
 .nav-aside > ul > li a {
   color: #666;
@@ -9503,26 +9644,29 @@ div.live-big {
   text-align: center;
 }
 .nav-aside > ul > li > .row  a {
+  font-size: 16px;
   margin-bottom: 20px;
+  color: #666;
   display: inline-block;
 }
 .nav-aside > ul > li a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .nav-aside > .video-item {
   display: block;
   height: 50px;
-  border: 1px solid #e7eaec;
+  border: 1px solid #ccc;
   text-align: center;
   line-height: 48px;
   color: #666;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 19px;
   outline: none;
+  border-radius: 10px;
 }
 .nav-aside > .video-item:hover {
-  border-color: #ff5842;
-  color: #ff5842;
+  border-color: #c20c0c;
+  color: #c20c0c;
 }
 .nav-aside > .video-item > i {
   display: inline-block;
@@ -9532,75 +9676,12 @@ div.live-big {
   top: 4px;
 }
 .category,.live-today {
-  border: 1px solid #e7eaec;
-}
-.category > .category-nav > .row {
-  margin: 0 -5px;
-}
-.category > .category-nav > .row > div {
-  padding: 0px 5px;
-  margin-bottom: 10px;
-}
-.category > .category-nav > .row > div > a{
-  display: block;
-  padding: 22.5px 15px;
-  font-size: 14px;
-}
-.category > .category-nav > .row > div > a > h5,
-.category > .category-nav > .row > div > a > p {
-  text-align: center;
-  color: #fff;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.category > .category-nav > .row > div > a > h5 {
-  margin: 0px;
-}
-.category > .category-nav > .row > div > a > p {
-  margin-bottom: 0px;
-}
-.category .color-orange {
-  background-color: #ff9b5d;
-}
-.category .color-green {
-  background-color: #74cd8d;
-}
-.category .color-blue {
-  background-color: #99afe8;
-}
-.category .color-pink {
-  background-color: #f78e9d;
-}
-.category > .category-nav > .row > div:hover > a {
-  background-color: #fff;
-  border: 1px solid #ff9b5d;
-  padding: 21.5px 15px;
-}
-.category > .category-nav > .row > div:hover > a.color-orange p {
-  color: #ff9b5d;
-}
-.category > .category-nav > .row > div:hover > a.color-green {
-  border-color: #74cd8d;
-}
-.category > .category-nav > .row > div:hover > a.color-green p {
-  color: #74cd8d;
-}
-.category > .category-nav > .row > div:hover > a.color-blue {
-  border-color: #99afe8;
-}
-.category > .category-nav > .row > div:hover > a.color-blue p {
-  color: #99afe8;
-}
-.category > .category-nav > .row > div:hover > a.color-pink {
-  border-color: #f78e9d;
-}
-.category > .category-nav > .row > div:hover > a.color-pink p {
-  color: #f78e9d;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 .replays {
   padding: 0px 20px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .replays > .info-notfound {
   padding: 60px 0px;
@@ -9609,12 +9690,12 @@ div.live-big {
   margin: 0px;
   display: inline-block;
   font-size: 18px;
-  color: #000;
+  color: #000 !important;
   line-height: 20px;
 }
 .replays > .replays-title > a {
   font-size: 12px;
-  color: #9aabb8;
+  color: #999;
   float: right;
   line-height: 20px;
 }
@@ -9625,7 +9706,7 @@ div.live-big {
   margin-left: 5px;
 }
 .replays > .replays-con > .row {
-  margin: 0px 0px 18px 0px;
+  margin: 0px 0px 20px 0px;
 }
 .replays > .replays-con {
   margin-top: 20px;
@@ -9645,7 +9726,7 @@ div.live-big {
 }
 .replays > .replays-con > .row > .playback-info > p.replays-head {
   margin: 0px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .replays > .replays-con > .row > .playback-info > p.replays-head a
 ,.replays > .replays-con > .row > .playback-info > p {
@@ -9656,7 +9737,7 @@ div.live-big {
   color: #333333;
 }
 .replays > .replays-con > .row > .playback-info > p.replays-head:hover a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .replays > .replays-con > .row > .playback-info > p {
   margin: 3px 0 0 0;
@@ -9678,6 +9759,7 @@ div.live-big {
   top: -2px;
 }
 
+
 /*问答动态*/
 .category > .category-answer {
   margin-top: 5px;
@@ -9693,10 +9775,6 @@ div.live-big {
   margin: 15px 0px 0px 0px;
   font-size: 12px;
 }
-
-
-
-
 .category > .category-answer > ul > li .btn-access {
   display: inline-block;
   padding: 0px 8px;
@@ -9732,35 +9810,26 @@ div.live-big {
 .category > .category-answer > p > a:hover {
   color: #ff5842;
 }
-.live-today h3 {
+.live-today h4 {
   width: 130px;
-  font-size: 16px;
-  color: #1f1f1f;
+  font-size: 18px;
+  color: #000;
   position: relative;
   margin: 20px 0px 17px 0px;
 }
-.live-today h3 strong {
+.live-today h4 strong {
   font-weight: normal;
   padding: 0 5px;
     background: #fff;
     position: relative;
     z-index: 1;
 }
-.live-today h3:after {
-  content: '';
-    position: absolute;
-    background: #1f1f1f;
-    height: 2px;
-    left: 0;
-    right: 0;
-    top: 8px;
-}
 .live-today  ul {
   padding: 0 15px;
   margin-bottom: 0px;
 }
 .live-today .liveing-info {
-  height: 334px;
+  height: 323px;
   overflow: hidden;
 }
 .live-today .liveing-info > .info-notfound{
@@ -9769,7 +9838,7 @@ div.live-big {
 .live-today  ul > li {
   position: relative;
   border-left: 1px solid #ccc;
-  padding-bottom: 9px;
+  padding-bottom: 10.5px;
 }
 .live-today  ul > li:last-child {
   padding-bottom: 0px;
@@ -9790,6 +9859,7 @@ div.live-big {
   padding-left: 15px;
   display: block;
   color: #333;
+  font-size: 14px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -9801,19 +9871,22 @@ div.live-big {
   color: #ccc;
 }
 .live-today  ul > li.active em {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .live-today  ul > li.finish .status-origin {
   background-color: #ccc;
 }
 .live-today  ul > li:hover a,.live-today  ul > li:hover em{
-  color: #ff5842;
+  color: #c20c0c;
 }
 .live-today  ul > li:hover .status-origin {
-  background-color: #ff5842;
-  border-color: #ff5842;
+  background-color: #c20c0c;
+  border-color: #c20c0c;
 }
 @media only screen  and (max-width: 1200px) {
+.replays > .replays-con > .row {
+  margin: 0 0 28px 0;
+} 
 .replays > .replays-con > .row > .playback-info > p {
   margin-top: 0px;
   font-size: 12px;
@@ -9824,11 +9897,18 @@ div.live-big {
 .replays > .replays-con > .row > .playback-number span {
   margin-top: 15px;
 }
+.nav-aside > ul > li > .row  a {
+  font-size: 14px;
+  margin-bottom: 22px;
+}
 }
 @media only screen and (max-width: 992px) {
 .category {
   height: auto;
   min-height: 390px;
+}
+.replays > .replays-con > .row {
+  margin: 0 0 15px 0;
 }
 .replays > .replays-con > .row > .playback-info > p {
   margin-top: 18px;
@@ -9840,6 +9920,10 @@ div.live-big {
 .replays > .replays-con > .row > .playback-number span {
   margin-top: 40px;
 } 
+.nav-aside > ul > li > .row  a {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
 }
 @media only screen and (max-width: 768px) {
 .replays > .replays-con > .row > .playback-image,.replays > .replays-con > .row > .playback-info {
@@ -9861,12 +9945,6 @@ div.live-big {
 }
 
 /*视频展示*/
-/*.modal-presentation {
-  position: absolute;
-  display: none;
-  z-index: 10000;
-  cursor: pointer;
-}*/
 
 @media screen and (min-width: 990px){
 .modal-presentation {
@@ -9924,7 +10002,7 @@ div.live-big {
   position: absolute;
   display: none;
   z-index: 10000;
-  cursor: pointer;
+  cursor: move;
 }
 .modal-iframe.active {
   display: block;
@@ -9955,8 +10033,180 @@ div.live-big {
 }
 }
 
+/*热点资讯*/
+.hot-news {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  zoom: 1;
+}
+.hot-news .news-recommend {
+  padding: 15px 0px;
+  zoom: 1;
+  background-color: #FAFAFA;
+}
+.hot-news .news-recommend:after {
+  content: '';
+  display: block;
+  height: 0;
+  visibility: visible;
+  clear: both;
+}
+.hot-news .news-recommend img {
+  width: 100%;
+  vertical-align: top;
+}
+.hot-news .news-headlines {
+  font-size: 16px;
+  color: #000;
+}
+.hot-news .news-headlines > .headlines-info {
+  height: 44px;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hot-news .news-headlines .release-time {
+  font-size: 14px;
+  color: #999;
+}
+.hot-news .news-info {
+  margin-top: 20px;
+}
+.hot-news .news-info > a {
+  height: 60px;
+  font-size: 14px;
+  color: #666;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.hot-news .news-info > a:hover {
+  color: #c20c0c;
+}
+.news-tabulates > ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  height: 180px;
+  padding: 15px 0px;
+  background-color: #FAFAFA;
+}
+.news-tabulates > ul li {
+  margin-bottom: 20.5px;
+}
+.news-tabulates > ul li:last-child {
+  margin-bottom: 0px;
+}
+.news-tabulates > ul li a {
+  display: block;
+  font-size: 16px;
+  color: #333;
+  zoom: 1;
+}
+.news-tabulates > ul li a:after,.hot-news:after {
+  display: block;
+  visibility: visible;
+  content: '';
+  height: 0px;
+  clear: both;
+}
+.news-tabulates > ul li a p {
+  color: #333;
+  margin-bottom: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.news-tabulates > ul li a p .circle {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  top: -2px;
+  margin-right: 10px;
+  border: 1px solid #333;
+  border-radius: 50%;
+}
+.news-tabulates > ul li a:hover p {
+  color: #c20c0c;
+}
+.news-tabulates > ul li a:hover p .circle {
+  border-color: #c20c0c;
+}
+.news-tabulates > ul .release-time {
+  text-align: right;
+  font-size: 14px;
+  color: #999;
+}
+@media only screen  and (max-width: 1200px) {
+.hot-news .news-headlines > .headlines-info {
+  font-size: 14px;
+  height: 40px;
+}
+.hot-news .news-headlines > .headlines-info,.hot-news .news-headlines .release-time {
+  margin-bottom: 0px;
+} 
+.hot-news .news-info {
+  margin-top: 0px;
+}
+.news-tabulates > ul {
+  height: 150px;
+}
+.news-tabulates > ul li {
+  margin-bottom: 10.5px;
+}
+}
+@media only screen and (max-width: 992px) {
+.hot-news .news-recommend {
+  margin-bottom: 30px;
+} 
+.hot-news .news-headlines > .headlines-info {
+  margin: 5px 0px 0px 0px;
+  height: auto;
+}
+.nav-aside,.category {
+  margin-bottom: 20px;
+}
+}
 
+/*优势*/
+.ascendancy-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  zoom: 1;
+}
+.ascendancy-list:after {
+  content: '';
+  display: block;
+  visibility: visible;
+  height: 0;
+  clear: both;
+}
+.ascendancy-list > li > p {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0px;
+}
+.ascendancy-list > li > .ascendancy-title {
+  font-size: 18px;
+  color: #000;
+  margin-top: 20px;
+}
+.ascendancy-list > li > .ascendancy-info {
+  text-align: left;
+  margin-top: 25px;
+}
 
+@media only screen  and (max-width: 992px) {
+.ascendancy-list > li {
+    min-height: 240px;
+  }
+}
 
 
 
@@ -10103,7 +10353,7 @@ div.live-big {
 }
 .course-title h1 {
   display: inline-block;
-  font-size: 20px;
+  font-size: 18px;
   color: #34495e;
   margin: 0px;
 }
@@ -10181,7 +10431,7 @@ div.live-big {
   font-size: 30px;
   color: #ff5842;
 }
-.price-right a,.btn-shelves {
+.price-right a,.btn-shelves,.btn-manchu {
   display: inline-block;
   width: 118px;
   height: 38px;
@@ -10223,6 +10473,9 @@ div.live-big {
   padding-left: 0px !important;
   padding-right: 0px;
 } 
+.price-right {
+  margin-right: 10px;
+}
 }
 .course-join {
   position: absolute;
@@ -10386,22 +10639,27 @@ div.live-big {
   padding-left: 0px;
   margin-bottom: 0px;
 }
-.instructions-line ol {
-  padding-left: 22px;
-  margin-bottom: 0px;
-
-}
 .instructions-line ul li,.instructions-line ol li {
   line-height: 24px;
   color: #666;
 }
-.instructions-line ol li .reminder,.instructions-line ol li .reminder {
+.instructions-line ol {
+  padding-left: 22px;
+  margin-bottom: 0px;
+}
+.instructions-line ol li .reminder,.instructions-line ul li .reminder {
   color: red;
 }
 .instructions-line h3 {
   font-size: 16px;
   color: #34495e;
   margin-bottom: 15px;
+}
+.study-instructions > h2 {
+  font-size: 30px;
+    text-align: center;
+    color: #444;
+    margin: 65px 0 30px 0;
 }
 .tec-synopsis {
   width: 100%;
@@ -10504,6 +10762,10 @@ div.live-big {
 .course-class .pic {
   padding-right: 10px;
 } 
+.playlist i {
+  float: left;
+  min-width: auto;
+}
 }
 @media only screen and (max-width: 460px) {
 .class-label span {
@@ -10512,10 +10774,17 @@ div.live-big {
 .nav-item a {
   margin-right: 20px;
 }
+.course-title > span {
+  display: block;
+  border-left: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+.course-title .add {
+  margin-left: 0px;
 }
 
-
-
+}
 
 
 
@@ -10547,9 +10816,8 @@ div.live-big {
 }
 .user-message p {
   text-align: center;
-  padding: 0 15px;
   margin-bottom: 0px;
-  color: #666;
+  color: #000000;
   line-height: 21px;
 }
 .user-message p span i {
@@ -10662,6 +10930,7 @@ div.live-big {
   margin-left: 30px;
   height: 41px;
   padding: 9.5px 0;
+  font-size: 0px;
 }
 .nav-live p > span {
   font-size: 16px;
@@ -10670,6 +10939,7 @@ div.live-big {
   color: #000;
 }
 .nav-live p > em {
+  font-size: 14px;
   display: inline-block;
   padding-left: 20px;
   margin-left: 20px;
@@ -10802,17 +11072,20 @@ div.live-big {
   margin-right: 0px;
 }
 .select-tab > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .select-tab > a.active {
-  color: #ff5842;
-  border-bottom: 2px solid #ff5842;
+  color: #c20c0c;
+  border-bottom: 2px solid #c20c0c;
 }
 .personal-nav {
   padding: 0;
   background-color: #F7F7F7;
   margin-bottom: 20px;
   border: 1px solid #f0f0f0;
+}
+.personal-link {
+  margin-top: 30px;
 }
 .personal-nav > li {
   font-size: 14px;
@@ -10837,10 +11110,10 @@ div.live-big {
   color: #9aabb8;
 }
 .personal-nav > li:last-child .nav-hot a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .personal-nav > li:last-child .nav-hot a.desc,.personal-nav > li:last-child .nav-hot a.asc {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .personal-nav > li:last-child > a > span {
   margin-left: -5px;
@@ -10860,7 +11133,7 @@ div.live-big {
   margin-right: 28px;
 }
 .personal-nav > li > span > a.active,.personal-nav > li > span > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .personal-nav > li > span > a:last-child {
   margin-right: 0px;
@@ -10891,7 +11164,7 @@ div.live-big {
 }
 .personal .handpick-info > p > .class-price {
   float: right;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .personal > .line-item .item-handpick li {
   margin-bottom: 0px;
@@ -11056,6 +11329,7 @@ div.live-big {
 } 
 }
 
+
 /*调课*/
 .adjust-classes {
   padding: 0 10px;
@@ -11197,17 +11471,17 @@ div.live-big {
   background-color: #20ad65;
   color: #FFFFFF;
 }
-.personal-right > .btn-end ,.btn-shelves{
+.personal-right > .btn-end ,.btn-shelves,.btn-manchu{
   border-color: #CCCCCC !important;
   color: #CCCCCC !important;
 }
-.btn-shelves {
+.btn-shelves,.btn-manchu {
   margin-right: 0px !important;
   outline: none;
 }
 .lessonsg-process > .process-study .row {
   padding: 15px 0px;
-  margin: 40px 0 0 0;
+  margin: 40px -15px 0 -15px;
 }
 .lessonsg-process > .process-study .row > .col-md-6 > img {
   width: 100%;
@@ -11218,13 +11492,22 @@ div.live-big {
 .lessonsg-process > .process-study >.row:last-child {
   margin-top: 30px;
 }
+.lessonsg-process h2 {
+  font-size: 30px;
+  text-align: center;
+  color: #444;
+  margin: 0 0 35px 0;
+}
+.lessons-detail.lessonsg-process {
+  margin-top: 50px;
+}
 .study-info {
   position: absolute;
   height: 100%;
   top: 0px;
   bottom: 0px;
-  left: 28%;
-  right: 7.5%; 
+  left: 21%;
+  right: 4%; 
 }
 .study-info > .info-step {
   width: 100%;
@@ -11241,9 +11524,24 @@ div.live-big {
   font-size: 18px;
 }
 @media only screen  and (max-width: 768px) {
-.lessonsg-process > .process-study .row:last-child {
-  margin-top: -30px;
-} 
+  .lessonsg-process > .process-study .row,.lessonsg-process > .process-study .row:last-child {
+    margin-top: 0px;
+    padding: 0px;
+  } 
+  .lessons-detail.lessonsg-process {
+    margin-top: 30px;
+  }
+  .lessonsg-process h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  .study-instructions > h2 {
+    font-size: 28px;
+    margin: 15px 0 20px 0;
+  }
+  .lessonsg-process > .process-study .row > div {
+    margin-bottom: 20px;
+  }
 }
 
 
@@ -12310,6 +12608,12 @@ div.live-big {
 } 
 }
 
+
+
+
+
+
+
 /*视频课详情页*/
 .price-right > .btn-finish {
   border-color: #ccc;
@@ -12382,7 +12686,7 @@ div.live-big {
   top: 1px;
 }
 .personal-nav > li > .nav-status > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .item-handpick li:hover .classify-info {
   visibility: visible;
@@ -12392,7 +12696,7 @@ div.live-big {
   padding-bottom: 10px;
 }
 .item-handpick li .handpick-info > p > .class-price {
-  color: #ff5842;
+  color: #c20c0c;
 } 
 .item-handpick li .classify-info p:first-child:after{
   position: static;
@@ -13192,12 +13496,15 @@ div.live-big {
   border-radius: 13px;
   line-height: 17px;
   text-align: center;
-  background-color: #ff5842;
+  background-color: #ffafa7;
   border: 1px solid #fff;
   float: right;
   color: #FFFFFF;
   position: relative;
   top: 21px;
+}
+.nav-dropdown > ul > li.active > a .news {
+  background-color: #c20c0c;
 }
 .nav-dropdown > ul > li > a .news{
   top: 11px;
@@ -13382,8 +13689,8 @@ div.live-big {
   color: #ccc;
 }
 .download > .spinner .spinner-new > p {
-  line-height: 18px;
   margin-bottom: 0px;
+  line-height: 18px;
   font-size: 12px;
   color: #CCCCCC;
 }
@@ -13402,14 +13709,20 @@ div.live-big {
   margin-bottom: 10px;
 }
 .download > .spinner .spinner-new > a:hover {
-  border-color: #ff5842;
   background-color: #ff5842;
+  border-color: #ff5842;
   color: #ffffff;
 }
 .qrcode canvas {
   float: right;
 }
 @media only screen and (max-width: 1200px) {
+.download > .spinner .spinner-new > p {
+  margin-bottom: 0px;
+}
+.download > .spinner .spinner-new > a {
+  width: 100%; 
+} 
 .download-info > .container > img {
   left: 15px;
 }
@@ -13446,12 +13759,15 @@ div.live-big {
 .download > .spinner .spinner-head {
   padding-left: 15px;
 }
+.download > .spinner .spinner-new > a {
+  width: 120px;
+} 
 .qrcode canvas {
   width: 105px !important;
   height: 105px !important;
 }
 }
-@media only screen  and (max-width: 768px) {  
+@media only screen  and (max-width: 768px) {
 .download > .spinner .spinner-head,.download > .spinner .spinner-code {
   padding-right: 15px;
 } 
@@ -14914,10 +15230,35 @@ div.live-big {
   color: #9aabb8;
 }
 .personal-nav > li > .nav-order > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
-
-
+@media only screen  and (max-width: 640px) {
+.select-tab > a {
+  margin-right: 20px;
+} 
+.personal-nav > li > .nav-time {
+  height: auto;
+}
+.personal-nav > li > span > a {
+  margin-right: 20px;
+}
+.personal-nav > li.filter-condition .nav-order,.personal-nav > li.filter-condition .nav-status {
+  display: block;
+  float: left;
+  margin-left: 30px;
+}
+}
+@media only screen  and (max-width: 480px) {
+.personal-nav > li.filter-condition > .nav-time > a {
+  display: block;
+}
+.personal-nav > li > .nav-time input {
+  width: 270px;
+}
+.nav-date-to {
+  display: none;
+} 
+}
 
 /*manager页面*/
 /*导航*/
@@ -16092,8 +16433,8 @@ abbr {
   display: inline-block;
   font-size: 12px;
   padding: 0px 10px;
-  border: 1px solid #ff9d90;
-  color: #ff9d90;
+  border: 1px solid #ffafa7;
+  color: #ffafa7;
   border-radius: 10px;
 }
 .line-item .teacher-list a .teach-age {
@@ -16118,7 +16459,7 @@ abbr {
   margin-bottom: 0px;
 }
 .search-item > div > p > span {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .search-item > .align-left {
   padding-left: 0px;
@@ -16128,7 +16469,7 @@ abbr {
   padding-right: 0px;
 }
 .search-item > .align-right > a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen and (max-width: 768px) {
 .search-item > .align-right {
@@ -17024,12 +17365,18 @@ abbr {
 .course-item .ask-list .reply-status > span.no-reply,.course-item .ask-list .reply-status > span.pending {
   color: #ff5842;
 }
+.course-item .ask-list .reply-status > span.outdate {
+  color: #ccc;
+}
 .course-item .ask-list .reply-status > span.approved,.course-item .ask-list .reply-status > span.resolved {
   color: #03cbfd;
 }
 .course-item .ask-list .problem-name {
-  font-size: 12px;
+  font-size: 0px;
   color: #999;
+}
+.course-item .ask-list .problem-name span {
+  font-size: 12px;
 }
 .course-item .ask-list li {
   margin-bottom: 25px;
@@ -17066,14 +17413,28 @@ abbr {
   display: inline-block;
 }
 .course-item .ask-list li > .ask-info  .image-box  a > img,.edit-box > .reply-box .reply-list  .image-box a > img {
-  max-width: 100%;
+  width: 148px;
+  height: 148px;
 }
 .course-item .ask-list li > .ask-info  .image-box > span,.edit-box > .reply-box .reply-list  .image-box > span{
-  display: block;
+  display: inline-block;
   margin-bottom: 10px;
+  float: left;
+  margin-right: 10px;
 }
 .course-item .ask-list li > .ask-info  .image-box > span:last-child,.edit-box > .reply-box .reply-list  .image-box > span:last-child {
+  margin-right: 0px;
+}
+.course-item .ask-list li > .ask-info  .image-box,.edit-box > .reply-box .reply-list  .image-box {
+  zoom: 1;
   margin-bottom: 0px;
+}
+.course-item .ask-list li > .ask-info  .image-box:after,.edit-box > .reply-box .reply-list  .image-box:after {
+  content: '';
+  visibility: visible;
+  height: 0px;
+  clear: both;
+  display: block;
 }
 .course-item .ask-list li > .ask-info > .edit-box > p,.course-item .ask-list li > .edit-box > p {
   text-align: right;
@@ -17131,6 +17492,12 @@ abbr {
 ,.courseware-box > .add-courseware > a.active:hover
 ,.ask-tab .right > a.active:hover {
   background-color: #fff;
+}
+.course-item .ask-list li > .ask-info > .edit-box .btn-disable,.course-item .ask-list li > .ask-info > .edit-box .btn-disable:hover {
+  cursor: default;
+  color: #fff;
+  border-color: #ccc;
+  background-color: #ccc;
 }
 .edit-box > .problems-edit textarea {
   height: 80px;
@@ -17226,6 +17593,12 @@ abbr {
   margin-top: 15px;
   color: #666;
 }
+#fancybox-buttons a.btnPlay,#fancybox-buttons a.btnToggle {
+  display: none;
+}
+#fancybox-buttons ul {
+  width: 165px;
+}
 .course-item .reply-box .problem-title p{
   margin-bottom: 0px;
 }
@@ -17245,6 +17618,7 @@ abbr {
   top: 0px;
 }
 }
+
 
 /*专属课老师课件*/
 .courseware-box {
@@ -17439,6 +17813,16 @@ abbr {
     margin: 0 auto;
 } 
 }
+@media only screen and (max-width: 460px) {
+.courseware-msg .file-head a {
+  margin-right: 0px;
+  margin-bottom: 10px;
+}
+.upload-hint {
+  display: block;
+  margin-bottom: 10px;
+}
+}
 .modal-file .modal-body {
   padding: 0px;
 }
@@ -17558,6 +17942,10 @@ abbr {
   margin-left: 10px;
 }
 
+
+
+
+
 /*老师我的文件*/
 .contains-title input[type='file'] {
   display: none;
@@ -17628,12 +18016,7 @@ abbr {
   display: block;
   margin-bottom: 0px;
 }
-@media only screen  and (max-width: 400px) {
-.edit-box > .problems-edit .form-submit > a {
-  left: 0px;
-  margin-left: 0px;
-} 
-}
+
 /*我的文件*/
 .addfile-title {
   min-height: 32px;
@@ -17816,3 +18199,317 @@ abbr {
   margin-top: 5px;
 }
 }
+
+/*搜索页*/
+.search-input-group {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  padding-left: 5px;
+  border: 1px solid #e7eaec;
+  margin-bottom: 20px;
+}
+.search-item form {
+  display: none;
+}
+.search-input-group > div {
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  height: 28px; 
+}
+.search-input-group input[type="text"] {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  padding-left: 5px;
+  outline: none;
+}
+.search-input-group > .choose-list {
+  width: 50px;
+  line-height: 28px;
+  position: absolute;
+  left: 5px;
+  top: 0px;
+}
+.search-input-group > .choose-list > .fa {
+  margin: 0 2px;
+}
+.search-input-group  ul {
+  display: none;
+  border: 1px solid #e7eaec;
+  position: absolute;
+  left: -6px;
+  top: 28px;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  width: 50px;
+  background-color: #fff;
+    box-shadow: 0 0 10px #ccc;
+    z-index: 100;
+}
+.search-input-group ul > li {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.search-input-group  ul > li:hover {
+  background-color: #ffafa7;
+  color: #fff;
+}
+.search-input-group  ul > li.active {
+  background-color: #c20c0c;
+  color: #fff;
+}
+.search-input-group button {
+  width: 50px;
+  height: 28px;
+  background-color: #fff;
+  outline: none;
+  border: 1px solid #fff;
+  border-left: 1px solid #e7eaec;
+  float: right;
+}
+
+@media only screen and (max-width: 768px) {
+.search-item form {
+  display: block;
+}
+.search-item > .align-left,.search-item > .align-right {
+  padding-left: 0px;
+} 
+}
+
+
+/*视频介绍*/
+.instroduced {
+  width: 100%;
+  padding-top: 70px;
+}
+.instroduced h3 {
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+  margin: 0 0 30px 0;
+}
+.instroduced .instroduced-area {
+  padding: 30px 25px 105px 25px;
+  width: 772px;
+  height: 541px;
+  margin: 0 auto 20px;
+}
+.instroduced .instroduced-area .video-player {
+  width: 100%;
+  height: 100%;
+}
+.features {
+  margin: 50px 0px 85px 0px;
+}
+.features h3,.purchase-process h3,.course-features h3{
+  font-size: 40px;
+  color: #000;
+  text-align: center;
+  margin: 0px;
+}
+.purchase-process h3 {
+  color: #fff;
+}
+.features ul {
+  zoom: 1;
+  margin: 80px 0px 0px 0px;
+  padding-left: 0px;
+}
+.features ul > li {
+  min-height: 290px;
+}
+.features ul:after,.purchase-process ul:after,.course-features ul:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0px;
+  visibility: hidden; 
+}
+.features .module,.course-features .module{
+  margin: 0 auto 10px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #4ab6d0;
+}
+.features .module > p,.course-features .module > p {
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 0px;
+  text-align: center;
+  line-height: 180px;
+}
+.features .module-info > p,.course-features .module-info > p {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.features .module.bg-orange,.course-features .module.bg-orange {
+  background-color: #f9c46d;
+}
+.features .module.bg-pink,.course-features .module.bg-pink {
+  background-color: #e68b96;
+}
+.features .module.bg-purple,.course-features .module.bg-purple {
+  background-color: #ce89c5;
+}
+.features .module.bg-green,.course-features .module.bg-green {
+  background-color: #b3c95b;
+}
+.features .module.bg-blue,.course-features .module.bg-blue {
+  background-color: #87a8e4;
+}
+.features .module.bg-darkgreen,.course-features .module.bg-darkgreen {
+  background-color: #306930;
+}
+.features .module.bg-brown,.course-features .module.bg-brown {
+  background-color: #ad5820;
+}
+.features .module.bg-grassgreen,.course-features .module.bg-grassgreen {
+  background-color: #99cc33;
+}
+.selection-item {
+  text-align: center;
+}
+.selection-item > a,.selection-item > a:hover {
+  font-size: 24px;
+  color: #c20c0c;
+}
+.purchase-process {
+  padding: 55px 0 80px;
+  background-color: #339999;
+}
+.purchase-process ul {
+  margin: 70px 0 0 0;
+  padding-left: 0px;
+  zoom: 1;
+}
+.purchase-process ul li .process-module {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  color: #fff;
+}
+.purchase-process ul li .process-module p {
+  position: absolute;
+  left: 0px;
+  right: 40px;
+  top: 0px;
+  bottom: 0px;
+  margin-bottom: 0px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 60px;
+}
+
+/*直播课特色*/
+.course-features {
+  margin-top: 20px;
+  padding-top: 50px;
+  background-color: #fff3e2;
+}
+.course-features ul {
+  margin: 50px 0 0 0;
+  padding-left: 0px;
+  zoom: 1;
+}
+.course-features .module {
+  width: 140px;
+  height: 140px;
+}
+.course-features .module > p {
+  line-height: 140px;
+  font-size: 25px;
+}
+.course-features ul > li {
+  min-height: 230px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .purchase-process ul li .process-module p {
+    right: 30px;
+    font-size: 20px;
+  }
+  .purchase-process h3 {
+    font-size: 30px;
+  }
+}
+@media only screen  and (max-width: 992px) {
+  .instroduced .instroduced-area {
+    width: 640px;
+    height: 448px;
+    padding: 26px 22px 87px 22px;
+  }
+  .purchase-process ul li {
+    margin-bottom: 20px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .instroduced .instroduced-area {
+    width: 300px;
+    height: 210px;
+    padding: 12px 10px 40px 10px;
+  }
+  .instroduced h3,.features h3,.course-features h3{
+    font-size: 28px;
+  }
+  .features .module,.course-features .module {
+    width: 120px;
+    height: 120px;
+  }
+  .features .module > p,.course-features .module > p {
+    font-size: 20px;
+    line-height: 120px;
+  }
+  .features ul > li {
+    min-height: 220px;
+  }
+  .features ul,.features {
+    margin-top: 30px;
+  }
+  .features {
+    margin-bottom: 50px;
+  }
+  .selection-item > a {
+    font-size: 20px;
+  }
+  .purchase-process ul li .process-module {
+    height: 40px;
+  }
+  .purchase-process ul li .process-module p {
+    right: 20px;
+    line-height: 40px;
+  }
+  .purchase-process {
+    padding: 30px 0 50px;
+  }
+  .purchase-process ul {
+    margin-top: 20px;
+  }
+}
+@media only screen  and (max-width: 480px) {
+  .course-features .module {
+    width: 100px;
+    height: 100px;
+  }
+  .course-features .module > p {
+    line-height: 100px;
+  }
+  .course-features {
+    padding-top: 30px;
+  }
+  .course-features ul {
+    margin-top: 30px;
+  }
+  .course-features ul > li {
+    min-height: 200px;
+  }
+}
+
+

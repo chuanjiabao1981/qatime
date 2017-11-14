@@ -50,6 +50,8 @@ $(function(){
 
   // 新增文件文件
   $(".asyn_append_files").on("click", ".append_files", function(e) {
+    var count = $(e.target).closest('.form-file').find('.file-img:visible').size();
+    if(count >= 6) return false;
     var node = $(e.target).closest('.append_files');
     var regexp = new RegExp(node.data('prefix') + "_\\d+", 'g');
     node.closest('.file-img').before(node.data('fields').replace(regexp, node.data('id')))

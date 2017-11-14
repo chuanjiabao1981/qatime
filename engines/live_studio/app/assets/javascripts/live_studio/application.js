@@ -40,7 +40,6 @@ $('.fancybox-buttons').fancybox({
   live: true,
   btnPlay: false,
   closeBtn  : true,
-  arrows: false,
   helpers : {
     buttons : {
     }

@@ -437,7 +437,9 @@ function messageTag(msg, fromType) {
       break;
     // 图片消息
     case 'image':
-      var imageNode = $('<img class="accept-img fancybox-buttons" data-fancybox-group="chat-team-' + currentTeam.id + '" src="' + msg.file.url + '" />');
+      var messageGroup = 'chat-team-' + currentTeam.id;
+      if(fromType === 'roaming') messageGroup = 'chat-team-histories' + currentTeam.id;
+      var imageNode = $('<img class="accept-img fancybox-buttons" data-fancybox-group="' + messageGroup + '" src="' + msg.file.url + '" />');
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });

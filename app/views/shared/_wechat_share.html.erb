@@ -3,7 +3,7 @@
 wx.ready(function(){
   // 分享到朋友圈
   wx.onMenuShareTimeline({
-    title: '<%= page_title(params[:controller], params[:action])  %>',
+    title: '<%= page_title %>',
     link: location.href,
     imgUrl: '<%= image_url("app-logo.png") %>', // 分享图标
     success: function () { 
@@ -14,8 +14,8 @@ wx.ready(function(){
 
   // 分享给浩宇
   wx.onMenuShareAppMessage({
-    title: '<%= page_title(params[:controller], params[:action])  %>',
-    desc: '<%= page_content(params[:controller], params[:action])  %>',
+    title: '<%= page_title %>',
+    desc: '<%= page_content %>',
     link: location.href,
     imgUrl: '<%= image_url("app-logo.png") %>',
     success: function () { 

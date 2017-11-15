@@ -1,1 +1,27 @@
-_
+<%= wechat_config_js debug: false, api: %w(checkJsApi openLocation getLocation onMenuShareTimeline onMenuShareAppMessage) -%>
+<script>
+wx.ready(function(){
+  // 分享到朋友圈
+  wx.onMenuShareTimeline({
+    title: '<%= page_title(params[:controller], params[:action])  %>',
+    link: location.href,
+    imgUrl: '<%= image_url("app-logo.png") %>', // 分享图标
+    success: function () { 
+    },
+    cancel: function () { 
+    }
+  });
+
+  // 分享给浩宇
+  wx.onMenuShareAppMessage({
+    title: '<%= page_title(params[:controller], params[:action])  %>',
+    desc: '<%= page_content(params[:controller], params[:action])  %>',
+    link: location.href,
+    imgUrl: '<%= image_url("app-logo.png") %>',
+    success: function () { 
+    },
+    cancel: function () {
+    }
+  });
+});
+</script>

@@ -6,6 +6,18 @@ module ApplicationHelper
     "答疑时间-K12在线教育平台"
   end
 
+  def page_content(controller = nil, action = nil)
+    "智造互联乐享教育-答疑时间与您共享教育梦想"
+  end
+
+  def mobile?
+    return true if request.user_agent =~ /iPad/
+    return true if request.user_agent =~ /iPhone/
+    return true if request.user_agent =~ /Android/
+    return true if request.user_agent =~ /Windows Phone/
+    false
+  end
+
   # 显示序号
   def show_index(index, per = 30)
     params[:page] ||= 1

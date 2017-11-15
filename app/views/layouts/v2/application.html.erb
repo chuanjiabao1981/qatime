@@ -21,5 +21,7 @@
 <%= render 'layouts/v1/front_footer' %>
 <%= yield :footer %>
 <%= yield :javascript %>
+
+<%= render 'shared/wechat_share' if mobile? %>
 </body>
 </html>

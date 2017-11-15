@@ -1,40 +1,4 @@
-<div class="phone-login phone-details">
-  <div class="phone-login-title">
-    <div class="phone-return">
-      <%= link_to 'javascript:history.back(-1);' do %>
-        <%= image_tag('wap/phone-return-1.png') %>
-      <% end %>
-    </div>
-    <div class="phone-headline">
-      <h3><%= t('wap.live_studio/courses.show.course_name') %></h3>
-    </div>
-  </div>
-  
-  <%= render 'course_header' %>
-
-  <div class="phone-details-msg">
-    <div class="details-msg-nav">
-      <%= render 'course_tab' %>
-      <div>
-        <!-- 课程介绍 -->
-        <%= render 'course_info' %>
-        <!-- 教师资料 -->
-        <%= render partial: "live_studio/shared/teacher_info", locals: { teachers: [ @course.teacher ] } %>
-        <!-- 课程安排 -->
-        <%= render partial: 'course_plan', locals: { lessons: @course.lessons } %>
-      </div>
-    </div>
-  </div>
-  <% if @course.for_sell? %>
-    <div class="phone-details-btn">
-      <!-- 已经购买显示观看按钮 -->
-      <% if @course.bought_by?(current_user) %>
-        <%= render 'btn_play' %>
-      <!-- 未购买显示试听和购买按钮 -->
-      <% else %>
-        <%= render 'btn_taste' if @course.taste_count.to_i > 0 %>
-        <%= render 'btn_buy' %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<%= link_to t('view.course_info_show.start_learning'),
+            live_studio.play_course_path(@course),
+            class: 'btn-single btn-filled app-action', target: '_blank',
+            data: { toggle: 'modal', target: "#appTips" } %>

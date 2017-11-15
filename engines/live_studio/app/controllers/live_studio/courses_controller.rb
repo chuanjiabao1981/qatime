@@ -7,7 +7,7 @@ module LiveStudio
     before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons, :for_free, :inc_users_count]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
-    before_action :detect_device_format, only: [:show]
+    before_action :detect_device_format, only: [:show, :taste]
 
     def index
       @q = LiveService::CourseDirector.search(search_params)
@@ -91,6 +91,14 @@ module LiveStudio
     def taste
       @course = Course.find(params[:id])
       @taste_ticket = @course.taste(@student)
+
+      respond_to do |format|
+        format.js do |js|
+          js.none
+          js.tablet
+          js.phone
+        end
+      end
     end
 
     # 免费上课
@@ -104,7 +112,7 @@ module LiveStudio
         format.html do |html|
           html.none { render layout: 'v2/application' }
           html.tablet
-          html.phone { render layout: 'application-mobile' }
+          html.phone { render layout: 'wap' }
         end
       end
     end

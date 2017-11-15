@@ -70,7 +70,7 @@ body {
   width: 83.3%;
   border-top: 0px;
   float: left;
-}
+  }
 .phone-login-con .form-group .form-control {
   height: 4.2rem;
   width: 100%;
@@ -287,10 +287,10 @@ body {
 }
 .phone-list-geade {
   width: 100%;
-  height: 100%;
-  padding-left: 0rem;
-  margin-bottom: 0rem;
-  list-style: none;
+    height: 100%;
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+    list-style: none;
 }
 .phone-list-geade li {
   float: left;
@@ -303,8 +303,8 @@ body {
   text-align: center;
   line-height: 2.5rem;
   -webkit-border-radius: 27.5% / 2.5rem;
-  -moz-border-radius: 27.5% / 2.5rem;
-  border-radius: 27.5% / 2.5rem;
+    -moz-border-radius: 27.5% / 2.5rem;
+    border-radius: 27.5% / 2.5rem;
 }
 .modal-editor {
   position: absolute;
@@ -460,7 +460,6 @@ body {
   padding: 1rem 1.2rem 1rem 1.2rem;
   width: 100%;
   height: 100%;
-  display: none;
   margin-bottom: 5rem;
 }
 .details-msg-con > h4 {
@@ -468,9 +467,6 @@ body {
   margin-top: 0rem;
   margin-bottom: 1rem;
   color: #333333;
-}
-.details-msg-con:first-child {
-  display: block;
 }
 .details-msg-con > .offline-live {
   padding-top: 2rem;
@@ -535,10 +531,14 @@ body {
   font-size: 1.3rem;
   color: #999999;
 }
-.learning-list,.learning-list > li > ul {
+.learning-list,.learning-list > li > ul,.learning-list > li > ol {
   padding-left: 0px;
   margin-bottom: 0px;
   list-style-type: none;
+}
+.learning-list > li > ol {
+  padding-left: 1.3rem;
+  list-style-type: decimal;
 }
 .learning-list > li > h5 {
   font-size: 1.3rem;
@@ -546,11 +546,11 @@ body {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.learning-list > li > ul > li {
+.learning-list > li > ul > li,.learning-list > li > ol li {
   font-size: 1.3rem;
   color: #999;
 }
-.learning-list > li > ul {
+.learning-list > li > ul,.learning-list > li > ol {
   margin-bottom: 15px;
 }
 .phone-details {
@@ -586,23 +586,26 @@ body {
 a:link,a:visited,a:hover,a:active{
   text-decoration:none !important;
 }
-a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
+a.details-btn-end:link,a.btn-single:link {
   color: #FFFFFF;
-}
-.phone-details-btn .details-btn-add {
+} 
+.phone-details-btn a {
   margin-right: 4%;
 }
-.phone-details-btn .details-btn-enter {
+.phone-details-btn a:last-child {
+  margin-right: 0px;
+}
+.phone-details-btn .btn-filled {
   background-color: #ff5842;
   color: #FFFFFF !important;
 }
-.phone-details-btn .details-btn-end {
+.phone-details-btn .btn-disable {
   background-color: #CCCCCC;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   border:0.2rem solid #CCCCCC;
 }
 
-.phone-details-btn .details-btn-start,.phone-details-btn .details-btn-watch {
+.phone-details-btn .btn-single{
   width: 100%;
   background-color: #ff5842;
   color: #FFFFFF;
@@ -769,7 +772,7 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   padding-bottom: 2.5rem;
 }
 .preferential .phone-login-con .form-group {
-  overflow: inherit;
+    overflow: inherit;
 }
 .preferential .phone-login-con .input-group {
   width: 80%;
@@ -842,9 +845,9 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   height: 100%;
   background-color: #ff5842;
   font-size: 1.4rem;
-  color: #FFFFFF;
-  border-radius: 0.4rem;
-  border: 0.1rem solid #ff5842;
+    color: #FFFFFF;
+    border-radius: 0.4rem;
+    border: 0.1rem solid #ff5842;
 }
 
 
@@ -949,7 +952,7 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
 
 /*下载*/
 .down-content {
-  position: relative;
+    position: relative;
   width: 100%;
   overflow: hidden;
 }
@@ -1045,7 +1048,7 @@ a.down-app:link {
   font-size: 1.4rem;
   color: #999;
   overflow: hidden;
-}
+} 
 .phone-curriculum > .curriculum-info > .course-price {
   color: #ff5842;
   float: left;
@@ -1147,11 +1150,11 @@ a.down-app:link {
   height: 100%;
   top: 0rem;
   left: 0rem;
-  position: absolute;
+  position: fixed;
   color: #FFFFFF;
   display: -webkit-flex;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 .prompt-error > span {
   background-color: rgba(0,0,0,0.7);

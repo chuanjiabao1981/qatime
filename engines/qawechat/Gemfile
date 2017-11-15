@@ -1,4 +1,4 @@
-#source 'https://ruby.taobao.org/'
+source 'https://ruby.taobao.org/'
 source 'https://gems.ruby-china.org/'
 
 # Declare your gem's dependencies in qawechat.gemspec.
@@ -12,10 +12,7 @@ gemspec
 # your gem to rubygems.org.
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'bootstrap-sass','3.0.2.0'
+gem 'bootstrap-sass', '3.0.2.0'
 # wechat
-gem 'wechat'
-gem 'omniauth-wechat-oauth2'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-

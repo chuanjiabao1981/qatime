@@ -5,7 +5,7 @@
     <%= link_to t('view.live_studio/courses.show.study'), "#study", data: { toggle: 'tab' } %>
   </div>
   <div class="aside-right">
-    <% if allow?('live_studio/announcements', :create, @course) && %w[published teaching].include?(@course.status) %>
+    <% if allow?('live_studio/announcements', :create, @interactive_course) && %w[published teaching].include?(@interactive_course.status) %>
       <%= link_to 'javascript:void(0);', class: 'btn-release', data: {toggle: 'modal', target: '#announcement-form'} do %>
           <%= image_tag 'release.png' %><%= t('view.live_studio/customized_groups.show.announcement_link') %>
       <% end %>
@@ -14,5 +14,5 @@
 </div>
 
 <% content_for :footer do %>
-  <%= render 'live_studio/announcements/modal_form', resource: @course %>
+  <%= render 'live_studio/announcements/modal_form', resource: @interactive_course %>
 <% end %>

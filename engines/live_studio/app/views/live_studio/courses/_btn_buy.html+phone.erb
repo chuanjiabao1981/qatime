@@ -1,7 +1,9 @@
 <% if current_user.nil? || current_user.student? %>
+  <%= link_to t('activerecord.view.enroll_now'),
+              live_studio.new_course_order_path(@course),
+              class: "app-action #{'btn-single' unless @course.taste_count.to_i > 0 }" %>
 <% else %>
   <%= link_to t('activerecord.view.enroll_now'),
-              "javascript:$.toastMsg('#{t('view.live_studio/courses.show.role_notice')}');",
-              class: "app-action #{'btn-single' unless @course.taste_count.to_i > 0 }"
-              data: { toggle: 'modal', target: "#appTips" } %>
+              "##", onclick: "$.toastMsg('#{t('view.live_studio/courses.show.role_notice')}');",
+              class: "app-action #{'btn-single' unless @course.taste_count.to_i > 0 }" %>
 <% end %>

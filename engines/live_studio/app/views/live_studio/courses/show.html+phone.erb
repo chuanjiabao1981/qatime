@@ -28,12 +28,13 @@
 
   <% if @course.for_sell? %>
     <div class="phone-details-btn">
-      <!-- 已经购买显示观看按钮 -->
       <% if @course.bought_by?(current_user) %>
+        <!-- 已经购买显示观看按钮 -->
         <%= render 'btn_play' %>
-      <!-- 未购买显示试听和购买按钮 -->
       <% else %>
+        <!-- 未购买显示试听和购买按钮 -->
         <%= render 'btn_taste' if @course.taste_count.to_i > 0 %>
+        <%= render 'btn_buy' %>
       <% end %>
     </div>
   <% end %>
@@ -46,7 +47,9 @@
       <div class="modal-body">
         <p><%= t('wap.live_studio/courses.show.modal_content') %></p>
         <center>
-          <%= link_to t('wap.live_studio/courses.show.modal_download'), main_app.get_app_path(current_user.role), class: 'app_download', target: '_blank' %>
+          <%= link_to t('wap.live_studio/courses.show.modal_download'),
+              main_app.get_app_path(current_user.role),
+              class: 'app_download', target: '_blank' %>
         </center>
       </div>
     </div>

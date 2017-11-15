@@ -460,7 +460,6 @@ body {
   padding: 1rem 1.2rem 1rem 1.2rem;
   width: 100%;
   height: 100%;
-  display: none;
   margin-bottom: 5rem;
 }
 .details-msg-con > h4 {
@@ -468,9 +467,6 @@ body {
   margin-top: 0rem;
   margin-bottom: 1rem;
   color: #333333;
-}
-.details-msg-con:first-child {
-  display: block;
 }
 .details-msg-con > .offline-live {
   padding-top: 2rem;
@@ -590,7 +586,7 @@ body {
 a:link,a:visited,a:hover,a:active{
   text-decoration:none !important;
 }
-a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
+a.details-btn-end:link,a.btn-single:link {
   color: #FFFFFF;
 } 
 .phone-details-btn a {
@@ -599,17 +595,17 @@ a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
 .phone-details-btn a:last-child {
   margin-right: 0px;
 }
-.phone-details-btn .details-btn-enter {
+.phone-details-btn .btn-filled {
   background-color: #ff5842;
   color: #FFFFFF !important;
 }
-.phone-details-btn .details-btn-end {
+.phone-details-btn .btn-disable {
   background-color: #CCCCCC;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   border:0.2rem solid #CCCCCC;
 }
 
-.phone-details-btn .details-btn-start,.phone-details-btn .details-btn-watch {
+.phone-details-btn .btn-single{
   width: 100%;
   background-color: #ff5842;
   color: #FFFFFF;
@@ -1154,7 +1150,7 @@ a.down-app:link {
   height: 100%;
   top: 0rem;
   left: 0rem;
-  position: absolute;
+  position: fixed;
   color: #FFFFFF;
   display: -webkit-flex;
     align-items: center;

@@ -1,4 +1,4 @@
-<%= link_to 'javascript:void(0);', class: 'phone-download app_download' do %>
+<%= link_to main_app.get_app_path(current_user.try(:role) || 'student'), class: 'phone-download app_download' do %>
   <span class="phone-download-left">
     <%= image_tag('wap/download-logo.png') %>
     <span>

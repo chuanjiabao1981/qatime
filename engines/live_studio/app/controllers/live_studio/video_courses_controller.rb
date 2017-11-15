@@ -4,7 +4,7 @@ module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
     before_action :set_video_course, only: [:show, :edit, :update, :destroy, :taste, :deliver, :inc_users_count]
-    before_action :detect_device_format, only: [:show]
+    # before_action :detect_device_format, only: [:show]
 
     def index
       @q = LiveService::VideoCourseDirector.search(search_params)
@@ -16,11 +16,12 @@ module LiveStudio
       @course = LiveStudio::VideoCourse.find(params[:id])
 
       respond_to do |format|
-        format.html do |html|
-          html.none { render layout: 'v2/application' }
-          html.tablet
-          html.phone { render layout: 'application-mobile' }
-        end
+        format.html { render layout: 'v2/application' }
+        # format.html do |html|
+        #   html.none { render layout: 'v2/application' }
+        #   html.tablet
+        #   html.phone { render layout: 'application-mobile' }
+        # end
       end
     end
 

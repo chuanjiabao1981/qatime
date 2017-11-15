@@ -9,7 +9,7 @@
 </div>
 
 <div class="recorded-con">
-  <%= simple_form_for [@teacher, @video_course] do |f| %>
+  <%= simple_form_for([@teacher, @video_course], html: { id: 'video_course_form' }) do |f| %>
     <%= render 'course_fields', f: f %>
     <div class="recorded-info" id="step_two" style="display: none;">
       <%= raw link_to_append_fields(image_tag('create.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :video_lessons, 'live_studio/video_courses/', class: 'addclass', "append-to" => "#outer_wrap") %>
@@ -98,6 +98,7 @@ $(function() {
     var data = new FormData();
     data.append("file[file]" , file, file.name);
     currentNode.find(".video_id").val('');
+    currentNode.find(".video_duration").val('');
     $(videoForm).ajaxSubmit({
       dataType: 'json',
       formData: data,
@@ -130,10 +131,29 @@ $(function() {
           progressInfo.find('.progress-text').hide();
           // 显示文件信息
           fileInfo.show().find('.file-duration').text(formatDuration(data.video_duration));
+          // 设置视频实际时长
+          currentNode.find(".video_duration").val(data.video_duration);
         }
       }
     });
   });
+
+  // 表单客户端验证
+  $("#video_course_form").submit(function() {
+    var result = true;
+    $('#outer_wrap li:visible').each(function(i, node) {
+      var file_id = $(node).find(".video_id").val();
+      var real_time = $(node).find(".video_duration").val();
+      if(file_id === '' || real_time === '') {
+        result = false;
+      }
+    });
+    if(!result) {
+      alert('请等待上传结束');
+      return false;
+    }
+  });
+
 
   // 保存按钮
   $('#outer_wrap').on('click', '.save-btn', function(e) {

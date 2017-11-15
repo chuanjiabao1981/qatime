@@ -9,7 +9,7 @@ module LiveStudio
     def index
       @q = LiveService::VideoCourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def show
@@ -17,7 +17,7 @@ module LiveStudio
 
       respond_to do |format|
         format.html do |html|
-          html.none { render layout: 'v1/application' }
+          html.none { render layout: 'v2/application' }
           html.tablet
           html.phone { render layout: 'application-mobile' }
         end
@@ -73,10 +73,10 @@ module LiveStudio
     end
 
     def preview
-      @course = build_preview_course
-      @lessons = @course.video_lessons
-      @teachers = @course.teachers
-      render layout: 'v1/application'
+      @video_course = build_preview_course
+      @lessons = @video_course.video_lessons
+      @teachers = @video_course.teachers
+      render layout: 'v2/application'
     end
 
     private

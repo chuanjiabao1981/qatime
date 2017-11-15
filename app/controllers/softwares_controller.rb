@@ -1,5 +1,5 @@
 class SoftwaresController < ApplicationController
-  layout 'v1/application'
+  layout 'v2/application'
 
   skip_filter :authorize, only: [:index, :download, :latest, :app]
 

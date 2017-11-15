@@ -5,18 +5,17 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation, except: [:index, :show]
-    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play]
+    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons, :play, :show]
     before_action :play_authorize, only: [:play]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def show
-      @course = LiveStudio::InteractiveCourse.find(params[:id])
-      render layout: 'v1/application'
+      render layout: 'v2/application'
     end
 
     def interactive
@@ -50,10 +49,10 @@ module LiveStudio
 
     # 预览
     def preview
-      @course = build_preview_course
-      @lessons = @course.new_record? ? @course.interactive_lessons : @course.order_lessons
-      @teachers = @course.new_record? ? @course.interactive_lessons.map(&:teacher).uniq.compact : @course.teachers
-      render layout: 'v1/application'
+      @interactive_course = build_preview_course
+      @lessons = @interactive_course.new_record? ? @interactive_course.interactive_lessons : @interactive_course.order_lessons
+      @teachers = @interactive_course.new_record? ? @interactive_course.interactive_lessons.map(&:teacher).uniq.compact : @interactive_course.teachers
+      render layout: 'v2/application'
     end
 
     # 调课

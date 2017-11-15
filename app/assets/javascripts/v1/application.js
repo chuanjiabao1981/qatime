@@ -116,4 +116,18 @@ $(function() {
       $('.wechat').fadeOut(500);
     },200)  
   });
+
+  $('.fancybox-buttons').fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none',
+    prevEffect : 'none',
+    nextEffect : 'none',
+    live: true,
+    btnPlay: false,
+    closeBtn  : true,
+    helpers : {
+      buttons : {
+      }
+    }
+  });
 });

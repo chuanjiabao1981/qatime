@@ -12,13 +12,13 @@
       <% end -%>
       
       <% if student_homework.submitted? %>
-        <span class="submit-time"><%= LiveStudio::Task.human_attribute_name(:published_at) %>：</span>
+        <span class="<% 'submit-time' unless student_homework.user == current_user %>"><%= LiveStudio::Task.human_attribute_name(:published_at) %>：</span>
         <span><%= localize(student_homework.published_at) %></span>
       <% elsif student_homework.resolved? %>
-        <span class="submit-time"><%= LiveStudio::Task.human_attribute_name(:resolved_at) %>：</span>
+        <span class="<% 'submit-time' unless student_homework.user == current_user %>"><%= LiveStudio::Task.human_attribute_name(:resolved_at) %>：</span>
         <span><%= localize(student_homework.resolved_at) %></span>
       <% else %>
-        <span class="submit-time"><%= LiveStudio::Task.human_attribute_name(:created_at) %>：</span>
+        <span class="<% 'submit-time' unless student_homework.user == current_user %>"><%= LiveStudio::Task.human_attribute_name(:created_at) %>：</span>
         <span><%= localize(student_homework.homework.created_at) %></span>
       <% end %>
     </div>

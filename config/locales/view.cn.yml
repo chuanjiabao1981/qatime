@@ -1,0 +1,35 @@
+cn:
+  view:
+    home:
+      index:
+        advantage1:
+          title: 多年行业经验
+          description: 扎根教育行业多年，厚积薄发打造最适合学生的学习平台。
+        advantage2:
+          title: 专业师资团队
+          description: 专属教师团队负责课程研发和教学，所有老师均经过统一考核认证。
+        advantage3:
+          title: 优选本地课程
+          description: 挑选本地名师的优质课程，帮学生解决课程地域差异化的烦恼。
+        advantage4:
+          title: 多功能互动教学
+          description: 丰富的互动功能，保证学生在上课过程中感受真实的课堂体验。
+        advantage5:
+          title: 随时随地学习
+          description: 支持PC、手机、PAD等多种客户端类型；随时随地与老师进行交流和在线学习。
+        advantage6:
+          title: 伴随式服务
+          description: 专业的客服团队全程学习跟踪、追踪学习成效，让家长放心省心。
+        course_introduce:
+          title: 大课堂、多形式沟通、花钱少
+          description: 详细介绍
+        video_course_introduce:
+          title: 自主学习、随时随地观看
+          description: 详细介绍
+        interactive_course_introduce:
+          title: 专人专师、丰富互动、学习跟踪
+          description: 详细介绍
+        customized_group_introduce:
+          title: 小班课、在线答疑、作业批改、课件下载
+          description: 详细介绍
+

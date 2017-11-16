@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103062145) do
+ActiveRecord::Schema.define(version: 20171116075149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1743,6 +1743,49 @@ ActiveRecord::Schema.define(version: 20171103062145) do
 
   add_index "settings", ["owner_type", "owner_id"], name: "index_settings_on_owner_type_and_owner_id", using: :btree
 
+  create_table "social_feed_publishes", force: :cascade do |t|
+    t.integer  "feed_id"
+    t.integer  "publisher_id"
+    t.string   "publisher_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "social_feed_publishes", ["feed_id"], name: "index_social_feed_publishes_on_feed_id", using: :btree
+  add_index "social_feed_publishes", ["publisher_type", "publisher_id"], name: "index_social_feed_publishes_on_publisher_type_and_publisher_id", using: :btree
+
+  create_table "social_feeds", force: :cascade do |t|
+    t.integer  "feedable_id"
+    t.string   "feedable_type"
+    t.string   "event"
+    t.integer  "producer_id"
+    t.string   "producer_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.integer  "level",          default: 0
+    t.integer  "workstation_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "social_feeds", ["feedable_type", "feedable_id"], name: "index_social_feeds_on_feedable_type_and_feedable_id", using: :btree
+  add_index "social_feeds", ["linkable_type", "linkable_id"], name: "index_social_feeds_on_linkable_type_and_linkable_id", using: :btree
+  add_index "social_feeds", ["producer_type", "producer_id"], name: "index_social_feeds_on_producer_type_and_producer_id", using: :btree
+  add_index "social_feeds", ["target_type", "target_id"], name: "index_social_feeds_on_target_type_and_target_id", using: :btree
+
+  create_table "social_follows", force: :cascade do |t|
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "social_follows", ["target_type", "target_id"], name: "index_social_follows_on_target_type_and_target_id", using: :btree
+  add_index "social_follows", ["user_id"], name: "index_social_follows_on_user_id", using: :btree
+
   create_table "software_categories", force: :cascade do |t|
     t.string   "title"
     t.string   "sub_title"
@@ -2037,4 +2080,6 @@ ActiveRecord::Schema.define(version: 20171103062145) do
   add_foreign_key "invitations", "users"
   add_foreign_key "payment_transactions", "users"
   add_foreign_key "resource_files", "users"
+  add_foreign_key "social_feeds", "workstations"
+  add_foreign_key "social_follows", "users"
 end

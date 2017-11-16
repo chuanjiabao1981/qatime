@@ -110,7 +110,7 @@ module Payment
     end
 
     def weixin_options
-      WechatSettings.pay.send(order.source.to_sym)
+      WechatSettings.pay.send(order.source.to_sym).symbolize_keys
     end
   end
 end

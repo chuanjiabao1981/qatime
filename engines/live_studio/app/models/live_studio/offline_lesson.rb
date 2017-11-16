@@ -65,6 +65,8 @@ module LiveStudio
 
     private
 
+    before_validation :reset_status, if: :class_date_changed?, on: :update
+
     after_save :dispatch_event, if: :start_at_changed?
     def dispatch_event
       return unless class_date.today?

@@ -1,4 +1,4 @@
-<%= link_to 'javascript:void(0);', class: 'phone-download app_download' do %>
+<%= link_to main_app.get_app_path(current_user.try(:role)), class: 'phone-download app_download' do %>
   <span class="phone-download-left">
     <%= image_tag('wap/download-logo.png') %>
     <span>
@@ -18,27 +18,5 @@
       event.preventDefault();
       $('.phone-download').addClass('hide');
     });
-
-    // 识别移动设备下载app
-    var download_platform = '';
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-      download_platform = 'ios';
-    } else if (navigator.userAgent.match(/android/i)) {
-      download_platform = 'android';
-    }
-
-    if(download_platform.length > 0){
-      $.ajax({
-        url: '/softwares/' + download_platform + '/student_client/latest',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
-          $('.app_download').attr('href', data.url);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown){}
-      })
-    }
-
-
   });
 </script>

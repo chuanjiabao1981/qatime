@@ -1,0 +1,34 @@
+<div class="phone-details-con">
+  <div class="phone-class-details">
+    <%= image_tag @course.publicize_url(:info) %>
+    <span class="phone-state <%= @course.completed? ? 'phone-end' : 'phone-course' unless @course.published? %>">
+      <%= @course.status_text %>
+      [<%= @course.published? ? t('wap.live_studio/courses.show.distance_days', day: @course.distance_days) : "#{t('wap.live_studio/courses.show.load', start: @course.closed_lessons_count, end: @course.lessons_count)}" %>]
+    </span>
+    <%= render 'layouts/alert_msg' %>
+  </div>
+
+  <div class="phone-class-title">
+    <h3><%= truncate_u(@course.name, length: 18) %></h3>
+    <span class="class-details-left">
+      <% if @course.off_shelve? %>
+      <% elsif @course.sell_type.free? %>
+        <span><%= t('common.free_of_charge') %></span>
+      <% else %>
+        <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+      <% end %>
+    </span>
+    <span class="class-details-right"><%= t('wap.live_studio/courses.show.course_buy_user_count', number: @course.users_count) %></span>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  // Tab切换
+  $(".details-msg-nav a").click(function() {
+    var index = $(".details-msg-nav a").index($(this));
+    $(this).addClass("active").siblings().removeClass("active");
+    $(".details-msg-con").eq(index).show().siblings().hide();
+  })
+</script>
+<% end %>

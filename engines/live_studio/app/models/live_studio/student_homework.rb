@@ -64,6 +64,18 @@ module LiveStudio
     # 提交作业回调
     def publish_hook
       LiveStudio::Homework.increment_counter(:tasks_count, parent_id) if pending? && submitted!
+      student_homework_submit_feeds
+    end
+
+    def student_homework_submit_feeds
+      Social::Feed.transaction do
+        # 生成动态
+        feed = Social::CourseHomeworkFeed.create!(feedable: self, event: 'submit', producer: user, linkable: taskable, workstation: taskable.workstation, target: parent)
+        # 学生发布动态
+        feed.feed_publishs.create!(publisher: user)
+        # 课程发布动态
+        feed.feed_publishs.create!(publisher: taskable)
+      end
     end
   end
 end

@@ -7,5 +7,7 @@ module Social
     belongs_to :workstation
 
     has_many :feed_publishs
+
+    include Social::FeedSubscribale
   end
 end

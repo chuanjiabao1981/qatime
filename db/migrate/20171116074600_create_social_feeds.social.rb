@@ -9,6 +9,7 @@ class CreateSocialFeeds < ActiveRecord::Migration
       t.references :linkable, polymorphic: true, index: true
       t.integer :level, default: 0
       t.references :workstation, foreign_key: true
+      t.string :type
 
       t.timestamps null: false
     end

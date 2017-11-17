@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feedable_id: 
+  feedable_type: Feedable
+  event: MyString
+  producer_id: 
+  producer_type: Producer
+  target_id: 
+  target_type: Target
+  linkable_id: 
+  linkable_type: Linkable
+
+two:
+  feedable_id: 
+  feedable_type: Feedable
+  event: MyString
+  producer_id: 
+  producer_type: Producer
+  target_id: 
+  target_type: Target
+  linkable_id: 
+  linkable_type: Linkable

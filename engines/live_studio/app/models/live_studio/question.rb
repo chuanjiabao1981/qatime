@@ -49,5 +49,17 @@ module LiveStudio
     def text_item?
       quotes.size.zero?
     end
+
+    after_create :question_create_feeds
+    def question_create_feeds
+      Social::Feed.transaction do
+        # 生成动态
+        feed = Social::CourseQuestionFeed.create!(feedable: self, event: 'create', producer: user, linkable: taskable, workstation: taskable.workstation, target: parent)
+        # 用户发布动态
+        feed.feed_publishs.create!(publisher: user)
+        # 课程发布动态
+        feed.feed_publishs.create!(publisher: taskable)
+      end
+    end
   end
 end

@@ -31,5 +31,26 @@ module Resource
         body: msg
       )
     end
+
+    after_create :quote_create_feeds
+    def quote_create_feeds
+      feeds('create') if quoter.is_a?(LiveStudio::CustomizedGroup)
+    end
+
+    after_destroy :quote_destroy_feeds
+    def quote_destroy_feeds
+      feeds('destroy') if quoter.is_a?(LiveStudio::CustomizedGroup)
+    end
+
+    def feeds(event)
+      Social::Feed.transaction do
+        # 生成动态
+        feed = Social::FileFeed.create!(feedable: self, event: event, producer: file.user, linkable: quoter, workstation: quoter.workstation, target: file)
+        # 学生发布动态
+        feed.feed_publishs.create!(publisher: file.user)
+        # 课程发布动态
+        feed.feed_publishs.create!(publisher: quoter)
+      end
+    end
   end
 end

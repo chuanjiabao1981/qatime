@@ -448,6 +448,8 @@ Qatime::Application.routes.draw do
   mount Recommend::Engine, at: '/recommend'
   # 资源中心
   mount Resource::Engine, at: '/resource'
+  # 社交分享
+  mount Social::Engine, at: '/social'
   # API
   mount Qatime::API => '/'
 

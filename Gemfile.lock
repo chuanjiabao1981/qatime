@@ -78,6 +78,12 @@ PATH
       mini_magick
       rails (~> 4.2.5.1)
 
+PATH
+  remote: engines/social
+  specs:
+    social (0.0.1)
+      rails (~> 4.2.5.1)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -562,6 +568,7 @@ DEPENDENCIES
   simple_form
   sinatra
   slim
+  social!
   soft_delete_rails
   spinying (~> 0.9)
   state_machine

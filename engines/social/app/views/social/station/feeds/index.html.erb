@@ -1,0 +1,19 @@
+<div class="article">
+  <div class="work-station">
+    <div class="station-title">
+      <%= link_to '全部活动', main_app.action_records_station_workstation_path(@workstation) if allow?('station/workstations', 'action_records', @workstation) %>
+      <%= link_to "全部动态", social.station_workstation_feeds_path(@workstation) if allow?('social/station/feeds', 'index', @workstation) %>
+    </div>
+
+    <div class="dynamic">
+      <ul>
+        <% @feeds.each do |feed| %>
+          <%= render feed %>
+        <% end %>
+      </ul>
+
+      <%= render 'shared/blank' if @feeds.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @feeds, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
+  </div>
+</div>

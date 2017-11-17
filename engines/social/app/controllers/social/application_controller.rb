@@ -1,4 +1,5 @@
 module Social
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
+    layout 'social/layouts/application'
   end
 end

@@ -70,7 +70,7 @@ module LiveStudio
     def student_homework_submit_feeds
       Social::Feed.transaction do
         # 生成动态
-        feed = Social::CourseHomeworkFeed.create!(feedable: self, event: 'submit', producer: user, linkable: taskable, workstation: taskable.workstation, target: parent)
+        feed = Social::CourseHomeworkFeed.create!(feedable: self, event: 'submit', producer: user, linkable: taskable, workstation: taskable.workstation, target: parent.user)
         # 学生发布动态
         feed.feed_publishs.create!(publisher: user)
         # 课程发布动态

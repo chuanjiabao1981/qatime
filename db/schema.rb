@@ -1766,6 +1766,7 @@ ActiveRecord::Schema.define(version: 20171116075149) do
     t.string   "linkable_type"
     t.integer  "level",          default: 0
     t.integer  "workstation_id"
+    t.string   "type"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

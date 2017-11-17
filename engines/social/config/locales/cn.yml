@@ -1,0 +1,25 @@
+cn:
+  activerecord:
+    models:
+      social/feed: 动态
+    attributes:
+      social/feed:
+        linkable: 链接
+  error:
+    social/feed:
+      linkable_blank: 链接不能为空
+  view:
+    templates:
+      social/course_homework_feed:
+        create:
+          title: 作业创建
+          action: 老师创建了作业
+        submit:
+          title: 作业提交
+          action: 学生提交了作业
+        resolve:
+          title: 作业批改
+          action: "老师批改了 %{user} 的作业"
+        update_resolve:
+          title: 重新批改
+          action: "老师批改了 %{user} 的作业"

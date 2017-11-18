@@ -7,7 +7,7 @@ module Social
     before_action :set_workstation
 
     def index
-      @feeds = Social::Feed.where(workstation: @workstation).order('id desc').paginate(page: params[:page])
+      @feeds = Social::Feed.where(workstation: @workstation).order('id desc').includes(:feedable, :producer, :target, :linkable).paginate(page: params[:page])
     end
 
     private

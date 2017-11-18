@@ -37,3 +37,10 @@ cn:
         update_resolve:
           title: 重新回复
           action: "老师回复了提问"
+      social/course_file_feed:
+        create:
+          title: 课件上传
+          action: "老师上传了课件"
+        destroy:
+          title: 课件删除
+          action: "老师删除了课件"

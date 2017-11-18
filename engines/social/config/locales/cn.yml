@@ -23,3 +23,7 @@ cn:
         update_resolve:
           title: 重新批改
           action: "老师批改了 %{user} 的作业"
+      social/course_ticket_feed:
+        create:
+          title: 支付购买
+          action: "学生购买了 %{course_type}"

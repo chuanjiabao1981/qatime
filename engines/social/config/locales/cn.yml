@@ -27,3 +27,13 @@ cn:
         create:
           title: 支付购买
           action: "学生购买了 %{course_type}"
+      social/course_question_feed:
+        create:
+          title: 提问创建
+          action: "学生创建了提问"
+        resolve:
+          title: 提问回复
+          action: "老师回复了提问"
+        update_resolve:
+          title: 重新回复
+          action: "老师回复了提问"

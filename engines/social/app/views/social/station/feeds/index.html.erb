@@ -1,8 +1,10 @@
 <div class="article">
   <div class="work-station">
     <div class="station-title">
-      <%= link_to '全部活动', main_app.action_records_station_workstation_path(@workstation) if allow?('station/workstations', 'action_records', @workstation) %>
-      <%= link_to "全部动态", social.station_workstation_feeds_path(@workstation) if allow?('social/station/feeds', 'index', @workstation) %>
+      <%= link_to '全部活动', main_app.action_records_station_workstation_path(@workstation),
+                  class: "#{'active' if 'station/workstations' == params[:controller] }" if allow?('station/workstations', 'action_records', @workstation) %>
+      <%= link_to "全部动态", social.station_workstation_feeds_path(@workstation),
+                  class: "#{'active' if 'social/station/feeds' == params[:controller] }" if allow?('social/station/feeds', 'index', @workstation) %>
     </div>
 
     <div class="dynamic">

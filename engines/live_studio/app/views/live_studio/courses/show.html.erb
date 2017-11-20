@@ -10,7 +10,7 @@
             <!-- 课程介绍 -->
             <%= render 'course_info' %>
             <!-- 课程安排 -->
-            <%= render partial: 'course_plan', locals: { lessons: @course.lessons } %>
+            <%= render partial: 'course_plan', locals: { lessons: @course.order_lessons } %>
             <!-- 学习须知 -->
             <%= render 'course_tips' %>
           </div>

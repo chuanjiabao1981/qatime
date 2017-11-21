@@ -15,9 +15,9 @@ module LiveStudio
     def resolve_question
       if question.pending?
         question.resolve!
-        feeds('create')
+        feeds('resolve')
       else
-        feeds('update')
+        feeds('update_resolve')
       end
     end
 
@@ -39,7 +39,7 @@ module LiveStudio
     def feeds(event)
       Social::Feed.transaction do
         # 生成动态
-        feed = Social::CourseQuestionFeed.create!(feedable: self, event: event, producer: user, linkable: taskable, workstation: taskable.workstation, target: question)
+        feed = Social::CourseQuestionFeed.create!(feedable: self, event: event, producer: user, linkable: taskable, workstation: taskable.workstation, target: question.user)
         # 用户发布动态
         feed.feed_publishs.create!(publisher: user)
         # 课程发布动态

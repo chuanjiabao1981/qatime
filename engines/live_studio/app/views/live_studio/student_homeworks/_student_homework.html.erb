@@ -70,7 +70,7 @@
         <p>
           <%= link_to t('actions.live_studio/corrections.edit'),
                       live_studio.edit_student_homework_correction_path(student_homework, student_homework.correction),
-                      remote: true, class: 'btn-correct' -%>
+                      remote: true, class: 'btn-correct' if student_homework.correction -%>
           <%= link_to t('actions.live_studio/corrections.cancel'),
                       "javascript:void(0);", class: "btn-correct active cancel", style: 'display:none;',
                       data: { form: "#student_homework-#{student_homework.id} .correction-form" } -%>
@@ -78,7 +78,7 @@
         <div class="problems-edit correction-form">
         </div>
       <% end %>
-      <%= render 'correction_items', correction: student_homework.correction -%>
+      <%= render 'correction_items', correction: student_homework.correction  if student_homework.correction -%>
     </div>
   <% end %>
 </li>

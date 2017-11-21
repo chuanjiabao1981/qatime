@@ -46,7 +46,7 @@ module Resource
       Social::Feed.transaction do
         # 生成动态
         feed = Social::CourseFileFeed.create!(feedable: self, event: event, producer: file.user, linkable: quoter, workstation: quoter.workstation, target: file)
-        # 学生发布动态
+        # 用户发布动态
         feed.feed_publishs.create!(publisher: file.user)
         # 课程发布动态
         feed.feed_publishs.create!(publisher: quoter)

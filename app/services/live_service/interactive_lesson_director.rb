@@ -56,6 +56,8 @@ module LiveService
         lesson.ready!
         course = lesson.interactive_course
         course.teaching! if course.published?
+        LiveService::InteractiveLessonNotificationSender.new(lesson).schedule_notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        LiveService::InteractiveLessonNotificationSender.new(lesson).schedule_notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
         LiveService::InteractiveRealtimeService.update_lesson_live(lesson)
       end
     end

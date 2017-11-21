@@ -480,5 +480,12 @@ module LiveStudio
     def increment_course_counter(attribute)
       interactive_course.increment(attribute)
     end
+
+    after_save if: :class_date_changed?
+    def schedule_notice
+      return unless class_date.today?
+      LiveService::InteractiveLessonNotificationSender.new(lesson).schedule_notice(LiveStudioInteractiveLessonNotification::ACTION_START_FOR_TEACHER)
+      LiveService::InteractiveLessonNotificationSender.new(lesson).schedule_notice(LiveStudioInteractiveLessonNotification::ACTION_START_FOR_STUDENT)
+    end
   end
 end

@@ -244,5 +244,11 @@ module LiveStudio
     def increment_course_counter(attribute)
       group.increment(attribute)
     end
+
+    def schedule_notice
+      return unless class_date.today?
+      LiveService::EventNotificationSender.new(lesson).schedule_notice(LiveStudioEventNotification::ACTION_START_FOR_TEACHER)
+      LiveService::EventNotificationSender.new(lesson).schedule_notice(LiveStudioEventNotification::ACTION_START_FOR_STUDENT)
+    end
   end
 end

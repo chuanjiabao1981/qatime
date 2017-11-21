@@ -20,7 +20,7 @@ module LiveStudio
 
       if @announcement.save
         @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
-        redirect_to live_studio.send("#{@course.model_name.singular_route_key}_announcements_path", @course),
+        redirect_to live_studio.send("#{@course.model_name.singular_route_key}_path", @course),
                     notice: t("activerecord.successful.messages.created", model: LiveStudio::Announcement.model_name.human)
       else
         render :new

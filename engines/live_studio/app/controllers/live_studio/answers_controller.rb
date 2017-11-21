@@ -21,10 +21,14 @@ module LiveStudio
     end
 
     def update
-      if @answer.update(answer_params)
-        render :update
-      else
-        render :edit
+      LiveStudio::Answer.transaction do
+        @answer = @question.build_answer(answer_params)
+        @answer.user = current_user
+        if @answer.save!
+          render
+        else
+          render :new
+        end
       end
     end
 

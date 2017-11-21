@@ -13,7 +13,12 @@ module LiveStudio
 
     after_create :resolve_question
     def resolve_question
-      question.resolve! if question.pending?
+      if question.pending?
+        question.resolve!
+        feeds('resolve')
+      else
+        feeds('update_resolve')
+      end
     end
 
     def message(action)
@@ -29,6 +34,17 @@ module LiveStudio
     # 文本项目, 无图片和语音
     def text_item?
       quotes.size.zero?
+    end
+
+    def feeds(event)
+      Social::Feed.transaction do
+        # 生成动态
+        feed = Social::CourseQuestionFeed.create!(feedable: self, event: event, producer: user, linkable: taskable, workstation: taskable.workstation, target: question.user)
+        # 用户发布动态
+        feed.feed_publishs.create!(publisher: user)
+        # 课程发布动态
+        feed.feed_publishs.create!(publisher: taskable)
+      end
     end
   end
 end

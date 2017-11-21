@@ -45,6 +45,15 @@ student_homework_two:
   teacher: teacher_with_chat_account
   status: 1
 
+student_homework_three:
+  title: 第一个作业
+  taskable: schedule_published_group1 (LiveStudio::Group)
+  user: student2
+  type: LiveStudio::StudentHomework
+  parent: homework_one
+  teacher: teacher_with_chat_account
+  status: 1
+
 submitted_student_homework:
   title: 第3个作业
   body: 第3个作业

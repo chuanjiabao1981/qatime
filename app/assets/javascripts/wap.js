@@ -8,7 +8,7 @@
 (function($) {
   $.extend({
     toastMsg: function(msg) {
-      var toastNode = $("<div class='prompt-error'><span>" + msg + "xxxx</span></div>");
+      var toastNode = $("<div class='prompt-error'><span>" + msg + "</span></div>");
       $("body").append(toastNode);
       toastNode.show().delay(3 * 1000).fadeOut(function() {
         toastNode.remove();

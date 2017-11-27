@@ -45,7 +45,7 @@ cn:
         download_app: 下载APP
         distance_days: "距离开课%{day}天"
         load: "进度%{start}/%{end}"
-        course_intro: 辅导详情
+        course_intro: 课程介绍
         course_teacher: 教师资料
         course_lessions: 课程安排
         course_lessons_count: "共%{count}课"
@@ -65,6 +65,7 @@ cn:
         modal_download: 下载客户端
         basic_title: 基本属性
         course_tag: 课程标签
+        tag_none: 无
         course_desc: 辅导介绍
       download:
         down_app: 下载

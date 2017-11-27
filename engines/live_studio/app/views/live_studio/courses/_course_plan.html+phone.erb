@@ -1,0 +1,17 @@
+<div class="details-msg-con details-msg-arrange" style="display: none;">
+  <ul>
+    <% lessons.each do |lesson| %>
+      <li class="msg-arrange-state">
+        <div>
+          <%= image_tag("wap/#{lesson.is_over? ? 'title-1' : 'title'}.png") %>
+          <span><%= lesson.name %></span>
+          <span><%= lesson.status_text(current_user.try(:role)) %></span>
+        </div>
+        <div>
+          <span><%= lesson.class_date %></span>
+          <span><%= lesson.start_time %>-<%= lesson.end_time %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

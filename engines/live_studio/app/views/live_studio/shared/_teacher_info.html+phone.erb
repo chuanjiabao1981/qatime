@@ -1,0 +1,27 @@
+<div class="details-msg-con details-msg-tec" style="display: none;">
+  <% teachers.compact.each do |teacher| %>
+    <div class="details-introduction">
+      <%= link_to profile_teacher_path(teacher.id) do %>
+        <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+      <% end %>
+      <span>
+        <em><%= teacher.name %></em>
+        <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+      </span>
+    </div>
+    <div class="details-introduction">
+      <h4><%= Teacher.human_attribute_name(:school_name) %></h4>
+      <p><%= teacher.school.try(:name) %></p>
+    </div>
+    <div class="details-introduction">
+      <h4><%= Teacher.human_attribute_name(:teaching_years) %></h4>
+      <div class="class-label">
+        <span><%= teacher.try(:teaching_years_text) %></span>
+      </div>
+    </div>
+    <div class="details-introduction">
+      <h4><%= Teacher.human_attribute_name(:description) %></h4>
+      <p><%= truncate_u teacher.desc, length: 145 %></p>
+    </div>
+  <% end %>
+</div>

@@ -83,5 +83,6 @@ module LiveStudio
       async_fetch_replays
     end
 
+    after_save :schedule_notice, if: :class_date_changed?
   end
 end

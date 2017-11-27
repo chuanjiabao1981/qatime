@@ -25,7 +25,7 @@
       <p class="image-box">
         <% answer.attachments.select(&:image?).each do |attach| %>
           <span>
-            <%= link_to image_tag(attach.file_url), attach.file_url, class: 'fancybox-effects-a' %>
+            <%= link_to image_tag(attach.file_url), attach.file_url, class: 'fancybox-buttons', data: { "fancybox-group" => "answer-#{answer.id}" } %>
           </span>
         <% end %>
       </p>

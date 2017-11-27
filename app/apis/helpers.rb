@@ -1,4 +1,6 @@
 require 'will_paginate/array'
+require_relative './helpers/versions_helper'
+require_relative '../helpers/sessions_helper'
 
 module APIHelpers
   extend ActiveSupport::Concern

@@ -1,0 +1,7 @@
+<li>
+  <span><%= l(course_ticket_feed.created_at, format: :month_start) %></span>
+  <span><%= t("view.templates.social/course_ticket_feed.#{course_ticket_feed.event}.title") %>: </span>
+  <%= link_to course_ticket_feed.producer.name, main_app.send("#{course_ticket_feed.producer.role}_path", course_ticket_feed.producer) %>
+  <%= t("view.templates.social/course_ticket_feed.#{course_ticket_feed.event}.action", course_type: course_ticket_feed.linkable.model_name.human) %>
+  <%= link_to course_ticket_feed.linkable.name, live_studio.send("#{course_ticket_feed.linkable.model_name.singular_route_key}_path", course_ticket_feed.linkable) %>
+</li>

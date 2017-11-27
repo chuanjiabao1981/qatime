@@ -40,6 +40,7 @@ cn:
         name: 姓名
         avatar: 头像
         school: 任课学校
+        school_name: 所在学校
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
@@ -48,6 +49,7 @@ cn:
         subject: 授课科目
         grade_range: 可授年级
         teaching_years: 执教年龄
+        description: 自我介绍
         province: 省份
         city: 城市
         created_at: 注册时间

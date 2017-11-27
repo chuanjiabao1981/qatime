@@ -8,5 +8,6 @@ module LiveStudio
     validates :attachment, presence: true
 
     attr_accessor :attachment_file
+
   end
 end

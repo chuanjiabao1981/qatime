@@ -1769,7 +1769,7 @@ figcaption p {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 1px solid rgb(255,153,102);
+  border: 1px solid #c20c0c;
     top: 0px;
     left: 0px;
 }
@@ -1779,7 +1779,7 @@ figcaption p {
   margin: 0 5px;
 }
 .banner-dot .active > span {
-  background-color: rgb(255,153,102);
+  background-color: #c20c0c;
 }
 .panel-bottom {
   margin-bottom: 15px !important;
@@ -9268,10 +9268,19 @@ div.live-big {
   position: relative;
   top: -0.8px;
 }
+@media only screen  and (max-width: 640px) {
+  .homepage-banner .carousel-control {
+    width: 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    margin-top: -20px;
+  }
+}
 @media only screen and (max-width: 460px) {
-.line-plate .nav-courses {
-  height: 173px;
-} 
+  .line-plate .nav-courses {
+    height: 173px;
+  } 
 }
 
 /*导航*/
@@ -9353,10 +9362,15 @@ div.live-big {
 }
 .header .pull-right .nav-login > li.user-enter > a {
   font-size: 14px;
-  color: #000;
+  color: #c20c0c;
+  padding: 7px 10px;
+  border: 1px solid #c20c0c;
+  border-radius: 9px;
+  -webkit-border-radius: 9px;
 }
 .header .pull-right .nav-login > li.user-enter > a:hover {
-  color: #c20c0c;
+  color: #fff;
+  background-color: #c20c0c;
 }
 .header .pull-right .nav-login > li.user-enter > a > span { 
   padding: 0 5px;
@@ -9420,7 +9434,7 @@ div.live-big {
   padding: 2px 5px;
 }
 .header .navbar-form > .search-input .choose-list {
-  font-size: 14px;
+  font-size: 12px;
   color: #333;
   line-height: 24px;
   margin-bottom: 0px;
@@ -9441,6 +9455,7 @@ div.live-big {
 .header .navbar-form > .search-input .choose-list > ul li {
   text-align: center;
   height: 30px;
+  font-size: 12px;
   line-height: 30px;
   color: #333;
   cursor: pointer;
@@ -9509,12 +9524,12 @@ div.live-big {
 }
 @media only screen  and (max-width: 1100px) {
 .header .navbar-form > .search-input input[type="text"] {
-  width: 80px;
+  width: 70px;
 } 
 }
 @media only screen  and (max-width: 1030px) {
-.navbar-form {
-  display: none;
+.header .navbar-form {
+  display: none !important;
 } 
 }
 
@@ -9814,7 +9829,7 @@ div.live-big {
   margin-bottom: 0px;
 }
 .live-today .liveing-info {
-  height: 333px;
+  height: 323px;
   overflow: hidden;
 }
 .live-today .liveing-info > .info-notfound{
@@ -9882,6 +9897,10 @@ div.live-big {
 .replays > .replays-con > .row > .playback-number span {
   margin-top: 15px;
 }
+.nav-aside > ul > li > .row  a {
+  font-size: 14px;
+  margin-bottom: 22px;
+}
 }
 @media only screen and (max-width: 992px) {
 .category {
@@ -9901,6 +9920,10 @@ div.live-big {
 .replays > .replays-con > .row > .playback-number span {
   margin-top: 40px;
 } 
+.nav-aside > ul > li > .row  a {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
 }
 @media only screen and (max-width: 768px) {
 .replays > .replays-con > .row > .playback-image,.replays > .replays-con > .row > .playback-info {
@@ -10907,6 +10930,7 @@ div.live-big {
   margin-left: 30px;
   height: 41px;
   padding: 9.5px 0;
+  font-size: 0px;
 }
 .nav-live p > span {
   font-size: 16px;
@@ -10915,6 +10939,7 @@ div.live-big {
   color: #000;
 }
 .nav-live p > em {
+  font-size: 14px;
   display: inline-block;
   padding-left: 20px;
   margin-left: 20px;
@@ -17567,6 +17592,12 @@ abbr {
 .edit-box > .reply-box .reply-list {
   margin-top: 15px;
   color: #666;
+}
+#fancybox-buttons a.btnPlay,#fancybox-buttons a.btnToggle {
+  display: none;
+}
+#fancybox-buttons ul {
+  width: 165px;
 }
 .course-item .reply-box .problem-title p{
   margin-bottom: 0px;

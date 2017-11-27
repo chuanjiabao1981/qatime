@@ -74,5 +74,7 @@ module LiveStudio
       director.start_schedule
       director.close_schedule
     end
+
+    after_save :schedule_notice, if: :class_date_changed?
   end
 end

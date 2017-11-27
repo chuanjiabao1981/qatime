@@ -60,14 +60,12 @@ module LiveService
         lesson.ready!
         lesson.course.teaching! if lesson.course.published?
 
-        # 课程上课提醒，没有准确的定时任务的时候临时解决方案
-        # 每天定时任务发送
-        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
-        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
+        LiveService::LessonNotificationSender.new(lesson).schedule_notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        LiveService::LessonNotificationSender.new(lesson).schedule_notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
         course = lesson.course
         if course.published?
           course.teaching!
-          LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
+          # LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
         end
         LiveService::RealtimeService.update_lesson_live(lesson)
       end
@@ -94,7 +92,7 @@ module LiveService
         next unless lesson.course
         if lesson.ready? || lesson.init?
           lesson.miss!
-          LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS_FOR_TEACHER)
+          # LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS_FOR_TEACHER)
         end
       end
     end

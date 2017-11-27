@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  feed_id: 
+  publisher_id: 
+  publisher_type: Publisher
+
+two:
+  feed_id: 
+  publisher_id: 
+  publisher_type: Publisher

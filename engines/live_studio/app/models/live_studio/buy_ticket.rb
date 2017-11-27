@@ -23,5 +23,17 @@ module LiveStudio
     def ince_user_counter
       product.inc_buy_tickets_count
     end
+
+    after_create :feeds
+    def feeds
+      Social::Feed.transaction do
+        # 生成动态
+        feed = Social::CourseTicketFeed.create!(feedable: self, event: 'create', producer: student, linkable: product, workstation: product.workstation)
+        # 学生发布动态
+        feed.feed_publishs.create!(publisher: student)
+        # 课程发布动态
+        feed.feed_publishs.create!(publisher: product)
+      end
+    end
   end
 end

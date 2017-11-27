@@ -240,6 +240,11 @@ module Permissions
       end
       # 开班邀请
 
+      # 新的动态
+      allow 'social/station/feeds', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
       # 员工
       allow 'station/sellers', [:new, :create, :edit, :update, :destroy] do |workstation|
         workstation && workstation.manager_id == user.id

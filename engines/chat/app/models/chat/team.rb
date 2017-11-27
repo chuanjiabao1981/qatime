@@ -7,6 +7,8 @@ module Chat
     has_many :accounts, through: :join_records
     has_many :team_announcements
 
+    delegate :name, :publicize, to: :discussable, prefix: true
+
     validates :name, presence: true
 
     def announcement

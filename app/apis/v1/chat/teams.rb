@@ -26,8 +26,8 @@ module V1
                 requires :user_id, type: Integer, desc: '用户ID'
               end
               get '' do
-                teams = @user.chat_account.teams
-                present teams, with: Entities::Chat::team
+                teams = @user.chat_account.teams.includes(:discussable, :members, :accounts)
+                present teams, with: Entities::Chat::Team
               end
             end
           end

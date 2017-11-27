@@ -29,10 +29,16 @@ module LiveStudio
     end
 
     def update
-      if @correction.update(correction_params)
-        render :update
-      else
-        render :edit
+      LiveStudio::Correction.transaction do
+        @student_homework.corrections.delete(@correction)
+        @correction = @student_homework.build_correction(correction_params)
+        @correction.user = current_user
+        @correction.taskable = @student_homework.taskable
+        if @correction.save! && @student_homework.resolved!
+          render
+        else
+          render :new
+        end
       end
     end
 
@@ -45,7 +51,7 @@ module LiveStudio
     end
 
     def correction_params
-      params.require(:correction).permit(task_items_attributes: [:id, :body, :parent_id, quotes_attributes: [:id, :attachment_id, :_destroy]])
+      params.require(:correction).permit(task_items_attributes: [:body, :parent_id, quotes_attributes: [:attachment_id, :_destroy]])
     end
   end
 end

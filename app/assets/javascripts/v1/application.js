@@ -46,6 +46,8 @@
 //= require weixin-audio
 //= require base
 //= require jquery.qrcode.min
+//= require jweixin-1.2.0
+
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {
@@ -113,5 +115,19 @@ $(function() {
     hovercode = setTimeout(function  () {
       $('.wechat').fadeOut(500);
     },200)  
+  });
+
+  $('.fancybox-buttons').fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none',
+    prevEffect : 'none',
+    nextEffect : 'none',
+    live: true,
+    btnPlay: false,
+    closeBtn  : true,
+    helpers : {
+      buttons : {
+      }
+    }
   });
 });

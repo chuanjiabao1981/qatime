@@ -2,8 +2,46 @@ module ApplicationHelper
   include SessionsHelper
   include Qatime::WillPaginate::Helper
 
-  def page_title(controller = nil, action = nil)
-    "答疑时间-K12在线教育平台"
+  def page_title
+    case "#{controller_path}-#{action_name}"
+    when "live_studio/courses-show" # 直播课详情
+      @course.name
+    when "live_studio/video_courses-show" # 视频课详情
+      @video_course.name
+    when "live_studio/customized_groups-show" # 专属课详情
+      @customized_group.name
+    when "live_studio/interactive_courses-show" # 一对一详情
+      @interactive_course.name
+    when "teachers-profile"
+      @teacher.name
+    else
+      "答疑时间-K12在线教育平台"
+    end
+  end
+
+  def page_content
+    case "#{controller_path}-#{action_name}"
+    when "live_studio/courses-show" # 直播课详情
+      LiveStudio::Course.model_name.human
+    when "live_studio/video_courses-show" # 视频课详情
+      LiveStudio::VideoCourse.model_name.human
+    when "live_studio/customized_groups-show" # 专属课详情
+      LiveStudio::CustomizedGroup.model_name.human
+    when "live_studio/interactive_courses-show" # 一对一详情
+      LiveStudio::InteractiveGroup.model_name.human
+    when "teachers-profile"
+      "#{@teacher.category}#{@teacher.subject}老师"
+    else
+      "智造互联乐享教育-答疑时间与您共享教育梦想"
+    end
+  end
+
+  def mobile?
+    return true if request.user_agent =~ /iPad/
+    return true if request.user_agent =~ /iPhone/
+    return true if request.user_agent =~ /Android/
+    return true if request.user_agent =~ /Windows Phone/
+    false
   end
 
   # 显示序号

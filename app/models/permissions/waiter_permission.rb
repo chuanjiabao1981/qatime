@@ -129,7 +129,12 @@ module Permissions
       allow 'live_studio/station/course_invitations', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
-      # 开班邀请
+      # 开班邀请      
+
+      # 新的动态
+      allow 'social/station/feeds', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
 
       allow 'station/lessons', [:state, :update] do |workstation|
         workstation && workstation.id == user.workstation_id

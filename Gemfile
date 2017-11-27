@@ -41,6 +41,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# oauth
+gem 'wechat'
+gem 'omniauth-wechat-oauth2'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -167,7 +171,7 @@ gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
 
-gem 'fancybox2-rails', '~> 0.2.8'
+gem 'fancybox2-rails', github: 'cwheart/fancybox2-rails'
 
 gem 'x-editable-rails'
 
@@ -180,3 +184,4 @@ gem 'payment', path: 'engines/payment'
 gem 'chat', path: 'engines/chat'
 gem 'recommend', path: 'engines/recommend'
 gem 'resource', path: 'engines/resource'
+gem 'social', path: 'engines/social'

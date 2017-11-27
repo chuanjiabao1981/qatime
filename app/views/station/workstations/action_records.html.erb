@@ -1,10 +1,11 @@
 <div class="article">
-  <div class="sold">
-    <div class="sold-title">
-      <%= link_to main_app.station_workstation_home_index_path(@workstation) do %>
-        <i class="fa fa-angle-left"></i> <%= t('common.back') %>
-      <% end %>
-      <h3><%= t('view.station.action_records.index_title') %></h3>
+
+  <div class="work-station">
+    <div class="station-title">
+      <%= link_to '全部活动', main_app.action_records_station_workstation_path(@workstation),
+                  class: "#{'active' if 'station/workstations' == params[:controller] }" if allow?('station/workstations', 'action_records', @workstation) %>
+      <%= link_to "全部动态", social.station_workstation_feeds_path(@workstation),
+                  class: "#{'active' if 'social/station/feeds' == params[:controller] }" if allow?('social/station/feeds', 'index', @workstation) %>
     </div>
 
     <div class="dynamic">

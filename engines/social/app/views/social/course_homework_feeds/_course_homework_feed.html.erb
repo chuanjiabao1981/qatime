@@ -1,0 +1,11 @@
+<li>
+  <span><%= l(course_homework_feed.created_at, format: :month_start) %></span>
+  <span><%= t("view.templates.social/course_homework_feed.#{course_homework_feed.event}.title") %>: </span>
+  <%= link_to course_homework_feed.producer.name, main_app.send("#{course_homework_feed.producer.role}_path", course_homework_feed.producer) %>
+  <% if course_homework_feed.target %>
+    <%= raw t("view.templates.social/course_homework_feed.#{course_homework_feed.event}.action", user: link_to(course_homework_feed.target.name, main_app.send("#{course_homework_feed.target.role}_path", course_homework_feed.target.role))) %>
+  <% else %>
+    <%= t("view.templates.social/course_homework_feed.#{course_homework_feed.event}.action") %>
+  <% end %>
+  <%= link_to course_homework_feed.feedable.title, live_studio.send("#{course_homework_feed.linkable.model_name.singular_route_key}_path", course_homework_feed.linkable) %>
+</li>

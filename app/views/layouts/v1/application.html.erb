@@ -10,6 +10,9 @@
     <%= yield :stylesheet %>
   </head>
   <body>
+    <div style='display:none;'>
+      <%= image_tag 'app-logo.png' %>
+    </div>
     <%= render 'layouts/v1/header' %>
     <%= render 'layouts/v1/nav' %>
     <%= render 'shared/pay_password_warning' if current_user && current_user.student_or_teacher? && !current_user.try(:cash_account_password?) %>
@@ -17,7 +20,7 @@
 
     <%= yield %>
 
-    <%= yield :share_to %>    
+    <%= yield :share_to %>
 
     <%= render 'layouts/v1/front_footer' %>
     <%= yield :mask %>

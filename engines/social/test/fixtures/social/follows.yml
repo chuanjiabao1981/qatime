@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  openid: MyString
-  userinfo: MyText
+  target_id: 
+  target_type: Target
+  user_id: 
 
 two:
-  openid: MyString
-  userinfo: MyText
+  target_id: 
+  target_type: Target
+  user_id: 

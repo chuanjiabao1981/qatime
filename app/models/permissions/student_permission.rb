@@ -391,6 +391,12 @@ module Permissions
       end
       # end 资源中心
 
+      # start 聊天
+      api_allow :GET, '/api' do |resource|
+        user == resource
+      end
+      # end 聊天
+
       api_allow :GET, '/api/v2/live_studio/courses/free'
       api_allow :GET, '/api/v2/live_studio/courses/latest'
       api_allow :GET, '/api/v2/live_studio/lessons/today'

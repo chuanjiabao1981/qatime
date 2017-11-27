@@ -3,6 +3,7 @@ module Chat
     belongs_to :live_studio_course, class_name: '::LiveStudio::Course'
     belongs_to :discussable, polymorphic: true
     has_many :join_records
+    has_many :members, class_name: 'Chat::JoinRecord'
     has_many :accounts, through: :join_records
     has_many :team_announcements
 

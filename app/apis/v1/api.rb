@@ -72,6 +72,8 @@ module V1
     mount V1::LiveStudio::Students::Questions
     mount V1::LiveStudio::Teachers::Questions
 
+    mount V1::Chat::Teams
+
     # 首页搜索
     mount V1::Home::Search
 

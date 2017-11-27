@@ -72,7 +72,7 @@ PATH
       rails (~> 4.2.5.1)
 
 GEM
-  remote: https://ruby.taobao.org/
+  remote: https://gems.ruby-china.org/
   specs:
     aasm (4.4.1)
     actionmailer (4.2.5.1)

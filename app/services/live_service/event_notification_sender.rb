@@ -5,6 +5,7 @@ module LiveService
     end
 
     def notice(action_name)
+      return unless @lesson.class_date.today?
       receivers_of(action_name).each do |receiver|
         setting = receiver.notification_setting || NotificationSetting.default
         n = ::LiveStudioEventNotification.create(receiver: receiver, notificationable: @lesson, action_name: action_name)
@@ -14,11 +15,9 @@ module LiveService
     end
 
     # 异步发送通知
-    def notice_with_asyn(action_name, immediately = false)
-      return notice_without_asyn(action_name) if immediately
-      NotificationSenderJob.perform_later(self.class.name, action_name.to_s, @lesson)
+    def schedule_notice(action_name)
+      NotificationSenderJob.set(wait_until: @lesson.start_at - 30.minutes).perform_later(self.class.name, action_name.to_s, @lesson)
     end
-    alias_method_chain :notice, :asyn
 
     # 通知接受者
     def receivers_of(action_name)

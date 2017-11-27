@@ -44,7 +44,7 @@ class NotificationSetting < Setting
 
   def self.default
     # 默认邮件、短信都通知
-    new(value: 3, ext: 30)
+    new(value: 7, ext: 30)
   end
 
   private

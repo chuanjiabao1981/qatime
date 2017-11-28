@@ -40,7 +40,7 @@ module V1
                 requires :user_id, type: Integer, desc: '用户ID'
               end
               get '/:id' do
-                team = @user.chat_account.teams.find(params[:id])
+                team = @user.chat_account.teams.find_by!(team_id: params[:id])
                 present team, with: Entities::Chat::Team
               end
             end

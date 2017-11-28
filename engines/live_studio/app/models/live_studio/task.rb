@@ -1,5 +1,5 @@
 module LiveStudio
-  # 专属课任务
+  # 小班课任务
   class Task < ActiveRecord::Base
     default_scope { order("id desc") }
 

@@ -405,7 +405,7 @@ cn:
       live_studio/course_invitation: 开班邀请
       live_studio/video_lesson: 视频课程
       live_studio/announcement: 公告
-      live_studio/customized_group: 专属课
+      live_studio/customized_group: 小班课
       live_studio/offline_lesson: 线下授课
       live_studio/scheduled_lesson: 线上直播
       live_studio/homework: 作业
@@ -499,7 +499,7 @@ cn:
         current_status: 当前状态
         index_no: 序号
         name: 名称
-        course_name: 专属课名称
+        course_name: 小班课名称
         teacher: 老师
         course_teacher: 授课老师
         short_description: 摘要
@@ -709,15 +709,15 @@ cn:
       course_library/course:
         publish_success: 课程发布成功
         un_publish_success: 成功撤销大纲课程的发布
-        un_publish_fail: 未能撤销大纲课程的发布，因为专属课程已计费
+        un_publish_fail: 未能撤销大纲课程的发布，因为小班课程已计费
         un_publish: 撤销
-        un_publish_warn: 撤销后将会再专属课程中删除此课程，您确定要撤销吗？
-        publish: 发布到专属课程
+        un_publish_warn: 撤销后将会再小班课程中删除此课程，您确定要撤销吗？
+        publish: 发布到小班课程
         publish_time: 发布时间
-        sync_success: 成功完成大纲课程和专属课程的同步
-        sync_fail: 未能完成大纲课程和专属可成的同步，因为专属课程已计费
+        sync_success: 成功完成大纲课程和小班课程的同步
+        sync_fail: 未能完成大纲课程和专属可成的同步，因为小班课程已计费
         sync: 同步
-        no_customized_course_available: 没有可使用此大纲课程的专属课程
+        no_customized_course_available: 没有可使用此大纲课程的小班课程
         is_same: 是否一致
         operation: 操作
       course_action_record:

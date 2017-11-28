@@ -7,9 +7,9 @@ cn:
       my_courses: 发行/经销
       my_course: 直播课
       interactive_course: 一对一
-      customized_group: 专属课
+      customized_group: 小班课
       video_course: 视频课
-      customized_course: 专属课程
+      customized_course: 小班课程
       curriculums: 公共课程
       question: 问答社区
       video_courses: 视频课
@@ -21,7 +21,7 @@ cn:
         my_courses: 我的直播课
         my_interactive_courses: 我的一对一
         my_video_courses: 我的视频课
-        my_customized_groups: 我的专属课
+        my_customized_groups: 我的小班课
         my_student_homeworks: 作业管理
         new_course: 邀请和创建
         create_course: 创建新辅导
@@ -41,7 +41,7 @@ cn:
         my_courses: 我的直播课
         my_interactive_courses: 我的一对一
         my_video_courses: 我的视频课
-        my_customized_groups: 我的专属课
+        my_customized_groups: 我的小班课
         my_student_homeworks: 作业管理
         interactive_course:
           all: 全部
@@ -324,10 +324,10 @@ cn:
           no_audit: 未审核
     live_studio/customized_group:
       new:
-        label0: 专属课课说明
+        label0: 小班课课说明
         label1: 1.允许多名学生购买，可以重复销售；
         label2: 2.允许插班购买，限制报名人数最大10人；
-        label3: 3.默认使用系统专属课课程海报。
+        label3: 3.默认使用系统小班课课程海报。
         intro_two: 二、上课安排
         scheduled_lesson_title: 线上直播
         offline_lesson_title: 线下授课
@@ -335,7 +335,7 @@ cn:
       offline_lesson_field:
         class_address_text: 上课地点
       index:
-        name: 专属课名称
+        name: 小班课名称
       show:
         homeworks: 我布置的作业
         teacher_homeworks: 老师布置的作业
@@ -367,7 +367,7 @@ cn:
           lesson:
             one_by_one: 一对一
             course: 直播课
-            customized_group: 专属课
+            customized_group: 小班课
             student_count: 学生人数
             student_count_text: "%{count}人"
             enter: 进入

@@ -22,7 +22,7 @@ module V1
                 }
               end
               params do
-                requires :question_id, type: Integer, desc: '专属课ID'
+                requires :question_id, type: Integer, desc: '小班课ID'
                 optional :body, type: String, desc: '回答内容'
                 optional :quotes_attributes,
                          type: Array[Hash],

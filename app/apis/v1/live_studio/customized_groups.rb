@@ -71,7 +71,7 @@ module V1
             }
           end
           params do
-            requires :id, desc: '专属课ID'
+            requires :id, desc: '小班课ID'
             requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
             optional :coupon_code, type: String, desc: '使用优惠码(可不填)'
           end

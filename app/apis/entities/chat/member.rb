@@ -1,6 +1,6 @@
 module Entities
   module Chat
-    class Account < Grape::Entity
+    class Member < Grape::Entity
       expose :accid
       expose :name
       expose :icon

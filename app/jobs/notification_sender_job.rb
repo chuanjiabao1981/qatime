@@ -3,6 +3,6 @@ class NotificationSenderJob < ActiveJob::Base
 
   def perform(send_service_name, action_name, *object)
     send_service = send_service_name.constantize.new(*object)
-    send_service.notice(action_name.to_sym, true)
+    send_service.notice(action_name.to_sym)
   end
 end

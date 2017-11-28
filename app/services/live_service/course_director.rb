@@ -192,7 +192,7 @@ module LiveService
     def instance_team_and_members(teacher_account, members)
       team_manager = LiveService::ChatTeamManager.new(nil)
       team_manager.instance_team(@course, teacher_account)
-      team_manager.add_to_team([teacher_account], 'owner', false) # 教师最为owner加入群组
+      team_manager.add_to_team([teacher_account], 'owner', false) # 教师作为owner加入群组
       team_manager.add_to_team(members, 'normal') # 加入现有学生进入群组
     end
 

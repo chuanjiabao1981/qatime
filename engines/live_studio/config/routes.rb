@@ -108,7 +108,7 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
-  # 专属课
+  # 小班课
   resources :customized_groups, only: [:index, :show] do
     collection do
       post :preview

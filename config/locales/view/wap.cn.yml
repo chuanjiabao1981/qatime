@@ -72,7 +72,7 @@ cn:
         down_intro: 仅支持安卓下载
     live_studio/customized_groups:
       show:
-        course_name: 专属课名称
+        course_name: 小班课名称
         course_intro: 课程介绍
         course_lessons: 课时安排
         course_desc: 详细说明

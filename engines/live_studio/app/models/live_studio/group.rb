@@ -313,7 +313,7 @@ module LiveStudio
       self.teacher_percentage = 0
     end
 
-    # 专属课创建通知指定教师
+    # 小班课创建通知指定教师
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
       ::LiveStudioGroupNotification.find_or_create_by(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)

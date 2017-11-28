@@ -51,11 +51,7 @@ module Permissions
         video and video.author_id == user.id
       end
 
-
-
-      allow "teaching_videos",[:create,:show]
-
-
+      allow "teaching_videos", [:create, :show]
       allow :topics,[:new,:create] do |topicable|
         topicable_permission(topicable,user)
       end
@@ -523,16 +519,21 @@ module Permissions
       api_allow :POST, "/api/v1/resource/files" # 文件上传
       # 资源中心 end
 
+      # start 聊天
+      api_allow :GET, '/api' do |resource|
+        user == resource
+      end
+      # end 聊天
+
       api_allow :GET, '/api/v2/live_studio/teachers/\d+/schedule_data'
     end
 
     private
 
-    def topicable_permission(topicable,user)
+    def topicable_permission(topicable, user)
       return false if topicable.nil?
-      if topicable.instance_of? Lesson
-        topicable.teacher_id == user.id
-      end
+      return false unless topicable.instance_of? Lesson
+      topicable.teacher_id == user.id
     end
   end
 end

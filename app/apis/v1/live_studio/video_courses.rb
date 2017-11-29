@@ -80,7 +80,8 @@ module V1
           get ':id/members' do
             video_course = ::LiveStudio::VideoCourse.find(params[:id])
             members = video_course.buy_tickets.includes(:student)
-            present members, with: Entities::LiveStudio::CourseMember
+            present video_course.teachers, root: :teachers, with: Entities::User
+            present members, root: :members, with: Entities::LiveStudio::CourseMember
           end
         end
 

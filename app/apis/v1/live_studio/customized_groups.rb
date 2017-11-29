@@ -63,7 +63,8 @@ module V1
           get ':id/members' do
             group = ::LiveStudio::CustomizedGroup.find(params[:id])
             members = group.buy_tickets.includes(:student)
-            present members, with: Entities::LiveStudio::CourseMember
+            present group.teachers, root: :teachers, with: Entities::User
+            present members, root: :members, with: Entities::LiveStudio::CourseMember
           end
         end
 

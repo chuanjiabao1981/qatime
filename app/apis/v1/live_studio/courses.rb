@@ -331,7 +331,8 @@ module V1
           get ':id/members' do
             course = ::LiveStudio::Course.find(params[:id])
             members = course.buy_tickets.includes(:student)
-            present members, with: Entities::LiveStudio::CourseMember
+            present course.teachers, root: :teachers, with: Entities::User
+            present members, root: :members, with: Entities::LiveStudio::CourseMember
           end
 
           desc '辅导班排行'

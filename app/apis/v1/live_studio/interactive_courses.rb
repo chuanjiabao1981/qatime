@@ -63,7 +63,8 @@ module V1
           get ':id/members' do
             interactive_course = ::LiveStudio::InteractiveCourse.find(params[:id])
             members = interactive_course.buy_tickets.includes(:student)
-            present members, with: Entities::LiveStudio::CourseMember
+            present interactive_course.teachers, root: :teachers, with: Entities::User
+            present members, root: :members, with: Entities::LiveStudio::CourseMember
           end
 
           desc '一对一直播详情' do

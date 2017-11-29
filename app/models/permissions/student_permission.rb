@@ -292,6 +292,12 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"
 
+      # 成员列表
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/video_courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/interactive_courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/customized_groups/[\\w-]+/members"
+
       # 游客绑定账号
       api_allow :POST, "/api/v1/user/guests/[\\w-]+/bind"
 

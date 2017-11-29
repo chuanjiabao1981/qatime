@@ -438,6 +438,12 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/heart_beat"
       api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_switch"
 
+      # 成员列表
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/video_courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/interactive_courses/[\\w-]+/members"
+      api_allow :GET, "/api/v1/live_studio/customized_groups/[\\w-]+/members"
+
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
         teacher && teacher.id == user.id
       end

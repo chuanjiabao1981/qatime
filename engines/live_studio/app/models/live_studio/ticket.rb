@@ -16,6 +16,8 @@ module LiveStudio
 
     attr_accessor :item_targets
 
+    delegate :name, :avatar, to: :student, prefix: true
+
     enum status: {
       inactive: 0,   # 准备试听
       active: 1,     # 可用

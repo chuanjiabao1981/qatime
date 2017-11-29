@@ -319,6 +319,21 @@ module V1
             present ticket, root: :ticket, with: Entities::LiveStudio::CourseTicket, type: :full
           end
 
+          desc '成员列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/members' do
+            course = ::LiveStudio::Course.find(params[:id])
+            members = course.buy_tickets.includes(:student)
+            present members, with: Entities::LiveStudio::CourseMember
+          end
+
           desc '辅导班排行'
           params do
             requires :names, type: String, desc: '排行名称多个获逗号分隔 published_rank: 最新发布; start_rank: 最近开课;'

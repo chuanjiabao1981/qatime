@@ -50,6 +50,21 @@ module V1
             present group, root: :customized_group, with: Entities::LiveStudio::GroupDetail
             present ticket, root: :ticket, with: Entities::LiveStudio::CustomizedGroupTicket if ticket
           end
+
+          desc '成员列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/members' do
+            group = ::LiveStudio::CustomizedGroup.find(params[:id])
+            members = group.buy_tickets.includes(:student)
+            present members, with: Entities::LiveStudio::CourseMember
+          end
         end
 
         # 需要授权

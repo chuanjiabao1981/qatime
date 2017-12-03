@@ -64,6 +64,10 @@ class HomeController < ApplicationController
     render layout: 'v1/live'
   end
 
+  def introduce
+    
+  end
+
   def qr_code
     image = RQRCode::QRCode.new(params[:url]).as_png
     send_data image.to_datastream

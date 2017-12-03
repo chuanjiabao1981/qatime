@@ -450,6 +450,7 @@ Qatime::Application.routes.draw do
   mount Resource::Engine, at: '/resource'
   # 社交分享
   mount Social::Engine, at: '/social'
+  mount Exam::Engine, at: '/exam'
   # API
   mount Qatime::API => '/'
 

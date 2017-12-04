@@ -16,7 +16,7 @@
                 <%= text_field_tag :by, 1, type: 'number', class: 'form-control' %>
                 <%= submit_tag '保存', class: 'form-control' %>
               </span>
-            <% end -%>
+            <% end unless @course.new_record? -%>
           <% end %>
         </div>
         <div class="course-line">

@@ -1,6 +1,6 @@
 <div class="instroduced">
   <div class="container">
-    <h3>如何学习答疑时间小班课</h3>
+    <h3><%= t("view.live_studio/#{params[:type]}.introduce.title") %></h3>
     <div class="instroduced-area">
       <video id="video-info" class="video-js video-player" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
         <source src="//qatime-production.oss-cn-beijing.aliyuncs.com/introduce/<%= params[:type] %>.mp4" type="video/mp4">
@@ -13,26 +13,26 @@
 
 <div class="purchase-process">
   <div class="container">
-    <h3>购买流程</h3>
+    <h3><%= t("view.live_studio/course.buy_flow.title") %></h3>
     <ul>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="process-module">
-          <p>①挑选课程</p>
+          <p><%= t("view.live_studio/course.buy_flow.step_1") %></p>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="process-module">
-          <p>②报名下单</p>
+          <p><%= t("view.live_studio/course.buy_flow.step_2") %></p>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="process-module">
-          <p>③在线支付</p>
+          <p><%= t("view.live_studio/course.buy_flow.step_3") %></p>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
         <div class="process-module">
-          <p>④完成购买</p>
+          <p><%= t("view.live_studio/course.buy_flow.step_4") %></p>
         </div>
       </li>
     </ul>

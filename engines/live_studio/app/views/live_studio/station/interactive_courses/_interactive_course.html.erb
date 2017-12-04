@@ -7,10 +7,10 @@
   <td><%= interactive_course.status_text %></td>
   <td class="handle">
     <% if allow? 'live_studio/interactive_courses', :preview %>
-      <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_interactive_courses_path(id: interactive_course), method: :post, target: '_blank' %>
+      <%= link_to t('view.live_studio/interactive_course.new.preview'), live_studio.preview_interactive_courses_path(id: interactive_course), method: :post, target: '_blank' %>
     <% end %>
     <% if allow? 'live_studio/interactive_courses', :update_class_date, @workstation %>
-      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_interactive_course_path(interactive_course, workstation_id: @workstation) %>
+      <%= link_to t('view.live_studio/interactive_course.index.edit_lesson'), update_class_date_interactive_course_path(interactive_course, workstation_id: @workstation) %>
     <% end %>
   </td>
 </tr>

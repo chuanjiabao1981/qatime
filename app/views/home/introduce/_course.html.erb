@@ -1,67 +1,67 @@
 <div class="features">
   <div class="container">
-    <h3>课程特色</h3>
+    <h3><%= t("view.live_studio/#{params[:type]}.introduce.feature") %></h3>
     <ul>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module">
-          <p>在线授课</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1") %></p>
         </div>
         <div class="module-info">
-          <p>在线授课</p>
-          <p>随时随地观看直播即可上课</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1_body") %></p>
         </div>
       </li>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module bg-orange">
-          <p>真人互动</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2") %></p>
         </div>
         <div class="module-info">
-          <p>老师实时沟通</p>
-          <p>答疑解惑，感受真实课堂</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2_body") %></p>
         </div>
       </li>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module bg-pink">
-          <p>免费回放</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3") %></p>
         </div>
         <div class="module-info">
-          <p>直播自动生成回放</p>
-          <p>自由观看，多次学习</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3_body") %></p>
         </div>
       </li>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module bg-purple">
-          <p>插班报名</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4") %></p>
         </div>
         <div class="module-info">
-          <p>支持插班价购买</p>
-          <p>少花钱也能学</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4_body") %></p>
         </div>
       </li>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module bg-green">
-          <p>随时可退</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5") %></p>
         </div>
         <div class="module-info">
-          <p>随时可以申请退费</p>
-          <p>免除后顾之忧</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5_body") %></p>
         </div>
       </li>
       <li class="col-md-4 col-sm-6 col-xs-6">
         <div class="module bg-blue">
-          <p>跟踪服务</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6") %></p>
         </div>
         <div class="module-info">
-          <p>跟踪式客服 </p>
-          <p>第一时间解决问题</p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6_body") %></p>
         </div>
       </li>
     </ul>
     <div class="selection-item">
-      <a href="">
-        <span>立即选课</span>
+      <%= link_to live_studio.courses_path do %>
+        <span><%= t("view.live_studio/#{params[:type]}.introduce.buy") %></span>
         <i class="fa fa-angle-right"></i>
-      </a>
+      <% end %>
     </div>
   </div>
 </div>

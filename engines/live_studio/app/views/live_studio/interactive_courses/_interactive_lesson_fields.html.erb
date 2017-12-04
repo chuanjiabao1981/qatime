@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-4 duration dropdown-select">
               <%= f.label :teacher_id, t('view.live_studio/course.lesson_field.edit_modal.label.teacher_id') %>
-              <%= f.select :teacher_id, options_for_select(::Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactie_course.placeholder.teacher_id')}, {class: 'teacher form-control'} %>
+              <%= f.select :teacher_id, options_for_select(::Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactive_course.placeholder.teacher_id')}, {class: 'teacher form-control'} %>
               <span class="has-error teacher-error-<%= object_id %>"></span>
             </div>
           </div>

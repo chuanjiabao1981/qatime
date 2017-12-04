@@ -193,7 +193,37 @@ cn:
         workstation: 发行站
         grade: 年级
         subject: 科目
-    live_studio/interactie_course:
+      introduce:
+        title: 如何学习答疑时间直播课
+        feature: 课程特色
+        feature_1: 在线授课
+        feature_1_title: 在线授课
+        feature_1_body: 随时随地观看直播即可上课
+        feature_2: 真人互动
+        feature_2_title: 老师实时沟通
+        feature_2_body: 答疑解惑，感受真实课堂
+        feature_3: 免费回放
+        feature_3_title: 直播自动生成回放
+        feature_3_body: 自由观看，多次学习
+        feature_4: 插班报名
+        feature_4_title: 支持插班价购买
+        feature_4_body: 少花钱也能学
+        feature_5: 随时可退
+        feature_5_title: 随时可以申请退费
+        feature_5_body: 免除后顾之忧
+        feature_6: 跟踪服务
+        feature_6_title: 跟踪式客服
+        feature_6_body: 第一时间解决问题
+        buy: 立即选课
+      buy_flow:
+        title: 购买流程
+        step_1: ①挑选课程
+        step_2: ②报名下单
+        step_3: ③在线支付
+        step_4: ④完成购买
+
+
+    live_studio/interactive_course:
       new:
         title: 创建新课程
         label: 一对一说明
@@ -245,6 +275,34 @@ cn:
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
+      introduce:
+        title: 如何学习答疑时间一对一
+        feature: 课程特色
+        feature_1: 优选教师
+        feature_1_title: 精选优秀师资
+        feature_1_body: 稳步提升学习成绩
+        feature_2: 专人授课
+        feature_2_title: 一人一师的授课方式
+        feature_2_body: 全方位服务学生
+        feature_3: 针对讲解
+        feature_3_title: 针对薄弱
+        feature_3_body: 精细化讲解和答疑
+        feature_4: 丰富互动
+        feature_4_title: 多样式交互
+        feature_4_body: 共享白板、实时音视频
+        feature_5: 随时可退
+        feature_5_title: 随时可以申请退费
+        feature_5_body: 免除后顾之忧
+        feature_6: 跟踪服务
+        feature_6_title: 跟踪式客服
+        feature_6_body: 第一时间解决问题
+        buy: 立即选课
+      buy_flow:
+        title: 购买流程
+        step_1: ①挑选课程
+        step_2: ②报名下单
+        step_3: ③在线支付
+        step_4: ④完成购买
     live_studio/video_course:
       workstation:
         new: 创建新视频课
@@ -322,6 +380,34 @@ cn:
         nav:
           audited: 已审核
           no_audit: 未审核
+      introduce:
+        title: 如何学习答疑时间视频课
+        feature: 课程特色
+        feature_1: 精选内容
+        feature_1_title: 精挑细选严格审核
+        feature_1_body: 做最有质量的视频学习课程
+        feature_2: 自由学习
+        feature_2_title: 无需授课自主学习
+        feature_2_body: 自由安排时间
+        feature_3: 永久观看
+        feature_3_title: 一次性购买
+        feature_3_body: 即可永久享受不限制次数观看
+        feature_4: 即买即学
+        feature_4_title: 购买后即可开始学习
+        feature_4_body: 零等待
+        feature_5: 支持试听
+        feature_5_title: 先试听后购买
+        feature_5_body: 不花一分冤枉钱
+        feature_6: 跟踪服务
+        feature_6_title: 跟踪式客服
+        feature_6_body: 第一时间解决问题
+        buy: 立即选课
+      buy_flow:
+        title: 购买流程
+        step_1: ①挑选课程
+        step_2: ②报名下单
+        step_3: ③在线支付
+        step_4: ④完成购买
     live_studio/customized_group:
       new:
         label0: 小班课课说明
@@ -342,6 +428,44 @@ cn:
         student_homeworks: 学生提交的作业
         all_questions: 全部提问
         my_questions: 我的提问
+      introduce:
+        title: 如何学习答疑时间小班课
+        feature: 课程特色
+        feature_1: 优选教师
+        feature_1_title: 精选优秀师资
+        feature_1_body: 稳步提升学习成绩
+        feature_2: 小班授课
+        feature_2_title: 小班授课方式
+        feature_2_body: 学习人数最多不超10人
+        feature_3: 互动答疑
+        feature_3_title: 即时互动直播答疑
+        feature_3_body: 深度讲解帮学生消除困惑
+        feature_4: 作业批改
+        feature_4_title: 随堂布置作业
+        feature_4_body: 实时批改
+        feature_5: 提问解答
+        feature_5_title: 即时解答课内提问
+        feature_5_body: 全员可见
+        feature_6: 课件分享
+        feature_6_title: 课件文件下载
+        feature_6_body: 永久保存
+        feature_7: 插班报名
+        feature_7_title: 支持插班价购买
+        feature_7_body: 少花钱也能学
+        feature_8: 随时可退
+        feature_8_title: 随时可以申请退费
+        feature_8_body: 免除后顾之忧
+        feature_9: 跟踪服务
+        feature_9_title: 跟踪式客服
+        feature_9_body: 第一时间解决问题
+        buy: 立即选课
+      buy_flow:
+        title: 购买流程
+        step_1: ①挑选课程
+        step_2: ②报名下单
+        step_3: ③在线支付
+        step_4: ④完成购买
+
     live_studio/homeworks:
       show:
         guest: 报名后才能查看

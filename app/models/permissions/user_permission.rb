@@ -48,7 +48,7 @@ module Permissions
       allow 'live_studio/customized_groups', [:index, :show, :play, :live_info]
 
       allow 'qawechat/users', [:remove_wechat]
-      allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code]
+      allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code, :introduce]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'ajax/data', [:option_cities, :option_schools]

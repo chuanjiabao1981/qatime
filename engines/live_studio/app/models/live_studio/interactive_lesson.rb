@@ -80,9 +80,9 @@ module LiveStudio
 
     validates :class_date, :teacher_id, :duration, presence: true
     # 去除唯一性, 导致课程不能互调
-    # validates :class_date, uniqueness: { scope: [:interactive_course_id, :deleted_at], message: I18n.t('view.live_studio/interactie_course.validate.class_date_uniq') }
+    # validates :class_date, uniqueness: { scope: [:interactive_course_id, :deleted_at], message: I18n.t('view.live_studio/interactive_course.validate.class_date_uniq') }
     validate do
-      errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_hour_minites')) if start_time.blank?
+      errors.add(:class_date, I18n.t('view.live_studio/interactive_course.validate.class_date_hour_minites')) if start_time.blank?
     end
 
     before_create :data_preview

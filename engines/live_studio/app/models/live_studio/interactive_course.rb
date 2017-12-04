@@ -106,7 +106,7 @@ module LiveStudio
     # 课程日期不能重复
     def interactive_lessons_uniq
       interactive_lessons.each do |lesson|
-        lesson.errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_uniq')) if interactive_lessons.find_all{ |x| x.class_date == lesson.class_date }.size > 1
+        lesson.errors.add(:class_date, I18n.t('view.live_studio/interactive_course.validate.class_date_uniq')) if interactive_lessons.find_all{ |x| x.class_date == lesson.class_date }.size > 1
       end
       errors.add(:interactive_lessons, 'interactive_lessons valid error') if interactive_lessons.map(&:errors).any? {|x| x.any? }
     end

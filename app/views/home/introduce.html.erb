@@ -1,0 +1,57 @@
+<div class="instroduced">
+  <div class="container">
+    <h3><%= t("view.live_studio/#{params[:type]}.introduce.title") %></h3>
+    <div class="instroduced-area">
+      <video id="video-info" class="video-js video-player" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <source src="//qatime-production.oss-cn-beijing.aliyuncs.com/introduce/<%= params[:type] %>.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+<%= render "home/introduce/#{params[:type]}" rescue nil %>
+
+<div class="purchase-process">
+  <div class="container">
+    <h3><%= t("view.live_studio/course.buy_flow.title") %></h3>
+    <ul>
+      <li class="col-md-3 col-sm-6 col-xs-6">
+        <div class="process-module">
+          <p><%= t("view.live_studio/course.buy_flow.step_1") %></p>
+        </div>
+      </li>
+      <li class="col-md-3 col-sm-6 col-xs-6">
+        <div class="process-module">
+          <p><%= t("view.live_studio/course.buy_flow.step_2") %></p>
+        </div>
+      </li>
+      <li class="col-md-3 col-sm-6 col-xs-6">
+        <div class="process-module">
+          <p><%= t("view.live_studio/course.buy_flow.step_3") %></p>
+        </div>
+      </li>
+      <li class="col-md-3 col-sm-6 col-xs-6">
+        <div class="process-module">
+          <p><%= t("view.live_studio/course.buy_flow.step_4") %></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+<%= javascript_include_tag "live_studio/live_1" %>
+<script>
+$(function() {
+  var myPlayer = neplayer('video-info', {
+    "autoplay": false,
+    controlBar: {
+      'currentTimeDisplay':true,
+      'timeDivider':true,
+      'durationDisplay':true,
+      'remainingTimeDisplay':false
+    }
+  });
+});
+</script>
+<% end %>

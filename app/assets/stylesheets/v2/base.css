@@ -2969,7 +2969,7 @@ ul {
   margin-bottom: 0px;
   text-align: center;
   line-height: 40px;
-  color: #FF0000;
+  color: #c20c0c;
 }
 .banned p > img,.banned p > span {
   vertical-align: middle;
@@ -3117,7 +3117,7 @@ ul {
 .form-city select {
   width: 100px;
   height: 31px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   font-size: 14px;
   color: #666666;
   outline: none;
@@ -3129,9 +3129,9 @@ ul {
   width: 100px;
   height: 31px;
   border-radius: 4px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   background-color: #fff;
-  color: #ff5842;
+  color: #c20c0c;
   margin-left: 10px;
 } 
 .prompt-con {
@@ -3145,7 +3145,7 @@ ul {
   float: right;
 }
 .change-city:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .city-list {
   padding: 20px;
@@ -3228,19 +3228,19 @@ ul {
   line-height: 80px;
 }
 .hasallcity li:hover {
-  border-color: #ff5842;
+  border-color: #c20c0c;
   background-color: rgb(242, 242, 242);
 }
 .hasallcity li:hover .hasallcity-num {
   color: #fff;
-  background-color: #ff5842;
-  border-color: #ff5842;
+  background-color: #c20c0c;
+  border-color: #c20c0c;
 }
 .hasallcity>li .col-md-11>a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 } 
 .city-list p>a:hover {
-  color: #ff5842;
+  color: #c20c0c;
   text-decoration: underline !important;
 }
 @media only screen and (max-width: 1200px) {
@@ -4393,13 +4393,13 @@ ul {
   color: #999;
 }
 .tecmsg-send input {
-  border: 2px solid #ff5842;
+  border: 2px solid #c20c0c;
   background-color: #FFFFFF;
-  color: #ff5842;
+  color: #c20c0c;
   padding-bottom: 3px;
 }
 .tecmsg-send input[type="submit"]:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .tecmsg-con {
@@ -4478,10 +4478,10 @@ ul {
 .login-right span {
   display: inline-block;
   margin-left: 24px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .login-right span a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .login-right > i {
   color: #999;
@@ -4558,6 +4558,9 @@ ul {
 .account-right span a {
   color: #00a2ee;
 }
+.account-right span a:hover ,.input-password a:hover{
+  color: #c20c0c;
+}
 .account-right span:nth-child(2) {
   display: inline-block;
   width: 54px;
@@ -4626,15 +4629,19 @@ ul {
 .login-send {
   width: 100%;
   height: 42px;
-  border: 2px solid #ff5842;
+  border: 2px solid #c20c0c;
   margin-top: 5px;
   background-color: rgb(251,251,251);
   border-radius: 4px;
-  color: #ff5842;
+  color: #c20c0c;
   font-size: 20px;
   padding-bottom: 3px;
   margin-bottom: 30px;
   outline: none;
+}
+.login-send:hover {
+  background-color: #c20c0c;
+  color: #fff;
 }
 .login-send.active {
   background-color: #F0F0F0;
@@ -4777,12 +4784,12 @@ ul {
   border-radius: 4px;
 }
 .wechat-msg .input-button .active {
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .wechat-msg .input-button input {
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .input-button a {
   margin-right: 12px;
@@ -4804,11 +4811,11 @@ ul {
   outline: none;
   float: left;
   line-height: 36px;
-  color: #FF5842;
-  border: 2px solid #FF5842;
+  color: #c20c0c;
+  border: 2px solid #c20c0c;
 }
 .input-button input[type='submit']:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .wechat-msg #btn-obtain,.tea-register-left #btn-obtain {
@@ -4918,6 +4925,9 @@ ul {
   margin-left: 5px;
   color: #00a2ee;
 }
+.register-title-right a:hover {
+  color: #c20c0c;
+}
 .tea-register-left .form-group {
   margin-bottom: 0px;
   overflow: hidden;
@@ -4982,8 +4992,12 @@ ul {
   outline: none;
 }
 .tea-register-left .active {
-  color: #ff5842;
-  border: 2px solid #ff5842;
+  color: #c20c0c;
+  border: 2px solid #c20c0c;
+}
+.tea-register-left .active:hover {
+  color: #fff;
+  background-color: #c20c0c;
 }
 .tea-register-left .finished {
   background-color: #F0F0F0;
@@ -5435,7 +5449,7 @@ ul {
   color: #FFFFFF;
   text-align: center;
   line-height: 25px;
-  background-color: #ff5842;
+  background-color: #c20c0c;
   border-radius: 50%;
 }
 .right-msg-num {
@@ -5595,7 +5609,7 @@ ul {
 .study-nav a {
   display: inline-block;
   padding: 0 10px;
-  color: #ff5842;
+  color: #c20c0c;
   line-height: 14px;
   border-right: 1px solid rgb(73,73,73);
   padding-left: 5px;
@@ -5777,15 +5791,15 @@ ul {
   float: none;
   text-align: center;
   line-height: 36px;
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .complete-btn a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .complete-prompt-center>span>i {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .tea-right-send .active {
   color: rgb(190,11,11);
@@ -5910,7 +5924,7 @@ ul {
   padding: 0 20px;
 }
 .complete-prompt>.complete-prompt-left>a {
-  color: #ff5842;
+  color: #c20c0c;
   outline: none;
 }
 .prompt-pay {
@@ -5918,7 +5932,7 @@ ul {
   line-height: 85px;
 }
 .prompt-pay > i {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen  and (max-width: 990px) {
 .complete-con .col-md-6:first-child {
@@ -5935,59 +5949,13 @@ ul {
 
 
 /*大图展示*/
-.accept-img {
-  max-width: 120px !important;
-  max-height: 120px !important;
-  border-radius: 0 !important;
+.information-con > a.fancybox-buttons img {
+  max-width: 120px ;
+  max-height: 120px;
 }
-.accept-down {
-  width: 100%;
-  height: 20px;
-  background-color: rgb(241,241,241);
-}
-.accept-down a {
-  color: #333;
-}
-.accept-down span {
-  float: right;
-  font-size: 18px;
-  margin-top: 1px;
-}
-.accept-down span:hover {
-  cursor: pointer;
-}
-.accept-down a img {
-  margin-left: 5px;
-}
-.outerdiv {
-  position:absolute;
-  top:0;
-  left:0;
-  z-index:101;
-  width:100%;
-  height:100%;
-  display:none;
-}
-.innerdiv {
-  position:absolute;
-  cursor: move;
-}
-.rotate {
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  background-color: rgba(0,0,0,0.3);
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-}
-.rotate > img {
-  padding-top: 6px;
-}
-.rotate > img:hover {
-  cursor: pointer;
-}
+
+
+
 /*视频手机下载页面*/ 
 
 .down-content {
@@ -6111,7 +6079,7 @@ div.live-big {
 }
 .buy-footer-msg span:last-child {
   font-size: 30px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .buy-footer-msg span:first-child {
   display: inline-block;
@@ -6128,11 +6096,11 @@ div.live-big {
 .buy-footer-btn a,.buy-footer-btn input {
   display: inline-block;
   line-height: 34px;
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .buy-footer-btn input:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .tutoring-title {
@@ -6407,7 +6375,7 @@ div.live-big {
   top: 5px;
 }
 .account .form-group a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .account .form-group label,.account .form-group .input-group,.account .form-group a {
   float: left;
@@ -6426,13 +6394,13 @@ div.live-big {
   line-height: 16px;
 }
 .account .input-group-btn .btn-default.active:hover {
-  background-color: #ff5842 !important;
+  background-color: #c20c0c !important;
   color: #fff;
 }
 .account .input-group-btn .btn-default.active {
-  color: #ff5842;
+  color: #c20c0c;
   background-color: #FFFFFF;
-  border: 1px solid #ff5842 !important;
+  border: 1px solid #c20c0c !important;
 }
 .prompt-confirm {
   color: #999;
@@ -6442,7 +6410,7 @@ div.live-big {
   border-top: 1px solid #F2F2F2;
 }
 .prompt-confirm>span>i {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen and (max-width: 680px) {
 .buy-left-con table {
@@ -6927,7 +6895,7 @@ div.live-big {
 .playback-title {
   height: 28px;
   line-height: 25px;
-  color: #ff5842;
+  color: #c20c0c;
   border-bottom: 1px solid #CCCCCC;
   text-align: center;
 }
@@ -7427,7 +7395,7 @@ div.live-big {
 }
 .preferential-code .form-group label {
   font-weight: normal;
-  color: #ff5842;
+  color: #c20c0c;
   line-height: 34px;
   margin-right: 10px;
 }
@@ -7452,7 +7420,7 @@ div.live-big {
   border-radius: 0px;
 }
 .preferential-code .form-group .input-group input:first-child {
-  border-color: #ff5842;
+  border-color: #c20c0c;
   box-shadow: none;
   outline: none;
 }
@@ -8785,7 +8753,6 @@ div.live-big {
 .line-plate .nav-courses:hover {
   box-shadow: 0 0 10px #ccc;
   border-radius: 10px;
-  animation: bounce  0.7s ease both;
 }
 .line-plate .nav-courses p {
   color: #999;
@@ -9276,6 +9243,9 @@ div.live-big {
     font-size: 40px;
     margin-top: -20px;
   }
+  .slogan {
+    font-size: 30px;
+  }
 }
 @media only screen and (max-width: 460px) {
   .line-plate .nav-courses {
@@ -9317,16 +9287,23 @@ div.live-big {
   font-size: 0px;
   padding: 0 25px;
 }
-.header .switch > i {
-  color: #c20c0c;
-  font-size: 12px;
-}
 .header .switch > a {
-  font-size: 12px;
-  color: #6d6d6d;
+  font-size: 14px;
+  color: #666;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+.header .switch > a .switch-logo {
+  display: inline-block;
+  width: 18px;
+  height: 17px;
+  position: relative;
+  top: 3px;
 }
 .header .switch > a:hover {
   color: #c20c0c;
+  border-color: #c20c0c;
 }
 .header .navbar-nav {
   margin-bottom: 0px;
@@ -9445,7 +9422,7 @@ div.live-big {
   position: absolute;
   left: -6px;
   top: 26px;
-  width: 55px;
+  width: 49px;
   padding-left: 0px;
   margin-bottom: 0px;
   background-color: #fff;
@@ -10064,7 +10041,6 @@ div.live-big {
   margin-bottom: 5px;
   display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
@@ -10081,7 +10057,6 @@ div.live-big {
   color: #666;
   display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
@@ -10436,14 +10411,14 @@ div.live-big {
   width: 118px;
   height: 38px;
   float: left;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   border-radius: 4px;
   text-align: center;
   line-height: 36px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .btn-addclass:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .btn-startclass {
@@ -10520,7 +10495,7 @@ div.live-big {
   margin-right: 0px;
 }
 .nav-item a.active,.nav-item a:hover {
-  color: #ff5842 !important;
+  color: #c20c0c !important;
 }
 .lessons-detail {
   margin-top: 40px;
@@ -10572,13 +10547,13 @@ div.live-big {
 }
 .nav-item span {
   font-size: 18px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .playlist span   {
   color: #555555;
 }
 .playlist > .col-md-1 span {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .end > .col-md-1 span,.end i {
   color: #999999;
@@ -10604,11 +10579,11 @@ div.live-big {
     color: #ccc;
 }
 .end i a.active,.end i a.active em:first-child {
-  border-color: #ff5842;
-  color: #ff5842;
+  border-color: #c20c0c;
+  color: #c20c0c;
 }
 .end i a.active:hover,.end i a.active:hover em:first-child {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
   border-color: #FFFFFF;
 }
@@ -10661,20 +10636,26 @@ div.live-big {
     color: #444;
     margin: 65px 0 30px 0;
 }
-.tec-synopsis {
+.tec-synopsis,.member-list {
   width: 100%;
   margin-top: 30px;
   background-color: #FFFFFF;
   padding: 0 30px 30px 30px;
 }
-.synopsis-title h2 {
+.member-list {
+  padding: 0px 0px 0px 0px;
+}
+.synopsis-title h2,.member-title h2{
   font-size: 18px;
   color: #34495e;
   margin: 0px;
   line-height: 75px;
   text-align: center;
 }
-.synopsis-title {
+.member-title {
+  margin: 0px 30px;
+}
+.synopsis-title,.member-title {
   height: 75px;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -10749,7 +10730,7 @@ div.live-big {
 .course-con {
   margin-bottom: 60px;
 }
-.course-item,.tec-synopsis {
+.course-item,.tec-synopsis,.member-list {
   box-shadow: 0 0 10px #F2F2F2;
 }
 .tec-synopsis .head-gender > a {
@@ -10758,14 +10739,100 @@ div.live-big {
 .tec-synopsis .head-gender > a:hover {
   color: #FF5842;
 }
-@media only screen  and (max-width: 990px) {
-.course-class .pic {
-  padding-right: 10px;
-} 
-.playlist i {
-  float: left;
-  min-width: auto;
+.member-info {
+  margin-top: 20px;
 }
+.member-info > ul{
+  zoom: 1;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.member-info > ul:after {
+  content: '';
+  display: block;
+  height: 0px;
+  visibility: hidden;
+  clear: both;
+}
+.member-info > ul img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.member-info > ul li {
+  margin-bottom: 15px;
+}
+.member-info > ul li a {
+  display: block;
+}
+.member-info > ul li a > p {
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
+  color: #34495e;
+  margin-top: 5px;
+}
+.member-info > ul li:hover a > p {
+  color: #c20c0c;
+}
+.member-info .members-head {
+  position: relative;
+  width: 60px;
+  margin: 0 auto;
+}
+.member-info .members-head > p {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 1px;
+  width: 54px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0px;
+  background-color: #fe0000;
+  border-radius:   50%/0 0 100% 100% ;
+}
+@media only screen  and (max-width: 1200px) {
+  .member-info .members-head {
+    width: 40px;
+  }
+  .member-info > ul img {
+    width: 40px;
+    height: 40px;
+  }
+  .member-info .members-head > p {
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 40px;
+  }
+}
+@media only screen  and (max-width: 990px) {
+  .course-class .pic {
+    padding-right: 10px;
+  } 
+  .playlist i {
+    float: left;
+    min-width: auto;
+  }
+  .member-info .members-head {
+    width: 60px;
+  }
+  .member-info > ul img {
+    width: 60px;
+    height: 60px;
+  }
+  .member-info .members-head > p {
+    left: 3px;
+    right: 3px;
+    bottom: 1px;
+    width: 54px;
+  }
 }
 @media only screen and (max-width: 460px) {
 .class-label span {
@@ -10786,6 +10853,23 @@ div.live-big {
 
 }
 
+/*成员列表分页*/
+.member-info .pagination {
+  margin: 0px 0px 10px 0px;
+}
+.member-info .pagination > li > a,.member-info .pagination > li > span {
+  padding: 0px;
+  margin: 0 5px;
+  font-size: 14px;
+  color: #999;
+  background-color: #fff;
+  border-color: #fff !important;
+}
+.member-info .pagination >li.active > span{
+  background-color: #fff !important;
+  border-color: #fff !important;
+  color: #666 !important;
+}
 
 
 /*教师个人主页*/
@@ -10916,7 +11000,7 @@ div.live-big {
 .nav-live {
   width: 100%;
   height: 42px;
-  border-bottom: 1px solid #ff5842;
+  border-bottom: 1px solid #c20c0c;
   background-color: #fff;
 }
 .nav-live .row > a {
@@ -11030,7 +11114,7 @@ div.live-big {
   padding-bottom: 5px;
 }
 .playback-con > li .playback-con-time > a:hover,.playback-con > li .playback-con-time > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .playback-con > li > a > .row {
   color: #999;
@@ -11044,7 +11128,7 @@ div.live-big {
 .playback-con > li:hover .list-msg,.playback-con > li > a > .row > .list-msg.active
 ,.playback-list > li:hover > a > .row > .col-md-10
 ,.playback-list > li:hover > a > .row > .col-md-2 {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen and (max-width: 992px) {
 .playback-list > li > a > .row > .col-md-10,.playback-list > li > a > .row > .col-md-2 {
@@ -11586,10 +11670,10 @@ div.live-big {
   background-color: #e1e1e1 !important;
 }
 #calendar .calendar-title div .circle, #calendar .calendar-list div .circle {
-  background: #ff5842 !important;
+  background: #c20c0c !important;
 }
 .audition {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
   padding: 2px 10px;
   margin-right: 10px;
@@ -11664,10 +11748,9 @@ div.live-big {
 }
 .nav-menu > li {
   min-height: 60px;
-  border-bottom: 1px solid #F0F0F0;
 }
-.nav-menu > li:hover {
-  background-color: rgba(255,88,66,0.4);
+.nav-menu > li:hover a{
+  color: #c20c0c;
 }
 .nav-menu > li:last-child {
   border-bottom: 0px;
@@ -11688,10 +11771,10 @@ div.live-big {
   font-size: 16px;
 }
 .nav-menu > li.active {
-  background-color: #ff5842;
+  background-color: #fafafa;
 }
 .nav-menu > li.active > a {
-  color: #FFFFFF;
+  color: #c20c0c;
 }
 .contains > .contains-title > h3 {
   display: inline-block;
@@ -11719,10 +11802,10 @@ div.live-big {
   color: #34495e;
 }
 .discipline-nav > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .discipline-nav > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .discipline-nav > a:last-child {
   margin-right: 0px;
@@ -11770,7 +11853,7 @@ div.live-big {
   font-weight: 500;
 }
 .discipline-info > .info-title a:hover > strong{
-  color: #ff5842;
+  color: #c20c0c;
 }
 .info-state > .col-md-4:last-child {
   padding: 0px;
@@ -11824,7 +11907,7 @@ div.live-big {
   margin: 0px 0px 27px 0px;
 }
 .course-state > a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .course-state > .col-sm-4 {
   text-align: center;
@@ -12028,7 +12111,7 @@ div.live-big {
 /*答疑课详情页*/
 .course-item > .nav-item .btn-release {
   float: right;
-  color: #ff5842 !important;
+  color: #c20c0c !important;
   outline: none;
 }
 .course-item > .nav-item {
@@ -12042,7 +12125,7 @@ div.live-big {
   clear: both;
 }
 .course-item > .nav-item > a.btn-release:hover {
-  color: #ff5842 !important;
+  color: #c20c0c !important;
 }
 .course-item > .nav-item .btn-release > img {
   vertical-align: middle;
@@ -12095,8 +12178,8 @@ div.live-big {
   display: inline-block;
   width: 72px;
   height: 32px;
-  border: 1px solid #ff5842;
-  color: #ff5842;
+  border: 1px solid #c20c0c;
+  color: #c20c0c;
   line-height: 30px;
   text-align: center;
   border-radius: 4px;
@@ -12104,7 +12187,7 @@ div.live-big {
   margin-top: 26px;
 }
 .watch:hover {
-  background-color: #FF5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .watch.finished,.watch.active {
@@ -12121,11 +12204,11 @@ div.live-big {
 }
 .watch.active {
   cursor: pointer;
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .course-state .watch.active:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .course-state {
@@ -12138,7 +12221,7 @@ div.live-big {
 } 
 .contains > .contains-title > a {
   float: right;
-  color: #ff5842;
+  color: #c20c0c;
   font-size: 16px;
   line-height: 78px;
 }
@@ -12892,7 +12975,7 @@ div.live-big {
 }
 .basic-class > .class-info > .classify-msg li .class-price {
   float: right;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .basic-class > .class-info > .classify-msg li .status-shelves {
   float: right;
@@ -12984,7 +13067,7 @@ div.live-big {
   color: #666;
 }
 .course-amount {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .course-caption,.course-classify {
   margin-bottom: 10px;
@@ -13015,7 +13098,7 @@ div.live-big {
 .order-status > .status-handle a,.order-status > .status-handle .reimburse{
   display: block;
   margin-bottom: 10px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .order-status > .status-handle .disable,.trading-msg > .order-right a.disable {
   color: #ccc !important;
@@ -13117,7 +13200,7 @@ div.live-big {
   white-space: nowrap;
 }
 .refund-info > .row > .specify-amount span {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .apply-right >.refund-input{
   min-height: 176px;
@@ -13164,11 +13247,11 @@ div.live-big {
   z-index: 100;
 }
 .refund-footer > input.active {
-  color: #ff5842;
-  border-color: #ff5842;
+  color:#c20c0c;
+  border-color: #c20c0c;
 }
 .refund-footer >  input.active:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 @media only screen  and (max-width: 990px) {
@@ -13222,8 +13305,8 @@ div.live-big {
   height: 98px;
   line-height: 97px;
   font-size: 40px;
-  color: #ff5842;
-  border-bottom: 1px solid #ff5842;
+  color: #c20c0c;
+  border-bottom: 1px solid #c20c0c;
 }
 .deal-right > .deal-msg {
   margin-top: 20px;
@@ -13252,7 +13335,7 @@ div.live-big {
   margin-top: 20px;
 }
 .deal-right > .deal-msg > .teaching-more a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .trading > .trading-msg {
   margin-top: 15px;
@@ -13272,7 +13355,7 @@ div.live-big {
   margin-right: 10px;
 }
 .trading-msg > .order-left > .teaching-amount {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .trading-msg > .order-left > .teaching-amount span:first-child {
   margin-right: 10px;
@@ -13283,7 +13366,7 @@ div.live-big {
   line-height: 80px;
 }
 .trading-msg > .order-right a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .order-right > .item-wait> a:first-child {
   margin-right: 50px;
@@ -13431,10 +13514,10 @@ div.live-big {
   color: #ccc;
 }
 .calendar-info .schedule-enter > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .calendar-info .schedule-enter > a.active:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 @media only screen and (max-width: 1200px) {
@@ -13471,7 +13554,7 @@ div.live-big {
   color: #999;
 }
 .contains > .contains-title > h3 > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen  and (max-width: 1200px) {
 .calendar-info .schedule-listen > .row span {
@@ -13577,7 +13660,6 @@ div.live-big {
 .nav-side > .side-list > li {
   height: 63px;
   padding: 0 30px;
-  border-bottom: 1px solid #F0F0F0;
 }
 .nav-side > .side-list > li > a {
   display: block;
@@ -13585,15 +13667,15 @@ div.live-big {
   font-size: 16px;
   color: #34495e;
 }
-.nav-side > .side-list > li:hover {
-  background-color: rgba(255,88,66,0.4);
+.nav-side > .side-list > li:hover a{
+  color: #c20c0c;
 }
 .nav-side > .side-list > li.active {
-  color: #FFFFFF;
-  background-color: #FF5842;
+  color: #c20c0c;
+  background-color: #fafafa;
 }
 .nav-side > .side-list > li.active > a {
-  color: #FFFFFF;
+  color: #c20c0c;
 }
 .contains-discipline .process-end {
   position: static;
@@ -13651,7 +13733,7 @@ div.live-big {
 }
 .download-info > .container > .mobile-item a:hover {
   background-color: #fff;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .download > .spinner {
   padding: 40px 0px;
@@ -13709,8 +13791,8 @@ div.live-big {
   margin-bottom: 10px;
 }
 .download > .spinner .spinner-new > a:hover {
-  background-color: #ff5842;
-  border-color: #ff5842;
+  background-color: #c20c0c;
+  border-color: #c20c0c;
   color: #ffffff;
 }
 .qrcode canvas {
@@ -13789,7 +13871,7 @@ div.live-big {
   font-size: 18px;
 }
 .contains > .set-title > a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .contains > .set-title > a:first-child {
   margin-right: 30px;
@@ -13912,9 +13994,9 @@ div.live-big {
   display: inline-block;
   width: 120px;
   height: 38px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   background-color: #FFFFFF;
-  color: #ff5842;
+  color: #c20c0c;
   border-radius: 4px;
 }
 .user-send  a {
@@ -13922,7 +14004,7 @@ div.live-big {
   margin-right: 20px;
 }
 .user-send  a:hover,.user-send  input:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 
@@ -13951,7 +14033,7 @@ div.live-big {
 }
 .wallet > .account-item .money-sum {
   font-size: 30px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .wallet > .account-item .money-total {
   line-height: 42px;
@@ -13963,8 +14045,8 @@ div.live-big {
 .wallet > .account-item a {
   width: 120px;
   height: 38px;
-  border: 1px solid #ff5842;
-  color: #ff5842;
+  border: 1px solid #c20c0c;
+  color: #c20c0c;
   text-align: center;
   line-height: 36px;
   float: right;
@@ -13972,7 +14054,7 @@ div.live-big {
   margin-left: 15px;
 }
 .wallet > .account-item a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .wallet > .account-nav {
@@ -13997,7 +14079,7 @@ div.live-big {
   padding-right: 0px;
 }
 .wallet > .account-nav > .row > .nav-left a.active {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .wallet > .account-nav > .row > .nav-left {
   padding-right: 0px;
@@ -14005,9 +14087,12 @@ div.live-big {
 .wallet > .account-nav > .row > .nav-right {
   padding-left: 0px;
 }
+.wallet > .account-nav > .row > .nav-left a:hover {
+  color: #c20c0c;
+}
 .wallet > .account-nav > .row > .nav-right a
 ,.wallet > .account-nav > .row > .nav-right input[type="submit"] {
-  color: #ff5842;
+  color: #c20c0c;
   float: right;
   margin-left: 15px;
 }
@@ -14062,7 +14147,7 @@ div.live-big {
   word-wrap: break-word;
 }
 .wallet > .account-list > table tr > td > a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 @media only screen  and (max-width: 1200px) {
 .wallet > .account-nav > .row > .nav-right a,.wallet > .account-nav > .row > .nav-right input[type="submit"] {
@@ -14185,11 +14270,11 @@ div.live-big {
   line-height: 36px;
 }
 .drawings > .apply-btn input.active,.drawings > .apply-btn a {
-  border-color: #ff5842;
-  color: #FF5842;
+  border-color: #c20c0c;
+  color: #c20c0c;
 }
 .drawings > .apply-btn input.active:hover,.drawings > .apply-btn a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 @media only screen  and (max-width: 990px) {
@@ -14274,7 +14359,7 @@ div.live-big {
     bottom: 0px;
 }
 .apply-prepaid > span i {
-  color: #ff5842;
+  color: #c20c0c;
   font-size: 30px;
 }
 .recharge > .apply-btn {
@@ -14329,7 +14414,7 @@ div.live-big {
 .contains > .qa_box .set-cell .row-btn > a {
   margin-top: 50px;
   display: block;
-  color: #ff5842;
+  color: #c20c0c;
   text-align: right;
 }
 .contains > .qa_box .set-cell .modifiy {
@@ -14362,16 +14447,16 @@ div.live-big {
 }
 .modifiy .modifiy-info .find-line a {
   line-height: 34px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .modifiy .modifiy-info .save-line a,.modifiy .modifiy-info .save-line input[type="submit"] {
   display: inline-block;
   width: 120px;
   height: 38px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   border-radius: 4px;
   text-align: center;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .modifiy .modifiy-info .save-line a {
   line-height: 36px;
@@ -14381,7 +14466,7 @@ div.live-big {
   background-color: #FFFFFF;
 }
 .modifiy .modifiy-info .save-line a:hover,.modifiy .modifiy-info .save-line input[type="submit"]:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #FFFFFF;
 }
 .modifiy .modifiy-info  .contact-info {
@@ -14602,7 +14687,7 @@ div.live-big {
   font-size: 16px;
 }
 .manage-list > li .seria-msg a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .manage-list > li .seria-msg p {
   margin-bottom: 0px;
@@ -14627,12 +14712,12 @@ div.live-big {
   width: 120px;
   height: 38px;
   background-color: #fff;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   border-radius: 4px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .new-prepare input[type="submit"]:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .new-prepare  .row {
@@ -14668,7 +14753,7 @@ div.live-big {
   padding: 0px;
 }
 .manage-list > li .seria-operate > a {
-  color: #ff5842;
+  color: #c20c0c;
   outline: none;
 }
 @media only screen and (max-width: 768px) {
@@ -14711,7 +14796,7 @@ div.live-big {
   line-height: 48px;
 }
 .administrate .examine > a {
-  color: #ff5842;
+  color: #c20c0c;
   float: right;
 }
 
@@ -14870,7 +14955,7 @@ div.live-big {
   margin-right: 0px;
 }
 .exclusive-box > li .proprietary-course a:hover,.exclusive-box > li .proprietary-course a:hover span {
-  color: #ff5842;
+  color: #c20c0c;
 }
 
 /*我的老师*/
@@ -14885,7 +14970,7 @@ div.live-big {
   display: block;
   text-align: center;
   font-size: 16px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .tec-list > li > .row .subject > a {
   padding: 6.5px 0px;
@@ -14896,7 +14981,7 @@ div.live-big {
 }
 .tec-list > li > .row .tec-editor > a {
   display: block;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .tec-list > li > .row .teacher-msg h4 {
   margin: 0px 0px 20px 0px;
@@ -14971,8 +15056,8 @@ div.live-big {
 }
 .homework-nav > .row a.active {
   background-color: #FFF;
-  color: #ff5842;
-  border-color: #ff5842;
+  color: #c20c0c;
+  border-color: #c20c0c;
 }
 .issue-list {
   padding: 0px 0px 30px 0px;
@@ -14991,11 +15076,11 @@ div.live-big {
   color: #333;
 }
 .issue-list > li > h4 > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .issue-list > li > h4 > span {
   color: #fff;
-  background-color: #ff5842;
+  background-color: #c20c0c;
   font-size: 14px;
   padding: 0 5px;
 }
@@ -15015,7 +15100,7 @@ div.live-big {
   border-radius: 50%;
 }
 .issue-list > li > p > a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .issue-list > li > p > i {
   float: right;
@@ -15067,7 +15152,7 @@ div.live-big {
 .exclusive-box > li > .remark-box a {
   display: block;
   text-align: right;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .exclusive-box > li > .remark-box.active a {
   line-height: 50px;
@@ -16287,33 +16372,40 @@ abbr {
 .banner-item > form > .row .form-group {
   margin-bottom: 0px;
 }
-.banner-item > form > .upload-banner {
+.banner-item > form > .upload-banner,.banner-item > form > .upload-appbanner {
   min-height: 190px;
 }
-.banner-item > form > .upload-banner label {
+.banner-item > form > .upload-banner label,.banner-item > form > .upload-appbanner label {
   line-height: 145px;
 }
 .banner-item > form > .upload-banner .file-banner {
   width: 100%;
   height: 145px;
 }
-.banner-item > form > .upload-banner .file-banner > img {
+.banner-item > form > .upload-banner .file-banner > img,.banner-item  .app-banner > img {
   width: 100%;
   height: 100%;
   border: 0px;
 }
-.banner-item > form > .upload-banner .file-info {
+.banner-item  .app-banner > img {
+  width: 89%;
+  height: 145px;
+}
+.upload-appbanner .file-info > .btn-file {
+  margin-right: 11%;
+}
+.banner-item > form > .upload-banner .file-info,.upload-appbanner .file-info {
   text-align: center;
   font-size: 12px;
   color: #ccc;
 }
-.banner-item > form > .upload-banner .file-info > .btn-file {
+.banner-item > form > .upload-banner .file-info > .btn-file,.upload-appbanner .file-info > .btn-file{
   float: right;
 }
-.banner-item > form > .upload-banner .file-info > .btn-file input[type='file'] {
+.banner-item > form > .upload-banner .file-info > .btn-file input[type='file'],.upload-appbanner .file-info > .btn-file input[type='file']{
   display: none;
 }
-.banner-item > form > .upload-banner .file-info > .btn-file > a {
+.banner-item > form > .upload-banner .file-info > .btn-file > a,.upload-appbanner .file-info > .btn-file > a {
   padding: 5px 10px;
   background-color: #ff5842;
   color: #fff;
@@ -16348,6 +16440,9 @@ abbr {
 .banner-item > form > .upload-banner {
   min-height: 210px;
 } 
+.banner-item > form > .upload-appbanner {
+  min-height: 230px;
+}
 }
 
 /*精选内容*/
@@ -16607,16 +16702,16 @@ abbr {
   display: block;
   width: 120px;
   height: 38px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   border-radius: 4px;
   text-align: center;
   line-height: 36px;
-  color: #ff5842;
+  color: #c20c0c;
   float: right;
   margin-top: 28px;
 }
 .replays-list> ul > li > .row > .playback-view > a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 @media only screen and (max-width: 1200px) {
@@ -16648,6 +16743,9 @@ abbr {
 .replays-list> ul > li > .row > .playback-view > a {
   display: inline-block;
   float: none;
+}
+.banner-item  .app-banner > img {
+  height: 163px;
 }
 }
 
@@ -17224,7 +17322,7 @@ abbr {
   color: #666;
 }
 .guide > ul > li > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 /*老师:账号注册和登录*/
 .contains .student-study > .study-title{
@@ -17354,7 +17452,7 @@ abbr {
 }
 .course-item .ask-list > li > .row > .problem-title:hover > p,.course-item .ask-list li.active > .row > .problem-title:hover > p
 ,.course-item .ask-list > li > .row > .problem-title:hover > p a {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .course-item .ask-list .reply-status {
   text-align: right;
@@ -17363,7 +17461,7 @@ abbr {
   color: #20ad65;
 }
 .course-item .ask-list .reply-status > span.no-reply,.course-item .ask-list .reply-status > span.pending {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .course-item .ask-list .reply-status > span.outdate {
   color: #ccc;
@@ -17454,10 +17552,10 @@ abbr {
   width: 120px;
   height: 38px;
   line-height: 36px;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   border-radius: 4px;
   text-align: center;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .edit-box > .problems-edit {
   display: none;
@@ -17476,7 +17574,7 @@ abbr {
 ,.courseware-box > .add-courseware > a:hover
 ,.courseware-msg .file-send > a:hover
 ,.ask-tab .right > a:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .course-item .ask-list li > .ask-info > .edit-box .btn-ask.active
@@ -17588,19 +17686,18 @@ abbr {
   top: 10px;
   color: #999;
 }
-
 .edit-box > .reply-box .reply-list {
   margin-top: 15px;
   color: #666;
+}
+.course-item .reply-box .problem-title p{
+  margin-bottom: 0px;
 }
 #fancybox-buttons a.btnPlay,#fancybox-buttons a.btnToggle {
   display: none;
 }
 #fancybox-buttons ul {
   width: 165px;
-}
-.course-item .reply-box .problem-title p{
-  margin-bottom: 0px;
 }
 @media only screen and (max-width: 1200px) {
 .edit-box > .problems-edit .form-file > .file-num {
@@ -17672,7 +17769,7 @@ abbr {
   margin-right: 0px;
 }
 .courseware-box > .courseware-list .file-handle > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .courseware-msg {
   margin-top: 20px;
@@ -17693,7 +17790,7 @@ abbr {
   height: 32px;
   line-height: 30px;
   text-align: center;
-  border: 1px solid #ff5842;
+  border: 1px solid #c20c0c;
   color: #FF5842;
   display: inline-block;
   font-size: 14px;
@@ -17714,7 +17811,7 @@ abbr {
 .upload-hint {
   display: inline-block;
   font-size: 14px;
-  color: #ff5842;
+  color: #c20c0c;
   margin-right: 20px;
   position: relative;
   cursor:  default;
@@ -17756,7 +17853,7 @@ abbr {
   top: 37px;
 }
 .courseware-msg .file-head .choose-right a:hover {
-  background-color: #FF5842;
+  background-color: #c20c0c;
   color: #fff;
 }
 .courseware-info {
@@ -17873,7 +17970,7 @@ abbr {
   color: #666;
 }
 .ask-tab .left > a.active,.ask-tab .left > a:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .ask-tab .left > span {
   margin: 0 10px;
@@ -17888,7 +17985,7 @@ abbr {
   background-color: #fff;
 }
 .ask-tab.edit-box > .problems-edit .form-submit > input[type='submit']:hover {
-  background-color: #ff5842;
+  background-color: #c20c0c;
 }
 .ask-tab + .ask-list {
   margin-top: 20px;
@@ -18002,11 +18099,11 @@ abbr {
   color: #999;
 }
 .delete:hover {
-  color: #ff5842;
+  color: #c20c0c;
 }
 .edit-box > .problems-edit .form-submit > a {
   position: absolute;
-  color: #ff5842;
+  color: #c20c0c;
   left: 50%;
   top: 50%;
   margin-top: -10px;
@@ -18161,7 +18258,12 @@ abbr {
     right: 10px;
     top: 181px;
 }
-
+.share-item .company {
+  color: #666;
+}
+.share-item .company:hover {
+  color: #c20c0c;
+}
 
 /*个人页分享*/
 .user-message .share-box {
@@ -18176,7 +18278,7 @@ abbr {
 }
 .course-sellingprice > span {
   font-size: 30px;
-  color: #ff5842;
+  color: #c20c0c;
 }
 .course-join .share-box {
   float: right;

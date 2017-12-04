@@ -1,0 +1,67 @@
+<div class="features">
+  <div class="container">
+    <h3><%= t("view.live_studio/#{params[:type]}.introduce.feature") %></h3>
+    <ul>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_1_body") %></p>
+        </div>
+      </li>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module bg-orange">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_2_body") %></p>
+        </div>
+      </li>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module bg-pink">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_3_body") %></p>
+        </div>
+      </li>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module bg-purple">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_4_body") %></p>
+        </div>
+      </li>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module bg-green">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_5_body") %></p>
+        </div>
+      </li>
+      <li class="col-md-4 col-sm-6 col-xs-6">
+        <div class="module bg-blue">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6") %></p>
+        </div>
+        <div class="module-info">
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6_title") %></p>
+          <p><%= t("view.live_studio/#{params[:type]}.introduce.feature_6_body") %></p>
+        </div>
+      </li>
+    </ul>
+    <div class="selection-item">
+      <%= link_to live_studio.video_courses_path do %>
+        <span><%= t("view.live_studio/#{params[:type]}.introduce.buy") %> </span>
+        <i class="fa fa-angle-right"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

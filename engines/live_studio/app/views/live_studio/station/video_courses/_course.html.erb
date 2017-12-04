@@ -10,7 +10,7 @@
   <td><%= l(course.published_at) if course.published_at %></td>
   <td>
     <% if allow? 'live_studio/video_courses', :preview %>
-      <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_video_course_path(course), target: '_blank' %>
+      <%= link_to t('view.live_studio/interactive_course.new.preview'), live_studio.preview_video_course_path(course), target: '_blank' %>
     <% end %>
     <% if allow? 'live_studio/station/video_courses', :send_qr_code, @workstation %>
       <%= link_to t("view.live_studio/station.courses.course.send_qr_code"), send_qr_code_station_workstation_video_course_path(@workstation,course) %>

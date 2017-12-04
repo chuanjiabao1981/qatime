@@ -9,7 +9,8 @@
             <span><%= LiveStudio::Course.model_name.human %></span>
           <% end %>
           <p><%= t('view.home.index.course_introduce.title') %></p>
-          <!-- <%= link_to t('view.home.index.course_introduce.description'), "##", class: 'link-info' %> -->
+          <%= link_to t('view.home.index.course_introduce.description'),
+                      main_app.introduce_home_index_path('course'), class: 'link-info', target: '_blank' %>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
@@ -19,7 +20,8 @@
             <span><%= LiveStudio::VideoCourse.model_name.human %></span>
           <% end %>
           <p><%= t('view.home.index.video_course_introduce.title') %></p>
-          <!-- <%= link_to t('view.home.index.video_course_introduce.description'), "##", class: 'link-info' %> -->
+          <%= link_to t('view.home.index.video_course_introduce.description'),
+                      main_app.introduce_home_index_path('video_course'), class: 'link-info', target: '_blank' %>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
@@ -29,7 +31,8 @@
             <span><%= LiveStudio::InteractiveCourse.model_name.human %></span>
           <% end %>
           <p><%= t('view.home.index.interactive_course_introduce.title') %></p>
-          <!-- <%= link_to t('view.home.index.interactive_course_introduce.description'), "##", class: 'link-info' %> -->
+          <%= link_to t('view.home.index.interactive_course_introduce.description'),
+                      main_app.introduce_home_index_path('interactive_course'), class: 'link-info', target: '_blank' %>
         </div>
       </li>
       <li class="col-md-3 col-sm-6 col-xs-6">
@@ -39,7 +42,8 @@
             <span><%= LiveStudio::CustomizedGroup.model_name.human %></span>
           <% end %>
           <p><%= t('view.home.index.video_course_introduce.title') %></p>
-          <!-- <%= link_to t('view.home.index.customized_group_introduce.description'), "##", class: 'link-info' %> -->
+          <%= link_to t('view.home.index.customized_group_introduce.description'),
+                      main_app.introduce_home_index_path('interactive_course'), class: 'link-info', target: '_blank' %>
         </div>
       </li>
     </ul>

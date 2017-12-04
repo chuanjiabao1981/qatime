@@ -10,7 +10,7 @@
   <td><%= l(customized_group_sell.published_at) if customized_group_sell.published_at %></td>
   <td>
     <% if allow? 'live_studio/customized_groups', :preview %>
-      <%= link_to t('view.live_studio/interactie_course.new.preview'), live_studio.preview_customized_groups_path(id: customized_group_sell.id), target: '_blank', data: {method: :post} %>
+      <%= link_to t('view.live_studio/interactive_course.new.preview'), live_studio.preview_customized_groups_path(id: customized_group_sell.id), target: '_blank', data: {method: :post} %>
     <% end %>
     <% if allow? 'live_studio/station/customized_groups', :send_qr_code, @workstation %>
       <%= link_to t("view.live_studio/station.courses.course.send_qr_code"), send_qr_code_station_workstation_customized_group_path(@workstation, customized_group_sell) %>

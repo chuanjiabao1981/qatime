@@ -2,12 +2,12 @@
   <%= f.input :workstation_id, as: :hidden %>
 
   <div class="editor-item">
-    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>
+    <h3 class="file-title"><%= t('view.live_studio/interactive_course.new.intro_one') %></h3>
     <%= render 'course_fields', f: f %>
   </div>
 
   <div class="editor-item">
-    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
+    <h3 class="file-title"><%= t('view.live_studio/interactive_course.new.intro_two') %></h3>
     <div class="live-arrangement">
       <%= f.fields_for :interactive_lessons do |lesson| %>
         <%= render 'interactive_lesson_fields', f: lesson %>
@@ -19,13 +19,13 @@
   </div>
 
   <div class="editor-item">
-    <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_three') %></h3>
+    <h3 class="file-title"><%= t('view.live_studio/interactive_course.new.intro_three') %></h3>
     <%= render 'course_fields2', f: f %>
 
     <div class="present">
       <center>
-        <%= link_to t('view.live_studio/interactie_course.new.preview'), 'javascript: void(0);', id: 'interactive_course_preview' %>
-        <%= link_to t('view.live_studio/interactie_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
+        <%= link_to t('view.live_studio/interactive_course.new.preview'), 'javascript: void(0);', id: 'interactive_course_preview' %>
+        <%= link_to t('view.live_studio/interactive_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
       </center>
     </div>
   </div>

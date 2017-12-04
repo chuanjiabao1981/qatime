@@ -2,14 +2,14 @@
   <div class="container">
     <h3>如何学习答疑时间小班课</h3>
     <div class="instroduced-area">
-      <video id="video-info" class="video-js video-player" x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
-        <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
+      <video id="video-info" class="video-js video-player" x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <source src="//qatime-production.oss-cn-beijing.aliyuncs.com/introduce/<%= params[:type] %>.mp4" type="video/mp4">
       </video>
     </div>
   </div>
 </div>
 
-<%= render "home/introduce/#{params[:type]}" %>
+<%= render "home/introduce/#{params[:type]}" rescue nil %>
 
 <div class="purchase-process">
   <div class="container">
@@ -38,3 +38,20 @@
     </ul>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<%= javascript_include_tag "live_studio/live_1" %>
+<script>
+$(function() {
+  var myPlayer = neplayer('video-info', {
+    "autoplay": false,
+    controlBar: {
+      'currentTimeDisplay':true,
+      'timeDivider':true,
+      'durationDisplay':true,
+      'remainingTimeDisplay':false
+    }
+  });
+});
+</script>
+<% end %>

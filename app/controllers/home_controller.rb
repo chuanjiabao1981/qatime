@@ -65,7 +65,7 @@ class HomeController < ApplicationController
   end
 
   def introduce
-    
+    render layout: 'v2/player'
   end
 
   def qr_code

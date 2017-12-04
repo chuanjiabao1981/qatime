@@ -40,7 +40,7 @@ Qatime::Application.routes.draw do
       get :search_courses
       get :teachers
       get :replays
-      get 'introduce/:type', action: 'introduce' # 宣传视频
+      get 'introduce/:type', action: 'introduce', as: :introduce # 宣传视频
     end
     member do
       get :replay

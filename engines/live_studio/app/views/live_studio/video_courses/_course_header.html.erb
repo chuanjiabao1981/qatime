@@ -8,14 +8,14 @@
         <div class="course-title">
           <h1><%= truncate_u @video_course.name, length: 24 %></h1>
           <span id="users_count"><%= t('view.live_studio/courses.show.purchase_number2', count: @video_course.users_count ) %></span>
-          <% if allow?('live_studio/video_courses', 'inc_users_count', @course) -%>
+          <% if allow?('live_studio/video_courses', 'inc_users_count', @video_course) -%>
             <%= form_tag live_studio.inc_users_count_video_course_path, method: :post, remote: true do %>
               <%= button_tag '增加', id: 'inc_users_count_link', type: 'button', class: "form-control add" %>
               <span id='inc_users_count_field' style="display: none;" class="add-num">
                 <%= text_field_tag :by, 1, type: 'number', class: 'form-control' %>
                 <%= submit_tag '保存', class: 'form-control' %>
               </span>
-            <% end -%>
+            <% end unless @video_course.new_record? -%>
           <% end %>
         </div>
         <div class="course-line">

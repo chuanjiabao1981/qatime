@@ -17,7 +17,7 @@ module Permissions
         notification
       end
 
-      allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code]
+      allow :home, [:index, :new_index, :switch_city, :search, :search_teachers, :search_courses, :teachers, :replays, :replay, :qr_code, :introduce]
       allow :softwares, [:app]
     end
   end

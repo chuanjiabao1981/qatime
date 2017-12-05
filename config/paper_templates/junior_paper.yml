@@ -1,0 +1,26 @@
+categories:
+  -
+    name: 'Ⅰ听后选择' # 题型名称
+    description: '' # 题型描述
+    total_time: <%= 9 * 60 %> # 总时长
+    topics_count: 8 # 题目数量
+    total_score: 12 # 总分数
+  -
+    name: 'Ⅱ听后回答'
+    description: '' # 题型描述
+    total_time: <%= 5 * 60 %> # 总时长
+    topics_count: 5 # 题目数量
+    total_score: 10 # 总分数
+  -
+    name: 'Ⅲ听后记录&转述'
+    description: '' # 题型描述
+    total_time: <%= 12 * 60 %> # 总时长
+    topics_count: 6 # 题目数量
+    total_score: 10 # 总分数
+  -
+    name: 'Ⅳ朗读短文'
+    description: '' # 题型描述
+    total_time: <%= 4 * 60 %> # 总时长
+    topics_count: 1 # 题目数量
+    total_score: 8 # 总分数
+

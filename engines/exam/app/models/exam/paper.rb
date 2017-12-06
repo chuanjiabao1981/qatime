@@ -4,5 +4,6 @@ module Exam
 
     has_many :topics
     has_many :categories
+    accepts_nested_attributes_for :categories
   end
 end

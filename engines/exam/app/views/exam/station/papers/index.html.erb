@@ -1,0 +1,37 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'exam/station/tab' %>
+
+    <div class="filter">
+      <%= link_to exam.new_station_workstation_paper_path(@workstation), class: 'filter-left' do %>
+        <%= image_tag 'addclass.png' %>
+        <%= t('view.exam/paper.index.new') %>
+      <% end if allow? 'exam/papers', :new %>
+
+    </div>
+
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th><%= t('common.index_no') %></th>
+            <th><%= Exam::Paper.human_attribute_name(:name) %></th>
+            <th><%= Exam::Paper.human_attribute_name(:grade_and_subject) %></th>
+            <th><%= Exam::Paper.human_attribute_name(:duration) %></th>
+            <th><%= Exam::Paper.human_attribute_name(:topics_count) %></th>
+            <th><%= Exam::Paper.human_attribute_name(:price) %></th>
+            <th><%= t('common.operate') %></th>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <%= render 'shared/blank' if @papers.blank? %>
+      <center>
+        <div class="pagination-fix">
+          <%= will_paginate @papers, class: 'paging' %>
+        </div>
+      </center>
+    </div>
+  </div>
+</div>

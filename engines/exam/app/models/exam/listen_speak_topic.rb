@@ -1,5 +1,5 @@
 module Exam
   # 朗读题
-  class ListenSpeakTopic < Topic
+  class ListenSpeakTopic < Exam::Topic
   end
 end

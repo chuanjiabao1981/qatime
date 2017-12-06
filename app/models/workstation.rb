@@ -3,6 +3,8 @@ class Workstation < ActiveRecord::Base
   include AASM
   extend Enumerize
 
+  include Exam::Association::Workstation
+
   # stop: 未运营 running: 运营中
   enum status: { stopping: 0, running: 1 }
   enumerize :status, in: { stopping: 0, running: 1 }

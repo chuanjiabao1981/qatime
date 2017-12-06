@@ -1,3 +1,4 @@
+# This migration comes from exam (originally 20171205060202)
 class CreateExamCategories < ActiveRecord::Migration
   def change
     create_table :exam_categories do |t|

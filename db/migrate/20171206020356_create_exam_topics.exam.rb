@@ -1,3 +1,4 @@
+# This migration comes from exam (originally 20171205060227)
 class CreateExamTopics < ActiveRecord::Migration
   def change
     create_table :exam_topics do |t|

@@ -1,5 +1,5 @@
 module Exam
   # 听后记录题
-  class ListenWriteTopic < Topic
+  class ListenWriteTopic < Exam::Topic
   end
 end

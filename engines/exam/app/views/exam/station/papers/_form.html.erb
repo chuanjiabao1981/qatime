@@ -1,0 +1,17 @@
+<%= form_for(@station_paper) do |f| %>
+  <% if @station_paper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@station_paper.errors.count, "error") %> prohibited this station_paper from being saved:</h2>
+
+      <ul>
+      <% @station_paper.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

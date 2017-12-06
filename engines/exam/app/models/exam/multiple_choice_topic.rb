@@ -1,5 +1,5 @@
 module Exam
   # 多选题
-  class MultipleChoiceTopic < Topic
+  class MultipleChoiceTopic < Exam::Topic
   end
 end

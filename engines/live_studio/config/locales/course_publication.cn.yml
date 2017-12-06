@@ -5,22 +5,22 @@ cn:
     attributes:
       course_library/course_publication:
         publish_lecture_switch: 讲义是否发布
-        customized_course: 小班课程
+        customized_course: 专属课程
         homeworks: 作业与练习
   view:
     course_library/course_publication:
       homework_publications_count: 已发布作业个数
       publish_success: 课程发布成功
       un_publish_success: 成功撤销大纲课程的发布
-      un_publish_fail: 未能撤销大纲课程的发布，因为小班课程已计费
+      un_publish_fail: 未能撤销大纲课程的发布，因为专属课程已计费
       un_publish: 撤销
-      un_publish_warn: 撤销后将会再小班课程中删除此课程，您确定要撤销吗？
-      publish: 发布到小班课程
+      un_publish_warn: 撤销后将会再专属课程中删除此课程，您确定要撤销吗？
+      publish: 发布到专属课程
       publish_time: 发布时间
-      sync_success: 成功完成大纲课程和小班课程的同步
-      sync_fail: 未能完成大纲课程和专属可成的同步，因为小班课程已计费
+      sync_success: 成功完成大纲课程和专属课程的同步
+      sync_fail: 未能完成大纲课程和专属可成的同步，因为专属课程已计费
       sync: 同步
-      no_customized_course_available: 没有可使用此大纲课程的小班课程
+      no_customized_course_available: 没有可使用此大纲课程的专属课程
       is_same: 是否一致
       operation: 操作
 

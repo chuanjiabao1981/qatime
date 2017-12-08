@@ -1,0 +1,20 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'station/course/tab' %>
+    <div class="create-header">
+      <%= link_to exam.station_workstation_papers_path(@workstation), class: 'back' do %>
+        <i class="fa fa-angle-left"></i>
+        返回
+      <% end %>
+      <h3><%= t('view.exam/topic.edit.title') %></h3>
+    </div>
+
+    <div class="new-curriculum">
+      <div class="editor-con">
+        <div class="editor-msg">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

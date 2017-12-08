@@ -1,0 +1,15 @@
+<div class="row qa_item">
+  <div class="col-md-6">
+    <span><%= group_topic.name %></span>
+    <span>（已编辑 <%= group_topic.finished_topics_count %>/<%= group_topic.total_topics_count %>）</span>
+  </div>
+  <div class="col-md-6 right">
+    <span>
+      <% if group_topic.package_topic %>
+        <%= link_to "编辑试题", exam.edit_station_workstation_package_topic_path(@workstation, group_topic.package_topic) %>
+      <% else %>
+        <%= link_to "编辑试题", exam.edit_station_workstation_group_topic_path(@workstation, group_topic) %>
+      <% end %>
+    </span>
+  </div>
+</div>

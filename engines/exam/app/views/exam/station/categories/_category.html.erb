@@ -1,0 +1,10 @@
+<div class='qa_pannel_item'>
+  <div class="qa_pannel_head">
+    <h3><%= category.name %></h3>
+    <%= link_to "查看题型说明", "##", class: 'title_link' %>
+  </div>
+  <div class="qa_pannel_body">
+    <%= render category.topics %>
+  </div>
+  
+</div>

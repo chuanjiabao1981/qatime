@@ -394,6 +394,7 @@ ActiveRecord::Schema.define(version: 20171206020357) do
   create_table "exam_papers", force: :cascade do |t|
     t.integer  "workstation_id"
     t.string   "name"
+    t.string   "grade_category"
     t.string   "grade"
     t.string   "subject"
     t.decimal  "price",          precision: 8, scale: 2
@@ -412,15 +413,17 @@ ActiveRecord::Schema.define(version: 20171206020357) do
     t.integer  "category_id"
     t.integer  "package_topic_id"
     t.integer  "group_topic_id"
+    t.integer  "topics_count",     default: 0
     t.string   "name"
-    t.string   "title"
+    t.text     "title"
     t.string   "attach"
     t.integer  "score"
     t.string   "answer"
     t.string   "answer_attach"
     t.string   "type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "status",           default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "exam_topics", ["category_id"], name: "index_exam_topics_on_category_id", using: :btree

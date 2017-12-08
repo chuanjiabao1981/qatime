@@ -1,17 +1,40 @@
-<%= form_for(@station_paper) do |f| %>
-  <% if @station_paper.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@station_paper.errors.count, "error") %> prohibited this station_paper from being saved:</h2>
-
-      <ul>
-      <% @station_paper.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for [:station, @workstation, @paper] do |f| %>
+  <dir class="editor-item">
+    <h3 class="file-title"> &nbsp; </h3>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :name, required: true %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input :name, label: false %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :grade_category, required: true %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input :grade_category, collection: APP_CONSTANT['categories'], label: false %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :subject, required: true %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input :subject, collection: APP_CONSTANT['subjects'], label: false, prompt: t('view.course_form.placeholders.subject') %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :price, required: true %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input :price, label: false %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </dir>
 <% end %>

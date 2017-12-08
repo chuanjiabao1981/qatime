@@ -1,0 +1,50 @@
+table td.filled {
+  background-color: #fafafa;
+}
+.qa_pannel {
+  margin: 15px;
+  padding: 15px 15px 0;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+.qa_pannel_body {
+  min-height: 50px;
+}
+
+.qa_pannel h1, h2, h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size:  16px;
+  color: #666666;
+  display: inline-block;
+}
+
+.qa_pannel_item {
+  margin-bottom: 30px;
+}
+
+.qa_pannel_item .qa_pannel_head {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.qa_pannel_item .qa_pannel_head .title_link {
+  display: inline-block;
+  font-size:  14px;
+  color: #000000;
+  float: right;
+}
+
+.qa_item {
+  margin: 1px 0px;
+  background-color: #fafafa;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.qa_item .right {
+  text-align: right;
+}
+.qa_item span {
+  min-width: 200px;
+}

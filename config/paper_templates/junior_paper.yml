@@ -12,6 +12,7 @@ categories_attributes:
         score: 3
         topics_attributes:
           -
+            name: 01题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -22,6 +23,7 @@ categories_attributes:
               -
                 name: C
           -
+            name: 02题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -36,6 +38,7 @@ categories_attributes:
         score: 3
         topics_attributes:
           -
+            name: 03题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -46,6 +49,7 @@ categories_attributes:
               -
                 name: C
           -
+            name: 04题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -60,6 +64,7 @@ categories_attributes:
         score: 3
         topics_attributes:
           -
+            name: 05题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -70,6 +75,7 @@ categories_attributes:
               -
                 name: C
           -
+            name: 06题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -84,6 +90,7 @@ categories_attributes:
         score: 3
         topics_attributes:
           -
+            name: 07题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:
@@ -94,6 +101,7 @@ categories_attributes:
               -
                 name: C
           -
+            name: 08题
             score: 1.5
             type: Exam::SingleChoiceTopic
             options_attributes:

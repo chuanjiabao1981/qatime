@@ -1,0 +1,24 @@
+<div class="editor-item">
+  <h3 class="file-title">设置问题（记录题）</h3>
+  <div class="row">
+    <div class="col-md-2">
+      <label><%= f.object.name %></label>
+    </div>
+    <div class="col-md-10">
+      <%= f.label :title %>
+      <%= f.input_field :title %>
+
+      <label><%= f.object.class.human_attribute_name(:answer) %></label>
+      <%= f.fields_for :topics do |topic_form| %>
+        <div class="row">
+          <div class="col-md-2">
+            <label><%= topic_form.object.name %></label>
+          </div>
+          <div class="col-md-10">
+            <%= topic_form.input_field :answer %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

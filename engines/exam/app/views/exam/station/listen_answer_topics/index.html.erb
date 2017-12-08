@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Station Group Topics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @station_group_topics.each do |station_group_topic| %>
+      <tr>
+        <td><%= link_to 'Show', station_group_topic %></td>
+        <td><%= link_to 'Edit', edit_station_group_topic_path(station_group_topic) %></td>
+        <td><%= link_to 'Destroy', station_group_topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Group topic', new_station_group_topic_path %>

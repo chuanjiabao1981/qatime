@@ -2,7 +2,7 @@ require_dependency "exam/application_controller"
 
 module Exam
   class Station::PapersController < Station::ApplicationController
-    before_action :set_station_paper, only: [:show, :edit, :update, :destroy]
+    before_action :set_paper, only: [:show, :edit, :update, :destroy]
 
     # GET /station/papers
     def index
@@ -25,10 +25,11 @@ module Exam
 
     # POST /station/papers
     def create
-      @station_paper = Station::Paper.new(station_paper_params)
+      @paper = Exam::JuniorPaper.new(paper_params)
+      @paper.workstation = @workstation
 
-      if @station_paper.save
-        redirect_to @station_paper, notice: 'Paper was successfully created.'
+      if @paper.save
+        redirect_to station_workstation_papers_path(@workstation), notice: 'Paper was successfully created.'
       else
         render :new
       end
@@ -50,18 +51,19 @@ module Exam
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_station_paper
-        @station_paper = Station::Paper.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def station_paper_params
-        params[:station_paper]
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_paper
+      @paper = Paper.find(params[:id])
+    end
 
-      def search_params
-        params.permit(:status)
-      end
+    # Only allow a trusted parameter "white list" through.
+    def paper_params
+      params.require(:paper).permit(:name, :grade_category, :subject, :price)
+    end
+
+    def search_params
+      params.permit(:status)
+    end
   end
 end

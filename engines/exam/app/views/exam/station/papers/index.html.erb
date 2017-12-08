@@ -22,7 +22,7 @@
             <th><%= Exam::Paper.human_attribute_name(:price) %></th>
             <th><%= t('common.operate') %></th>
           </tr>
-
+          <%= render partial: 'exam/station/papers/paper', collection: @papers %>
         </tbody>
       </table>
 

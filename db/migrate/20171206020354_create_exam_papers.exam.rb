@@ -4,6 +4,7 @@ class CreateExamPapers < ActiveRecord::Migration
     create_table :exam_papers do |t|
       t.belongs_to :workstation, index: true, foreign_key: true
       t.string :name
+      t.string :grade_category
       t.string :grade
       t.string :subject
       t.decimal :price, precision: 8, scale: 2

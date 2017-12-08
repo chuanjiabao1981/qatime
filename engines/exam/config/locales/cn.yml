@@ -1,0 +1,36 @@
+cn:
+  activerecord:
+    models:
+      exam/paper: 在线模考
+      exam/topic: 试题
+      exam/category: 题型
+    attributes:
+      exam/paper:
+        name: 试卷名称
+        grade_category: 适考年级
+        subject: 适考科目
+        price: 价格
+        name: 试卷名称
+        duration: 考卷时长
+        topics_count: 考题数量
+        grade_and_subject: 年级/科目
+      exam/topic:
+        title: 题干
+        attach: 音频文件
+        answer: 答案
+        answer_attach: 答案
+        options: 选项
+      exam/category:
+    errors:
+      models:
+        exam/paper:
+          attributes:
+            name:
+              blank: 试卷名称不能为空
+            price:
+              blank: 价格不能为空
+              greater_than: 价格必须大于 %{count}
+            subject:
+              blank: 请选择科目
+            grade_category:
+              blank: 请选择年级

@@ -137,6 +137,15 @@ cn:
         blank: 尚未上传文件
       file_id:
         blank: 尚未上传文件
+    exam/paper:
+      name:
+        blank: 试卷名称不能为空
+      grade_category:
+        blank: 请选择年级类型
+      subject:
+        blank: 请选择科目
+      price:
+        blank: 请输入价格
   placeholders:
     live_sutdio/announcement:
       content: 请输入公告内容（最多%{count}字）

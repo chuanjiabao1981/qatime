@@ -174,7 +174,7 @@ class TeachersController < ApplicationController
     @interactive_course_has_more = teacher_data.more_profile_interactive_course?
     @video_course_has_more = teacher_data.more_profile_video_course?
     @customized_group_has_more = teacher_data.more_profile_customized_group?
-    render layout: 'v1/application'
+    render layout: 'v2/application'
   end
 
   private

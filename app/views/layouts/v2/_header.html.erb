@@ -10,7 +10,7 @@
       <%= link_to image_tag('qatime-logo.png'), home_path, class: 'navbar-brand' %>
       <span class="switch">
         <i><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></i>
-        <%= link_to_unless_current "[#{t('view.common_bars.switch_city')}]", switch_city_home_index_path %>
+        <%= link_to_unless_current @location_city.try(:name) || t('view.common_bars.nationwide'), switch_city_home_index_path %>
       </span>
     </div>
     <div class="collapse navbar-collapse pull-left" id="bs-example-navbar-collapse-1">

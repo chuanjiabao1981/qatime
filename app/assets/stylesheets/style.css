@@ -52,3 +52,61 @@ table td.filled {
 .qa_item span {
   min-width: 200px;
 }
+
+.paper-list li {
+  padding: 15px 5px;
+}
+
+.paper-list li .item {
+  border-radius: 7.75px;
+  border: 1px solid rgb(242, 242, 242);
+  padding: 10px;
+  height:  135px;
+}
+
+.paper-list h3 a strong {
+  color: #34495e;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.paper-list li .item div {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.paper-list li .item div span {
+  border-left: 1px solid #34495e;
+  padding-left: 5px;
+}
+.paper-list li .item div span.first {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.paper-list {
+  margin-bottom: 0px;
+  min-height: 600px;
+  padding-left: 10px;
+  padding-right: 10px;
+  zoom: 1;
+}
+
+.paper-list li .item div.buttom {
+  margin-top: 40px;
+}
+
+.paper-list li .item div span.price {
+  border-left: 0;
+  color: #FF6600;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 0;
+}
+
+.paper-list li .item div span.users_count {
+  border-left: 0;
+  display: inline-block;
+  float: right;
+  padding-left: 0;
+}

@@ -1,0 +1,39 @@
+<div class="line-item">
+  <div class="container">
+    <% if @papers.present? %>
+      <ul class="paper-list">
+        <% @papers.each do |paper| %>
+          <li class="col-md-6 col-sm-6">
+            <div class='item'>
+              <h3>
+                <%= link_to exam.paper_path(paper) do %>
+                  <strong><%= paper.name %></strong>
+                <% end %>
+              </h3>
+              <div>
+                <span class="first"><%= paper.duration %>分钟</span>
+                <span>共<%= paper.topics_count %>小题</span>
+                <span><%= paper.grade_category %><%= paper.subject %></span>
+              </div>
+
+              <div class="buttom">
+                <span class="price">
+                  <%= paper.price %>
+                </span>
+                <span class="users_count">
+                  已考人数 <%= paper.users_count %>
+                </span>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= render partial: 'shared/blank_search' %>
+    <% end %>
+    
+    <center><div class="pagination-fix"><%= will_paginate @papers, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+  </div>
+</div>
+
+

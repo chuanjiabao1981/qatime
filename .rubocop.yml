@@ -55,3 +55,7 @@ Style/PercentLiteralDelimiters:
 
 Style/FileName:
   Enabled: false
+
+Documentation:
+  Enabled: false
+

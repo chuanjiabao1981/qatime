@@ -1,0 +1,12 @@
+<%= search_form_for @q, id: 'search-form' do |f| %>
+  <ul class="personal-nav">
+    <li class="filter-condition">
+      <span class="nav-hot">
+        <%= f.sort_link :published_at, Exam::Paper.human_attribute_name(:latest) %>
+        <%= f.sort_link :left_price, Exam::Paper.human_attribute_name(:price) %>
+        <%= f.sort_link :users_count, Exam::Paper.human_attribute_name(:users_count), default_order: :desc %>
+      </span>
+    </li>
+  </ul>
+<% end %>
+

@@ -1,4 +1,6 @@
 Exam::Engine.routes.draw do
+  resources :papers, only: [:index, :show]
+
   namespace :station do
     resources :workstations, only: [] do
       resources :papers do

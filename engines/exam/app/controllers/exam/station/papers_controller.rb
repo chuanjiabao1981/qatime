@@ -29,7 +29,7 @@ module Exam
       @paper.workstation = @workstation
 
       if @paper.save
-        redirect_to station_workstation_papers_path(@workstation), notice: 'Paper was successfully created.'
+        redirect_to station_workstation_paper_path(@workstation, @paper), notice: 'Paper was successfully created.'
       else
         render :new
       end
@@ -37,8 +37,8 @@ module Exam
 
     # PATCH/PUT /station/papers/1
     def update
-      if @station_paper.update(station_paper_params)
-        redirect_to @station_paper, notice: 'Paper was successfully updated.'
+      if @paper.update(paper_params)
+        redirect_to station_workstation_paper_path(@workstation, @paper), notice: 'Paper was successfully created.'
       else
         render :edit
       end

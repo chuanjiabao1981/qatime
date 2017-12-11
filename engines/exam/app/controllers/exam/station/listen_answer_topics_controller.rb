@@ -11,7 +11,7 @@ module Exam
     # PATCH/PUT /station/group_topics/1
     def update
       if @listen_answer_topic.update(listen_answer_topic_params)
-        redirect_to @listen_answer_topic, notice: 'Group topic was successfully updated.'
+        redirect_to station_workstation_paper_path(@workstation, @listen_answer_topic.paper), notice: 'Group topic was successfully updated.'
       else
         render :edit
       end

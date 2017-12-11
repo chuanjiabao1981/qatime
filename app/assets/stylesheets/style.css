@@ -19,6 +19,10 @@ table td.filled {
   color: #666666;
   display: inline-block;
 }
+.qa_detail {
+  line-height: 30px;
+  padding-bottom: 20px;
+}
 
 .qa_pannel_item {
   margin-bottom: 30px;

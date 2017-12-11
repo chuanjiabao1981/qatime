@@ -1,8 +1,8 @@
 require_dependency "exam/application_controller"
 
 module Exam
-  class Station::GroupTopicsController < Station::ApplicationController
-    before_action :set_group_topic, only: [:edit, :update]
+  class Station::ListenReportTopicsController < Station::ApplicationController
+    before_action :set_listen_report_topic, only: [:edit, :update]
 
     # GET /station/group_topics/1/edit
     def edit
@@ -10,8 +10,8 @@ module Exam
 
     # PATCH/PUT /station/group_topics/1
     def update
-      if @group_topic.update(group_topic_params)
-        redirect_to station_workstation_paper_path(@workstation, @group_topic.paper), notice: 'Group topic was successfully updated.'
+      if @listen_report_topic.update(listen_report_topic_params)
+        redirect_to @listen_report_topic, notice: 'Group topic was successfully updated.'
       else
         render :edit
       end
@@ -20,13 +20,13 @@ module Exam
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_group_topic
-      @group_topic = Exam::GroupTopic.find(params[:id])
+    def set_listen_report_topic
+      @listen_report_topic = Exam::ListenReportTopic.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def group_topic_params
-      params.require(:group_topic).permit(
+    def listen_report_topic_params
+      params.require(:listen_report_topic).permit(
         :attach,
         topics_attributes: [
           :title, :answer,

@@ -8,15 +8,6 @@
   <td>
     <%= link_to "发布", exam.publish_station_workstation_paper_path(@workstation, paper),
                 data: { method: :patch, confirm: '确认发布?' } if paper.unpublished? && allow?('exam/station/papers', :publish, @workstation) %>
-    <%= link_to "详情", exam.station_workstation_paper_path(@workstation, paper),
-                remote: true if paper.unpublished? %>
-  </td>
-</tr>
-
-<tr>
-  <td colspan="7" class="filled">
-    <div class="qa_pannel">
-      <%= render partial: 'exam/station/categories/category', collection: paper.categories %>
-    </div>
+    <%= link_to "详情", exam.station_workstation_paper_path(@workstation, paper) %>
   </td>
 </tr>

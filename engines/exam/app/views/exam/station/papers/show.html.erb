@@ -1,4 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="article">
+  <div class="work-station">
+    <%= render 'exam/station/tab' %>
+    <div class="create-header">
+      <%= link_to exam.station_workstation_papers_path(@workstation), class: 'back' do %>
+        <i class="fa fa-angle-left"></i>
+        返回
+      <% end %>
+      <h3>试卷详情</h3>
+    </div>
 
-<%= link_to 'Edit', edit_station_paper_path(@station_paper) %> |
-<%= link_to 'Back', station_papers_path %>
+    <div class="sold-tab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td colspan="" class="filled">
+            <div class="qa_pannel qa_detail">
+              <div class="row">
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:name) %></div>
+                <div class="col-md-4"><%= @paper.name %></div>
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:grade_and_subject) %></div>
+                <div class="col-md-4"><%= @paper.grade_category %>/<%= @paper.subject %></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:duration) %></div>
+                <div class="col-md-4"><%= @paper.duration %></div>
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:topics_count) %></div>
+                <div class="col-md-4"><%= @paper.topics_count %></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:price) %></div>
+                <div class="col-md-4"><%= @paper.price %></div>
+                <div class="col-md-2"><%= Exam::Paper.human_attribute_name(:topics_count) %></div>
+                <div class="col-md-4"><%= @paper.topics_count %></div>
+              </div>
+            </div>
+            <div class="qa_pannel">
+              <%= render partial: 'exam/station/categories/category', collection: @paper.categories %>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+

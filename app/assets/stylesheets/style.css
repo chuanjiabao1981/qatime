@@ -207,3 +207,10 @@ table td.filled {
 .paper-body .sold-tab > table tr th:last-child, .paper-body .sold-tab > table tr td:last-child {
   border-right: 1px solid #ccc;
 }
+
+.student-buy .goods-info {
+  height: 160px;
+}
+.student-buy .method-info {
+  height: 160px;
+}

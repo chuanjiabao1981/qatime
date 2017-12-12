@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206020357) do
+ActiveRecord::Schema.define(version: 20171212082254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -408,6 +408,18 @@ ActiveRecord::Schema.define(version: 20171206020357) do
   end
 
   add_index "exam_papers", ["workstation_id"], name: "index_exam_papers_on_workstation_id", using: :btree
+
+  create_table "exam_tickets", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.integer  "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "exam_tickets", ["product_type", "product_id"], name: "index_exam_tickets_on_product_type_and_product_id", using: :btree
+  add_index "exam_tickets", ["student_id"], name: "index_exam_tickets_on_student_id", using: :btree
 
   create_table "exam_topics", force: :cascade do |t|
     t.integer  "paper_id"

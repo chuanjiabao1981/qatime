@@ -8,6 +8,9 @@ module Exam
 
     has_many :topics
     has_many :categories
+    has_many :tickets, as: :product
+    has_many :students, through: :tickets
+
     accepts_nested_attributes_for :categories
 
     validates :name, presence: true
@@ -15,12 +18,38 @@ module Exam
     validates :subject, presence: true
     validates :price, presence: true, numericality: { greater_than: 0 }
 
+    def for_sell?
+      published?
+    end
+
     def users_count
       0
     end
 
+    def current_price
+      price
+    end
+
     def grade_category_subject
       "#{grade_category}#{subject}"
+    end
+
+    # 已经购买
+    def bought_by?(user)
+      user.present? && students.include?(user)
+    end
+
+    def order_params
+      { total_amount: current_price, amount: current_price, product: self }
+    end
+
+    def validate_order(order)
+      user = order.user
+      p user
+      p '----->>>>>'
+      order.errors[:product] << '商品不存在或者已下架' unless for_sell?
+      order.errors[:product] << '只有学生可以购买' unless user.student?
+      order.errors[:product] << '您已经购买过该试卷' if bought_by?(user)
     end
   end
 end

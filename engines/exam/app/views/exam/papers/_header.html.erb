@@ -17,7 +17,11 @@
         <span class="price"><%= @paper.price %></span>
 
         <span class="price-right">
-          <a class="btn-addclass action" href="javascript:alert('请使用学生帐号操作');">立即报名</a>
+          <% if @paper.bought_by?(current_user) %>
+            <%= render 'btn_play' %>
+          <% else %>
+            <%= render 'btn_buy' %>
+          <% end %>
         </span>
       </div>
     </div>

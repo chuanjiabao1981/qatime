@@ -1,5 +1,6 @@
 class Student < User
   include Registable
+  include Exam::Association::Student
 
   default_scope {where(role: 'student')}
 

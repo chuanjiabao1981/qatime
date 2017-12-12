@@ -5,10 +5,12 @@ class CreateExamTopics < ActiveRecord::Migration
       t.belongs_to :category, index: true
       t.belongs_to :package_topic, index: true
       t.belongs_to :group_topic, index: true
-      t.integer :topics_count, default: 0
       t.string :name
+      t.string :section_name
       t.string :title
       t.string :attach
+      t.integer :topics_count, default: 1
+      t.integer :duration
       t.integer :score
       t.string :answer
       t.string :answer_attach

@@ -8,9 +8,9 @@ class CreateExamCategories < ActiveRecord::Migration
       t.integer :play_times
       t.integer :interval_time
       t.integer :waiting_time
-      t.integer :total_time
-      t.integer :topics_count
-      t.integer :total_score
+      t.integer :topics_count, default: 0
+      t.integer :duration
+      t.integer :score
       t.string :type
 
       t.timestamps null: false

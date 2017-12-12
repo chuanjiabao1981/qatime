@@ -10,11 +10,12 @@ class CreateExamPapers < ActiveRecord::Migration
       t.decimal :price, precision: 8, scale: 2
       t.integer :status
       t.integer :topics_count, default: 0
-      t.integer :users_count, default: 0
       t.integer :duration
+      t.integer :score
       t.string :type
 
       t.timestamps null: false
     end
   end
 end
+

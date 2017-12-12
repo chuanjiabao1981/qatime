@@ -370,12 +370,12 @@ ActiveRecord::Schema.define(version: 20171206020357) do
     t.integer  "play_times"
     t.integer  "interval_time"
     t.integer  "waiting_time"
-    t.integer  "total_time"
-    t.integer  "topics_count"
-    t.integer  "total_score"
+    t.integer  "topics_count",  default: 0
+    t.integer  "duration"
+    t.integer  "score"
     t.string   "type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "exam_categories", ["paper_id"], name: "index_exam_categories_on_paper_id", using: :btree
@@ -399,11 +399,12 @@ ActiveRecord::Schema.define(version: 20171206020357) do
     t.string   "subject"
     t.decimal  "price",          precision: 8, scale: 2
     t.integer  "status"
-    t.integer  "topics_count"
+    t.integer  "topics_count",                           default: 0
     t.integer  "duration"
+    t.integer  "score"
     t.string   "type"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "exam_papers", ["workstation_id"], name: "index_exam_papers_on_workstation_id", using: :btree
@@ -413,10 +414,12 @@ ActiveRecord::Schema.define(version: 20171206020357) do
     t.integer  "category_id"
     t.integer  "package_topic_id"
     t.integer  "group_topic_id"
-    t.integer  "topics_count",     default: 0
     t.string   "name"
-    t.text     "title"
+    t.string   "section_name"
+    t.string   "title"
     t.string   "attach"
+    t.integer  "topics_count",     default: 1
+    t.integer  "duration"
     t.integer  "score"
     t.string   "answer"
     t.string   "answer_attach"

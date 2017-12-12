@@ -8,8 +8,9 @@ class CreateExamPapers < ActiveRecord::Migration
       t.string :subject
       t.decimal :price, precision: 8, scale: 2
       t.integer :status
-      t.integer :topics_count
+      t.integer :topics_count, default: 0
       t.integer :duration
+      t.integer :score
       t.string :type
 
       t.timestamps null: false

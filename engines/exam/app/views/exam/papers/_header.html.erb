@@ -1,0 +1,25 @@
+<div class="paper-header">
+  <div class="container">
+    <div class="row paper-class">
+      <div class="paper-title share-item">
+        <h3>
+          <%= @paper.name %>
+          <span>已考人数 1000</span>
+        </h3>
+        <span class="share-box">
+          <a href="javascript:void(0);" class="bds_weixin" title="分享到微信">
+            <i class="wechat" style="display: none;"></i>
+          </a>
+        </span>
+      </div>
+
+      <div class="course-join">
+        <span class="price"><%= @paper.price %></span>
+
+        <span class="price-right">
+          <a class="btn-addclass action" href="javascript:alert('请使用学生帐号操作');">立即报名</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

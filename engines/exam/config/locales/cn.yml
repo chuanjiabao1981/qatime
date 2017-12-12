@@ -14,6 +14,7 @@ cn:
         duration: 考卷时长
         topics_count: 考题数量
         grade_and_subject: 年级/科目
+        grade_category_subject: 适考范围
       exam/topic:
         title: 题干
         attach: 音频文件

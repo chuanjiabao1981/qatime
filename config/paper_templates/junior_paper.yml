@@ -1,10 +1,13 @@
+duration: 1800
+score: 40
+topics_count: 20
 categories_attributes:
   -
     name: 'Ⅰ听后选择' # 题型名称
     description: '' # 题型描述
-    total_time: <%= 9 * 60 %> # 总时长
+    duration: 540 # 总时长
     topics_count: 8 # 题目数量
-    total_score: 12 # 总分数
+    score: 12 # 总分数
     type: Exam::ListenSelection
     group_topics_attributes:
       -
@@ -115,9 +118,9 @@ categories_attributes:
   -
     name: 'Ⅱ听后回答'
     description: '' # 题型描述
-    total_time: <%= 5 * 60 %> # 总时长
+    duration: 300 # 总时长
     topics_count: 5 # 题目数量
-    total_score: 10 # 总分数
+    score: 10 # 总分数
     type: Exam::ListenAnswer
     topics_attributes:
       -
@@ -143,18 +146,21 @@ categories_attributes:
   -
     name: 'Ⅲ听后记录&转述'
     description: '' # 题型描述
-    total_time: <%= 12 * 60 %> # 总时长
+    duration: 720 # 总时长
     topics_count: 6 # 题目数量
-    total_score: 10 # 总分数
+    score: 10 # 总分数
     type: Exam::ListenWriteReport
     package_topics_attributes:
       -
         name: 14-19题
         score: 10
+        duration: 720
         group_topics_attributes:
           -
-            name: 14-18题 [第一节]
             score: 5
+            section_name: 第一节
+            topics_count: 0
+            duration: 300
             topics_attributes:
               -
                 name: 14题
@@ -178,15 +184,17 @@ categories_attributes:
                 type: Exam::ListenWriteTopic
         topics_attributes:
           -
-            name: 19题 [第二节]
+            section_name: 第二节
+            name: 19题
             score: 5
+            duration: 420
             type: Exam::ListenReportTopic
   -
     name: 'Ⅳ朗读短文'
     description: '' # 题型描述
-    total_time: <%= 4 * 60 %> # 总时长
+    duration: 2400 # 总时长
     topics_count: 1 # 题目数量
-    total_score: 8 # 总分数
+    score: 8 # 总分数
     type: Exam::ListenSpeak
     topics_attributes:
       -

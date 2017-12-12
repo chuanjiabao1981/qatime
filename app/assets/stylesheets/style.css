@@ -110,3 +110,100 @@ table td.filled {
   float: right;
   padding-left: 0;
 }
+
+.paper-header .container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.paper-header .container .paper-class {
+  margin: 0;
+  position: relative;
+  height: 140px;
+}
+
+.paper-header h3 span {
+  font-size: 12px;
+  border-left: 1px solid #999999;
+  color: #999999;
+  margin-left: 10px;
+  padding-left: 5px;
+}
+
+.paper-header h3 {
+  display: inline-block;
+}
+
+.paper-header span.share-box {
+  display: inline-block;
+  float: right;
+  margin-top: 0;
+}
+
+.paper-header .share-item .share-box a.bds_weixin .wechat {
+  top: 30px;
+}
+
+.paper-class .course-join .price {
+  font-size: 24px;
+  font-weight: 400;
+  font-style: normal;
+  color: #FF6600;
+  position: relative;
+}
+
+
+.paper-class .course-join .price-right {
+  display: inline-block;
+  float: right;
+}
+
+.paper-body {
+  border: 1px solid #F2F2F2;
+}
+
+.paper-body .qa_detail {
+  padding: 0;
+}
+
+.col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.exam-flow .num {
+  border-radius: 50%;
+  background-color: #00CCFF;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  position: relative;
+  text-align: center;
+  line-height: 48px;
+  display: inline-block;
+  float: left;
+}
+
+.exam-flow span {
+  border: 1px solid #00CCFF;
+  border-left: none;
+  padding: 5px 10px;
+  margin-left: -5px;
+  font-size: 14px;
+  color: #00CCFF;
+  font-weight: 400;
+  float: left;
+  line-height: 26px;
+  margin-top: 5px;
+}
+
+.paper-body .sold-tab > table tr th:first-child, .paper-body .sold-tab > table tr td:first-child {
+  border-left: 1px solid #ccc;
+}
+.paper-body .sold-tab > table tr th:last-child, .paper-body .sold-tab > table tr td:last-child {
+  border-right: 1px solid #ccc;
+}

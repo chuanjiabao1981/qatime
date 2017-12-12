@@ -18,5 +18,9 @@ module Exam
     def users_count
       0
     end
+
+    def grade_category_subject
+      "#{grade_category}#{subject}"
+    end
   end
 end

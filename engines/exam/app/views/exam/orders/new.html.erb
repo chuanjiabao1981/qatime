@@ -1,0 +1,35 @@
+<div class="common-space">
+  <div class="container">
+    <div class="apply-tea">
+      <div class="tutoring-title">
+        <h3><%= t('view.payment_show.order_confirm') %></h3>
+      </div>
+      <div class="student-buy">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      // 下单校验
+      $('#new_order').submit(function(){
+
+        if($('input.order_pay_type:checked').size() == 0){
+          alert('<%= t("view.course_order_new.order_pay_type_none") %>');
+          return false;
+        }
+
+        var available_balance = parseFloat($('#available_balance').data('total')),
+            current_order_total = parseFloat( $('#order_total').data('total') );
+        if( $('.order_pay_type:checked').val() == 'account' && available_balance < current_order_total ){
+          alert('<%= t("view.course_order_new.available_balance_error") %>');
+          return false;
+        }
+
+      });
+    })
+  </script>
+<% end %>

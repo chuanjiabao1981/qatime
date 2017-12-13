@@ -51,6 +51,31 @@ module V1
             end
             present paper, root: :paper, with: Entities::Exam::PaperDetail
           end
+
+          route_param :paper_id do
+            before do
+              authenticate!
+            end
+            desc '试卷购买' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :paper_id, desc: '辅导班ID'
+              requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
+            end
+            post '/:id/orders' do
+              paper = ::Exam::Paper.find(params[:paper_id])
+              order = ::Payment::Order.new(paper.order_params.merge(pay_type: params[:pay_type],
+                                                                    remote_ip: client_ip,
+                                                                    source: :student_app, user: current_user))
+              order.save
+              raise ActiveRecord::RecordInvalid, order if order.errors.any?
+              present order, with: Entities::Payment::Order
+            end
+          end
         end
       end
     end

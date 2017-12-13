@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 
+  product_id: 
+  product_type: Product
+  status: 1
+
+two:
+  student_id: 
+  product_id: 
+  product_type: Product
+  status: 1

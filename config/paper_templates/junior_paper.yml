@@ -1,0 +1,205 @@
+duration: 1800
+score: 40
+topics_count: 20
+categories_attributes:
+  -
+    name: 'Ⅰ听后选择' # 题型名称
+    description: '' # 题型描述
+    duration: 540 # 总时长
+    topics_count: 8 # 题目数量
+    score: 12 # 总分数
+    type: Exam::ListenSelection
+    group_topics_attributes:
+      -
+        name: 01-02题
+        score: 3
+        topics_attributes:
+          -
+            name: 01题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+          -
+            name: 02题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+      -
+        name: 03-04题
+        score: 3
+        topics_attributes:
+          -
+            name: 03题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+          -
+            name: 04题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+      -
+        name: 05-06题
+        score: 3
+        topics_attributes:
+          -
+            name: 05题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+          -
+            name: 06题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+      -
+        name: 07-08题
+        score: 3
+        topics_attributes:
+          -
+            name: 07题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+          -
+            name: 08题
+            score: 1.5
+            type: Exam::SingleChoiceTopic
+            topic_options_attributes:
+              -
+                name: A
+              -
+                name: B
+              -
+                name: C
+
+  -
+    name: 'Ⅱ听后回答'
+    description: '' # 题型描述
+    duration: 300 # 总时长
+    topics_count: 5 # 题目数量
+    score: 10 # 总分数
+    type: Exam::ListenAnswer
+    topics_attributes:
+      -
+        score: 2
+        name: 09题
+        type: Exam::ListenAnswerTopic
+      -
+        score: 2
+        name: 10题
+        type: Exam::ListenAnswerTopic
+      -
+        score: 2
+        name: 11题
+        type: Exam::ListenAnswerTopic
+      -
+        score: 2
+        name: 12题
+        type: Exam::ListenAnswerTopic
+      -
+        score: 2
+        name: 13题
+        type: Exam::ListenAnswerTopic
+  -
+    name: 'Ⅲ听后记录&转述'
+    description: '' # 题型描述
+    duration: 720 # 总时长
+    topics_count: 6 # 题目数量
+    score: 10 # 总分数
+    type: Exam::ListenWriteReport
+    package_topics_attributes:
+      -
+        name: 14-19题
+        score: 10
+        duration: 720
+        group_topics_attributes:
+          -
+            score: 5
+            section_name: 第一节
+            name: 14-18题
+            topics_count: 0
+            duration: 300
+            topics_attributes:
+              -
+                name: 14题
+                score: 1
+                type: Exam::ListenWriteTopic
+              -
+                name: 15题
+                score: 1
+                type: Exam::ListenWriteTopic
+              -
+                name: 16题
+                score: 1
+                type: Exam::ListenWriteTopic
+              -
+                name: 17题
+                score: 1
+                type: Exam::ListenWriteTopic
+              -
+                name: 18题
+                score: 1
+                type: Exam::ListenWriteTopic
+        topics_attributes:
+          -
+            section_name: 第二节
+            name: 19题
+            score: 5
+            duration: 420
+            type: Exam::ListenReportTopic
+  -
+    name: 'Ⅳ朗读短文'
+    description: '' # 题型描述
+    duration: 2400 # 总时长
+    topics_count: 1 # 题目数量
+    score: 8 # 总分数
+    type: Exam::ListenSpeak
+    topics_attributes:
+      -
+        score: 8
+        name: 20题
+        type: Exam::ListenSpeakTopic
+

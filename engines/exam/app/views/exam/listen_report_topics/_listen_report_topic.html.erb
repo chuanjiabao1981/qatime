@@ -1,0 +1,11 @@
+<div class="row qa_item">
+  <div class="col-md-6">
+    <span><%= listen_report_topic.name %></span>
+    <span>（已编辑 <%= listen_report_topic.finished_topics_count %>/<%= listen_report_topic.total_topics_count %>）</span>
+  </div>
+  <div class="col-md-6 right">
+    <span>
+      <%= link_to "编辑试题", exam.edit_station_workstation_package_topic_path(@workstation, listen_report_topic.package_topic) %>
+    </span>
+  </div>
+</div>

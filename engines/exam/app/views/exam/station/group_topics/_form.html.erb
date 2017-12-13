@@ -1,0 +1,27 @@
+<%= simple_form_for [:station, @workstation, @group_topic] do |f| %>
+  <div class="editor-item">
+    <h3 class="file-title">添加音频</h3>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.label :attach %>
+      </div>
+      <div class="col-md-10">
+        <%= f.input :attach, label: false, as: :file %>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor-item">
+    <h3 class="file-title">设置问题</h3>
+
+    <%= f.fields_for :topics do |topic_form| %>
+      <%= render "#{topic_form.object.model_name.singular_route_key}_form", f: topic_form %>
+    <% end %>
+  </div>
+  <dir class="editor-item">
+    <h3 class="file-title"> &nbsp; </h3>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </dir>
+<% end %>

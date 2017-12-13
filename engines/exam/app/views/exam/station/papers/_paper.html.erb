@@ -1,0 +1,13 @@
+<tr id="paper-<%= paper.id %>">
+  <td><%= show_index(paper_counter, @papers.limit_value) %></td>
+  <td><%= paper.name %></td>
+  <td><%= paper.grade_category %>/<%= paper.subject %></td>
+  <td><%= paper.duration %></td>
+  <td><%= paper.topics_count %></td>
+  <td><%= paper.price %></td>
+  <td>
+    <%= link_to "发布", exam.publish_station_workstation_paper_path(@workstation, paper),
+                data: { method: :patch, confirm: '确认发布?' } if paper.unpublished? && allow?('exam/station/papers', :publish, @workstation) %>
+    <%= link_to "详情", exam.station_workstation_paper_path(@workstation, paper) %>
+  </td>
+</tr>

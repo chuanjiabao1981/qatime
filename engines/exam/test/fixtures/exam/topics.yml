@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  attach: MyString
+  score: 1
+  answer: MyString
+  answer_attach: MyString
+
+two:
+  title: MyString
+  attach: MyString
+  score: 1
+  answer: MyString
+  answer_attach: MyString

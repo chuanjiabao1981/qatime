@@ -1,0 +1,24 @@
+<div class="station-title">
+  <%= link_to t("live_studio.menu.my_course"),
+              live_studio.my_courses_station_workstation_courses_path(@workstation),
+              class: "#{'active' if %w[live_studio/station/courses live_studio/courses].include?(params[:controller]) && %w[my_courses new update_class_date].include?(action_name)}" if allow?('live_studio/station/courses', 'my_courses', @workstation) %>
+  <%= link_to t("live_studio.menu.interactive_course"),
+              live_studio.station_workstation_interactive_courses_path(@workstation),
+              class: "#{'active' if %w[live_studio/station/interactive_courses live_studio/interactive_courses].include?(params[:controller]) && %w[index new update_class_date].include?(action_name)}" if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.video_course"),
+              live_studio.audits_station_workstation_video_courses_path(@workstation),
+              class: "#{'active' if 'live_studio/station/video_courses' == params[:controller] && %w[audits list edit].include?(params[:action])}" if allow?('live_studio/station/video_courses', 'audits', @workstation) %>
+  <%= link_to t("live_studio.menu.customized_group"),
+              live_studio.station_workstation_customized_groups_path(@workstation),
+              class: "#{'active' if 'live_studio/station/customized_groups' == params[:controller] && %w[index new update_class_date].include?(action_name)}" if allow?('live_studio/station/customized_groups', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.customized_course"),
+              main_app.customized_courses_station_workstation_path(@workstation),
+              class: "#{'active' if 'station/workstations' == params[:controller] && 'customized_courses' == params[:action]}" if allow?('station/workstations', 'customized_courses', @workstation) %>
+  <%= link_to t("live_studio.menu.curriculums"),
+              main_app.state_station_workstation_lessons_path(@workstation),
+              class: "#{'active' if 'station/lessons' == params[:controller] && 'state' == params[:action]}" if allow?('station/lessons', 'state', @workstation) %>
+  <%= link_to t("live_studio.menu.question"), main_app.questions_path %>
+  <%= link_to Exam::Paper.model_name.human,
+              exam.station_workstation_papers_path,
+              class: "#{'active' if 'exam/station/papers' == params[:controller] }" %>
+</div>

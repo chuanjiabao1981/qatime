@@ -34,6 +34,12 @@ PATH
       virtus
 
 PATH
+  remote: engines/exam
+  specs:
+    exam (0.0.1)
+      rails (~> 4.2.5.1)
+
+PATH
   remote: engines/live_studio
   specs:
     live_studio (0.0.1)
@@ -526,6 +532,7 @@ DEPENDENCIES
   default_value_for (~> 3.0, >= 3.0.2)
   dotenv-rails (~> 2.2, >= 2.2.1)
   enumerize
+  exam!
   fakeweb
   fancybox2-rails!
   font-awesome-rails

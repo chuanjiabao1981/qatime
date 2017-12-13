@@ -1,0 +1,115 @@
+<%= render 'header' %>
+
+<div class="course-con">
+  <div class="container">
+    <div class="row">
+      <div class="paper-body">
+        <div class="base-info">
+          <div class="qa_pannel qa_detail">
+            <h3>基本信息介绍</h3>
+            <div class="row">
+              <div class="col-md-4">
+                <%= Exam::Paper.human_attribute_name(:grade_category_subject) %>:
+                <%= @paper.grade_category_subject %>
+              </div>
+              <div class="col-md-4">
+                <%= Exam::Paper.human_attribute_name(:duration) %>:
+                <%= @paper.duration %>
+              </div>
+              <div class="col-md-4">
+                <%= Exam::Paper.human_attribute_name(:topics_count) %>:
+                <%= @paper.topics_count %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="topics-list">
+          <div class="qa_pannel qa_detail">
+            <h3>考试内容安排</h3>
+
+            <div class="sold-tab">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <th>项目</th>
+                    <th>赋分</th>
+                    <th>考题数量</th>
+                    <th>所占分值</th>
+                    <th>参考时长</th>
+                  </tr>
+                  <% @paper.categories.each do |category| %>
+                    <% if category.is_a?(Exam::ListenWriteReport) %>
+                      <% category.package_topics.first.topics.each_with_index do |topic, index| %>
+                        <tr>
+                          <% if index.zero? %>
+                            <td rowspan="<%= category.package_topics.first.topics.count * 2 %>"><%= category.name %></td>
+                          <% end %>
+                          <th colspan="4"><%= topic.section_name %></th>
+                        </tr>
+                        <tr>
+                          <td><%= topic.score / topic.topics_count %>分/题</td>
+                          <td><%= topic.topics_count %></td>
+                          <td><%= topic.score %></td>
+                          <td><%= topic.duration %></td>
+                        </tr>
+                      <% end %>
+                    <% else %>
+                      <tr>
+                        <td><%= category.name %></td>
+                        <td><%= category.average_score %>分/题</td>
+                        <td><%= category.topics_count %></td>
+                        <td><%= category.score %></td>
+                        <td><%= category.duration %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-flow">
+          <div class="qa_pannel qa_detail">
+            <h3>模考使用指导</h3>
+            <div class="row">
+              <div class="col-md-1-5">
+                <div class="num">1</div>
+                <span>
+                  购买模考试卷
+                </span>
+              </div>
+              <div class="col-md-1-5">
+                <div class="num">2</div>
+                <span>
+                  用App参加考试
+                </span>
+              </div>
+              <div class="col-md-1-5">
+                <div class="num">3</div>
+                <span>
+                  作答并提交考试
+                </span>
+              </div>
+              <div class="col-md-1-5">
+                <div class="num">4</div>
+                <span>
+                  查看判卷结果
+                </span>
+              </div>
+              <div class="col-md-1-5">
+                <div class="num">5</div>
+                <span>
+                  给予考试评价
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

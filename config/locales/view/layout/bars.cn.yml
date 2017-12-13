@@ -48,6 +48,7 @@ cn:
       nav:
         course: 选课中心
         teacher: 全部老师
+        paper: 在线模考
         replay: 回放列表
         more: 更多
       search:

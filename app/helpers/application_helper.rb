@@ -410,6 +410,8 @@ module ApplicationHelper
       %w(live_studio/courses live_studio/interactive_courses live_studio/video_courses).include?(params[:controller]) && action_name == 'index'
     when 'teachers' # 全部老师
       params[:controller] == 'home' && action_name == 'teachers'
+    when 'papers' # 在线模考
+      params[:controller] == 'exam/papers'
     end
   end
 

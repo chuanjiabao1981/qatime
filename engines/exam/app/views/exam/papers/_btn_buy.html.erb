@@ -1,0 +1,5 @@
+<% if current_user.nil? || current_user.student? %>
+  <%= link_to t('activerecord.view.enroll_now'), exam.new_paper_order_path(@paper), class: 'btn-addclass action' %>
+<% else %>
+  <%= link_to t('activerecord.view.enroll_now'), "javascript:alert('#{t('view.live_studio/courses.show.role_notice')}');", class: 'btn-addclass action' %>
+<% end %>

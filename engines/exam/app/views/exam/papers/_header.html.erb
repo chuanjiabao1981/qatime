@@ -1,0 +1,29 @@
+<div class="paper-header">
+  <div class="container">
+    <div class="row paper-class">
+      <div class="paper-title share-item">
+        <h3>
+          <%= @paper.name %>
+          <span>已考人数 1000</span>
+        </h3>
+        <span class="share-box">
+          <a href="javascript:void(0);" class="bds_weixin" title="分享到微信">
+            <i class="wechat" style="display: none;"></i>
+          </a>
+        </span>
+      </div>
+
+      <div class="course-join">
+        <span class="price"><%= @paper.price %></span>
+
+        <span class="price-right">
+          <% if @paper.bought_by?(current_user) %>
+            <%= render 'btn_play' %>
+          <% else %>
+            <%= render 'btn_buy' %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

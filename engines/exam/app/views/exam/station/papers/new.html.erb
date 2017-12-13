@@ -1,0 +1,32 @@
+<div class="article">
+  <div class="work-station">
+    <%= render 'station/course/tab' %>
+
+    <div class="create-header">
+      <% if @workstation %>
+        <%= link_to exam.station_workstation_papers_path(@workstation), class: 'back' do %>
+          <i class="fa fa-angle-left"></i>
+          <%= t('common.back') %>
+        <% end %>
+      <% end %>
+      <h3><%= t('view.exam/paper.new.title') %></h3>
+      <a href="javascript:void(0);" class="course-hint">
+        <%= image_tag 'hint.png' %> <%= t('view.exam/paper.new.label') %>
+        <div class="course-description" style="display: none;">
+          <h5><%= t('view.exam/paper.new.label') %></h5>
+          <p><%= t('view.exam/paper.new.label1') %></p>
+          <p><%= t('view.exam/paper.new.label2') %></p>
+          <p><%= t('view.exam/paper.new.label3') %></p>
+        </div>
+      </a>
+    </div>
+
+    <div class="new-curriculum">
+      <div class="editor-con">
+        <div class="editor-msg">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

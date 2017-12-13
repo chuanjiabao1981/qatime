@@ -2,6 +2,8 @@
 <% else %>
   <% if @transaction.is_a? Payment::Recharge%>
     location.href = "<%= payment.cash_user_path(@transaction.user) %>";
+  <% elsif @transaction.product.is_a? Exam::Paper %>
+    location.href = "<%= exam.paper_path(@transaction.product) %>";
   <% elsif @transaction.is_a? Payment::Order %>
     <% if @transaction.source.wap? -%>
       $("#pay-result").addClass("paid").html('<%= image_tag "apply-succeed.png" %><span><%= @transaction.aasm.human_state %></span>');

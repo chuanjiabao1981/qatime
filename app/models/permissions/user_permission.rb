@@ -56,6 +56,9 @@ module Permissions
 
       allow 'passwords', [:new, :create, :edit, :update, :new_payment_password, :update_payment_password]
 
+      allow 'exam/papers', [:index, :show]
+      allow 'exam/orders', [:new, :create]
+
       ## begin api permission
       # 辅导班接口
       api_allow :GET, "/api/v1/live_studio/courses"

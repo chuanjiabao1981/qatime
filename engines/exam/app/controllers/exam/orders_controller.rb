@@ -29,8 +29,6 @@ module Exam
         flash_msg(:success, '下单成功!')
         redirect_to payment.transaction_path(@order.transaction_no)
       else
-        p @order.errors
-        p '---->>>>'
         respond_to do |format|
           format.html do |html|
             html.none { render :new }

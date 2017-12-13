@@ -3,6 +3,10 @@ Exam::Engine.routes.draw do
     resources :orders, only: [:new, :create]
   end
 
+  resources :junior_papers, only: [] do
+    resources :orders, only: [:new, :create]
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :papers do

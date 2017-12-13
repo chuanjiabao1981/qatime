@@ -11,6 +11,9 @@ module Exam
     # PATCH/PUT /station/group_topics/1
     def update
       if @group_topic.update(group_topic_params)
+        p '---------------'
+        p @workstation
+        p @group_topic.paper
         redirect_to station_workstation_paper_path(@workstation, @group_topic.paper), notice: 'Group topic was successfully updated.'
       else
         render :edit

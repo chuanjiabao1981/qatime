@@ -403,6 +403,7 @@ ActiveRecord::Schema.define(version: 20171212082254) do
     t.integer  "duration"
     t.integer  "score"
     t.string   "type"
+    t.datetime "published_at"
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
   end
@@ -413,9 +414,11 @@ ActiveRecord::Schema.define(version: 20171212082254) do
     t.integer  "student_id"
     t.integer  "product_id"
     t.string   "product_type"
+    t.decimal  "price",            precision: 8, scale: 2
+    t.integer  "payment_order_id"
     t.integer  "status"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "exam_tickets", ["product_type", "product_id"], name: "index_exam_tickets_on_product_type_and_product_id", using: :btree

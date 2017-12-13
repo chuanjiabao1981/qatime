@@ -12,6 +12,7 @@ class CreateExamPapers < ActiveRecord::Migration
       t.integer :duration
       t.integer :score
       t.string :type
+      t.timestamp :published_at
 
       t.timestamps null: false
     end

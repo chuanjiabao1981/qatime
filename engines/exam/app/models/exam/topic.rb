@@ -5,8 +5,10 @@ module Exam
     belongs_to :category
     belongs_to :group_topic, counter_cache: true
     belongs_to :package_topic, counter_cache: true
-    has_many :options
-    accepts_nested_attributes_for :options
+    has_many :topic_options, class_name: 'Exam::Option'
+    has_many :topics, foreign_key: "group_topic_id", class_name: 'Exam::Topic'
+
+    accepts_nested_attributes_for :topic_options
 
     # 编辑完成进度
     def finished_topics_count
@@ -16,6 +18,13 @@ module Exam
     # 总题目数
     def total_topics_count
       1
+    end
+
+    before_validation :set_paper
+    def set_paper
+      self.paper ||= category.paper if category
+      self.paper ||= package_topic.paper if package_topic
+      self.paper ||= group_topic.paper if group_topic
     end
 
     # mount_uploader :attach, Exam::AttachUploader

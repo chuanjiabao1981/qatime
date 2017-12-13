@@ -7,14 +7,13 @@ module Payment
 
     belongs_to :order, polymorphic: true
 
-
     enum status: {
-           unpaid: 0, # 等待支付
-           paid: 1, # 已支付
-           failed: 97, # 失败
-           refunded: 98, # 已退款
-           closed: 99 # 已关闭
-         }
+      unpaid: 0, # 等待支付
+      paid: 1, # 已支付
+      failed: 97, # 失败
+      refunded: 98, # 已退款
+      closed: 99 # 已关闭
+    }
 
     aasm column: :status, enum: true do
       state :unpaid, initial: true
@@ -22,7 +21,6 @@ module Payment
       state :failed
       state :refunded
       state :closed
-
 
       # 支付
       event :pay do

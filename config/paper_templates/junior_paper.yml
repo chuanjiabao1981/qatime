@@ -18,7 +18,7 @@ categories_attributes:
             name: 01题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -29,7 +29,7 @@ categories_attributes:
             name: 02题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -44,7 +44,7 @@ categories_attributes:
             name: 03题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -55,7 +55,7 @@ categories_attributes:
             name: 04题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -70,7 +70,7 @@ categories_attributes:
             name: 05题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -81,7 +81,7 @@ categories_attributes:
             name: 06题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -96,7 +96,7 @@ categories_attributes:
             name: 07题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -107,7 +107,7 @@ categories_attributes:
             name: 08题
             score: 1.5
             type: Exam::SingleChoiceTopic
-            options_attributes:
+            topic_options_attributes:
               -
                 name: A
               -
@@ -159,6 +159,7 @@ categories_attributes:
           -
             score: 5
             section_name: 第一节
+            name: 14-18题
             topics_count: 0
             duration: 300
             topics_attributes:

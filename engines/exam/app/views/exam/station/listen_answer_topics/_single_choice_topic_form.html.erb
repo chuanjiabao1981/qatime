@@ -6,8 +6,8 @@
     <%= f.label :title %>
     <%= f.input_field :title %>
 
-    <label><%= f.object.class.human_attribute_name(:options) %></label>
-    <%= f.fields_for :options do |option_form| %>
+    <label><%= f.object.class.human_attribute_name(:topic_options) %></label>
+    <%= f.fields_for :topic_options do |option_form| %>
       <div class="row">
         <div class="col-md-1">
           <label><%= option_form.object.name %></label>

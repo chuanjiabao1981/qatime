@@ -3,7 +3,7 @@ module Exam
   class Category < ActiveRecord::Base
     belongs_to :paper
 
-    has_many :topics
+    has_many :topics, class_name: 'Exam::Topic'
     has_many :group_topics
     has_many :package_topics
 

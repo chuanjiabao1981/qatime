@@ -9,6 +9,7 @@ module Exam
     has_many :topics, foreign_key: "group_topic_id", class_name: 'Exam::Topic'
 
     accepts_nested_attributes_for :topic_options
+    accepts_nested_attributes_for :topics
 
     # 编辑完成进度
     def finished_topics_count
@@ -20,7 +21,7 @@ module Exam
       1
     end
 
-    before_validation :set_paper
+    before_save :set_paper
     def set_paper
       self.paper ||= category.paper if category
       self.paper ||= package_topic.paper if package_topic

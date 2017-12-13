@@ -28,13 +28,9 @@ module Exam
     def package_topic_params
       params.require(:package_topic).permit(
         :attach,
-        group_topics_attributes: [
-          :title, :answer,
-          options_attributes: [:title, :correct]
-        ],
         topics_attributes: [
-          :title, :answer,
-          options_attributes: [:title, :correct]
+          :id, :title, :answer_attach,
+          topics_attributes: [:id, :answer]
         ]
       )
     end

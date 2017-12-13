@@ -13,10 +13,12 @@ categories_attributes:
       -
         name: 01-02题
         score: 3
+        pos: 1
         topics_attributes:
           -
             name: 01题
             score: 1.5
+            pos: 1
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -28,6 +30,7 @@ categories_attributes:
           -
             name: 02题
             score: 1.5
+            pos: 2
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -39,10 +42,12 @@ categories_attributes:
       -
         name: 03-04题
         score: 3
+        pos: 2
         topics_attributes:
           -
             name: 03题
             score: 1.5
+            pos: 3
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -54,6 +59,7 @@ categories_attributes:
           -
             name: 04题
             score: 1.5
+            pos: 4
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -65,10 +71,12 @@ categories_attributes:
       -
         name: 05-06题
         score: 3
+        pos: 3
         topics_attributes:
           -
             name: 05题
             score: 1.5
+            pos: 5
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -80,6 +88,8 @@ categories_attributes:
           -
             name: 06题
             score: 1.5
+
+            pos: 6
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -91,10 +101,12 @@ categories_attributes:
       -
         name: 07-08题
         score: 3
+        pos: 4
         topics_attributes:
           -
             name: 07题
             score: 1.5
+            pos: 7
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -106,6 +118,7 @@ categories_attributes:
           -
             name: 08题
             score: 1.5
+            pos: 8
             type: Exam::SingleChoiceTopic
             topic_options_attributes:
               -
@@ -126,22 +139,27 @@ categories_attributes:
       -
         score: 2
         name: 09题
+        pos: 9
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 10题
+        pos: 10
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 11题
+        pos: 11
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 12题
+        pos: 12
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 13题
+        pos: 13
         type: Exam::ListenAnswerTopic
   -
     name: 'Ⅲ听后记录&转述'
@@ -155,28 +173,34 @@ categories_attributes:
         name: 14-19题
         score: 10
         duration: 720
+        pos: 14
         group_topics_attributes:
           -
             score: 5
             section_name: 第一节
             name: 14-18题
+            pos: 14
             topics_count: 0
             duration: 300
             topics_attributes:
               -
                 name: 14题
+                pos: 14
                 score: 1
                 type: Exam::ListenWriteTopic
               -
                 name: 15题
+                pos: 15
                 score: 1
                 type: Exam::ListenWriteTopic
               -
                 name: 16题
+                pos: 16
                 score: 1
                 type: Exam::ListenWriteTopic
               -
                 name: 17题
+                pos: 17
                 score: 1
                 type: Exam::ListenWriteTopic
               -
@@ -187,6 +211,7 @@ categories_attributes:
           -
             section_name: 第二节
             name: 19题
+            pos: 19
             score: 5
             duration: 420
             type: Exam::ListenReportTopic
@@ -201,5 +226,6 @@ categories_attributes:
       -
         score: 8
         name: 20题
+        pos: 20
         type: Exam::ListenSpeakTopic
 

@@ -17,6 +17,7 @@ class CreateExamTopics < ActiveRecord::Migration
       t.string :answer_attach
       t.string :type
       t.integer :status, default: 0
+      t.integer :pos, default: 0
 
       t.timestamps null: false
     end

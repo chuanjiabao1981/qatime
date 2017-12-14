@@ -392,8 +392,9 @@ module Permissions
       # end 资源中心
 
       # start 聊天
-      api_allow :GET, '/api' do |resource|
-        user == resource
+      api_allow :GET, '/api/v1/chat/users/\d+/teams'
+      api_allow :GET, '/api/v1/chat/users/\d+/teams/\d+' do |team|
+        true
       end
       # end 聊天
 
@@ -401,11 +402,20 @@ module Permissions
       api_allow :GET, '/api/v2/live_studio/courses/latest'
       api_allow :GET, '/api/v2/live_studio/lessons/today'
       api_allow :GET, '/api/v2/live_studio/students/\d+/schedule_data'
+
+      # 模拟考试
+      api_allow :POST, '/api/v1/exam/papers/\d+/results' do |paper|
+        paper && paper.students.include?(user)
+      end
+      api_allow :PUT, '/api/v1/exam/results/\d+' do |result|
+        result && result.student == user
+      end
+      api_allow :GET, '/api/v1/exam/students/\d+/results'
     end
 
     private
 
-    def topicable_permission(topicable,user)
+    def topicable_permission(topicable, user)
       return false if topicable.nil?
       if topicable.instance_of? Lesson
         ##TODO:: 这里应该是购买的学生才能看

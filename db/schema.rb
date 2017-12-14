@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212082254) do
+ActiveRecord::Schema.define(version: 20171214063135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -362,6 +362,19 @@ ActiveRecord::Schema.define(version: 20171212082254) do
     t.float    "price"
   end
 
+  create_table "exam_answers", force: :cascade do |t|
+    t.integer  "result_id"
+    t.integer  "topic_id"
+    t.string   "content"
+    t.string   "attach"
+    t.integer  "result"
+    t.decimal  "score",      precision: 5, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "exam_answers", ["result_id"], name: "index_exam_answers_on_result_id", using: :btree
+
   create_table "exam_categories", force: :cascade do |t|
     t.integer  "paper_id"
     t.string   "name"
@@ -410,6 +423,19 @@ ActiveRecord::Schema.define(version: 20171212082254) do
 
   add_index "exam_papers", ["workstation_id"], name: "index_exam_papers_on_workstation_id", using: :btree
 
+  create_table "exam_results", force: :cascade do |t|
+    t.integer  "paper_id"
+    t.integer  "ticket_id"
+    t.integer  "student_id"
+    t.decimal  "score",      precision: 5, scale: 2
+    t.integer  "status"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "exam_results", ["paper_id"], name: "index_exam_results_on_paper_id", using: :btree
+  add_index "exam_results", ["ticket_id"], name: "index_exam_results_on_ticket_id", using: :btree
+
   create_table "exam_tickets", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "product_id"
@@ -442,6 +468,7 @@ ActiveRecord::Schema.define(version: 20171212082254) do
     t.integer  "status",           default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "pos"
   end
 
   add_index "exam_topics", ["category_id"], name: "index_exam_topics_on_category_id", using: :btree

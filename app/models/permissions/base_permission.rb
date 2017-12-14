@@ -2,6 +2,11 @@ module Permissions
   module API
     def api_allow?(method, path, *params)
       allowed = @allowed_apis[method].find {|k, _v| path =~ k }
+      p '------>>>>'
+      p @allowed_apis[method]
+      p path
+      p '++++++++'
+      p allowed
       allowed = allowed.last if allowed
       allowed.respond_to?(:call) ? allowed.call(*params) : allowed
     end

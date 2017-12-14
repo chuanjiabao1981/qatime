@@ -58,22 +58,6 @@ module V1
             @result.update(result_params)
             present @result, with: Entities::Exam::ResultDetail
           end
-
-          desc '考试记录' do
-            headers 'Remember-Token' => {
-              description: 'RememberToken',
-              required: true
-            }
-          end
-          params do
-            requires :status, type: String, desc: '状态', values: []
-          end
-
-          get do
-            @results = current_user.exam_results.where(status: params[:status])
-            @results = @results.paginate(page: params[:page], per_page: params[:per_page])
-            present @results, with: Entities::Exam::Result
-          end
         end
       end
     end

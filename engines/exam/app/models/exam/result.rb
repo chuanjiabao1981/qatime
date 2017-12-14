@@ -1,5 +1,7 @@
 module Exam
   class Result < ActiveRecord::Base
+    enum status: { init: 0, pending: 1, finished: 2 }
+
     belongs_to :paper
     belongs_to :ticket
     belongs_to :student

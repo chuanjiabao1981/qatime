@@ -8,7 +8,8 @@ module Permissions
 
     def api_allow(method, path_reg, &block)
       path_reg = Regexp.new(path_reg) unless path_reg.is_a? Regexp
-      @allowed_apis ||= Hash.new({})
+      @allowed_apis ||= {}
+      @allowed_apis[method.to_s] ||= {}
       @allowed_apis[method.to_s][path_reg] = block || true
     end
   end

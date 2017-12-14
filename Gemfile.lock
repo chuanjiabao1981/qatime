@@ -37,6 +37,8 @@ PATH
   remote: engines/exam
   specs:
     exam (0.0.1)
+      carrierwave
+      carrierwave-aliyun (= 0.3.4)
       rails (~> 4.2.5.1)
 
 PATH

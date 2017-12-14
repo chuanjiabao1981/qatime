@@ -11,6 +11,9 @@ module Exam
     accepts_nested_attributes_for :topic_options
     accepts_nested_attributes_for :topics
 
+    mount_uploader :attach, Exam::AttachUploader
+    mount_uploader :answer_attach, Exam::AttachUploader
+
     # 编辑完成进度
     def finished_topics_count
       pending? ? 0 : 1

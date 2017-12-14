@@ -39,6 +39,11 @@ module V1
           before do
             authenticate!
           end
+          helpers do
+            def auth_params
+              @result ||= ::Exam::Result.find(params[:id])
+            end
+          end
 
           desc '交卷' do
             headers 'Remember-Token' => {
@@ -48,6 +53,8 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '答题卡ID'
+            requires :answers_attributes, type: Array[Hash], coerce_with: JSON,
+                     desc: '[{"topic_id": 10, "content", "xxxx", "attach": "xxxx_file.mp3"}, {"topic_id": 10, "content", "xxxx", "attach": "xxxx_file.mp3"}]'
           end
 
           put ':id' do

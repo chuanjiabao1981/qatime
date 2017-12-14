@@ -526,8 +526,9 @@ module Permissions
       # 资源中心 end
 
       # start 聊天
-      api_allow :GET, '/api' do |resource|
-        user == resource
+      api_allow :GET, '/api/v1/chat/users/\d+/teams'
+      api_allow :GET, '/api/v1/chat/users/\d+/teams/\d+' do |team|
+        true
       end
       # end 聊天
 

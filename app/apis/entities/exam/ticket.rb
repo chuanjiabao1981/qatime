@@ -1,6 +1,6 @@
 module Entities
   module Exam
-    class Paper < Grape::Entity
+    class Ticket < Grape::Entity
       expose :id
       expose :created_at
       expose :updated_at

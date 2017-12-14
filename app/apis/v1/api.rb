@@ -79,6 +79,7 @@ module V1
 
     # 模拟考试
     mount V1::Exam::Papers
+    mount V1::Exam::Results
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

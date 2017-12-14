@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paper_id: 
+  ticket_id: 
+  student: 
+  score: 9.99
+  status: 1
+
+two:
+  paper_id: 
+  ticket_id: 
+  student: 
+  score: 9.99
+  status: 1

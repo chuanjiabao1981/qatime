@@ -214,3 +214,31 @@ table td.filled {
 .student-buy .method-info {
   height: 160px;
 }
+
+.block-list span {
+  color: #999;
+}
+
+.block-list li {
+  border-bottom: 1px solid #F2F2F2;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.block-list {
+  padding: 30px;
+}
+
+.block-list .title a {
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+span.right-link {
+  float: right;
+}
+
+span.right-link a {
+  color: #FF6600;
+}

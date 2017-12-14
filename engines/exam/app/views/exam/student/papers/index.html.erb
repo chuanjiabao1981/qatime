@@ -1,0 +1,40 @@
+<div class="contains">
+  <div class="recorded-title">
+    <%= t("view.student_bars.my_papers") %>
+    <span class="right-link"><%= link_to t("view.student_bars.my_results"), "##" %></span>
+  </div>
+
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="not-approved">
+        <ul class="block-list">
+          <% @tickets.each do |ticket| -%>
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="title">
+                    <%= link_to ticket.product.name, exam.paper_path(ticket.product) -%>
+                  </p>
+                </div>
+                <div class="col-md-12">
+                  <span><%= ticket.product.duration %></span>
+                  <span class="left">| <%= ticket.product.topics_count %></span>
+                  <span class="left">| <%= ticket.product.grade_category %><%= ticket.product.subject %></span>
+                </div>
+              </div>
+            </li>
+          <% end -%>
+        </ul>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @tickets %>
+          </div>
+        </center>
+        <%= render 'shared/blank' if @tickets.blank? %>
+      </div>
+    </div>
+  </div>
+</div>

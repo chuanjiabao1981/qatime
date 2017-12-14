@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_id: 
+  topic: 
+  content: MyString
+  attach: MyString
+  result: 1
+  score: 9.99
+
+two:
+  result_id: 
+  topic: 
+  content: MyString
+  attach: MyString
+  result: 1
+  score: 9.99

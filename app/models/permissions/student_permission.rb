@@ -353,6 +353,8 @@ module Permissions
       api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
       api_allow :GET, "/api/v1/payment/orders"
       api_allow :PUT, "/api/v1/payment/orders/[\\w-]+/cancel"
+      api_allow :POST, "/api/v1/payment/orders/[\\w-]+/pay/ticket_token" # 余额支付token
+      api_allow :POST, "/api/v1/payment/orders/[\\w-]+/pay" # 确认支付
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/recharges"
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/recharges"
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/cash"

@@ -66,7 +66,7 @@ module V1
               requires :paper_id, desc: '辅导班ID'
               requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
             end
-            post '/:id/orders' do
+            post '/orders' do
               paper = ::Exam::Paper.find(params[:paper_id])
               order = ::Payment::Order.new(paper.order_params.merge(pay_type: params[:pay_type],
                                                                     remote_ip: client_ip,

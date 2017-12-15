@@ -393,7 +393,7 @@ module Permissions
 
       # start 聊天
       api_allow :GET, '/api/v1/chat/users/\d+/teams'
-      api_allow :GET, '/api/v1/chat/users/\d+/teams/\d+' do |team|
+      api_allow :GET, '/api/v1/chat/users/\d+/teams/\d+' do |_team|
         true
       end
       # end 聊天
@@ -411,16 +411,18 @@ module Permissions
         result && result.student == user
       end
       api_allow :GET, '/api/v1/exam/students/\d+/results'
+      api_allow :POST, '/api/v1/exam/papers/\d+/orders'
     end
 
     private
 
-    def topicable_permission(topicable, user)
+    def topicable_permission(topicable, _user)
       return false if topicable.nil?
-      if topicable.instance_of? Lesson
-        ##TODO:: 这里应该是购买的学生才能看
-        true
-      end
+      topicable.instance_of? Lesson
+      # if topicable.instance_of? Lesson
+      #   # TODO: 这里应该是购买的学生才能看
+      #   true
+      # end
     end
   end
 end

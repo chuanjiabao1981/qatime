@@ -198,7 +198,7 @@ module V1
           end
           get '/:id/join' do
             @course = ::LiveStudio::Course.find(params[:id])
-            if course.bought_by?(current_user)
+            if @course.bought_by?(current_user)
               @chat_team = @course.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@course, @course.teacher.chat_account)
               @chat_account = current_user.try(:chat_account)
               if @chat_account.nil?

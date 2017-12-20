@@ -288,6 +288,9 @@ module Permissions
       end
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/deliver_free"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/taste"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"

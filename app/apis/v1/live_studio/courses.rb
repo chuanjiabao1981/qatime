@@ -3,7 +3,6 @@ module V1
   module LiveStudio
     class Courses < V1::Base
       namespace "live_studio" do
-
         namespace :teachers do
           before do
             authenticate!
@@ -186,6 +185,28 @@ module V1
               l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
             end
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
+          end
+
+          desc '加入课程' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id/join' do
+            @course = ::LiveStudio::Course.find(params[:id])
+            if course.bought_by?(current_user)
+              @chat_team = @course.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@course, @course.teacher.chat_account)
+              @chat_account = current_user.try(:chat_account)
+              if @chat_account.nil?
+                @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+              end
+            end
+            @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
+            { result: 'ok' }
           end
 
           desc '录制视频列表' do

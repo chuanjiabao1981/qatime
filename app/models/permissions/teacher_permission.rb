@@ -313,6 +313,17 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      api_allow :POST, 'live_studio/groups/\d+/homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :POST, 'api/v1/live_studio/customized_groups/\d+/announcements' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/student_homeworks'
+      api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+'
+
       # 作业详情
       api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
         homework && homework.user == user

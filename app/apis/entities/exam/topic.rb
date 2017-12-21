@@ -13,6 +13,10 @@ module Entities
       expose :topics_count
       expose :duration
       expose :score
+      expose :read_time
+      expose :play_times
+      expose :interval_time
+      expose :waiting_time
       expose :answer
       expose :answer_attach
       expose :type

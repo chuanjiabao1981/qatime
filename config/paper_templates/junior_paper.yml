@@ -4,8 +4,12 @@ topics_count: 20
 categories_attributes:
   -
     name: 'Ⅰ听后选择' # 题型名称
-    description: '' # 题型描述
+    description: '听四段对话或独白，每段对话或独白播放两边，每段对话或独白后有两道小题，从每题给的A、B、C三个选项中选择最佳选项，并用鼠标点击该选项' # 题型描述
     duration: 540 # 总时长
+    read_time: 10 # 阅读时间
+    play_times: 2 # 播放次数
+    interval_time: 3 # 播放间隔
+    waiting_time: 10 # 答题时间
     topics_count: 8 # 题目数量
     score: 12 # 总分数
     type: Exam::ListenSelection
@@ -14,6 +18,10 @@ categories_attributes:
         name: 01-02题
         score: 3
         pos: 1
+        read_time: 10 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         topics_attributes:
           -
             name: 01题
@@ -43,6 +51,10 @@ categories_attributes:
         name: 03-04题
         score: 3
         pos: 2
+        read_time: 10 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         topics_attributes:
           -
             name: 03题
@@ -72,6 +84,10 @@ categories_attributes:
         name: 05-06题
         score: 3
         pos: 3
+        read_time: 10 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         topics_attributes:
           -
             name: 05题
@@ -102,6 +118,10 @@ categories_attributes:
         name: 07-08题
         score: 3
         pos: 4
+        read_time: 10 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         topics_attributes:
           -
             name: 07题
@@ -130,7 +150,7 @@ categories_attributes:
 
   -
     name: 'Ⅱ听后回答'
-    description: '' # 题型描述
+    description: '听5段对话，每段对话播放两遍，每段对话或独白后跟1个问题（屏显），考生听完录音后，在10秒内口头回答问题并完成录音。' # 题型描述
     duration: 300 # 总时长
     topics_count: 5 # 题目数量
     score: 10 # 总分数
@@ -140,26 +160,46 @@ categories_attributes:
         score: 2
         name: 09题
         pos: 9
+        read_time: 60 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 10题
         pos: 10
+        read_time: 60 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 11题
         pos: 11
+        read_time: 60 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 12题
         pos: 12
+        read_time: 60 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         type: Exam::ListenAnswerTopic
       -
         score: 2
         name: 13题
         pos: 13
+        read_time: 60 # 阅读时间
+        play_times: 2 # 播放次数
+        interval_time: 3 # 播放间隔
+        waiting_time: 10 # 答题时间
         type: Exam::ListenAnswerTopic
   -
     name: 'Ⅲ听后记录&转述'
@@ -180,6 +220,10 @@ categories_attributes:
             section_name: 第一节
             name: 14-18题
             pos: 14
+            read_time: 60 # 阅读时间
+            play_times: 2 # 播放次数
+            interval_time: 3 # 播放间隔
+            waiting_time: 60 # 答题时间
             topics_count: 0
             duration: 300
             topics_attributes:
@@ -212,6 +256,10 @@ categories_attributes:
             section_name: 第二节
             name: 19题
             pos: 19
+            read_time: 0 # 阅读时间
+            play_times: 1 # 播放次数
+            interval_time: 120 # 播放间隔
+            waiting_time: 120 # 答题时间
             score: 5
             duration: 420
             type: Exam::ListenReportTopic
@@ -221,6 +269,10 @@ categories_attributes:
     duration: 2400 # 总时长
     topics_count: 1 # 题目数量
     score: 8 # 总分数
+    read_time: 120 # 阅读时间
+    play_times: 0 # 播放次数
+    interval_time: 0 # 播放间隔
+    waiting_time: 120 # 答题时间
     type: Exam::ListenSpeak
     topics_attributes:
       -
@@ -228,4 +280,3 @@ categories_attributes:
         name: 20题
         pos: 20
         type: Exam::ListenSpeakTopic
-

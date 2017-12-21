@@ -249,6 +249,7 @@ categories_attributes:
                 type: Exam::ListenWriteTopic
               -
                 name: 18题
+                pos: 18
                 score: 1
                 type: Exam::ListenWriteTopic
         topics_attributes:

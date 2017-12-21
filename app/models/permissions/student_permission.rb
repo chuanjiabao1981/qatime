@@ -342,6 +342,7 @@ module Permissions
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/batch_read"
       # 消息通知结束
 
       ## 通知设置

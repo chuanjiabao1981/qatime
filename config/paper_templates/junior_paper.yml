@@ -203,7 +203,7 @@ categories_attributes:
         type: Exam::ListenAnswerTopic
   -
     name: 'Ⅲ听后记录&转述'
-    description: '' # 题型描述
+    description: '屏显一个留出5个空白的笔记记录表，先给考生1分钟时间阅读笔记记录表，然后考生听一段150词左右的短文，考生在听完两遍录音后，在一分钟内完成表中的5个关键词填空（用键盘输入电脑）；考生听第三遍录音，接着给2分钟时间做专属准备，然后在2分钟内完成转述录音' # 题型描述
     duration: 720 # 总时长
     topics_count: 6 # 题目数量
     score: 10 # 总分数
@@ -265,7 +265,7 @@ categories_attributes:
             type: Exam::ListenReportTopic
   -
     name: 'Ⅳ朗读短文'
-    description: '' # 题型描述
+    description: '屏显一篇100词左右的短文，先给考生1分钟的准备时间，然后在2分钟内完成短文朗读并录音。' # 题型描述
     duration: 2400 # 总时长
     topics_count: 1 # 题目数量
     score: 8 # 总分数

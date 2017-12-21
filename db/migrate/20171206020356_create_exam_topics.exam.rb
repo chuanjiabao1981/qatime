@@ -13,6 +13,10 @@ class CreateExamTopics < ActiveRecord::Migration
       t.integer :topics_count, default: 1
       t.integer :duration
       t.integer :score
+      t.integer :read_time, default: 0
+      t.integer :play_times, default: 0
+      t.integer :interval_time, default: 0
+      t.integer :waiting_time, default: 0
       t.string :answer
       t.string :answer_attach
       t.string :type

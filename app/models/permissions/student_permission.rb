@@ -339,7 +339,6 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"
       ## 视频课
 
-
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups' # 我的专属课列表
       api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups/tasting' # 我的专属课试听列表
@@ -348,6 +347,7 @@ module Permissions
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/batch_read"
       # 消息通知结束
 
       ## 通知设置

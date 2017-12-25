@@ -12,7 +12,7 @@ class Qatime::GroupStudentHomeworksAPITest < ActionDispatch::IntegrationTest
   test "teacher get group student homeworks" do
     get "/api/v1/live_studio/groups/#{@group.id}/student_homeworks", {}, 'Remember-Token' => @teacher_token
     assert_request_success?
-    assert_equal 2, @res['data'].size
+    assert_equal 2, @res['data'].size, "返回数量不正确"
   end
 
   test "teacher get other group student homeworks" do

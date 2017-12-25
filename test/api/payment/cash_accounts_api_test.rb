@@ -21,7 +21,7 @@ class Qatime::CashAccountApiTest < ActionDispatch::IntegrationTest
          {'Remember-Token' => @remember_token}
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status'], "获取token失败"
+    assert_equal 1, res['status'], "获取token失败 #{res}"
 
     new_password = Util.random_code(8)
     post "/api/v1/payment/cash_accounts/#{cash_account.id}/password",

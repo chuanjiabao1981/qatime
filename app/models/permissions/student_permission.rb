@@ -252,6 +252,9 @@ module Permissions
         homework && homework.taskable && user.live_studio_bought_customized_groups.include?(homework.taskable)
       end
 
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/student_homeworks'
+      api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+'
+
       # 上传附件
       api_allow :POST, '/api/v1/live_studio/attachments'
 
@@ -288,6 +291,9 @@ module Permissions
       end
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/deliver_free"
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/taste"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/scheduled_lessons/[\\w-]+/replay"
       api_allow :GET, "/api/v1/live_studio/interactive_lessons/[\\w-]+/replay"
@@ -333,7 +339,6 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"
       ## 视频课
 
-
       ## 专属课 start
       api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups' # 我的专属课列表
       api_allow :GET, '/api/v1/live_studio/students/\d+/customized_groups/tasting' # 我的专属课试听列表
@@ -368,6 +373,9 @@ module Permissions
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds"
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/:id/cancel"
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws/ticket_token" # 提现token
+
+      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/[\\w-]+/cancel"
+      api_allow :GET, "/api/v1/payment/itunes_products"
       ## end api permission
 
       ## 获取授权token

@@ -313,6 +313,17 @@ module Permissions
         group && user.live_studio_customized_groups.include?(group)
       end
 
+      api_allow :POST, 'live_studio/groups/\d+/homeworks' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :POST, 'api/v1/live_studio/customized_groups/\d+/announcements' do |group|
+        group && user.live_studio_customized_groups.include?(group)
+      end
+
+      api_allow :GET, '/api/v1/live_studio/groups/\d+/student_homeworks'
+      api_allow :PATCH, '/api/v1/live_studio/student_homeworks/\d+'
+
       # 作业详情
       api_allow :GET, '/api/v1/live_studio/homeworks/\d+' do |homework|
         homework && homework.user == user
@@ -443,7 +454,7 @@ module Permissions
       end
 
       ## 一对一直播
-      api_allow :POST, 'live_studio/teachers/\d+/interactive_courses'
+      api_allow :GET, 'live_studio/teachers/\d+/interactive_courses'
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_start' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end

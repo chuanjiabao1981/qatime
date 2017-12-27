@@ -1,14 +1,7 @@
 <div class="article">
   <div class="work-station">
     <%= render 'station/course/tab' %>
-
-    <div class="filter">
-      <%= link_to exam.new_station_workstation_paper_path(@workstation), class: 'filter-left' do %>
-        <%= image_tag 'addclass.png' %>
-        <%= t('view.exam/paper.index.new') %>
-      <% end if allow? 'exam/papers', :new %>
-
-    </div>
+    <%= render 'filter' %>
 
     <div class="sold-tab">
       <table border="0" cellspacing="0" cellpadding="0">

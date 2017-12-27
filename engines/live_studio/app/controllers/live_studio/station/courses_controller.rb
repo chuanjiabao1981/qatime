@@ -9,7 +9,7 @@ module LiveStudio
 
     # 直播课管理
     def my_courses
-      @courses = @workstation.live_studio_courses
+      @courses = @workstation.live_studio_courses.includes(:teacher)
       @courses = @courses.uncompleted if params[:hide_completed].present?
       @query = @courses.ransack(params[:q])
       @courses = @query.result.order(id: :desc).paginate(page: params[:page])

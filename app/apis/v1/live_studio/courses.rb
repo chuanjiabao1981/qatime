@@ -184,7 +184,7 @@ module V1
             course.lessons.each do |l|
               l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
             end
-            user = course.pay_type.free? ? nil : current_user
+            user = course.sell_type.free? ? nil : current_user
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: user, size: :info
           end
 

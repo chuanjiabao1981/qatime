@@ -19,6 +19,6 @@
               class: "#{'active' if 'station/lessons' == params[:controller] && 'state' == params[:action]}" if allow?('station/lessons', 'state', @workstation) %>
   <%= link_to t("live_studio.menu.question"), main_app.questions_path %>
   <%= link_to Exam::Paper.model_name.human,
-              exam.station_workstation_papers_path,
+              exam.station_workstation_papers_path(@workstation),
               class: "#{'active' if 'exam/station/papers' == params[:controller] }" %>
 </div>

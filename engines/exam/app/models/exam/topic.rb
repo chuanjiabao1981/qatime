@@ -5,7 +5,7 @@ module Exam
     belongs_to :category
     belongs_to :group_topic, counter_cache: true
     belongs_to :package_topic, counter_cache: true
-    has_many :topic_options, class_name: 'Exam::Option'
+    has_many :topic_options, class_name: 'Exam::Option', validate: true
     has_many :topics, foreign_key: "group_topic_id", class_name: 'Exam::Topic'
 
     accepts_nested_attributes_for :topic_options
@@ -31,6 +31,15 @@ module Exam
       self.paper ||= group_topic.paper if group_topic
     end
 
-    # mount_uploader :attach, Exam::AttachUploader
+    def can_finish?
+      pending?
+    end
+
+    private
+
+    after_update :update_status
+    def update_status
+      finished! if can_finish?
+    end
   end
 end

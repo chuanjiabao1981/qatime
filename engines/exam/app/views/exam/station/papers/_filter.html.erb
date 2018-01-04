@@ -1,0 +1,27 @@
+<div class="filter">
+  <div class="filter-left">
+
+    <%= link_to exam.new_station_workstation_paper_path(@workstation), class: 'filter-left' do %>
+      <%= image_tag 'addclass.png' %>
+      <%= t('view.exam/paper.index.new') %>
+    <% end if allow? 'exam/papers', :new %>
+    <%= link_to "未发布", exam.station_workstation_papers_path(@workstation, status: 0), class: "#{'active' unless params[:status] == "1" }" %>
+    <%= link_to "已发布", exam.station_workstation_papers_path(@workstation, status: 1), class: "#{'active' if params[:status] == "1" }" %>
+  </div>
+
+  <div class="filter-right" style="display: none;">
+    <%= form_tag exam.station_workstation_papers_path(@workstation), method: :get do |f| %>
+      <%= hidden_field_tag :status, params[:status] %>
+      <div class="space-item">
+        <%= label_tag :grade_category, "#{Exam::Paper.human_attribute_name(:grade_category)}:" %>
+        <%= select_tag :grade_category, options_for_select(APP_CONSTANT['categories'], params[:grade_category]), include_blank: t("live_studio.course.menu.all"), class: 'immediately' %>
+      </div>
+      <div class="space-item">
+        <%= label_tag :subject, "#{LiveStudio::Course.human_attribute_name(:subject)}:" %>
+        <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), include_blank: t("live_studio.course.menu.all"), class: 'immediately' %>
+      </div>
+    <% end %>
+  
+  </div>
+
+</div>

@@ -7,6 +7,7 @@
     <div class="col-md-10">
       <%= f.label :title %>
       <%= f.input_field :title %>
+      <%= f.error :title %>
 
       <label><%= f.object.class.human_attribute_name(:answer) %></label>
       <%= f.fields_for :topics do |topic_form| %>
@@ -16,6 +17,7 @@
           </div>
           <div class="col-md-10">
             <%= topic_form.input_field :answer %>
+            <%= topic_form.error :answer %>
           </div>
         </div>
       <% end %>

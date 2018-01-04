@@ -2,11 +2,11 @@ require_dependency "exam/application_controller"
 
 module Exam
   class Station::PapersController < Station::ApplicationController
-    before_action :set_paper, only: [:show, :edit, :update, :destroy]
+    before_action :set_paper, only: [:show, :edit, :update, :destroy, :publish]
 
     # GET /station/papers
     def index
-      @papers = @workstation.papers.where(search_params)
+      @papers = @workstation.papers.includes(:topics).where(search_params)
       @papers = @papers.paginate(page: params[:page])
     end
 
@@ -44,10 +44,15 @@ module Exam
       end
     end
 
+    def publish
+      @paper.published! if @paper.unpublished?
+      redirect_to station_workstation_paper_path(@workstation, @paper), notice: 'Paper was successfully published.'
+    end
+
     # DELETE /station/papers/1
     def destroy
-      @station_paper.destroy
-      redirect_to station_papers_url, notice: 'Paper was successfully destroyed.'
+      @paper.destroy
+      redirect_to exam.station_workstation_papers_path(@workstation), notice: 'Paper was successfully destroyed.'
     end
 
     private
@@ -63,6 +68,7 @@ module Exam
     end
 
     def search_params
+      params[:status] ||= 0
       params.permit(:status)
     end
   end

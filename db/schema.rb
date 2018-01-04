@@ -411,7 +411,7 @@ ActiveRecord::Schema.define(version: 20171214063135) do
     t.string   "grade"
     t.string   "subject"
     t.decimal  "price",          precision: 8, scale: 2
-    t.integer  "status"
+    t.integer  "status",                                 default: 0
     t.integer  "topics_count",                           default: 0
     t.integer  "duration"
     t.integer  "score"
@@ -462,13 +462,17 @@ ActiveRecord::Schema.define(version: 20171214063135) do
     t.integer  "topics_count",     default: 1
     t.integer  "duration"
     t.integer  "score"
+    t.integer  "read_time",        default: 0
+    t.integer  "play_times",       default: 0
+    t.integer  "interval_time",    default: 0
+    t.integer  "waiting_time",     default: 0
     t.string   "answer"
     t.string   "answer_attach"
     t.string   "type"
     t.integer  "status",           default: 0
+    t.integer  "pos",              default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.integer  "pos"
   end
 
   add_index "exam_topics", ["category_id"], name: "index_exam_topics_on_category_id", using: :btree

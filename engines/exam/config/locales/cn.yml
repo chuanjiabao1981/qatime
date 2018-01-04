@@ -15,12 +15,15 @@ cn:
         topics_count: 考题数量
         grade_and_subject: 年级/科目
         grade_category_subject: 适考范围
+        latest: 最新
+        users_count: 人气
       exam/topic:
         title: 题干
         attach: 音频文件
         answer: 答案
         answer_attach: 答案
         options: 选项
+        topic_options: 选项
       exam/category:
     errors:
       models:
@@ -35,3 +38,11 @@ cn:
               blank: 请选择科目
             grade_category:
               blank: 请选择年级
+
+  view:
+    exam/paper:
+      index:
+        new: 创建新考卷
+    exam/topic:
+      edit:
+        title: 编辑试题

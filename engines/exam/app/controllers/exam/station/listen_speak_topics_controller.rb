@@ -27,7 +27,7 @@ module Exam
     # Only allow a trusted parameter "white list" through.
     def listen_speak_topic_params
       params.require(:listen_speak_topic).permit(
-        :attach, :title
+        :attach, :title, :answer_attach
       )
     end
   end

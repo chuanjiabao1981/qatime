@@ -7,7 +7,7 @@ module Exam
     belongs_to :workstation, class_name: '::Workstation'
 
     has_many :topics
-    has_many :categories
+    has_many :categories, dependent: :destroy
     has_many :tickets, as: :product
     has_many :students, through: :tickets
 

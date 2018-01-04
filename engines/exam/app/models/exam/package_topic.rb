@@ -1,8 +1,10 @@
 module Exam
   # 题目包用于包装题目组和题目
   class PackageTopic < Exam::Topic
-    has_many :group_topics
-    has_many :topics, -> { order(:pos) }, class_name: 'Exam::Topic'
+    has_many :group_topics, dependent: :destroy
+    has_many :topics, -> { order(:pos) }, class_name: 'Exam::Topic', dependent: :destroy
+
+    validates :attach, presence: true, on: :update
 
     accepts_nested_attributes_for :group_topics
     accepts_nested_attributes_for :topics

@@ -61,6 +61,7 @@ module V1
             result_params = ActionController::Parameters.new(params).permit(
               answers_attributes: [:topic_id, :content, :attach]
             )
+            p result_params
             @result = current_user.exam_results.find(params[:id])
             @result.update(result_params)
             present @result, with: Entities::Exam::ResultDetail

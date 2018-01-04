@@ -13,7 +13,7 @@
             <th><%= Exam::Paper.human_attribute_name(:duration) %></th>
             <th><%= Exam::Paper.human_attribute_name(:topics_count) %></th>
             <th><%= Exam::Paper.human_attribute_name(:price) %></th>
-            <th><%= t('common.operate') %></th>
+            <th width="15%"><%= t('common.operate') %></th>
           </tr>
           <%= render partial: 'exam/station/papers/paper', collection: @papers %>
         </tbody>

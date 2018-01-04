@@ -23,6 +23,7 @@ cn:
         answer: 答案
         answer_attach: 答案
         options: 选项
+        topic_options: 选项
       exam/category:
     errors:
       models:

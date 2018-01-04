@@ -12,7 +12,7 @@
       <%= link_to "删除", exam.station_workstation_paper_path(@workstation, paper),
                   data: { method: :delete, confirm: '确认删除?' }  if allow?('exam/station/papers', :destroy, @workstation) %>
       <%= link_to "发布", exam.publish_station_workstation_paper_path(@workstation, paper),
-                  data: { method: :patch, confirm: '确认发布?' }  if allow?('exam/station/papers', :publish, @workstation) %>
+                  data: { method: :patch, confirm: '确认发布?' }  if paper.topics.all?(&:finished?) && allow?('exam/station/papers', :publish, @workstation) %>
     <% end %>
   </td>
 </tr>

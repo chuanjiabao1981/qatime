@@ -53,8 +53,11 @@ module V1
           end
           params do
             requires :id, type: Integer, desc: '答题卡ID'
-            requires :answers_attributes, type: Array[Hash], coerce_with: JSON,
-                     desc: '[{"topic_id": 10, "content", "xxxx", "attach": "xxxx_file.mp3"}, {"topic_id": 10, "content", "xxxx", "attach": "xxxx_file.mp3"}]'
+            optional :answers_attributes, type: Array do
+              requires :topic_id, type: Integer, desc: '题目ID'
+              requires :content, type: String, desc: '答案内容'
+              requires :attach, type: Rack::Multipart::UploadedFile, desc: "答案附件."
+            end
           end
 
           put ':id' do

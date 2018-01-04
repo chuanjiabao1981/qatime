@@ -13,6 +13,7 @@ module Exam
       if @group_topic.update(group_topic_params)
         redirect_to station_workstation_paper_path(@workstation, @group_topic.paper), notice: 'Group topic was successfully updated.'
       else
+        p @group_topic.errors
         render :edit
       end
     end

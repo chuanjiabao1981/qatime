@@ -4,8 +4,8 @@ module Exam
     belongs_to :paper
 
     has_many :topics, -> { order(:pos) }, class_name: 'Exam::Topic'
-    has_many :group_topics
-    has_many :package_topics
+    has_many :group_topics, dependent: :destroy
+    has_many :package_topics, dependent: :destroy
 
     accepts_nested_attributes_for :topics
     accepts_nested_attributes_for :group_topics

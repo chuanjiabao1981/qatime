@@ -46,8 +46,8 @@ module Exam
 
     # DELETE /station/papers/1
     def destroy
-      @station_paper.destroy
-      redirect_to station_papers_url, notice: 'Paper was successfully destroyed.'
+      @paper.destroy
+      redirect_to exam.station_workstation_papers_path(@workstation), notice: 'Paper was successfully destroyed.'
     end
 
     private

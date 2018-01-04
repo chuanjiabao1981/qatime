@@ -7,8 +7,10 @@
     <div class="col-md-10">
       <%= f.label :title %>
       <%= f.input_field :title %>
+      <%= f.error :title %>
       <%= f.label :answer %>
       <%= f.input_field :answer_attach, as: :file %>
+      <%= f.error :answer_attach %>
     </div>
   </div>
 </div>

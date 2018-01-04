@@ -5,6 +5,7 @@
   <div class="col-md-10">
     <%= f.label :title %>
     <%= f.input_field :title %>
+    <%= f.error :title %>
 
     <label><%= f.object.class.human_attribute_name(:topic_options) %></label>
     <%= f.fields_for :topic_options do |option_form| %>
@@ -14,11 +15,13 @@
         </div>
         <div class="col-md-10">
           <%= option_form.input_field :title %>
+          <%= option_form.error :title %>
         </div>
         <div class="col-md-1">
           <%= option_form.input_field :correct %>
         </div>
       </div>
     <% end %>
+    <%= f.error :correct_option_count %>
   </div>
 </div>

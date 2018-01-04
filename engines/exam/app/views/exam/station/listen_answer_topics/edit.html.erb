@@ -2,7 +2,7 @@
   <div class="work-station">
     <%= render 'station/course/tab' %>
     <div class="create-header">
-      <%= link_to exam.station_workstation_papers_path(@workstation), class: 'back' do %>
+      <%= link_to exam.station_workstation_paper_path(@workstation, @listen_answer_topic.paper), class: 'back' do %>
         <i class="fa fa-angle-left"></i>
         返回
       <% end %>

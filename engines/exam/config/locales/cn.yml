@@ -42,3 +42,6 @@ cn:
     exam/paper:
       index:
         new: 创建新考卷
+    exam/topic:
+      edit:
+        title: 编辑试题

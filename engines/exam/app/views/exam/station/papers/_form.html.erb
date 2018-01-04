@@ -1,4 +1,4 @@
-<%= simple_form_for [:station, @workstation, @paper] do |f| %>
+<%= simple_form_for [:station, @workstation, @paper.becomes(Exam::Paper)], as: :paper do |f| %>
   <dir class="editor-item">
     <h3 class="file-title"> &nbsp; </h3>
     <div class="row">

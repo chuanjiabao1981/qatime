@@ -421,6 +421,9 @@ module Permissions
       api_allow :PUT, '/api/v1/exam/results/\d+' do |result|
         result && result.student == user
       end
+      api_allow :POST, '/api/v1/exam/results/\d+' do |result|
+        result && result.student == user
+      end
       api_allow :GET, '/api/v1/exam/students/\d+/results'
       api_allow :POST, '/api/v1/exam/papers/\d+/orders'
     end

@@ -56,7 +56,7 @@ module V1
             optional :answers_attributes, type: Array do
               requires :topic_id, type: Integer, desc: '题目ID'
               requires :content, type: String, desc: '答案内容'
-              requires :attach, type: Rack::Multipart::UploadedFile, desc: "答案附件."
+              # requires :attach, type: Rack::Multipart::UploadedFile, desc: "答案附件."
             end
           end
 

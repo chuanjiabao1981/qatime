@@ -65,6 +65,7 @@ module V1
               answers_attributes: [:topic_id, :content, :attach]
             )
             p result_params
+            p params
             @result = current_user.exam_results.find(params[:id])
             @result.update(result_params)
             present @result, with: Entities::Exam::ResultDetail

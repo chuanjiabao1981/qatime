@@ -319,6 +319,7 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
+      return false if 234 == course_id
       had_closed? && merged?
     end
 
